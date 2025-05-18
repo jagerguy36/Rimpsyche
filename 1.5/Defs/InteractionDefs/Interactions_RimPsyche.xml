@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <!-- Random social interactions -->
+  
+  <InteractionDef>
+    <defName>Rimpsyche_StartConversation</defName>
+    <label>start conversation</label>
+    <workerClass>Maux36.RimPsyche.InteractionWorker_StartConversation</workerClass>
+    <symbol>Things/Mote/SpeechSymbols/Chitchat</symbol>
+    <logRulesInitiator>
+      <rulesStrings>
+        <li>r_logentry(p=4)->[INITIATOR_nameDef] [conversed] with [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] hailed [RECIPIENT_nameDef] for a conversation.</li>
+        <li>r_logentry->[INITIATOR_nameDef] brought up a topic with [RECIPIENT_nameDef].</li>
+		
+        <li>conversed(p=4)->struck up a conversation</li>
+        <li>conversed->started to talk</li>
+        <li>conversed->got into a chat</li>
+        <li>conversed->brought up a topic</li>
+        <li>conversed->started discussing something</li>
+      </rulesStrings>
+    </logRulesInitiator>
+  </InteractionDef>
+  
+  <InteractionDef>
+    <defName>Rimpsyche_Conversation</defName>
+    <label>continue conversation</label>
+    <workerClass>Maux36.RimPsyche.InteractionWorker_Conversation</workerClass>
+    <symbol>Things/Mote/SpeechSymbols/DeepTalk</symbol>
+    <logRulesInitiator>
+      <rulesStrings>
+        <li>r_logentry->[INITIATOR_nameDef] [conversed] with [RECIPIENT_nameDef].</li>
+
+        <li>conversed(p=4)->continued the talk</li>
+        <li>conversed->carried on the conversation</li>
+        <li>conversed->delved deeper into the topic</li>
+        <li>conversed->kept chatting</li>
+      </rulesStrings>
+    </logRulesInitiator>
+  </InteractionDef>
+  
+   <!-- Psychology style EndConversation. Should update later-->
+  <InteractionDef>
+    <defName>EndConversation</defName>
+    <label>ended conversation</label>
+    <workerClass>InteractionWorker_DeepTalk</workerClass>
+    <symbol>Things/Mote/SpeechSymbols/Chitchat</symbol>
+    <logRulesInitiator>
+      <rulesStrings>
+        <li>r_logentry->[INITIATOR_nameDef] ended a conversation with [RECIPIENT_nameDef].</li>
+      </rulesStrings>
+    </logRulesInitiator>
+  </InteractionDef>
+
+
+</Defs>
