@@ -2,10 +2,10 @@
 
 namespace Maux36.RimPsyche
 {
-    internal class Topic
+    public class Interest
     {
         public string name;
-        public string label;
-        public List<float> weights;
+        public List<FacetWeight> scoreWeight;
+        public List<Topic> topics;
     }
 }

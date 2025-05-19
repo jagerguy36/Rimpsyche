@@ -1,4 +1,7 @@
 ﻿using RimWorld;
+using System;
+using System.Collections.Generic;
+using UnityEngine;
 using Verse;
 
 
@@ -12,7 +15,8 @@ namespace Maux36.RimPsyche
         public int convoStartedTick = -1;
         public int convoCheckTick = -1;
         public Pawn convoPartner = null;
-        private Pawn_PersonalityTracker personality;
+        public Dictionary<string, float> interestScore;
+        public Pawn_PersonalityTracker personality;
 
         private Pawn parentPawn
         {
@@ -41,26 +45,65 @@ namespace Maux36.RimPsyche
         {
             base.Initialize(props);
             PsycheValueSetup();
+            InterestScoreSetup();
         }
 
         public override void PostSpawnSetup(bool respawningAfterLoad)
         {
             base.PostSpawnSetup(respawningAfterLoad);
             PsycheValueSetup();
+            InterestScoreSetup();
         }
 
-        public void PsycheValueSetup(bool reset = false)
+        public void PsycheValueSetup()
         {
-            if (parentPawn != null || reset)
+            if (personality == null)
             {
-                if(personality == null) personality = new Pawn_PersonalityTracker(parentPawn);
+                personality = new Pawn_PersonalityTracker(parentPawn);
                 GiveRandomPsycheValue();
+            }
+        }
+        public void InterestScoreSetup()
+        {
+            if (interestScore == null)
+            {
+                interestScore = new Dictionary<string, float>();
+                GenerateInterestScores();
+
             }
         }
 
         public void GiveRandomPsycheValue()
         {
             personality.Initialize();
+        }
+        public void GenerateInterestScores()
+        {
+            foreach (InterestDomainDef interestdomainDef in DefDatabase<InterestDomainDef>.AllDefs)
+            {
+                Log.Message($"{interestdomainDef.label}");
+                float baseValue = 5;
+                if (interestdomainDef.scoreWeight != null)
+                {
+                    baseValue = 7; //get base value from facets
+                }
+                float result;
+                int attempts = 0;
+                do
+                {
+                    result = Rand.Gaussian(baseValue, 0.5f); // center at basevalue, 3widthfactor == 1.5
+                    attempts++;
+                }
+                while ((result < 0f || result > 10f) && attempts < 2);
+
+                // Optional: Clamp to valid range if all attempts fail
+                if (result < 0f || result > 10f)
+                {
+                    result = Mathf.Clamp(result, 0f, 10f);
+                    Log.Warning($"GenerateInterestScores failed to get valid value in {2} attempts. Clamped to {result}.");
+                }
+                interestScore[interestdomainDef.defName] = result;
+            }
         }
         public override void CompTick()
         {
@@ -108,6 +151,15 @@ namespace Maux36.RimPsyche
                 }
             }
         }
+        public float GetOrCreateInterestScore(string key, Func<float> valueFactory)
+        {
+            if (!interestScore.TryGetValue(key, out float value))
+            {
+                value = valueFactory();             // Generate the value
+                interestScore[key] = value;         // Store it in the dictionary
+            }
+            return value;
+        }
 
         public bool ShouldEndConvo()
         {
@@ -143,6 +195,7 @@ namespace Maux36.RimPsyche
             Scribe_Values.Look(ref convoStartedTick, "convoStartedTick");
             Scribe_References.Look(ref convoPartner, "convoPartner");
             Scribe_Deep.Look(ref personality, "personality", new object[] { parent as Pawn });
+            Scribe_Collections.Look(ref interestScore, "interestScore", LookMode.Value, LookMode.Value);
         }
 
     }

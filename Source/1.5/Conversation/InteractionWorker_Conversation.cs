@@ -1,6 +1,5 @@
 ﻿using RimWorld;
 using System.Collections.Generic;
-using Verse.AI.Group;
 using Verse;
 
 namespace Maux36.RimPsyche

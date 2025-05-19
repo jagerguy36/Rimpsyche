@@ -11,5 +11,7 @@ namespace Maux36.RimPsyche
         {
             DefOfHelper.EnsureInitializedInCtor(typeof(DefOfRimpsyche));
         }
+
+        public static InterestDomainDef Rimpsyche_InterestDomainGeneral;
     }
 }

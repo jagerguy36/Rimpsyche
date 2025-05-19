@@ -74,16 +74,18 @@
     <Compile Include="Conversation\InteractionWorker_StartConversation.cs" />
     <Compile Include="Conversation\InteractionWorker_Conversation.cs" />
     <Compile Include="DefOfRimpsyche.cs" />
-    <Compile Include="Defs\Topic.cs" />
+    <Compile Include="Interest\Interest.cs" />
+    <Compile Include="Interest\Topic.cs" />
     <Compile Include="Extensions\PawnExtensions.cs" />
     <Compile Include="HarmonyPatches\HarmonyPatches.cs" />
     <Compile Include="HarmonyPatches\InteractionWorker_DeepTalk_SelectionWeightPatch.cs" />
     <Compile Include="HarmonyPatches\Pawn_InteractionsTracker_TryInteractRandomlyPatch.cs" />
     <Compile Include="HarmonyPatches\Pawn_InteractionTracker_CanInteractNowWith.cs" />
-    <Compile Include="Defs\Interest.cs" />
+    <Compile Include="Interest\InterestDomainDef.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Rimpsyche.cs" />
     <Compile Include="RimpsycheSettings.cs" />
+    <Compile Include="Rimpsyche_Utlity.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -8,30 +8,35 @@ namespace Maux36.RimPsyche
 {
     public enum Facet
     {
-
         //Openness
-        Creativity,
+        Imagination,
+        Intellect,
         Curiosity,
-        Sensitivity,
 
         //Conscientiousness
-        Discipline,
-        Organization,
-        Drive,
+        Ambition,
+        Order,
+        Integrity,
 
         //Extraversion
-        Enthusiasm,
         Sociability,
         Assertiveness,
+        Enthusiasm,
 
         //Agreeableness
         Compassion,
-        Altruism,
         Cooperation,
+        Humility,
 
         //Neuroticism
-        Anxiety,
-        Irritability,
-        Volatility
+        Volatility,
+        Impulsivity,
+        Insecurity
+    }
+
+    public class FacetWeight
+    {
+        Facet facet;
+        float weight;
     }
 }

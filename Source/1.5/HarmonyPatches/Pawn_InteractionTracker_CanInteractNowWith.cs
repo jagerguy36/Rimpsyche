@@ -24,4 +24,35 @@ namespace Maux36.RimPsyche
             }
         }
     }
+
+    [HarmonyPatch(typeof(Pawn_InteractionsTracker), "InteractionsTrackerTick")]
+    public static class Pawn_InteractionTracker_InteractionsTrackerTick
+    {
+        [HarmonyPrefix]
+        public static bool RimPsycheOverrideInteractionsTrackerTick(Pawn_InteractionsTracker __instance, Pawn ___pawn)
+        {
+            var compPsyche = ___pawn.compPsyche();
+            if (compPsyche?.convoStartedTick > 0)
+            {
+                return false;
+            }
+            return true;
+        }
+    }
+
+    [HarmonyPatch(typeof(Pawn_InteractionsTracker), "InteractedTooRecentlyToInteract")]
+    public static class Pawn_InteractionTracker_InteractedTooRecentlyToInteract
+    {
+        [HarmonyPrefix]
+        public static bool RimPsycheOverrideInteractedTooRecentlyToInteract(Pawn_InteractionsTracker __instance, ref bool __result, Pawn ___pawn)
+        {
+            var compPsyche = ___pawn.compPsyche();
+            if (compPsyche?.convoStartedTick > 0)
+            {
+                __result = true;
+                return false;
+            }
+            return true;
+        }
+    }
 }

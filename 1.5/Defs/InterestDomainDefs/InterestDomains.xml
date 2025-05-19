@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <!-- Random social interactions -->
+  
+  <Maux36.RimPsyche.InterestDomainDef>
+    <defName>Rimpsyche_InterestDomainGeneral</defName>
+    <label>common</label>
+    <interests>
+      <li>
+        <name>InterestLife</name>
+        <scoreWeight>
+          <li>
+            <facet>Imagination</facet>
+            <weight>1</weight>
+          </li>
+          <li>
+            <facet>Ambition</facet>
+            <weight>0.5</weight>
+          </li>
+        </scoreWeight>
+        <topics>
+          <li>
+            <name>Weather</name>
+            <weights>
+              <li>
+                <facet>Imagination</facet>
+                <weight>1</weight>
+              </li>
+            </weights>
+          </li>
+        </topics>
+      </li>
+    </interests>
+  </Maux36.RimPsyche.InterestDomainDef>
+
+
+</Defs>
