@@ -6,28 +6,78 @@
   <Maux36.RimPsyche.InterestDomainDef>
     <defName>Rimpsyche_InterestDomainGeneral</defName>
     <label>common</label>
+    <scoreWeight>
+      <li>
+        <facet>Sociability</facet>
+        <weight>0.4</weight>
+      </li>
+      <li>
+        <facet>Compassion</facet>
+        <weight>0.3</weight>
+      </li>
+      <li>
+        <facet>Intellect</facet>
+        <weight>0.1</weight>
+      </li>
+      <li>
+        <facet>Insecurity</facet>
+        <weight>-0.4</weight>
+      </li>
+      <li>
+        <facet>Humility</facet>
+        <weight>-0.2</weight>
+      </li>
+    </scoreWeight>
     <interests>
       <li>
         <name>InterestLife</name>
-        <scoreWeight>
-          <li>
-            <facet>Imagination</facet>
-            <weight>1</weight>
-          </li>
-          <li>
-            <facet>Ambition</facet>
-            <weight>0.5</weight>
-          </li>
-        </scoreWeight>
         <topics>
           <li>
-            <name>Weather</name>
-            <weights>
-              <li>
-                <facet>Imagination</facet>
-                <weight>1</weight>
-              </li>
-            </weights>
+            <name>weather</name>
+          </li>
+          <li>
+            <name>sleep_quality</name>
+          </li>
+          <li>
+            <name>pain</name>
+          </li>
+          <li>
+            <name>hunger</name>
+          </li>
+          <li>
+            <name>comfort</name>
+          </li>
+          <li>
+            <name>safety</name>
+          </li>
+          <li>
+            <name>injuries</name>
+          </li>
+        </topics>
+      </li>
+      <li>
+        <name>InterestDreamsFears</name>
+        <topics>
+          <li>
+            <name>nightmares</name>
+          </li>
+          <li>
+            <name>hopes</name>
+          </li>
+          <li>
+            <name>fear_of_death</name>
+          </li>
+          <li>
+            <name>loss</name>
+          </li>
+          <li>
+            <name>uncertainty</name>
+          </li>
+          <li>
+            <name>longing</name>
+          </li>
+          <li>
+            <name>courage</name>
           </li>
         </topics>
       </li>

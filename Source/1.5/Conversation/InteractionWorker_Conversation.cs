@@ -14,8 +14,7 @@ namespace Maux36.RimPsyche
 
         public override void Interacted(Pawn initiator, Pawn recipient, List<RulePackDef> extraSentencePacks, out string letterText, out string letterLabel, out LetterDef letterDef, out LookTargets lookTargets)
         {
-            Log.Message($"Continue Interacted called!.");
-            Log.Message($"by {initiator.Name} with {recipient.Name}.");
+            Log.Message($"Continue Interacted called by {initiator.Name} with {recipient.Name}.");
             letterText = null;
             letterLabel = null;
             letterDef = null;
@@ -25,10 +24,10 @@ namespace Maux36.RimPsyche
             var recipientPsyche = recipient.compPsyche();
             if (initiatorPsyche != null && recipientPsyche != null)
             {
-                var convoLength = Rand.Range(250, 1250);
+                var convoLength = Rand.Range(250, 650);
                 Log.Message($"initiator {initiator.Name} continued a conversation with {recipient.Name}. new convolength: {convoLength}. Check again at :{Find.TickManager.TicksGame + convoLength}");
                 initiatorPsyche.convoCheckTick = Find.TickManager.TicksGame + convoLength;
-                initiatorPsyche.convoCheckTick = -1;
+                recipientPsyche.convoCheckTick = -1;
             }
         }
     }

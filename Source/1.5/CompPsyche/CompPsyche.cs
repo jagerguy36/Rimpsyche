@@ -69,7 +69,6 @@ namespace Maux36.RimPsyche
             {
                 interestScore = new Dictionary<string, float>();
                 GenerateInterestScores();
-
             }
         }
 
@@ -81,30 +80,40 @@ namespace Maux36.RimPsyche
         {
             foreach (InterestDomainDef interestdomainDef in DefDatabase<InterestDomainDef>.AllDefs)
             {
-                Log.Message($"{interestdomainDef.label}");
-                float baseValue = 5;
-                if (interestdomainDef.scoreWeight != null)
-                {
-                    baseValue = 7; //get base value from facets
-                }
+                GenerateInterestScoresForDomain(interestdomainDef);
+            }
+        }
+        public void GenerateInterestScoresForDomain(InterestDomainDef interestdomainDef)
+        {
+            Log.Message($"Generating interest for {interestdomainDef.label}");
+            float baseValue = 50;
+            if (interestdomainDef.scoreWeight != null)
+            {
+                baseValue = 50; //get base value from facets
+            }
+            foreach(var interest in interestdomainDef.interests)
+            {
+
                 float result;
                 int attempts = 0;
                 do
                 {
-                    result = Rand.Gaussian(baseValue, 0.5f); // center at basevalue, 3widthfactor == 1.5
+                    result = Rand.Gaussian(baseValue, 5f); // center at basevalue, 3widthfactor == 15
                     attempts++;
                 }
-                while ((result < 0f || result > 10f) && attempts < 2);
+                while ((result < 0f || result > 100f) && attempts < 2);
 
                 // Optional: Clamp to valid range if all attempts fail
-                if (result < 0f || result > 10f)
+                if (result < 0f || result > 100f)
                 {
-                    result = Mathf.Clamp(result, 0f, 10f);
+                    result = Mathf.Clamp(result, 0f, 100f);
                     Log.Warning($"GenerateInterestScores failed to get valid value in {2} attempts. Clamped to {result}.");
                 }
-                interestScore[interestdomainDef.defName] = result;
+                interestScore[interest.name] = result;
+
             }
         }
+
         public override void CompTick()
         {
             if (convoStartedTick > 0)
@@ -117,7 +126,7 @@ namespace Maux36.RimPsyche
                 }
                 if (parentPawn.IsHashIntervalTick(91)) //InteractionsTrackerTick checks every interval tick 91
                 {
-                    Log.Message($"{parentPawn.Name}'s curioisty: {Personality.curiosity}");
+                    Log.Message($"{parentPawn.Name} checking conversation validity.");
                     if (ShouldEndConvo())
                     {
                         var convoPartnerPsyche = convoPartner.compPsyche();
@@ -127,48 +136,56 @@ namespace Maux36.RimPsyche
                 }
                 if (convoCheckTick > 0 && convoCheckTick < Find.TickManager.TicksGame)
                 {
-                    Log.Message($"{parentPawn.Name} calcuates chance because gametick exceeded convocheck {convoCheckTick} : {(float)(Find.TickManager.TicksGame - convoStartedTick) / 2500f}");
-                    var parentPawnStartanotherConvoChance = Rand.Chance(1f - (float)(Find.TickManager.TicksGame - convoStartedTick) / 2500f);
-                    var partnerStartanotherConvoChance = Rand.Chance(1f - (float)(Find.TickManager.TicksGame - convoStartedTick) / 2500f);
-                    if (parentPawnStartanotherConvoChance)
-                    {
-                        Log.Message($"another convo {DefOfRimpsyche.Rimpsyche_Conversation.defName} start from {parentPawn.Name} with {convoPartner.Name}.");
-                        parentPawn.interactions.TryInteractWith(convoPartner, DefOfRimpsyche.Rimpsyche_Conversation);
-                    }
-                    else if (partnerStartanotherConvoChance)
-                    {
-                        Log.Message($"another convo {DefOfRimpsyche.Rimpsyche_Conversation.defName} start from {convoPartner.Name} with {parentPawn.Name}.");
-                        convoPartner.interactions.TryInteractWith(parentPawn, DefOfRimpsyche.Rimpsyche_Conversation);
-                    }
-                else
-                {
-                    Log.Message($"stop chance true");
+                    //Log.Message($"{parentPawn.Name} calcuates chance because gametick exceeded convocheck {convoCheckTick} : {(float)(Find.TickManager.TicksGame - convoStartedTick) / 2500f}");
+                    //var parentPawnStartanotherConvoChance = Rand.Chance(1f - (float)(Find.TickManager.TicksGame - convoStartedTick) / 2500f);
+                    //var partnerStartanotherConvoChance = Rand.Chance(1f - (float)(Find.TickManager.TicksGame - convoStartedTick) / 2500f);
+                    //if (parentPawnStartanotherConvoChance)
+                    //{
+                    //    Log.Message($"another convo {DefOfRimpsyche.Rimpsyche_Conversation.defName} start from {parentPawn.Name} with {convoPartner.Name}.");
+                    //    parentPawn.interactions.TryInteractWith(convoPartner, DefOfRimpsyche.Rimpsyche_Conversation);
+                    //}
+                    //else if (partnerStartanotherConvoChance)
+                    //{
+                    //    Log.Message($"another convo {DefOfRimpsyche.Rimpsyche_Conversation.defName} start from {convoPartner.Name} with {parentPawn.Name}.");
+                    //    convoPartner.interactions.TryInteractWith(parentPawn, DefOfRimpsyche.Rimpsyche_Conversation);
+                    //}
+                    Log.Message($"stop convo.");
                     var convoPartnerPsyche = convoPartner.compPsyche();
                     convoPartnerPsyche.EndConvo();
                     EndConvo();
-                }
 
                 }
             }
         }
-        public float GetOrCreateInterestScore(string key, Func<float> valueFactory)
+        public float GetOrCreateInterestScore(Interest key)
         {
-            if (!interestScore.TryGetValue(key, out float value))
+            if (!interestScore.TryGetValue(key.name, out float value))
             {
-                value = valueFactory();             // Generate the value
-                interestScore[key] = value;         // Store it in the dictionary
+                GenerateInterestScoresForDomain(RimpsycheDatabase.InterestDomainDict[key]);
+                if (!interestScore.TryGetValue(key.name, out value))
+                {
+                    value = 50;
+                }
             }
             return value;
+        }
+        public Topic GetConvoTopic()
+        {
+            Interest chosenInterest = GenCollection.RandomElementByWeight(RimpsycheDatabase.InterestList, GetOrCreateInterestScore);
+            Topic chosenTopic = chosenInterest.GetRandomTopic();
+            return chosenTopic;
         }
 
         public bool ShouldEndConvo()
         {
             if (!InteractionUtility.CanReceiveRandomInteraction(parentPawn) || !InteractionUtility.CanReceiveRandomInteraction(convoPartner))
             {
+                Log.Message("Cannot receive random interaction");
                 return true;
             }
             if (!IsGoodPositionForInteraction(parentPawn.Position, convoPartner.Position, parentPawn.Map))
             {
+                Log.Message("Not in a good position anymore");
                 return true;
             }
             return false;
@@ -177,6 +194,7 @@ namespace Maux36.RimPsyche
         {
             Log.Message($"{parentPawn.Name} ending conversation with {convoPartner.Name}");
             convoStartedTick = -1;
+            convoCheckTick = -1;
             convoPartner = null;
         }
         public static bool IsGoodPositionForInteraction(IntVec3 cell, IntVec3 recipientCell, Map map)

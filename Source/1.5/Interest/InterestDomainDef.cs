@@ -5,7 +5,7 @@ namespace Maux36.RimPsyche
 {
     public class InterestDomainDef: Def
     {
-        public List<Interest> interests;
         public List<FacetWeight> scoreWeight;
+        public List<Interest> interests;
     }
 }

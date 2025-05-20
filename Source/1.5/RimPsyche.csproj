@@ -73,6 +73,7 @@
     <Compile Include="CompPsyche\Pawn_PersonalityTracker.cs" />
     <Compile Include="Conversation\InteractionWorker_StartConversation.cs" />
     <Compile Include="Conversation\InteractionWorker_Conversation.cs" />
+    <Compile Include="Database\RimpsycheDatabase.cs" />
     <Compile Include="DefOfRimpsyche.cs" />
     <Compile Include="Interest\Interest.cs" />
     <Compile Include="Interest\Topic.cs" />

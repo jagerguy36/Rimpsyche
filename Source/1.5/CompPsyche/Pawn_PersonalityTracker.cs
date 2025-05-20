@@ -7,25 +7,25 @@ namespace Maux36.RimPsyche
     public class Pawn_PersonalityTracker : IExposable
     {
         private Pawn pawn;
-        public float imagination = 1f;
-        public float intellect = 1f;
-        public float curiosity = 1f;
+        public float imagination = 50f;
+        public float intellect = 50f;
+        public float curiosity = 50f;
 
-        public float ambition = 1f;
-        public float order = 1f;
-        public float integrity = 1f;
+        public float ambition = 50f;
+        public float order = 50f;
+        public float integrity = 50f;
 
-        public float sociability = 1f;
-        public float assertiveness = 1f;
-        public float enthusiasm = 1f;
+        public float sociability = 50f;
+        public float assertiveness = 50f;
+        public float enthusiasm = 50f;
 
-        public float compassion = 1f;
-        public float cooperation = 1f;
-        public float humility = 1f;
+        public float compassion = 50f;
+        public float cooperation = 50f;
+        public float humility = 50f;
 
-        public float volatility = 1f;
-        public float impulsivity = 1f;
-        public float insecurity = 1f;
+        public float volatility = 50f;
+        public float impulsivity = 50f;
+        public float insecurity = 50f;
 
 
 
@@ -57,27 +57,27 @@ namespace Maux36.RimPsyche
         }
         public void Initialize(int inputSeed = 0)
         {
-            float baseOCEANvalue = Rand.Range(2f, 8f);
+            float baseOCEANvalue = Rand.Range(20f, 80f);
             imagination = GenerateFacetValueWithBase(baseOCEANvalue);
             intellect = GenerateFacetValueWithBase(baseOCEANvalue);
             curiosity = GenerateFacetValueWithBase(baseOCEANvalue);
 
-            baseOCEANvalue = Rand.Range(2f, 8f);
+            baseOCEANvalue = Rand.Range(20f, 80f);
             ambition = GenerateFacetValueWithBase(baseOCEANvalue);
             order = GenerateFacetValueWithBase(baseOCEANvalue);
             integrity = GenerateFacetValueWithBase(baseOCEANvalue);
 
-            baseOCEANvalue = Rand.Range(2f, 8f);
+            baseOCEANvalue = Rand.Range(20f, 80f);
             sociability = GenerateFacetValueWithBase(baseOCEANvalue);
             assertiveness = GenerateFacetValueWithBase(baseOCEANvalue);
             enthusiasm = GenerateFacetValueWithBase(baseOCEANvalue);
 
-            baseOCEANvalue = Rand.Range(2f, 8f);
+            baseOCEANvalue = Rand.Range(20f, 80f);
             compassion = GenerateFacetValueWithBase(baseOCEANvalue);
             cooperation = GenerateFacetValueWithBase(baseOCEANvalue);
             humility = GenerateFacetValueWithBase(baseOCEANvalue);
 
-            baseOCEANvalue = Rand.Range(2f, 8f);
+            baseOCEANvalue = Rand.Range(20f, 80f);
             volatility = GenerateFacetValueWithBase(baseOCEANvalue);
             impulsivity = GenerateFacetValueWithBase(baseOCEANvalue);
             insecurity = GenerateFacetValueWithBase(baseOCEANvalue);
@@ -89,15 +89,15 @@ namespace Maux36.RimPsyche
 
             do
             {
-                result = Rand.Gaussian(baseValue, 0.5f); // center at basevalue, 3widthfactor == 1.5
+                result = Rand.Gaussian(baseValue, 5f); // center at basevalue, 3widthfactor == 15
                 attempts++;
             }
-            while ((result < 0f || result > 10f) && attempts < maxAttempts); 
+            while ((result < 0f || result > 100f) && attempts < maxAttempts); 
 
             // Optional: Clamp to valid range if all attempts fail
-            if (result < 0f || result > 10f)
+            if (result < 0f || result > 100f)
             {
-                result = Mathf.Clamp(result, 0f, 10f);
+                result = Mathf.Clamp(result, 0f, 100f);
                 Log.Warning($"GenerateFacetValueWithBase failed to get valid value in {maxAttempts} attempts. Clamped to {result}.");
             }
 

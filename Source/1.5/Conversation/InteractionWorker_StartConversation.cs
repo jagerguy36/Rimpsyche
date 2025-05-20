@@ -43,9 +43,10 @@ namespace Maux36.RimPsyche
             if (initiatorPsyche != null && recipientPsyche != null)
             {
                 var convoLength = Rand.Range(250, 625);//25tick == 36sec. || 250tick(6min) ~ 625tick(15min)
+
                 //- > InteractionsTrackerTick() has a chance to turn watnsRandomInteract to true if tick > lastInteractionTime + 320...
                 //- > Possibly just set the end to 320 and internally track the whole convo time?
-
+                
                 //- > select convo topic by initiator, and chose interaction time based on the recipient.
                 //- > if recipient is not interested: less time, But if explorative: more time.
                 //- > Also add the posibility to 'brush off conversation'. In which case, just end it without actually holding it.
@@ -60,7 +61,9 @@ namespace Maux36.RimPsyche
                 //- > long convo -> high chance of matterred=true
                 //- > See if it's too heavy. If it is, truncate the logic until it's light.
 
-                Log.Message($"initiator {initiator.Name} started a conversation with {recipient.Name}");
+                Topic convoTopic = initiatorPsyche.GetConvoTopic();
+
+                Log.Message($"initiator {initiator.Name} started a conversation ({convoLength} tick)with {recipient.Name} on {convoTopic.name}");
                 if (initiatorPsyche.convoStartedTick < 0) initiatorPsyche.convoStartedTick = Find.TickManager.TicksGame;
                 initiatorPsyche.convoPartner = recipient;
                 initiatorPsyche.convoCheckTick = Find.TickManager.TicksGame + convoLength;
