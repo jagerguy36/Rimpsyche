@@ -1,7 +1,4 @@
 ﻿using RimWorld;
-using System;
-using System.Collections.Generic;
-using UnityEngine;
 using Verse;
 
 
@@ -111,7 +108,7 @@ namespace Maux36.RimPsyche
                         //    Log.Message($"another convo {DefOfRimpsyche.Rimpsyche_Conversation.defName} start from {convoPartner.Name} with {parentPawn.Name}.");
                         //    convoPartner.interactions.TryInteractWith(parentPawn, DefOfRimpsyche.Rimpsyche_Conversation);
                         //}
-                        //Log.Message($"end convo.");
+                        Log.Message($"end convo.");
                         var convoPartnerPsyche = convoPartner.compPsyche();
                         convoPartnerPsyche?.EndConvo();
                         EndConvo();
@@ -144,7 +141,11 @@ namespace Maux36.RimPsyche
         public void EndConvo()
         {
             Log.Message($"{parentPawn.Name} ending conversation with {convoPartner.Name}");
-            parentPawn.needs?.mood?.thoughts?.memories?.TryGainMemory(CreateSocialThought(), convoPartner);
+            ThoughtDef newDef = Rimpsyche_Utility.CreateSocialThought(
+                parentPawn.GetHashCode() + "Conversation" + topic.name,
+                "ConversationStage".Translate() + " " + topic.name,
+                topicScore * 10);
+            parentPawn.needs?.mood?.thoughts?.memories?.TryGainMemory(newDef, convoPartner);
             convoStartedTick = -1;
             convoCheckTick = -1;
             convoPartner = null;
@@ -156,23 +157,6 @@ namespace Maux36.RimPsyche
             if (cell.InHorDistOf(recipientCell, 12f)) return GenSight.LineOfSight(cell, recipientCell, map, skipFirstCell: true);
             return false;
         }
-
-        private ThoughtDef CreateSocialThought()
-        {
-            ThoughtDef def = new ThoughtDef();
-            def.defName = parentPawn.GetHashCode() + "Conversation" + topic.name;
-            def.label = "conversation";
-            def.durationDays = 5f;
-            //def.nullifyingTraits = new List<TraitDef>();
-            //def.nullifyingTraits.Add(TraitDefOf.Psychopath);
-            def.thoughtClass = typeof(Thoughts_MemoryPostDefined);
-            ThoughtStage stage = new ThoughtStage();
-            stage.label = "ConversationStage".Translate() + " " + topic.name;
-            stage.baseOpinionOffset = 11f;
-            def.stages.Add(stage);
-            return def;
-        }
-
         public override void PostExposeData()
         {
             base.PostExposeData();
@@ -182,9 +166,8 @@ namespace Maux36.RimPsyche
             Scribe_References.Look(ref convoPartner, "convoPartner");
             Scribe_Deep.Look(ref topic, "topic");
             Scribe_Values.Look(ref topicScore, "topicScore");
-            Scribe_Deep.Look(ref personality, "personality", new object[] { parent as Pawn }); //
-            Scribe_Deep.Look(ref interests, "interests", new object[] { parent as Pawn }); //
-
+            Scribe_Deep.Look(ref personality, "personality", new object[] { parent as Pawn });
+            Scribe_Deep.Look(ref interests, "interests", new object[] { parent as Pawn });
             if (Scribe.mode == LoadSaveMode.PostLoadInit)
             {
                 PsycheValueSetup();

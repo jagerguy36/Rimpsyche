@@ -1,8 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Defs>
-
   <!-- Random social interactions -->
-  
   <InteractionDef>
     <defName>Rimpsyche_StartConversation</defName>
     <label>start conversation</label>
@@ -40,7 +38,6 @@
     <logRulesInitiator>
       <rulesStrings>
         <li>r_logentry->[INITIATOR_nameDef] [conversed] with [RECIPIENT_nameDef].</li>
-
         <li>conversed(p=4)->continued the talk</li>
         <li>conversed->carried on the conversation</li>
         <li>conversed->delved deeper into the topic</li>
@@ -48,7 +45,7 @@
       </rulesStrings>
     </logRulesInitiator>
   </InteractionDef>
-  
+
    <!-- Psychology style EndConversation. Should update later-->
   <InteractionDef>
     <defName>Rimpsyche_EndConversation</defName>
@@ -61,6 +58,4 @@
       </rulesStrings>
     </logRulesInitiator>
   </InteractionDef>
-
-
 </Defs>

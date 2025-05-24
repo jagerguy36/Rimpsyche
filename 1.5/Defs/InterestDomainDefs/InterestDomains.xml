@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
-
   <!-- Random social interactions -->
-  
   <Maux36.RimPsyche.InterestDomainDef>
     <defName>Rimpsyche_InterestDomainGeneral</defName>
     <label>common</label>

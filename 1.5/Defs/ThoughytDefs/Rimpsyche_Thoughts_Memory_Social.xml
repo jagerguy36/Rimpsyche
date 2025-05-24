@@ -2,48 +2,9 @@
 <Defs>
 
   <!-- Random social interactions -->
-
-<!--   <ThoughtDef>
-    <defName>Chitchat</defName>
-    <thoughtClass>Thought_MemorySocialCumulative</thoughtClass>
-    <stackLimit>300</stackLimit>
-    <maxCumulatedOpinionOffset>10</maxCumulatedOpinionOffset>
-    <developmentalStageFilter>Baby, Child, Adult</developmentalStageFilter>
-    <socialTargetDevelopmentalStageFilter>Baby, Child, Adult</socialTargetDevelopmentalStageFilter>
-    <nullifyingTraits>
-      <li>Psychopath</li>
-    </nullifyingTraits>
-    <stages>
-      <li>
-        <label>chitchat</label>
-        <baseOpinionOffset>0.66</baseOpinionOffset>
-      </li>
-    </stages>
-  </ThoughtDef>
-
-  <ThoughtDef>
-    <defName>DeepTalk</defName>
-    <thoughtClass>Thought_MemorySocial</thoughtClass>
-    <durationDays>20</durationDays>
-    <stackLimit>300</stackLimit>
-    <stackLimitForSameOtherPawn>10</stackLimitForSameOtherPawn>
-    <stackedEffectMultiplier>0.9</stackedEffectMultiplier>
-    <developmentalStageFilter>Baby, Child, Adult</developmentalStageFilter>
-    <socialTargetDevelopmentalStageFilter>Baby, Child, Adult</socialTargetDevelopmentalStageFilter>
-    <nullifyingTraits>
-      <li>Psychopath</li>
-    </nullifyingTraits>
-    <stages>
-      <li>
-        <label>deep talk</label>
-        <baseOpinionOffset>15</baseOpinionOffset>
-      </li>
-    </stages>
-  </ThoughtDef> -->
-
   <ThoughtDef>
     <defName>Rimpsyche_ConversationOpinion</defName>
-    <thoughtClass>Thought_MemorySocial</thoughtClass>
+    <thoughtClass>Maux36.RimPsyche.Thoughts_MemoryPostDefined</thoughtClass>
     <durationDays>5</durationDays>
     <stackLimit>300</stackLimit>
     <stackLimitForSameOtherPawn>10</stackLimitForSameOtherPawn>
@@ -52,54 +13,8 @@
     <socialTargetDevelopmentalStageFilter>Baby, Child, Adult</socialTargetDevelopmentalStageFilter>
     <stages>
       <li>
-        <label>awful</label>
-        <description>awful1.</description>
-        <baseOpinionOffset>-7</baseOpinionOffset>
-      </li>
-      <li>
-        <label>dull</label>
-        <description>dull1.</description>
-        <baseOpinionOffset>-5</baseOpinionOffset>
-      </li>
-      <li>
-        <label>mediocre</label>
-        <description>mediocre1.</description>
-        <baseOpinionOffset>-4</baseOpinionOffset>
-      </li>
-      <li>
-        <label>decent</label>
-        <description>decent1.</description>
-        <baseOpinionOffset>-3</baseOpinionOffset>
-      </li>
-      <li>
-        <label>slightly impressive</label>
-        <description>slightly impressive1.</description>
-        <baseOpinionOffset>-2</baseOpinionOffset>
-      </li>
-      <li>
-        <label>impressive</label>
-        <description>impressive1.</description>
-        <baseOpinionOffset>-1</baseOpinionOffset>
-      </li>
-      <li>
-        <label>very impressive</label>
-        <description>very impressive1.</description>
-        <baseOpinionOffset>1</baseOpinionOffset>
-      </li>
-      <li>
-        <label>extremely impressive</label>
-        <description>extremely impressive1.</description>
-        <baseOpinionOffset>2</baseOpinionOffset>
-      </li>
-      <li>
-        <label>unbelievably impressive</label>
-        <description>unbelievably impressive1.</description>
-        <baseOpinionOffset>3</baseOpinionOffset>
-      </li>
-      <li>
-        <label>wondrously impressive</label>
-        <description>wondrously impressive1.</description>
-        <baseOpinionOffset>4</baseOpinionOffset>
+        <label>conversed</label>
+        <baseOpinionOffset>5</baseOpinionOffset>
       </li>
     </stages>
   </ThoughtDef>
@@ -120,38 +35,5 @@
       </li>
     </stages>
   </ThoughtDef>
-
-<!--   <ThoughtDef>
-    <defName>Insulted</defName>
-    <thoughtClass>Thought_MemorySocial</thoughtClass>
-    <durationDays>20</durationDays>
-    <stackLimit>300</stackLimit>
-    <stackLimitForSameOtherPawn>10</stackLimitForSameOtherPawn>
-    <stackedEffectMultiplier>0.9</stackedEffectMultiplier>
-    <developmentalStageFilter>Baby, Child, Adult</developmentalStageFilter>
-    <socialTargetDevelopmentalStageFilter>Baby, Child, Adult</socialTargetDevelopmentalStageFilter>
-    <stages>
-      <li>
-        <label>insulted</label>
-        <baseOpinionOffset>-15</baseOpinionOffset>
-      </li>
-    </stages>
-    <thoughtToMake>InsultedMood</thoughtToMake>
-  </ThoughtDef>
-
-  <ThoughtDef>
-    <defName>InsultedMood</defName>
-    <durationDays>2</durationDays>
-    <stackLimit>10</stackLimit>
-    <stackedEffectMultiplier>0.9</stackedEffectMultiplier>
-    <developmentalStageFilter>Baby, Child, Adult</developmentalStageFilter>
-    <stages>
-      <li>
-        <label>insulted</label>
-        <description>I've been directly insulted! What an awful person!</description>
-        <baseMoodEffect>-5</baseMoodEffect>
-      </li>
-    </stages>
-  </ThoughtDef> -->
   
 </Defs>
