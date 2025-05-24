@@ -12,22 +12,31 @@
       <rulesStrings>
         <li>r_logentry(p=4)->[INITIATOR_nameDef] [conversed] with [RECIPIENT_nameDef].</li>
         <li>r_logentry->[INITIATOR_nameDef] hailed [RECIPIENT_nameDef] for a conversation.</li>
-        <li>r_logentry->[INITIATOR_nameDef] brought up a topic with [RECIPIENT_nameDef].</li>
 		
         <li>conversed(p=4)->struck up a conversation</li>
-        <li>conversed->started to talk</li>
-        <li>conversed->got into a chat</li>
+        <li>conversed->started talking</li>
         <li>conversed->brought up a topic</li>
         <li>conversed->started discussing something</li>
       </rulesStrings>
     </logRulesInitiator>
   </InteractionDef>
-  
+
+  <RulePackDef>
+    <defName>Sentence_ConversationFail</defName>
+    <rulePack>
+      <rulesStrings>
+        <li>sent->[RECIPIENT_nameDef] ignored [INITIATOR_objective].</li>
+        <li>sent->[RECIPIENT_nameDef] did not respond.</li>
+        <li>sent->[RECIPIENT_nameDef] brushed [INITIATOR_objective] off.</li>
+      </rulesStrings>
+    </rulePack>
+  </RulePackDef>
+
   <InteractionDef>
     <defName>Rimpsyche_Conversation</defName>
     <label>continue conversation</label>
     <workerClass>Maux36.RimPsyche.InteractionWorker_Conversation</workerClass>
-    <symbol>Things/Mote/SpeechSymbols/DeepTalk</symbol>
+    <symbol>Things/Mote/SpeechSymbols/Conversation</symbol>
     <logRulesInitiator>
       <rulesStrings>
         <li>r_logentry->[INITIATOR_nameDef] [conversed] with [RECIPIENT_nameDef].</li>
@@ -42,7 +51,7 @@
   
    <!-- Psychology style EndConversation. Should update later-->
   <InteractionDef>
-    <defName>EndConversation</defName>
+    <defName>Rimpsyche_EndConversation</defName>
     <label>ended conversation</label>
     <workerClass>InteractionWorker_DeepTalk</workerClass>
     <symbol>Things/Mote/SpeechSymbols/Chitchat</symbol>

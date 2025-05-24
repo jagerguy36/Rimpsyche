@@ -1,4 +1,5 @@
 ﻿using RimWorld;
+using Verse;
 
 namespace Maux36.RimPsyche
 {
@@ -7,6 +8,12 @@ namespace Maux36.RimPsyche
     {
         public static InteractionDef Rimpsyche_StartConversation;
         public static InteractionDef Rimpsyche_Conversation;
+
+        public static RulePackDef Sentence_ConversationFail;
+
+        public static ThoughtDef Rimpsyche_ConvoIgnored;
+        public static ThoughtDef Rimpsyche_ConversationOpinion;
+
         static DefOfRimpsyche()
         {
             DefOfHelper.EnsureInitializedInCtor(typeof(DefOfRimpsyche));

@@ -40,6 +40,12 @@
           </li>
           <li>
             <name>pain</name>
+            <weights>
+              <li>
+                <facet>Compassion</facet>
+                <weight>0.01</weight>
+              </li>
+            </weights>
           </li>
           <li>
             <name>hunger</name>
@@ -52,10 +58,16 @@
           </li>
           <li>
             <name>injuries</name>
+            <weights>
+              <li>
+                <facet>Compassion</facet>
+                <weight>0.01</weight>
+              </li>
+            </weights>
           </li>
         </topics>
       </li>
-      <li>
+<!--       <li>
         <name>InterestDreamsFears</name>
         <topics>
           <li>
@@ -80,7 +92,7 @@
             <name>courage</name>
           </li>
         </topics>
-      </li>
+      </li> -->
     </interests>
   </Maux36.RimPsyche.InterestDomainDef>
 

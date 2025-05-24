@@ -11,12 +11,14 @@ namespace Maux36.RimPsyche
     {
         //Internals
         private Pawn parentPawnInt = null;
+        private Pawn_PersonalityTracker personality;
+        private Pawn_InterestTracker interests;
         public bool PostGen = false;
         public int convoStartedTick = -1;
         public int convoCheckTick = -1;
         public Pawn convoPartner = null;
-        public Dictionary<string, float> interestScore;
-        public Pawn_PersonalityTracker personality;
+        public Topic topic = null;
+        public float topicScore;
 
         private Pawn parentPawn
         {
@@ -39,20 +41,18 @@ namespace Maux36.RimPsyche
             }
             set => personality = value;
         }
-
-
-        public override void Initialize(CompProperties props)
+        public Pawn_InterestTracker Interests
         {
-            base.Initialize(props);
-            PsycheValueSetup();
-            InterestScoreSetup();
-        }
-
-        public override void PostSpawnSetup(bool respawningAfterLoad)
-        {
-            base.PostSpawnSetup(respawningAfterLoad);
-            PsycheValueSetup();
-            InterestScoreSetup();
+            get
+            {
+                if (interests == null)
+                {
+                    interests = new Pawn_InterestTracker(parentPawn);
+                    interests.Initialize();
+                }
+                return interests;
+            }
+            set => interests = value;
         }
 
         public void PsycheValueSetup()
@@ -60,160 +60,136 @@ namespace Maux36.RimPsyche
             if (personality == null)
             {
                 personality = new Pawn_PersonalityTracker(parentPawn);
-                GiveRandomPsycheValue();
+                personality.Initialize();
             }
         }
         public void InterestScoreSetup()
         {
-            if (interestScore == null)
+            if (interests == null)
             {
-                interestScore = new Dictionary<string, float>();
-                GenerateInterestScores();
-            }
-        }
-
-        public void GiveRandomPsycheValue()
-        {
-            personality.Initialize();
-        }
-        public void GenerateInterestScores()
-        {
-            foreach (InterestDomainDef interestdomainDef in DefDatabase<InterestDomainDef>.AllDefs)
-            {
-                GenerateInterestScoresForDomain(interestdomainDef);
-            }
-        }
-        public void GenerateInterestScoresForDomain(InterestDomainDef interestdomainDef)
-        {
-            Log.Message($"Generating interest for {interestdomainDef.label}");
-            float baseValue = 50;
-            if (interestdomainDef.scoreWeight != null)
-            {
-                baseValue = 50; //get base value from facets
-            }
-            foreach(var interest in interestdomainDef.interests)
-            {
-
-                float result;
-                int attempts = 0;
-                do
-                {
-                    result = Rand.Gaussian(baseValue, 5f); // center at basevalue, 3widthfactor == 15
-                    attempts++;
-                }
-                while ((result < 0f || result > 100f) && attempts < 2);
-
-                // Optional: Clamp to valid range if all attempts fail
-                if (result < 0f || result > 100f)
-                {
-                    result = Mathf.Clamp(result, 0f, 100f);
-                    Log.Warning($"GenerateInterestScores failed to get valid value in {2} attempts. Clamped to {result}.");
-                }
-                interestScore[interest.name] = result;
-
+                interests = new Pawn_InterestTracker(parentPawn);
+                interests.Initialize();
             }
         }
 
         public override void CompTick()
         {
+            base.CompTick();
             if (convoStartedTick > 0)
             {
-                if (convoPartner?.Spawned != true || parentPawn.Spawned != true)
+                if (ShouldEndConvoImmediately())
                 {
                     var convoPartnerPsyche = convoPartner.compPsyche();
-                    convoPartnerPsyche.EndConvo();
+                    convoPartnerPsyche?.EndConvo();
                     EndConvo();
+                    return;
                 }
-                if (parentPawn.IsHashIntervalTick(91)) //InteractionsTrackerTick checks every interval tick 91
+                if (parentPawn.IsHashIntervalTick(200)) //InteractionsTrackerTick checks every interval tick 91
                 {
-                    Log.Message($"{parentPawn.Name} checking conversation validity.");
+                    Log.Message($"{parentPawn.Name} checking conversation validity with {convoPartner.Name} on topic {topic.name}, in {topic.category} with score {topicScore}");
                     if (ShouldEndConvo())
                     {
                         var convoPartnerPsyche = convoPartner.compPsyche();
-                        convoPartnerPsyche.EndConvo();
+                        convoPartnerPsyche?.EndConvo();
                         EndConvo();
+                        return;
                     }
                 }
-                if (convoCheckTick > 0 && convoCheckTick < Find.TickManager.TicksGame)
+                if (convoCheckTick > 0)
                 {
-                    //Log.Message($"{parentPawn.Name} calcuates chance because gametick exceeded convocheck {convoCheckTick} : {(float)(Find.TickManager.TicksGame - convoStartedTick) / 2500f}");
-                    //var parentPawnStartanotherConvoChance = Rand.Chance(1f - (float)(Find.TickManager.TicksGame - convoStartedTick) / 2500f);
-                    //var partnerStartanotherConvoChance = Rand.Chance(1f - (float)(Find.TickManager.TicksGame - convoStartedTick) / 2500f);
-                    //if (parentPawnStartanotherConvoChance)
+                    if (convoCheckTick < Find.TickManager.TicksGame)
+                    {
+                        //var parentPawnStartanotherConvoChance = Rand.Chance(1f - (float)(Find.TickManager.TicksGame - convoStartedTick) / 2500f);
+                        //var partnerStartanotherConvoChance = Rand.Chance(1f - (float)(Find.TickManager.TicksGame - convoStartedTick) / 2500f);
+                        //if (parentPawnStartanotherConvoChance)
+                        //{
+                        //    Log.Message($"another convo {DefOfRimpsyche.Rimpsyche_Conversation.defName} start from {parentPawn.Name} with {convoPartner.Name}.");
+                        //    parentPawn.interactions.TryInteractWith(convoPartner, DefOfRimpsyche.Rimpsyche_Conversation);
+                        //}
+                        //else if (partnerStartanotherConvoChance)
+                        //{
+                        //    Log.Message($"another convo {DefOfRimpsyche.Rimpsyche_Conversation.defName} start from {convoPartner.Name} with {parentPawn.Name}.");
+                        //    convoPartner.interactions.TryInteractWith(parentPawn, DefOfRimpsyche.Rimpsyche_Conversation);
+                        //}
+                        //Log.Message($"end convo.");
+                        var convoPartnerPsyche = convoPartner.compPsyche();
+                        convoPartnerPsyche?.EndConvo();
+                        EndConvo();
+                        return;
+                    }
+                    //else if (convoStartedTick+300 < convoCheckTick && parentPawn.IsHashIntervalTick(200))
                     //{
-                    //    Log.Message($"another convo {DefOfRimpsyche.Rimpsyche_Conversation.defName} start from {parentPawn.Name} with {convoPartner.Name}.");
-                    //    parentPawn.interactions.TryInteractWith(convoPartner, DefOfRimpsyche.Rimpsyche_Conversation);
+                    //    MoteMaker.MakeInteractionBubble(parentPawn, convoPartner, DefOfRimpsyche.Rimpsyche_Conversation.interactionMote, DefOfRimpsyche.Rimpsyche_Conversation.GetSymbol());
                     //}
-                    //else if (partnerStartanotherConvoChance)
-                    //{
-                    //    Log.Message($"another convo {DefOfRimpsyche.Rimpsyche_Conversation.defName} start from {convoPartner.Name} with {parentPawn.Name}.");
-                    //    convoPartner.interactions.TryInteractWith(parentPawn, DefOfRimpsyche.Rimpsyche_Conversation);
-                    //}
-                    Log.Message($"stop convo.");
-                    var convoPartnerPsyche = convoPartner.compPsyche();
-                    convoPartnerPsyche.EndConvo();
-                    EndConvo();
-
                 }
             }
         }
-        public float GetOrCreateInterestScore(Interest key)
+        public bool ShouldEndConvoImmediately()//Simple checks
         {
-            if (!interestScore.TryGetValue(key.name, out float value))
-            {
-                GenerateInterestScoresForDomain(RimpsycheDatabase.InterestDomainDict[key]);
-                if (!interestScore.TryGetValue(key.name, out value))
-                {
-                    value = 50;
-                }
-            }
-            return value;
+            if (parentPawn?.Spawned != true || convoPartner.Spawned != true) return true;
+            if (parentPawn.Downed || convoPartner.Downed) return true;
+            if (parentPawn.Dead || convoPartner.Dead) return true;
+            if (parentPawn.IsMutant || convoPartner.IsMutant) return true;
+            if (parentPawn.InAggroMentalState || convoPartner.InAggroMentalState) return true;
+            if (parentPawn.Map == null && convoPartner.Map == null) return true;
+            return false;
         }
-        public Topic GetConvoTopic()
-        {
-            Interest chosenInterest = GenCollection.RandomElementByWeight(RimpsycheDatabase.InterestList, GetOrCreateInterestScore);
-            Topic chosenTopic = chosenInterest.GetRandomTopic();
-            return chosenTopic;
-        }
-
         public bool ShouldEndConvo()
         {
-            if (!InteractionUtility.CanReceiveRandomInteraction(parentPawn) || !InteractionUtility.CanReceiveRandomInteraction(convoPartner))
-            {
-                Log.Message("Cannot receive random interaction");
-                return true;
-            }
-            if (!IsGoodPositionForInteraction(parentPawn.Position, convoPartner.Position, parentPawn.Map))
-            {
-                Log.Message("Not in a good position anymore");
-                return true;
-            }
+            if (!parentPawn.Awake() || !convoPartner.Awake()) return true;
+            if (parentPawn.IsBurning() || convoPartner.IsBurning()) return true;
+            if (!IsGoodPositionForInteraction(parentPawn.Position, convoPartner.Position, parentPawn.Map)) return true;
             return false;
         }
         public void EndConvo()
         {
             Log.Message($"{parentPawn.Name} ending conversation with {convoPartner.Name}");
+            parentPawn.needs?.mood?.thoughts?.memories?.TryGainMemory(CreateSocialThought(), convoPartner);
             convoStartedTick = -1;
             convoCheckTick = -1;
             convoPartner = null;
+            topic = null;
+            topicScore = 0;
         }
         public static bool IsGoodPositionForInteraction(IntVec3 cell, IntVec3 recipientCell, Map map)
         {
-            if (cell.InHorDistOf(recipientCell, 12f))
-            {
-                return GenSight.LineOfSight(cell, recipientCell, map, skipFirstCell: true);
-            }
+            if (cell.InHorDistOf(recipientCell, 12f)) return GenSight.LineOfSight(cell, recipientCell, map, skipFirstCell: true);
             return false;
+        }
+
+        private ThoughtDef CreateSocialThought()
+        {
+            ThoughtDef def = new ThoughtDef();
+            def.defName = parentPawn.GetHashCode() + "Conversation" + topic.name;
+            def.label = "conversation";
+            def.durationDays = 5f;
+            //def.nullifyingTraits = new List<TraitDef>();
+            //def.nullifyingTraits.Add(TraitDefOf.Psychopath);
+            def.thoughtClass = typeof(Thoughts_MemoryPostDefined);
+            ThoughtStage stage = new ThoughtStage();
+            stage.label = "ConversationStage".Translate() + " " + topic.name;
+            stage.baseOpinionOffset = 11f;
+            def.stages.Add(stage);
+            return def;
         }
 
         public override void PostExposeData()
         {
             base.PostExposeData();
-            Scribe_Values.Look(ref PostGen, "PostGen");
-            Scribe_Values.Look(ref convoStartedTick, "convoStartedTick");
+            Scribe_Values.Look(ref PostGen, "PostGen", true);
+            Scribe_Values.Look(ref convoStartedTick, "convoStartedTick", -1);
+            Scribe_Values.Look(ref convoCheckTick, "convoCheckTick", -1);
             Scribe_References.Look(ref convoPartner, "convoPartner");
-            Scribe_Deep.Look(ref personality, "personality", new object[] { parent as Pawn });
-            Scribe_Collections.Look(ref interestScore, "interestScore", LookMode.Value, LookMode.Value);
+            Scribe_Deep.Look(ref topic, "topic");
+            Scribe_Values.Look(ref topicScore, "topicScore");
+            Scribe_Deep.Look(ref personality, "personality", new object[] { parent as Pawn }); //
+            Scribe_Deep.Look(ref interests, "interests", new object[] { parent as Pawn }); //
+
+            if (Scribe.mode == LoadSaveMode.PostLoadInit)
+            {
+                PsycheValueSetup();
+                InterestScoreSetup();
+            }
         }
 
     }

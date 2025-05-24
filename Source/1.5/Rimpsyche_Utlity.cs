@@ -17,7 +17,8 @@ namespace Maux36.RimPsyche
             var compPsyche = pawn.compPsyche();
             if (compPsyche != null)
             {
-                Log.Message($"RimPsyche info for pawn {pawn.Name}\n\n");
+                string message = string.Join(", ", Enum.GetValues(typeof(Facet)).Cast<Facet>().Select(f => $"{f}: {compPsyche.Personality.GetFacetValue(f)}"));
+                Log.Message($"RimPsyche info for pawn {pawn.Name}\n\n{message}");
             }
         }
 
@@ -27,7 +28,7 @@ namespace Maux36.RimPsyche
             var compPsyche = pawn.compPsyche();
             if (compPsyche != null)
             {
-                string message = string.Join(", ", compPsyche.interestScore.Select(kvp => $"{kvp.Key}: {kvp.Value:F2}"));
+                string message = string.Join(", ", compPsyche.Interests.interestScore.Select(kvp => $"{kvp.Key}: {kvp.Value:F2}"));
                 Log.Message($"Interest info for pawn {pawn.Name}\n\n{message}");
             }
         }

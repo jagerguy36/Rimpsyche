@@ -7,79 +7,164 @@ namespace Maux36.RimPsyche
     public class Pawn_PersonalityTracker : IExposable
     {
         private Pawn pawn;
-        public float imagination = 50f;
-        public float intellect = 50f;
-        public float curiosity = 50f;
+        // Facets
+        private float imagination = 0f;
+        private float intellect = 0f;
+        private float curiosity = 0f;
 
-        public float ambition = 50f;
-        public float order = 50f;
-        public float integrity = 50f;
+        private float ambition = 0f;
+        private float order = 0f;
+        private float integrity = 0f;
 
-        public float sociability = 50f;
-        public float assertiveness = 50f;
-        public float enthusiasm = 50f;
+        private float sociability = 0f;
+        private float assertiveness = 0f;
+        private float enthusiasm = 0f;
 
-        public float compassion = 50f;
-        public float cooperation = 50f;
-        public float humility = 50f;
+        private float compassion = 0f;
+        private float cooperation = 0f;
+        private float humility = 0f;
 
-        public float volatility = 50f;
-        public float impulsivity = 50f;
-        public float insecurity = 50f;
+        private float volatility = 0f;
+        private float pessimism = 0f;
+        private float insecurity = 0f;
+
+        private float InteractivityInternal = -1f;
+        private float EngagementInteranal = -1f;
+        private float SocialIntelligenceInternal = -1f;
+        private float ToleranceInternal = -1f;
+        private float DiligenceInternal = -1f;
 
 
-
-        public void ExposeData()
+        // Axis
+        public float Interactivity
         {
-            Scribe_Values.Look(ref imagination, "imagination", 0, false);
-            Scribe_Values.Look(ref intellect, "intellect", 0, false);
-            Scribe_Values.Look(ref curiosity, "curiosity", 0, false);
-
-            Scribe_Values.Look(ref ambition, "ambition", 0, false);
-            Scribe_Values.Look(ref order, "order", 0, false);
-            Scribe_Values.Look(ref integrity, "integrity", 0, false);
-
-            Scribe_Values.Look(ref sociability, "sociability", 0, false);
-            Scribe_Values.Look(ref assertiveness, "assertiveness", 0, false);
-            Scribe_Values.Look(ref enthusiasm, "enthusiasm", 0, false);
-
-            Scribe_Values.Look(ref compassion, "compassion", 0, false);
-            Scribe_Values.Look(ref cooperation, "cooperation", 0, false);
-            Scribe_Values.Look(ref humility, "humility", 0, false);
-
-            Scribe_Values.Look(ref volatility, "volatility", 0, false);
-            Scribe_Values.Look(ref impulsivity, "impulsivity", 0, false);
-            Scribe_Values.Look(ref insecurity, "insecurity", 0, false);
+            get
+            {
+                if (InteractivityInternal < 0f) InteractivityInternal = GetInteractivity();
+                return InteractivityInternal;
+            }
         }
+        public float Engagement
+        {
+            get
+            {
+                if (EngagementInteranal < 0f) EngagementInteranal = GetEngagement();
+                return EngagementInteranal;
+            }
+        }
+        public float SocialIntelligence
+        {
+            get
+            {
+                if (SocialIntelligenceInternal < 0f) SocialIntelligenceInternal = GetSocialIntelligence();
+                return SocialIntelligenceInternal;
+            }
+        }
+        public float Tolerance
+        {
+            get
+            {
+                if (ToleranceInternal < 0f) ToleranceInternal = GetTolerance();
+                return ToleranceInternal;
+            }
+        }
+        public float Diligence
+        {
+            get
+            {
+                if (DiligenceInternal < 0f) DiligenceInternal = GetDiligence();
+                return DiligenceInternal;
+            }
+        }
+
+        // Definitions
+        private float GetInteractivity() // -1 ~ 1
+        {
+            var score =
+                GetFacetValueNorm(Facet.Sociability) * 0.4f
+                + GetFacetValueNorm(Facet.Insecurity) * -0.3f
+                + GetFacetValueNorm(Facet.Assertiveness) * 0.2f
+                + GetFacetValueNorm(Facet.Enthusiasm) * 0.05f
+                + GetFacetValueNorm(Facet.Curiosity) * 0.05f;
+            return score * 0.02f;
+        }
+        private float GetEngagement() // -1 ~ 1
+        {
+            var score =
+                GetFacetValueNorm(Facet.Curiosity) * 0.1f
+                + GetFacetValueNorm(Facet.Sociability) * 0.2f
+                + GetFacetValueNorm(Facet.Cooperation) * 0.5f
+                + GetFacetValueNorm(Facet.Insecurity) * -0.2f;
+            return score * 0.02f;
+        }
+        private float GetSocialIntelligence() // -1 ~ 1
+        {
+            var score =
+                GetFacetValueNorm(Facet.Sociability) * 0.3f
+                + GetFacetValueNorm(Facet.Compassion) * 0.1f
+                + GetFacetValueNorm(Facet.Cooperation) * 0.3f
+                + GetFacetValueNorm(Facet.Volatility) * -0.2f
+                + GetFacetValueNorm(Facet.Pessimism) * -0.1f;
+            return score * 0.02f;
+        }
+        private float GetTolerance() // -1 ~ 1
+        {
+            var score =
+                GetFacetValueNorm(Facet.Curiosity) * 0.2f
+                + GetFacetValueNorm(Facet.Assertiveness) * -0.15f
+                + GetFacetValueNorm(Facet.Compassion) * 0.2f
+                + GetFacetValueNorm(Facet.Cooperation) * 0.35f
+                + GetFacetValueNorm(Facet.Humility) * 0.1f;
+            return score * 0.02f;
+        }
+        private float GetDiligence()
+        {
+            var score =
+                GetFacetValueNorm(Facet.Imagination) * -0.1f
+                + GetFacetValueNorm(Facet.Ambition) * 0.2f
+                + GetFacetValueNorm(Facet.Order) * 0.5f
+                + GetFacetValueNorm(Facet.Volatility) * -0.2f;
+            return score * 0.02f;
+        }
+
+        // Interaction
+        public float GetTopicAttitude(Topic topic)
+        {
+            return 0;
+        }
+
+        // Initialization
         public Pawn_PersonalityTracker(Pawn p)
         {
             pawn = p;
         }
         public void Initialize(int inputSeed = 0)
         {
-            float baseOCEANvalue = Rand.Range(20f, 80f);
+            float minRange = -25f;
+            float maxRange = 25f;
+            float baseOCEANvalue = Rand.Range(minRange, maxRange);
             imagination = GenerateFacetValueWithBase(baseOCEANvalue);
             intellect = GenerateFacetValueWithBase(baseOCEANvalue);
             curiosity = GenerateFacetValueWithBase(baseOCEANvalue);
 
-            baseOCEANvalue = Rand.Range(20f, 80f);
+            baseOCEANvalue = Rand.Range(minRange, maxRange);
             ambition = GenerateFacetValueWithBase(baseOCEANvalue);
             order = GenerateFacetValueWithBase(baseOCEANvalue);
             integrity = GenerateFacetValueWithBase(baseOCEANvalue);
 
-            baseOCEANvalue = Rand.Range(20f, 80f);
+            baseOCEANvalue = Rand.Range(minRange, maxRange);
             sociability = GenerateFacetValueWithBase(baseOCEANvalue);
             assertiveness = GenerateFacetValueWithBase(baseOCEANvalue);
             enthusiasm = GenerateFacetValueWithBase(baseOCEANvalue);
 
-            baseOCEANvalue = Rand.Range(20f, 80f);
+            baseOCEANvalue = Rand.Range(minRange, maxRange);
             compassion = GenerateFacetValueWithBase(baseOCEANvalue);
             cooperation = GenerateFacetValueWithBase(baseOCEANvalue);
             humility = GenerateFacetValueWithBase(baseOCEANvalue);
 
-            baseOCEANvalue = Rand.Range(20f, 80f);
+            baseOCEANvalue = Rand.Range(minRange, maxRange);
             volatility = GenerateFacetValueWithBase(baseOCEANvalue);
-            impulsivity = GenerateFacetValueWithBase(baseOCEANvalue);
+            pessimism = GenerateFacetValueWithBase(baseOCEANvalue);
             insecurity = GenerateFacetValueWithBase(baseOCEANvalue);
         }
         public float GenerateFacetValueWithBase(float baseValue, int maxAttempts = 4)
@@ -89,20 +174,21 @@ namespace Maux36.RimPsyche
 
             do
             {
-                result = Rand.Gaussian(baseValue, 5f); // center at basevalue, 3widthfactor == 15
+                result = Rand.Gaussian(baseValue, 7f); // center at basevalue, 3widthfactor == 21
                 attempts++;
             }
-            while ((result < 0f || result > 100f) && attempts < maxAttempts); 
+            while ((result < -50f || result > 50f) && attempts < maxAttempts); 
 
-            // Optional: Clamp to valid range if all attempts fail
-            if (result < 0f || result > 100f)
+            if (result < -50f || result > 50f)
             {
-                result = Mathf.Clamp(result, 0f, 100f);
-                Log.Warning($"GenerateFacetValueWithBase failed to get valid value in {maxAttempts} attempts. Clamped to {result}.");
+                result = Mathf.Clamp(result, -50f, 50f);
+                //Log.Warning($"GenerateFacetValueWithBase failed to get valid value in {maxAttempts} attempts. Clamped to {result}.");
             }
 
             return result;
         }
+
+        // IO
         public float GetFacetValue(Facet facet)
         {
             return facet switch
@@ -129,43 +215,150 @@ namespace Maux36.RimPsyche
 
                 // Neuroticism
                 Facet.Volatility => volatility,
-                Facet.Impulsivity => impulsivity,
+                Facet.Pessimism => pessimism,
                 Facet.Insecurity => insecurity,
                 _ => throw new ArgumentOutOfRangeException(nameof(facet), facet, null),
             };
         }
-        public void SetFacetValue(Facet facet, float value)
+        public int GetFacetValueNorm(Facet facet)
         {
+            return facet switch
+            {
+                // Openness
+                Facet.Imagination => (int)(imagination),
+                Facet.Intellect => (int)(intellect),
+                Facet.Curiosity => (int)(curiosity),
+
+                // Conscientiousness
+                Facet.Ambition => (int)(ambition),
+                Facet.Order => (int)(order),
+                Facet.Integrity => (int)(integrity),
+
+                // Extraversion
+                Facet.Sociability => (int)(sociability),
+                Facet.Assertiveness => (int)(assertiveness),
+                Facet.Enthusiasm => (int)(enthusiasm),
+
+                // Agreeableness
+                Facet.Compassion => (int)(compassion),
+                Facet.Cooperation => (int)(cooperation),
+                Facet.Humility => (int)(humility),
+
+                // Neuroticism
+                Facet.Volatility => (int)(volatility),
+                Facet.Pessimism => (int)(pessimism),
+                Facet.Insecurity => (int)(insecurity),
+                _ => throw new ArgumentOutOfRangeException(nameof(facet), facet, null),
+            };
+        }
+        public bool SetFacetValue(Facet facet, float value)
+        {
+            bool shouldDirtyCache = false;
             switch (facet)
             {
                 // Openness
-                case Facet.Imagination: imagination = value; break;
-                case Facet.Intellect: intellect = value; break;
-                case Facet.Curiosity: curiosity = value; break;
+                case Facet.Imagination:
+                    shouldDirtyCache = (int)imagination != (int)value;
+                    imagination = value;
+                    break;
+                case Facet.Intellect:
+                    shouldDirtyCache = (int)intellect != (int)value;
+                    intellect = value;
+                    break;
+                case Facet.Curiosity:
+                    shouldDirtyCache = (int)curiosity != (int)value;
+                    curiosity = value;
+                    break;
 
                 // Conscientiousness
-                case Facet.Ambition: ambition = value; break;
-                case Facet.Order: order = value; break;
-                case Facet.Integrity: integrity = value; break;
+                case Facet.Ambition:
+                    shouldDirtyCache = (int)ambition != (int)value;
+                    ambition = value;
+                    break;
+                case Facet.Order:
+                    shouldDirtyCache = (int)order != (int)value;
+                    order = value;
+                    break;
+                case Facet.Integrity:
+                    shouldDirtyCache = (int)integrity != (int)value;
+                    integrity = value;
+                    break;
 
                 // Extraversion
-                case Facet.Sociability: sociability = value; break;
-                case Facet.Assertiveness: assertiveness = value; break;
-                case Facet.Enthusiasm: enthusiasm = value; break;
+                case Facet.Sociability:
+                    shouldDirtyCache = (int)sociability != (int)value;
+                    sociability = value;
+                    break;
+                case Facet.Assertiveness:
+                    shouldDirtyCache = (int)assertiveness != (int)value;
+                    assertiveness = value;
+                    break;
+                case Facet.Enthusiasm:
+                    shouldDirtyCache = (int)enthusiasm != (int)value;
+                    enthusiasm = value;
+                    break;
 
                 // Agreeableness
-                case Facet.Compassion: compassion = value; break;
-                case Facet.Cooperation: cooperation = value; break;
-                case Facet.Humility: humility = value; break;
+                case Facet.Compassion:
+                    shouldDirtyCache = (int)compassion != (int)value;
+                    compassion = value;
+                    break;
+                case Facet.Cooperation:
+                    shouldDirtyCache = (int)cooperation != (int)value;
+                    cooperation = value;
+                    break;
+                case Facet.Humility:
+                    shouldDirtyCache = (int)humility != (int)value;
+                    humility = value;
+                    break;
 
                 // Neuroticism
-                case Facet.Volatility: volatility = value; break;
-                case Facet.Impulsivity: impulsivity = value; break;
-                case Facet.Insecurity: insecurity = value; break;
+                case Facet.Volatility:
+                    shouldDirtyCache = (int)volatility != (int)value;
+                    volatility = value;
+                    break;
+                case Facet.Pessimism:
+                    shouldDirtyCache = (int)pessimism != (int)value;
+                    pessimism = value;
+                    break;
+                case Facet.Insecurity:
+                    shouldDirtyCache = (int)insecurity != (int)value;
+                    insecurity = value;
+                    break;
 
                 default:
                     throw new ArgumentOutOfRangeException(nameof(facet), facet, null);
             }
+            return shouldDirtyCache;
+        }
+
+        // Save
+        public void ExposeData()
+        {
+            Scribe_Values.Look(ref imagination, "imagination", 0, false);
+            Scribe_Values.Look(ref intellect, "intellect", 0, false);
+            Scribe_Values.Look(ref curiosity, "curiosity", 0, false);
+
+            Scribe_Values.Look(ref ambition, "ambition", 0, false);
+            Scribe_Values.Look(ref order, "order", 0, false);
+            Scribe_Values.Look(ref integrity, "integrity", 0, false);
+
+            Scribe_Values.Look(ref sociability, "sociability", 0, false);
+            Scribe_Values.Look(ref assertiveness, "assertiveness", 0, false);
+            Scribe_Values.Look(ref enthusiasm, "enthusiasm", 0, false);
+
+            Scribe_Values.Look(ref compassion, "compassion", 0, false);
+            Scribe_Values.Look(ref cooperation, "cooperation", 0, false);
+            Scribe_Values.Look(ref humility, "humility", 0, false);
+
+            Scribe_Values.Look(ref volatility, "volatility", 0, false);
+            Scribe_Values.Look(ref pessimism, "pessimism", 0, false);
+            Scribe_Values.Look(ref insecurity, "insecurity", 0, false);
+        }
+
+        public void DirtyCache()
+        {
+            return;
         }
 
         public void LogAllFactors()
@@ -175,7 +368,7 @@ namespace Maux36.RimPsyche
             Log.Message($"Ambition: {ambition}, Order: {order}, Integrity: {integrity}");
             Log.Message($"Sociability: {sociability}, Assertiveness: {assertiveness}, Enthusiasm: {enthusiasm}");
             Log.Message($"Compassion: {compassion}, Cooperation: {cooperation}, Humility: {humility}");
-            Log.Message($"Volatility: {volatility}, Impulsivity: {impulsivity}, Insecurity: {insecurity}");
+            Log.Message($"Volatility: {volatility}, Pessimism: {pessimism}, Insecurity: {insecurity}");
         }
 
     }
