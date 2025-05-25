@@ -5,6 +5,14 @@ using Verse;
 
 namespace Maux36.RimPsyche
 {
+    public enum TopicCategory : byte
+    {
+        Socializing,
+        Disclosure,
+        Opinion,
+        Topical
+    }
+
     public class Topic : IExposable
     {
         public string name;
@@ -13,12 +21,18 @@ namespace Maux36.RimPsyche
         public float GetScore(Pawn initiator, Pawn recipient)
         {
             float score = 0f;
+            var initiatorPsyche = initiator.compPsyche();
+            var recipientPsyche = recipient.compPsyche();
             switch (category)
             {
                 case TopicCategory.Socializing:
-                    var recipientPsyche = recipient.compPsyche();
+                    score += recipientPsyche.Personality.SocialIntelligence + (0.1f * recipient.skills.GetSkill(SkillDefOf.Social).Level);
+                    score += initiatorPsyche.Personality.SocialIntelligence + (0.1f * initiator.skills.GetSkill(SkillDefOf.Social).Level);
+                    score *= 0.5f;
+                    break;
+                case TopicCategory.Disclosure:
                     score = recipientPsyche.Personality.SocialIntelligence + (0.1f * recipient.skills.GetSkill(SkillDefOf.Social).Level);
-                    if(weights != null)
+                    if (weights != null)
                     {
                         foreach (FacetWeight weight in weights)
                         {
@@ -39,12 +53,6 @@ namespace Maux36.RimPsyche
             Scribe_Values.Look(ref category, "category", TopicCategory.Socializing);
             Scribe_Collections.Look(ref weights, "weights", LookMode.Deep);
         }
-    }
-    public enum TopicCategory : byte
-    {
-        Socializing,
-        Opinion,
-        Topical
     }
 
 }

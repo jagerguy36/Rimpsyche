@@ -11,29 +11,29 @@ namespace Maux36.RimPsyche
     public enum Facet : byte
     {
         //Openness
-        Imagination,
-        Intellect,
-        Curiosity,
+        Imagination, // Imaginative | Realistic
+        Intellect, // Philosophical | Unreflective
+        Curiosity, // Explorative | Conventional
 
         //Conscientiousness
-        Ambition,
-        Order,
-        Integrity,
+        Industriousness, // Persistent | Unmotivated
+        Orderliness, // Organized | Disorganized
+        Integrity, // Reliable | Inconsistent
 
         //Extraversion
-        Sociability,
-        Assertiveness,
-        Enthusiasm,
+        Sociability, // Friendly | Aloof
+        Assertiveness, // Assertive | Timid
+        Enthusiasm, // Cheerful | Stoic
 
         //Agreeableness
-        Compassion,
-        Cooperation,
-        Humility,
+        Compassion, // Compassionate | Cold
+        Cooperation, // Accommodating | Stubborn
+        Politeness, // Polite | Arrogant
 
         //Neuroticism
-        Volatility,
-        Pessimism,
-        Insecurity
+        Volatility, //Volatile | Stable
+        Pessimism, //Pessimistic | Optimistic
+        Insecurity // Insecure | Confident
     }
 
     public class FacetWeight : IExposable

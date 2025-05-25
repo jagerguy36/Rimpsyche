@@ -22,6 +22,21 @@ namespace Maux36.RimPsyche
                 if (allDef.race is { intelligence: Intelligence.Humanlike } && !allDef.IsCorpse)
                 {
                     allDef.comps.Add(new CompProperties_Psyche());
+                    if (allDef.inspectorTabsResolved == null)
+                    {
+                        allDef.inspectorTabsResolved = new List<InspectTabBase>(1);
+                    }
+                    allDef.inspectorTabsResolved.AddDistinct(InspectTabManager.GetSharedInstance(typeof(ITab_Pawn_Psyche)));
+                    if (allDef.race?.corpseDef == null)
+                    {
+                        Log.Warning("thingDef.race?.corpseDef == null for thingDef = " + allDef.defName);
+                        return;
+                    }
+                    if (allDef.race.corpseDef.inspectorTabsResolved == null)
+                    {
+                        allDef.race.corpseDef.inspectorTabsResolved = new List<InspectTabBase>(1);
+                    }
+                    allDef.race.corpseDef.inspectorTabsResolved.AddDistinct(InspectTabManager.GetSharedInstance(typeof(ITab_Pawn_Psyche)));
                 }
             }
         }

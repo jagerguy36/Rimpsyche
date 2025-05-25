@@ -12,8 +12,8 @@ namespace Maux36.RimPsyche
         private float intellect = 0f;
         private float curiosity = 0f;
 
-        private float ambition = 0f;
-        private float order = 0f;
+        private float industriousness = 0f;
+        private float orderliness = 0f;
         private float integrity = 0f;
 
         private float sociability = 0f;
@@ -22,7 +22,7 @@ namespace Maux36.RimPsyche
 
         private float compassion = 0f;
         private float cooperation = 0f;
-        private float humility = 0f;
+        private float politeness = 0f;
 
         private float volatility = 0f;
         private float pessimism = 0f;
@@ -114,15 +114,15 @@ namespace Maux36.RimPsyche
                 + GetFacetValueNorm(Facet.Assertiveness) * -0.15f
                 + GetFacetValueNorm(Facet.Compassion) * 0.2f
                 + GetFacetValueNorm(Facet.Cooperation) * 0.35f
-                + GetFacetValueNorm(Facet.Humility) * 0.1f;
+                + GetFacetValueNorm(Facet.Politeness) * 0.1f;
             return score * 0.02f;
         }
         private float GetDiligence()
         {
             var score =
                 GetFacetValueNorm(Facet.Imagination) * -0.1f
-                + GetFacetValueNorm(Facet.Ambition) * 0.2f
-                + GetFacetValueNorm(Facet.Order) * 0.5f
+                + GetFacetValueNorm(Facet.Industriousness) * 0.2f
+                + GetFacetValueNorm(Facet.Orderliness) * 0.5f
                 + GetFacetValueNorm(Facet.Volatility) * -0.2f;
             return score * 0.02f;
         }
@@ -140,16 +140,16 @@ namespace Maux36.RimPsyche
         }
         public void Initialize(int inputSeed = 0)
         {
-            float minRange = -25f;
-            float maxRange = 25f;
+            float minRange = -40f;
+            float maxRange = 40f;
             float baseOCEANvalue = Rand.Range(minRange, maxRange);
             imagination = GenerateFacetValueWithBase(baseOCEANvalue);
             intellect = GenerateFacetValueWithBase(baseOCEANvalue);
             curiosity = GenerateFacetValueWithBase(baseOCEANvalue);
 
             baseOCEANvalue = Rand.Range(minRange, maxRange);
-            ambition = GenerateFacetValueWithBase(baseOCEANvalue);
-            order = GenerateFacetValueWithBase(baseOCEANvalue);
+            industriousness = GenerateFacetValueWithBase(baseOCEANvalue);
+            orderliness = GenerateFacetValueWithBase(baseOCEANvalue);
             integrity = GenerateFacetValueWithBase(baseOCEANvalue);
 
             baseOCEANvalue = Rand.Range(minRange, maxRange);
@@ -160,7 +160,7 @@ namespace Maux36.RimPsyche
             baseOCEANvalue = Rand.Range(minRange, maxRange);
             compassion = GenerateFacetValueWithBase(baseOCEANvalue);
             cooperation = GenerateFacetValueWithBase(baseOCEANvalue);
-            humility = GenerateFacetValueWithBase(baseOCEANvalue);
+            politeness = GenerateFacetValueWithBase(baseOCEANvalue);
 
             baseOCEANvalue = Rand.Range(minRange, maxRange);
             volatility = GenerateFacetValueWithBase(baseOCEANvalue);
@@ -174,7 +174,7 @@ namespace Maux36.RimPsyche
 
             do
             {
-                result = Rand.Gaussian(baseValue, 7f); // center at basevalue, 3widthfactor == 21
+                result = Rand.Gaussian(baseValue, 5f); // center at basevalue, 3widthfactor == 15
                 attempts++;
             }
             while ((result < -50f || result > 50f) && attempts < maxAttempts); 
@@ -199,8 +199,8 @@ namespace Maux36.RimPsyche
                 Facet.Curiosity => curiosity,
 
                 // Conscientiousness
-                Facet.Ambition => ambition,
-                Facet.Order => order,
+                Facet.Industriousness => industriousness,
+                Facet.Orderliness => orderliness,
                 Facet.Integrity => integrity,
 
                 // Extraversion
@@ -211,7 +211,7 @@ namespace Maux36.RimPsyche
                 // Agreeableness
                 Facet.Compassion => compassion,
                 Facet.Cooperation => cooperation,
-                Facet.Humility => humility,
+                Facet.Politeness => politeness,
 
                 // Neuroticism
                 Facet.Volatility => volatility,
@@ -230,8 +230,8 @@ namespace Maux36.RimPsyche
                 Facet.Curiosity => (int)(curiosity),
 
                 // Conscientiousness
-                Facet.Ambition => (int)(ambition),
-                Facet.Order => (int)(order),
+                Facet.Industriousness => (int)(industriousness),
+                Facet.Orderliness => (int)(orderliness),
                 Facet.Integrity => (int)(integrity),
 
                 // Extraversion
@@ -242,7 +242,7 @@ namespace Maux36.RimPsyche
                 // Agreeableness
                 Facet.Compassion => (int)(compassion),
                 Facet.Cooperation => (int)(cooperation),
-                Facet.Humility => (int)(humility),
+                Facet.Politeness => (int)(politeness),
 
                 // Neuroticism
                 Facet.Volatility => (int)(volatility),
@@ -271,13 +271,13 @@ namespace Maux36.RimPsyche
                     break;
 
                 // Conscientiousness
-                case Facet.Ambition:
-                    shouldDirtyCache = (int)ambition != (int)value;
-                    ambition = value;
+                case Facet.Industriousness:
+                    shouldDirtyCache = (int)industriousness != (int)value;
+                    industriousness = value;
                     break;
-                case Facet.Order:
-                    shouldDirtyCache = (int)order != (int)value;
-                    order = value;
+                case Facet.Orderliness:
+                    shouldDirtyCache = (int)orderliness != (int)value;
+                    orderliness = value;
                     break;
                 case Facet.Integrity:
                     shouldDirtyCache = (int)integrity != (int)value;
@@ -307,9 +307,9 @@ namespace Maux36.RimPsyche
                     shouldDirtyCache = (int)cooperation != (int)value;
                     cooperation = value;
                     break;
-                case Facet.Humility:
-                    shouldDirtyCache = (int)humility != (int)value;
-                    humility = value;
+                case Facet.Politeness:
+                    shouldDirtyCache = (int)politeness != (int)value;
+                    politeness = value;
                     break;
 
                 // Neuroticism
@@ -339,8 +339,8 @@ namespace Maux36.RimPsyche
             Scribe_Values.Look(ref intellect, "intellect", 0, false);
             Scribe_Values.Look(ref curiosity, "curiosity", 0, false);
 
-            Scribe_Values.Look(ref ambition, "ambition", 0, false);
-            Scribe_Values.Look(ref order, "order", 0, false);
+            Scribe_Values.Look(ref industriousness, "industriousness", 0, false);
+            Scribe_Values.Look(ref orderliness, "orderliness", 0, false);
             Scribe_Values.Look(ref integrity, "integrity", 0, false);
 
             Scribe_Values.Look(ref sociability, "sociability", 0, false);
@@ -349,7 +349,7 @@ namespace Maux36.RimPsyche
 
             Scribe_Values.Look(ref compassion, "compassion", 0, false);
             Scribe_Values.Look(ref cooperation, "cooperation", 0, false);
-            Scribe_Values.Look(ref humility, "humility", 0, false);
+            Scribe_Values.Look(ref politeness, "politeness", 0, false);
 
             Scribe_Values.Look(ref volatility, "volatility", 0, false);
             Scribe_Values.Look(ref pessimism, "pessimism", 0, false);
@@ -365,9 +365,9 @@ namespace Maux36.RimPsyche
         {
             Log.Message($"{pawn.Name}'s OCEAN factors");
             Log.Message($"Imagination: {imagination}, Intellect: {intellect}, Curiosity: {curiosity}");
-            Log.Message($"Ambition: {ambition}, Order: {order}, Integrity: {integrity}");
+            Log.Message($"Industriousness: {industriousness}, Orderliness: {orderliness}, Integrity: {integrity}");
             Log.Message($"Sociability: {sociability}, Assertiveness: {assertiveness}, Enthusiasm: {enthusiasm}");
-            Log.Message($"Compassion: {compassion}, Cooperation: {cooperation}, Humility: {humility}");
+            Log.Message($"Compassion: {compassion}, Cooperation: {cooperation}, Politeness: {politeness}");
             Log.Message($"Volatility: {volatility}, Pessimism: {pessimism}, Insecurity: {insecurity}");
         }
 

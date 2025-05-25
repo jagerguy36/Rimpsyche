@@ -1,4 +1,5 @@
 ﻿using RimWorld;
+using UnityEngine;
 using Verse;
 
 
@@ -141,11 +142,20 @@ namespace Maux36.RimPsyche
         public void EndConvo()
         {
             Log.Message($"{parentPawn.Name} ending conversation with {convoPartner.Name}");
-            ThoughtDef newDef = Rimpsyche_Utility.CreateSocialThought(
-                parentPawn.GetHashCode() + "Conversation" + topic.name,
-                "ConversationStage".Translate() + " " + topic.name,
-                topicScore * 10);
-            parentPawn.needs?.mood?.thoughts?.memories?.TryGainMemory(newDef, convoPartner);
+            float finalScore = topicScore;
+            //Tolerance is used for opinion. This should use switch.
+            if (finalScore < 0)
+            {
+                finalScore = Mathf.Min(finalScore + parentPawn.compPsyche().Personality.Tolerance, 0f);
+            }
+            if (convoPartner != null)
+            {
+                ThoughtDef newDef = Rimpsyche_Utility.CreateSocialThought(
+                    parentPawn.GetHashCode() + "Conversation" + topic.name,
+                    "ConversationStage".Translate() + " " + topic.name,
+                    topicScore * 10);
+                parentPawn.needs?.mood?.thoughts?.memories?.TryGainMemory(newDef, convoPartner);
+            }
             convoStartedTick = -1;
             convoCheckTick = -1;
             convoPartner = null;

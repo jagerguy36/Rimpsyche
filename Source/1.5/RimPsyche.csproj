@@ -75,6 +75,7 @@
     <Compile Include="Conversation\InteractionWorker_Conversation.cs" />
     <Compile Include="Database\RimpsycheDatabase.cs" />
     <Compile Include="DefOfRimpsyche.cs" />
+    <Compile Include="HarmonyPatches\CharacterCardUtility.cs" />
     <Compile Include="HarmonyPatches\InteractionUtility_RandomInteractionPatch.cs" />
     <Compile Include="HarmonyPatches\InteractionWorker_DeepTalk_SelectionWeightPatch.cs" />
     <Compile Include="HarmonyPatches\Pawn_InteractionTracker_Transpiler.cs" />
@@ -91,6 +92,10 @@
     <Compile Include="RimpsycheSettings.cs" />
     <Compile Include="Rimpsyche_Utlity.cs" />
     <Compile Include="Thought\Thoughts_MemoryPostDefined.cs" />
+    <Compile Include="UI\Dialog_ViewPsyche.cs" />
+    <Compile Include="UI\InterfaceComponents.cs" />
+    <Compile Include="UI\ITab_Pawn_Psyche.cs" />
+    <Compile Include="UI\PsycheCardUtility.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
