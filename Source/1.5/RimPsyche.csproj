@@ -12,7 +12,7 @@
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
-    <LangVersion>11.0</LangVersion>
+    <LangVersion>12.0</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>false</DebugSymbols>
@@ -70,7 +70,7 @@
     <Compile Include="CompPsyche\CompProperties_Psyche.cs" />
     <Compile Include="CompPsyche\CompPsyche.cs" />
     <Compile Include="CompPsyche\CompToHumanlikes.cs" />
-    <Compile Include="CompPsyche\Pawn_PersonalityTracker.cs" />
+    <Compile Include="Personality\Pawn_PersonalityTracker.cs" />
     <Compile Include="Conversation\InteractionWorker_StartConversation.cs" />
     <Compile Include="Conversation\InteractionWorker_Conversation.cs" />
     <Compile Include="Database\RimpsycheDatabase.cs" />
@@ -87,15 +87,17 @@
     <Compile Include="HarmonyPatches\PawnGenerator_GeneratePawnPatch.cs" />
     <Compile Include="HarmonyPatches\Pawn_InteractionTracker_Prefixes.cs" />
     <Compile Include="Interest\InterestDomainDef.cs" />
+    <Compile Include="Personality\PersonalityDef.cs" />
+    <Compile Include="Personality\PersonalityDefOf.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Rimpsyche.cs" />
     <Compile Include="RimpsycheSettings.cs" />
     <Compile Include="Rimpsyche_Utlity.cs" />
     <Compile Include="Thought\Thoughts_MemoryPostDefined.cs" />
-    <Compile Include="UI\Dialog_ViewPsyche.cs" />
-    <Compile Include="UI\InterfaceComponents.cs" />
-    <Compile Include="UI\ITab_Pawn_Psyche.cs" />
-    <Compile Include="UI\PsycheCardUtility.cs" />
+    <Compile Include="RimpsycheUI\InterfaceComponents.cs" />
+    <Compile Include="RimpsycheUI\ITab_Pawn_Psyche.cs" />
+    <Compile Include="RimpsycheUI\PsycheInfoCard.cs" />
+    <Compile Include="RimpsycheUI\PsycheEditPopup.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

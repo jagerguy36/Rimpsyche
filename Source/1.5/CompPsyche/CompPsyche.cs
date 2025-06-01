@@ -146,7 +146,7 @@ namespace Maux36.RimPsyche
             //Tolerance is used for opinion. This should use switch.
             if (finalScore < 0)
             {
-                finalScore = Mathf.Min(finalScore + parentPawn.compPsyche().Personality.Tolerance, 0f);
+                finalScore = Mathf.Min(finalScore + parentPawn.compPsyche().Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Openness), 0f);
             }
             if (convoPartner != null)
             {

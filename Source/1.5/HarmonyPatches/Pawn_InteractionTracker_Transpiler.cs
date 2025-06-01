@@ -34,10 +34,10 @@ namespace Maux36.RimPsyche
         }
         public static int MyMultiplyValue(int original, Pawn pawn)
         {
-            float interactionScore = pawn?.compPsyche()?.Personality?.Interactivity ?? 0f;
+            float interactionScore = pawn?.compPsyche()?.Personality?.GetPersonality(PersonalityDefOf.Rimpsyche_Sociability) ?? 0f;
             int result = (int)((1f - 0.7f * interactionScore) * original);
             //Log.Message($"[Harmony] Adjusted interaction interval of {pawn.Name}: original={original}, interactionScore={interactionScore}, result={result}");
-            return 50;// result;
+            return result;
         }
     }
 }

@@ -26,12 +26,12 @@ namespace Maux36.RimPsyche
             switch (category)
             {
                 case TopicCategory.Socializing:
-                    score += recipientPsyche.Personality.SocialIntelligence + (0.1f * recipient.skills.GetSkill(SkillDefOf.Social).Level);
-                    score += initiatorPsyche.Personality.SocialIntelligence + (0.1f * initiator.skills.GetSkill(SkillDefOf.Social).Level);
+                    score += recipientPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_SocialIntelligence) + (0.1f * recipient.skills.GetSkill(SkillDefOf.Social).Level);
+                    score += initiatorPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_SocialIntelligence) + (0.1f * initiator.skills.GetSkill(SkillDefOf.Social).Level);
                     score *= 0.5f;
                     break;
                 case TopicCategory.Disclosure:
-                    score = recipientPsyche.Personality.SocialIntelligence + (0.1f * recipient.skills.GetSkill(SkillDefOf.Social).Level);
+                    score = recipientPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_SocialIntelligence) + (0.1f * recipient.skills.GetSkill(SkillDefOf.Social).Level);
                     if (weights != null)
                     {
                         foreach (FacetWeight weight in weights)

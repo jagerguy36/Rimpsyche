@@ -26,7 +26,7 @@ namespace Maux36.RimPsyche
             var initiatorCompPsyche = initiator.compPsyche();
             if (initiatorCompPsyche != null)
             {
-                float convoChance = 1f + initiatorCompPsyche.Personality.Engagement; // 0~2
+                float convoChance = 1f + initiatorCompPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Talkativeness); // 0~2
                 float relationshipOffset = 1f + 0.01f * initiator.relations.OpinionOf(recipient); // 0~2 
                 convoChance *= relationshipOffset;
                 //Log.Message($"{initiator.Name} weight {recipient.Name} : 0.5f * {convoChance}.");
@@ -58,7 +58,7 @@ namespace Maux36.RimPsyche
                 if (opinion < 0)
                 {
                     float recipientInterestScore = recipientPsyche.Interests.GetOrCreateInterestScore(convoInterest) * 0.01f;
-                    float recipientEngagement = recipientPsyche.Personality.Engagement;
+                    float recipientEngagement = recipientPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_SocialIntelligence);
                     float rejectionFactor = (recipientInterestScore + recipientEngagement + opinion) * 0.5f;
                     if (rejectionFactor < 0 && rejectionFactor * rejectionFactor * 0.95f < Rand.Value)
                     {

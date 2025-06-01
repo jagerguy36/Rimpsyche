@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Verse;
 
@@ -6,6 +8,15 @@ namespace Maux36.RimPsyche
 {
     public class Pawn_PersonalityTracker : IExposable
     {
+        private static readonly Dictionary<string, Facet[]> Groups = new()
+        {
+            ["Openness"] = new[] { Facet.Imagination, Facet.Intellect, Facet.Curiosity },
+            ["Conscientiousness"] = new[] { Facet.Industriousness, Facet.Orderliness, Facet.Integrity },
+            ["Extraversion"] = new[] { Facet.Sociability, Facet.Assertiveness, Facet.Enthusiasm },
+            ["Agreeableness"] = new[] { Facet.Compassion, Facet.Cooperation, Facet.Politeness },
+            ["Neuroticism"] = new[] { Facet.Volatility, Facet.Pessimism, Facet.Insecurity },
+        };
+
         private Pawn pawn;
         // Facets
         private float imagination = 0f;
@@ -28,103 +39,38 @@ namespace Maux36.RimPsyche
         private float pessimism = 0f;
         private float insecurity = 0f;
 
-        private float InteractivityInternal = -1f;
-        private float EngagementInteranal = -1f;
-        private float SocialIntelligenceInternal = -1f;
-        private float ToleranceInternal = -1f;
-        private float DiligenceInternal = -1f;
+        private Dictionary<string, float> personalityCache = new Dictionary<string, float>();
 
+        public float GetPersonality(PersonalityDef personality)
+        {
+            if (personality == null || string.IsNullOrEmpty(personality.label))
+                return 0f;
+            if (personalityCache.TryGetValue(personality.label, out float cachedValue))
+            {
+                return cachedValue;
+            }
 
-        // Axis
-        public float Interactivity
-        {
-            get
+            float sum = 0f;
+            foreach(var w in personality.scoreWeight)
             {
-                if (InteractivityInternal < 0f) InteractivityInternal = GetInteractivity();
-                return InteractivityInternal;
+                sum += GetFacetValueNorm(w.facet) * w.weight;
             }
+            float result = Mathf.Clamp(sum * 0.02f, -1f, 1f);
+            personalityCache[personality.label] = result;
+            return result;
         }
-        public float Engagement
+        public float GetPersonalityDirect(PersonalityDef personality)
         {
-            get
-            {
-                if (EngagementInteranal < 0f) EngagementInteranal = GetEngagement();
-                return EngagementInteranal;
-            }
-        }
-        public float SocialIntelligence
-        {
-            get
-            {
-                if (SocialIntelligenceInternal < 0f) SocialIntelligenceInternal = GetSocialIntelligence();
-                return SocialIntelligenceInternal;
-            }
-        }
-        public float Tolerance
-        {
-            get
-            {
-                if (ToleranceInternal < 0f) ToleranceInternal = GetTolerance();
-                return ToleranceInternal;
-            }
-        }
-        public float Diligence
-        {
-            get
-            {
-                if (DiligenceInternal < 0f) DiligenceInternal = GetDiligence();
-                return DiligenceInternal;
-            }
-        }
+            if (personality == null || string.IsNullOrEmpty(personality.label))
+                return 0f;
 
-        // Definitions
-        private float GetInteractivity() // -1 ~ 1
-        {
-            var score =
-                GetFacetValueNorm(Facet.Sociability) * 0.4f
-                + GetFacetValueNorm(Facet.Insecurity) * -0.3f
-                + GetFacetValueNorm(Facet.Assertiveness) * 0.2f
-                + GetFacetValueNorm(Facet.Enthusiasm) * 0.05f
-                + GetFacetValueNorm(Facet.Curiosity) * 0.05f;
-            return score * 0.02f;
-        }
-        private float GetEngagement() // -1 ~ 1
-        {
-            var score =
-                GetFacetValueNorm(Facet.Curiosity) * 0.1f
-                + GetFacetValueNorm(Facet.Sociability) * 0.2f
-                + GetFacetValueNorm(Facet.Cooperation) * 0.5f
-                + GetFacetValueNorm(Facet.Insecurity) * -0.2f;
-            return score * 0.02f;
-        }
-        private float GetSocialIntelligence() // -1 ~ 1
-        {
-            var score =
-                GetFacetValueNorm(Facet.Sociability) * 0.3f
-                + GetFacetValueNorm(Facet.Compassion) * 0.1f
-                + GetFacetValueNorm(Facet.Cooperation) * 0.3f
-                + GetFacetValueNorm(Facet.Volatility) * -0.2f
-                + GetFacetValueNorm(Facet.Pessimism) * -0.1f;
-            return score * 0.02f;
-        }
-        private float GetTolerance() // -1 ~ 1
-        {
-            var score =
-                GetFacetValueNorm(Facet.Curiosity) * 0.2f
-                + GetFacetValueNorm(Facet.Assertiveness) * -0.15f
-                + GetFacetValueNorm(Facet.Compassion) * 0.2f
-                + GetFacetValueNorm(Facet.Cooperation) * 0.35f
-                + GetFacetValueNorm(Facet.Politeness) * 0.1f;
-            return score * 0.02f;
-        }
-        private float GetDiligence()
-        {
-            var score =
-                GetFacetValueNorm(Facet.Imagination) * -0.1f
-                + GetFacetValueNorm(Facet.Industriousness) * 0.2f
-                + GetFacetValueNorm(Facet.Orderliness) * 0.5f
-                + GetFacetValueNorm(Facet.Volatility) * -0.2f;
-            return score * 0.02f;
+            float sum = 0f;
+            foreach (var w in personality.scoreWeight)
+            {
+                sum += GetFacetValue(w.facet) * w.weight;
+            }
+            float result = Mathf.Clamp(sum * 0.02f, -1f, 1f);
+            return result;
         }
 
         // Interaction
@@ -166,6 +112,7 @@ namespace Maux36.RimPsyche
             volatility = GenerateFacetValueWithBase(baseOCEANvalue);
             pessimism = GenerateFacetValueWithBase(baseOCEANvalue);
             insecurity = GenerateFacetValueWithBase(baseOCEANvalue);
+            DirtyCache();
         }
         public float GenerateFacetValueWithBase(float baseValue, int maxAttempts = 4)
         {
@@ -332,6 +279,89 @@ namespace Maux36.RimPsyche
             return shouldDirtyCache;
         }
 
+        public void AffectFacetValue(Dictionary<Facet, float> changes)
+        {
+            bool shouldDirtyCache = false;
+            var netChanges = new Dictionary<Facet, float>();
+
+            foreach (var group in Groups.Values)
+            {
+                for (int i = 0; i < group.Length; i++)
+                {
+                    var facetI = group[i];
+
+                    if (!changes.TryGetValue(facetI, out float delta) || delta == 0f)
+                        continue;
+
+                    // Apply direct change
+                    netChanges[facetI] = delta;
+
+                    // Apply side-effects to other facets in the group
+                    for (int j = 0; j < group.Length; j++)
+                    {
+                        if (i == j) continue;
+
+                        var facetJ = group[j];
+                        if (changes.ContainsKey(facetJ)) continue;
+                        netChanges.TryGetValue(facetJ, out float existing);
+                        netChanges[facetJ] = existing + delta * 0.1f;
+                    }
+                    // Apply side-effects to other facets in the group
+                    foreach (var facetJ in group)
+                    {
+                        if (facetI == facetJ || changes.ContainsKey(facetJ))
+                            continue;
+
+                        netChanges.TryGetValue(facetJ, out float existing);
+                        netChanges[facetJ] = existing + delta * 0.1f;
+                    }
+                }
+            }
+
+            // Apply all accumulated changes
+            foreach (var kvp in netChanges)
+            {
+                float currentValue = GetFacetValue(kvp.Key);
+                if (SetFacetValue(kvp.Key, currentValue + kvp.Value))
+                {
+                    shouldDirtyCache = true;
+                }
+            }
+
+            if (shouldDirtyCache) DirtyCache();
+        }
+
+        public void SetPersonalityRating(PersonalityDef def, float newValue)
+        {
+            float current = GetPersonalityDirect(def);
+            float delta = newValue - current;
+
+            if (Mathf.Approximately(delta, 0f))
+                return;
+
+            // Invert 0.02f scaling factor
+            float adjustedDelta = delta * 50f;
+
+            // Total absolute weight (for normalization)
+            float totalWeight = def.scoreWeight.Sum(w => Mathf.Abs(w.weight));
+            if (totalWeight == 0f)
+                return;
+
+            var facetChanges = new Dictionary<Facet, float>();
+
+            foreach (var weight in def.scoreWeight)
+            {
+                if (weight.weight == 0f) continue;
+
+                float contribution = adjustedDelta * (weight.weight / totalWeight);
+                if (contribution != 0f)
+                    facetChanges[weight.facet] = contribution;
+            }
+            
+            AffectFacetValue(facetChanges);
+        }
+
+
         // Save
         public void ExposeData()
         {
@@ -358,7 +388,7 @@ namespace Maux36.RimPsyche
 
         public void DirtyCache()
         {
-            return;
+            personalityCache.Clear();
         }
 
         public void LogAllFactors()
