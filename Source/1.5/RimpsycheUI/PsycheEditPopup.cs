@@ -4,7 +4,6 @@ using System;
 using System.Linq;
 using UnityEngine;
 using Verse;
-using static RimWorld.ColonistBar;
 using Verse.Sound;
 
 namespace Maux36.RimPsyche
@@ -79,7 +78,7 @@ namespace Maux36.RimPsyche
             float rowHeight = 32f;
             float viewHeight = personalityDefList.Count() * rowHeight + 40f;
             float labelPadding = 0f;
-            float barWidth = 80f;
+            float barWidth = 160f;
             float barHeight = 4f;
 
             // Define internal padding/margins if desired
@@ -141,7 +140,7 @@ namespace Maux36.RimPsyche
             {
                 editmodeText = "Rimbody_EditModeOff".Translate();
             }
-            if (!Widgets.ButtonText(editModeRect, editmodeText))
+            if (Widgets.ButtonText(editModeRect, editmodeText))
             {
                 SoundDefOf.Tick_High.PlayOneShotOnCamera();
                 editModeOn = !editModeOn;
@@ -176,43 +175,36 @@ namespace Maux36.RimPsyche
                     Widgets.DrawHighlight(rowRect);
                     TooltipHandler.TipRegion(rowRect, $"{def.label}: {Mathf.Round(currentValue * 100f) / 100f}");
                 }
+                float barCenterX = rowRect.x + rowRect.width / 2f;
+                float centerY = rowRect.y + rowRect.height / 2f;
+                // Left label
+                Rect leftRect = new Rect(rowRect.x + labelPadding, centerY - Text.LineHeight / 2f, labelWidth, Text.LineHeight);
+                Text.Anchor = TextAnchor.MiddleLeft;
+                Widgets.Label(leftRect, leftLabel);
+
+                // Right label
+                Rect rightRect = new Rect(rowRect.xMax - labelWidth - labelPadding, centerY - Text.LineHeight / 2f, labelWidth, Text.LineHeight);
+                Text.Anchor = TextAnchor.MiddleRight;
+                Widgets.Label(rightRect, rightLabel);
                 if (editModeOn)
                 {
-                    Rect labelRect = new Rect(10f, y + 6f, 160f, 24f);
-                    Widgets.Label(labelRect, def.label);
-
-                    Rect sliderRect = new Rect(labelRect.xMax + 10f, y + 8f, viewRect.width - labelRect.width - 30f, 24f);
+                    Rect sliderRect = new Rect(barCenterX - barWidth / 2f, centerY - barHeight / 2f, barWidth, 24f);
                     float newValue = Widgets.HorizontalSlider(sliderRect, currentValue, -1f, 1f);
 
                     if (newValue != currentValue)
                     {
                         compPsyche.Personality.SetPersonalityRating(def, newValue);
                     }
-
-                    y += rowHeight;
                 }
                 else
                 {
-
-                    float barCenterX = rowRect.x + rowRect.width / 2f;
-                    float centerY = rowRect.y + rowRect.height / 2f;
-                    // Left label
-                    Rect leftRect = new Rect(rowRect.x + labelPadding, centerY - Text.LineHeight / 2f, labelWidth, Text.LineHeight);
-                    Text.Anchor = TextAnchor.MiddleLeft;
-                    Widgets.Label(leftRect, leftLabel);
-
-                    // Right label
-                    Rect rightRect = new Rect(rowRect.xMax - labelWidth - labelPadding, centerY - Text.LineHeight / 2f, labelWidth, Text.LineHeight);
-                    Text.Anchor = TextAnchor.MiddleRight;
-                    Widgets.Label(rightRect, rightLabel);
-
                     // Bar background
                     Rect barRect = new Rect(barCenterX - barWidth / 2f, centerY - barHeight / 2f, barWidth, barHeight);
                     Widgets.DrawBoxSolid(barRect, new Color(0.2f, 0.2f, 0.2f, 0.5f));
 
                     // Value bar
-                    float clamped = Mathf.Clamp(currentValue, -0.5f, 0.5f); // now value is between -0.5 ~ 0.5
-                    float halfBar = Mathf.Abs(clamped) * (barWidth / 0.5f) / 2f;
+                    float clamped = Mathf.Clamp(currentValue, -1f, 1f); // now value is between -1 ~ 1
+                    float halfBar = Mathf.Abs(clamped) * (barWidth) / 2f;
                     Rect valueRect = clamped >= 0
                         ? new Rect(barCenterX, barRect.y, halfBar, barHeight)
                         : new Rect(barCenterX - halfBar, barRect.y, halfBar, barHeight);
@@ -221,9 +213,9 @@ namespace Maux36.RimPsyche
                     float intensity = Mathf.Abs(clamped) * 2f; // maps 0–0.5 to 0–1
                     Color barColor = Color.Lerp(Color.yellow, Color.green, intensity);
                     Widgets.DrawBoxSolid(valueRect, barColor);
-
-                    y += rowHeight;
                 }
+
+                y += rowHeight;
             }
 
             Widgets.EndScrollView();

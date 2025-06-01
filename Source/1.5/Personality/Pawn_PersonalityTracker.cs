@@ -201,6 +201,7 @@ namespace Maux36.RimPsyche
         public bool SetFacetValue(Facet facet, float value)
         {
             bool shouldDirtyCache = false;
+            value = Mathf.Clamp(value, -50f, 50f);
             switch (facet)
             {
                 // Openness

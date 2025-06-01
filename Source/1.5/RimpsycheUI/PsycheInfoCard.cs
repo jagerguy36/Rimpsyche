@@ -184,8 +184,8 @@ namespace Maux36.RimPsyche
                 Widgets.DrawBoxSolid(barRect, new Color(0.2f, 0.2f, 0.2f, 0.5f));
 
                 // Value bar
-                float clamped = Mathf.Clamp(value, -0.5f, 0.5f); // now value is between -0.5 ~ 0.5
-                float halfBar = Mathf.Abs(clamped) * (barWidth / 0.5f) / 2f;
+                float clamped = Mathf.Clamp(value, -1f, 1f); // now value is between -1 ~ 1
+                float halfBar = Mathf.Abs(clamped) * (barWidth) / 2f;
                 Rect valueRect = clamped >= 0
                     ? new Rect(barCenterX, barRect.y, halfBar, barHeight)
                     : new Rect(barCenterX - halfBar, barRect.y, halfBar, barHeight);
