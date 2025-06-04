@@ -25,20 +25,21 @@ namespace Maux36.RimPsyche
     //    }
     //}
 
-    [HarmonyPatch(typeof(Pawn_InteractionsTracker), "InteractionsTrackerTick")]
-    public static class Pawn_InteractionTracker_InteractionsTrackerTick_Prefix
-    {
-        [HarmonyPrefix]
-        public static bool RimPsycheOverrideInteractionsTrackerTick(Pawn_InteractionsTracker __instance, Pawn ___pawn)
-        {
-            var compPsyche = ___pawn.compPsyche();
-            if (compPsyche?.convoStartedTick > 0)
-            {
-                return false;
-            }
-            return true;
-        }
-    }
+    //InteractedTooRecentlyToInteractCheck will take care of it anyway
+    //[HarmonyPatch(typeof(Pawn_InteractionsTracker), "InteractionsTrackerTick")]
+    //public static class Pawn_InteractionTracker_InteractionsTrackerTick_Prefix
+    //{
+    //    [HarmonyPrefix]
+    //    public static bool RimPsycheOverrideInteractionsTrackerTick(Pawn_InteractionsTracker __instance, Pawn ___pawn)
+    //    {
+    //        var compPsyche = ___pawn.compPsyche();
+    //        if (compPsyche?.convoStartedTick > 0)
+    //        {
+    //            return false;
+    //        }
+    //        return true;
+    //    }
+    //}
 
     [HarmonyPatch(typeof(Pawn_InteractionsTracker), "InteractedTooRecentlyToInteract")]
     public static class Pawn_InteractionTracker_InteractedTooRecentlyToInteract
