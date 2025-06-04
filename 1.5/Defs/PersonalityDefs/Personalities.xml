@@ -1,35 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
-  <!-- Random social interactions -->
-  <Maux36.RimPsyche.PersonalityDef>
-    <defName>Rimpsyche_Sociability</defName>
-    <label>sociability</label>
-    <high>friendly</high>
-    <low>reserved</low>
-    <scoreWeight>
-      <li>
-        <facet>Sociability</facet>
-        <weight>0.4</weight>
-      </li>
-      <li>
-        <facet>Insecurity</facet>
-        <weight>-0.3</weight>
-      </li>
-      <li>
-        <facet>Assertiveness</facet>
-        <weight>0.2</weight>
-      </li>
-      <li>
-        <facet>Enthusiasm</facet>
-        <weight>0.05</weight>
-      </li>
-      <li>
-        <facet>Curiosity</facet>
-        <weight>0.05</weight>
-      </li>
-    </scoreWeight>
-  </Maux36.RimPsyche.PersonalityDef>
-
   <Maux36.RimPsyche.PersonalityDef>
     <defName>Rimpsyche_Talkativeness</defName>
     <label>talkativeness</label>
@@ -46,28 +16,32 @@
       </li>
       <li>
         <facet>Assertiveness</facet>
-        <weight>0.3</weight>
+        <weight>0.4</weight>
       </li>
       <li>
-        <facet>Cooperation</facet>
+        <facet>Enthusiasm</facet>
         <weight>0.2</weight>
       </li>
       <li>
         <facet>Insecurity</facet>
-        <weight>-0.2</weight>
+        <weight>-0.1</weight>
       </li>
     </scoreWeight>
   </Maux36.RimPsyche.PersonalityDef>
 
   <Maux36.RimPsyche.PersonalityDef>
-    <defName>Rimpsyche_SocialIntelligence</defName>
-    <label>social intelligence</label>
-    <high>diplomatic</high>
-    <low>brash</low>
+    <defName>Rimpsyche_Sociability</defName>
+    <label>sociability</label>
+    <high>friendly</high>
+    <low>reserved</low>
     <scoreWeight>
       <li>
         <facet>Sociability</facet>
-        <weight>0.3</weight>
+        <weight>0.4</weight>
+      </li>
+      <li>
+        <facet>Enthusiasm</facet>
+        <weight>0.15</weight>
       </li>
       <li>
         <facet>Compassion</facet>
@@ -75,14 +49,39 @@
       </li>
       <li>
         <facet>Cooperation</facet>
+        <weight>0.1</weight>
+      </li>
+      <li>
+        <facet>Insecurity</facet>
+        <weight>-0.25</weight>
+      </li>
+    </scoreWeight>
+  </Maux36.RimPsyche.PersonalityDef>
+
+  <Maux36.RimPsyche.PersonalityDef>
+    <defName>Rimpsyche_Tact</defName>
+    <label>tact</label>
+    <high>diplomatic</high>
+    <low>brash</low>
+    <scoreWeight>
+      <li>
+        <facet>Sociability</facet>
+        <weight>0.05</weight>
+      </li>
+      <li>
+        <facet>Compassion</facet>
         <weight>0.3</weight>
       </li>
       <li>
-        <facet>Volatility</facet>
-        <weight>-0.2</weight>
+        <facet>Cooperation</facet>
+        <weight>0.35</weight>
       </li>
       <li>
-        <facet>Pessimism</facet>
+        <facet>Humbleness</facet>
+        <weight>0.2</weight>
+      </li>
+      <li>
+        <facet>Volatility</facet>
         <weight>-0.1</weight>
       </li>
     </scoreWeight>
@@ -96,23 +95,155 @@
     <scoreWeight>
       <li>
         <facet>Curiosity</facet>
-        <weight>0.2</weight>
+        <weight>0.3</weight>
       </li>
       <li>
-        <facet>Assertiveness</facet>
-        <weight>-0.15</weight>
+        <facet>Orderliness</facet>
+        <weight>-0.05</weight>
+      </li>
+      <li>
+        <facet>Integrity</facet>
+        <weight>-0.45</weight>
       </li>
       <li>
         <facet>Compassion</facet>
+        <weight>0.05</weight>
+      </li>
+      <li>
+        <facet>Cooperation</facet>
+        <weight>0.15</weight>
+      </li>
+    </scoreWeight>
+  </Maux36.RimPsyche.PersonalityDef>
+
+  <Maux36.RimPsyche.PersonalityDef>
+    <defName>Rimpsyche_Confidence</defName>
+    <label>confidence</label>
+    <high>confident</high>
+    <low>insecure</low>
+    <scoreWeight>
+      <li>
+        <facet>Assertiveness</facet>
+        <weight>0.35</weight>
+      </li>
+      <li>
+        <facet>Enthusiasm</facet>
+        <weight>0.1</weight>
+      </li>
+      <li>
+        <facet>Pessimism</facet>
+        <weight>-0.1</weight>
+      </li>
+      <li>
+        <facet>Insecurity</facet>
+        <weight>-0.45</weight>
+      </li>
+    </scoreWeight>
+  </Maux36.RimPsyche.PersonalityDef>
+
+  <Maux36.RimPsyche.PersonalityDef>
+    <defName>Rimpsyche_Inquisitiveness</defName>
+    <label>inquisitiveness</label>
+    <high>inquisitive</high>
+    <low>indifferent</low>
+    <scoreWeight>
+      <li>
+        <facet>Imagination</facet>
+        <weight>0.1</weight>
+      </li>
+      <li>
+        <facet>Intellect</facet>
+        <weight>0.45</weight>
+      </li>
+      <li>
+        <facet>Curiosity</facet>
+        <weight>0.45</weight>
+      </li>
+    </scoreWeight>
+  </Maux36.RimPsyche.PersonalityDef>
+
+  <Maux36.RimPsyche.PersonalityDef>
+    <defName>Rimpsyche_Prudishness</defName>
+    <label>prudishness</label>
+    <high>prudish</high>
+    <low>uninhibited</low>
+    <scoreWeight>
+      <li>
+        <facet>Curiosity</facet>
+        <weight>-0.2</weight>
+      </li>
+      <li>
+        <facet>Orderliness</facet>
+        <weight>0.4</weight>
+      </li>
+      <li>
+        <facet>Enthusiasm</facet>
+        <weight>-0.05</weight>
+      </li>
+      <li>
+        <facet>Humbleness</facet>
+        <weight>0.3</weight>
+      </li>
+      <li>
+        <facet>Insecurity</facet>
+        <weight>0.05</weight>
+      </li>
+    </scoreWeight>
+  </Maux36.RimPsyche.PersonalityDef>
+
+  <Maux36.RimPsyche.PersonalityDef>
+    <defName>Rimpsyche_Aggressiveness</defName>
+    <label>aggressiveness</label>
+    <high>gentle</high>
+    <low>aggressive</low>
+    <scoreWeight>
+      <li>
+        <facet>Assertiveness</facet>
         <weight>0.2</weight>
       </li>
       <li>
         <facet>Cooperation</facet>
-        <weight>0.35</weight>
+        <weight>-0.2</weight>
       </li>
       <li>
-        <facet>Politeness</facet>
-        <weight>0.1</weight>
+        <facet>Volatility</facet>
+        <weight>0.4</weight>
+      </li>
+      <li>
+        <facet>Pessimism</facet>
+        <weight>0.2</weight>
+      </li>
+    </scoreWeight>
+  </Maux36.RimPsyche.PersonalityDef>
+
+
+
+
+
+
+
+
+  <Maux36.RimPsyche.PersonalityDef>
+    <defName>Rimpsyche_Optimism</defName>
+    <label>optimism</label>
+    <high>optimistic</high>
+    <low>pessimistic</low>
+    <scoreWeight>
+      <li>
+        <facet>Pessimism</facet>
+        <weight>-0.6</weight>
+      </li>
+      <li>
+        <facet>Insecurity</facet>
+        <weight>-0.2</weight>
+      </li>
+      <li>
+        <facet>Enthusiasm</facet>
+        <weight>0.15</weight>
+      </li>
+      <li>
+        <facet>Volatility</facet>
+        <weight>-0.05</weight>
       </li>
     </scoreWeight>
   </Maux36.RimPsyche.PersonalityDef>

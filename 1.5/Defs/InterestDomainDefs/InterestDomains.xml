@@ -1,34 +1,24 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
   <!-- Random social interactions -->
+  <!-- SUM|DomainOffsetWeights| should be less than 0.2  -->
+  <!-- SUM|InterestOffsetWeights| should be less than 0.2 -->
   <Maux36.RimPsyche.InterestDomainDef>
     <defName>Rimpsyche_InterestDomainGeneral</defName>
     <label>common</label>
-    <scoreWeight>
-      <li>
-        <facet>Sociability</facet>
-        <weight>0.4</weight>
-      </li>
-      <li>
-        <facet>Compassion</facet>
-        <weight>0.3</weight>
-      </li>
-      <li>
-        <facet>Intellect</facet>
-        <weight>0.1</weight>
-      </li>
-      <li>
-        <facet>Insecurity</facet>
-        <weight>-0.4</weight>
-      </li>
-      <li>
-        <facet>Politeness</facet>
-        <weight>-0.2</weight>
-      </li>
-    </scoreWeight>
     <interests>
       <li>
         <name>InterestLife</name>
+        <scoreWeight>
+          <li>
+            <facet>Sociability</facet>
+            <weight>0.05</weight>
+          </li>
+          <li>
+            <facet>Compassion</facet>
+            <weight>0.05</weight>
+          </li>
+        </scoreWeight>
         <topics>
           <li>
             <name>weather</name>
