@@ -7,6 +7,7 @@ namespace Maux36.RimPsyche
     public class Pawn_InterestTracker : IExposable
     {
         private Pawn pawn;
+        public Dictionary<string, float> interestOffset = new Dictionary<string, float>();
         public Dictionary<string, float> interestScore = new Dictionary<string, float>();
 
         public Pawn_InterestTracker(Pawn p)
@@ -17,49 +18,73 @@ namespace Maux36.RimPsyche
         {
             foreach (InterestDomainDef interestdomainDef in DefDatabase<InterestDomainDef>.AllDefs)
             {
-                GenerateInterestScoresForDomain(interestdomainDef);
+                GenerateInterestScoresForDomain(interestdomainDef, true);
             }
         }
 
-        public void GenerateInterestScoresForDomain(InterestDomainDef interestdomainDef)
+        public void GenerateInterestScoresForDomain(InterestDomainDef interestdomainDef, bool resetScore = false) // 0~100
         {
-            //Log.Message($"Generating interest for {interestdomainDef.label}");
-            float baseValue = 50;
-            if (interestdomainDef.scoreWeight != null)
+            var compPsyche = pawn.compPsyche();
+            float domainOffsetValue = 50;
+            if (interestdomainDef.scoreWeight != null) //Add domain offset
             {
-                baseValue = 50; //get base value from facets
+                foreach (var sw in interestdomainDef.scoreWeight)
+                {
+                    domainOffsetValue += compPsyche.Personality.GetFacetValueNorm(sw.facet) * sw.weight;
+                }
             }
             foreach (var interest in interestdomainDef.interests)
             {
+                float interestOffsetValue = domainOffsetValue;
+                if (interest.scoreWeight != null)
+                {
+                    foreach (var sw in interest.scoreWeight)
+                    {
 
-                float result;
-                int attempts = 0;
-                do
-                {
-                    result = Rand.Gaussian(baseValue, 5f); // center at basevalue, 3widthfactor == 15
-                    attempts++;
+                        interestOffsetValue += compPsyche.Personality.GetFacetValueNorm(sw.facet) * sw.weight;
+                    }
                 }
-                while ((result < 0f || result > 100f) && attempts < 2);
-                if (result < 0f || result > 100f)
+                interestOffset[interest.name] = Mathf.Clamp(interestOffsetValue, 30f, 70f);
+                if (resetScore)
                 {
-                    result = Mathf.Clamp(result, 0f, 100f);
-                    //Log.Warning($"GenerateInterestScores failed to get valid value in {2} attempts. Clamped to {result}.");
+                    GenerateInterestScore(interest.name);
                 }
-                interestScore[interest.name] = result;
             }
+        }
+        public void GenerateInterestScore(string interestname, int maxAttempts = 4)
+        {
+            float result;
+            int attempts = 0;
+
+            do
+            {
+                result = Rand.Gaussian(0, 10f); // center at basevalue, 3widthfactor == 30
+                attempts++;
+            }
+            while ((result < -30f || result > 30f) && attempts < maxAttempts);
+            result = Mathf.Clamp(result, -30f, 30f);
+            interestScore[interestname] = result;
         }
 
         public float GetOrCreateInterestScore(Interest key)
         {
-            if (!interestScore.TryGetValue(key.name, out float value))
+            if (!interestOffset.TryGetValue(key.name, out float offsetValue))
             {
                 GenerateInterestScoresForDomain(RimpsycheDatabase.InterestDomainDict[key]);
-                if (!interestScore.TryGetValue(key.name, out value))
+                if (!interestOffset.TryGetValue(key.name, out offsetValue))
                 {
-                    value = 50;
+                    offsetValue = 50;
                 }
             }
-            return value;
+            if (!interestScore.TryGetValue(key.name, out float score))
+            {
+                GenerateInterestScore(key.name);
+                if (!interestScore.TryGetValue(key.name, out score))
+                {
+                    score = 0;
+                }
+            }
+            return Mathf.Clamp(offsetValue + score, 0f, 100f);
         }
         public Interest ChoseInterest()
         {

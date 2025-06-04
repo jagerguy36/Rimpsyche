@@ -9,22 +9,13 @@ namespace Maux36.RimPsyche
     {
         public override float RandomSelectionWeight(Pawn initiator, Pawn recipient)
         {
-            //if (initiator.compPsyche()?.convoStartedTick > 0)
-            //{
-            //    //Log.Message($"initiator {initiator.Name} already holding a conversation");
-            //    return 0f;
-            //}
-            //if (recipient.compPsyche()?.convoStartedTick > 0)
-            //{
-            //    //Log.Message($"recipient {recipient.Name} already holding a conversation");
-            //    return 0f;
-            //}
             if (!initiator.health.capacities.CapableOf(PawnCapacityDefOf.Talking) || !recipient.health.capacities.CapableOf(PawnCapacityDefOf.Talking))
             {
                 return 0f;
             }
             var initiatorCompPsyche = initiator.compPsyche();
-            if (initiatorCompPsyche != null)
+            var recipientPsyche = recipient.compPsyche();
+            if (initiatorCompPsyche != null && recipientPsyche != null)
             {
                 float convoChance = 1f + initiatorCompPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Talkativeness); // 0~2
                 float relationshipOffset = 1f + 0.01f * initiator.relations.OpinionOf(recipient); // 0~2 
@@ -54,12 +45,14 @@ namespace Maux36.RimPsyche
                 //Select the convo interest area by initiator. See if the recipient is willing to talk to the initiator about that area.
                 Interest convoInterest = initiatorPsyche.Interests.ChoseInterest();
 
+
+                //If the opinion is negative, there is a chance for the pawn to brush off the conversation.
                 float opinion = (recipient.relations.OpinionOf(initiator)) * 0.01f;
                 if (opinion < 0)
                 {
                     float recipientInterestScore = recipientPsyche.Interests.GetOrCreateInterestScore(convoInterest) * 0.01f;
-                    float recipientEngagement = recipientPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_SocialIntelligence);
-                    float rejectionFactor = (recipientInterestScore + recipientEngagement + opinion) * 0.5f;
+                    float recipientTact = recipientPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Tact);
+                    float rejectionFactor = (recipientInterestScore + recipientTact + opinion) * 0.5f;
                     if (rejectionFactor < 0 && rejectionFactor * rejectionFactor * 0.95f < Rand.Value)
                     {
                         extraSentencePacks.Add(DefOfRimpsyche.Sentence_ConversationFail);

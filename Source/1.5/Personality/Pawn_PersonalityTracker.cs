@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RimWorld;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -13,7 +14,7 @@ namespace Maux36.RimPsyche
             ["Openness"] = new[] { Facet.Imagination, Facet.Intellect, Facet.Curiosity },
             ["Conscientiousness"] = new[] { Facet.Industriousness, Facet.Orderliness, Facet.Integrity },
             ["Extraversion"] = new[] { Facet.Sociability, Facet.Assertiveness, Facet.Enthusiasm },
-            ["Agreeableness"] = new[] { Facet.Compassion, Facet.Cooperation, Facet.Politeness },
+            ["Agreeableness"] = new[] { Facet.Compassion, Facet.Cooperation, Facet.Humbleness },
             ["Neuroticism"] = new[] { Facet.Volatility, Facet.Pessimism, Facet.Insecurity },
         };
 
@@ -33,15 +34,23 @@ namespace Maux36.RimPsyche
 
         private float compassion = 0f;
         private float cooperation = 0f;
-        private float politeness = 0f;
+        private float humbleness = 0f;
 
         private float volatility = 0f;
         private float pessimism = 0f;
         private float insecurity = 0f;
 
         private Dictionary<string, float> personalityCache = new Dictionary<string, float>();
-
-        public float GetPersonality(PersonalityDef personality)
+        private Dictionary<Facet, (float, float)> gateCacheInternal = null; //new Dictionary<Facet, Tuple<float, float>>();
+        public Dictionary<Facet, (float, float)> gateCache
+        {
+            get
+            {
+                gateCacheInternal = gateCacheInternal ?? GenerateGate();
+                return gateCacheInternal;
+            }
+        }
+        public float GetPersonality(PersonalityDef personality) //-1~1
         {
             if (personality == null || string.IsNullOrEmpty(personality.label))
                 return 0f;
@@ -59,7 +68,7 @@ namespace Maux36.RimPsyche
             personalityCache[personality.label] = result;
             return result;
         }
-        public float GetPersonalityDirect(PersonalityDef personality)
+        public float GetPersonalityDirect(PersonalityDef personality) //Non-Normalized Version
         {
             if (personality == null || string.IsNullOrEmpty(personality.label))
                 return 0f;
@@ -86,8 +95,8 @@ namespace Maux36.RimPsyche
         }
         public void Initialize(int inputSeed = 0)
         {
-            float minRange = -40f;
-            float maxRange = 40f;
+            float minRange = -35f;
+            float maxRange = 35f;
             float baseOCEANvalue = Rand.Range(minRange, maxRange);
             imagination = GenerateFacetValueWithBase(baseOCEANvalue);
             intellect = GenerateFacetValueWithBase(baseOCEANvalue);
@@ -106,7 +115,7 @@ namespace Maux36.RimPsyche
             baseOCEANvalue = Rand.Range(minRange, maxRange);
             compassion = GenerateFacetValueWithBase(baseOCEANvalue);
             cooperation = GenerateFacetValueWithBase(baseOCEANvalue);
-            politeness = GenerateFacetValueWithBase(baseOCEANvalue);
+            humbleness = GenerateFacetValueWithBase(baseOCEANvalue);
 
             baseOCEANvalue = Rand.Range(minRange, maxRange);
             volatility = GenerateFacetValueWithBase(baseOCEANvalue);
@@ -121,7 +130,7 @@ namespace Maux36.RimPsyche
 
             do
             {
-                result = Rand.Gaussian(baseValue, 5f); // center at basevalue, 3widthfactor == 15
+                result = Rand.Gaussian(baseValue, 10f); // center at basevalue, 3widthfactor == 30
                 attempts++;
             }
             while ((result < -50f || result > 50f) && attempts < maxAttempts); 
@@ -134,9 +143,27 @@ namespace Maux36.RimPsyche
 
             return result;
         }
+        public Dictionary<Facet, (float, float)> GenerateGate()
+        {
+            var newGate = new Dictionary<Facet, (float, float)>();
+            List<Trait> traits = pawn.story?.traits?.allTraits;
+            foreach (Trait trait in traits)
+            {
+                Pair<string, int> pair = new Pair<string, int>(trait.def.defName, trait.Degree);
+                if (Rimpsyche_Utility.TraitGateDatabase.TryGetValue(pair, out var values))
+                {
+                    foreach(var value in values)
+                    {
+                        Log.Message($"{pawn.Name}'s gate is being added by {trait.def.defName} to {value.Item1}");
+                        newGate[value.Item1] = (value.Item2, value.Item3);
+                    }
+                }
+            }
+            return newGate;
+        }
 
         // IO
-        public float GetFacetValue(Facet facet)
+        public float GetFacetValueRaw(Facet facet)
         {
             return facet switch
             {
@@ -158,7 +185,7 @@ namespace Maux36.RimPsyche
                 // Agreeableness
                 Facet.Compassion => compassion,
                 Facet.Cooperation => cooperation,
-                Facet.Politeness => politeness,
+                Facet.Humbleness => humbleness,
 
                 // Neuroticism
                 Facet.Volatility => volatility,
@@ -167,117 +194,121 @@ namespace Maux36.RimPsyche
                 _ => throw new ArgumentOutOfRangeException(nameof(facet), facet, null),
             };
         }
-        public int GetFacetValueNorm(Facet facet)
+        public float GetFacetValue(Facet facet)
         {
-            return facet switch
+            float value = facet switch
             {
                 // Openness
-                Facet.Imagination => (int)(imagination),
-                Facet.Intellect => (int)(intellect),
-                Facet.Curiosity => (int)(curiosity),
+                Facet.Imagination => imagination,
+                Facet.Intellect => intellect,
+                Facet.Curiosity => curiosity,
 
                 // Conscientiousness
-                Facet.Industriousness => (int)(industriousness),
-                Facet.Orderliness => (int)(orderliness),
-                Facet.Integrity => (int)(integrity),
+                Facet.Industriousness => industriousness,
+                Facet.Orderliness => orderliness,
+                Facet.Integrity => integrity,
 
                 // Extraversion
-                Facet.Sociability => (int)(sociability),
-                Facet.Assertiveness => (int)(assertiveness),
-                Facet.Enthusiasm => (int)(enthusiasm),
+                Facet.Sociability => sociability,
+                Facet.Assertiveness => assertiveness,
+                Facet.Enthusiasm => enthusiasm,
 
                 // Agreeableness
-                Facet.Compassion => (int)(compassion),
-                Facet.Cooperation => (int)(cooperation),
-                Facet.Politeness => (int)(politeness),
+                Facet.Compassion => compassion,
+                Facet.Cooperation => cooperation,
+                Facet.Humbleness => humbleness,
 
                 // Neuroticism
-                Facet.Volatility => (int)(volatility),
-                Facet.Pessimism => (int)(pessimism),
-                Facet.Insecurity => (int)(insecurity),
+                Facet.Volatility => volatility,
+                Facet.Pessimism => pessimism,
+                Facet.Insecurity => insecurity,
+
                 _ => throw new ArgumentOutOfRangeException(nameof(facet), facet, null),
             };
+
+            if (gateCache.NullOrEmpty())
+            {
+                return value;
+            }
+            else
+            {
+                if (gateCache.TryGetValue(facet, out var range))
+                {
+                    var (low, high) = range;
+                    return Rimpsyche_Utility.ApplyGate(value, low, high);
+                }
+            }
+            return value;
+        }
+        public int GetFacetValueNorm(Facet facet)
+        {
+            return (int)(GetFacetValue(facet));
         }
         public bool SetFacetValue(Facet facet, float value)
         {
-            bool shouldDirtyCache = false;
             value = Mathf.Clamp(value, -50f, 50f);
             switch (facet)
             {
                 // Openness
                 case Facet.Imagination:
-                    shouldDirtyCache = (int)imagination != (int)value;
                     imagination = value;
                     break;
                 case Facet.Intellect:
-                    shouldDirtyCache = (int)intellect != (int)value;
                     intellect = value;
                     break;
                 case Facet.Curiosity:
-                    shouldDirtyCache = (int)curiosity != (int)value;
                     curiosity = value;
                     break;
 
                 // Conscientiousness
                 case Facet.Industriousness:
-                    shouldDirtyCache = (int)industriousness != (int)value;
                     industriousness = value;
                     break;
                 case Facet.Orderliness:
-                    shouldDirtyCache = (int)orderliness != (int)value;
                     orderliness = value;
                     break;
                 case Facet.Integrity:
-                    shouldDirtyCache = (int)integrity != (int)value;
                     integrity = value;
                     break;
 
                 // Extraversion
                 case Facet.Sociability:
-                    shouldDirtyCache = (int)sociability != (int)value;
                     sociability = value;
                     break;
                 case Facet.Assertiveness:
-                    shouldDirtyCache = (int)assertiveness != (int)value;
                     assertiveness = value;
                     break;
                 case Facet.Enthusiasm:
-                    shouldDirtyCache = (int)enthusiasm != (int)value;
                     enthusiasm = value;
                     break;
 
                 // Agreeableness
                 case Facet.Compassion:
-                    shouldDirtyCache = (int)compassion != (int)value;
                     compassion = value;
                     break;
                 case Facet.Cooperation:
-                    shouldDirtyCache = (int)cooperation != (int)value;
                     cooperation = value;
                     break;
-                case Facet.Politeness:
-                    shouldDirtyCache = (int)politeness != (int)value;
-                    politeness = value;
+                case Facet.Humbleness:
+                    humbleness = value;
                     break;
 
                 // Neuroticism
                 case Facet.Volatility:
-                    shouldDirtyCache = (int)volatility != (int)value;
                     volatility = value;
                     break;
                 case Facet.Pessimism:
-                    shouldDirtyCache = (int)pessimism != (int)value;
                     pessimism = value;
                     break;
                 case Facet.Insecurity:
-                    shouldDirtyCache = (int)insecurity != (int)value;
                     insecurity = value;
                     break;
 
                 default:
                     throw new ArgumentOutOfRangeException(nameof(facet), facet, null);
             }
-            return shouldDirtyCache;
+            var changedValue = GetFacetValue(facet);
+            return changedValue != (int)(changedValue);
         }
 
         public void AffectFacetValue(Dictionary<Facet, float> changes)
@@ -323,12 +354,21 @@ namespace Maux36.RimPsyche
             foreach (var kvp in netChanges)
             {
                 float currentValue = GetFacetValue(kvp.Key);
-                if (SetFacetValue(kvp.Key, currentValue + kvp.Value))
+                float adjustedFuture = currentValue+kvp.Value;
+
+                if (!gateCache.NullOrEmpty())
+                {
+                    if (gateCache.TryGetValue(kvp.Key, out var range))
+                    {
+                        var (low, high) = range;
+                        adjustedFuture = Rimpsyche_Utility.RestoreGatedValue(adjustedFuture, low, high);
+                    }
+                }
+                if (SetFacetValue(kvp.Key, adjustedFuture))
                 {
                     shouldDirtyCache = true;
                 }
             }
-
             if (shouldDirtyCache) DirtyCache();
         }
 
@@ -358,10 +398,14 @@ namespace Maux36.RimPsyche
                 if (contribution != 0f)
                     facetChanges[weight.facet] = contribution;
             }
-            
             AffectFacetValue(facetChanges);
         }
 
+        public void DirtyTraitCache()
+        {
+            gateCacheInternal = null;
+            personalityCache.Clear();
+        }
 
         // Save
         public void ExposeData()
@@ -380,7 +424,7 @@ namespace Maux36.RimPsyche
 
             Scribe_Values.Look(ref compassion, "compassion", 0, false);
             Scribe_Values.Look(ref cooperation, "cooperation", 0, false);
-            Scribe_Values.Look(ref politeness, "politeness", 0, false);
+            Scribe_Values.Look(ref humbleness, "humbleness", 0, false);
 
             Scribe_Values.Look(ref volatility, "volatility", 0, false);
             Scribe_Values.Look(ref pessimism, "pessimism", 0, false);
@@ -398,7 +442,7 @@ namespace Maux36.RimPsyche
             Log.Message($"Imagination: {imagination}, Intellect: {intellect}, Curiosity: {curiosity}");
             Log.Message($"Industriousness: {industriousness}, Orderliness: {orderliness}, Integrity: {integrity}");
             Log.Message($"Sociability: {sociability}, Assertiveness: {assertiveness}, Enthusiasm: {enthusiasm}");
-            Log.Message($"Compassion: {compassion}, Cooperation: {cooperation}, Politeness: {politeness}");
+            Log.Message($"Compassion: {compassion}, Cooperation: {cooperation}, Humbleness: {humbleness}");
             Log.Message($"Volatility: {volatility}, Pessimism: {pessimism}, Insecurity: {insecurity}");
         }
 

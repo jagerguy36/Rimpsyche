@@ -28,7 +28,7 @@ namespace Maux36.RimPsyche
         //Agreeableness
         Compassion, // Compassionate | Cold
         Cooperation, // Accommodating | Stubborn
-        Politeness, // Polite | Arrogant
+        Humbleness, // Humble | Arrogant
 
         //Neuroticism
         Volatility, //Volatile | Stable

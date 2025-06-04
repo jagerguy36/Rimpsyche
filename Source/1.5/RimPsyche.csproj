@@ -70,6 +70,8 @@
     <Compile Include="CompPsyche\CompProperties_Psyche.cs" />
     <Compile Include="CompPsyche\CompPsyche.cs" />
     <Compile Include="CompPsyche\CompToHumanlikes.cs" />
+    <Compile Include="HarmonyPatches\Pawn_Notify_DisabledWorkTypesChanged.cs" />
+    <Compile Include="HarmonyPatches\Thought_MoodOffset.cs" />
     <Compile Include="Personality\Pawn_PersonalityTracker.cs" />
     <Compile Include="Conversation\InteractionWorker_StartConversation.cs" />
     <Compile Include="Conversation\InteractionWorker_Conversation.cs" />
@@ -86,7 +88,6 @@
     <Compile Include="HarmonyPatches\HarmonyPatches.cs" />
     <Compile Include="HarmonyPatches\PawnGenerator_GeneratePawnPatch.cs" />
     <Compile Include="HarmonyPatches\Pawn_InteractionTracker_Prefixes.cs" />
-    <Compile Include="Interest\InterestDomainDef.cs" />
     <Compile Include="Personality\PersonalityDef.cs" />
     <Compile Include="Personality\PersonalityDefOf.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

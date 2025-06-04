@@ -69,7 +69,13 @@ namespace Maux36.RimPsyche
                 interests.Initialize();
             }
         }
-
+        public void DirtyTraitCache()
+        {
+            if(personality != null)
+            {
+                personality.DirtyTraitCache();
+            }
+        }
         public override void CompTick()
         {
             base.CompTick();

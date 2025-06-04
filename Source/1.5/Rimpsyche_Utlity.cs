@@ -3,6 +3,7 @@ using RimWorld;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 using Verse;
 
 namespace Maux36.RimPsyche
@@ -30,6 +31,18 @@ namespace Maux36.RimPsyche
             newDef.stages.Add(stage);
             return newDef;
         }
+        public static float MapRange(float value, float sourceMin, float sourceMax, float targetMin, float targetMax)
+        {
+            return Mathf.Lerp(targetMin, targetMax, Mathf.InverseLerp(sourceMin, sourceMax, value));
+        }
+        public static float ApplyGate(float value, float targetMin, float targetMax)
+        {
+            return Mathf.Lerp(targetMin, targetMax, Mathf.InverseLerp(-50, 50, value));
+        }
+        public static float RestoreGatedValue(float value, float sourceMin, float sourceMax)
+        {
+            return Mathf.Lerp(-50, 50, Mathf.InverseLerp(sourceMin, sourceMax, value));
+        }
 
         [DebugAction("Pawns", actionType = DebugActionType.ToolMapForPawns, allowedGameStates = AllowedGameStates.PlayingOnMap, displayPriority = 1000)]
         public static void LogPawnPsyche(Pawn pawn)
@@ -37,7 +50,7 @@ namespace Maux36.RimPsyche
             var compPsyche = pawn.compPsyche();
             if (compPsyche != null)
             {
-                string message = string.Join(", ", Enum.GetValues(typeof(Facet)).Cast<Facet>().Select(f => $"{f}: {compPsyche.Personality.GetFacetValue(f)}"));
+                string message = string.Join(", ", Enum.GetValues(typeof(Facet)).Cast<Facet>().Select(f => $"{f}: {compPsyche.Personality.GetFacetValue(f)}<< {compPsyche.Personality.GetFacetValueRaw(f)}"));
                 Log.Message($"RimPsyche info for pawn {pawn.Name}\n\n{message}");
             }
         }
@@ -48,10 +61,35 @@ namespace Maux36.RimPsyche
             var compPsyche = pawn.compPsyche();
             if (compPsyche != null)
             {
+                string offsetMessage = string.Join(", ", compPsyche.Interests.interestOffset.Select(kvp => $"{kvp.Key}: {kvp.Value:F2}"));
                 string message = string.Join(", ", compPsyche.Interests.interestScore.Select(kvp => $"{kvp.Key}: {kvp.Value:F2}"));
-                Log.Message($"Interest info for pawn {pawn.Name}\n\n{message}");
+                Log.Message($"Interest info for pawn {pawn.Name}\n\nOffsets: {offsetMessage}\n\nScores: {message}");
             }
         }
+
+        public static Dictionary<Pair<string, int>, List<(Facet, float, float)>> TraitGateDatabase = new()
+        {
+            [new Pair<string, int>("NaturalMood", 2)] = new List<(Facet, float, float)>
+            {
+                (Facet.Pessimism, -50f, -25f)
+            },
+            [new Pair<string, int>("NaturalMood", 1)] = new List<(Facet, float, float)>
+            {
+                (Facet.Pessimism, -50f, 0f)
+            },
+            [new Pair<string, int>("NaturalMood", -1)] = new List<(Facet, float, float)>
+            {
+                (Facet.Pessimism, 0f, 50f)
+            },
+            [new Pair<string, int>("NaturalMood", -2)] = new List<(Facet, float, float)>
+            {
+                (Facet.Pessimism, 25f, 50f)
+            },
+            [new Pair<string, int>("Kind", 0)] = new List<(Facet, float, float)>
+            {
+                (Facet.Cooperation, 0f, 50f)
+            },
+        };
 
     }
 }

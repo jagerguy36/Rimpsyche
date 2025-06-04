@@ -26,7 +26,7 @@ namespace Maux36.RimPsyche
             // Agreeableness
             { Facet.Compassion, Tuple.Create("Detached", "Compassionate", Color.blue, Color.green) },
             { Facet.Cooperation, Tuple.Create("Stubborn", "Accommodating", Color.blue, Color.green) },
-            { Facet.Politeness, Tuple.Create("Arrogant", "Polite", Color.blue, Color.green) },
+            { Facet.Humbleness, Tuple.Create("Arrogant", "Humble", Color.blue, Color.green) },
 
             // Neuroticism
             { Facet.Volatility, Tuple.Create("Stable", "Volatile", Color.green, Color.red) },
@@ -54,7 +54,7 @@ namespace Maux36.RimPsyche
             // Agreeableness
             { Facet.Compassion, "Tooltip1" },
             { Facet.Cooperation, "Tooltip1" },
-            { Facet.Politeness, "Tooltip1" },
+            { Facet.Humbleness, "Tooltip1" },
 
             // Neuroticism
             { Facet.Volatility, "Tooltip1" },
