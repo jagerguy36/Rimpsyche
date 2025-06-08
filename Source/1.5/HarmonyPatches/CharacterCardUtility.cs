@@ -12,10 +12,6 @@ namespace Maux36.RimPsyche
     [HarmonyPatch(typeof(CharacterCardUtility), nameof(CharacterCardUtility.DrawCharacterCard))]
     public static class CharacterCardUtility_DrawCharacterCard_Patch
     {
-        public static readonly Color ButtonDarkColor = new Color(0.623529f, 0.623529f, 0.623529f);
-        public static readonly Color ButtonLightColor = new Color(0.97647f, 0.97647f, 0.97647f);
-        public static readonly Texture2D PsycheButton = ContentFinder<Texture2D>.Get("Buttons/RimpsycheIcon", true);
-
         [HarmonyTranspiler]
         public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> codes)
         {
@@ -37,8 +33,8 @@ namespace Maux36.RimPsyche
             {
                 Rect rect = new Rect(x + 23f, y - 3f, 30f, 30f);
                 Color oldColor = GUI.color;
-                GUI.color = rect.Contains(Event.current.mousePosition) ? ButtonLightColor : ButtonDarkColor;
-                GUI.DrawTexture(rect, PsycheButton);
+                GUI.color = rect.Contains(Event.current.mousePosition) ? Rimpsyche_UI_Utility.ButtonLightColor : Rimpsyche_UI_Utility.ButtonDarkColor;
+                GUI.DrawTexture(rect, Rimpsyche_UI_Utility.PsycheButton);
                 if (Widgets.ButtonInvisible(rect, false))
                 {
                     SoundDefOf.Tick_Low.PlayOneShotOnCamera(null);

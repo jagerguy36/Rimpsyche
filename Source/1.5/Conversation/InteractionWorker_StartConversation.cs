@@ -1,6 +1,7 @@
 ﻿using RimWorld;
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 using Verse;
 
 namespace Maux36.RimPsyche
@@ -13,14 +14,24 @@ namespace Maux36.RimPsyche
             {
                 return 0f;
             }
-            var initiatorCompPsyche = initiator.compPsyche();
+            var initiatorPsyche = initiator.compPsyche();
             var recipientPsyche = recipient.compPsyche();
-            if (initiatorCompPsyche != null && recipientPsyche != null)
+            if (initiatorPsyche != null && recipientPsyche != null)
             {
-                float convoChance = 1f + initiatorCompPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Talkativeness); // 0~2
-                float relationshipOffset = 1f + 0.01f * initiator.relations.OpinionOf(recipient); // 0~2 
-                convoChance *= relationshipOffset;
-                //Log.Message($"{initiator.Name} weight {recipient.Name} : 0.5f * {convoChance}.");
+
+                float initSociability = initiatorPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Sociability);
+                float initSpontaneousness = initiatorPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Spontaneousness);
+                float initTalkativeness = initiatorPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Talkativeness);
+                float initOpinion = (initiator.relations.OpinionOf(recipient)) * 0.01f; //-1~1
+
+                if (initOpinion < 0f)
+                {
+                    bool giveupConverse = initOpinion + initSociability + initSpontaneousness + Rand.Value < 0f;
+                    if (giveupConverse) return 0f;
+                }
+                float convoChance = 1f + initTalkativeness; // 0~2
+                float relationshipOffset = 1f + initOpinion; // 0~2 
+                convoChance *= relationshipOffset; //0~4
                 return 0.5f * convoChance;
             }
             else
@@ -41,19 +52,29 @@ namespace Maux36.RimPsyche
             var recipientPsyche = recipient.compPsyche();
             if (initiatorPsyche != null && recipientPsyche != null)
             {
+                // -1 ~ 1
+                float initOpinion = initiator.relations.OpinionOf(recipient) * 0.01f;
+                float initSociability = initiatorPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Sociability);
+                float initTalkativeness = initiatorPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Talkativeness);
+                float initTact = initiatorPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Tact);
+
+                float reciOpinion = recipient.relations.OpinionOf(recipient) * 0.01f;
+                float reciSociability = recipientPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Sociability);
+                float reciTalkativeness = recipientPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Talkativeness);
+                float reciTact = recipientPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Tact);
+
 
                 //Select the convo interest area by initiator. See if the recipient is willing to talk to the initiator about that area.
                 Interest convoInterest = initiatorPsyche.Interests.ChoseInterest();
-
+                // 0 ~ 1
+                float initInterestScore = recipientPsyche.Interests.GetOrCreateInterestScore(convoInterest) * 0.01f;
+                float reciInterestScore = recipientPsyche.Interests.GetOrCreateInterestScore(convoInterest) * 0.01f;
 
                 //If the opinion is negative, there is a chance for the pawn to brush off the conversation.
-                float opinion = (recipient.relations.OpinionOf(initiator)) * 0.01f;
-                if (opinion < 0)
+                if (reciOpinion < 0)
                 {
-                    float recipientInterestScore = recipientPsyche.Interests.GetOrCreateInterestScore(convoInterest) * 0.01f;
-                    float recipientTact = recipientPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Tact);
-                    float rejectionFactor = (recipientInterestScore + recipientTact + opinion) * 0.5f;
-                    if (rejectionFactor < 0 && rejectionFactor * rejectionFactor * 0.95f < Rand.Value)
+                    float participateFactor = (reciInterestScore + reciTact + reciOpinion + 2f) * 0.2f; // 0 ~ 1
+                    if (Rand.Chance(1-participateFactor))
                     {
                         extraSentencePacks.Add(DefOfRimpsyche.Sentence_ConversationFail);
                         initiator.needs?.mood?.thoughts?.memories?.TryGainMemory(DefOfRimpsyche.Rimpsyche_ConvoIgnored, recipient);
@@ -63,15 +84,15 @@ namespace Maux36.RimPsyche
 
                 //Conversation.
                 Topic convoTopic = convoInterest.GetRandomTopic();
-                float topicScore = convoTopic.GetScore(initiator, recipient); // -1~1
+                float topicAlignment = convoTopic.GetScore(initiator, recipient); // -1~1
+                float initTalk = initInterestScore * (initTalkativeness + 1.0f); //0~2
+                float reciTalk = reciInterestScore * (reciTalkativeness + 1.0f); //0~2
+                int convoLength = (int)((8f + initTalk + reciTalk) * 20f * (2f+Mathf.Abs(topicAlignment)) * Rand.Range(0.8f, 1.2f));  //(8~12)*20*(2~3)*(0.8~1.2) = 256(320~720)864  || approx. 250tick(5min) ~ 850tick(20min 24sec)
+                Log.Message($"{initiator.Name} started conversation with {recipient.Name}. convoTopic: {convoTopic.name}. topicAlignment: {topicAlignment}. convoLength = {convoLength}");
+
+                //Precalcualte result chance (so that we don't have to calculate opinion again)
 
 
-                //Topic score.
-                //chose interaction time based on the score. This should also differ based on the category
-                //- > if recipient is not interested: less time, But if explorative: more time.
-                //tolerance factors in for the recipient.
-                int convoLength = 450 + 100*(int)topicScore + Rand.Range(-75, 75);//25tick == 36sec. || 275tick(6min 36sec) ~ 625tick(15min)
-                Log.Message($"{initiator.Name} started conversation with {recipient.Name}. convoTopic: {convoTopic.name}. topicScore: {topicScore}. convoLength = {convoLength}");
 
                 //- > also get talk outcome chance.
                 //at the end of the conversation, the chance will be calculated.
@@ -92,13 +113,13 @@ namespace Maux36.RimPsyche
 
                 if (initiatorPsyche.convoStartedTick < 0) initiatorPsyche.convoStartedTick = Find.TickManager.TicksGame;
                 initiatorPsyche.topic = convoTopic;
-                initiatorPsyche.topicScore = topicScore;
+                initiatorPsyche.topicAlignment = topicAlignment;
                 initiatorPsyche.convoPartner = recipient;
                 initiatorPsyche.convoCheckTick = Find.TickManager.TicksGame + convoLength;
 
                 if (recipientPsyche.convoStartedTick < 0) recipientPsyche.convoStartedTick = Find.TickManager.TicksGame;
                 recipientPsyche.topic = convoTopic;
-                recipientPsyche.topicScore = topicScore;
+                recipientPsyche.topicAlignment = topicAlignment;
                 recipientPsyche.convoPartner = initiator;
             }
         }

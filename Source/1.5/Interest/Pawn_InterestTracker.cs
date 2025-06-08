@@ -7,8 +7,8 @@ namespace Maux36.RimPsyche
     public class Pawn_InterestTracker : IExposable
     {
         private Pawn pawn;
-        public Dictionary<string, float> interestOffset = new Dictionary<string, float>();
-        public Dictionary<string, float> interestScore = new Dictionary<string, float>();
+        public Dictionary<string, float> interestOffset = new Dictionary<string, float>(); // 30~70
+        public Dictionary<string, float> interestScore = new Dictionary<string, float>(); // -30~30
 
         public Pawn_InterestTracker(Pawn p)
         {
@@ -70,7 +70,7 @@ namespace Maux36.RimPsyche
         {
             if (!interestOffset.TryGetValue(key.name, out float offsetValue))
             {
-                GenerateInterestScoresForDomain(RimpsycheDatabase.InterestDomainDict[key]);
+                GenerateInterestScoresForDomain(RimpsycheDatabase.InterestDomainDict[key], false);
                 if (!interestOffset.TryGetValue(key.name, out offsetValue))
                 {
                     offsetValue = 50;

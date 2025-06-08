@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
   <!-- Random social interactions -->
-  <!-- SUM|DomainOffsetWeights| should be less than 0.2  -->
-  <!-- SUM|InterestOffsetWeights| should be less than 0.2 -->
+  <!-- SUM|DomainOffsetWeights| should be less than 0.2 to keep the influence between -10~10 -->
+  <!-- SUM|InterestOffsetWeights| should be less than 0.2 to keep the influence between -10~10 -->
+  <!-- "50 + DomainOffset + InterestOffset" range is clamped to 30~70 -->
+  <!-- topic weight absolute sum should be 1 -->
   <Maux36.RimPsyche.InterestDomainDef>
     <defName>Rimpsyche_InterestDomainGeneral</defName>
     <label>common</label>
@@ -21,35 +23,175 @@
         </scoreWeight>
         <topics>
           <li>
+            <!-- + : unbothered, enjoy | - : affected -->
             <name>weather</name>
-          </li>
-          <li>
-            <name>sleep_quality</name>
-          </li>
-          <li>
-            <name>pain</name>
+            <controversiality>1</controversiality>
             <weights>
               <li>
-                <facet>Compassion</facet>
-                <weight>0.01</weight>
+                <facet>Imagination</facet>
+                <weight>0.1</weight>
+              </li>
+              <li>
+                <facet>Sociability</facet>
+                <weight>0.35</weight>
+              </li>
+              <li>
+                <facet>Enthusiasm</facet>
+                <weight>0.15</weight>
+              </li>
+              <li>
+                <facet>Pessimism</facet>
+                <weight>-0.1</weight>
+              </li>
+              <li>
+                <facet>Volatility</facet>
+                <weight>-0.3</weight>
               </li>
             </weights>
           </li>
           <li>
-            <name>hunger</name>
+            <!-- + : better tolerance | - : strongly affected -->
+            <name>sleep_quality</name>
+            <controversiality>1</controversiality>
+            <weights>
+              <li>
+                <facet>Enthusiasm</facet>
+                <weight>0.2</weight>
+              </li>
+              <li>
+                <facet>Integrity</facet>
+                <weight>0.1</weight>
+              </li>
+              <li>
+                <facet>Volatility</facet>
+                <weight>-0.1</weight>
+              </li>
+              <li>
+                <facet>Pessimism</facet>
+                <weight>-0.6</weight>
+              </li>
+            </weights>
           </li>
           <li>
-            <name>comfort</name>
-          </li>
-          <li>
-            <name>safety</name>
-          </li>
-          <li>
-            <name>injuries</name>
+            <!-- + : high tolerance | - : strong aversion -->
+            <name>pain</name>
+            <controversiality>1</controversiality>
             <weights>
               <li>
                 <facet>Compassion</facet>
-                <weight>0.01</weight>
+                <weight>-0.2</weight>
+              </li>
+              <li>
+                <facet>Pessimism</facet>
+                <weight>-0.2</weight>
+              </li>
+              <li>
+                <facet>Volatility</facet>
+                <weight>-0.2</weight>
+              </li>
+              <li>
+                <facet>Integrity</facet>
+                <weight>0.2</weight>
+              </li>
+              <li>
+                <facet>Industriousness</facet>
+                <weight>0.2</weight>
+              </li>
+            </weights>
+          </li>
+          <li>
+            <!-- + : disciplined approach | - : agitated by hunger -->
+            <name>hunger</name>
+            <controversiality>1</controversiality>
+            <weights>
+              <li>
+                <facet>Industriousness</facet>
+                <weight>0.2</weight>
+              </li>
+              <li>
+                <facet>Orderliness</facet>
+                <weight>0.2</weight>
+              </li>
+              <li>
+                <facet>Integrity</facet>
+                <weight>0.1</weight>
+              </li>
+              <li>
+                <facet>Volatility</facet>
+                <weight>-0.3</weight>
+              </li>
+              <li>
+                <facet>Pessimism</facet>
+                <weight>-0.2</weight>
+              </li>
+            </weights>
+          </li>
+          <li>
+            <!-- + : prioritize ease | - : embrace hardship, experience -->
+            <name>comfort</name>
+            <controversiality>1</controversiality>
+            <weights>
+              <li>
+                <facet>Curiosity</facet>
+                <weight>-0.1</weight>
+              </li>
+              <li>
+                <facet>Industriousness</facet>
+                <weight>-0.25</weight>
+              </li>
+              <li>
+                <facet>Integrity</facet>
+                <weight>-0.25</weight>
+              </li>
+              <li>
+                <facet>Volatility</facet>
+                <weight>0.4</weight>
+              </li>
+            </weights>
+          </li>
+          <li>
+            <!-- + : precautious | - : dismissive -->
+            <name>safety</name>
+            <controversiality>1</controversiality>
+            <weights>
+              <li>
+                <facet>Orderliness</facet>
+                <weight>0.2</weight>
+              </li>
+              <li>
+                <facet>Integrity</facet>
+                <weight>0.1</weight>
+              </li>
+              <li>
+                <facet>Pessimism</facet>
+                <weight>0.2</weight>
+              </li>
+              <li>
+                <facet>Insecurity</facet>
+                <weight>0.3</weight>
+              </li>
+              <li>
+                <facet>Curiosity</facet>
+                <weight>-0.2</weight>
+              </li>
+            </weights>
+          </li>
+          <li>
+             <!-- + : dismissive | - : concerned -->
+            <name>injuries</name>
+            <controversiality>1</controversiality>
+            <weights>
+              <li>
+                <facet>Compassion</facet>
+                <weight>-0.5</weight>
+              </li>
+              <li>
+                <facet>Pessimism</facet>
+                <weight>-0.3</weight>
+              </li>
+              <li>
+                <facet>Volatility</facet>
+                <weight>-0.2</weight>
               </li>
             </weights>
           </li>

@@ -31,6 +31,18 @@ namespace Maux36.RimPsyche
             newDef.stages.Add(stage);
             return newDef;
         }
+        public static float SaddleShapeFunction(float x, float y, float controversiality = 1)
+        {
+            float f0 = 1 - 0.5f * controversiality;
+            float gamma = 4 * controversiality * controversiality;
+            float a = 1f + f0 + gamma;
+            float b = 1f - f0;
+            float diff = x - y;
+            float diff2 = diff * diff;
+            float sum = x + y - 1f;
+            float sum2 = sum * sum;
+            return (f0 - a * diff2 + b * sum2) / (1f + gamma * diff2);
+        }
         public static float MapRange(float value, float sourceMin, float sourceMax, float targetMin, float targetMax)
         {
             return Mathf.Lerp(targetMin, targetMax, Mathf.InverseLerp(sourceMin, sourceMax, value));

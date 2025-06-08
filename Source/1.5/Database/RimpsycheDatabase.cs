@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
 using Verse;
 
 namespace Maux36.RimPsyche
@@ -24,6 +27,12 @@ namespace Maux36.RimPsyche
                     foreach(var topic in interest.topics)
                     {
                         TopicNameList.Add(topic.name);
+                        float absoluteWeightSum = topic.weights.Sum(fw => Mathf.Abs(fw.weight));
+                        if (Math.Abs(absoluteWeightSum - 1) > 0.001f) // Use a small tolerance due to floating-point precision
+                        {
+                            // Log an error if the absolute weight sum is not 1
+                            Log.Error($"Facet weight absolute sum for topic {topic.name} is not 1. It is {absoluteWeightSum}");
+                        }
                     }
                 }
             }

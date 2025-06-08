@@ -19,7 +19,7 @@ namespace Maux36.RimPsyche
         };
 
         private Pawn pawn;
-        // Facets
+        // Facets -50~50
         private float imagination = 0f;
         private float intellect = 0f;
         private float curiosity = 0f;
@@ -403,8 +403,24 @@ namespace Maux36.RimPsyche
 
         public void DirtyTraitCache()
         {
+            Log.Message($"{pawn.Name}' cache dirtied due to trait change");
             gateCacheInternal = null;
             personalityCache.Clear();
+            var compPsyche = pawn.compPsyche();
+            if (compPsyche != null)
+            {
+                compPsyche.Interests?.interestOffset.Clear();
+            }
+        }
+        public void DirtyCache()
+        {
+            Log.Message($"{pawn.Name}' cache dirtied");
+            personalityCache.Clear();
+            var compPsyche = pawn.compPsyche();
+            if (compPsyche != null)
+            {
+                compPsyche.Interests?.interestOffset.Clear();
+            }
         }
 
         // Save
@@ -430,12 +446,6 @@ namespace Maux36.RimPsyche
             Scribe_Values.Look(ref pessimism, "pessimism", 0, false);
             Scribe_Values.Look(ref insecurity, "insecurity", 0, false);
         }
-
-        public void DirtyCache()
-        {
-            personalityCache.Clear();
-        }
-
         public void LogAllFactors()
         {
             Log.Message($"{pawn.Name}'s OCEAN factors");
