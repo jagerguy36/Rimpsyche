@@ -30,7 +30,6 @@ namespace Maux36.RimPsyche
                         float absoluteWeightSum = topic.weights.Sum(fw => Mathf.Abs(fw.weight));
                         if (Math.Abs(absoluteWeightSum - 1) > 0.001f) // Use a small tolerance due to floating-point precision
                         {
-                            // Log an error if the absolute weight sum is not 1
                             Log.Error($"Facet weight absolute sum for topic {topic.name} is not 1. It is {absoluteWeightSum}");
                         }
                     }

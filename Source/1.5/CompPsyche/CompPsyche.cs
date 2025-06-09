@@ -144,7 +144,7 @@ namespace Maux36.RimPsyche
         }
         public void FinishConvo()
         {
-            float pawnScore = GetConvoResult(out float partnerScore);
+            bool moreConvo = GetConvoResult(out float pawnScore, out float partnerScore);
             Log.Message($"GetConvoResult: {parentPawn.Name}: {pawnScore} | {convoPartner.Name}: {partnerScore}");
             float lengthMult = Mathf.Max(0, Find.TickManager.TicksGame - convoStartedTick - 200) * 0.002f + 1f; // 1~2 ~ 4
 
@@ -171,9 +171,9 @@ namespace Maux36.RimPsyche
             topic = null;
             topicAlignment = 0;
         }
-        public float GetConvoResult(out float partnerScore)
+        public bool GetConvoResult(out float pawnScore, out float partnerScore, bool forceEnd = true)
         {
-            float pawnScore = 0f;
+            pawnScore = 0f;
             partnerScore = 0f;
             
             var partnerPsyche = convoPartner.compPsyche();
@@ -211,8 +211,11 @@ namespace Maux36.RimPsyche
                     float pawnScoreModifier = (0.2f * partnerTact) + (0.4f * (partnerPassion+1f)); //-0.2~1
                     pawnScoreModifier = (1f + talkQuality) * pawnScoreModifier; // -0.4~2
                     pawnScore = (pawnScoreBase + pawnScoreModifier); //0.6~6 * 1~2(~4)
-
-                    return pawnScore;
+                    if (forceEnd)
+                    {
+                        return false;
+                    }
+                    return false;
                 }
                 //Negative Alignment
                 float pawnReceiveScore = (partnerTact * (partnerTalkativeness + 1) * 0.5f) + pawnOpenness + pawnOpinion; // -3~3
@@ -226,16 +229,18 @@ namespace Maux36.RimPsyche
                     if (talkQuality > 1f - goodTalkChance)
                     {
                         partnerScore = partnerReceiveScore * talkQuality;
-                        return pawnReceiveScore * talkQuality;
+                        pawnScore = pawnReceiveScore * talkQuality;
+                        return false;
                     }
                 }
                 //Bad Talk
-                float negativeScoreBase = topicAlignment * talkQuality * 4f; // -4~-0 * (1~2) 
-                partnerScore = negativeScoreBase * (1f + (0.3f * partnerReceiveScore)); //0.1~1.9
-                return negativeScoreBase * (1f + (0.3f * pawnReceiveScore)); //-7.6 ~ 0
+                float negativeScoreBase = 2f * topicAlignment * (talkQuality + 1f); // -2~0 * (1~2)
+                Log.Message($"Bad talk. talkQuality: {talkQuality}. negativeScoreBase: {negativeScoreBase}");
+                partnerScore = negativeScoreBase * (1f + (0.3f * partnerReceiveScore)); //(-4~0) * 0.1~1.9 = -7.6 ~ 0
+                pawnScore = negativeScoreBase * (1f + (0.3f * pawnReceiveScore)); //-7.6 ~ 0
+                return false;
             }
-            partnerScore = 0f;
-            return pawnScore;
+            return false;
         }
         public static bool IsGoodPositionForInteraction(IntVec3 cell, IntVec3 recipientCell, Map map)
         {

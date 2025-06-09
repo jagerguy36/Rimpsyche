@@ -16,11 +16,11 @@ namespace Maux36.RimPsyche
             float optimism = compPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Optimism); // -1 ~ 1
             if (__result < 0f)
             {
-                __result *= (1f - optimism * 0.25f);
+                __result *= (1f - optimism * 0.3f);
             }
             else
             {
-                __result *= (1f + optimism * 0.25f);
+                __result *= (1f + optimism * 0.3f);
             }
         }
     }

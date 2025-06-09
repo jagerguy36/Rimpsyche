@@ -11,6 +11,7 @@
     <interests>
       <li>
         <name>InterestLife</name>
+        <description>Common experiences and basic needs.</description>
         <scoreWeight>
           <li>
             <facet>Sociability</facet>
@@ -197,32 +198,206 @@
           </li>
         </topics>
       </li>
-<!--       <li>
+
+
+
+      <li>
         <name>InterestDreamsFears</name>
+        <description>Emotional, personal reflections.</description>
+        <scoreWeight>
+          <li>
+            <facet>Imagination</facet>
+            <weight>0.05</weight>
+          </li>
+          <li>
+            <facet>Pessimism</facet>
+            <weight>0.05</weight>
+          </li>
+        </scoreWeight>
         <topics>
           <li>
+            <!-- + : resilient | - : distressed -->
             <name>nightmares</name>
+            <controversiality>1</controversiality>
+            <weights>
+              <li>
+                  <facet>Pessimism</facet>
+                  <weight>-0.35</weight>
+              </li>
+              <li>
+                  <facet>Volatility</facet>
+                  <weight>-0.2</weight>
+              </li>
+              <li>
+                  <facet>Imagination</facet>
+                  <weight>-0.35</weight>
+              </li>
+              <li>
+                  <facet>Enthusiasm</facet>
+                  <weight>0.1</weight>
+              </li>
+            </weights>
           </li>
           <li>
+            <!-- + : Optimism | - : Cynicism -->
             <name>hopes</name>
+            <controversiality>1</controversiality>
+            <weights>
+              <li>
+                  <facet>Pessimism</facet>
+                  <weight>-0.35</weight>
+              </li>
+              <li>
+                  <facet>Enthusiasm</facet>
+                  <weight>0.3</weight>
+              </li>
+              <li>
+                  <facet>Imagination</facet>
+                  <weight>0.25</weight>
+              </li>
+              <li>
+                  <facet>Industriousness</facet>
+                  <weight>0.1</weight>
+              </li>
+            </weights>
           </li>
           <li>
+            <!-- + : strong aversion | - : disregard -->
             <name>fear_of_death</name>
+            <controversiality>1</controversiality>
+            <weights>
+              <li>
+                  <facet>Pessimism</facet>
+                  <weight>0.3</weight>
+              </li>
+              <li>
+                  <facet>Volatility</facet>
+                  <weight>0.2</weight>
+              </li>
+              <li>
+                  <facet>Imagination</facet>
+                  <weight>0.2</weight>
+              </li>
+              <li>
+                  <facet>Curiosity</facet>
+                  <weight>-0.15</weight>
+              </li>
+              <li>
+                  <facet>Humbleness</facet>
+                  <weight>-0.15</weight>
+              </li>
+            </weights>
           </li>
           <li>
+            <!-- + : prevention and avoidance | - : coping with and adapting to -->
             <name>loss</name>
+            <controversiality>1</controversiality>
+            <weights>
+              <li>
+                  <facet>Orderliness</facet>
+                  <weight>0.3</weight>
+              </li>
+              <li>
+                  <facet>Industriousness</facet>
+                  <weight>0.2</weight>
+              </li>
+              <li>
+                  <facet>Pessimism</facet>
+                  <weight>0.3</weight>
+              </li>
+              <li>
+                  <facet>Curiosity</facet>
+                  <weight>-0.1</weight>
+              </li>
+              <li>
+                  <facet>Imagination</facet>
+                  <weight>-0.1</weight>
+              </li>
+            </weights>
           </li>
           <li>
+            <!-- + : Embracing | - : Feeling anxious -->
             <name>uncertainty</name>
+            <controversiality>1</controversiality>
+            <weights>
+              <li>
+                  <facet>Curiosity</facet>
+                  <weight>0.4</weight>
+              </li>
+              <li>
+                  <facet>Volatility</facet>
+                  <weight>-0.1</weight>
+              </li>
+              <li>
+                  <facet>Pessimism</facet>
+                  <weight>-0.2</weight>
+              </li>
+              <li>
+                  <facet>Orderliness</facet>
+                  <weight>-0.3</weight>
+              </li>
+            </weights>
           </li>
           <li>
+            <!-- + : hopeful, idealistic | - : feeling dissatisfaction -->
             <name>longing</name>
+            <controversiality>1</controversiality>
+            <weights>
+              <li>
+                  <facet>Enthusiasm</facet>
+                  <weight>0.3</weight>
+              </li>
+              <li>
+                  <facet>Industriousness</facet>
+                  <weight>0.1</weight>
+              </li>
+              <li>
+                  <facet>Pessimism</facet>
+                  <weight>-0.35</weight>
+              </li>
+              <li>
+                  <facet>Insecurity</facet>
+                  <weight>-0.15</weight>
+              </li>
+              <li>
+                  <facet>Volatility</facet>
+                  <weight>-0.1</weight>
+              </li>
+            </weights>
           </li>
           <li>
+            <!-- + : embracing risks | - : shying away from risks -->
             <name>courage</name>
+            <controversiality>1</controversiality>
+            <weights>
+              <li>
+                  <facet>Curiosity</facet>
+                  <weight>0.1</weight>
+              </li>
+              <li>
+                  <facet>Enthusiasm</facet>
+                  <weight>0.1</weight>
+              </li>
+              <li>
+                  <facet>Assertiveness</facet>
+                  <weight>0.1</weight>
+              </li>
+              <li>
+                  <facet>Pessimism</facet>
+                  <weight>-0.2</weight>
+              </li>
+              <li>
+                  <facet>Insecurity</facet>
+                  <weight>-0.4</weight>
+              </li>
+              <li>
+                  <facet>Volatility</facet>
+                  <weight>-0.1</weight>
+              </li>
+            </weights>
           </li>
         </topics>
-      </li> -->
+      </li>
     </interests>
   </Maux36.RimPsyche.InterestDomainDef>
 
