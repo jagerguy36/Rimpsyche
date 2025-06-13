@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using RimWorld;
@@ -299,28 +298,27 @@ namespace Maux36.RimPsyche
             }
             newThought.pawn = parentPawn;
             newThought.otherPawn = otherPawn;
-            IEnumerable<Thoughts_MemoryPostDefined> convoMemories = from m in parentPawn.needs.mood.thoughts.memories.Memories
-                                                                    where m.def.defName.StartsWith("Rimpsyche_Conversation", StringComparison.Ordinal) && m.otherPawn == convoPartner
-                                                                    select (Thoughts_MemoryPostDefined)m;
-            if (convoMemories.EnumerableCount() < maxConvoOpinions)
+            List<Thoughts_MemoryPostDefined> currentConvoMemories = parentPawn.needs.mood.thoughts.memories.Memories
+                .OfType<Thoughts_MemoryPostDefined>()
+                .Where(m => m.otherPawn == otherPawn)
+                .ToList();
+
+            if (currentConvoMemories.Count < maxConvoOpinions)
             {
                 parentPawn.needs?.mood?.thoughts?.memories?.Memories.Add(newThought);
             }
             else
             {
-                convoMemories.OrderByDescending(m => Mathf.Abs(m.OpinionOffset()));
-                IEnumerable<Thoughts_MemoryPostDefined> keptMemories = convoMemories.Take(maxConvoOpinions - 1);
-                IEnumerable<Thoughts_MemoryPostDefined> removedMemories = convoMemories.Except(keptMemories);
-
-                Thoughts_MemoryPostDefined lastMemory = removedMemories.MaxBy(m => Mathf.Abs(m.OpinionOffset()));
-                if (Mathf.Abs(opinionOffset) < Mathf.Abs(lastMemory.OpinionOffset()))
+                currentConvoMemories.Sort((m1, m2) => Mathf.Abs(m2.OpinionOffset()).CompareTo(Mathf.Abs(m1.OpinionOffset())));
+                Thoughts_MemoryPostDefined memoryToCompareWith = currentConvoMemories[maxConvoOpinions - 1];
+                if (Mathf.Abs(opinionOffset) < Mathf.Abs(memoryToCompareWith.OpinionOffset()))
                 {
                     Log.Message("It's smaller actually. so no adding for you");
                     return;
                 }
-                foreach (Thoughts_MemoryPostDefined m in removedMemories)
+                for (int i = maxConvoOpinions - 1; i < currentConvoMemories.Count; i++)
                 {
-                    // Remove these memories by making them old
+                    Thoughts_MemoryPostDefined m = currentConvoMemories[i];
                     Log.Message($"{m.def.defName} will be removed");
                     m.age = m.DurationTicks + 300;
                 }
