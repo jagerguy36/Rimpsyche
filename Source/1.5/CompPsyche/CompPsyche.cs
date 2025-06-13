@@ -1,7 +1,8 @@
-﻿using RimWorld;
+﻿using System;
 using System.Collections.Generic;
-using System.Security.Cryptography;
+using System.Linq;
 using UnityEngine;
+using RimWorld;
 using Verse;
 
 
@@ -10,6 +11,7 @@ namespace Maux36.RimPsyche
     public class CompPsyche : ThingComp
     {
         //Internals
+        private static int maxConvoOpinions = 10;
         private Pawn parentPawnInt = null;
         private Pawn_PersonalityTracker personality;
         private Pawn_InterestTracker interests;
@@ -185,20 +187,20 @@ namespace Maux36.RimPsyche
             convoPartnerPsyche?.EndConvo(lengthMult * partnerScore);
             EndConvo(lengthMult * pawnScore);
         }
-        public void EndConvo(float moodOffset = 0, bool mattered = false)
+        public void EndConvo(float opinionOffset = 0, bool mattered = false)
         {
-            Log.Message($"{parentPawn.Name} ending conversation with {convoPartner.Name} and getting mood {moodOffset}");
+            Log.Message($"{parentPawn.Name} ending conversation with {convoPartner.Name} and getting opinion {opinionOffset}");
             if (convoPartner != null)
             {
-                if(moodOffset != 0)
+                if(opinionOffset != 0)
                 {
                     ThoughtDef newDef = Rimpsyche_Utility.CreateSocialThought(
-                        parentPawn.GetHashCode() + "Conversation" + topic.name,
+                        "Rimpsyche_Conversation" + parentPawn.GetHashCode() + topic.name,
                         "ConversationStage".Translate() + " " + topic.name,
-                        moodOffset);
+                        opinionOffset);
 
                     //Use custom Gain Memory
-                    TryGainCoversationMemoryFast(ThoughtMaker.MakeThought(newDef, null), convoPartner);
+                    GainCoversationMemoryFast(ThoughtMaker.MakeThought(newDef, null), opinionOffset, convoPartner);
                     //parentPawn.needs?.mood?.thoughts?.memories?.TryGainMemory(newDef, convoPartner);
                 }
             }
@@ -283,7 +285,7 @@ namespace Maux36.RimPsyche
             if (cell.InHorDistOf(recipientCell, 12f)) return GenSight.LineOfSight(cell, recipientCell, map, skipFirstCell: true);
             return false;
         }
-        public void TryGainCoversationMemoryFast(Thought_Memory newThought, Pawn otherPawn = null)
+        public void GainCoversationMemoryFast(Thought_Memory newThought, float opinionOffset, Pawn otherPawn = null)
         {
             if (newThought.otherPawn == null && otherPawn == null)
             {
@@ -297,8 +299,31 @@ namespace Maux36.RimPsyche
             }
             newThought.pawn = parentPawn;
             newThought.otherPawn = otherPawn;
-            if (!newThought.TryMergeWithExistingMemory(out var showBubble))
+            IEnumerable<Thoughts_MemoryPostDefined> convoMemories = from m in parentPawn.needs.mood.thoughts.memories.Memories
+                                                                    where m.def.defName.StartsWith("Rimpsyche_Conversation", StringComparison.Ordinal) && m.otherPawn == convoPartner
+                                                                    select (Thoughts_MemoryPostDefined)m;
+            if (convoMemories.EnumerableCount() < maxConvoOpinions)
             {
+                parentPawn.needs?.mood?.thoughts?.memories?.Memories.Add(newThought);
+            }
+            else
+            {
+                convoMemories.OrderByDescending(m => Mathf.Abs(m.OpinionOffset()));
+                IEnumerable<Thoughts_MemoryPostDefined> keptMemories = convoMemories.Take(maxConvoOpinions - 1);
+                IEnumerable<Thoughts_MemoryPostDefined> removedMemories = convoMemories.Except(keptMemories);
+
+                Thoughts_MemoryPostDefined lastMemory = removedMemories.MaxBy(m => Mathf.Abs(m.OpinionOffset()));
+                if (Mathf.Abs(opinionOffset) < Mathf.Abs(lastMemory.OpinionOffset()))
+                {
+                    Log.Message("It's smaller actually. so no adding for you");
+                    return;
+                }
+                foreach (Thoughts_MemoryPostDefined m in removedMemories)
+                {
+                    // Remove these memories by making them old
+                    Log.Message($"{m.def.defName} will be removed");
+                    m.age = m.DurationTicks + 300;
+                }
                 parentPawn.needs?.mood?.thoughts?.memories?.Memories.Add(newThought);
             }
         }
