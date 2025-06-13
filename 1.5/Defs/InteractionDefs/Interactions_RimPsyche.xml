@@ -5,7 +5,7 @@
     <defName>Rimpsyche_StartConversation</defName>
     <label>start conversation</label>
     <workerClass>Maux36.RimPsyche.InteractionWorker_StartConversation</workerClass>
-    <symbol>Things/Mote/SpeechSymbols/Chitchat</symbol>
+    <symbol>Things/Mote/SpeechSymbols/Conversation</symbol>
     <logRulesInitiator>
       <rulesStrings>
         <li>r_logentry(p=4)->[INITIATOR_nameDef] [conversed] with [RECIPIENT_nameDef].</li>
@@ -30,6 +30,7 @@
     </rulePack>
   </RulePackDef>
 
+  <!-- Never actually used besides for the mote. Maybe remove it? -->
   <InteractionDef>
     <defName>Rimpsyche_Conversation</defName>
     <label>continue conversation</label>
@@ -46,7 +47,6 @@
     </logRulesInitiator>
   </InteractionDef>
 
-   <!-- Psychology style EndConversation. Should update later-->
   <InteractionDef>
     <defName>Rimpsyche_EndConversation</defName>
     <label>ended conversation</label>
@@ -54,7 +54,14 @@
     <symbol>Things/Mote/SpeechSymbols/Chitchat</symbol>
     <logRulesInitiator>
       <rulesStrings>
-        <li>r_logentry->[INITIATOR_nameDef] ended a conversation with [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] and [RECIPIENT_nameDef] about {0}.</li>
+        <li>r_logentry->[INITIATOR_nameDef] had a conversation about {0} with [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] discussed {0} with [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] and [RECIPIENT_nameDef] exchanged thoughts on {0}.</li>
+        <li>r_logentry->[INITIATOR_nameDef] and [RECIPIENT_nameDef] had a talk about {0}.</li>
+        <li>r_logentry->[INITIATOR_nameDef] and [RECIPIENT_nameDef] shared views on {0}.</li>
+        <li>r_logentry->[INITIATOR_nameDef] spoke to [RECIPIENT_nameDef] about {0}.</li>
+        <li>r_logentry->[INITIATOR_nameDef] and [RECIPIENT_nameDef] had a chat about {0}.</li>
       </rulesStrings>
     </logRulesInitiator>
   </InteractionDef>

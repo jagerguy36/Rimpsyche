@@ -8,17 +8,18 @@ namespace Maux36.RimPsyche
     {
         public static InteractionDef Rimpsyche_StartConversation;
         public static InteractionDef Rimpsyche_Conversation;
+        public static InteractionDef Rimpsyche_EndConversation;
 
         public static RulePackDef Sentence_ConversationFail;
 
         public static ThoughtDef Rimpsyche_ConvoIgnored;
         public static ThoughtDef Rimpsyche_ConversationOpinion;
 
+        public static InterestDomainDef Rimpsyche_InterestDomainGeneral;
+
         static DefOfRimpsyche()
         {
             DefOfHelper.EnsureInitializedInCtor(typeof(DefOfRimpsyche));
         }
-
-        public static InterestDomainDef Rimpsyche_InterestDomainGeneral;
     }
 }

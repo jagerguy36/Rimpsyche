@@ -33,16 +33,14 @@ namespace Maux36.RimPsyche
         }
         public static float SaddleShapeFunction(float x, float y, float controversiality = 1)
         {
-            float f0 = 1f - 0.5f * controversiality;
-            float gamma = 4f * controversiality * controversiality;
-            float a = 1f + f0 + gamma;
-            float b = 1f - f0;
-            float diff = 0.5f * (x - y);
+            float C = 2 * controversiality * controversiality;
+            float diff = (x - y);
             float diff2 = diff * diff;
-            float sum = 0.5f * (x + y);
+            float sum = (x + y);
             float sum2 = sum * sum;
-            Log.Message($"SaddleShapeFunction: {x}, {y} | controversiality: {controversiality}");
-            return (f0 - a * diff2 + b * sum2) / (1f + gamma * diff2);
+            float val = (-(1f + C) * diff2 + sum2) / (4f + C * diff2);
+            Log.Message($"SaddleShapeFunction: {x}, {y} | controversiality: {controversiality}. val: {val}");
+            return val;
         }
         public static float MapRange(float value, float sourceMin, float sourceMax, float targetMin, float targetMax)
         {

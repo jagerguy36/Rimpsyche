@@ -26,7 +26,7 @@
           <li>
             <!-- + : unbothered, enjoy | - : affected -->
             <name>weather</name>
-            <controversiality>1</controversiality>
+            <controversiality>0</controversiality>
             <weights>
               <li>
                 <facet>Imagination</facet>
@@ -53,7 +53,7 @@
           <li>
             <!-- + : better tolerance | - : strongly affected -->
             <name>sleep_quality</name>
-            <controversiality>1</controversiality>
+            <controversiality>0</controversiality>
             <weights>
               <li>
                 <facet>Enthusiasm</facet>
@@ -76,7 +76,7 @@
           <li>
             <!-- + : high tolerance | - : strong aversion -->
             <name>pain</name>
-            <controversiality>1</controversiality>
+            <controversiality>0</controversiality>
             <weights>
               <li>
                 <facet>Compassion</facet>
@@ -103,7 +103,7 @@
           <li>
             <!-- + : disciplined approach | - : agitated by hunger -->
             <name>hunger</name>
-            <controversiality>1</controversiality>
+            <controversiality>0</controversiality>
             <weights>
               <li>
                 <facet>Industriousness</facet>
@@ -130,7 +130,7 @@
           <li>
             <!-- + : prioritize ease | - : embrace hardship, experience -->
             <name>comfort</name>
-            <controversiality>1</controversiality>
+            <controversiality>0</controversiality>
             <weights>
               <li>
                 <facet>Curiosity</facet>
@@ -153,7 +153,7 @@
           <li>
             <!-- + : precautious | - : dismissive -->
             <name>safety</name>
-            <controversiality>1</controversiality>
+            <controversiality>0</controversiality>
             <weights>
               <li>
                 <facet>Orderliness</facet>
@@ -180,7 +180,7 @@
           <li>
              <!-- + : dismissive | - : concerned -->
             <name>injuries</name>
-            <controversiality>1</controversiality>
+            <controversiality>0</controversiality>
             <weights>
               <li>
                 <facet>Compassion</facet>
@@ -218,7 +218,7 @@
           <li>
             <!-- + : resilient | - : distressed -->
             <name>nightmares</name>
-            <controversiality>1</controversiality>
+            <controversiality>0</controversiality>
             <weights>
               <li>
                   <facet>Pessimism</facet>
@@ -241,7 +241,7 @@
           <li>
             <!-- + : Optimism | - : Cynicism -->
             <name>hopes</name>
-            <controversiality>1</controversiality>
+            <controversiality>0</controversiality>
             <weights>
               <li>
                   <facet>Pessimism</facet>
@@ -264,7 +264,7 @@
           <li>
             <!-- + : strong aversion | - : disregard -->
             <name>fear_of_death</name>
-            <controversiality>1</controversiality>
+            <controversiality>0</controversiality>
             <weights>
               <li>
                   <facet>Pessimism</facet>
@@ -291,7 +291,7 @@
           <li>
             <!-- + : prevention and avoidance | - : coping with and adapting to -->
             <name>loss</name>
-            <controversiality>1</controversiality>
+            <controversiality>0</controversiality>
             <weights>
               <li>
                   <facet>Orderliness</facet>
@@ -318,7 +318,7 @@
           <li>
             <!-- + : Embracing | - : Feeling anxious -->
             <name>uncertainty</name>
-            <controversiality>1</controversiality>
+            <controversiality>0</controversiality>
             <weights>
               <li>
                   <facet>Curiosity</facet>
@@ -341,7 +341,7 @@
           <li>
             <!-- + : hopeful, idealistic | - : feeling dissatisfaction -->
             <name>longing</name>
-            <controversiality>1</controversiality>
+            <controversiality>0</controversiality>
             <weights>
               <li>
                   <facet>Enthusiasm</facet>
@@ -368,7 +368,7 @@
           <li>
             <!-- + : embracing risks | - : shying away from risks -->
             <name>courage</name>
-            <controversiality>1</controversiality>
+            <controversiality>0</controversiality>
             <weights>
               <li>
                   <facet>Curiosity</facet>

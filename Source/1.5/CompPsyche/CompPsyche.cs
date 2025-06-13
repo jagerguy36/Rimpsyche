@@ -1,4 +1,6 @@
 ﻿using RimWorld;
+using System.Collections.Generic;
+using System.Security.Cryptography;
 using UnityEngine;
 using Verse;
 
@@ -17,6 +19,7 @@ namespace Maux36.RimPsyche
         public Pawn convoPartner = null;
         public Topic topic = null;
         public float topicAlignment;
+        public float continuationChance = 0;
 
         private Pawn parentPawn
         {
@@ -81,6 +84,10 @@ namespace Maux36.RimPsyche
             base.CompTick();
             if (convoStartedTick > 0)
             {
+                if (convoPartner == null)
+                {
+                    CleanUp();
+                }
                 if (ShouldEndConvoImmediately())
                 {
                     FinishConvo();
@@ -89,45 +96,45 @@ namespace Maux36.RimPsyche
                 if (parentPawn.IsHashIntervalTick(200)) //InteractionsTrackerTick checks every interval tick 91
                 {
                     Log.Message($"{parentPawn.Name} checking conversation validity with {convoPartner.Name} on topic {topic.name}, in {topic.category} with topicAlignment {topicAlignment}");
-                    if (ShouldEndConvo())
+                    if (ShouldEndConvo(out bool showMote))
                     {
-                        FinishConvo();
+                        FinishConvo(showMote);
                         return;
                     }
                 }
                 if (convoCheckTick > 0)
                 {
-                    if (convoCheckTick < Find.TickManager.TicksGame)
+                    if (convoCheckTick <= Find.TickManager.TicksGame)
                     {
                         //TODO: Check conversation continue chance. If that's the case, then increase the check tick
-
-
-                        //var parentPawnStartanotherConvoChance = Rand.Chance(1f - (float)(Find.TickManager.TicksGame - convoStartedTick) / 2500f);
-                        //var partnerStartanotherConvoChance = Rand.Chance(1f - (float)(Find.TickManager.TicksGame - convoStartedTick) / 2500f);
-                        //if (parentPawnStartanotherConvoChance)
-                        //{
-                        //    Log.Message($"another convo {DefOfRimpsyche.Rimpsyche_Conversation.defName} start from {parentPawn.Name} with {convoPartner.Name}.");
-                        //    parentPawn.interactions.TryInteractWith(convoPartner, DefOfRimpsyche.Rimpsyche_Conversation);
-                        //}
-                        //else if (partnerStartanotherConvoChance)
-                        //{
-                        //    Log.Message($"another convo {DefOfRimpsyche.Rimpsyche_Conversation.defName} start from {convoPartner.Name} with {parentPawn.Name}.");
-                        //    convoPartner.interactions.TryInteractWith(parentPawn, DefOfRimpsyche.Rimpsyche_Conversation);
-                        //}
+                        if(continuationChance > 0)
+                        {
+                            Log.Message($"continuationChance > 0");
+                            if (Rand.Chance(continuationChance))
+                            {
+                                Log.Message($"continue");
+                                convoCheckTick += 600;
+                                continuationChance = 0;
+                                return;
+                            }
+                        }
                         Log.Message($"end convo.");
-                        FinishConvo();
+                        FinishConvo(true);
                         return;
                     }
-                    //else if (convoStartedTick+300 < convoCheckTick && parentPawn.IsHashIntervalTick(200))
-                    //{
-                    //    MoteMaker.MakeInteractionBubble(parentPawn, convoPartner, DefOfRimpsyche.Rimpsyche_Conversation.interactionMote, DefOfRimpsyche.Rimpsyche_Conversation.GetSymbol());
-                    //}
+                    else if ((Find.TickManager.TicksGame - convoStartedTick) % 200 == 199)
+                    {
+                        if (convoPartner.Map != null && parentPawn.Map != null)
+                        {
+                            MoteMaker.MakeInteractionBubble(parentPawn, convoPartner, DefOfRimpsyche.Rimpsyche_Conversation.interactionMote, DefOfRimpsyche.Rimpsyche_Conversation.GetSymbol());
+                        }
+                    }
                 }
             }
         }
         public bool ShouldEndConvoImmediately()//Simple checks
         {
-            if (parentPawn?.Spawned != true || convoPartner.Spawned != true) return true;
+            if (parentPawn.Spawned != true || convoPartner.Spawned != true) return true;
             if (parentPawn.Downed || convoPartner.Downed) return true;
             if (parentPawn.Dead || convoPartner.Dead) return true;
             if (parentPawn.IsMutant || convoPartner.IsMutant) return true;
@@ -135,43 +142,74 @@ namespace Maux36.RimPsyche
             if (parentPawn.Map == null && convoPartner.Map == null) return true;
             return false;
         }
-        public bool ShouldEndConvo()
+        public bool ShouldEndConvo(out bool showMote)
         {
+            showMote = false;
             if (!parentPawn.Awake() || !convoPartner.Awake()) return true;
             if (parentPawn.IsBurning() || convoPartner.IsBurning()) return true;
-            if (!IsGoodPositionForInteraction(parentPawn.Position, convoPartner.Position, parentPawn.Map)) return true;
+            if (!IsGoodPositionForInteraction(parentPawn.Position, convoPartner.Position, parentPawn.Map))
+            {
+                showMote = true;
+                return true;
+            }
             return false;
         }
-        public void FinishConvo()
+        public void CleanUp()
         {
-            bool moreConvo = GetConvoResult(out float pawnScore, out float partnerScore);
-            Log.Message($"GetConvoResult: {parentPawn.Name}: {pawnScore} | {convoPartner.Name}: {partnerScore}");
-            float lengthMult = Mathf.Max(0, Find.TickManager.TicksGame - convoStartedTick - 200) * 0.002f + 1f; // 1~2 ~ 4
-
-            //TODO : Check if mattered (affect personality)
-
-            var convoPartnerPsyche = convoPartner.compPsyche();
-            convoPartnerPsyche?.EndConvo(lengthMult * partnerScore);
-            EndConvo(lengthMult * pawnScore);
-        }
-        public void EndConvo(float moodOffset = 0)
-        {
-            Log.Message($"{parentPawn.Name} ending conversation with {convoPartner.Name} and getting mood {moodOffset}");
-            if (convoPartner != null && moodOffset!=0)
-            {
-                ThoughtDef newDef = Rimpsyche_Utility.CreateSocialThought(
-                    parentPawn.GetHashCode() + "Conversation" + topic.name,
-                    "ConversationStage".Translate() + " " + topic.name,
-                    moodOffset);
-                parentPawn.needs?.mood?.thoughts?.memories?.TryGainMemory(newDef, convoPartner);
-            }
             convoStartedTick = -1;
             convoCheckTick = -1;
             convoPartner = null;
             topic = null;
             topicAlignment = 0;
         }
-        public bool GetConvoResult(out float pawnScore, out float partnerScore, bool forceEnd = true)
+        public void FinishConvo(bool showMote = false)
+        {
+            GetConvoResult(out float pawnScore, out float partnerScore);
+            Log.Message($"GetConvoResult: {parentPawn.Name}: {pawnScore} | {convoPartner.Name}: {partnerScore}");
+            float lengthMult = Mathf.Max(0, Find.TickManager.TicksGame - convoStartedTick - 200) * 0.002f + 1f; // 1~2 ~ 4
+
+            //TODO : Check if mattered (affect personality)
+
+            var intDef = DefOfRimpsyche.Rimpsyche_EndConversation;
+            var entry = new PlayLogEntry_InteractionConversation(intDef, parentPawn, convoPartner, topic.name, null);
+            if (showMote)
+            {
+                if (convoPartner.Map != null && parentPawn.Map != null)
+                {
+                    MoteMaker.MakeInteractionBubble(parentPawn, convoPartner, intDef.interactionMote, intDef.GetSymbol(parentPawn.Faction, parentPawn.Ideo), intDef.GetSymbolColor(parentPawn.Faction));
+                }
+            }
+            Find.PlayLog.Add(entry);
+
+            var convoPartnerPsyche = convoPartner.compPsyche();
+            convoPartnerPsyche?.EndConvo(lengthMult * partnerScore);
+            EndConvo(lengthMult * pawnScore);
+        }
+        public void EndConvo(float moodOffset = 0, bool mattered = false)
+        {
+            Log.Message($"{parentPawn.Name} ending conversation with {convoPartner.Name} and getting mood {moodOffset}");
+            if (convoPartner != null)
+            {
+                if(moodOffset != 0)
+                {
+                    ThoughtDef newDef = Rimpsyche_Utility.CreateSocialThought(
+                        parentPawn.GetHashCode() + "Conversation" + topic.name,
+                        "ConversationStage".Translate() + " " + topic.name,
+                        moodOffset);
+
+                    //Use custom Gain Memory
+                    TryGainCoversationMemoryFast(ThoughtMaker.MakeThought(newDef, null), convoPartner);
+                    //parentPawn.needs?.mood?.thoughts?.memories?.TryGainMemory(newDef, convoPartner);
+                }
+            }
+            //initiator.skills.Learn(intDef.initiatorXpGainSkill, intDef.initiatorXpGainAmount);
+            convoStartedTick = -1;
+            convoCheckTick = -1;
+            convoPartner = null;
+            topic = null;
+            topicAlignment = 0;
+        }
+        public void GetConvoResult(out float pawnScore, out float partnerScore)
         {
             pawnScore = 0f;
             partnerScore = 0f;
@@ -211,11 +249,7 @@ namespace Maux36.RimPsyche
                     float pawnScoreModifier = (0.2f * partnerTact) + (0.4f * (partnerPassion+1f)); //-0.2~1
                     pawnScoreModifier = (1f + talkQuality) * pawnScoreModifier; // -0.4~2
                     pawnScore = (pawnScoreBase + pawnScoreModifier); //0.6~6 * 1~2(~4)
-                    if (forceEnd)
-                    {
-                        return false;
-                    }
-                    return false;
+                    return;
                 }
                 //Negative Alignment
                 float pawnReceiveScore = (partnerTact * (partnerTalkativeness + 1) * 0.5f) + pawnOpenness + pawnOpinion; // -3~3
@@ -224,13 +258,15 @@ namespace Maux36.RimPsyche
                 if (pawnReceiveScore > 0f && partnerReceiveScore > 0f)
                 {
                     //If both receiveScore is positive then there is a chance it's a good talk even if the alignment is negative
+                    
+                    //TODO: Add trust as a factor
                     float goodTalkChance = (3f + pawnReceiveScore + partnerReceiveScore) * (0.10f + (0.05f * topicAlignment)); // (3 ~ 9)  * (0.05 ~ 0.1) = 0.15 ~ 0.9
                     Log.Message($"goodTalkChance = {goodTalkChance}, talkQuality: {talkQuality}");
                     if (talkQuality > 1f - goodTalkChance)
                     {
                         partnerScore = partnerReceiveScore * talkQuality;
                         pawnScore = pawnReceiveScore * talkQuality;
-                        return false;
+                        return;
                     }
                 }
                 //Bad Talk
@@ -238,14 +274,33 @@ namespace Maux36.RimPsyche
                 Log.Message($"Bad talk. talkQuality: {talkQuality}. negativeScoreBase: {negativeScoreBase}");
                 partnerScore = negativeScoreBase * (1f + (0.3f * partnerReceiveScore)); //(-4~0) * 0.1~1.9 = -7.6 ~ 0
                 pawnScore = negativeScoreBase * (1f + (0.3f * pawnReceiveScore)); //-7.6 ~ 0
-                return false;
+                return;
             }
-            return false;
+            return;
         }
         public static bool IsGoodPositionForInteraction(IntVec3 cell, IntVec3 recipientCell, Map map)
         {
             if (cell.InHorDistOf(recipientCell, 12f)) return GenSight.LineOfSight(cell, recipientCell, map, skipFirstCell: true);
             return false;
+        }
+        public void TryGainCoversationMemoryFast(Thought_Memory newThought, Pawn otherPawn = null)
+        {
+            if (newThought.otherPawn == null && otherPawn == null)
+            {
+                Log.Error(string.Concat("Can't gain social thought ", newThought.def, " because its otherPawn is null and otherPawn passed to this method is also null. Social thoughts must have otherPawn."));
+                return;
+            }
+            otherPawn = otherPawn ?? newThought.otherPawn;
+            if (!newThought.def.socialTargetDevelopmentalStageFilter.Has(otherPawn.DevelopmentalStage))
+            {
+                return;
+            }
+            newThought.pawn = parentPawn;
+            newThought.otherPawn = otherPawn;
+            if (!newThought.TryMergeWithExistingMemory(out var showBubble))
+            {
+                parentPawn.needs?.mood?.thoughts?.memories?.Memories.Add(newThought);
+            }
         }
         public override void PostExposeData()
         {

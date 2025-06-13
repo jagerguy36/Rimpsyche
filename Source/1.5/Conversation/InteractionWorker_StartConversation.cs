@@ -32,7 +32,7 @@ namespace Maux36.RimPsyche
                 float convoChance = 1f + initTalkativeness; // 0~2
                 float relationshipOffset = 1f + initOpinion; // 0~2 
                 convoChance *= relationshipOffset; //0~4
-                return 0.5f * convoChance;
+                return 0.8f * convoChance; //0~3.2
             }
             else
             {
@@ -57,11 +57,15 @@ namespace Maux36.RimPsyche
                 float initSociability = initiatorPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Sociability);
                 float initTalkativeness = initiatorPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Talkativeness);
                 float initTact = initiatorPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Tact);
+                float initPassion = initiatorPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Passion);
+                float initSpontaneousness = initiatorPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Spontaneousness);
 
                 float reciOpinion = recipient.relations.OpinionOf(recipient) * 0.01f;
                 float reciSociability = recipientPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Sociability);
                 float reciTalkativeness = recipientPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Talkativeness);
                 float reciTact = recipientPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Tact);
+                float reciPassion = recipientPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Passion);
+                float reciSpontaneousness = recipientPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Spontaneousness);
 
 
                 //Select the convo interest area by initiator. See if the recipient is willing to talk to the initiator about that area.
@@ -73,8 +77,8 @@ namespace Maux36.RimPsyche
                 //If the opinion is negative, there is a chance for the pawn to brush off the conversation.
                 if (reciOpinion < 0)
                 {
-                    float participateFactor = (reciInterestScore + reciTact + reciOpinion + 2f) * 0.2f; // 0 ~ 1
-                    if (Rand.Chance(1-participateFactor))
+                    float participateFactor = (reciInterestScore + reciSociability + reciOpinion + 2f) * 0.2f; // 0 ~ 1
+                    if (Rand.Chance(1 - participateFactor))
                     {
                         extraSentencePacks.Add(DefOfRimpsyche.Sentence_ConversationFail);
                         initiator.needs?.mood?.thoughts?.memories?.TryGainMemory(DefOfRimpsyche.Rimpsyche_ConvoIgnored, recipient);
@@ -84,38 +88,31 @@ namespace Maux36.RimPsyche
 
                 //Conversation.
                 Topic convoTopic = convoInterest.GetRandomTopic();
-                float topicAlignment = convoTopic.GetScore(initiator, recipient); // -1~1
-                float initTalk = initInterestScore * (initTalkativeness + 1.0f); //0~2
-                float reciTalk = reciInterestScore * (reciTalkativeness + 1.0f); //0~2
-                int convoLength = (int)((8f + initTalk + reciTalk) * 20f * (2f+Mathf.Abs(topicAlignment)) * Rand.Range(0.8f, 1.2f));  //(8~12)*20*(2~3)*(0.8~1.2) = 256(320~720)864  || approx. 250tick(5min) ~ 850tick(20min 24sec)
-                Log.Message($"{initiator.Name} started conversation with {recipient.Name}. convoTopic: {convoTopic.name}. topicAlignment: {topicAlignment}. convoLength = {convoLength}");
+                float topicAlignment = convoTopic.GetScore(initiator, recipient); // -1~1 [0]
+                float initInterestF = (1f + (0.5f * initOpinion)) + (initInterestScore * (1f + (0.5f * initPassion))); // 0.5~3 [1.5]
+                float reciInterestF = (1f + (0.5f * reciOpinion)) + (reciInterestScore * (1f + (0.5f * reciPassion))); // 0.5~3 [1.5]
+                float initTalkF = (1f + (0.8f * initTalkativeness)) * initInterestF; // 0.1~5.4 [1.5]
+                float reciTalkF = (1f + (0.8f * reciTalkativeness)) * reciInterestF; // 0.1~5.4 [1.5]
+                float spontaneousF = (initSpontaneousness + reciSpontaneousness + 2f) * 0.05f; // 0~0.2 [0.1]
+                int convoLength = (int)((4f + initTalkF + reciTalkF) * 25f * (1f + Mathf.Abs(2f * topicAlignment)) * Rand.Range(1f - spontaneousF, 1f + spontaneousF)); // 25 * (4.2 ~ 14.8)*(1~3) || 84(105~[175]~1110)1332 [2min~30min]
 
-                //Precalcualte result chance (so that we don't have to calculate opinion again)
-
-
-
-                //- > also get talk outcome chance.
-                //at the end of the conversation, the chance will be calculated.
-                //if chance yields true -> more conversation is possible, forming a conversation chain
-                //(the chain chance is determined by the outcome and total length of the conversation
-                //At the end of the chain, the total score is considered to get the 'mattered' bool
-                //- > as a result, facets maybe influenced. (if matterred==true)
-                //- > long convo -> high chance of matterred=true
-
-                //- > Personality core only : general topics.
-                //- > Interest/Hobbies : Interests include topics
-                //- > What topic is talked about is based on their interests. More social pawns can bring up topics the other might be interested in.
-                //- > Topics have 'attitude' that gets generated by vectormulting its weights*facets + social skill level influence.
-                //- > based on this attitude, convolength, conversation result varies.
-
-                //- > See if it's too heavy. If it is, truncate the logic until it's light.
-
+                //continuation
+                float continuationChance = 0f;
+                if (Mathf.Abs(topicAlignment) > 0.3)
+                continuationChance += 0.1f; // 10% base chance
+                continuationChance += ((initTalkativeness + reciTalkativeness) / 2f) * 0.1f; // -0.1 ~ 0.1
+                continuationChance += Mathf.Abs(topicAlignment) * 0.3f; // 0 ~ 0.3
+                continuationChance += (initInterestF * reciInterestF) * 0.01f; // 0.075 ~ 0.027
+                continuationChance = Mathf.Clamp01(continuationChance);
+                continuationChance *= Rand.Range(1f - spontaneousF, 1f + spontaneousF);
+                Log.Message($"{initiator.Name} started conversation with {recipient.Name}. convoTopic: {convoTopic.name}. topicAlignment: {topicAlignment}. convoLength = {convoLength}. continuationChance: {continuationChance}");
 
                 if (initiatorPsyche.convoStartedTick < 0) initiatorPsyche.convoStartedTick = Find.TickManager.TicksGame;
                 initiatorPsyche.topic = convoTopic;
                 initiatorPsyche.topicAlignment = topicAlignment;
                 initiatorPsyche.convoPartner = recipient;
                 initiatorPsyche.convoCheckTick = Find.TickManager.TicksGame + convoLength;
+                initiatorPsyche.continuationChance = continuationChance;
 
                 if (recipientPsyche.convoStartedTick < 0) recipientPsyche.convoStartedTick = Find.TickManager.TicksGame;
                 recipientPsyche.topic = convoTopic;
