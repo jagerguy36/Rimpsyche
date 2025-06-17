@@ -36,27 +36,31 @@ namespace Maux36.RimPsyche
             totalRect.position = Vector2.zero;
 
             // === Layout constants ===
-            float sexualityPanelWidth = 150f;
-            float sexualityPanelHeight = 200f;
-            float kinseyPanelWidth = 100f;
-            float highlightPadding = 5f;
+            float sexualityPanelWidth = 250f;
+            float sexualityPanelHeight = 150f;
 
-            // === Text sizing for Kinsey label ===
-            Vector2 kinseyTextSize = Text.CalcSize("KinseyRating".Translate() + " 0");
-            float actualKinseyWidth = kinseyPanelWidth;
+            // === Text sizing for Sexuality label ===
+            Vector2 sexualityTextSize = Text.CalcSize("KinseyRating".Translate() + " 0");
 
-            // === Define the Kinsey (right side) panel rect ===
-            Rect kinseyRect = new Rect(
-                totalRect.xMax - sexualityPanelWidth - BoundaryPadding,
-                totalRect.y + BoundaryPadding,
-                actualKinseyWidth,
-                kinseyTextSize.y
+            // === Define the sexuality (right side) panel rect ===
+            Rect sexualityRect = new Rect(
+                totalRect.xMax - sexualityPanelWidth,
+                totalRect.y,
+                sexualityPanelWidth,
+                sexualityPanelHeight
+            );
+
+            // === Define the sexuality (right side) panel rect ===
+            Rect interestRect = new Rect(
+                totalRect.xMax - sexualityPanelWidth,
+                sexualityRect.y + sexualityPanelHeight,
+                sexualityPanelWidth,
+                totalRect.height - sexualityPanelHeight
             );
 
             // === Define the personality (left side) panel rect ===
             Rect personalityRect = totalRect;
-            personalityRect.xMax = kinseyRect.x - highlightPadding;
-            personalityRect = personalityRect.ContractedBy(BoundaryPadding); // Add padding
+            personalityRect.xMax = sexualityRect.x;
 
             // === Define other helper rects ===
             Rect forbiddenRect = new Rect(
@@ -65,21 +69,17 @@ namespace Maux36.RimPsyche
                 totalRect.width - personalityRect.xMax,
                 10f + BoundaryPadding
             );
-
-            Rect bigFiveRect = new Rect(
-                forbiddenRect.center.x - 5f, // 10f width / 2
-                10f + 2f * BoundaryPadding,
-                10f,
-                10f
-            );
+            sexualityRect = sexualityRect.ContractedBy(BoundaryPadding);
+            interestRect = interestRect.ContractedBy(BoundaryPadding);
+            personalityRect = personalityRect.ContractedBy(BoundaryPadding); // Add padding
 
             // === Adjust personalityRect again to not collide with right section ===
-            personalityRect.xMax = totalRect.xMax - sexualityPanelWidth - highlightPadding - 2f * BoundaryPadding;
+            personalityRect.xMax = totalRect.xMax - sexualityPanelWidth - BoundaryPadding;
 
             // === Draw separating lines between personality & sexuality sections ===
             GUI.color = LineColor;
             Widgets.DrawLineVertical(forbiddenRect.x, totalRect.y, totalRect.height); // Vertical divider
-            Widgets.DrawLineHorizontal(forbiddenRect.x, sexualityPanelHeight + BoundaryPadding, forbiddenRect.width); // Horizontal divider
+            Widgets.DrawLineHorizontal(forbiddenRect.x, sexualityPanelHeight, forbiddenRect.width); // Horizontal divider
             GUI.color = Color.white;
 
             // === Draw content ===
@@ -88,13 +88,15 @@ namespace Maux36.RimPsyche
             // DrawBigFive(pawn, bigFiveRect, forbiddenRect);
 
             // Draw list of personality traits
-            DrawPersonalityList(personalityRect, pawn);
+            DrawPersonalityBox(personalityRect, pawn);
+            DrawSexaulityBox(sexualityRect, pawn);
+            DrawInterestBox(interestRect, pawn);
 
             // === End group and restore state ===
             GUI.EndGroup();
         }
 
-        public static void DrawPersonalityList(Rect personalityRect, Pawn pawn)
+        public static void DrawPersonalityBox(Rect personalityRect, Pawn pawn)
         {
             var personalityDefList = DefDatabase<PersonalityDef>.AllDefs;
             var compPsyche = pawn.compPsyche();
@@ -119,7 +121,7 @@ namespace Maux36.RimPsyche
             Widgets.Label(titleRect, "Personality");
 
             // Icon on the right
-            Texture2D PsycheButton = ContentFinder<Texture2D>.Get("Buttons/RimpsycheIcon", true);
+            Texture2D PsycheButton = ContentFinder<Texture2D>.Get("Buttons/RimpsycheEdit", true);
             float iconSize = 24f;
             Rect iconRect = new Rect(headerRect.width - iconSize - 8f, (headerHeight - iconSize) / 2f, iconSize, iconSize);
 
@@ -201,6 +203,55 @@ namespace Maux36.RimPsyche
             Widgets.EndScrollView();
 
             // Restore previous text settings
+            Text.Anchor = oldAnchor;
+            Text.Font = oldFont;
+        }
+
+        public static void DrawSexaulityBox(Rect sexualityRect, Pawn pawn)
+        {
+            var compPsyche = pawn.compPsyche();
+            TextAnchor oldAnchor = Text.Anchor;
+            GameFont oldFont = Text.Font;
+
+            // === Header Config ===
+            float headerHeight = 35f;
+
+            // === Draw Header ===
+            Rect headerRect = new Rect(sexualityRect.x, sexualityRect.y, sexualityRect.width, headerHeight);
+            GUI.BeginGroup(headerRect);
+
+            // Title: "Sexuality"
+            Text.Font = GameFont.Medium;
+            Text.Anchor = TextAnchor.MiddleCenter;
+            Rect titleRect = new Rect(0f, 0f, headerRect.width, headerRect.height);
+            Widgets.Label(titleRect, "Sexuality");
+
+            GUI.EndGroup();
+
+            Text.Anchor = oldAnchor;
+            Text.Font = oldFont;
+        }
+        public static void DrawInterestBox(Rect sexualityRect, Pawn pawn)
+        {
+            var compPsyche = pawn.compPsyche();
+            TextAnchor oldAnchor = Text.Anchor;
+            GameFont oldFont = Text.Font;
+
+            // === Header Config ===
+            float headerHeight = 35f;
+
+            // === Draw Header ===
+            Rect headerRect = new Rect(sexualityRect.x, sexualityRect.y, sexualityRect.width, headerHeight);
+            GUI.BeginGroup(headerRect);
+
+            // Title: "Sexuality"
+            Text.Font = GameFont.Medium;
+            Text.Anchor = TextAnchor.MiddleCenter;
+            Rect titleRect = new Rect(0f, 0f, headerRect.width, headerRect.height);
+            Widgets.Label(titleRect, "Interest");
+
+            GUI.EndGroup();
+
             Text.Anchor = oldAnchor;
             Text.Font = oldFont;
         }

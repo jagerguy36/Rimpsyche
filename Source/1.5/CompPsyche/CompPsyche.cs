@@ -109,22 +109,20 @@ namespace Maux36.RimPsyche
                     if (convoCheckTick <= Find.TickManager.TicksGame)
                     {
                         //TODO: Check conversation continue chance. If that's the case, then increase the check tick
-                        if(continuationChance > 0)
+                        if(continuationChance > 0 && Rand.Chance(continuationChance))
                         {
-                            Log.Message($"continuationChance > 0");
-                            if (Rand.Chance(continuationChance))
-                            {
-                                Log.Message($"continue for {convoCheckTick-convoStartedTick} more ticks");
-                                convoCheckTick += convoCheckTick-convoStartedTick;
-                                continuationChance = 0;
-                                return;
-                            }
+                            Log.Message($"continue for {convoCheckTick - convoStartedTick} more ticks");
+                            convoCheckTick += convoCheckTick - convoStartedTick;
+                            continuationChance = 0;
                         }
-                        Log.Message($"end convo.");
-                        FinishConvo(true);
-                        return;
+                        else
+                        {
+                            Log.Message($"end convo.");
+                            FinishConvo(true);
+                            return;
+                        }
                     }
-                    else if ((Find.TickManager.TicksGame - convoStartedTick) % 200 == 199)
+                    if ((Find.TickManager.TicksGame - convoStartedTick) % 200 == 199)
                     {
                         if (convoPartner.Map != null && parentPawn.Map != null)
                         {
