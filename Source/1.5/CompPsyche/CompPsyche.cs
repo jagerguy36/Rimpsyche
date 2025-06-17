@@ -109,20 +109,22 @@ namespace Maux36.RimPsyche
                     if (convoCheckTick <= Find.TickManager.TicksGame)
                     {
                         //TODO: Check conversation continue chance. If that's the case, then increase the check tick
-                        if(continuationChance > 0 && Rand.Chance(continuationChance))
+                        if(continuationChance > 0)
                         {
-                            Log.Message($"continue");
-                            convoCheckTick += 600;
-                            continuationChance = 0;
+                            Log.Message($"continuationChance > 0");
+                            if (Rand.Chance(continuationChance))
+                            {
+                                Log.Message($"continue for {convoCheckTick-convoStartedTick} more ticks");
+                                convoCheckTick += convoCheckTick-convoStartedTick;
+                                continuationChance = 0;
+                                return;
+                            }
                         }
-                        else
-                        {
-                            Log.Message($"end convo.");
-                            FinishConvo(true);
-                            return;
-                        }
+                        Log.Message($"end convo.");
+                        FinishConvo(true);
+                        return;
                     }
-                    if ((Find.TickManager.TicksGame - convoStartedTick) % 200 == 199)
+                    else if ((Find.TickManager.TicksGame - convoStartedTick) % 200 == 199)
                     {
                         if (convoPartner.Map != null && parentPawn.Map != null)
                         {
@@ -167,9 +169,6 @@ namespace Maux36.RimPsyche
             GetConvoResult(out float pawnScore, out float partnerScore);
             Log.Message($"GetConvoResult: {parentPawn.Name}: {pawnScore} | {convoPartner.Name}: {partnerScore}");
             float lengthMult = Mathf.Max(0, Find.TickManager.TicksGame - convoStartedTick - 200) * 0.002f + 1f; // 1~2 ~ 4
-
-            //TODO : Check if mattered (affect personality)
-
             var intDef = DefOfRimpsyche.Rimpsyche_EndConversation;
             var entry = new PlayLogEntry_InteractionConversation(intDef, parentPawn, convoPartner, topic.name, null);
             if (showMote)
@@ -192,6 +191,8 @@ namespace Maux36.RimPsyche
             {
                 if(opinionOffset != 0)
                 {
+                    //Affect here
+                    
                     ThoughtDef newDef = Rimpsyche_Utility.CreateSocialThought(
                         "Rimpsyche_Conversation" + parentPawn.GetHashCode() + topic.name,
                         "ConversationStage".Translate() + " " + topic.name,
@@ -235,45 +236,43 @@ namespace Maux36.RimPsyche
                 float partnerTalkativeness = partnerPsyche.personality.GetPersonality(PersonalityDefOf.Rimpsyche_Talkativeness);
 
                 
-                float talkQuality = Rand.Value;
+                float talkRand = Rand.Value;
 
                 if (topicAlignment > 0)
                 {
                     Log.Message($"positive alignment");
-                    float partnerScoreBase = 1f + (1f * partnerOpinion) + (2f * topicAlignment); //base 1, can scale up to 4 with alignment score
-                    float partnerScoreModifier = (0.2f * pawnTact) + (0.4f * (pawnPassion + 1f)); //-0.2~1
-                    partnerScoreModifier = (1f + talkQuality) * partnerScoreModifier; // -0.4~2
-                    partnerScore = (partnerScoreBase + partnerScoreModifier); //0.6~6 * 1~2(~4)
+                    float partnerScoreBase = 1f + (0.5f * partnerOpinion) + (2f * topicAlignment); //0.5[2]3.5
+                    float partnerScoreModifier = (0.2f * pawnTact) + (0.2f * pawnPassion); //-0.4~[0]~0.4
+                    partnerScoreModifier = (1f + talkRand) * partnerScoreModifier; // -0.8~[0]~0.8
+                    partnerScore = (partnerScoreBase + partnerScoreModifier); // -0.3[2]4.3
 
-                    float pawnScoreBase = 1f + (1f * pawnOpinion) + (2f * topicAlignment); //base 1, can scale up to 4 with alignment score
-                    float pawnScoreModifier = (0.2f * partnerTact) + (0.4f * (partnerPassion+1f)); //-0.2~1
-                    pawnScoreModifier = (1f + talkQuality) * pawnScoreModifier; // -0.4~2
-                    pawnScore = (pawnScoreBase + pawnScoreModifier); //0.6~6 * 1~2(~4)
+                    float pawnScoreBase = 1f + (0.5f * pawnOpinion) + (2f * topicAlignment); //0.5[2]3.5
+                    float pawnScoreModifier = (0.2f * partnerTact) + (0.2f * partnerPassion); //-0.4~[0]~0.4
+                    pawnScoreModifier = (1f + talkRand) * pawnScoreModifier; // -0.8~[0]~0.8
+                    pawnScore = (pawnScoreBase + pawnScoreModifier); // -0.3[2]4.3
                     return;
                 }
                 //Negative Alignment
-                float pawnReceiveScore = (partnerTact * (partnerTalkativeness + 1) * 0.5f) + pawnOpenness + pawnOpinion; // -3~3
-                float partnerReceiveScore = (pawnTact * (pawnTalkativeness + 1) * 0.5f) + partnerOpenness + partnerOpinion; // -3~3
+                float pawnReceiveScore = (partnerTact * (partnerTalkativeness + 1) * 0.5f) + (pawnOpenness * (pawnTrust + 1) * 0.5f) + pawnOpinion; // -3~[0]~3
+                float partnerReceiveScore = (pawnTact * (pawnTalkativeness + 1) * 0.5f) + (partnerOpenness * (partnerTrust + 1) * 0.5f) + partnerOpinion; // -3~[0]~3
                 Log.Message($"negative alignment. pawnReceiveScore = {pawnReceiveScore}, partnerReceiveScore: {partnerReceiveScore}");
                 if (pawnReceiveScore > 0f && partnerReceiveScore > 0f)
                 {
                     //If both receiveScore is positive then there is a chance it's a good talk even if the alignment is negative
-                    
-                    //TODO: Add trust as a factor
                     float goodTalkChance = (3f + pawnReceiveScore + partnerReceiveScore) * (0.10f + (0.05f * topicAlignment)); // (3 ~ 9)  * (0.05 ~ 0.1) = 0.15 ~ 0.9
-                    Log.Message($"goodTalkChance = {goodTalkChance}, talkQuality: {talkQuality}");
-                    if (talkQuality > 1f - goodTalkChance)
+                    Log.Message($"goodTalkChance = {goodTalkChance}, talkRand: {talkRand}");
+                    if (talkRand > 1f - goodTalkChance)
                     {
-                        partnerScore = partnerReceiveScore * talkQuality;
-                        pawnScore = pawnReceiveScore * talkQuality;
+                        partnerScore = partnerReceiveScore * talkRand;
+                        pawnScore = pawnReceiveScore * talkRand;
                         return;
                     }
                 }
                 //Bad Talk
-                float negativeScoreBase = 2f * topicAlignment * (talkQuality + 1f); // -2~0 * (1~2)
-                Log.Message($"Bad talk. talkQuality: {talkQuality}. negativeScoreBase: {negativeScoreBase}");
-                partnerScore = negativeScoreBase * (1f + (0.3f * partnerReceiveScore)); //(-4~0) * 0.1~1.9 = -7.6 ~ 0
-                pawnScore = negativeScoreBase * (1f + (0.3f * pawnReceiveScore)); //-7.6 ~ 0
+                float negativeScoreBase = 2f * topicAlignment * (1f - talkRand); // -2~[-1]~0
+                Log.Message($"Bad talk. talkRand: {talkRand}. negativeScoreBase: {negativeScoreBase}");
+                partnerScore = negativeScoreBase * (1f - (0.3f * partnerReceiveScore)); //(-2~0) * 0.1~1.9 = -3.8 ~[-1]~ 0
+                pawnScore = negativeScoreBase * (1f - (0.3f * pawnReceiveScore)); //-3.8 ~ 0
                 return;
             }
             return;
