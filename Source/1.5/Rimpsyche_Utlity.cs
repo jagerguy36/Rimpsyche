@@ -17,7 +17,7 @@ namespace Maux36.RimPsyche
             newDef.defName = defName;
             newDef.durationDays = 5f;
             newDef.nullifyingTraits = new List<TraitDef> { TraitDefOf.Psychopath };
-            newDef.thoughtClass = typeof(Thoughts_MemoryPostDefined);
+            newDef.thoughtClass = typeof(Thought_MemoryPostDefined);
             newDef.stackedEffectMultiplier = 0.9f;
             newDef.stackLimitForSameOtherPawn = 10;
             newDef.stackLimit = 300;

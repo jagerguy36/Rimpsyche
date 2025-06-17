@@ -3,12 +3,12 @@ using Verse;
 
 namespace Maux36.RimPsyche
 {
-    public class Thoughts_MemoryPostDefined : Thought_MemorySocial
+    public class Thought_MemoryPostDefined : Thought_MemorySocial
     {
         public string defNameOverride;
         public string labelOverride;
         public float baseOpinionOffsetOverride;
-        public Thoughts_MemoryPostDefined(){}
+        public Thought_MemoryPostDefined(){}
         public override void ExposeData()
         {
             if (def != null) def.defName = "Rimpsyche_ConversationOpinion";

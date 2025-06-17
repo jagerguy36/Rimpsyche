@@ -96,7 +96,7 @@
     <Compile Include="RimpsycheSettings.cs" />
     <Compile Include="Rimpsyche_UI_Utility.cs" />
     <Compile Include="Rimpsyche_Utlity.cs" />
-    <Compile Include="Thought\Thoughts_MemoryPostDefined.cs" />
+    <Compile Include="Thought\Thought_MemoryPostDefined.cs" />
     <Compile Include="RimpsycheUI\InterfaceComponents.cs" />
     <Compile Include="RimpsycheUI\ITab_Pawn_Psyche.cs" />
     <Compile Include="RimpsycheUI\PsycheInfoCard.cs" />

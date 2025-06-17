@@ -88,6 +88,7 @@ namespace Maux36.RimPsyche
                 if (convoPartner == null)
                 {
                     CleanUp();
+                    return;
                 }
                 if (ShouldEndConvoImmediately())
                 {
@@ -108,22 +109,20 @@ namespace Maux36.RimPsyche
                     if (convoCheckTick <= Find.TickManager.TicksGame)
                     {
                         //TODO: Check conversation continue chance. If that's the case, then increase the check tick
-                        if(continuationChance > 0)
+                        if(continuationChance > 0 && Rand.Chance(continuationChance))
                         {
-                            Log.Message($"continuationChance > 0");
-                            if (Rand.Chance(continuationChance))
-                            {
-                                Log.Message($"continue");
-                                convoCheckTick += 600;
-                                continuationChance = 0;
-                                return;
-                            }
+                            Log.Message($"continue");
+                            convoCheckTick += 600;
+                            continuationChance = 0;
                         }
-                        Log.Message($"end convo.");
-                        FinishConvo(true);
-                        return;
+                        else
+                        {
+                            Log.Message($"end convo.");
+                            FinishConvo(true);
+                            return;
+                        }
                     }
-                    else if ((Find.TickManager.TicksGame - convoStartedTick) % 200 == 199)
+                    if ((Find.TickManager.TicksGame - convoStartedTick) % 200 == 199)
                     {
                         if (convoPartner.Map != null && parentPawn.Map != null)
                         {
@@ -298,8 +297,8 @@ namespace Maux36.RimPsyche
             }
             newThought.pawn = parentPawn;
             newThought.otherPawn = otherPawn;
-            List<Thoughts_MemoryPostDefined> currentConvoMemories = parentPawn.needs.mood.thoughts.memories.Memories
-                .OfType<Thoughts_MemoryPostDefined>()
+            List<Thought_MemoryPostDefined> currentConvoMemories = parentPawn.needs.mood.thoughts.memories.Memories
+                .OfType<Thought_MemoryPostDefined>()
                 .Where(m => m.otherPawn == otherPawn)
                 .ToList();
 
@@ -310,7 +309,7 @@ namespace Maux36.RimPsyche
             else
             {
                 currentConvoMemories.Sort((m1, m2) => Mathf.Abs(m2.OpinionOffset()).CompareTo(Mathf.Abs(m1.OpinionOffset())));
-                Thoughts_MemoryPostDefined memoryToCompareWith = currentConvoMemories[maxConvoOpinions - 1];
+                Thought_MemoryPostDefined memoryToCompareWith = currentConvoMemories[maxConvoOpinions - 1];
                 if (Mathf.Abs(opinionOffset) < Mathf.Abs(memoryToCompareWith.OpinionOffset()))
                 {
                     Log.Message("It's smaller actually. so no adding for you");
@@ -318,7 +317,7 @@ namespace Maux36.RimPsyche
                 }
                 for (int i = maxConvoOpinions - 1; i < currentConvoMemories.Count; i++)
                 {
-                    Thoughts_MemoryPostDefined m = currentConvoMemories[i];
+                    Thought_MemoryPostDefined m = currentConvoMemories[i];
                     Log.Message($"{m.def.defName} will be removed");
                     m.age = m.DurationTicks + 300;
                 }

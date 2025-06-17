@@ -18,6 +18,7 @@ namespace Maux36.RimPsyche
     {
         public string name;
         public float controversiality = 1;
+        public bool restricted = false;
         public TopicCategory category = TopicCategory.Socializing;
         public List<FacetWeight> weights;
         public float GetScore(Pawn initiator, Pawn recipient)
@@ -75,6 +76,8 @@ namespace Maux36.RimPsyche
         public void ExposeData()
         {
             Scribe_Values.Look(ref name, "name");
+            Scribe_Values.Look(ref controversiality, "controversiality", 1);
+            Scribe_Values.Look(ref restricted, "restricted", false);
             Scribe_Values.Look(ref category, "category", TopicCategory.Socializing);
             Scribe_Collections.Look(ref weights, "weights", LookMode.Deep);
         }

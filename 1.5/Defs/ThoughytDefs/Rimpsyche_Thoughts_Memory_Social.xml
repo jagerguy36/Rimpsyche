@@ -4,7 +4,7 @@
   <!-- Random social interactions -->
   <ThoughtDef>
     <defName>Rimpsyche_ConversationOpinion</defName>
-    <thoughtClass>Maux36.RimPsyche.Thoughts_MemoryPostDefined</thoughtClass>
+    <thoughtClass>Maux36.RimPsyche.Thought_MemoryPostDefined</thoughtClass>
     <durationDays>5</durationDays>
     <stackLimit>300</stackLimit>
     <stackLimitForSameOtherPawn>10</stackLimitForSameOtherPawn>
