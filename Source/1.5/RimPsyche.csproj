@@ -66,6 +66,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CompPsyche\CompCacheManager.cs" />
     <Compile Include="CompPsyche\Facet.cs" />
     <Compile Include="CompPsyche\CompProperties_Psyche.cs" />
     <Compile Include="CompPsyche\CompPsyche.cs" />

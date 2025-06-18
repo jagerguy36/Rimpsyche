@@ -231,7 +231,7 @@ namespace Maux36.RimPsyche
             Text.Anchor = oldAnchor;
             Text.Font = oldFont;
         }
-        public static void DrawInterestBox(Rect sexualityRect, Pawn pawn)
+        public static void DrawInterestBox(Rect interestRect, Pawn pawn)
         {
             var compPsyche = pawn.compPsyche();
             TextAnchor oldAnchor = Text.Anchor;
@@ -239,12 +239,16 @@ namespace Maux36.RimPsyche
 
             // === Header Config ===
             float headerHeight = 35f;
+            float labelWidth = 150f;
+            float rowHeight = 28f;
+            float labelPadding = 2f;
+            float barHeight = 4f;
 
             // === Draw Header ===
-            Rect headerRect = new Rect(sexualityRect.x, sexualityRect.y, sexualityRect.width, headerHeight);
+            Rect headerRect = new Rect(interestRect.x, interestRect.y, interestRect.width, headerHeight);
             GUI.BeginGroup(headerRect);
 
-            // Title: "Sexuality"
+            // Title: "Interest"
             Text.Font = GameFont.Medium;
             Text.Anchor = TextAnchor.MiddleCenter;
             Rect titleRect = new Rect(0f, 0f, headerRect.width, headerRect.height);
@@ -252,6 +256,66 @@ namespace Maux36.RimPsyche
 
             GUI.EndGroup();
 
+            Text.Anchor = oldAnchor;
+            Text.Font = oldFont;
+
+
+            // === Scroll View Setup ===
+            Text.Font = GameFont.Small;
+            float viewHeight = RimpsycheDatabase.InterestList.Count() * rowHeight + 3f;
+            Rect scrollContentRect = new Rect(0f, 0f, interestRect.width - 10f, viewHeight);
+
+            Rect scrollRect = new Rect(
+                interestRect.x,
+                interestRect.y + headerHeight,
+                interestRect.width,
+                interestRect.height - headerHeight
+            );
+
+            Widgets.BeginScrollView(scrollRect, ref NodeScrollPosition, scrollContentRect);
+
+            float y = 0f;
+            float barWidth = scrollContentRect.width - labelWidth - labelPadding-5f;
+
+            foreach (var interest in RimpsycheDatabase.InterestList)
+            {
+                var value = compPsyche.Interests.GetOrCreateInterestScore(interest);
+                Rect rowRect = new Rect(5f, y, scrollContentRect.width, rowHeight);
+
+                // Hover highlight + tooltip
+                if (Mouse.IsOver(rowRect))
+                {
+                    Widgets.DrawHighlight(rowRect);
+                    TooltipHandler.TipRegion(rowRect, $"{interest.name}: {Math.Round(value, 1)}");
+                }
+
+                float barCenterX = rowRect.x + rowRect.width / 2f;
+                float centerY = rowRect.y + rowRect.height / 2f;
+
+                // Left label
+                Rect leftRect = new Rect(rowRect.x + labelPadding, centerY - Text.LineHeight / 2f, labelWidth, Text.LineHeight);
+                Text.Anchor = TextAnchor.MiddleLeft;
+                Widgets.Label(leftRect, interest.name);
+
+                // Bar background
+                Rect barRect = new Rect(leftRect.x + labelWidth, centerY - barHeight / 2f, barWidth, barHeight);
+                Widgets.DrawBoxSolid(barRect, new Color(0.2f, 0.2f, 0.2f, 0.5f));
+
+                // Value bar
+                float normalizedValue = Mathf.Clamp(value, 0f, 100f) / 100f; // Normalize value to 0-1 range
+                float fillWidth = normalizedValue * barWidth; // Calculate the width of the filled part
+                Rect valueRect = new Rect(barRect.x, barRect.y, fillWidth, barHeight); // Bar fills from the left
+
+                // Color based on intensity (small = yellow, strong = green)
+                Color barColor = Color.Lerp(Color.yellow, Color.green, normalizedValue);
+                Widgets.DrawBoxSolid(valueRect, barColor);
+
+                y += rowHeight;
+            }
+
+            Widgets.EndScrollView();
+
+            // Restore previous text settings
             Text.Anchor = oldAnchor;
             Text.Font = oldFont;
         }

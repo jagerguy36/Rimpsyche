@@ -15,7 +15,7 @@ namespace Maux36.RimPsyche
 
             if (!ModsConfig.IsActive("zetrith.prepatcher"))
             {
-                Log.Error("Rimpsyche could not find its required dependency: Prepatcher. This is a critical component, and your game will not work without it.");
+                Log.Warning("[Rimpsyche] Prepatcher not detected. For optimal performance, Prepatcher is highly recommended.");
             }
         }
         public override string SettingsCategory()

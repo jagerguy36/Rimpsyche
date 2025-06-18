@@ -23,15 +23,16 @@ namespace Maux36.RimPsyche
                 float desiredHeight = screenHeight * 0.5f;
 
                 // You might want to set a minimum size to prevent it from becoming too small
-                float minWidth = 800f; // Example minimum width
+                float minWidth = 900f;
                 float minHeight = 400f; // Example minimum height
 
                 return new Vector2(Mathf.Max(desiredWidth, minWidth), Mathf.Max(desiredHeight, minHeight));
             }
         }
+        public static float innerPadding = 5f;
         public static Vector2 FacetNodeScrollPosition = Vector2.zero;
         public static Vector2 EditNodeScrollPosition = Vector2.zero;
-        public static bool editModeOn = false;
+        public static bool editModeOn = true;
 
         public override void DoWindowContents(Rect inRect)
         {
@@ -53,19 +54,55 @@ namespace Maux36.RimPsyche
 
             // Divide window into two horizontal parts: 2:3 ratio
             float totalWidth = inRect.width;
-            float spacing = 10f; // Optional spacing between panels
 
-            float leftWidth = totalWidth * 2f / 5f - spacing / 2f;
-            float rightWidth = totalWidth * 3f / 5f - spacing / 2f;
+            float leftWidth = totalWidth * 3f / 8f;
+            float midWidth = totalWidth * 3f / 8f;
+            float rightWidth = totalWidth * 2f / 8f;
 
             Rect leftRect = new Rect(inRect.x, inRect.y, leftWidth, inRect.height);
-            Rect rightRect = new Rect(leftRect.xMax + spacing, inRect.y, rightWidth, inRect.height);
+            Rect middleRect = new Rect(leftRect.xMax, inRect.y, midWidth, inRect.height);
+            Rect rightRect = new Rect(middleRect.xMax, inRect.y, rightWidth, inRect.height);
 
-            // Left: Edit Personality
             DrawFacetCard(leftRect, pawn);
 
-            // Right: Facet card (to be defined later)
-            DrawPsycheEditcard(rightRect, pawn); // You will define this method
+            DrawPsycheEditcard(middleRect, pawn); // You will define this method
+
+            DrawSIEditCard(rightRect, pawn); // You will define this method
+        }
+
+        public static void DrawSIEditCard(Rect rect, Pawn pawn)
+        {
+            if (pawn == null) return;
+            var compPsyche = pawn.compPsyche();
+            if (compPsyche == null) return;
+
+            Rect innerRect = rect.ContractedBy(innerPadding);
+            float upperHeight = 100f;
+            float lowerHeight = innerRect.height - upperHeight;
+
+            // Create the upper and lower Rects
+            Rect upperRect = new Rect(innerRect.x, innerRect.y, innerRect.width, upperHeight);
+            Rect lowerRect = new Rect(innerRect.x, innerRect.y + upperHeight, innerRect.width, lowerHeight);
+
+            // Set font and alignment for titles
+            Rect upperTitleRect = new Rect(upperRect.x, upperRect.y, upperRect.width, 35f);
+            Text.Font = GameFont.Medium;
+            Text.Anchor = TextAnchor.UpperCenter;
+            Widgets.Label(upperTitleRect, "Sexuality");
+            Text.Anchor = TextAnchor.UpperLeft;
+            Text.Font = GameFont.Small;
+            Rect upperContentRect = new Rect(upperRect.x, upperRect.y+35f, upperRect.width, upperRect.height-35f);
+            Widgets.DrawBoxSolid(upperContentRect, new Color(0.2f, 0.2f, 0.2f, 0.5f));
+
+            // Draw the lower title
+            Rect lowerTitleRect = new Rect(lowerRect.x, lowerRect.y, lowerRect.width, 35f);
+            Text.Font = GameFont.Medium;
+            Text.Anchor = TextAnchor.UpperCenter;
+            Widgets.Label(lowerRect, "Interest");
+            Text.Anchor = TextAnchor.UpperLeft;
+            Text.Font = GameFont.Small;
+            Rect lowerContentRect = new Rect(lowerRect.x, lowerRect.y + 35f, lowerRect.width, lowerRect.height - 35f);
+            Widgets.DrawBoxSolid(lowerContentRect, new Color(0.2f, 0.2f, 0.2f, 0.5f));
         }
 
         public static void DrawPsycheEditcard(Rect rect, Pawn pawn)
@@ -78,13 +115,11 @@ namespace Maux36.RimPsyche
             float rowHeight = 32f;
             float viewHeight = personalityDefList.Count() * rowHeight + 40f;
             float labelPadding = 0f;
-            float barWidth = 160f;
+            float barWidth = 120f;
             float barHeight = 4f;
 
             // Define internal padding/margins if desired
-            float innerPadding = 10f;
-            Rect innerRect = new Rect(rect.x + innerPadding, rect.y + innerPadding,
-                                      rect.width - (innerPadding * 2), rect.height - (innerPadding * 2));
+            Rect innerRect = rect.ContractedBy(innerPadding);
 
             // Title
             Text.Font = GameFont.Medium;
@@ -96,65 +131,32 @@ namespace Maux36.RimPsyche
             Text.Font = GameFont.Small;
 
             // --- ADDED EDIT MODE TOGGLE BOX ---
-            float editModeBoxWidth = 160f;
-            float editModeBoxHeight = 40f;
-            float editModeBoxMargin = 5f;
+            //float editModeBoxWidth = 160f;
+            //float editModeBoxHeight = 40f;
+            //float editModeBoxMargin = 5f;
 
-            // Position the clickable box to the right of the title
-            Rect editModeRect = new Rect(
-                titleRect.xMax - editModeBoxWidth - editModeBoxMargin, // Align right, with a margin
-                titleRect.y + (titleRect.height - editModeBoxHeight) / 2f, // Center vertically
-                editModeBoxWidth,
-                editModeBoxHeight
-            );
+            //// Position the clickable box to the right of the title
+            //Rect editModeRect = new Rect(
+            //    titleRect.xMax - editModeBoxWidth - editModeBoxMargin, // Align right, with a margin
+            //    titleRect.y + (titleRect.height - editModeBoxHeight) / 2f, // Center vertically
+            //    editModeBoxWidth,
+            //    editModeBoxHeight
+            //);
 
-            // Draw the background box and text
-            //Widgets.DrawBox(editModeRect); // Or Widgets.DrawBoxSolid(editModeRect, Color.gray) for a filled box
-
-            //// Set text color based on editModeOn status
-            //Color originalColor = GUI.color;
+            //string editmodeText = "Rimbody_EditModeOn".Translate();
             //if (editModeOn)
             //{
-            //    GUI.color = Color.green; // Highlight green if on
+            //    editmodeText = "Rimbody_EditModeOff".Translate();
             //}
-            //else
+            //if (Widgets.ButtonText(editModeRect, editmodeText))
             //{
-            //    GUI.color = Color.red; // Highlight red if off
+            //    SoundDefOf.Tick_High.PlayOneShotOnCamera();
+            //    editModeOn = !editModeOn;
             //}
-
-            //Text.Anchor = TextAnchor.MiddleCenter;
-            //Widgets.Label(editModeRect, "Edit Mode");
-            //Text.Anchor = TextAnchor.UpperLeft; // Reset anchor
-            //GUI.color = originalColor; // Reset color
-
-            //// Make the box clickable to toggle editModeOn
-            //if (Widgets.ButtonInvisible(editModeRect)) // Invisible button over the label
-            //{
-            //    editModeOn = !editModeOn; // Toggle the boolean
-            //    // You can add a sound here if you want
-            //    // SoundDefOf.Click.PlayOneShotOnCamera();
-            //}
-            //TooltipHandler.TipRegion(editModeRect, "Toggle edit mode for personality values.");
-            string editmodeText = "Rimbody_EditModeOn".Translate();
-            if (editModeOn)
-            {
-                editmodeText = "Rimbody_EditModeOff".Translate();
-            }
-            if (Widgets.ButtonText(editModeRect, editmodeText))
-            {
-                SoundDefOf.Tick_High.PlayOneShotOnCamera();
-                editModeOn = !editModeOn;
-            }
             // --- END ADDED EDIT MODE TOGGLE BOX ---
 
             // Scroll view
-            // The scrollRect's position and size must be relative to the 'rect' parameter.
-            // x = rect.x + padding (or just rect.x if you want it flush)
-            // y = rect.y + titleRect.height + some_spacing
             Rect scrollRect = new Rect(innerRect.x, titleRect.yMax + 5f, innerRect.width, innerRect.height - (titleRect.height + 5f));
-
-            // viewRect defines the *total scrollable content size*, not its position.
-            // Its x and y should typically be 0, as it's the internal coordinate system of the scroll view.
             Rect viewRect = new Rect(0f, 0f, scrollRect.width - 16f, viewHeight); // 16f for scrollbar width
 
             Widgets.BeginScrollView(scrollRect, ref EditNodeScrollPosition, viewRect);
@@ -242,9 +244,7 @@ namespace Maux36.RimPsyche
             float barHeight = 4f;
 
             // Define internal padding/margins if desired
-            float innerPadding = 10f;
-            Rect innerRect = new Rect(rect.x + innerPadding, rect.y + innerPadding,
-                                      rect.width - (innerPadding * 2), rect.height - (innerPadding * 2));
+            Rect innerRect = rect.ContractedBy(innerPadding);
 
             // Title for the Facet Card
             Text.Font = GameFont.Medium;

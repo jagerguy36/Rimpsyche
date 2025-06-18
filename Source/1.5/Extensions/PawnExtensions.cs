@@ -1,5 +1,4 @@
-﻿using RimWorld;
-using Prepatcher;
+﻿using Prepatcher;
 using Verse;
 
 namespace Maux36.RimPsyche
@@ -8,7 +7,10 @@ namespace Maux36.RimPsyche
     {
         [PrepatcherField]
         [InjectComponent]
-        public static extern CompPsyche compPsyche(this Pawn pawn);
+        public static CompPsyche compPsyche(this Pawn pawn)
+        {
+            return CompCacheManager.GetCompPsycheCached(pawn);
+        }
 
     }
 }
