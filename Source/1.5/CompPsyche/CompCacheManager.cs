@@ -3,7 +3,7 @@ using Verse;
 
 namespace Maux36.RimPsyche
 {
-    internal class CompCacheManager
+    public static class CompCacheManager
     {
         public static readonly Dictionary<Pawn, CompPsyche> CompPsycheCache = new Dictionary<Pawn, CompPsyche>();
 

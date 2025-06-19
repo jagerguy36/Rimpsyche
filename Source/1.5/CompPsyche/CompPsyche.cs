@@ -218,20 +218,20 @@ namespace Maux36.RimPsyche
             {
                 // -1 ~ 1
                 float pawnOpinion = parentPawn.relations.OpinionOf(convoPartner) * 0.01f;
-                float pawnTact = personality.GetPersonality(PersonalityDefOf.Rimpsyche_Tact); //(0.1f * recipient.skills.GetSkill(SkillDefOf.Social).Level)
+                float pawnTact = Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Tact); //(0.1f * recipient.skills.GetSkill(SkillDefOf.Social).Level)
                 pawnTact = Mathf.Clamp(pawnTact + (0.1f * parentPawn.skills.GetSkill(SkillDefOf.Social).Level), -1f, 1f);
-                float pawnOpenness = personality.GetPersonality(PersonalityDefOf.Rimpsyche_Openness);
-                float pawnTrust = personality.GetPersonality(PersonalityDefOf.Rimpsyche_Trust);
-                float pawnPassion = personality.GetPersonality(PersonalityDefOf.Rimpsyche_Passion);
-                float pawnTalkativeness = personality.GetPersonality(PersonalityDefOf.Rimpsyche_Talkativeness);
+                float pawnOpenness = Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Openness);
+                float pawnTrust = Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Trust);
+                float pawnPassion = Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Passion);
+                float pawnTalkativeness = Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Talkativeness);
 
                 float partnerOpinion = convoPartner.relations.OpinionOf(parentPawn) * 0.01f;
-                float partnerTact = partnerPsyche.personality.GetPersonality(PersonalityDefOf.Rimpsyche_Tact);
+                float partnerTact = partnerPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Tact);
                 partnerTact = Mathf.Clamp(partnerTact + (0.1f * convoPartner.skills.GetSkill(SkillDefOf.Social).Level), -1f, 1f);
-                float partnerOpenness = partnerPsyche.personality.GetPersonality(PersonalityDefOf.Rimpsyche_Openness);
-                float partnerTrust = partnerPsyche.personality.GetPersonality(PersonalityDefOf.Rimpsyche_Trust);
-                float partnerPassion = partnerPsyche.personality.GetPersonality(PersonalityDefOf.Rimpsyche_Passion);
-                float partnerTalkativeness = partnerPsyche.personality.GetPersonality(PersonalityDefOf.Rimpsyche_Talkativeness);
+                float partnerOpenness = partnerPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Openness);
+                float partnerTrust = partnerPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Trust);
+                float partnerPassion = partnerPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Passion);
+                float partnerTalkativeness = partnerPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Talkativeness);
 
                 
                 float talkRand = Rand.Value;
@@ -274,6 +274,16 @@ namespace Maux36.RimPsyche
                 return;
             }
             return;
+        }
+        public static float GetInfluencedChance(Pawn pawn, float opinionOffset, float opinion)
+        {
+            float pawnTrust = pawn.compPsyche().personality.GetPersonality(PersonalityDefOf.Rimpsyche_Trust); //-1~1
+            int pawnAge = pawn.AgeTracker.Age; //0~100
+            float score = Mathf.abs(opinionOffset); //0~20
+            float ageFactor = (10/(pawnAge+12))-0.4; //0.43333~-0.31072
+            //Modify age base based on race
+            float scoreBase = score-11+trust*2+ageFactor*10;
+            return scoreBase*scoreBase/400 * (1+opinion*0.2);
         }
         public static bool IsGoodPositionForInteraction(IntVec3 cell, IntVec3 recipientCell, Map map)
         {
