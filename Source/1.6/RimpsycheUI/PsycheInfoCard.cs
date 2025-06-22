@@ -40,43 +40,33 @@ namespace Maux36.RimPsyche
             totalRect.position = Vector2.zero;
 
             // === Layout constants ===
-            float sexualityPanelWidth = 250f;
-            float sexualityPanelHeight = 0f;
+            float rightPanelWidth = 250f;
+            float rightPanelHeight = 0f;
             if (showSexuality)
             {
-                sexualityPanelHeight = 150f;
+                rightPanelHeight = 150f;
             }
-
-            // === Text sizing for Sexuality label ===
-            //Vector2 sexualityTextSize = Text.CalcSize("KinseyRating".Translate() + " 0");
 
             // === Define the sexuality (right side) panel rect ===
             Rect sexualityRect = new Rect(
-                totalRect.xMax - sexualityPanelWidth,
+                totalRect.xMax - rightPanelWidth,
                 totalRect.y,
-                sexualityPanelWidth,
-                sexualityPanelHeight
+                rightPanelWidth,
+                rightPanelHeight
             );
 
             // === Define the interest (right side) panel rect ===
             Rect interestRect = new Rect(
-                totalRect.xMax - sexualityPanelWidth,
-                sexualityRect.y + sexualityPanelHeight,
-                sexualityPanelWidth,
-                totalRect.height - sexualityPanelHeight
+                totalRect.xMax - rightPanelWidth,
+                sexualityRect.y + rightPanelHeight,
+                rightPanelWidth,
+                totalRect.height - rightPanelHeight
             );
 
             // === Define the personality (left side) panel rect ===
             Rect personalityRect = totalRect;
             personalityRect.xMax = sexualityRect.x;
 
-            // === Define other helper rects ===
-            Rect forbiddenRect = new Rect(
-                personalityRect.xMax,
-                0f,
-                totalRect.width - personalityRect.xMax,
-                10f + BoundaryPadding
-            );
             if (showSexuality)
             {
                 sexualityRect = sexualityRect.ContractedBy(BoundaryPadding);
@@ -85,23 +75,18 @@ namespace Maux36.RimPsyche
             personalityRect = personalityRect.ContractedBy(BoundaryPadding); // Add padding
 
             // === Adjust personalityRect again to not collide with right section ===
-            personalityRect.xMax = totalRect.xMax - sexualityPanelWidth - BoundaryPadding;
+            personalityRect.xMax = totalRect.xMax - rightPanelWidth - BoundaryPadding;
 
             // === Draw separating lines between personality & sexuality sections ===
             GUI.color = LineColor;
-            Widgets.DrawLineVertical(forbiddenRect.x, totalRect.y, totalRect.height); // Vertical divider
+            Widgets.DrawLineVertical(personalityRect.xMax, totalRect.y, totalRect.height); // Vertical divider
             if (showSexuality)
             {
-                Widgets.DrawLineHorizontal(forbiddenRect.x, sexualityPanelHeight, forbiddenRect.width); // Horizontal divider
+                Widgets.DrawLineHorizontal(personalityRect.xMax, rightPanelHeight, totalRect.width-personalityRect.xMax); // Horizontal divider
             }
             GUI.color = Color.white;
 
             // === Draw content ===
-
-            // Placeholder: Draw Big Five (currently commented out)
-            // DrawBigFive(pawn, bigFiveRect, forbiddenRect);
-
-            // Draw list of personality traits
             DrawPersonalityBox(personalityRect, compPsyche, pawn);
             if (showSexuality)
             {
