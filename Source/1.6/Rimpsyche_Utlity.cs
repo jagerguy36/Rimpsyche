@@ -55,6 +55,8 @@ namespace Maux36.RimPsyche
             return Mathf.Lerp(-50, 50, Mathf.InverseLerp(sourceMin, sourceMax, value));
         }
 
+        //Debug Actions
+
         [DebugAction("Pawns", actionType = DebugActionType.ToolMapForPawns, allowedGameStates = AllowedGameStates.PlayingOnMap, displayPriority = 1000)]
         public static void LogPawnPsyche(Pawn pawn)
         {
@@ -78,6 +80,8 @@ namespace Maux36.RimPsyche
             }
         }
 
+        //Database
+
         public static Dictionary<Pair<string, int>, List<(Facet, float, float)>> TraitGateDatabase = new()
         {
             [new Pair<string, int>("NaturalMood", 2)] = new List<(Facet, float, float)>
@@ -96,11 +100,16 @@ namespace Maux36.RimPsyche
             {
                 (Facet.Pessimism, 25f, 50f)
             },
-            [new Pair<string, int>("Kind", 0)] = new List<(Facet, float, float)>
-            {
-                (Facet.Cooperation, 0f, 50f)
-            },
+            //[new Pair<string, int>("Kind", 0)] = new List<(Facet, float, float)>
+            //{
+            //    (Facet.Cooperation, 0f, 50f)
+            //},
         };
+
+        public static float GetMinAdultAge(Pawn pawn)
+        {
+            return pawn.ageTracker.AdultMinAge; ;
+        }
 
     }
 }

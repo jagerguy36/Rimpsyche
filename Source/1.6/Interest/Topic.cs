@@ -1,25 +1,15 @@
-﻿using HarmonyLib;
-using RimWorld;
+﻿using RimWorld;
 using System.Collections.Generic;
 using UnityEngine;
 using Verse;
 
 namespace Maux36.RimPsyche
 {
-    public enum TopicCategory : byte
-    {
-        Socializing,
-        Disclosure,
-        Opinion,
-        Topical
-    }
-
     public class Topic : IExposable
     {
         public string name;
         public float controversiality = 1;
         public bool restricted = false;
-        public TopicCategory category = TopicCategory.Socializing;
         public List<FacetWeight> weights;
         public float GetScore(Pawn initiator, Pawn recipient)
         {
@@ -78,7 +68,6 @@ namespace Maux36.RimPsyche
             Scribe_Values.Look(ref name, "name");
             Scribe_Values.Look(ref controversiality, "controversiality", 1);
             Scribe_Values.Look(ref restricted, "restricted", false);
-            Scribe_Values.Look(ref category, "category", TopicCategory.Socializing);
             Scribe_Collections.Look(ref weights, "weights", LookMode.Deep);
         }
     }

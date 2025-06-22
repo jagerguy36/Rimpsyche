@@ -82,12 +82,6 @@ namespace Maux36.RimPsyche
             return result;
         }
 
-        // Interaction
-        public float GetTopicAttitude(Topic topic)
-        {
-            return 0;
-        }
-
         // Initialization
         public Pawn_PersonalityTracker(Pawn p)
         {
@@ -247,6 +241,7 @@ namespace Maux36.RimPsyche
         public bool SetFacetValue(Facet facet, float value)
         {
             value = Mathf.Clamp(value, -50f, 50f);
+            int originalNormValue = GetFacetValueNorm(facet);
             switch (facet)
             {
                 // Openness
@@ -307,8 +302,8 @@ namespace Maux36.RimPsyche
                 default:
                     throw new ArgumentOutOfRangeException(nameof(facet), facet, null);
             }
-            var changedValue = GetFacetValue(facet);
-            return changedValue != (int)(changedValue);
+            var changedValue = GetFacetValueNorm(facet);
+            return changedValue != originalNormValue;
         }
 
         public void AffectFacetValue(Dictionary<Facet, float> changes)
@@ -364,6 +359,7 @@ namespace Maux36.RimPsyche
                         adjustedFuture = Rimpsyche_Utility.RestoreGatedValue(adjustedFuture, low, high);
                     }
                 }
+                Log.Message($"adjusting facet {kvp.Key} from {GetFacetValueRaw(kvp.Key)} to {adjustedFuture}");
                 if (SetFacetValue(kvp.Key, adjustedFuture))
                 {
                     shouldDirtyCache = true;

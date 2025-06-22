@@ -3,6 +3,7 @@ using System;
 using System.Linq;
 using UnityEngine;
 using Verse;
+using static RimWorld.ColonistBar;
 
 namespace Maux36.RimPsyche
 {
@@ -23,6 +24,9 @@ namespace Maux36.RimPsyche
 
         public static void DrawPsycheCard(Rect totalRect, Pawn pawn)
         {
+
+            var compPsyche = pawn.compPsyche();
+            bool showSexuality = compPsyche.Sexuality.ShowOnUI();
             // Save state
             OldAnchor = Text.Anchor;
             Text.Font = GameFont.Small;
@@ -37,10 +41,14 @@ namespace Maux36.RimPsyche
 
             // === Layout constants ===
             float sexualityPanelWidth = 250f;
-            float sexualityPanelHeight = 150f;
+            float sexualityPanelHeight = 0f;
+            if (showSexuality)
+            {
+                sexualityPanelHeight = 150f;
+            }
 
             // === Text sizing for Sexuality label ===
-            Vector2 sexualityTextSize = Text.CalcSize("KinseyRating".Translate() + " 0");
+            //Vector2 sexualityTextSize = Text.CalcSize("KinseyRating".Translate() + " 0");
 
             // === Define the sexuality (right side) panel rect ===
             Rect sexualityRect = new Rect(
@@ -50,7 +58,7 @@ namespace Maux36.RimPsyche
                 sexualityPanelHeight
             );
 
-            // === Define the sexuality (right side) panel rect ===
+            // === Define the interest (right side) panel rect ===
             Rect interestRect = new Rect(
                 totalRect.xMax - sexualityPanelWidth,
                 sexualityRect.y + sexualityPanelHeight,
@@ -69,7 +77,10 @@ namespace Maux36.RimPsyche
                 totalRect.width - personalityRect.xMax,
                 10f + BoundaryPadding
             );
-            sexualityRect = sexualityRect.ContractedBy(BoundaryPadding);
+            if (showSexuality)
+            {
+                sexualityRect = sexualityRect.ContractedBy(BoundaryPadding);
+            }
             interestRect = interestRect.ContractedBy(BoundaryPadding);
             personalityRect = personalityRect.ContractedBy(BoundaryPadding); // Add padding
 
@@ -79,7 +90,10 @@ namespace Maux36.RimPsyche
             // === Draw separating lines between personality & sexuality sections ===
             GUI.color = LineColor;
             Widgets.DrawLineVertical(forbiddenRect.x, totalRect.y, totalRect.height); // Vertical divider
-            Widgets.DrawLineHorizontal(forbiddenRect.x, sexualityPanelHeight, forbiddenRect.width); // Horizontal divider
+            if (showSexuality)
+            {
+                Widgets.DrawLineHorizontal(forbiddenRect.x, sexualityPanelHeight, forbiddenRect.width); // Horizontal divider
+            }
             GUI.color = Color.white;
 
             // === Draw content ===
@@ -88,18 +102,20 @@ namespace Maux36.RimPsyche
             // DrawBigFive(pawn, bigFiveRect, forbiddenRect);
 
             // Draw list of personality traits
-            DrawPersonalityBox(personalityRect, pawn);
-            DrawSexaulityBox(sexualityRect, pawn);
-            DrawInterestBox(interestRect, pawn);
+            DrawPersonalityBox(personalityRect, compPsyche, pawn);
+            if (showSexuality)
+            {
+                DrawSexaulityBox(sexualityRect, compPsyche);
+            }
+            DrawInterestBox(interestRect, compPsyche);
 
             // === End group and restore state ===
             GUI.EndGroup();
         }
 
-        public static void DrawPersonalityBox(Rect personalityRect, Pawn pawn)
+        public static void DrawPersonalityBox(Rect personalityRect, CompPsyche compPsyche,  Pawn pawn)
         {
             var personalityDefList = DefDatabase<PersonalityDef>.AllDefs;
-            var compPsyche = pawn.compPsyche();
             TextAnchor oldAnchor = Text.Anchor;
             GameFont oldFont = Text.Font;
 
@@ -207,14 +223,15 @@ namespace Maux36.RimPsyche
             Text.Font = oldFont;
         }
 
-        public static void DrawSexaulityBox(Rect sexualityRect, Pawn pawn)
+        public static void DrawSexaulityBox(Rect sexualityRect, CompPsyche compPsyche)
         {
-            var compPsyche = pawn.compPsyche();
             TextAnchor oldAnchor = Text.Anchor;
             GameFont oldFont = Text.Font;
 
             // === Header Config ===
             float headerHeight = 35f;
+            float lineHeight = 25f; // Standard height for each line of text
+            float contentStartY = sexualityRect.y + headerHeight; // Starting Y for content below header
 
             // === Draw Header ===
             Rect headerRect = new Rect(sexualityRect.x, sexualityRect.y, sexualityRect.width, headerHeight);
@@ -228,12 +245,47 @@ namespace Maux36.RimPsyche
 
             GUI.EndGroup();
 
+            // === Draw Details ===
+            GUI.BeginGroup(new Rect(sexualityRect.x, contentStartY, sexualityRect.width, sexualityRect.height - headerHeight));
+
+            Text.Font = GameFont.Small; // Set font for the details
+            Text.Anchor = TextAnchor.MiddleLeft; // Align text to the left
+
+            // Name
+            float y = 0f;
+            // Sexuality
+            Rect sexualityDetailRect = new Rect(0f, y, sexualityRect.width, lineHeight);
+            Widgets.Label(sexualityDetailRect, "Sexuality: " + compPsyche.Sexuality.GetOrientationCategory());
+            y += lineHeight;
+
+            Rect sexualityKinseyRect = new Rect(0f, y, sexualityRect.width, lineHeight);
+            Widgets.Label(sexualityKinseyRect, "kinsey: " + (compPsyche.Sexuality.kinsey).ToString("F0"));
+            y += lineHeight;
+
+            Rect sexDriveRect = new Rect(0f, y, sexualityRect.width, lineHeight);
+            Widgets.Label(sexDriveRect, "Sex Drive: " + compPsyche.Sexuality.sexDrive);
+            y += lineHeight;
+
+            //// Sexuality
+            //Rect sexualityAttrMRect = new Rect(0f, y, sexualityRect.width, lineHeight);
+            //Widgets.Label(sexualityAttrMRect, "Male Attraction: " + compPsyche.Sexuality.attractionM);
+            //y += lineHeight;
+
+            //Rect sexualityAttrFRect = new Rect(0f, y, sexualityRect.width, lineHeight);
+            //Widgets.Label(sexualityAttrFRect, "Female Attraction: " + compPsyche.Sexuality.attractionF);
+            //y += lineHeight;
+
+            GUI.EndGroup();
+
+            // Reset text settings
+            Text.Anchor = oldAnchor;
+            Text.Font = oldFont;
+
             Text.Anchor = oldAnchor;
             Text.Font = oldFont;
         }
-        public static void DrawInterestBox(Rect interestRect, Pawn pawn)
+        public static void DrawInterestBox(Rect interestRect, CompPsyche compPsyche)
         {
-            var compPsyche = pawn.compPsyche();
             TextAnchor oldAnchor = Text.Anchor;
             GameFont oldFont = Text.Font;
 

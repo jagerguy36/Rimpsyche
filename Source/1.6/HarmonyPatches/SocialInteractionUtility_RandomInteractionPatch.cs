@@ -22,8 +22,8 @@ namespace Maux36.RimPsyche
     //    }
     //}
 
-    [HarmonyPatch(typeof(InteractionUtility), nameof(InteractionUtility.CanReceiveRandomInteraction))]
-    public static class InteractionUtility_CanReceiveRandomInteractionPatch
+    [HarmonyPatch(typeof(SocialInteractionUtility), nameof(SocialInteractionUtility.CanReceiveRandomInteraction))]
+    public static class SocialInteractionUtility_CanReceiveRandomInteractionPatch
     {
         [HarmonyPrefix]
         public static bool RimPsycheOverrideReceiveRandomInteraction(ref bool __result, Pawn p)

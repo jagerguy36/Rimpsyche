@@ -22,6 +22,7 @@ namespace Maux36.RimPsyche
                 if (allDef.race is { intelligence: Intelligence.Humanlike } && !allDef.IsCorpse)
                 {
                     allDef.comps.Add(new CompProperties_Psyche());
+                    PsycheCacheManager.TrackingDef.Add(allDef.defName);
                     if (allDef.inspectorTabsResolved == null)
                     {
                         allDef.inspectorTabsResolved = new List<InspectTabBase>(1);

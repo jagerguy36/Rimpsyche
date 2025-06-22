@@ -18,7 +18,7 @@
     <DebugSymbols>false</DebugSymbols>
     <DebugType>none</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\1.5\Assemblies\</OutputPath>
+    <OutputPath>..\..\1.6\Assemblies\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -34,10 +34,6 @@
   <ItemGroup>
     <Reference Include="0Harmony, Version=2.3.6.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\Lib.Harmony.2.3.6\lib\net48\0Harmony.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="0PrepatcherAPI, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\Zetrith.Prepatcher.1.2.0\lib\net472\0PrepatcherAPI.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Assembly-CSharp">
@@ -66,21 +62,21 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CompPsyche\CompCacheManager.cs" />
+    <Compile Include="CompPsyche\PsycheCacheManager.cs" />
     <Compile Include="CompPsyche\Facet.cs" />
     <Compile Include="CompPsyche\CompProperties_Psyche.cs" />
     <Compile Include="CompPsyche\CompPsyche.cs" />
     <Compile Include="CompPsyche\CompToHumanlikes.cs" />
     <Compile Include="Conversation\PlayLogEntry_InteractionConversation.cs" />
+    <Compile Include="GameComponent\VersionManager.cs" />
     <Compile Include="HarmonyPatches\Pawn_Notify_DisabledWorkTypesChanged.cs" />
-    <Compile Include="HarmonyPatches\Thought_MoodOffset.cs" />
     <Compile Include="Personality\Pawn_PersonalityTracker.cs" />
     <Compile Include="Conversation\InteractionWorker_StartConversation.cs" />
     <Compile Include="Conversation\InteractionWorker_Conversation.cs" />
     <Compile Include="Database\RimpsycheDatabase.cs" />
     <Compile Include="DefOfRimpsyche.cs" />
     <Compile Include="HarmonyPatches\CharacterCardUtility.cs" />
-    <Compile Include="HarmonyPatches\InteractionUtility_RandomInteractionPatch.cs" />
+    <Compile Include="HarmonyPatches\SocialInteractionUtility_RandomInteractionPatch.cs" />
     <Compile Include="HarmonyPatches\InteractionWorker_DeepTalk_SelectionWeightPatch.cs" />
     <Compile Include="HarmonyPatches\Pawn_InteractionTracker_Transpiler.cs" />
     <Compile Include="Interest\Interest.cs" />
@@ -97,6 +93,7 @@
     <Compile Include="RimpsycheSettings.cs" />
     <Compile Include="Rimpsyche_UI_Utility.cs" />
     <Compile Include="Rimpsyche_Utlity.cs" />
+    <Compile Include="Sexuality\Pawn_SexualityTracker.cs" />
     <Compile Include="Thought\Thought_MemoryPostDefined.cs" />
     <Compile Include="RimpsycheUI\InterfaceComponents.cs" />
     <Compile Include="RimpsycheUI\ITab_Pawn_Psyche.cs" />

@@ -14,6 +14,8 @@ namespace Maux36.RimPsyche
         private Pawn parentPawnInt = null;
         private Pawn_PersonalityTracker personality;
         private Pawn_InterestTracker interests;
+        private Pawn_SexualityTracker sexuality;
+
         public bool PostGen = false;
         public int convoStartedTick = -1;
         public int convoCheckTick = -1;
@@ -56,6 +58,19 @@ namespace Maux36.RimPsyche
             }
             set => interests = value;
         }
+        public Pawn_SexualityTracker Sexuality
+        {
+            get
+            {
+                if (sexuality == null)
+                {
+                    sexuality = GetSexualityTracker(parentPawn);
+                    sexuality.Initialize(parentPawn);
+                }
+                return sexuality;
+            }
+            set => sexuality = value;
+        }
 
         public void PsycheValueSetup()
         {
@@ -72,6 +87,18 @@ namespace Maux36.RimPsyche
                 interests = new Pawn_InterestTracker(parentPawn);
                 interests.Initialize();
             }
+        }
+        public void SexualitySetup()
+        {
+            if (sexuality == null)
+            {
+                sexuality = GetSexualityTracker(parentPawn);
+            }
+            sexuality.Initialize(parentPawn);
+        }
+        public static Pawn_SexualityTracker GetSexualityTracker(Pawn pawn)
+        {
+            return new Pawn_SexualityTracker(pawn);
         }
         public void DirtyTraitCache()
         {
@@ -97,7 +124,7 @@ namespace Maux36.RimPsyche
                 }
                 if (parentPawn.IsHashIntervalTick(200)) //InteractionsTrackerTick checks every interval tick 91
                 {
-                    Log.Message($"{parentPawn.Name} checking conversation validity with {convoPartner.Name} on topic {topic.name}, in {topic.category} with topicAlignment {topicAlignment}");
+                    Log.Message($"{parentPawn.Name} checking conversation validity with {convoPartner.Name} on topic {topic.name} with topicAlignment {topicAlignment}");
                     if (ShouldEndConvo(out bool showMote))
                     {
                         FinishConvo(showMote);
@@ -182,7 +209,7 @@ namespace Maux36.RimPsyche
             convoPartnerPsyche?.EndConvo(lengthMult * partnerScore);
             EndConvo(lengthMult * pawnScore);
         }
-        public void EndConvo(float opinionOffset = 0, bool mattered = false)
+        public void EndConvo(float opinionOffset = 0)
         {
             Log.Message($"{parentPawn.Name} ending conversation with {convoPartner.Name} and getting opinion {opinionOffset}");
             if (convoPartner != null)
@@ -198,7 +225,7 @@ namespace Maux36.RimPsyche
 
                     //Use custom Gain Memory
                     GainCoversationMemoryFast(ThoughtMaker.MakeThought(newDef, null), opinionOffset, convoPartner);
-                    //parentPawn.needs?.mood?.thoughts?.memories?.TryGainMemory(newDef, convoPartner);
+                    AffectPawn(opinionOffset);
                 }
             }
             //initiator.skills.Learn(intDef.initiatorXpGainSkill, intDef.initiatorXpGainAmount);
@@ -275,15 +302,41 @@ namespace Maux36.RimPsyche
             }
             return;
         }
-        public static float GetInfluencedChance(Pawn pawn, float opinionOffset, float opinion)
+        public bool AffectPawn(float resultOffset)
         {
-            float pawnTrust = pawn.compPsyche().personality.GetPersonality(PersonalityDefOf.Rimpsyche_Trust); //-1~1
-            int pawnAge = pawn.AgeTracker.Age; //0~100
-            float score = Mathf.abs(opinionOffset); //0~20
-            float ageFactor = (10/(pawnAge+12))-0.4; //0.43333~-0.31072
-            //Modify age base based on race
-            float scoreBase = score-11+trust*2+ageFactor*10;
-            return scoreBase*scoreBase/400 * (1+opinion*0.2);
+            float adultHoodAge = Rimpsyche_Utility.GetMinAdultAge(parentPawn);
+            float pawnTrust = parentPawn.compPsyche().personality.GetPersonality(PersonalityDefOf.Rimpsyche_Trust); //-1~1
+            int pawnAge = parentPawn.ageTracker.AgeBiologicalYears; //0~100
+            float opinion = parentPawn.relations.OpinionOf(convoPartner) * 0.01f;
+            float score = Mathf.Abs(resultOffset); //0~20
+            float ageFactor = 0.48f * adultHoodAge / (pawnAge + 0.6f * adultHoodAge) - 0.3f; //0.43333~-0.31072
+            float scoreBase = Mathf.Max(0f,score-11f+pawnTrust*2f+ageFactor*10f);
+            float influenceChance = scoreBase*scoreBase * (1f + opinion*0.2f) * 0.0025f;
+            Log.Message($"affect pawn with chance {influenceChance}");
+            if (Rand.Chance(influenceChance))
+            {
+                if (parentPawn.DevelopmentalStage.Juvenile())
+                {
+                    influenceChance *= 1.5f;
+                }
+                Log.Message($"Affect. magnitude: {influenceChance}");
+
+                float totalWeight = topic.weights.Sum(w => Mathf.Abs(w.weight));
+                if (totalWeight == 0f)
+                    return false;
+
+                var facetChanges = new Dictionary<Facet, float>();
+                foreach (var weight in topic.weights)
+                {
+                    float contribution = influenceChance * (weight.weight / totalWeight);
+                    if (contribution != 0f)
+                        facetChanges[weight.facet] = contribution;
+                }
+                Personality.AffectFacetValue(facetChanges);
+
+                return true;
+            }
+            return false;
         }
         public static bool IsGoodPositionForInteraction(IntVec3 cell, IntVec3 recipientCell, Map map)
         {
@@ -346,6 +399,7 @@ namespace Maux36.RimPsyche
             {
                 PsycheValueSetup();
                 InterestScoreSetup();
+                SexualitySetup();
             }
         }
 

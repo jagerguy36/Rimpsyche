@@ -8,7 +8,7 @@ using Verse;
 namespace Maux36.RimPsyche
 {
 
-    [HarmonyPatch(typeof(Pawn_InteractionsTracker), "InteractionsTrackerTick")]
+    [HarmonyPatch(typeof(Pawn_InteractionsTracker), "InteractionsTrackerTickInterval")]
     public static class Pawn_InteractionTracker_InteractionsTrackerTick
     {
         static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)

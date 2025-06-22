@@ -8,10 +8,18 @@ namespace Maux36.RimPsyche
     public class Rimpsyche : Mod
     {
         public static RimpsycheSettings settings;
+        public static string currentVersion;
+        public static bool SexualityModuleLoaded = false;
         public Rimpsyche(ModContentPack content) : base(content)
         {
-
+            currentVersion = content.ModMetaData.ModVersion;
             settings = GetSettings<RimpsycheSettings>();
+
+            if (ModsConfig.IsActive("maux36.rimpsyche.sexuality"))
+            {
+                Log.Message("[Rimpsyche] Sexuality module loaded.");
+                SexualityModuleLoaded = true;
+            }
 
             if (!ModsConfig.IsActive("zetrith.prepatcher"))
             {

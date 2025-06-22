@@ -16,6 +16,7 @@ namespace Maux36.RimPsyche
                 //Log.Message($"Generated pawn: {__result.Name}'s personality");
                 compPsyche.PsycheValueSetup();
                 compPsyche.InterestScoreSetup();
+                compPsyche.SexualitySetup();
             }
         }
     }
