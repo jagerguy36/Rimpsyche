@@ -11,8 +11,9 @@ namespace Maux36.RimPsyche
         public float controversiality = 1;
         public bool restricted = false;
         public List<FacetWeight> weights;
-        public float GetScore(Pawn initiator, Pawn recipient)
+        public float GetScore(Pawn initiator, Pawn recipient, out float initDirection)
         {
+            initDirection = 1f;
             float score = 0f;
             float initiatorAttitude = 0f;
             float recipientAttitude = 0f;
@@ -38,6 +39,14 @@ namespace Maux36.RimPsyche
                 initiatorAttitude = Mathf.Clamp(initiatorAttitude, -1f, 1f);
                 recipientAttitude = Mathf.Clamp(recipientAttitude, -1f, 1f);
                 score = (initiatorAttitude + recipientAttitude) * 0.5f;
+            }
+            if(recipientAttitude < initiatorAttitude)
+            {
+                initDirection = -1f;
+            }
+            else if (recipientAttitude == initiatorAttitude)
+            {
+                initDirection = 0f;
             }
             //switch (category)
             //{

@@ -88,7 +88,7 @@ namespace Maux36.RimPsyche
 
                 //Conversation.
                 Topic convoTopic = convoInterest.GetRandomTopic();
-                float topicAlignment = convoTopic.GetScore(initiator, recipient); // -1~1 [0]
+                float topicAlignment = convoTopic.GetScore(initiator, recipient, float initDirection); // -1~1 [0]
                 float initInterestF = (1f + (0.5f * initOpinion)) + (initInterestScore * (1f + (0.5f * initPassion))); // 0.5~3 [1.5]
                 float reciInterestF = (1f + (0.5f * reciOpinion)) + (reciInterestScore * (1f + (0.5f * reciPassion))); // 0.5~3 [1.5]
                 float initTalkF = (1f + (0.8f * initTalkativeness)) * initInterestF; // 0.1~5.4 [1.5]
@@ -110,6 +110,7 @@ namespace Maux36.RimPsyche
                 if (initiatorPsyche.convoStartedTick < 0) initiatorPsyche.convoStartedTick = Find.TickManager.TicksGame;
                 initiatorPsyche.topic = convoTopic;
                 initiatorPsyche.topicAlignment = topicAlignment;
+                initiatorPsyche.direction = initDirection;
                 initiatorPsyche.convoPartner = recipient;
                 initiatorPsyche.convoCheckTick = Find.TickManager.TicksGame + convoLength;
                 initiatorPsyche.continuationChance = continuationChance;
@@ -117,6 +118,7 @@ namespace Maux36.RimPsyche
                 if (recipientPsyche.convoStartedTick < 0) recipientPsyche.convoStartedTick = Find.TickManager.TicksGame;
                 recipientPsyche.topic = convoTopic;
                 recipientPsyche.topicAlignment = topicAlignment;
+                recipientPsyche.direction = -initDirection;
                 recipientPsyche.convoPartner = initiator;
             }
         }

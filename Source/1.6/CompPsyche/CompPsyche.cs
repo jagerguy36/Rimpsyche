@@ -22,6 +22,7 @@ namespace Maux36.RimPsyche
         public Pawn convoPartner = null;
         public Topic topic = null;
         public float topicAlignment;
+        public float direction;
         public float continuationChance = 0;
 
         private Pawn parentPawn
@@ -187,13 +188,15 @@ namespace Maux36.RimPsyche
             convoCheckTick = -1;
             convoPartner = null;
             topic = null;
-            topicAlignment = 0;
+            topicAlignment = 0f;
+            direction = 0f;
         }
         public void FinishConvo(bool showMote = false)
         {
             GetConvoResult(out float pawnScore, out float partnerScore);
             Log.Message($"GetConvoResult: {parentPawn.Name}: {pawnScore} | {convoPartner.Name}: {partnerScore}");
             float lengthMult = Mathf.Max(0, Find.TickManager.TicksGame - convoStartedTick - 200) * 0.002f + 1f; // 1~2 ~ 4
+            //Consider applying (6*x/(x+2))
             var intDef = DefOfRimpsyche.Rimpsyche_EndConversation;
             var entry = new PlayLogEntry_InteractionConversation(intDef, parentPawn, convoPartner, topic.name, null);
             if (showMote)
@@ -203,6 +206,9 @@ namespace Maux36.RimPsyche
                     MoteMaker.MakeInteractionBubble(parentPawn, convoPartner, intDef.interactionMote, intDef.GetSymbol(parentPawn.Faction, parentPawn.Ideo), intDef.GetSymbolColor(parentPawn.Faction));
                 }
             }
+            //If partnerScore<0 or pawnScore <0 check social fight chance.
+            //If socialfight, EndConvo should bleed into social fight, and social fight log should be added to entry.
+
             Find.PlayLog.Add(entry);
 
             var convoPartnerPsyche = convoPartner.compPsyche();
@@ -216,8 +222,6 @@ namespace Maux36.RimPsyche
             {
                 if(opinionOffset != 0)
                 {
-                    //Affect here
-                    
                     ThoughtDef newDef = Rimpsyche_Utility.CreateSocialThought(
                         "Rimpsyche_Conversation" + parentPawn.GetHashCode() + topic.name,
                         "ConversationStage".Translate() + " " + topic.name,
@@ -225,7 +229,7 @@ namespace Maux36.RimPsyche
 
                     //Use custom Gain Memory
                     GainCoversationMemoryFast(ThoughtMaker.MakeThought(newDef, null), opinionOffset, convoPartner);
-                    AffectPawn(opinionOffset);
+                    if(opinionOffset>0) AffectPawn(opinionOffset);
                 }
             }
             //initiator.skills.Learn(intDef.initiatorXpGainSkill, intDef.initiatorXpGainAmount);
@@ -233,7 +237,8 @@ namespace Maux36.RimPsyche
             convoCheckTick = -1;
             convoPartner = null;
             topic = null;
-            topicAlignment = 0;
+            topicAlignment = 0f;
+            direction = 0f;
         }
         public void GetConvoResult(out float pawnScore, out float partnerScore)
         {
@@ -288,8 +293,8 @@ namespace Maux36.RimPsyche
                     Log.Message($"goodTalkChance = {goodTalkChance}, talkRand: {talkRand}");
                     if (talkRand > 1f - goodTalkChance)
                     {
-                        partnerScore = partnerReceiveScore * talkRand;
-                        pawnScore = pawnReceiveScore * talkRand;
+                        partnerScore = partnerReceiveScore * talkRand; // 0~3
+                        pawnScore = pawnReceiveScore * talkRand;// 0~3
                         return;
                     }
                 }
@@ -304,14 +309,20 @@ namespace Maux36.RimPsyche
         }
         public bool AffectPawn(float resultOffset)
         {
+            //Should know whether the influence should make the + change or - change.
+            //alignment+ --> the other pawn's view is bigger -> +
+            //alignment+ --> the other pawn's view is smaller -> -
+            //alignment- --> the other pawn's view is bigger -> -
+            //alignment- --> the other pawn's view is smaller -> +
             float adultHoodAge = Rimpsyche_Utility.GetMinAdultAge(parentPawn);
             float pawnTrust = parentPawn.compPsyche().personality.GetPersonality(PersonalityDefOf.Rimpsyche_Trust); //-1~1
             int pawnAge = parentPawn.ageTracker.AgeBiologicalYears; //0~100
             float opinion = parentPawn.relations.OpinionOf(convoPartner) * 0.01f;
-            float score = Mathf.Abs(resultOffset); //0~20
+            float score = resultOffset; //0~20
             float ageFactor = 0.48f * adultHoodAge / (pawnAge + 0.6f * adultHoodAge) - 0.3f; //0.43333~-0.31072
             float scoreBase = Mathf.Max(0f,score-11f+pawnTrust*2f+ageFactor*10f);
             float influenceChance = scoreBase*scoreBase * (1f + opinion*0.2f) * 0.0025f;
+            influenceChance *= direction;
             Log.Message($"affect pawn with chance {influenceChance}");
             if (Rand.Chance(influenceChance))
             {
