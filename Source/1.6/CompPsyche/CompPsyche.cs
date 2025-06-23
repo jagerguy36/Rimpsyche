@@ -136,7 +136,6 @@ namespace Maux36.RimPsyche
                 {
                     if (convoCheckTick <= Find.TickManager.TicksGame)
                     {
-                        //TODO: Check conversation continue chance. If that's the case, then increase the check tick
                         if(continuationChance > 0 && Rand.Chance(continuationChance))
                         {
                             Log.Message($"continue for {convoCheckTick - convoStartedTick} more ticks");
@@ -197,6 +196,7 @@ namespace Maux36.RimPsyche
             Log.Message($"GetConvoResult: {parentPawn.Name}: {pawnScore} | {convoPartner.Name}: {partnerScore}");
             float lengthMult = Mathf.Max(0, Find.TickManager.TicksGame - convoStartedTick - 200) * 0.002f + 1f; // 1~2 ~ 4
             //Consider applying (6*x/(x+2))
+            lengthMult = (6f * lengthMult) / (lengthMult + 2f);
             var intDef = DefOfRimpsyche.Rimpsyche_EndConversation;
             var entry = new PlayLogEntry_InteractionConversation(intDef, parentPawn, convoPartner, topic.name, null);
             if (showMote)
@@ -316,14 +316,14 @@ namespace Maux36.RimPsyche
             //alignment- --> the other pawn's view is smaller -> +
             float adultHoodAge = Rimpsyche_Utility.GetMinAdultAge(parentPawn);
             float pawnTrust = parentPawn.compPsyche().personality.GetPersonality(PersonalityDefOf.Rimpsyche_Trust); //-1~1
-            int pawnAge = parentPawn.ageTracker.AgeBiologicalYears; //0~100
+            float pawnAge = (float)parentPawn.ageTracker.AgeBiologicalYears; //0~100
             float opinion = parentPawn.relations.OpinionOf(convoPartner) * 0.01f;
             float score = resultOffset; //0~20
             float ageFactor = 0.48f * adultHoodAge / (pawnAge + 0.6f * adultHoodAge) - 0.3f; //0.43333~-0.31072
             float scoreBase = Mathf.Max(0f,score-11f+pawnTrust*2f+ageFactor*10f);
             float influenceChance = scoreBase*scoreBase * (1f + opinion*0.2f) * 0.0025f;
             influenceChance *= direction;
-            Log.Message($"affect pawn with chance {influenceChance}");
+            Log.Message($"{parentPawn.Name} affect pawn entered with {resultOffset}. scorebase: {scoreBase} direction: {direction}, chance {influenceChance}");
             if (Rand.Chance(influenceChance))
             {
                 if (parentPawn.DevelopmentalStage.Juvenile())
