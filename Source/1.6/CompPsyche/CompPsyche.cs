@@ -95,6 +95,7 @@ namespace Maux36.RimPsyche
             {
                 sexuality = GetSexualityTracker(parentPawn);
             }
+            //For save-game trait safety with Sexuality Module
             sexuality.Initialize(parentPawn);
         }
         public static Pawn_SexualityTracker GetSexualityTracker(Pawn pawn)

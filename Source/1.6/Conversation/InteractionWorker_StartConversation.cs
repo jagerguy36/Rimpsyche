@@ -29,10 +29,10 @@ namespace Maux36.RimPsyche
                     bool giveupConverse = initOpinion + initSociability + initSpontaneousness + Rand.Value < 0f;
                     if (giveupConverse) return 0f;
                 }
-                float convoChance = 1f + initTalkativeness; // 0~2
-                float relationshipOffset = 1f + initOpinion; // 0~2 
-                convoChance *= relationshipOffset; //0~4
-                return 0.8f * convoChance; //0~3.2
+                float convoChance = 1f + initTalkativeness; // 0~[1]~2
+                float relationshipOffset = 1f + initOpinion; // 0~[1]~2 
+                convoChance += relationshipOffset; //0~[2]~4
+                return 0.8f * convoChance; //0~[1.6]~3.2
             }
             else
             {
@@ -90,7 +90,7 @@ namespace Maux36.RimPsyche
                 Topic convoTopic = convoInterest.GetRandomTopic();
                 float topicAlignment = convoTopic.GetScore(initiator, recipient, out float initDirection); // -1~1 [0]
                 float tAbs = Mathf.Abs(topicAlignment)
-                float initInterestF = (1f + (0.5f * initOpinion)) + (initInterestScore * (1f + (0.5f * initPassion))); // 0.5~3 [1.5]
+                float initInterestF = (1f + (0.5f * initOpinion)) + (initInterestScore * (1f + (0.5f * initPassion))); // 0.5~3 [1.5] //TODO: Passion for +, Inquisitiveness for -
                 float reciInterestF = (1f + (0.5f * reciOpinion)) + (reciInterestScore * (1f + (0.5f * reciPassion))); // 0.5~3 [1.5]
                 float initTalkF = (1.5f + initTalkativeness) * initInterestF; // 0.25~7.5 [2.25]
                 float reciTalkF = (1.5f + reciTalkativeness) * reciInterestF; // 0.25~7.5 [2.25]
