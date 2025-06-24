@@ -192,31 +192,44 @@ namespace Maux36.RimPsyche
         }
         public void FinishConvo(bool showMote = false)
         {
+            bool startedSocialFight = false
             GetConvoResult(out float pawnScore, out float partnerScore);
             Log.Message($"GetConvoResult: {parentPawn.Name}: {pawnScore} | {convoPartner.Name}: {partnerScore}");
             float lengthMult = Mathf.Max(0, Find.TickManager.TicksGame - convoStartedTick - 200) * 0.002f + 1f; // 1~2 ~ 4
-            //Consider applying (6*x/(x+2))
-            lengthMult = (6f * lengthMult) / (lengthMult + 2f);
             var intDef = DefOfRimpsyche.Rimpsyche_EndConversation;
-            var entry = new PlayLogEntry_InteractionConversation(intDef, parentPawn, convoPartner, topic.name, null);
-            if (showMote)
+            List<RulePackDef> extraSents = new List<RulePackDef>();
+            //If partnerScore<0 or pawnScore <0 check social fight chance.
+            if(pawnScore<0 || partnerScore<0)
             {
-                if (convoPartner.Map != null && parentPawn.Map != null)
+                if (Rand.Chance(0.1))//TODO: Get actual socialFight chance and starter
                 {
-                    MoteMaker.MakeInteractionBubble(parentPawn, convoPartner, intDef.interactionMote, intDef.GetSymbol(parentPawn.Faction, parentPawn.Ideo), intDef.GetSymbolColor(parentPawn.Faction));
+                    startedSocialFight = true;
+                    extraSetns.Add(DefOfRimpsyche.Sentence_RimpsycheSocialFightConvoInitiatorStarted)
                 }
             }
-            //If partnerScore<0 or pawnScore <0 check social fight chance.
-            //If socialfight, EndConvo should bleed into social fight, and social fight log should be added to entry.
+            var entry = new PlayLogEntry_InteractionConversation(intDef, parentPawn, convoPartner, topic.name, extraSents);
+            if (showMote)
+            {
+                //If social fight start, change the mote to something else
+                if (convoPartner.Map != null && parentPawn.Map != null)
+                {
+                    if (startedSocialFight) MoteMaker.MakeInteractionBubble(parentPawn, convoPartner, intDef.interactionMote, intDef.GetSymbol(parentPawn.Faction, parentPawn.Ideo), intDef.GetSymbolColor(parentPawn.Faction));
+                    else MoteMaker.MakeInteractionBubble(parentPawn, convoPartner, intDef.interactionMote, intDef.GetSymbol(parentPawn.Faction, parentPawn.Ideo), intDef.GetSymbolColor(parentPawn.Faction));
+                }
+            }
 
             Find.PlayLog.Add(entry);
-
             var convoPartnerPsyche = convoPartner.compPsyche();
-            convoPartnerPsyche?.EndConvo(lengthMult * partnerScore);
-            EndConvo(lengthMult * pawnScore);
+            if(startedSocialFight)
+            {
+                partnerScore *=1.5f; //Adjust Score for fights.
+            }
+            convoPartnerPsyche?.EndConvo(partnerScore, lengthMult);
+            EndConvo(pawnScore, lengthMult, startedSocialFight);
         }
-        public void EndConvo(float opinionOffset = 0)
+        public void EndConvo(float score, float lengthMult, bool startSocialFight = false)
         {
+            float opinionOffset = score * (6f * lengthMult) / (lengthMult + 2f); //Make moderately long covos matter a bit more for offset.
             Log.Message($"{parentPawn.Name} ending conversation with {convoPartner.Name} and getting opinion {opinionOffset}");
             if (convoPartner != null)
             {
@@ -224,13 +237,17 @@ namespace Maux36.RimPsyche
                 {
                     ThoughtDef newDef = Rimpsyche_Utility.CreateSocialThought(
                         "Rimpsyche_Conversation" + parentPawn.GetHashCode() + topic.name,
-                        "ConversationStage".Translate() + " " + topic.name,
+                        string.Format("ConversationStage {0}".Translate(), topic),
                         opinionOffset);
 
                     //Use custom Gain Memory
                     GainCoversationMemoryFast(ThoughtMaker.MakeThought(newDef, null), opinionOffset, convoPartner);
                     if(opinionOffset>0) AffectPawn(opinionOffset);
                 }
+            }
+            if(startedSocialFight)
+            {
+                parentPawn.interactions.StartSocialFight(convoPartner);
             }
             //initiator.skills.Learn(intDef.initiatorXpGainSkill, intDef.initiatorXpGainAmount);
             convoStartedTick = -1;
@@ -322,10 +339,10 @@ namespace Maux36.RimPsyche
             float ageFactor = 0.48f * adultHoodAge / (pawnAge + 0.6f * adultHoodAge) - 0.3f; //0.43333~-0.31072
             float scoreBase = Mathf.Max(0f,score-11f+pawnTrust*2f+ageFactor*10f);
             float influenceChance = scoreBase*scoreBase * (1f + opinion*0.2f) * 0.0025f;
-            influenceChance *= direction;
             Log.Message($"{parentPawn.Name} affect pawn entered with {resultOffset}. scorebase: {scoreBase} direction: {direction}, chance {influenceChance}");
-            if (Rand.Chance(influenceChance))
+            if (Rand.Chance(Mathf.Clamp01(influenceChance)))
             {
+                influenceChance *= direction;
                 if (parentPawn.DevelopmentalStage.Juvenile())
                 {
                     influenceChance *= 1.5f;

@@ -20,7 +20,7 @@
   </InteractionDef>
 
   <RulePackDef>
-    <defName>Sentence_ConversationFail</defName>
+    <defName>Sentence_RimpsycheConversationFail</defName>
     <rulePack>
       <rulesStrings>
         <li>sent->[RECIPIENT_nameDef] ignored [INITIATOR_objective].</li>
@@ -65,4 +65,22 @@
       </rulesStrings>
     </logRulesInitiator>
   </InteractionDef>
+
+  <RulePackDef>
+    <defName>Sentence_RimpsycheSocialFightConvoInitiatorStarted</defName>
+    <rulePack>
+      <rulesStrings>
+        <li>sent->Their differences escalated until [INITIATOR_nameDef] started a fight!</li>
+      </rulesStrings>
+    </rulePack>
+  </RulePackDef>
+  
+  <RulePackDef>
+    <defName>Sentence_RimpsycheSocialFightConvoRecipientStarted</defName>
+    <rulePack>
+      <rulesStrings>
+        <li>sent->Their differences escalated until [RECIPIENT_nameDef] started a fight!</li>
+      </rulesStrings>
+    </rulePack>
+  </RulePackDef>
 </Defs>

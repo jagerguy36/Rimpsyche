@@ -80,7 +80,7 @@ namespace Maux36.RimPsyche
                     float participateFactor = (reciInterestScore + reciSociability + reciOpinion + 2f) * 0.2f; // 0 ~ 1
                     if (Rand.Chance(1 - participateFactor))
                     {
-                        extraSentencePacks.Add(DefOfRimpsyche.Sentence_ConversationFail);
+                        extraSentencePacks.Add(DefOfRimpsyche.Sentence_RimpsycheConversationFail);
                         initiator.needs?.mood?.thoughts?.memories?.TryGainMemory(DefOfRimpsyche.Rimpsyche_ConvoIgnored, recipient);
                         return;
                     }

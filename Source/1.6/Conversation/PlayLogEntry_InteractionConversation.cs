@@ -37,7 +37,7 @@ namespace Maux36.RimPsyche
         protected override string ToGameStringFromPOV_Worker(Thing pov, bool forceLog)
         {
             var original = base.ToGameStringFromPOV_Worker(pov, forceLog);
-            return string.Format(original, topic); ;
+            return string.Format(original, topic);
         }
         public override void ExposeData()
         {
