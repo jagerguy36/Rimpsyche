@@ -322,7 +322,7 @@ namespace Maux36.RimPsyche
                 partnerScore = negativeScoreBase * (1f - (0.3f * partnerReceiveScore)); //(-2~0) * 0.1~1.9 = -3.8 ~[-1]~ 0
                 pawnScore = negativeScoreBase * (1f - (0.3f * pawnReceiveScore)); //-3.8 ~ 0
                 //Calcualte fight Chance
-                //p
+                //Aggresiveness, Passion, Openness, Tact, Emotionality, Steadfastness, Stability
                 return startFight;
             }
             return startFight;
