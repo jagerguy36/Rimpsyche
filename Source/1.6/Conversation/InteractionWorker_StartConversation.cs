@@ -54,17 +54,16 @@ namespace Maux36.RimPsyche
             {
                 // -1 ~ 1
                 float initOpinion = initiator.relations.OpinionOf(recipient) * 0.01f;
-                float initSociability = initiatorPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Sociability);
                 float initTalkativeness = initiatorPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Talkativeness);
-                float initTact = initiatorPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Tact);
                 float initPassion = initiatorPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Passion);
+                float initInquisitiveness = initiatorPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Inquisitiveness);
                 float initSpontaneousness = initiatorPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Spontaneousness);
 
                 float reciOpinion = recipient.relations.OpinionOf(recipient) * 0.01f;
                 float reciSociability = recipientPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Sociability);
                 float reciTalkativeness = recipientPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Talkativeness);
-                float reciTact = recipientPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Tact);
                 float reciPassion = recipientPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Passion);
+                float reciInquisitiveness = recipientPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Inquisitiveness);
                 float reciSpontaneousness = recipientPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Spontaneousness);
 
 
@@ -89,13 +88,13 @@ namespace Maux36.RimPsyche
                 //Conversation.
                 Topic convoTopic = convoInterest.GetRandomTopic();
                 float topicAlignment = convoTopic.GetScore(initiator, recipient, out float initDirection); // -1~1 [0]
-                float tAbs = Mathf.Abs(topicAlignment)
-                float initInterestF = (1f + (0.5f * initOpinion)) + (initInterestScore * (1f + (0.5f * initPassion))); // 0.5~3 [1.5] //TODO: Passion for +, Inquisitiveness for -
-                float reciInterestF = (1f + (0.5f * reciOpinion)) + (reciInterestScore * (1f + (0.5f * reciPassion))); // 0.5~3 [1.5]
+                float tAbs = Mathf.Abs(topicAlignment);
+                float initInterestF = (1f + (0.5f * initOpinion)) + (initInterestScore * (1f + (0.5f * initPassion))) + ((1f - initInterestScore) * (1f + (0.5f * initInquisitiveness))); // 0.5~3 [1.5]
+                float reciInterestF = (1f + (0.5f * reciOpinion)) + (reciInterestScore * (1f + (0.5f * reciPassion))) + ((1f - reciInterestScore) * (1f + (0.5f * reciInquisitiveness))); ; // 0.5~3 [1.5]
                 float initTalkF = (1.5f + initTalkativeness) * initInterestF; // 0.25~7.5 [2.25]
                 float reciTalkF = (1.5f + reciTalkativeness) * reciInterestF; // 0.25~7.5 [2.25]
                 float spontaneousF = (initSpontaneousness + reciSpontaneousness + 2f) * 0.05f; // 0~0.2 [0.1]
-                float aligntmentLengthFactor = -1.5f * tAbs * (tAbs - 2f) + 1
+                float aligntmentLengthFactor = -1.5f * tAbs * (tAbs - 2f) + 1f;
                 int convoLength = (int)((4f + initTalkF + reciTalkF) * 25f * aligntmentLengthFactor * Rand.Range(1f - spontaneousF, 1f + spontaneousF)); //25 * (4.5~[8.5]~19)*([1]~2.5) || 90(112.5~[212.5]~1187.5)1425 [2min~30min]
 
                 //continuation

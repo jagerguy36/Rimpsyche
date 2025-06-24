@@ -193,7 +193,7 @@ namespace Maux36.RimPsyche
         }
         public void FinishConvo(bool showMote = false)
         {
-            bool startedSocialFight = false
+            bool startedSocialFight = false;
             GetConvoResult(out float pawnScore, out float partnerScore);
             Log.Message($"GetConvoResult: {parentPawn.Name}: {pawnScore} | {convoPartner.Name}: {partnerScore}");
             float lengthMult = (Find.TickManager.TicksGame - convoStartedTick - 212.5f) * 0.002f + 1f; // 0.8~[1]~2.95 || 5.325
@@ -202,10 +202,10 @@ namespace Maux36.RimPsyche
             //If partnerScore<0 or pawnScore <0 check social fight chance.
             if(pawnScore<0 || partnerScore<0)
             {
-                if (Rand.Chance(0.1))//TODO: Get actual socialFight chance and starter
+                if (Rand.Chance(0.1f))//TODO: Get actual socialFight chance and starter
                 {
                     startedSocialFight = true;
-                    extraSetns.Add(DefOfRimpsyche.Sentence_RimpsycheSocialFightConvoInitiatorStarted)
+                    extraSents.Add(DefOfRimpsyche.Sentence_RimpsycheSocialFightConvoInitiatorStarted);
                 }
             }
             var entry = new PlayLogEntry_InteractionConversation(intDef, parentPawn, convoPartner, topic.name, extraSents);
@@ -238,7 +238,7 @@ namespace Maux36.RimPsyche
                 {
                     ThoughtDef newDef = Rimpsyche_Utility.CreateSocialThought(
                         "Rimpsyche_Conversation" + parentPawn.GetHashCode() + topic.name,
-                        string.Format("ConversationStage {0}".Translate(), topic),
+                        string.Format("ConversationStage {0}".Translate(), topic.name),
                         opinionOffset);
 
                     //Use custom Gain Memory
@@ -246,7 +246,7 @@ namespace Maux36.RimPsyche
                     if(opinionOffset>0) AffectPawn(opinionOffset);
                 }
             }
-            if(startedSocialFight)
+            if(startSocialFight)
             {
                 parentPawn.interactions.StartSocialFight(convoPartner);
             }
@@ -259,7 +259,7 @@ namespace Maux36.RimPsyche
         }
         public bool GetConvoResult(out float pawnScore, out float partnerScore)
         {
-            startFight = false;
+            bool startFight = false;
             pawnScore = 0f;
             partnerScore = 0f;
             
