@@ -89,19 +89,20 @@ namespace Maux36.RimPsyche
                 //Conversation.
                 Topic convoTopic = convoInterest.GetRandomTopic();
                 float topicAlignment = convoTopic.GetScore(initiator, recipient, out float initDirection); // -1~1 [0]
+                float tAbs = Mathf.Abs(topicAlignment)
                 float initInterestF = (1f + (0.5f * initOpinion)) + (initInterestScore * (1f + (0.5f * initPassion))); // 0.5~3 [1.5]
                 float reciInterestF = (1f + (0.5f * reciOpinion)) + (reciInterestScore * (1f + (0.5f * reciPassion))); // 0.5~3 [1.5]
-                float initTalkF = (1f + (0.8f * initTalkativeness)) * initInterestF; // 0.1~5.4 [1.5]
-                float reciTalkF = (1f + (0.8f * reciTalkativeness)) * reciInterestF; // 0.1~5.4 [1.5]
+                float initTalkF = (1.5f + initTalkativeness) * initInterestF; // 0.25~7.5 [2.25]
+                float reciTalkF = (1.5f + reciTalkativeness) * reciInterestF; // 0.25~7.5 [2.25]
                 float spontaneousF = (initSpontaneousness + reciSpontaneousness + 2f) * 0.05f; // 0~0.2 [0.1]
-                int convoLength = (int)((4f + initTalkF + reciTalkF) * 25f * (1f + Mathf.Abs(2f * topicAlignment)) * Rand.Range(1f - spontaneousF, 1f + spontaneousF)); // 25 * (4.2 ~ 14.8)*(1~3) || 84(105~[175]~1110)1332 [2min~30min]
+                float aligntmentLengthFactor = -1.5f * tAbs * (tAbs - 2f) + 1
+                int convoLength = (int)((4f + initTalkF + reciTalkF) * 25f * aligntmentLengthFactor * Rand.Range(1f - spontaneousF, 1f + spontaneousF)); //25 * (4.5~[8.5]~19)*([1]~2.5) || 90(112.5~[212.5]~1187.5)1425 [2min~30min]
 
                 //continuation
                 float continuationChance = 0f;
-                if (Mathf.Abs(topicAlignment) > 0.3)
                 continuationChance += 0.1f; // 10% base chance
                 continuationChance += ((initTalkativeness + reciTalkativeness) / 2f) * 0.1f; // -0.1 ~ 0.1
-                continuationChance += Mathf.Abs(topicAlignment) * 0.3f; // 0 ~ 0.3
+                continuationChance += tAbs * 0.3f; // 0 ~ 0.3
                 continuationChance += (initInterestF * reciInterestF) * 0.01f; // 0.075 ~ 0.027
                 continuationChance = Mathf.Clamp01(continuationChance);
                 continuationChance *= Rand.Range(1f - spontaneousF, 1f + spontaneousF);

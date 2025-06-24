@@ -195,7 +195,7 @@ namespace Maux36.RimPsyche
             bool startedSocialFight = false
             GetConvoResult(out float pawnScore, out float partnerScore);
             Log.Message($"GetConvoResult: {parentPawn.Name}: {pawnScore} | {convoPartner.Name}: {partnerScore}");
-            float lengthMult = Mathf.Max(0, Find.TickManager.TicksGame - convoStartedTick - 200) * 0.002f + 1f; // 1~2 ~ 4
+            float lengthMult = (Find.TickManager.TicksGame - convoStartedTick - 212.5f) * 0.002f + 1f; // 0.8~[1]~2.95 || 5.325
             var intDef = DefOfRimpsyche.Rimpsyche_EndConversation;
             List<RulePackDef> extraSents = new List<RulePackDef>();
             //If partnerScore<0 or pawnScore <0 check social fight chance.
@@ -229,7 +229,7 @@ namespace Maux36.RimPsyche
         }
         public void EndConvo(float score, float lengthMult, bool startSocialFight = false)
         {
-            float opinionOffset = score * (6f * lengthMult) / (lengthMult + 2f); //Make moderately long covos matter a bit more for offset.
+            float opinionOffset = score * (6f * lengthMult) / (lengthMult + 2f); //1.714~[2]~3.5757 || 4.36177
             Log.Message($"{parentPawn.Name} ending conversation with {convoPartner.Name} and getting opinion {opinionOffset}");
             if (convoPartner != null)
             {
@@ -267,7 +267,7 @@ namespace Maux36.RimPsyche
             {
                 // -1 ~ 1
                 float pawnOpinion = parentPawn.relations.OpinionOf(convoPartner) * 0.01f;
-                float pawnTact = Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Tact); //(0.1f * recipient.skills.GetSkill(SkillDefOf.Social).Level)
+                float pawnTact = Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Tact);
                 pawnTact = Mathf.Clamp(pawnTact + (0.1f * parentPawn.skills.GetSkill(SkillDefOf.Social).Level), -1f, 1f);
                 float pawnOpenness = Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Openness);
                 float pawnTrust = Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Trust);
