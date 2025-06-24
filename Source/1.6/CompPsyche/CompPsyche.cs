@@ -250,7 +250,6 @@ namespace Maux36.RimPsyche
             {
                 parentPawn.interactions.StartSocialFight(convoPartner);
             }
-            //initiator.skills.Learn(intDef.initiatorXpGainSkill, intDef.initiatorXpGainAmount);
             convoStartedTick = -1;
             convoCheckTick = -1;
             convoPartner = null;
@@ -258,8 +257,9 @@ namespace Maux36.RimPsyche
             topicAlignment = 0f;
             direction = 0f;
         }
-        public void GetConvoResult(out float pawnScore, out float partnerScore)
+        public bool GetConvoResult(out float pawnScore, out float partnerScore)
         {
+            startFight = false;
             pawnScore = 0f;
             partnerScore = 0f;
             
@@ -298,7 +298,7 @@ namespace Maux36.RimPsyche
                     float pawnScoreModifier = (0.2f * partnerTact) + (0.2f * partnerPassion); //-0.4~[0]~0.4
                     pawnScoreModifier = (1f + talkRand) * pawnScoreModifier; // -0.8~[0]~0.8
                     pawnScore = (pawnScoreBase + pawnScoreModifier); // -0.3[2]4.3
-                    return;
+                    return startFight;
                 }
                 //Negative Alignment
                 float pawnReceiveScore = (partnerTact * (partnerTalkativeness + 1) * 0.5f) + (pawnOpenness * (pawnTrust + 1) * 0.5f) + pawnOpinion; // -3~[0]~3
@@ -313,7 +313,7 @@ namespace Maux36.RimPsyche
                     {
                         partnerScore = partnerReceiveScore * talkRand; // 0~3
                         pawnScore = pawnReceiveScore * talkRand;// 0~3
-                        return;
+                        return startFight;
                     }
                 }
                 //Bad Talk
@@ -321,9 +321,11 @@ namespace Maux36.RimPsyche
                 Log.Message($"Bad talk. talkRand: {talkRand}. negativeScoreBase: {negativeScoreBase}");
                 partnerScore = negativeScoreBase * (1f - (0.3f * partnerReceiveScore)); //(-2~0) * 0.1~1.9 = -3.8 ~[-1]~ 0
                 pawnScore = negativeScoreBase * (1f - (0.3f * pawnReceiveScore)); //-3.8 ~ 0
-                return;
+                //Calcualte fight Chance
+                //p
+                return startFight;
             }
-            return;
+            return startFight;
         }
         public bool AffectPawn(float resultOffset)
         {
