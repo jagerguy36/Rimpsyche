@@ -55,6 +55,15 @@ namespace Maux36.RimPsyche
             return Mathf.Lerp(-50, 50, Mathf.InverseLerp(sourceMin, sourceMax, value));
         }
 
+        public static float ApplyScope(float value, float targetMin, float targetMax)
+        {
+            return Mathf.Lerp(targetMin, targetMax, Mathf.InverseLerp(-1, 1, value));
+        }
+        public static float RestoreScopedValue(float value, float sourceMin, float sourceMax)
+        {
+            return Mathf.Lerp(-1, 1, Mathf.InverseLerp(sourceMin, sourceMax, value));
+        }
+
         //Debug Actions
 
         [DebugAction("Pawns", actionType = DebugActionType.ToolMapForPawns, allowedGameStates = AllowedGameStates.PlayingOnMap, displayPriority = 1000)]
@@ -104,6 +113,14 @@ namespace Maux36.RimPsyche
             //{
             //    (Facet.Cooperation, 0f, 50f)
             //},
+        };
+
+        public static Dictionary<Pair<string, int>, List<(string, float, float)>> TraitScopeDatabase = new()
+        {
+            [new Pair<string, int>("Kind", 0)] = new List<(string, float, float)>
+            {
+               ("Aggressiveness", -1f, 0f)
+            },
         };
 
         public static float GetMinAdultAge(Pawn pawn)

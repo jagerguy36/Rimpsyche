@@ -40,7 +40,6 @@ namespace Maux36.RimPsyche
         private float pessimism = 0f;
         private float insecurity = 0f;
 
-        private Dictionary<string, float> personalityCache = new Dictionary<string, float>();
         private Dictionary<Facet, (float, float)> gateCacheInternal = null; //new Dictionary<Facet, Tuple<float, float>>();
         public Dictionary<Facet, (float, float)> gateCache
         {
@@ -50,6 +49,20 @@ namespace Maux36.RimPsyche
                 return gateCacheInternal;
             }
         }
+
+        //Personality Value is cached whenever FacetValueNorm is updated.
+        private Dictionary<string, float> personalityCache = new Dictionary<string, float>();
+        private Dictionary<string, (float, float)> scopeCacheInternal = null; //new Dictionary<string, Tuple<float, float>>();
+        public Dictionary<string, (float, float)> scopeCache
+        {
+            get
+            {
+                scopeCacheInternal = scopeCacheInternal ?? GenerateScope();
+                return scopeCacheInternal;
+            }
+        }
+
+
         public float GetPersonality(PersonalityDef personality) //-1~1
         {
             if (personality == null || string.IsNullOrEmpty(personality.label))
@@ -65,6 +78,16 @@ namespace Maux36.RimPsyche
                 sum += GetFacetValueNorm(w.facet) * w.weight;
             }
             float result = Mathf.Clamp(sum * 0.02f, -1f, 1f);
+            
+            // Apply scope
+            if (!scopeCache.NullOrEmpty())
+            {
+                if (scopeCache.TryGetValue(personality.label, out var range))
+                {
+                    var (low, high) = range;
+                    result = Rimpsyche_Utility.ApplyScope(value, low, high);
+                }
+            }
             personalityCache[personality.label] = result;
             return result;
         }
@@ -79,6 +102,16 @@ namespace Maux36.RimPsyche
                 sum += GetFacetValue(w.facet) * w.weight;
             }
             float result = Mathf.Clamp(sum * 0.02f, -1f, 1f);
+
+            // Apply scope
+            if (!scopeCache.NullOrEmpty())
+            {
+                if (scopeCache.TryGetValue(personality.label, out var range))
+                {
+                    var (low, high) = range;
+                    result = Rimpsyche_Utility.ApplyScope(value, low, high);
+                }
+            }
             return result;
         }
 
@@ -155,7 +188,24 @@ namespace Maux36.RimPsyche
             }
             return newGate;
         }
-
+        public Dictionary<string, (float, float)> GenerateScope()
+        {
+            var newScope = new Dictionary<string, (float, float)>();
+            List<Trait> traits = pawn.story?.traits?.allTraits;
+            foreach (Trait trait in traits)
+            {
+                Pair<string, int> pair = new Pair<string, int>(trait.def.defName, trait.Degree);
+                if (Rimpsyche_Utility.TraitScopeDatabase.TryGetValue(pair, out var values))
+                {
+                    foreach(var value in values)
+                    {
+                        Log.Message($"{pawn.Name}'s scope is being added by {trait.def.defName} to {value.Item1}");
+                        newScope[value.Item1] = (value.Item2, value.Item3);
+                    }
+                }
+            }
+            return newScope;
+        }
         // IO
         public float GetFacetValueRaw(Facet facet)
         {
@@ -370,6 +420,14 @@ namespace Maux36.RimPsyche
 
         public void SetPersonalityRating(PersonalityDef def, float newValue)
         {
+            if (!scopeCache.NullOrEmpty())
+            {
+                if (scopeCache.TryGetValue(def.label, out var range))
+                {
+                    var (low, high) = range;
+                    newValue = Rimpsyche_Utility.RestoreScopedValue(newValue, low, high);
+                }
+            }
             float current = GetPersonalityDirect(def);
             float delta = newValue - current;
 
