@@ -194,8 +194,8 @@
   <Maux36.RimPsyche.PersonalityDef>
     <defName>Rimpsyche_Aggressiveness</defName>
     <label>aggressiveness</label>
-    <high>gentle</high>
-    <low>aggressive</low>
+    <high>aggressive</high>
+    <low>gentle</low>
     <scoreWeight>
       <li>
         <facet>Assertiveness</facet>
@@ -214,6 +214,14 @@
         <weight>0.2</weight>
       </li>
     </scoreWeight>
+    <scopes>
+      <li>
+        <traitDefname>Kind</traitDefname>
+        <degree>0</degree>
+        <lowEnd>-1</lowEnd>
+        <highEnd>0</highEnd>
+      </li>
+    </scopes>
   </Maux36.RimPsyche.PersonalityDef>
 
 
@@ -279,10 +287,36 @@
         <weight>-0.05</weight>
       </li>
     </scoreWeight>
+    <scopes>
+      <li>
+        <traitDefname>NaturalMood</traitDefname>
+        <degree>2</degree>
+        <lowEnd>0.5</lowEnd>
+        <highEnd>1</highEnd>
+      </li>
+      <li>
+        <traitDefname>NaturalMood</traitDefname>
+        <degree>1</degree>
+        <lowEnd>0</lowEnd>
+        <highEnd>1</highEnd>
+      </li>
+      <li>
+        <traitDefname>NaturalMood</traitDefname>
+        <degree>-1</degree>
+        <lowEnd>-1</lowEnd>
+        <highEnd>0</highEnd>
+      </li>
+      <li>
+        <traitDefname>NaturalMood</traitDefname>
+        <degree>-2</degree>
+        <lowEnd>-1</lowEnd>
+        <highEnd>-0.5</highEnd>
+      </li>
+    </scopes>
   </Maux36.RimPsyche.PersonalityDef>
 
   <Maux36.RimPsyche.PersonalityDef>
-    <defName>Rimpsyche_Spontaneousness</defName>
+    <defName>Rimpsyche_Spontaneity</defName>
     <label>spontaneousness</label>
     <high>impulsive</high>
     <low>cautious</low>

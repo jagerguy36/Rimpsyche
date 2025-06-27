@@ -20,13 +20,13 @@ namespace Maux36.RimPsyche
             {
 
                 float initSociability = initiatorPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Sociability);
-                float initSpontaneousness = initiatorPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Spontaneousness);
+                float initSpontaneity = initiatorPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Spontaneity);
                 float initTalkativeness = initiatorPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Talkativeness);
                 float initOpinion = (initiator.relations.OpinionOf(recipient)) * 0.01f; //-1~1
 
                 if (initOpinion < 0f)
                 {
-                    bool giveupConverse = initOpinion + initSociability + initSpontaneousness + Rand.Value < 0f;
+                    bool giveupConverse = initOpinion + initSociability + initSpontaneity + Rand.Value < 0f;
                     if (giveupConverse) return 0f;
                 }
                 float convoChance = 1f + initTalkativeness; // 0~[1]~2
@@ -57,14 +57,14 @@ namespace Maux36.RimPsyche
                 float initTalkativeness = initiatorPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Talkativeness);
                 float initPassion = initiatorPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Passion);
                 float initInquisitiveness = initiatorPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Inquisitiveness);
-                float initSpontaneousness = initiatorPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Spontaneousness);
+                float initSpontaneity = initiatorPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Spontaneity);
 
                 float reciOpinion = recipient.relations.OpinionOf(recipient) * 0.01f;
                 float reciSociability = recipientPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Sociability);
                 float reciTalkativeness = recipientPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Talkativeness);
                 float reciPassion = recipientPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Passion);
                 float reciInquisitiveness = recipientPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Inquisitiveness);
-                float reciSpontaneousness = recipientPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Spontaneousness);
+                float reciSpontaneity = recipientPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Spontaneity);
 
 
                 //Select the convo interest area by initiator. See if the recipient is willing to talk to the initiator about that area.
@@ -93,7 +93,7 @@ namespace Maux36.RimPsyche
                 float reciInterestF = (1f + (0.5f * reciOpinion)) + (reciInterestScore * (1f + (0.5f * reciPassion))) + ((1f - reciInterestScore) * (1f + (0.5f * reciInquisitiveness))); ; // 0.5~3 [1.5]
                 float initTalkF = (1.5f + initTalkativeness) * initInterestF; // 0.25~7.5 [2.25]
                 float reciTalkF = (1.5f + reciTalkativeness) * reciInterestF; // 0.25~7.5 [2.25]
-                float spontaneousF = (initSpontaneousness + reciSpontaneousness + 2f) * 0.05f; // 0~0.2 [0.1]
+                float spontaneousF = (initSpontaneity + reciSpontaneity + 2f) * 0.05f; // 0~0.2 [0.1]
                 float aligntmentLengthFactor = -1.5f * tAbs * (tAbs - 2f) + 1f;
                 int convoLength = (int)((4f + initTalkF + reciTalkF) * 25f * aligntmentLengthFactor * Rand.Range(1f - spontaneousF, 1f + spontaneousF)); //25 * (4.5~[8.5]~19)*([1]~2.5) || 90(112.5~[212.5]~1187.5)1425 [2min~30min]
 

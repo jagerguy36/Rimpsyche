@@ -89,40 +89,6 @@ namespace Maux36.RimPsyche
             }
         }
 
-        //Database
-
-        public static Dictionary<Pair<string, int>, List<(Facet, float, float)>> TraitGateDatabase = new()
-        {
-            [new Pair<string, int>("NaturalMood", 2)] = new List<(Facet, float, float)>
-            {
-                (Facet.Pessimism, -50f, -25f)
-            },
-            [new Pair<string, int>("NaturalMood", 1)] = new List<(Facet, float, float)>
-            {
-                (Facet.Pessimism, -50f, 0f)
-            },
-            [new Pair<string, int>("NaturalMood", -1)] = new List<(Facet, float, float)>
-            {
-                (Facet.Pessimism, 0f, 50f)
-            },
-            [new Pair<string, int>("NaturalMood", -2)] = new List<(Facet, float, float)>
-            {
-                (Facet.Pessimism, 25f, 50f)
-            },
-            //[new Pair<string, int>("Kind", 0)] = new List<(Facet, float, float)>
-            //{
-            //    (Facet.Cooperation, 0f, 50f)
-            //},
-        };
-
-        public static Dictionary<Pair<string, int>, List<(string, float, float)>> TraitScopeDatabase = new()
-        {
-            [new Pair<string, int>("Kind", 0)] = new List<(string, float, float)>
-            {
-               ("Aggressiveness", -1f, 0f)
-            },
-        };
-
         public static float GetMinAdultAge(Pawn pawn)
         {
             return pawn.ageTracker.AdultMinAge; ;

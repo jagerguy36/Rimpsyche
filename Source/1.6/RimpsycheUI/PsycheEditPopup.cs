@@ -111,6 +111,7 @@ namespace Maux36.RimPsyche
             var compPsyche = pawn.compPsyche();
             if (compPsyche == null) return;
 
+            var scope = compPsyche.Personality.scopeCache;
             var personalityDefList = DefDatabase<PersonalityDef>.AllDefs;
             float rowHeight = 32f;
             float viewHeight = personalityDefList.Count() * rowHeight + 40f;
@@ -163,6 +164,7 @@ namespace Maux36.RimPsyche
 
             float y = 0f; // This 'y' is correct as it's relative to the *inside* of the scroll view.
             float labelWidth = 130f;
+            float barCenterX = viewRect.width*0.5f;
 
             foreach (var def in personalityDefList)
             {
@@ -177,7 +179,6 @@ namespace Maux36.RimPsyche
                     Widgets.DrawHighlight(rowRect);
                     TooltipHandler.TipRegion(rowRect, $"{def.label}: {Mathf.Round(currentValue * 100f) / 100f}");
                 }
-                float barCenterX = rowRect.x + rowRect.width / 2f;
                 float centerY = rowRect.y + rowRect.height / 2f;
                 // Left label
                 Rect leftRect = new Rect(rowRect.x + labelPadding, centerY - Text.LineHeight / 2f, labelWidth, Text.LineHeight);
@@ -190,9 +191,19 @@ namespace Maux36.RimPsyche
                 Widgets.Label(rightRect, rightLabel);
                 if (editModeOn)
                 {
+                    float highend = 1f;
+                    float lowend = -1f;
+                    if (!scope.NullOrEmpty())
+                    {
+                        if (scope.TryGetValue(def.defName, out var range))
+                        {
+                            (lowend, highend) = range;
+                        }
+                    }
+                    //Rect sliderRect = new Rect(barCenterX + barWidth / 2f * lowend , centerY - barHeight / 2f, barWidth*(highend-lowend)*0.5f, 24f);?
                     Rect sliderRect = new Rect(barCenterX - barWidth / 2f, centerY - barHeight / 2f, barWidth, 24f);
-                    float newValue = Widgets.HorizontalSlider(sliderRect, currentValue, -1f, 1f);
-
+                    float newValue = Widgets.HorizontalSlider(sliderRect, currentValue, lowend, highend);
+                    Mathf.Clamp(newValue, lowend, highend);
                     if (newValue != currentValue)
                     {
                         compPsyche.Personality.SetPersonalityRating(def, newValue);

@@ -18,7 +18,7 @@ namespace Maux36.RimPsyche
 
         public static PersonalityDef Rimpsyche_Passion;
         public static PersonalityDef Rimpsyche_Optimism;
-        public static PersonalityDef Rimpsyche_Spontaneousness;
+        public static PersonalityDef Rimpsyche_Spontaneity;
         public static PersonalityDef Rimpsyche_Trust;
 
         static PersonalityDefOf()

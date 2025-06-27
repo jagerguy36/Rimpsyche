@@ -65,9 +65,9 @@ namespace Maux36.RimPsyche
 
         public float GetPersonality(PersonalityDef personality) //-1~1
         {
-            if (personality == null || string.IsNullOrEmpty(personality.label))
+            if (personality == null || string.IsNullOrEmpty(personality.defName))
                 return 0f;
-            if (personalityCache.TryGetValue(personality.label, out float cachedValue))
+            if (personalityCache.TryGetValue(personality.defName, out float cachedValue))
             {
                 return cachedValue;
             }
@@ -82,18 +82,18 @@ namespace Maux36.RimPsyche
             // Apply scope
             if (!scopeCache.NullOrEmpty())
             {
-                if (scopeCache.TryGetValue(personality.label, out var range))
+                if (scopeCache.TryGetValue(personality.defName, out var range))
                 {
                     var (low, high) = range;
-                    result = Rimpsyche_Utility.ApplyScope(value, low, high);
+                    result = Rimpsyche_Utility.ApplyScope(result, low, high);
                 }
             }
-            personalityCache[personality.label] = result;
+            personalityCache[personality.defName] = result;
             return result;
         }
         public float GetPersonalityDirect(PersonalityDef personality) //Non-Normalized Version
         {
-            if (personality == null || string.IsNullOrEmpty(personality.label))
+            if (personality == null || string.IsNullOrEmpty(personality.defName))
                 return 0f;
 
             float sum = 0f;
@@ -106,10 +106,10 @@ namespace Maux36.RimPsyche
             // Apply scope
             if (!scopeCache.NullOrEmpty())
             {
-                if (scopeCache.TryGetValue(personality.label, out var range))
+                if (scopeCache.TryGetValue(personality.defName, out var range))
                 {
                     var (low, high) = range;
-                    result = Rimpsyche_Utility.ApplyScope(value, low, high);
+                    result = Rimpsyche_Utility.ApplyScope(result, low, high);
                 }
             }
             return result;
@@ -177,7 +177,7 @@ namespace Maux36.RimPsyche
             foreach (Trait trait in traits)
             {
                 Pair<string, int> pair = new Pair<string, int>(trait.def.defName, trait.Degree);
-                if (Rimpsyche_Utility.TraitGateDatabase.TryGetValue(pair, out var values))
+                if (RimpsycheDatabase.TraitGateDatabase.TryGetValue(pair, out var values))
                 {
                     foreach(var value in values)
                     {
@@ -195,7 +195,7 @@ namespace Maux36.RimPsyche
             foreach (Trait trait in traits)
             {
                 Pair<string, int> pair = new Pair<string, int>(trait.def.defName, trait.Degree);
-                if (Rimpsyche_Utility.TraitScopeDatabase.TryGetValue(pair, out var values))
+                if (RimpsycheDatabase.TraitScopeDatabase.TryGetValue(pair, out var values))
                 {
                     foreach(var value in values)
                     {
@@ -420,14 +420,6 @@ namespace Maux36.RimPsyche
 
         public void SetPersonalityRating(PersonalityDef def, float newValue)
         {
-            if (!scopeCache.NullOrEmpty())
-            {
-                if (scopeCache.TryGetValue(def.label, out var range))
-                {
-                    var (low, high) = range;
-                    newValue = Rimpsyche_Utility.RestoreScopedValue(newValue, low, high);
-                }
-            }
             float current = GetPersonalityDirect(def);
             float delta = newValue - current;
 
@@ -459,6 +451,7 @@ namespace Maux36.RimPsyche
         {
             Log.Message($"{pawn.Name}' cache dirtied due to trait change");
             gateCacheInternal = null;
+            scopeCacheInternal = null;
             personalityCache.Clear();
             var compPsyche = pawn.compPsyche();
             if (compPsyche != null)
