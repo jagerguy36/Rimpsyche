@@ -54,6 +54,12 @@ namespace Maux36.RimPsyche
             GUI.EndGroup();
         }
 
+        public override void OnOpen()
+        {
+            PsycheInfoCard.PersonalityScrollPosition = Vector2.zero;
+            PsycheInfoCard.InterestScrollPosition = Vector2.zero;
+        }
+
         public Pawn IsVisiblePawnHook(Pawn pawn) => pawn;
 
 

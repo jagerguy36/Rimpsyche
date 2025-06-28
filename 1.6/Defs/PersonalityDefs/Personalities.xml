@@ -5,11 +5,8 @@
     <label>talkativeness</label>
     <high>outspoken</high>
     <low>taciturn</low>
+    <description>Describes how much a person tends to speak and initiate conversation. Outspoken individuals are more likely to start dialogue and keep it going longer. Those who are more taciturn prefer brief exchanges or keep to themselves.</description>
     <scoreWeight>
-      <li>
-        <facet>Curiosity</facet>
-        <weight>0.1</weight>
-      </li>
       <li>
         <facet>Sociability</facet>
         <weight>0.2</weight>
@@ -29,27 +26,24 @@
     </scoreWeight>
   </Maux36.RimPsyche.PersonalityDef>
 
-  <Maux36.RimPsyche.PersonalityDef>
+ <Maux36.RimPsyche.PersonalityDef>
     <defName>Rimpsyche_Sociability</defName>
     <label>sociability</label>
     <high>friendly</high>
     <low>reserved</low>
+    <description>Reflects how naturally someone seeks out and enjoys social interaction. Friendly individuals are more likely to engage with others frequently and comfortably. Reserved individuals tend to keep their distance or limit social contact.</description>
     <scoreWeight>
       <li>
         <facet>Sociability</facet>
-        <weight>0.4</weight>
+        <weight>0.45</weight>
       </li>
       <li>
         <facet>Enthusiasm</facet>
         <weight>0.15</weight>
       </li>
       <li>
-        <facet>Compassion</facet>
-        <weight>0.1</weight>
-      </li>
-      <li>
         <facet>Cooperation</facet>
-        <weight>0.1</weight>
+        <weight>0.15</weight>
       </li>
       <li>
         <facet>Insecurity</facet>
@@ -63,6 +57,7 @@
     <label>tact</label>
     <high>diplomatic</high>
     <low>brash</low>
+    <description>Shows how considerate someone is in social situations. Diplomatic individuals choose their words carefully and tend to leave a good impression. Brash individuals may come off as rude or blunt.</description>
     <scoreWeight>
       <li>
         <facet>Sociability</facet>
@@ -82,7 +77,11 @@
       </li>
       <li>
         <facet>Volatility</facet>
-        <weight>-0.1</weight>
+        <weight>-0.05</weight>
+      </li>
+      <li>
+        <facet>Pessimism</facet>
+        <weight>-0.05</weight>
       </li>
     </scoreWeight>
   </Maux36.RimPsyche.PersonalityDef>
@@ -92,26 +91,31 @@
     <label>openness</label>
     <high>open-minded</high>
     <low>judgemental</low>
+    <description>Describes how willing a person is to consider new ideas, experiences, or perspectives. Open-minded individuals are curious and receptive to different viewpoints. Those who are more judgmental tend to stick to familiar beliefs and may dismiss alternative ideas.</description>
     <scoreWeight>
       <li>
+        <facet>Intellect</facet>
+        <weight>0.2</weight>
+      </li>
+      <li>
         <facet>Curiosity</facet>
-        <weight>0.3</weight>
+        <weight>0.35</weight>
       </li>
       <li>
         <facet>Orderliness</facet>
-        <weight>-0.05</weight>
+        <weight>-0.2</weight>
       </li>
       <li>
         <facet>Integrity</facet>
-        <weight>-0.45</weight>
-      </li>
-      <li>
-        <facet>Compassion</facet>
-        <weight>0.05</weight>
+        <weight>-0.15</weight>
       </li>
       <li>
         <facet>Cooperation</facet>
-        <weight>0.15</weight>
+        <weight>0.05</weight>
+      </li>
+      <li>
+        <facet>Humbleness</facet>
+        <weight>0.05</weight>
       </li>
     </scoreWeight>
   </Maux36.RimPsyche.PersonalityDef>
@@ -121,18 +125,15 @@
     <label>confidence</label>
     <high>confident</high>
     <low>insecure</low>
+    <description>Describes how certain a person feels about themselves and their actions. Confident individuals are assertive, trusting their abilities and opinions, while insecure individuals may struggle with self-doubt or be easily influenced by others.</description>
     <scoreWeight>
       <li>
         <facet>Assertiveness</facet>
-        <weight>0.35</weight>
-      </li>
-      <li>
-        <facet>Enthusiasm</facet>
-        <weight>0.1</weight>
+        <weight>0.4</weight>
       </li>
       <li>
         <facet>Pessimism</facet>
-        <weight>-0.1</weight>
+        <weight>-0.15</weight>
       </li>
       <li>
         <facet>Insecurity</facet>
@@ -146,6 +147,7 @@
     <label>inquisitiveness</label>
     <high>inquisitive</high>
     <low>indifferent</low>
+    <description>Reflects how curious a person is about the world around them. Inquisitive individuals tend to ask questions, seek new knowledge, and engage in deeper conversations, while indifferent individuals show little interest in things outside their immediate focus.</description>
     <scoreWeight>
       <li>
         <facet>Imagination</facet>
@@ -167,6 +169,7 @@
     <label>prudishness</label>
     <high>prudish</high>
     <low>uninhibited</low>
+    <description>Reflects how a person responds to matters of modesty and explicit content. Prudish individuals feel uneasy or disapproving in situations involving nudity or provocative topics, while uninhibited individuals are more open and unbothered by them.</description>
     <scoreWeight>
       <li>
         <facet>Curiosity</facet>
@@ -174,7 +177,11 @@
       </li>
       <li>
         <facet>Orderliness</facet>
-        <weight>0.4</weight>
+        <weight>0.25</weight>
+      </li>
+      <li>
+        <facet>Integrity</facet>
+        <weight>0.1</weight>
       </li>
       <li>
         <facet>Enthusiasm</facet>
@@ -182,11 +189,11 @@
       </li>
       <li>
         <facet>Humbleness</facet>
-        <weight>0.3</weight>
+        <weight>0.2</weight>
       </li>
       <li>
         <facet>Insecurity</facet>
-        <weight>0.05</weight>
+        <weight>0.2</weight>
       </li>
     </scoreWeight>
   </Maux36.RimPsyche.PersonalityDef>
@@ -196,58 +203,221 @@
     <label>aggressiveness</label>
     <high>aggressive</high>
     <low>gentle</low>
+    <description>Reflects how easily a person may become confrontational or hostile. Aggressive individuals are quick to assert themselves, often through forceful words or actions, while gentle individuals are more calm, avoiding conflict or aggression in social situations.</description>
     <scoreWeight>
       <li>
+        <facet>Integrity</facet>
+        <weight>-0.05</weight>
+      </li>
+      <li>
         <facet>Assertiveness</facet>
-        <weight>0.2</weight>
+        <weight>0.3</weight>
       </li>
       <li>
         <facet>Cooperation</facet>
-        <weight>-0.2</weight>
+        <weight>-0.25</weight>
       </li>
       <li>
         <facet>Volatility</facet>
-        <weight>0.4</weight>
+        <weight>0.15</weight>
       </li>
       <li>
         <facet>Pessimism</facet>
-        <weight>0.2</weight>
+        <weight>0.25</weight>
       </li>
     </scoreWeight>
-    <scopes>
-      <li>
-        <traitDefname>Kind</traitDefname>
-        <degree>0</degree>
-        <lowEnd>-1</lowEnd>
-        <highEnd>0</highEnd>
-      </li>
-    </scopes>
   </Maux36.RimPsyche.PersonalityDef>
 
+  <Maux36.RimPsyche.PersonalityDef>
+    <defName>Rimpsyche_Experimentation</defName>
+    <label>experimentation</label>
+    <high>experimental</high>
+    <low>conventional</low>
+    <description>Reflects a person’s willingness to try new approaches or ideas. Experimental individuals are open to change and innovation, often seeking out new experiences, while conventional individuals prefer familiar methods and stick to what they know works.</description>
+    <scoreWeight>
+      <li>
+        <facet>Imagination</facet>
+        <weight>0.1</weight>
+      </li>
+      <li>
+        <facet>Intellect</facet>
+        <weight>0.2</weight>
+      </li>
+      <li>
+        <facet>Curiosity</facet>
+        <weight>0.35</weight>
+      </li>
+      <li>
+        <facet>Orderliness</facet>
+        <weight>-0.25</weight>
+      </li>
+      <li>
+        <facet>Insecurity</facet>
+        <weight>-0.1</weight>
+      </li>
+    </scoreWeight>
+  </Maux36.RimPsyche.PersonalityDef>
 
+  <Maux36.RimPsyche.PersonalityDef>
+    <defName>Rimpsyche_Imagination</defName>
+    <label>imagination</label>
+    <high>imaginative</high>
+    <low>grounded</low>
+    <description>Describes how connected a person is to reality versus their imagination. Grounded individuals tend to be practical and focused on tangible matters, while Imaginative individuals are prone to daydreaming, creative thinking, and exploring abstract ideas.</description>
+    <scoreWeight>
+      <li>
+        <facet>Imagination</facet>
+        <weight>0.45</weight>
+      </li>
+      <li>
+        <facet>Intellect</facet>
+        <weight>0.3</weight>
+      </li>
+      <li>
+        <facet>Curiosity</facet>
+        <weight>0.15</weight>
+      </li>
+      <li>
+        <facet>Orderliness</facet>
+        <weight>-0.1</weight>
+      </li>
+    </scoreWeight>
+  </Maux36.RimPsyche.PersonalityDef>
 
+  <Maux36.RimPsyche.PersonalityDef>
+    <defName>Rimpsyche_Diligence</defName>
+    <label>diligence</label>
+    <high>diligent</high>
+    <low>lazy</low>
+    <description>Reflects a person's general tendency to apply effort and thoroughness to tasks and responsibilities. Diligent individuals are hardworking, persistent, and committed to completing their duties effectively. In contrast, lazy individuals tend to avoid strenuous activity, show less commitment to tasks, and may prioritize ease or leisure over productivity.</description>
+    <scoreWeight>
+      <li>
+        <facet>Industriousness</facet>
+        <weight>0.45</weight>
+      </li>
+      <li>
+        <facet>Orderliness</facet>
+        <weight>0.2</weight>
+      </li>
+      <li>
+        <facet>Integrity</facet>
+        <weight>0.2</weight>
+      </li>
+      <li>
+        <facet>Volatility</facet>
+        <weight>-0.05</weight>
+      </li>
+      <li>
+        <facet>Pessimism</facet>
+        <weight>-0.1</weight>
+      </li>
+    </scoreWeight>
+  </Maux36.RimPsyche.PersonalityDef>
 
+  <Maux36.RimPsyche.PersonalityDef>
+    <defName>Rimpsyche_Organization</defName>
+    <label>organization</label>
+    <high>organized</high>
+    <low>haphazard</low>
+    <description>Reflects how methodical and structured a person is. Organized individuals tend to keep things in order, following clear systems. Haphazard individuals are less concerned with strict order, often thriving in less structured or even chaotic environments.</description>
+    <scoreWeight>
+      <li>
+        <facet>Curiosity</facet>
+        <weight>-0.15</weight>
+      </li>
+      <li>
+        <facet>Industriousness</facet>
+        <weight>0.25</weight>
+      </li>
+      <li>
+        <facet>Orderliness</facet>
+        <weight>0.45</weight>
+      </li>
+      <li>
+        <facet>Integrity</facet>
+        <weight>0.05</weight>
+      </li>
+      <li>
+        <facet>Volatility</facet>
+        <weight>-0.1</weight>
+      </li>
+    </scoreWeight>
+  </Maux36.RimPsyche.PersonalityDef>
 
+  <Maux36.RimPsyche.PersonalityDef>
+    <defName>Rimpsyche_Discipline</defName>
+    <label>discipline</label>
+    <high>disciplined</high>
+    <low>undisciplined</low>
+    <description>Reflects a person's ability to maintain focus, self-control, and adherence to rules or routines. Disciplined individuals are good at sticking to plans, resisting impulses, and working consistently towards goals. Undisciplined individuals may struggle with consistency, be easily distracted, or have difficulty following through.</description>
+    <scoreWeight>
+      <li>
+        <facet>Industriousness</facet>
+        <weight>0.15</weight>
+      </li>
+      <li>
+        <facet>Orderliness</facet>
+        <weight>0.05</weight>
+      </li>
+      <li>
+        <facet>Integrity</facet>
+        <weight>0.45</weight>
+      </li>
+      <li>
+        <facet>Volatility</facet>
+        <weight>-0.25</weight>
+      </li>
+      <li>
+        <facet>Pessimism</facet>
+        <weight>-0.1</weight>
+      </li>
+    </scoreWeight>
+  </Maux36.RimPsyche.PersonalityDef>
 
-
+  <Maux36.RimPsyche.PersonalityDef>
+    <defName>Rimpsyche_Focus</defName>
+    <label>focus</label>
+    <high>focused</high>
+    <low>explorative</low>
+    <description>Reflects how a person directs their mental energy and attention. Focused individuals are excellent at concentrating on a single task or topic, diving deep into a specific area of interest. Explorative individuals, in contrast, prefer to spread their attention across a wider range of subjects, finding more joy in discovering new things than in mastering one.</description>
+    <scoreWeight>
+      <li>
+        <facet>Intellect</facet>
+        <weight>0.15</weight>
+      </li>
+      <li>
+        <facet>Curiosity</facet>
+        <weight>-0.35</weight>
+      </li>
+      <li>
+        <facet>Industriousness</facet>
+        <weight>0.25</weight>
+      </li>
+      <li>
+        <facet>Orderliness</facet>
+        <weight>0.15</weight>
+      </li>
+      <li>
+        <facet>Enthusiasm</facet>
+        <weight>-0.1</weight>
+      </li>
+    </scoreWeight>
+  </Maux36.RimPsyche.PersonalityDef>
 
   <Maux36.RimPsyche.PersonalityDef>
     <defName>Rimpsyche_Passion</defName>
     <label>passion</label>
     <high>passionate</high>
     <low>apathetic</low>
+    <description>Reflects the intensity and enthusiasm with which a person pursues their interests, goals, and relationships. Passionate individuals are deeply committed, putting significant energy and emotion into what they care about. In contrast, apathetic individuals may approach things more casually, showing less intensity and focus in their pursuits.</description>
     <scoreWeight>
       <li>
-        <facet>Imagination</facet>
-        <weight>0.15</weight>
-      </li>
-      <li>
-        <facet>Curiosity</facet>
-        <weight>0.05</weight>
-      </li>
-      <li>
         <facet>Industriousness</facet>
-        <weight>0.15</weight>
+        <weight>0.3</weight>
+      </li>
+      <li>
+        <facet>Assertiveness</facet>
+        <weight>0.05</weight>
       </li>
       <li>
         <facet>Enthusiasm</facet>
@@ -265,26 +435,151 @@
   </Maux36.RimPsyche.PersonalityDef>
 
   <Maux36.RimPsyche.PersonalityDef>
+    <defName>Rimpsyche_Tension</defName>
+    <label>tension</label>
+    <high>high-strung</high>
+    <low>laid-back</low>
+    <description>Reflects a person's typical level of inner calm or anxiety. High-strung individuals tend to be easily agitated, often feeling restless or prone to worry, and may react intensely to stress. In contrast, laid-back individuals maintain a relaxed demeanor, are less easily perturbed, and generally approach situations with a calm and easygoing attitude.</description>
+    <scoreWeight>
+      <li>
+        <facet>Orderliness</facet>
+        <weight>0.15</weight>
+      </li>
+      <li>
+        <facet>Enthusiasm</facet>
+        <weight>0.05</weight>
+      </li>
+      <li>
+        <facet>Volatility</facet>
+        <weight>0.1</weight>
+      </li>
+      <li>
+        <facet>Pessimism</facet>
+        <weight>0.4</weight>
+      </li>
+      <li>
+        <facet>Insecurity</facet>
+        <weight>0.3</weight>
+      </li>
+    </scoreWeight>
+  </Maux36.RimPsyche.PersonalityDef>
+
+  <Maux36.RimPsyche.PersonalityDef>
+    <defName>Rimpsyche_Emotionality</defName>
+    <label>emotionality</label>
+    <high>emotional</high>
+    <low>stoic</low>
+    <description>Reflects how a person typically experiences and expresses their emotions. Emotional individuals tend to feel their emotions deeply and react strongly to both positive and negative events. On the other hand, stoic individuals maintain a calm, composed demeanor even in the face of strong emotions.</description>
+    <scoreWeight>
+      <li>
+        <facet>Imagination</facet>
+        <weight>0.45</weight>
+      </li>
+      <li>
+        <facet>Compassion</facet>
+        <weight>0.1</weight>
+      </li>
+      <li>
+        <facet>Volatility</facet>
+        <weight>0.35</weight>
+      </li>
+      <li>
+        <facet>Pessimism</facet>
+        <weight>0.1</weight>
+      </li>
+    </scoreWeight>
+  </Maux36.RimPsyche.PersonalityDef>
+
+  <Maux36.RimPsyche.PersonalityDef>
+    <defName>Rimpsyche_Volatility</defName>
+    <label>volatility</label>
+    <high>volatile</high>
+    <low>stable</low>
+    <description>Reflects how prone a person is to rapid and unpredictable shifts in their mood and emotional state. Volatile individuals experience frequent and intense changes in their feelings, often reacting strongly and suddenly to events. In contrast, stable individuals maintain a more consistent emotional baseline, generally experiencing fewer dramatic mood swings and reacting to situations with greater emotional evenness.</description>
+    <scoreWeight>
+      <li>
+        <facet>Orderliness</facet>
+        <weight>-0.1</weight>
+      </li>
+      <li>
+        <facet>Integrity</facet>
+        <weight>-0.05</weight>
+      </li>
+      <li>
+        <facet>Enthusiasm</facet>
+        <weight>0.1</weight>
+      </li>
+      <li>
+        <facet>Volatility</facet>
+        <weight>0.45</weight>
+      </li>
+      <li>
+        <facet>Pessimism</facet>
+        <weight>0.1</weight>
+      </li>
+      <li>
+        <facet>Insecurity</facet>
+        <weight>0.2</weight>
+      </li>
+    </scoreWeight>
+  </Maux36.RimPsyche.PersonalityDef>
+
+  <Maux36.RimPsyche.PersonalityDef>
+    <defName>Rimpsyche_Morality</defName>
+    <label>morality</label>
+    <high>principled</high>
+    <low>amoral</low>
+    <description>Reflects a person's sense of right and wrong, as well as their adherence to ethical or moral guidelines. Amoral individuals are less concerned with societal or personal morality, often focusing on their own self-interest or practicality. In contrast, principled individuals have a strong moral compass and seek to live according to their values, often prioritizing fairness, justice, and empathy in their actions and decisions.</description>
+    <scoreWeight>
+      <li>
+        <facet>Integrity</facet>
+        <weight>0.45</weight>
+      </li>
+      <li>
+        <facet>Enthusiasm</facet>
+        <weight>-0.05</weight>
+      </li>
+      <li>
+        <facet>Compassion</facet>
+        <weight>0.2</weight>
+      </li>
+      <li>
+        <facet>Humbleness</facet>
+        <weight>0.1</weight>
+      </li>
+      <li>
+        <facet>Volatility</facet>
+        <weight>-0.1</weight>
+      </li>
+      <li>
+        <facet>Insecurity</facet>
+        <weight>0.1</weight>
+      </li>
+    </scoreWeight>
+  </Maux36.RimPsyche.PersonalityDef>
+
+<Maux36.RimPsyche.PersonalityDef>
     <defName>Rimpsyche_Optimism</defName>
     <label>optimism</label>
     <high>optimistic</high>
     <low>pessimistic</low>
+    <description>Reflects a person's general outlook on life and expectations for the future. Optimistic individuals tend to anticipate positive outcomes, maintain a hopeful attitude even in challenging times, and readily see the good in situations. In contrast, pessimistic individuals are more inclined to expect negative results, focus on potential difficulties, and may feel discouraged more easily.</description>
     <scoreWeight>
       <li>
-        <facet>Pessimism</facet>
-        <weight>-0.6</weight>
-      </li>
-      <li>
-        <facet>Insecurity</facet>
-        <weight>-0.2</weight>
-      </li>
-      <li>
         <facet>Enthusiasm</facet>
-        <weight>0.15</weight>
+        <weight>0.35</weight>
       </li>
       <li>
         <facet>Volatility</facet>
-        <weight>-0.05</weight>
+        <weight>-0.1</weight>
+      </li>
+      <li>
+        <facet>Pessimism</facet>
+        <weight>-0.45</weight>
+      </li>
+      <li>
+        <facet>Insecurity</facet>
+        <weight>-0.1</weight>
       </li>
     </scoreWeight>
     <scopes>
@@ -316,26 +611,83 @@
   </Maux36.RimPsyche.PersonalityDef>
 
   <Maux36.RimPsyche.PersonalityDef>
-    <defName>Rimpsyche_Spontaneity</defName>
-    <label>spontaneousness</label>
-    <high>impulsive</high>
-    <low>cautious</low>
+    <defName>Rimpsyche_Ambition</defName>
+    <label>ambition</label>
+    <high>ambitious</high>
+    <low>content</low>
+    <description>Reflects a person's drive and desire for achievement, success, or improvement. Ambitious individuals are highly motivated to set and achieve challenging goals, often seeking advancement, recognition, or personal growth. In contrast, content individuals are generally satisfied with their current situation, showing less inclination to strive for significant changes or higher achievements.</description>
     <scoreWeight>
       <li>
-        <facet>Curiosity</facet>
-        <weight>0.05</weight>
+        <facet>Industriousness</facet>
+        <weight>0.4</weight>
       </li>
       <li>
-        <facet>Orderliness</facet>
-        <weight>-0.45</weight>
+        <facet>Assertiveness</facet>
+        <weight>0.25</weight>
       </li>
       <li>
-        <facet>Enthusiasm</facet>
+        <facet>Humbleness</facet>
+        <weight>-0.2</weight>
+      </li>
+      <li>
+        <facet>Insecurity</facet>
+        <weight>-0.15</weight>
+      </li>
+    </scoreWeight>
+  </Maux36.RimPsyche.PersonalityDef>
+
+  <Maux36.RimPsyche.PersonalityDef>
+    <defName>Rimpsyche_Compassion</defName>
+    <label>compassion</label>
+    <high>compassionate</high>
+    <low>coldhearted</low>
+    <description>Reflects how empathetic and concerned a person is for the suffering of others. Compassionate individuals are deeply moved by the struggles of others, often going out of their way to offer support and show kindness. In contrast, coldhearted individuals tend to be indifferent to others' pain, often focusing on their own needs or goals without much concern for the well-being of others.</description>
+    <scoreWeight>
+      <li>
+        <facet>Imagination</facet>
         <weight>0.1</weight>
       </li>
       <li>
-        <facet>Volatility</facet>
+        <facet>Compassion</facet>
+        <weight>0.45</weight>
+      </li>
+      <li>
+        <facet>Cooperation</facet>
         <weight>0.3</weight>
+      </li>
+      <li>
+        <facet>Humbleness</facet>
+        <weight>0.05</weight>
+      </li>
+      <li>
+        <facet>Pessimism</facet>
+        <weight>-0.1</weight>
+      </li>
+    </scoreWeight>
+  </Maux36.RimPsyche.PersonalityDef>
+
+  <Maux36.RimPsyche.PersonalityDef>
+    <defName>Rimpsyche_Spontaneity</defName>
+    <label>spontaneity</label>
+    <high>impulsive</high>
+    <low>consistent</low>
+    <description>Reflects how unpredictable or steady a person tends to be. Those Impulsive individuals often act on impulse, leading to unexpected or varied behavior. Low spontaneity indicates a more measured, consistent nature.</description>
+    <scoreWeight>
+      <li>
+        <facet>Curiosity</facet>
+        <weight>0.1</weight>
+      </li>
+      <li>
+        <facet>Orderliness</facet>
+        <weight>-0.4</weight>
+      </li>
+      <li>
+        <facet>Enthusiasm</facet>
+        <weight>0.2</weight>
+      </li>
+      <li>
+        <facet>Volatility</facet>
+        <weight>0.2</weight>
       </li>
       <li>
         <facet>Insecurity</facet>
@@ -349,10 +701,15 @@
     <label>trust</label>
     <high>trusting</high>
     <low>skeptical</low>
+    <description>Reflects how readily a person places confidence in others' honesty, intentions, and reliability. Trusting individuals are inclined to believe in the good faith of others. In contrast, skeptical individuals are more cautious, often questioning motives and requiring proof or repeated positive interactions before extending their trust.</description>
     <scoreWeight>
       <li>
         <facet>Intellect</facet>
         <weight>-0.1</weight>
+      </li>
+      <li>
+        <facet>Sociability</facet>
+        <weight>0.1</weight>
       </li>
       <li>
         <facet>Compassion</facet>
@@ -360,7 +717,7 @@
       </li>
       <li>
         <facet>Cooperation</facet>
-        <weight>0.35</weight>
+        <weight>0.3</weight>
       </li>
       <li>
         <facet>Humbleness</facet>
@@ -372,7 +729,247 @@
       </li>
       <li>
         <facet>Insecurity</facet>
+        <weight>-0.15</weight>
+      </li>
+    </scoreWeight>
+  </Maux36.RimPsyche.PersonalityDef>
+
+  <Maux36.RimPsyche.PersonalityDef>
+    <defName>Rimpsyche_Deliberation</defName>
+    <label>deliberation</label>
+    <high>deliberate</high>
+    <low>hasty</low>
+    <description>Describes how carefully someone approaches tasks and decisions. Deliberate individuals take their time, favoring accuracy over speed and considering all angles before acting. In contrast, hasty individuals move quickly, often at the cost of precision, preferring immediate action even if it means sacrificing thoroughness.</description>
+    <scoreWeight>
+      <li>
+        <facet>Intellect</facet>
+        <weight>0.1</weight>
+      </li>
+      <li>
+        <facet>Orderliness</facet>
+        <weight>0.35</weight>
+      </li>
+      <li>
+        <facet>Integrity</facet>
+        <weight>0.15</weight>
+      </li>
+      <li>
+        <facet>Enthusiasm</facet>
         <weight>-0.2</weight>
+      </li>
+      <li>
+        <facet>Pessimism</facet>
+        <weight>0.1</weight>
+      </li>
+      <li>
+        <facet>Insecurity</facet>
+        <weight>0.1</weight>
+      </li>
+    </scoreWeight>
+  </Maux36.RimPsyche.PersonalityDef>
+
+  <Maux36.RimPsyche.PersonalityDef>
+    <defName>Rimpsyche_Cognition</defName>
+    <label>cognition</label>
+    <high>analytical</high>
+    <low>instinctive</low>
+    <description>Reflects how a person typically processes information and makes decisions. Analytical individuals tend to break down problems, preferring logical reasoning and careful evaluation of details. In contrast, instinctive individuals are more likely to rely on intuition, gut feelings, and immediate impressions to guide their understanding and choices.</description>
+    <scoreWeight>
+      <li>
+        <facet>Intellect</facet>
+        <weight>0.45</weight>
+      </li>
+      <li>
+        <facet>Orderliness</facet>
+        <weight>0.1</weight>
+      </li>
+      <li>
+        <facet>Assertiveness</facet>
+        <weight>-0.2</weight>
+      </li>
+      <li>
+        <facet>Pessimism</facet>
+        <weight>0.1</weight>
+      </li>
+      <li>
+        <facet>Insecurity</facet>
+        <weight>0.15</weight>
+      </li>
+    </scoreWeight>
+  </Maux36.RimPsyche.PersonalityDef>
+
+  <Maux36.RimPsyche.PersonalityDef>
+    <defName>Rimpsyche_Playfulness</defName>
+    <label>playfulness</label>
+    <high>playful</high>
+    <low>serious</low>
+    <description>Reflects a person's inclination to find amusement and express it, as well as their general approach to lightheartedness. Playful individuals enjoy jokes, witty remarks, and tend to approach situations with a lighthearted attitude. In contrast, serious individuals are less inclined to jest, preferring a more earnest and straightforward demeanor.</description>
+    <scoreWeight>
+      <li>
+        <facet>Imagination</facet>
+        <weight>0.05</weight>
+      </li>
+      <li>
+        <facet>Curiosity</facet>
+        <weight>-0.05</weight>
+      </li>
+      <li>
+        <facet>Sociability</facet>
+        <weight>0.25</weight>
+      </li>
+      <li>
+        <facet>Enthusiasm</facet>
+        <weight>0.45</weight>
+      </li>
+      <li>
+        <facet>Pessimism</facet>
+        <weight>-0.2</weight>
+      </li>
+    </scoreWeight>
+  </Maux36.RimPsyche.PersonalityDef>
+
+  <Maux36.RimPsyche.PersonalityDef>
+    <defName>Rimpsyche_Bravery</defName>
+    <label>bravery</label>
+    <high>courageous</high>
+    <low>fearful</low>
+    <description>Reflects a person's willingness to face fear, danger, or difficult situations. Courageous individuals are inclined to confront challenges directly, even in the face of risk or adversity. In contrast, fearful individuals tend to avoid situations that evoke fear or discomfort, often prioritizing safety over confrontation.</description>
+    <scoreWeight>
+      <li>
+        <facet>Integrity</facet>
+        <weight>0.15</weight>
+      </li>
+      <li>
+        <facet>Assertiveness</facet>
+        <weight>0.45</weight>
+      </li>
+      <li>
+        <facet>Enthusiasm</facet>
+        <weight>0.05</weight>
+      </li>
+      <li>
+        <facet>Pessimism</facet>
+        <weight>-0.1</weight>
+      </li>
+      <li>
+        <facet>Insecurity</facet>
+        <weight>-0.25</weight>
+      </li>
+    </scoreWeight>
+  </Maux36.RimPsyche.PersonalityDef>
+
+  <Maux36.RimPsyche.PersonalityDef>
+    <defName>Rimpsyche_Patience</defName>
+    <label>patience</label>
+    <high>patient</high>
+    <low>impatient</low>
+    <description>Reflects a person's ability to tolerate delays, annoyances, or long waits without becoming agitated or frustrated. Patient individuals can calmly endure extended periods or minor irritations, maintaining composure while waiting for desired outcomes. In contrast, impatient individuals tend to become restless, irritable, or easily annoyed when faced with delays or when things don't happen quickly enough.</description>
+    <scoreWeight>
+      <li>
+        <facet>Industriousness</facet>
+        <weight>0.1</weight>
+      </li>
+      <li>
+        <facet>Orderliness</facet>
+        <weight>0.1</weight>
+      </li>
+      <li>
+        <facet>Integrity</facet>
+        <weight>0.2</weight>
+      </li>
+      <li>
+        <facet>Enthusiasm</facet>
+        <weight>-0.2</weight>
+      </li>
+      <li>
+        <facet>Volatility</facet>
+        <weight>-0.4</weight>
+      </li>
+    </scoreWeight>
+  </Maux36.RimPsyche.PersonalityDef>
+
+  <Maux36.RimPsyche.PersonalityDef>
+    <defName>Rimpsyche_Loyalty</defName>
+    <label>loyalty</label>
+    <high>loyal</high>
+    <low>disloyal</low>
+    <description>Reflects a person's faithfulness and commitment to individuals, groups, or principles. Loyal individuals demonstrate steadfast support and devotion, often prioritizing the well-being and interests of those they are committed to. In contrast, disloyal individuals may be more inclined to prioritize their own self-interest, shift allegiances, or betray trust.</description>
+    <scoreWeight>
+      <li>
+        <facet>Integrity</facet>
+        <weight>0.35</weight>
+      </li>
+      <li>
+        <facet>Compassion</facet>
+        <weight>0.1</weight>
+      </li>
+      <li>
+        <facet>Cooperation</facet>
+        <weight>0.35</weight>
+      </li>
+      <li>
+        <facet>Humbleness</facet>
+        <weight>0.2</weight>
+      </li>
+    </scoreWeight>
+  </Maux36.RimPsyche.PersonalityDef>
+
+  <Maux36.RimPsyche.PersonalityDef>
+    <defName>Rimpsyche_Competitiveness</defName>
+    <label>competitiveness</label>
+    <high>competitive</high>
+    <low>cooperative</low>
+    <description>Reflects a person's drive to succeed over others and their inclination to engage in rivalry. Competitive individuals are motivated by comparison and often seek to outperform others, valuing winning and achievement. In contrast, cooperative individuals prefer to work collaboratively, prioritizing shared goals and mutual success over individual triumph.</description>
+    <scoreWeight>
+      <li>
+        <facet>Industriousness</facet>
+        <weight>0.05</weight>
+      </li>
+      <li>
+        <facet>Assertiveness</facet>
+        <weight>0.3</weight>
+      </li>
+      <li>
+        <facet>Cooperation</facet>
+        <weight>-0.25</weight>
+      </li>
+      <li>
+        <facet>Humbleness</facet>
+        <weight>-0.4</weight>
+      </li>
+    </scoreWeight>
+  </Maux36.RimPsyche.PersonalityDef>
+
+  <Maux36.RimPsyche.PersonalityDef>
+    <defName>Rimpsyche_SelfInterest</defName>
+    <label>self-interest</label>
+    <high>egocentric</high>
+    <low>altruistic</low>
+    <description>Reflects how much a person prioritizes their own needs versus the well-being of others. Altruistic individuals genuinely focus on helping others, often putting collective good before personal gain. Egocentric individuals, on the other hand, prioritize their own desires and benefits.</description>
+    <scoreWeight>
+      <li>
+        <facet>Sociability</facet>
+        <weight>0.05</weight>
+      </li>
+      <li>
+        <facet>Compassion</facet>
+        <weight>0.25</weight>
+      </li>
+      <li>
+        <facet>Cooperation</facet>
+        <weight>0.05</weight>
+      </li>
+      <li>
+        <facet>Humbleness</facet>
+        <weight>0.45</weight>
+      </li>
+      <li>
+        <facet>Pessimism</facet>
+        <weight>-0.05</weight>
+      </li>
+      <li>
+        <facet>Insecurity</facet>
+        <weight>-0.15</weight>
       </li>
     </scoreWeight>
   </Maux36.RimPsyche.PersonalityDef>

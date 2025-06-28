@@ -64,6 +64,108 @@ namespace Maux36.RimPsyche
             return Mathf.Lerp(-1, 1, Mathf.InverseLerp(sourceMin, sourceMax, value));
         }
 
+        public static bool IsGoodPositionForInteraction(IntVec3 cell, IntVec3 recipientCell, Map map)
+        {
+            if (cell.InHorDistOf(recipientCell, 12f)) return GenSight.LineOfSight(cell, recipientCell, map, skipFirstCell: true);
+            return false;
+        }
+        private static int maxConvoOpinions = 10;
+        public static void GainCoversationMemoryFast(Thought_Memory newThought, float opinionOffset, Pawn parentPawn, Pawn otherPawn)
+        {
+            if (newThought.otherPawn == null && otherPawn == null)
+            {
+                Log.Error(string.Concat("Can't gain social thought ", newThought.def, " because its otherPawn is null and otherPawn passed to this method is also null. Social thoughts must have otherPawn."));
+                return;
+            }
+            otherPawn = otherPawn ?? newThought.otherPawn;
+            if (!newThought.def.socialTargetDevelopmentalStageFilter.Has(otherPawn.DevelopmentalStage))
+            {
+                return;
+            }
+            newThought.pawn = parentPawn;
+            newThought.otherPawn = otherPawn;
+            List<Thought_MemoryPostDefined> currentConvoMemories = parentPawn.needs.mood.thoughts.memories.Memories
+                .OfType<Thought_MemoryPostDefined>()
+                .Where(m => m.otherPawn == otherPawn)
+                .ToList();
+
+            if (currentConvoMemories.Count < maxConvoOpinions)
+            {
+                parentPawn.needs?.mood?.thoughts?.memories?.Memories.Add(newThought);
+            }
+            else
+            {
+                currentConvoMemories.Sort((m1, m2) => Mathf.Abs(m2.OpinionOffset()).CompareTo(Mathf.Abs(m1.OpinionOffset())));
+                Thought_MemoryPostDefined memoryToCompareWith = currentConvoMemories[maxConvoOpinions - 1];
+                if (Mathf.Abs(opinionOffset) < Mathf.Abs(memoryToCompareWith.OpinionOffset()))
+                {
+                    Log.Message("It's smaller actually. so no adding for you");
+                    return;
+                }
+                for (int i = maxConvoOpinions - 1; i < currentConvoMemories.Count; i++)
+                {
+                    Thought_MemoryPostDefined m = currentConvoMemories[i];
+                    Log.Message($"{m.def.defName} will be removed");
+                    m.age = m.DurationTicks + 300;
+                }
+                parentPawn.needs?.mood?.thoughts?.memories?.Memories.Add(newThought);
+            }
+        }
+        public static float ConvoSocialFightChance(Pawn startCand, Pawn other, float startCandBaseChance, float startCandOpinio)
+        {
+            if (!startCand.interactions.SocialFightPossible(other))
+            {
+                return 0f;
+            }
+            float socialFightBaseChance = startCandBaseChance;
+            socialFightBaseChance *= Mathf.InverseLerp(0.3f, 1f, startCand.health.capacities.GetLevel(PawnCapacityDefOf.Manipulation));
+            socialFightBaseChance *= Mathf.InverseLerp(0.3f, 1f, startCand.health.capacities.GetLevel(PawnCapacityDefOf.Moving));
+            List<Hediff> hediffs = startCand.health.hediffSet.hediffs;
+            for (int i = 0; i < hediffs.Count; i++)
+            {
+                if (hediffs[i].CurStage != null)
+                {
+                    socialFightBaseChance *= hediffs[i].CurStage.socialFightChanceFactor;
+                }
+            }
+            float num = startCandOpinio;
+            socialFightBaseChance = ((!(num < 0f)) ? (socialFightBaseChance * GenMath.LerpDouble(0f, 100f, 1f, 0.6f, num)) : (socialFightBaseChance * GenMath.LerpDouble(-100f, 0f, 4f, 1f, num)));
+            if (startCand.RaceProps.Humanlike)
+            {
+                List<Trait> allTraits = startCand.story.traits.allTraits;
+                for (int j = 0; j < allTraits.Count; j++)
+                {
+                    if (!allTraits[j].Suppressed)
+                    {
+                        socialFightBaseChance *= allTraits[j].CurrentData.socialFightChanceFactor;
+                    }
+                }
+            }
+            int num2 = Mathf.Abs(startCand.ageTracker.AgeBiologicalYears - other.ageTracker.AgeBiologicalYears);
+            if (num2 > 10)
+            {
+                if (num2 > 50)
+                {
+                    num2 = 50;
+                }
+                socialFightBaseChance *= GenMath.LerpDouble(10f, 50f, 1f, 0.25f, num2);
+            }
+            if (startCand.IsSlave)
+            {
+                socialFightBaseChance *= 0.5f;
+            }
+            if (startCand.genes != null)
+            {
+                socialFightBaseChance *= startCand.genes.SocialFightChanceFactor;
+            }
+            if (other.genes != null)
+            {
+                socialFightBaseChance *= other.genes.SocialFightChanceFactor;
+            }
+            Log.Message($"{startCand.Name}'s startCandBaseChance: {startCandBaseChance} --> socialFightBaseChance: {socialFightBaseChance}");
+            return Mathf.Clamp01(socialFightBaseChance);
+        }
+
         //Debug Actions
 
         [DebugAction("Pawns", actionType = DebugActionType.ToolMapForPawns, allowedGameStates = AllowedGameStates.PlayingOnMap, displayPriority = 1000)]

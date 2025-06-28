@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using RimWorld.Planet;
+using System;
+using System.Collections.Generic;
 using Verse;
 
 namespace Maux36.RimPsyche
@@ -30,6 +32,26 @@ namespace Maux36.RimPsyche
         public static void ClearAllCache()
         {
             CompPsycheCache.Clear();
+        }
+    }
+
+    public class RimPsycheWorldComp : WorldComponent
+    {
+        public RimPsycheWorldComp(World world) : base(world)
+        {
+        }
+
+        public override void FinalizeInit(bool fromload)
+        {
+            base.FinalizeInit(fromload);
+            try
+            {
+                PsycheCacheManager.ClearAllCache(); //clear any pawns from a previous world 
+            }
+            catch (Exception)
+            {
+                Log.Error($"Rimpsyche failed to clear caches on world initialization.");
+            }
         }
     }
 }

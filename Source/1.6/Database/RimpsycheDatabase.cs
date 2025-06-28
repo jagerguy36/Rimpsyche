@@ -18,6 +18,7 @@ namespace Maux36.RimPsyche
         public static Dictionary<Pair<string, int>, List<(string, float, float)>> TraitScopeDatabase = new();
         static RimpsycheDatabase()
         {
+            //Interest and Topic
             foreach (var interestdomain in DefDatabase<InterestDomainDef>.AllDefs)
             {
                 InterestList.AddRange(interestdomain.interests);
@@ -38,6 +39,7 @@ namespace Maux36.RimPsyche
                 }
             }
 
+            //Scope
             foreach (var personalityDef in DefDatabase<PersonalityDef>.AllDefs)
             {
                 var scopeList = personalityDef.scopes;
@@ -55,6 +57,18 @@ namespace Maux36.RimPsyche
                 }
             }
         }
+
+        public static RimpsycheMultiplier SocialFightChanceMultiplier = new(
+            "SocialFightChance",
+            (tracker) =>
+            {
+                float aggressiveness = 1f +  tracker.GetPersonality(PersonalityDefOf.Rimpsyche_Aggressiveness) * 0.9f;
+                float emotionality = 1f + tracker.GetPersonality(PersonalityDefOf.Rimpsyche_Emotionality) * 0.4f;
+                float compassion = tracker.GetPersonality(PersonalityDefOf.Rimpsyche_Compassion);
+                float compassionMult = compassion > 0 ? 1f - compassion * 0.5f : 1f;
+                return aggressiveness * emotionality * compassionMult;
+            }
+        );
 
 
         //public static Dictionary<Pair<string, int>, List<(Facet, float, float)>> TraitGateDatabase = new()

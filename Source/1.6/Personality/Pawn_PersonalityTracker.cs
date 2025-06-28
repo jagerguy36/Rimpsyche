@@ -62,6 +62,21 @@ namespace Maux36.RimPsyche
             }
         }
 
+        private Dictionary<string, float> MultiplierCache = new Dictionary<string, float>();
+        public float GetMultiplier(RimpsycheMultiplier rimpsycheMultiplier)
+        {
+            if (MultiplierCache.TryGetValue(rimpsycheMultiplier.multiplierName, out float cachedValue))
+            {
+                return cachedValue;
+            }
+            else
+            {
+                float calculatedValue = rimpsycheMultiplier.calculationFunction.Invoke(this);
+                MultiplierCache[rimpsycheMultiplier.multiplierName] = calculatedValue;
+
+                return calculatedValue;
+            }
+        }
 
         public float GetPersonality(PersonalityDef personality) //-1~1
         {

@@ -10,7 +10,6 @@ namespace Maux36.RimPsyche
     public class CompPsyche : ThingComp
     {
         //Internals
-        private static int maxConvoOpinions = 10;
         private Pawn parentPawnInt = null;
         private Pawn_PersonalityTracker personality;
         private Pawn_InterestTracker interests;
@@ -129,6 +128,7 @@ namespace Maux36.RimPsyche
                     Log.Message($"{parentPawn.Name} checking conversation validity with {convoPartner.Name} on topic {topic.name} with topicAlignment {topicAlignment}");
                     if (ShouldEndConvo(out bool showMote))
                     {
+                        Log.Message($"{parentPawn.Name} ending convo after validation check");
                         FinishConvo(showMote);
                         return;
                     }
@@ -145,7 +145,7 @@ namespace Maux36.RimPsyche
                         }
                         else
                         {
-                            Log.Message($"end convo.");
+                            Log.Message($"{parentPawn.Name} : end convo.");
                             FinishConvo(true);
                             return;
                         }
@@ -175,7 +175,7 @@ namespace Maux36.RimPsyche
             showMote = false;
             if (!parentPawn.Awake() || !convoPartner.Awake()) return true;
             if (parentPawn.IsBurning() || convoPartner.IsBurning()) return true;
-            if (!IsGoodPositionForInteraction(parentPawn.Position, convoPartner.Position, parentPawn.Map))
+            if (!Rimpsyche_Utility.IsGoodPositionForInteraction(parentPawn.Position, convoPartner.Position, parentPawn.Map))
             {
                 showMote = true;
                 return true;
@@ -194,15 +194,15 @@ namespace Maux36.RimPsyche
         public void FinishConvo(bool showMote = false)
         {
             bool startedSocialFight = false;
-            GetConvoResult(out float pawnScore, out float partnerScore);
-            Log.Message($"GetConvoResult: {parentPawn.Name}: {pawnScore} | {convoPartner.Name}: {partnerScore}");
             float lengthMult = (Find.TickManager.TicksGame - convoStartedTick - 212.5f) * 0.002f + 1f; // 0.8~[1]~2.95 || 5.325
+            GetConvoResult(lengthMult, out float pawnScore, out float partnerScore);
+            Log.Message($"GetConvoResult: {parentPawn.Name}: {pawnScore} | {convoPartner.Name}: {partnerScore}");
             var intDef = DefOfRimpsyche.Rimpsyche_EndConversation;
-            List<RulePackDef> extraSents = new List<RulePackDef>();
+            List<RulePackDef> extraSents = [];
             //If partnerScore<0 or pawnScore <0 check social fight chance.
             if(pawnScore<0 || partnerScore<0)
             {
-                if (Rand.Chance(0.1f))//TODO: Get actual socialFight chance and starter
+                if (Rand.Chance(1f))//TODO: Get actual socialFight chance and starter
                 {
                     startedSocialFight = true;
                     extraSents.Add(DefOfRimpsyche.Sentence_RimpsycheSocialFightConvoInitiatorStarted);
@@ -224,17 +224,18 @@ namespace Maux36.RimPsyche
             if(startedSocialFight)
             {
                 partnerScore *=1.5f; //Adjust Score for fights.
+                parentPawn.interactions.StartSocialFight(convoPartner);
             }
             convoPartnerPsyche?.EndConvo(partnerScore, lengthMult);
-            EndConvo(pawnScore, lengthMult, startedSocialFight);
+            EndConvo(pawnScore, lengthMult);
         }
-        public void EndConvo(float score, float lengthMult, bool startSocialFight = false)
+        public void EndConvo(float score, float lengthMult)
         {
             float opinionOffset = score * (6f * lengthMult) / (lengthMult + 2f); //1.714~[2]~3.5757 || 4.36177
-            Log.Message($"{parentPawn.Name} ending conversation with {convoPartner.Name} and getting opinion {opinionOffset}");
+            Log.Message($"{parentPawn.Name} ending conversation with {convoPartner?.Name} and getting opinion {opinionOffset}.");
             if (convoPartner != null)
             {
-                if(opinionOffset != 0)
+                if (opinionOffset != 0)
                 {
                     ThoughtDef newDef = Rimpsyche_Utility.CreateSocialThought(
                         "Rimpsyche_Conversation" + parentPawn.GetHashCode() + topic.name,
@@ -242,13 +243,9 @@ namespace Maux36.RimPsyche
                         opinionOffset);
 
                     //Use custom Gain Memory
-                    GainCoversationMemoryFast(ThoughtMaker.MakeThought(newDef, null), opinionOffset, convoPartner);
+                    Rimpsyche_Utility.GainCoversationMemoryFast(ThoughtMaker.MakeThought(newDef, null), opinionOffset, parentPawn, convoPartner);
                     if(opinionOffset>0) AffectPawn(opinionOffset);
                 }
-            }
-            if(startSocialFight)
-            {
-                parentPawn.interactions.StartSocialFight(convoPartner);
             }
             convoStartedTick = -1;
             convoCheckTick = -1;
@@ -257,7 +254,7 @@ namespace Maux36.RimPsyche
             topicAlignment = 0f;
             direction = 0f;
         }
-        public bool GetConvoResult(out float pawnScore, out float partnerScore)
+        public bool GetConvoResult(float lengthMult, out float pawnScore, out float partnerScore)
         {
             bool startFight = false;
             pawnScore = 0f;
@@ -267,7 +264,7 @@ namespace Maux36.RimPsyche
             if (partnerPsyche != null)
             {
                 // -1 ~ 1
-                float pawnOpinion = parentPawn.relations.OpinionOf(convoPartner) * 0.01f;
+                float pawnOpinion = parentPawn.relations.OpinionOf(convoPartner); //-100~100
                 float pawnTact = Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Tact);
                 pawnTact = Mathf.Clamp(pawnTact + (0.1f * parentPawn.skills.GetSkill(SkillDefOf.Social).Level), -1f, 1f);
                 float pawnOpenness = Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Openness);
@@ -275,7 +272,7 @@ namespace Maux36.RimPsyche
                 float pawnPassion = Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Passion);
                 float pawnTalkativeness = Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Talkativeness);
 
-                float partnerOpinion = convoPartner.relations.OpinionOf(parentPawn) * 0.01f;
+                float partnerOpinion = convoPartner.relations.OpinionOf(parentPawn); //-100~100
                 float partnerTact = partnerPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Tact);
                 partnerTact = Mathf.Clamp(partnerTact + (0.1f * convoPartner.skills.GetSkill(SkillDefOf.Social).Level), -1f, 1f);
                 float partnerOpenness = partnerPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Openness);
@@ -289,20 +286,20 @@ namespace Maux36.RimPsyche
                 if (topicAlignment > 0)
                 {
                     Log.Message($"positive alignment");
-                    float partnerScoreBase = 1f + (0.5f * partnerOpinion) + (2f * topicAlignment); //0.5[2]3.5
+                    float partnerScoreBase = 1f + (0.005f * partnerOpinion) + (2f * topicAlignment); //0.5[2]3.5
                     float partnerScoreModifier = (0.2f * pawnTact) + (0.2f * pawnPassion); //-0.4~[0]~0.4
                     partnerScoreModifier = (1f + talkRand) * partnerScoreModifier; // -0.8~[0]~0.8
                     partnerScore = (partnerScoreBase + partnerScoreModifier); // -0.3[2]4.3
 
-                    float pawnScoreBase = 1f + (0.5f * pawnOpinion) + (2f * topicAlignment); //0.5[2]3.5
+                    float pawnScoreBase = 1f + (0.005f * pawnOpinion) + (2f * topicAlignment); //0.5[2]3.5
                     float pawnScoreModifier = (0.2f * partnerTact) + (0.2f * partnerPassion); //-0.4~[0]~0.4
                     pawnScoreModifier = (1f + talkRand) * pawnScoreModifier; // -0.8~[0]~0.8
                     pawnScore = (pawnScoreBase + pawnScoreModifier); // -0.3[2]4.3
                     return startFight;
                 }
                 //Negative Alignment
-                float pawnReceiveScore = (partnerTact * (partnerTalkativeness + 1) * 0.5f) + (pawnOpenness * (pawnTrust + 1) * 0.5f) + pawnOpinion; // -3~[0]~3
-                float partnerReceiveScore = (pawnTact * (pawnTalkativeness + 1) * 0.5f) + (partnerOpenness * (partnerTrust + 1) * 0.5f) + partnerOpinion; // -3~[0]~3
+                float pawnReceiveScore = (partnerTact * (partnerTalkativeness + 1) * 0.5f) + (pawnOpenness * (pawnTrust + 1) * 0.5f) + (pawnOpinion * 0.01f); // -3~[0]~3
+                float partnerReceiveScore = (pawnTact * (pawnTalkativeness + 1) * 0.5f) + (partnerOpenness * (partnerTrust + 1) * 0.5f) + (partnerOpinion * 0.01f); // -3~[0]~3
                 Log.Message($"negative alignment. pawnReceiveScore = {pawnReceiveScore}, partnerReceiveScore: {partnerReceiveScore}");
                 if (pawnReceiveScore > 0f && partnerReceiveScore > 0f)
                 {
@@ -318,11 +315,14 @@ namespace Maux36.RimPsyche
                 }
                 //Bad Talk
                 float negativeScoreBase = 2f * topicAlignment * (1f - talkRand); // -2~[-1]~0
-                Log.Message($"Bad talk. talkRand: {talkRand}. negativeScoreBase: {negativeScoreBase}");
-                partnerScore = negativeScoreBase * (1f - (0.3f * partnerReceiveScore)); //(-2~0) * 0.1~1.9 = -3.8 ~[-1]~ 0
+                Log.Message($"Bad talk. talkRand: {talkRand}. negativeScoreBase: {negativeScoreBase}.");
                 pawnScore = negativeScoreBase * (1f - (0.3f * pawnReceiveScore)); //-3.8 ~ 0
+                partnerScore = negativeScoreBase * (1f - (0.3f * partnerReceiveScore)); //(-2~0) * 0.1~1.9 = -3.8 ~[-1]~ 0
+                Log.Message($"pawnScore: {pawnScore}.partnerScore: {partnerScore}.");
                 //Calcualte fight Chance
-                //Aggresiveness, Passion, Openness, Tact, Emotionality, Steadfastness, Stability
+                float pawnStartFightChance = Rimpsyche_Utility.ConvoSocialFightChance(parentPawn, convoPartner, -0.005f * pawnScore * lengthMult * Personality.GetMultiplier(RimpsycheDatabase.SocialFightChanceMultiplier), pawnOpinion);
+                float partnerStartFightChance = Rimpsyche_Utility.ConvoSocialFightChance(convoPartner, parentPawn, -0.005f * partnerScore * lengthMult * partnerPsyche.Personality.GetMultiplier(RimpsycheDatabase.SocialFightChanceMultiplier), partnerOpinion);
+                Log.Message($"pawnStartFightChance: {pawnStartFightChance}. partnerStartFightChance: {partnerStartFightChance}.");
                 return startFight;
             }
             return startFight;
@@ -368,52 +368,6 @@ namespace Maux36.RimPsyche
                 return true;
             }
             return false;
-        }
-        public static bool IsGoodPositionForInteraction(IntVec3 cell, IntVec3 recipientCell, Map map)
-        {
-            if (cell.InHorDistOf(recipientCell, 12f)) return GenSight.LineOfSight(cell, recipientCell, map, skipFirstCell: true);
-            return false;
-        }
-        public void GainCoversationMemoryFast(Thought_Memory newThought, float opinionOffset, Pawn otherPawn = null)
-        {
-            if (newThought.otherPawn == null && otherPawn == null)
-            {
-                Log.Error(string.Concat("Can't gain social thought ", newThought.def, " because its otherPawn is null and otherPawn passed to this method is also null. Social thoughts must have otherPawn."));
-                return;
-            }
-            otherPawn = otherPawn ?? newThought.otherPawn;
-            if (!newThought.def.socialTargetDevelopmentalStageFilter.Has(otherPawn.DevelopmentalStage))
-            {
-                return;
-            }
-            newThought.pawn = parentPawn;
-            newThought.otherPawn = otherPawn;
-            List<Thought_MemoryPostDefined> currentConvoMemories = parentPawn.needs.mood.thoughts.memories.Memories
-                .OfType<Thought_MemoryPostDefined>()
-                .Where(m => m.otherPawn == otherPawn)
-                .ToList();
-
-            if (currentConvoMemories.Count < maxConvoOpinions)
-            {
-                parentPawn.needs?.mood?.thoughts?.memories?.Memories.Add(newThought);
-            }
-            else
-            {
-                currentConvoMemories.Sort((m1, m2) => Mathf.Abs(m2.OpinionOffset()).CompareTo(Mathf.Abs(m1.OpinionOffset())));
-                Thought_MemoryPostDefined memoryToCompareWith = currentConvoMemories[maxConvoOpinions - 1];
-                if (Mathf.Abs(opinionOffset) < Mathf.Abs(memoryToCompareWith.OpinionOffset()))
-                {
-                    Log.Message("It's smaller actually. so no adding for you");
-                    return;
-                }
-                for (int i = maxConvoOpinions - 1; i < currentConvoMemories.Count; i++)
-                {
-                    Thought_MemoryPostDefined m = currentConvoMemories[i];
-                    Log.Message($"{m.def.defName} will be removed");
-                    m.age = m.DurationTicks + 300;
-                }
-                parentPawn.needs?.mood?.thoughts?.memories?.Memories.Add(newThought);
-            }
         }
         public override void PostExposeData()
         {

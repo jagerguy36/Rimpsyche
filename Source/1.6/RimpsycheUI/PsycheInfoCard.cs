@@ -19,8 +19,9 @@ namespace Maux36.RimPsyche
         public const int OptionFontSize = 16;
 
         public static readonly Color LineColor = new Color(1f, 1f, 1f, 0.5f);
-        public static Vector2 NodeScrollPosition = Vector2.zero;
         public static float BoundaryPadding = 5f;
+        public static Vector2 PersonalityScrollPosition = Vector2.zero;
+        public static Vector2 InterestScrollPosition = Vector2.zero;
 
         public static void DrawPsycheCard(Rect totalRect, Pawn pawn)
         {
@@ -150,7 +151,7 @@ namespace Maux36.RimPsyche
                 personalityRect.height - headerHeight
             );
 
-            Widgets.BeginScrollView(scrollRect, ref NodeScrollPosition, scrollContentRect);
+            Widgets.BeginScrollView(scrollRect, ref PersonalityScrollPosition, scrollContentRect);
 
             float y = 0f;
 
@@ -309,7 +310,7 @@ namespace Maux36.RimPsyche
                 interestRect.height - headerHeight
             );
 
-            Widgets.BeginScrollView(scrollRect, ref NodeScrollPosition, scrollContentRect);
+            Widgets.BeginScrollView(scrollRect, ref InterestScrollPosition, scrollContentRect);
 
             float y = 0f;
             float barWidth = scrollContentRect.width - labelWidth - labelPadding-5f;
