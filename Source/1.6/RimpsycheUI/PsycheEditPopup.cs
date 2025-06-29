@@ -22,9 +22,8 @@ namespace Maux36.RimPsyche
                 float desiredWidth = screenWidth * 0.5f;
                 float desiredHeight = screenHeight * 0.5f;
 
-                // You might want to set a minimum size to prevent it from becoming too small
                 float minWidth = 900f;
-                float minHeight = 400f; // Example minimum height
+                float minHeight = 400f;
 
                 return new Vector2(Mathf.Max(desiredWidth, minWidth), Mathf.Max(desiredHeight, minHeight));
             }
@@ -33,6 +32,12 @@ namespace Maux36.RimPsyche
         public static Vector2 FacetNodeScrollPosition = Vector2.zero;
         public static Vector2 EditNodeScrollPosition = Vector2.zero;
         public static bool editModeOn = true;
+        public override void PreOpen()
+        {
+            base.PreOpen();
+            FacetNodeScrollPosition = Vector2.zero;
+            EditNodeScrollPosition = Vector2.zero;
+        }
 
         public override void DoWindowContents(Rect inRect)
         {
