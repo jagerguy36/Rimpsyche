@@ -5,6 +5,7 @@
   <!-- SUM|InterestOffsetWeights| should be less than 0.2 to keep the influence between -10~10 -->
   <!-- "50 + DomainOffset + InterestOffset" range is clamped to 30~70 -->
   <!-- topic weight absolute sum should be 1 -->
+  <!-- controversiality default value is 1. Recommended range is between 0~[1]~2. -->
   <Maux36.RimPsyche.InterestDomainDef>
     <defName>Rimpsyche_InterestDomainGeneral</defName>
     <label>common</label>
@@ -221,20 +222,20 @@
             <controversiality>0</controversiality>
             <weights>
               <li>
-                  <facet>Pessimism</facet>
-                  <weight>-0.35</weight>
+                <facet>Pessimism</facet>
+                <weight>-0.35</weight>
               </li>
               <li>
-                  <facet>Volatility</facet>
-                  <weight>-0.2</weight>
+                <facet>Volatility</facet>
+                <weight>-0.2</weight>
               </li>
               <li>
-                  <facet>Imagination</facet>
-                  <weight>-0.35</weight>
+                <facet>Imagination</facet>
+                <weight>-0.35</weight>
               </li>
               <li>
-                  <facet>Enthusiasm</facet>
-                  <weight>0.1</weight>
+                <facet>Enthusiasm</facet>
+                <weight>0.1</weight>
               </li>
             </weights>
           </li>
@@ -244,20 +245,20 @@
             <controversiality>0</controversiality>
             <weights>
               <li>
-                  <facet>Pessimism</facet>
-                  <weight>-0.35</weight>
+                <facet>Pessimism</facet>
+                <weight>-0.35</weight>
               </li>
               <li>
-                  <facet>Enthusiasm</facet>
-                  <weight>0.3</weight>
+                <facet>Enthusiasm</facet>
+                <weight>0.3</weight>
               </li>
               <li>
-                  <facet>Imagination</facet>
-                  <weight>0.25</weight>
+                <facet>Imagination</facet>
+                <weight>0.25</weight>
               </li>
               <li>
-                  <facet>Industriousness</facet>
-                  <weight>0.1</weight>
+                <facet>Industriousness</facet>
+                <weight>0.1</weight>
               </li>
             </weights>
           </li>
@@ -267,24 +268,24 @@
             <controversiality>0</controversiality>
             <weights>
               <li>
-                  <facet>Pessimism</facet>
-                  <weight>0.3</weight>
+                <facet>Pessimism</facet>
+                <weight>0.3</weight>
               </li>
               <li>
-                  <facet>Volatility</facet>
-                  <weight>0.2</weight>
+                <facet>Volatility</facet>
+                <weight>0.2</weight>
               </li>
               <li>
-                  <facet>Imagination</facet>
-                  <weight>0.2</weight>
+                <facet>Imagination</facet>
+                <weight>0.2</weight>
               </li>
               <li>
-                  <facet>Curiosity</facet>
-                  <weight>-0.15</weight>
+                <facet>Curiosity</facet>
+                <weight>-0.15</weight>
               </li>
               <li>
-                  <facet>Humbleness</facet>
-                  <weight>-0.15</weight>
+                <facet>Humbleness</facet>
+                <weight>-0.15</weight>
               </li>
             </weights>
           </li>
@@ -294,24 +295,24 @@
             <controversiality>0</controversiality>
             <weights>
               <li>
-                  <facet>Orderliness</facet>
-                  <weight>0.3</weight>
+                <facet>Orderliness</facet>
+                <weight>0.3</weight>
               </li>
               <li>
-                  <facet>Industriousness</facet>
-                  <weight>0.2</weight>
+                <facet>Industriousness</facet>
+                <weight>0.2</weight>
               </li>
               <li>
-                  <facet>Pessimism</facet>
-                  <weight>0.3</weight>
+                <facet>Pessimism</facet>
+                <weight>0.3</weight>
               </li>
               <li>
-                  <facet>Curiosity</facet>
-                  <weight>-0.1</weight>
+                <facet>Curiosity</facet>
+                <weight>-0.1</weight>
               </li>
               <li>
-                  <facet>Imagination</facet>
-                  <weight>-0.1</weight>
+                <facet>Imagination</facet>
+                <weight>-0.1</weight>
               </li>
             </weights>
           </li>
@@ -321,20 +322,20 @@
             <controversiality>0</controversiality>
             <weights>
               <li>
-                  <facet>Curiosity</facet>
-                  <weight>0.4</weight>
+                <facet>Curiosity</facet>
+                <weight>0.4</weight>
               </li>
               <li>
-                  <facet>Volatility</facet>
-                  <weight>-0.1</weight>
+                <facet>Volatility</facet>
+                <weight>-0.1</weight>
               </li>
               <li>
-                  <facet>Pessimism</facet>
-                  <weight>-0.2</weight>
+                <facet>Pessimism</facet>
+                <weight>-0.2</weight>
               </li>
               <li>
-                  <facet>Orderliness</facet>
-                  <weight>-0.3</weight>
+                <facet>Orderliness</facet>
+                <weight>-0.3</weight>
               </li>
             </weights>
           </li>
@@ -344,24 +345,24 @@
             <controversiality>0</controversiality>
             <weights>
               <li>
-                  <facet>Enthusiasm</facet>
-                  <weight>0.3</weight>
+                <facet>Enthusiasm</facet>
+                <weight>0.3</weight>
               </li>
               <li>
-                  <facet>Industriousness</facet>
-                  <weight>0.1</weight>
+                <facet>Industriousness</facet>
+                <weight>0.1</weight>
               </li>
               <li>
-                  <facet>Pessimism</facet>
-                  <weight>-0.35</weight>
+                <facet>Pessimism</facet>
+                <weight>-0.35</weight>
               </li>
               <li>
-                  <facet>Insecurity</facet>
-                  <weight>-0.15</weight>
+                <facet>Insecurity</facet>
+                <weight>-0.15</weight>
               </li>
               <li>
-                  <facet>Volatility</facet>
-                  <weight>-0.1</weight>
+                <facet>Volatility</facet>
+                <weight>-0.1</weight>
               </li>
             </weights>
           </li>
@@ -371,33 +372,605 @@
             <controversiality>0</controversiality>
             <weights>
               <li>
-                  <facet>Curiosity</facet>
-                  <weight>0.1</weight>
+                <facet>Curiosity</facet>
+                <weight>0.1</weight>
               </li>
               <li>
-                  <facet>Enthusiasm</facet>
-                  <weight>0.1</weight>
+                <facet>Enthusiasm</facet>
+                <weight>0.1</weight>
               </li>
               <li>
-                  <facet>Assertiveness</facet>
-                  <weight>0.1</weight>
+                <facet>Assertiveness</facet>
+                <weight>0.1</weight>
               </li>
               <li>
-                  <facet>Pessimism</facet>
-                  <weight>-0.2</weight>
+                <facet>Pessimism</facet>
+                <weight>-0.2</weight>
               </li>
               <li>
-                  <facet>Insecurity</facet>
-                  <weight>-0.4</weight>
+                <facet>Insecurity</facet>
+                <weight>-0.4</weight>
               </li>
               <li>
-                  <facet>Volatility</facet>
-                  <weight>-0.1</weight>
+                <facet>Volatility</facet>
+                <weight>-0.1</weight>
               </li>
             </weights>
           </li>
         </topics>
       </li>
+
+
+
+      <li>
+        <name>InterestDailyRoutine</name>
+        <description>Mundane but relatable chatter.</description>
+        <scoreWeight>
+          <li>
+            <facet>Orderliness</facet>
+            <weight>0.05</weight>
+          </li>
+          <li>
+            <facet>Industriousness</facet>
+            <weight>0.05</weight>
+          </li>
+          <li>
+            <facet>Curiosity</facet>
+            <weight>-0.05</weight>
+          </li>
+        </scoreWeight>
+        <topics>
+          <li>
+            <!-- + : necessary, responsible living | - : tedious, boring -->
+            <name>chores</name>
+            <controversiality>0</controversiality>
+            <weights>
+              <li>
+                <facet>Orderliness</facet>
+                <weight>0.4</weight>
+              </li>
+              <li>
+                <facet>Industriousness</facet>
+                <weight>0.3</weight>
+              </li>
+              <li>
+                <facet>Integrity</facet>
+                <weight>0.15</weight>
+              </li>
+              <li>
+                <facet>Enthusiasm</facet>
+                <weight>-0.05</weight>
+              </li>
+              <li>
+                <facet>Volatility</facet>
+                <weight>-0.05</weight>
+              </li>
+              <li>
+                <facet>Curiosity</facet>
+                <weight>-0.05</weight>
+              </li>
+            </weights>
+          </li>
+          <li>
+            <!-- + : important anchors | - : finding rigid meal times restrictive -->
+            <name>meal_times</name>
+            <controversiality>0</controversiality>
+            <weights>
+              <li>
+                <facet>Orderliness</facet>
+                <weight>0.4</weight>
+              </li>
+              <li>
+                <facet>Industriousness</facet>
+                <weight>0.2</weight>
+              </li>
+              <li>
+                <facet>Sociability</facet>
+                <weight>0.15</weight>
+              </li>
+              <li>
+                <facet>Curiosity</facet>
+                <weight>-0.15</weight>
+              </li>
+              <li>
+                <facet>Imagination</facet>
+                <weight>-0.05</weight>
+              </li>
+              <li>
+                <facet>Volatility</facet>
+                <weight>-0.05</weight>
+              </li>
+            </weights>
+          </li>
+          <li>
+            <!-- + : enjoying downtime | - : wasted time -->
+            <name>idle_time</name>
+            <controversiality>0</controversiality>
+            <weights>
+              <li>
+                <facet>Industriousness</facet>
+                <weight>-0.4</weight>
+              </li>
+              <li>
+                <facet>Orderliness</facet>
+                <weight>-0.2</weight>
+              </li>
+              <li>
+                <facet>Enthusiasm</facet>
+                <weight>0.1</weight>
+              </li>
+              <li>
+                <facet>Imagination</facet>
+                <weight>0.1</weight>
+              </li>
+              <li>
+                <facet>Intellect</facet>
+                <weight>0.1</weight>
+              </li>
+              <li>
+                <facet>Sociability</facet>
+                <weight>0.1</weight>
+              </li>
+            </weights>
+          </li>
+          <li>
+            <!-- + : necessary and productive | - : boring, prioritizing leisure -->
+            <name>work_schedule</name>
+            <controversiality>0</controversiality>
+            <allowChild>false</allowChild>
+            <weights>
+              <li>
+                <facet>Industriousness</facet>
+                <weight>0.4</weight>
+              </li>
+              <li>
+                <facet>Orderliness</facet>
+                <weight>0.3</weight>
+              </li>
+              <li>
+                <facet>Pessimism</facet>
+                <weight>-0.2</weight>
+              </li>
+              <li>
+                <facet>Curiosity</facet>
+                <weight>-0.05</weight>
+              </li>
+              <li>
+                <facet>Volatility</facet>
+                <weight>-0.05</weight>
+              </li>
+            </weights>
+          </li>
+          <li>
+            <!-- + : Valuing consistent sleep patterns | - : Disregarding a consistent sleep schedule-->
+            <name>sleep_schedule</name>
+            <controversiality>0</controversiality>
+            <weights>
+              <li>
+                <facet>Orderliness</facet>
+                <weight>0.4</weight>
+              </li>
+              <li>
+                <facet>Industriousness</facet>
+                <weight>0.1</weight>
+              </li>
+              <li>
+                <facet>Integrity</facet>
+                <weight>0.1</weight>
+              </li>
+              <li>
+                <facet>Volatility</facet>
+                <weight>-0.3</weight>
+              </li>
+              <li>
+                <facet>Enthusiasm</facet>
+                <weight>-0.1</weight>
+              </li>
+            </weights>
+          </li>
+          <li>
+            <!-- + : Tolerating minor inconveniences | - : Being easily frustrated, irritated, or overwhelmed by small disruptions-->
+            <name>routine_annoyances</name>
+            <controversiality>0.2</controversiality>
+            <allowChild>false</allowChild>
+            <weights>
+              <li>
+                <facet>Orderliness</facet>
+                <weight>-0.2</weight>
+              </li>
+              <li>
+                <facet>Industriousness</facet>
+                <weight>-0.1</weight>
+              </li>
+              <li>
+                <facet>Sociability</facet>
+                <weight>0.05</weight>
+              </li>
+              <li>
+                <facet>Cooperation</facet>
+                <weight>0.05</weight>
+              </li>
+              <li>
+                <facet>Volatility</facet>
+                <weight>-0.4</weight>
+              </li>
+              <li>
+                <facet>Pessimism</facet>
+                <weight>-0.2</weight>
+              </li>
+            </weights>
+          </li>
+          <li>
+            <!-- + : Finding motivation and satisfaction in preferred activitie | - : No particular favorite daily activity-->
+            <name>favorite_task</name>
+            <controversiality>0.05</controversiality>
+            <allowChild>false</allowChild>
+            <weights>
+              <li>
+                <facet>Enthusiasm</facet>
+                <weight>0.4</weight>
+              </li>
+              <li>
+                <facet>Orderliness</facet>
+                <weight>0.1</weight>
+              </li>
+              <li>
+                <facet>Industriousness</facet>
+                <weight>0.1</weight>
+              </li>
+              <li>
+                <facet>Pessimism</facet>
+                <weight>-0.2</weight>
+              </li>
+              <li>
+                <facet>Volatility</facet>
+                <weight>-0.2</weight>
+              </li>
+            </weights>
+           </li>
+        </topics>
+      </li>
+
+
+
+      <li>
+        <name>InterestMemoriesPastLife</name>
+        <description>Nostalgia or origin stories.</description>
+        <scoreWeight>
+          <li>
+            <facet>Sociability</facet>
+            <weight>0.05</weight>
+          </li>
+          <li>
+            <facet>Compassion</facet>
+            <weight>0.02</weight>
+          </li>
+          <li>
+            <facet>Imagination</facet>
+            <weight>0.02</weight>
+          </li>
+          <li>
+            <facet>Insecurity</facet>
+            <weight>-0.05</weight>
+          </li>
+        </scoreWeight>
+        <topics>
+          <li>
+            <!-- + : Fondness for past experiences | - : Desire to distance oneself from past experiences -->
+            <name>childhood</name>
+            <controversiality>0</controversiality>
+            <weights>
+              <li>
+                <facet>Imagination</facet>
+                <weight>0.4</weight>
+              </li>
+              <li>
+                <facet>Pessimism</facet>
+                <weight>-0.3</weight>
+              </li>
+              <li>
+                <facet>Insecurity</facet>
+                <weight>-0.3</weight>
+              </li>
+            </weights>
+          </li>
+          <li>
+            <!-- + :  Deep sense of belonging | - : Desire to distance oneself from one's origins -->
+            <name>homeworld</name>
+            <controversiality>0</controversiality>
+            <weights>
+              <li>
+                <facet>Imagination</facet>
+                <weight>0.25</weight>
+              </li>
+              <li>
+                <facet>Curiosity</facet>
+                <weight>-0.25</weight>
+              </li>
+              <li>
+                <facet>Sociability</facet>
+                <weight>0.4</weight>
+              </li>
+              <li>
+                <facet>Pessimism</facet>
+                <weight>-0.1</weight>
+              </li>
+            </weights>
+          </li>
+          <li>
+            <!-- + :  Cherishing familial bonds | - : Feeling burdened by family expectations -->
+            <name>family</name>
+            <controversiality>0.1</controversiality>
+            <weights>
+              <li>
+                <facet>Imagination</facet>
+                <weight>0.2</weight>
+              </li>
+              <li>
+                <facet>Cooperation</facet>
+                <weight>0.2</weight>
+              </li>
+              <li>
+                <facet>Sociability</facet>
+                <weight>0.3</weight>
+              </li>
+              <li>
+                <facet>Pessimism</facet>
+                <weight>-0.1</weight>
+              </li>
+              <li>
+                <facet>Insecurity</facet>
+                <weight>-0.2</weight>
+              </li>
+            </weights>
+          </li>
+          <li>
+            <!-- + :  Cherishing past friendships | - : Disinterest in or discomfort with dwelling on past friendships -->
+            <name>memory_friends</name>
+            <controversiality>0</controversiality>
+            <allowChild>false</allowChild>
+            <weights>
+              <li>
+                <facet>Imagination</facet>
+                <weight>0.2</weight>
+              </li>
+              <li>
+                <facet>Cooperation</facet>
+                <weight>0.2</weight>
+              </li>
+              <li>
+                <facet>Sociability</facet>
+                <weight>0.3</weight>
+              </li>
+              <li>
+                <facet>Pessimism</facet>
+                <weight>-0.1</weight>
+              </li>
+              <li>
+                <facet>Insecurity</facet>
+                <weight>-0.2</weight>
+              </li>
+            </weights>
+          </li>
+          <li>
+            <!-- + :  Finding joy in fond recal | - : Disinterest in fond memories, general forward-looking stance -->
+            <name>cherished_memory</name>
+            <controversiality>0</controversiality>
+            <weights>
+              <li>
+                <facet>Imagination</facet>
+                <weight>0.4</weight>
+              </li>
+              <li>
+                <facet>Compassion</facet>
+                <weight>0.2</weight>
+              </li>
+              <li>
+                <facet>Enthusiasm</facet>
+                <weight>0.15</weight>
+              </li>
+              <li>
+                <facet>Curiosity</facet>
+                <weight>-0.15</weight>
+              </li>
+              <li>
+                <facet>Industriousness</facet>
+                <weight>-0.05</weight>
+              </li>
+              <li>
+                <facet>Pessimism</facet>
+                <weight>-0.05</weight>
+              </li>
+            </weights>
+          </li>
+          <li>
+            <!-- + :  Finding meaning or strength | - : Feeling resentment -->
+            <name>memory_of_hardship</name>
+            <controversiality>0.2</controversiality>
+            <weights>
+              <li>
+                <facet>Industriousness</facet>
+                <weight>0.2</weight>
+              </li>
+              <li>
+                <facet>Integrity</facet>
+                <weight>0.3</weight>
+              </li>
+              <li>
+                <facet>Compassion</facet>
+                <weight>-0.1</weight>
+              </li>
+              <li>
+                <facet>Pessimism</facet>
+                <weight>-0.3</weight>
+              </li>
+              <li>
+                <facet>Insecurity</facet>
+                <weight>-0.1</weight>
+              </li>
+            </weights>
+          </li>
+          <li>
+            <!-- + :  Inspiring, and uplifting experiences | - : Ffnding difficult moments more impactful -->
+            <name>memorable_moments</name>
+            <controversiality>0</controversiality>
+            <weights>
+              <li>
+                <facet>Imagination</facet>
+                <weight>0.2</weight>
+              </li>
+              <li>
+                <facet>Pessimism</facet>
+                <weight>-0.4</weight>
+              </li>
+              <li>
+                <facet>Enthusiasm</facet>
+                <weight>0.3</weight>
+              </li>
+              <li>
+                <facet>Insecurity</facet>
+                <weight>-0.1</weight>
+            </li>
+            </weights>
+          </li>
+        </topics>
+      </li>
+
+
+
+      <li>
+        <name>InterestColonyLife</name>
+        <description>The present shared experience.</description>
+        <scoreWeight>
+          <li>
+            <facet>Sociability</facet>
+            <weight>0.05</weight>
+          </li>
+          <li>
+            <facet>Cooperation</facet>
+            <weight>0.05</weight>
+          </li>
+        </scoreWeight>
+        <topics>
+          <li>
+            <!-- + : Valuing community | - : Preferring solitude, being independent -->
+            <name>other_colonists</name>
+            <controversiality>0</controversiality>
+            <weights>
+              <li>
+                <facet>Sociability</facet>
+                <weight>0.4</weight>
+              </li>
+              <li>
+                <facet>Cooperation</facet>
+                <weight>0.3</weight>
+              </li>
+              <li>
+                <facet>Compassion</facet>
+                <weight>0.15</weight>
+              </li>
+              <li>
+                <facet>Assertiveness</facet>
+                <weight>0.05</weight>
+              </li>
+              <li>
+                <facet>Volatility</facet>
+                <weight>-0.05</weight>
+              </li>
+              <li>
+                <facet>Insecurity</facet>
+                <weight>-0.05</weight>
+              </li>
+            </weights>
+          </li>
+          <li>
+            <!-- + : Respecting, adhering to | - : Disregarding, challenging -->
+            <name>colony_rules</name>
+            <controversiality>1</controversiality>
+            <weights>
+              <li>
+                <facet>Integrity</facet>
+                <weight>0.4</weight>
+              </li>
+              <li>
+                <facet>Orderliness</facet>
+                <weight>0.3</weight>
+              </li>
+              <li>
+                <facet>Cooperation</facet>
+                <weight>0.2</weight>
+              </li>
+              <li>
+                <facet>Assertiveness</facet>
+                <weight>-0.05</weight>
+              </li>
+              <li>
+                <facet>Pessimism</facet>
+                <weight>-0.05</weight>
+              </li>
+            </weights>
+          </li>
+          <li>
+            <!-- + : Values strong guidance | - : Values individual autonomy -->
+            <name>leadership</name>
+            <controversiality>0.5</controversiality>
+            <weights>
+              <li>
+                <facet>Assertiveness</facet>
+                <weight>0.3</weight>
+              </li>
+              <li>
+                <facet>Intellect</facet>
+                <weight>-0.3</weight>
+              </li>
+              <li>
+                <facet>Curiosity</facet>
+                <weight>-0.2</weight>
+              </li>
+              <li>
+                <facet>Cooperation</facet>
+                <weight>0.1</weight>
+              </li>
+              <li>
+                <facet>Humbleness</facet>
+                <weight>-0.1</weight>
+              </li>
+            </weights>
+          </li>
+          <li>
+            <!-- + : Values cohesion | - : Values individual autonomy -->
+            <name>leadership</name>
+            <controversiality>0.5</controversiality>
+            <weights>
+              <li>
+                <facet>Sociability</facet>
+                <weight>0.35</weight>
+              </li>
+              <li>
+                <facet>Cooperation</facet>
+                <weight>0.25</weight>
+              </li>
+              <li>
+                <facet>Compassion</facet>
+                <weight>0.15</weight>
+              </li>
+              <li>
+                <facet>Humbleness</facet>
+                <weight>0.1</weight>
+              </li>
+              <li>
+                <facet>Assertiveness</facet>
+                <weight>-0.1</weight>
+              </li>
+              <li>
+                <facet>Insecurity</facet>
+                <weight>-0.05</weight>
+              </li>
+            </weights>
+          </li>
+        </topics>
+      </li>
+
     </interests>
   </Maux36.RimPsyche.InterestDomainDef>
 

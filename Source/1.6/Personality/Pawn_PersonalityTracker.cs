@@ -73,7 +73,7 @@ namespace Maux36.RimPsyche
             {
                 float calculatedValue = rimpsycheMultiplier.calculationFunction.Invoke(this);
                 MultiplierCache[rimpsycheMultiplier.multiplierName] = calculatedValue;
-
+                Log.Message($"calculating {pawn.Name}'s {rimpsycheMultiplier.multiplierName} : {calculatedValue} || {nameof(rimpsycheMultiplier)}");
                 return calculatedValue;
             }
         }
@@ -464,20 +464,16 @@ namespace Maux36.RimPsyche
 
         public void DirtyTraitCache()
         {
-            Log.Message($"{pawn.Name}' cache dirtied due to trait change");
+            Log.Message($"{pawn.Name}' scope and gate cache dirtied due to trait change");
             gateCacheInternal = null;
             scopeCacheInternal = null;
-            personalityCache.Clear();
-            var compPsyche = pawn.compPsyche();
-            if (compPsyche != null)
-            {
-                compPsyche.Interests?.interestOffset.Clear();
-            }
+            DirtyCache();
         }
         public void DirtyCache()
         {
             Log.Message($"{pawn.Name}' cache dirtied");
             personalityCache.Clear();
+            MultiplierCache.Clear();
             var compPsyche = pawn.compPsyche();
             if (compPsyche != null)
             {

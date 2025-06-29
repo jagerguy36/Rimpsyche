@@ -22,7 +22,7 @@ namespace Maux36.RimPsyche
             }
         }
 
-        public void GenerateInterestScoresForDomain(InterestDomainDef interestdomainDef, bool resetScore = false) // 0~100
+        public void GenerateInterestScoresForDomain(InterestDomainDef interestdomainDef, bool generateScore = false) // 0~100
         {
             var compPsyche = pawn.compPsyche();
             float domainOffsetValue = 50;
@@ -45,7 +45,7 @@ namespace Maux36.RimPsyche
                     }
                 }
                 interestOffset[interest.name] = Mathf.Clamp(interestOffsetValue, 30f, 70f);
-                if (resetScore)
+                if (generateScore)
                 {
                     GenerateInterestScore(interest.name);
                 }
@@ -89,12 +89,6 @@ namespace Maux36.RimPsyche
         public Interest ChoseInterest()
         {
             return GenCollection.RandomElementByWeight(RimpsycheDatabase.InterestList, GetOrCreateInterestScore);
-        }
-        public Topic GetConvoTopic()
-        {
-            Interest chosenInterest = GenCollection.RandomElementByWeight(RimpsycheDatabase.InterestList, GetOrCreateInterestScore);
-            Topic chosenTopic = chosenInterest.GetRandomTopic();
-            return chosenTopic;
         }
 
         // Save

@@ -86,7 +86,7 @@ namespace Maux36.RimPsyche
                 }
 
                 //Conversation.
-                Topic convoTopic = convoInterest.GetRandomTopic();
+                Topic convoTopic = convoInterest.GetRandomTopic((initiator.DevelopmentalStage.Juvenile() || recipient.DevelopmentalStage.Juvenile()), true); //TODO: NSFW check
                 float topicAlignment = convoTopic.GetScore(initiator, recipient, out float initDirection); // -1~1 [0]
                 float tAbs = Mathf.Abs(topicAlignment);
                 float initInterestF = (1f + (0.5f * initOpinion)) + (initInterestScore * (1f + (0.5f * initPassion))) + ((1f - initInterestScore) * (1f + (0.5f * initInquisitiveness))); // 0.5~3 [1.5]

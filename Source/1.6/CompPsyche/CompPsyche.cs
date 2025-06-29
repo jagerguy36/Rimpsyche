@@ -15,6 +15,8 @@ namespace Maux36.RimPsyche
         private Pawn_InterestTracker interests;
         private Pawn_SexualityTracker sexuality;
 
+        public int lastProgressTick = -1;
+
         public bool PostGen = false;
         public int convoStartedTick = -1;
         public int convoCheckTick = -1;
@@ -193,39 +195,35 @@ namespace Maux36.RimPsyche
         }
         public void FinishConvo(bool showMote = false)
         {
-            bool startedSocialFight = false;
             float lengthMult = (Find.TickManager.TicksGame - convoStartedTick - 212.5f) * 0.002f + 1f; // 0.8~[1]~2.95 || 5.325
-            GetConvoResult(lengthMult, out float pawnScore, out float partnerScore);
+            bool startedSocialFight = GetConvoResult(lengthMult, out float pawnScore, out float partnerScore, out bool startedByParentPawn);
             Log.Message($"GetConvoResult: {parentPawn.Name}: {pawnScore} | {convoPartner.Name}: {partnerScore}");
             var intDef = DefOfRimpsyche.Rimpsyche_EndConversation;
             List<RulePackDef> extraSents = [];
             //If partnerScore<0 or pawnScore <0 check social fight chance.
-            if(pawnScore<0 || partnerScore<0)
+            if(startedSocialFight)
             {
-                if (Rand.Chance(1f))//TODO: Get actual socialFight chance and starter
+                extraSents.Add(DefOfRimpsyche.Sentence_RimpsycheSocialFightConvoInitiatorStarted);
+                if (startedByParentPawn)
                 {
-                    startedSocialFight = true;
-                    extraSents.Add(DefOfRimpsyche.Sentence_RimpsycheSocialFightConvoInitiatorStarted);
+                    parentPawn.interactions.StartSocialFight(convoPartner);
+                }
+                else
+                {
+                    convoPartner.interactions.StartSocialFight(parentPawn);
                 }
             }
             var entry = new PlayLogEntry_InteractionConversation(intDef, parentPawn, convoPartner, topic.name, extraSents);
             if (showMote)
             {
-                //If social fight start, change the mote to something else
                 if (convoPartner.Map != null && parentPawn.Map != null)
                 {
                     if (startedSocialFight) MoteMaker.MakeInteractionBubble(parentPawn, convoPartner, intDef.interactionMote, intDef.GetSymbol(parentPawn.Faction, parentPawn.Ideo), intDef.GetSymbolColor(parentPawn.Faction));
                     else MoteMaker.MakeInteractionBubble(parentPawn, convoPartner, intDef.interactionMote, intDef.GetSymbol(parentPawn.Faction, parentPawn.Ideo), intDef.GetSymbolColor(parentPawn.Faction));
                 }
             }
-
             Find.PlayLog.Add(entry);
             var convoPartnerPsyche = convoPartner.compPsyche();
-            if(startedSocialFight)
-            {
-                partnerScore *=1.5f; //Adjust Score for fights.
-                parentPawn.interactions.StartSocialFight(convoPartner);
-            }
             convoPartnerPsyche?.EndConvo(partnerScore, lengthMult);
             EndConvo(pawnScore, lengthMult);
         }
@@ -254,9 +252,10 @@ namespace Maux36.RimPsyche
             topicAlignment = 0f;
             direction = 0f;
         }
-        public bool GetConvoResult(float lengthMult, out float pawnScore, out float partnerScore)
+        public bool GetConvoResult(float lengthMult, out float pawnScore, out float partnerScore, out bool startedByParentPawn)
         {
             bool startFight = false;
+            startedByParentPawn = false;
             pawnScore = 0f;
             partnerScore = 0f;
             
@@ -323,6 +322,16 @@ namespace Maux36.RimPsyche
                 float pawnStartFightChance = Rimpsyche_Utility.ConvoSocialFightChance(parentPawn, convoPartner, -0.005f * pawnScore * lengthMult * Personality.GetMultiplier(RimpsycheDatabase.SocialFightChanceMultiplier), pawnOpinion);
                 float partnerStartFightChance = Rimpsyche_Utility.ConvoSocialFightChance(convoPartner, parentPawn, -0.005f * partnerScore * lengthMult * partnerPsyche.Personality.GetMultiplier(RimpsycheDatabase.SocialFightChanceMultiplier), partnerOpinion);
                 Log.Message($"pawnStartFightChance: {pawnStartFightChance}. partnerStartFightChance: {partnerStartFightChance}.");
+                if (Rand.Chance(pawnStartFightChance))
+                {
+                    startFight = true;
+                    startedByParentPawn = true;
+                }
+                else if (Rand.Chance(pawnStartFightChance))
+                {
+                    startFight = true;
+                    startedByParentPawn = false;
+                }
                 return startFight;
             }
             return startFight;
@@ -372,6 +381,7 @@ namespace Maux36.RimPsyche
         public override void PostExposeData()
         {
             base.PostExposeData();
+            Scribe_Values.Look(ref lastProgressTick, "lastProgressTick", -1);
             Scribe_Values.Look(ref PostGen, "PostGen", true);
             Scribe_Values.Look(ref convoStartedTick, "convoStartedTick", -1);
             Scribe_Values.Look(ref convoCheckTick, "convoCheckTick", -1);

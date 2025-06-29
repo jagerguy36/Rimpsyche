@@ -9,11 +9,11 @@
     <scoreWeight>
       <li>
         <facet>Sociability</facet>
-        <weight>0.2</weight>
+        <weight>0.35</weight>
       </li>
       <li>
         <facet>Assertiveness</facet>
-        <weight>0.4</weight>
+        <weight>0.35</weight>
       </li>
       <li>
         <facet>Enthusiasm</facet>

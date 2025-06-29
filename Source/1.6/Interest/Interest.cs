@@ -20,16 +20,16 @@ namespace Maux36.RimPsyche
         //    int topicIndex = Rand.Range(0, topics.Count);
         //    return topics[topicIndex];
         //}
-        public Topic GetRandomTopic(bool allowR=false)
+        public Topic GetRandomTopic(bool childInvolved = false, bool allowNSWF = false)
         {
             int topicCount = topics.Count;
             int eligibleCount = 0;
             for (int i = 0; i < topicCount; i++)
             {
-                if (!topics[i].restricted || allowR)
-                {
-                    eligibleCount++;
-                }
+                var t = topics[i];
+                if (childInvolved && (!t.allowChild || t.NSFW)) continue;
+                if (!allowNSWF && t.NSFW) continue;
+                eligibleCount++;
             }
 
             if (eligibleCount == 0)
@@ -41,14 +41,14 @@ namespace Maux36.RimPsyche
             int currentEligibleIndex = 0;
             for (int i = 0; i < topicCount; i++)
             {
-                if (!topics[i].restricted || allowR)
-                {
-                    if (currentEligibleIndex == randomIndex)
-                    {
-                        return topics[i];
-                    }
-                    currentEligibleIndex++;
-                }
+                var t = topics[i];
+                if (childInvolved && (!t.allowChild || t.NSFW)) continue;
+                if (!allowNSWF && t.NSFW) continue;
+
+                if (currentEligibleIndex == randomIndex)
+                    return t;
+
+                currentEligibleIndex++;
             }
             return null;
         }

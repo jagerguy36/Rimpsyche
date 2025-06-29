@@ -9,7 +9,8 @@ namespace Maux36.RimPsyche
     {
         public string name;
         public float controversiality = 1;
-        public bool restricted = false;
+        public bool allowChild = true;
+        public bool NSFW = false;
         public List<FacetWeight> weights;
         public float GetScore(Pawn initiator, Pawn recipient, out float initDirection)
         {
@@ -76,7 +77,8 @@ namespace Maux36.RimPsyche
         {
             Scribe_Values.Look(ref name, "name");
             Scribe_Values.Look(ref controversiality, "controversiality", 1);
-            Scribe_Values.Look(ref restricted, "restricted", false);
+            Scribe_Values.Look(ref allowChild, "allowChild", true);
+            Scribe_Values.Look(ref NSFW, "NSFW", false);
             Scribe_Collections.Look(ref weights, "weights", LookMode.Deep);
         }
     }
