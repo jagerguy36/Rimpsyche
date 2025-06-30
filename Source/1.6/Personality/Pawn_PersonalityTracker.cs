@@ -130,6 +130,19 @@ namespace Maux36.RimPsyche
             return result;
         }
 
+        public float GetPersonalityAsMult(PersonalityDef personality, float mult)
+        {
+            var p = GetPersonality(personality);
+            if (p >= 0f)
+            {
+                return (mult - 1f) * p + 1f;
+            }
+            else
+            {
+                return (1f - (1/mult)) * p + 1f;
+            }
+        }
+
         // Initialization
         public Pawn_PersonalityTracker(Pawn p)
         {
