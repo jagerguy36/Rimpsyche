@@ -477,14 +477,12 @@ namespace Maux36.RimPsyche
 
         public void DirtyTraitCache()
         {
-            Log.Message($"{pawn.Name}' scope and gate cache dirtied due to trait change");
             gateCacheInternal = null;
             scopeCacheInternal = null;
             DirtyCache();
         }
         public void DirtyCache()
         {
-            Log.Message($"{pawn.Name}' cache dirtied");
             personalityCache.Clear();
             MultiplierCache.Clear();
             var compPsyche = pawn.compPsyche();

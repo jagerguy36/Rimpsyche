@@ -49,28 +49,6 @@ namespace Maux36.RimPsyche
             {
                 initDirection = 0f;
             }
-            //switch (category)
-            //{
-            //    case TopicCategory.Socializing:
-            //        score += recipientPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Tact) + (0.1f * recipient.skills.GetSkill(SkillDefOf.Social).Level);
-            //        score += initiatorPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Tact) + (0.1f * initiator.skills.GetSkill(SkillDefOf.Social).Level);
-            //        score *= 0.5f;
-            //        break;
-            //    case TopicCategory.Disclosure:
-            //        score = recipientPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Tact) + (0.1f * recipient.skills.GetSkill(SkillDefOf.Social).Level);
-            //        if (weights != null)
-            //        {
-            //            foreach (FacetWeight weight in weights)
-            //            {
-            //                score += recipientPsyche.Personality.GetFacetValue(weight.facet) * weight.weight;
-            //            }
-            //        }
-            //        break;
-            //    case TopicCategory.Opinion:
-            //        break;
-            //    case TopicCategory.Topical:
-            //        break;
-            //}
             return Mathf.Clamp(score, -1f, 1f);
         }
         public void ExposeData()

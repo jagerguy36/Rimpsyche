@@ -17,7 +17,7 @@ namespace Maux36.RimPsyche
 
         public int lastProgressTick = -1;
 
-        public bool PostGen = false;
+        //public bool PostGen = false;
         public int convoStartedTick = -1;
         public int convoCheckTick = -1;
         public Pawn convoPartner = null;
@@ -338,11 +338,6 @@ namespace Maux36.RimPsyche
         }
         public bool AffectPawn(float resultOffset)
         {
-            //Should know whether the influence should make the + change or - change.
-            //alignment+ --> the other pawn's view is bigger -> +
-            //alignment+ --> the other pawn's view is smaller -> -
-            //alignment- --> the other pawn's view is bigger -> -
-            //alignment- --> the other pawn's view is smaller -> +
             float adultHoodAge = Rimpsyche_Utility.GetMinAdultAge(parentPawn);
             float pawnTrust = parentPawn.compPsyche().personality.GetPersonality(PersonalityDefOf.Rimpsyche_Trust); //-1~1
             float pawnAge = (float)parentPawn.ageTracker.AgeBiologicalYears; //0~100
@@ -382,7 +377,7 @@ namespace Maux36.RimPsyche
         {
             base.PostExposeData();
             Scribe_Values.Look(ref lastProgressTick, "lastProgressTick", -1);
-            Scribe_Values.Look(ref PostGen, "PostGen", true);
+            //Scribe_Values.Look(ref PostGen, "PostGen", true);
             Scribe_Values.Look(ref convoStartedTick, "convoStartedTick", -1);
             Scribe_Values.Look(ref convoCheckTick, "convoCheckTick", -1);
             Scribe_References.Look(ref convoPartner, "convoPartner");

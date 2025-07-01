@@ -3,7 +3,6 @@ using System;
 using System.Linq;
 using UnityEngine;
 using Verse;
-using static RimWorld.ColonistBar;
 
 namespace Maux36.RimPsyche
 {
@@ -17,20 +16,25 @@ namespace Maux36.RimPsyche
         public static bool ShowNumbersBool = false;
         public static GUIStyle style;
         public const int OptionFontSize = 16;
-        public static float expandButtonSize = 16f;
+        public static float expandButtonSize = 8f;
 
-        public static readonly Color LineColor = new Color(1f, 1f, 1f, 0.5f);
+        public static readonly Color LineColor = new Color(97f, 108f, 122f, 0.25f);
         public static float BoundaryPadding = 5f;
         public static Vector2 PersonalityScrollPosition = Vector2.zero;
         public static Vector2 InterestScrollPosition = Vector2.zero;
-        public static bool rightPanelVisible = true;
+
+        public static bool rightPanelVisible = false;
+        public static float rightPanelWidthConstant = 250f;
 
         //Assets
+        public static Texture2D ViewButton = ContentFinder<Texture2D>.Get("Buttons/RimpsycheView", true);
         public static Texture2D PsycheButton = ContentFinder<Texture2D>.Get("Buttons/RimpsycheEdit", true);
+        public static Texture2D RevealButton = ContentFinder<Texture2D>.Get("Buttons/RimpsycheReveal", true);
+        public static Texture2D HideButton = ContentFinder<Texture2D>.Get("Buttons/RimpsycheHide", true);
 
         public static void DrawPsycheCard(Rect totalRect, Pawn pawn)
         {
-
+            totalRect.width -= (rightPanelVisible ? 0f : rightPanelWidthConstant);
             var compPsyche = pawn.compPsyche();
             bool showSexuality = compPsyche.Sexuality.ShowOnUI();
             // Save state
@@ -46,7 +50,7 @@ namespace Maux36.RimPsyche
             totalRect.position = Vector2.zero;
 
             // === Layout constants ===
-            float rightPanelWidth = 250f;
+            float rightPanelWidth = rightPanelVisible ? rightPanelWidthConstant : 0f;
             float rightPanelHeight = 0f;
             if (showSexuality)
             {
@@ -73,30 +77,40 @@ namespace Maux36.RimPsyche
             Rect personalityRect = totalRect;
             personalityRect.xMax = sexualityRect.x;
 
-            //// === Adjust personalityRect again to not collide with right section ===
-            //personalityRect.xMax = totalRect.xMax - rightPanelWidth - BoundaryPadding;
-
             // === Draw separating lines between personality & sexuality sections ===
-            GUI.color = LineColor;
-            Widgets.DrawLineVertical(personalityRect.xMax, totalRect.y, totalRect.height); // Vertical divider
-            if (showSexuality)
+            if (rightPanelVisible)
             {
-                Widgets.DrawLineHorizontal(personalityRect.xMax, rightPanelHeight, totalRect.width-personalityRect.xMax); // Horizontal divider
+                GUI.color = LineColor;
+                Widgets.DrawLineVertical(personalityRect.xMax - 1, totalRect.y + 1, totalRect.height - 2); // Vertical divider
+                if (showSexuality)
+                {
+                    Widgets.DrawLineHorizontal(personalityRect.xMax, rightPanelHeight, totalRect.width - personalityRect.xMax-1); // Horizontal divider
+                }
+                GUI.color = Color.white;
             }
-            GUI.color = Color.white;
 
             // === Draw Expanding Button
 
             personalityRect.xMax -= expandButtonSize;
             Rect openButtonRect = new Rect(
-                personalityRect.xMax + (expandButtonSize / 2), // Center the button in the buttonAreaWidth
+                personalityRect.xMax-expandButtonSize/2, // Center the button in the buttonAreaWidth
                 totalRect.y + (totalRect.height / 2) - (expandButtonSize / 2), // Vertically center the button
                 expandButtonSize,
                 expandButtonSize
             );
-            if (Widgets.ButtonImage(openButtonRect, PsycheButton))
+            if (rightPanelVisible)
             {
-                rightPanelVisible = !rightPanelVisible; // Toggle visibility
+                if (Widgets.ButtonImage(openButtonRect, HideButton))
+                {
+                    rightPanelVisible = !rightPanelVisible; // Toggle visibility
+                }
+            }
+            else
+            {
+                if (Widgets.ButtonImage(openButtonRect, RevealButton))
+                {
+                    rightPanelVisible = !rightPanelVisible; // Toggle visibility
+                }
             }
 
 
@@ -109,11 +123,15 @@ namespace Maux36.RimPsyche
 
             // === Draw content ===
             DrawPersonalityBox(personalityRect, compPsyche, pawn);
-            if (showSexuality)
+            if (rightPanelVisible)
             {
-                DrawSexaulityBox(sexualityRect, compPsyche);
+                if (showSexuality)
+                {
+                    DrawSexaulityBox(sexualityRect, compPsyche);
+                }
+                DrawInterestBox(interestRect, compPsyche);
             }
-            DrawInterestBox(interestRect, compPsyche);
+            
 
             // === End group and restore state ===
             GUI.EndGroup();
@@ -140,20 +158,32 @@ namespace Maux36.RimPsyche
             Text.Font = GameFont.Medium;
             Text.Anchor = TextAnchor.MiddleCenter;
             Rect titleRect = new Rect(0f, 0f, headerRect.width, headerRect.height);
-            Widgets.Label(titleRect, "Personality");
+            Widgets.Label(titleRect, "Personality".Translate());
+
+            Vector2 titleTextSize = Text.CalcSize("Personality".Translate());
 
             // Icon on the right
             float iconSize = 24f;
-            Rect iconRect = new Rect(headerRect.width - iconSize - 8f, (headerHeight - iconSize) / 2f, iconSize, iconSize);
+            float spacing = 2;
+            float viewIconX = (headerRect.width / 2f) + (titleTextSize.x / 2f) + 8f;
+            Rect viewIconRect = new Rect(viewIconX, (headerHeight - iconSize) / 2f, iconSize, iconSize);
 
             // Draw & handle click
+            if (Widgets.ButtonImage(viewIconRect, ViewButton))
+            {
+                Log.Message("clicked view button");
+            }
+            TooltipHandler.TipRegion(viewIconRect, "RimpsycheView");
+
+            float editIconX = viewIconRect.xMax + spacing;
+            Rect editIconRect = new Rect(editIconX, (headerHeight - iconSize) / 2f, iconSize, iconSize);
             if (Prefs.DevMode)
             {
-                if (Widgets.ButtonImage(iconRect, PsycheButton))
+                if (Widgets.ButtonImage(editIconRect, PsycheButton))
                 {
                     Find.WindowStack.Add(new PsycheEditPopup(pawn));
                 }
-                TooltipHandler.TipRegion(iconRect, "RimpsycheEdit");
+                TooltipHandler.TipRegion(editIconRect, "RimpsycheEdit");
             }
 
             GUI.EndGroup();
