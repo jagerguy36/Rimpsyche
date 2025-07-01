@@ -17,11 +17,16 @@ namespace Maux36.RimPsyche
         public static bool ShowNumbersBool = false;
         public static GUIStyle style;
         public const int OptionFontSize = 16;
+        public static float expandButtonSize = 16f;
 
         public static readonly Color LineColor = new Color(1f, 1f, 1f, 0.5f);
         public static float BoundaryPadding = 5f;
         public static Vector2 PersonalityScrollPosition = Vector2.zero;
         public static Vector2 InterestScrollPosition = Vector2.zero;
+        public static bool rightPanelVisible = true;
+
+        //Assets
+        public static Texture2D PsycheButton = ContentFinder<Texture2D>.Get("Buttons/RimpsycheEdit", true);
 
         public static void DrawPsycheCard(Rect totalRect, Pawn pawn)
         {
@@ -68,15 +73,8 @@ namespace Maux36.RimPsyche
             Rect personalityRect = totalRect;
             personalityRect.xMax = sexualityRect.x;
 
-            if (showSexuality)
-            {
-                sexualityRect = sexualityRect.ContractedBy(BoundaryPadding);
-            }
-            interestRect = interestRect.ContractedBy(BoundaryPadding);
-            personalityRect = personalityRect.ContractedBy(BoundaryPadding); // Add padding
-
-            // === Adjust personalityRect again to not collide with right section ===
-            personalityRect.xMax = totalRect.xMax - rightPanelWidth - BoundaryPadding;
+            //// === Adjust personalityRect again to not collide with right section ===
+            //personalityRect.xMax = totalRect.xMax - rightPanelWidth - BoundaryPadding;
 
             // === Draw separating lines between personality & sexuality sections ===
             GUI.color = LineColor;
@@ -86,6 +84,28 @@ namespace Maux36.RimPsyche
                 Widgets.DrawLineHorizontal(personalityRect.xMax, rightPanelHeight, totalRect.width-personalityRect.xMax); // Horizontal divider
             }
             GUI.color = Color.white;
+
+            // === Draw Expanding Button
+
+            personalityRect.xMax -= expandButtonSize;
+            Rect openButtonRect = new Rect(
+                personalityRect.xMax + (expandButtonSize / 2), // Center the button in the buttonAreaWidth
+                totalRect.y + (totalRect.height / 2) - (expandButtonSize / 2), // Vertically center the button
+                expandButtonSize,
+                expandButtonSize
+            );
+            if (Widgets.ButtonImage(openButtonRect, PsycheButton))
+            {
+                rightPanelVisible = !rightPanelVisible; // Toggle visibility
+            }
+
+
+            if (showSexuality)
+            {
+                sexualityRect = sexualityRect.ContractedBy(BoundaryPadding);
+            }
+            interestRect = interestRect.ContractedBy(BoundaryPadding);
+            personalityRect = personalityRect.ContractedBy(BoundaryPadding); // Add padding
 
             // === Draw content ===
             DrawPersonalityBox(personalityRect, compPsyche, pawn);
@@ -123,7 +143,6 @@ namespace Maux36.RimPsyche
             Widgets.Label(titleRect, "Personality");
 
             // Icon on the right
-            Texture2D PsycheButton = ContentFinder<Texture2D>.Get("Buttons/RimpsycheEdit", true);
             float iconSize = 24f;
             Rect iconRect = new Rect(headerRect.width - iconSize - 8f, (headerHeight - iconSize) / 2f, iconSize, iconSize);
 
