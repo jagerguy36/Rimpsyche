@@ -89,8 +89,8 @@ namespace Maux36.RimPsyche
                 Topic convoTopic = convoInterest.GetRandomTopic((initiator.DevelopmentalStage.Juvenile() || recipient.DevelopmentalStage.Juvenile()), true); //TODO: NSFW check
                 float topicAlignment = convoTopic.GetScore(initiator, recipient, out float initDirection); // -1~1 [0]
                 float tAbs = Mathf.Abs(topicAlignment);
-                float initInterestF = (1f + (0.5f * initOpinion)) + (initInterestScore * (1f + (0.5f * initPassion))) + ((1f - initInterestScore) * (1f + (0.5f * initInquisitiveness))); // 0.5~3 [1.5]
-                float reciInterestF = (1f + (0.5f * reciOpinion)) + (reciInterestScore * (1f + (0.5f * reciPassion))) + ((1f - reciInterestScore) * (1f + (0.5f * reciInquisitiveness))); ; // 0.5~3 [1.5]
+                float initInterestF = (1f + (0.5f * initOpinion)) + (initInterestScore * (1f + (0.5f * initPassion))) + 0.25f * ((1f - initInterestScore) * (1f + initInquisitiveness)); // 0.5~3 [1.5]
+                float reciInterestF = (1f + (0.5f * reciOpinion)) + (reciInterestScore * (1f + (0.5f * reciPassion))) + 0.25f * ((1f - reciInterestScore) * (1f + reciInquisitiveness)); // 0.5~3 [1.5]
                 float initTalkF = (1.5f + initTalkativeness) * initInterestF; // 0.25~7.5 [2.25]
                 float reciTalkF = (1.5f + reciTalkativeness) * reciInterestF; // 0.25~7.5 [2.25]
                 float spontaneousF = (initSpontaneity + reciSpontaneity + 2f) * 0.05f; // 0~0.2 [0.1]
