@@ -17,20 +17,23 @@ namespace Maux36.RimPsyche
         public static GUIStyle style;
         public const int OptionFontSize = 16;
         public static float expandButtonSize = 8f;
+        public static float rightPanelWidthConstant = 250f;
 
         public static readonly Color LineColor = new Color(97f, 108f, 122f, 0.25f);
         public static float BoundaryPadding = 5f;
         public static Vector2 PersonalityScrollPosition = Vector2.zero;
         public static Vector2 InterestScrollPosition = Vector2.zero;
 
-        public static bool rightPanelVisible = false;
-        public static float rightPanelWidthConstant = 250f;
-
         //Assets
         public static Texture2D ViewButton = ContentFinder<Texture2D>.Get("Buttons/RimpsycheView", true);
         public static Texture2D PsycheButton = ContentFinder<Texture2D>.Get("Buttons/RimpsycheEdit", true);
         public static Texture2D RevealButton = ContentFinder<Texture2D>.Get("Buttons/RimpsycheReveal", true);
         public static Texture2D HideButton = ContentFinder<Texture2D>.Get("Buttons/RimpsycheHide", true);
+
+        //Options
+        public static bool rightPanelVisible = false;
+        public static bool showBothSide = false;
+
 
         public static void DrawPsycheCard(Rect totalRect, Pawn pawn)
         {
@@ -171,7 +174,7 @@ namespace Maux36.RimPsyche
             // Draw & handle click
             if (Widgets.ButtonImage(viewIconRect, ViewButton))
             {
-                Log.Message("clicked view button");
+                showBothSide = !showBothSide;
             }
             TooltipHandler.TipRegion(viewIconRect, "RimpsycheView");
 
@@ -204,51 +207,123 @@ namespace Maux36.RimPsyche
 
             float y = 0f;
 
-            foreach (var personality in personalityDefList)
+            if (showBothSide)
             {
-                var value = compPsyche.Personality.GetPersonality(personality);
-                var (leftLabel, rightLabel, leftColor, rightColor) = (personality.low, personality.high, Color.red, Color.green);
-
-                Rect rowRect = new Rect(0f, y, scrollContentRect.width, rowHeight);
-
-                // Hover highlight + tooltip
-                if (Mouse.IsOver(rowRect))
+                foreach (var personality in personalityDefList)
                 {
-                    Widgets.DrawHighlight(rowRect);
-                    TooltipHandler.TipRegion(rowRect, $"{personality.label}: {Math.Round(value, 1)}");
+                    var value = compPsyche.Personality.GetPersonality(personality);
+                    var (leftLabel, rightLabel, leftColor, rightColor) = (personality.low, personality.high, Color.red, Color.green);
+
+                    Rect rowRect = new Rect(0f, y, scrollContentRect.width, rowHeight);
+
+                    // Hover highlight + tooltip
+                    if (Mouse.IsOver(rowRect))
+                    {
+                        Widgets.DrawHighlight(rowRect);
+                        TooltipHandler.TipRegion(rowRect, $"{personality.label}: {Math.Round(value, 1)}");
+                    }
+
+                    float labelWidth = 130f;
+                    float barCenterX = rowRect.x + rowRect.width / 2f;
+                    float centerY = rowRect.y + rowRect.height / 2f;
+
+                    // Left label
+                    Rect leftRect = new Rect(rowRect.x + labelPadding, centerY - Text.LineHeight / 2f, labelWidth, Text.LineHeight);
+                    Text.Anchor = TextAnchor.MiddleLeft;
+                    Widgets.Label(leftRect, leftLabel);
+
+                    // Right label
+                    Rect rightRect = new Rect(rowRect.xMax - labelWidth - labelPadding, centerY - Text.LineHeight / 2f, labelWidth, Text.LineHeight);
+                    Text.Anchor = TextAnchor.MiddleRight;
+                    Widgets.Label(rightRect, rightLabel);
+
+                    // Bar background
+                    Rect barRect = new Rect(barCenterX - barWidth / 2f, centerY - barHeight / 2f, barWidth, barHeight);
+                    Widgets.DrawBoxSolid(barRect, new Color(0.2f, 0.2f, 0.2f, 0.5f));
+
+                    // Value bar
+                    float clamped = Mathf.Clamp(value, -1f, 1f); // now value is between -1 ~ 1
+                    float halfBar = Mathf.Abs(clamped) * (barWidth) / 2f;
+                    Rect valueRect = clamped >= 0
+                        ? new Rect(barCenterX, barRect.y, halfBar, barHeight)
+                        : new Rect(barCenterX - halfBar, barRect.y, halfBar, barHeight);
+
+                    // Color based on intensity (small = yellow, strong = green)
+                    float intensity = Mathf.Abs(clamped) * 2f; // maps 0–0.5 to 0–1
+                    Color barColor = Color.Lerp(Color.yellow, Color.green, intensity);
+                    Widgets.DrawBoxSolid(valueRect, barColor);
+
+                    y += rowHeight;
                 }
+            }
+            else
+            {
+                // Filter out personalities with value 0 and sort by absolute value (descending)
+                var significantPersonalities = personalityDefList
+                    .Select(personality => new
+                    {
+                        Personality = personality,
+                        Value = compPsyche.Personality.GetPersonality(personality),
+                        AbsValue = Mathf.Abs(compPsyche.Personality.GetPersonality(personality))
+                    })
+                    .Where(p => Mathf.Abs(p.Value) > float.Epsilon) // Use Epsilon for float comparison to check if value is not zero
+                    .OrderByDescending(p => p.AbsValue)
+                    .ToList();
 
-                float labelWidth = 130f;
-                float barCenterX = rowRect.x + rowRect.width / 2f;
-                float centerY = rowRect.y + rowRect.height / 2f;
+                foreach (var p in significantPersonalities)
+                {
+                    Rect rowRect = new Rect(0f, y, scrollContentRect.width, rowHeight);
 
-                // Left label
-                Rect leftRect = new Rect(rowRect.x + labelPadding, centerY - Text.LineHeight / 2f, labelWidth, Text.LineHeight);
-                Text.Anchor = TextAnchor.MiddleLeft;
-                Widgets.Label(leftRect, leftLabel);
+                    // Hover highlight + tooltip
+                    if (Mouse.IsOver(rowRect))
+                    {
+                        Widgets.DrawHighlight(rowRect);
+                        TooltipHandler.TipRegion(rowRect, $"{p.Personality.label}: {Math.Round(p.Value, 1)}");
+                    }
 
-                // Right label
-                Rect rightRect = new Rect(rowRect.xMax - labelWidth - labelPadding, centerY - Text.LineHeight / 2f, labelWidth, Text.LineHeight);
-                Text.Anchor = TextAnchor.MiddleRight;
-                Widgets.Label(rightRect, rightLabel);
+                    string labelText = "";
+                    Color labelColor = Color.white; // Default color, will be updated
 
-                // Bar background
-                Rect barRect = new Rect(barCenterX - barWidth / 2f, centerY - barHeight / 2f, barWidth, barHeight);
-                Widgets.DrawBoxSolid(barRect, new Color(0.2f, 0.2f, 0.2f, 0.5f));
+                    string intensityPrefix = "";
+                    if (p.AbsValue >= 0.75f)
+                    {
+                        intensityPrefix = "Extremely".Translate() + " ";
+                    }
+                    else if (p.AbsValue >= 0.5f)
+                    {
+                        intensityPrefix = "Very".Translate() + " ";
+                    }
+                    else if (p.AbsValue >= 0.25f)
+                    {
+                        intensityPrefix = "Somewhat".Translate() + " ";
+                    }
+                    else if (p.AbsValue > 0f) // Marginally >= 0, but we filtered out 0 already
+                    {
+                        intensityPrefix = "Marginally".Translate() + " ";
+                    }
 
-                // Value bar
-                float clamped = Mathf.Clamp(value, -1f, 1f); // now value is between -1 ~ 1
-                float halfBar = Mathf.Abs(clamped) * (barWidth) / 2f;
-                Rect valueRect = clamped >= 0
-                    ? new Rect(barCenterX, barRect.y, halfBar, barHeight)
-                    : new Rect(barCenterX - halfBar, barRect.y, halfBar, barHeight);
+                    if (p.Value > 0)
+                    {
+                        labelText = intensityPrefix + p.Personality.high;
+                    }
+                    else
+                    {
+                        labelText = intensityPrefix + p.Personality.low;
+                    }
 
-                // Color based on intensity (small = yellow, strong = green)
-                float intensity = Mathf.Abs(clamped) * 2f; // maps 0–0.5 to 0–1
-                Color barColor = Color.Lerp(Color.yellow, Color.green, intensity);
-                Widgets.DrawBoxSolid(valueRect, barColor);
+                    // Color code: closer to 0 -> yellow, closer to 1 -> green
+                    // AbsValue is already between 0 and 1
+                    labelColor = Color.Lerp(Color.yellow, Color.green, p.AbsValue);
 
-                y += rowHeight;
+                    // Draw label
+                    Text.Anchor = TextAnchor.MiddleLeft;
+                    GUI.color = labelColor;
+                    Rect labelRect = new Rect(rowRect.x + labelPadding, rowRect.y, scrollContentRect.width - (2 * labelPadding), rowHeight);
+                    Widgets.Label(labelRect, labelText);
+                    GUI.color = Color.white; // Reset color
+
+                    y += rowHeight;
+                }
             }
 
             Widgets.EndScrollView();
