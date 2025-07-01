@@ -17,7 +17,6 @@ namespace Maux36.RimPsyche
 
         public int lastProgressTick = -1;
 
-        //public bool PostGen = false;
         public int convoStartedTick = -1;
         public int convoCheckTick = -1;
         public Pawn convoPartner = null;
@@ -377,7 +376,6 @@ namespace Maux36.RimPsyche
         {
             base.PostExposeData();
             Scribe_Values.Look(ref lastProgressTick, "lastProgressTick", -1);
-            //Scribe_Values.Look(ref PostGen, "PostGen", true);
             Scribe_Values.Look(ref convoStartedTick, "convoStartedTick", -1);
             Scribe_Values.Look(ref convoCheckTick, "convoCheckTick", -1);
             Scribe_References.Look(ref convoPartner, "convoPartner");

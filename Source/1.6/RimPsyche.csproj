@@ -85,7 +85,6 @@
     <Compile Include="Interest\Topic.cs" />
     <Compile Include="Extensions\PawnExtensions.cs" />
     <Compile Include="HarmonyPatches\HarmonyPatches.cs" />
-    <Compile Include="HarmonyPatches\PawnGenerator_GeneratePawnPatch.cs" />
     <Compile Include="HarmonyPatches\Pawn_InteractionTracker_fixes.cs" />
     <Compile Include="Personality\PersonalityDef.cs" />
     <Compile Include="Personality\PersonalityDefOf.cs" />
