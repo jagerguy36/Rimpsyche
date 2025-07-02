@@ -91,7 +91,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Rimpsyche.cs" />
     <Compile Include="RimpsycheSettings.cs" />
-    <Compile Include="Rimpsyche_UI_Utility.cs" />
+    <Compile Include="RimpsycheUI\Rimpsyche_UI_Utility.cs" />
     <Compile Include="Rimpsyche_Utlity.cs" />
     <Compile Include="Sexuality\Pawn_SexualityTracker.cs" />
     <Compile Include="Thought\Thought_MemoryPostDefined.cs" />

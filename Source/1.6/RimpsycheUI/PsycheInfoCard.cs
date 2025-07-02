@@ -1,5 +1,6 @@
 ﻿using RimWorld;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using Verse;
@@ -25,10 +26,6 @@ namespace Maux36.RimPsyche
         public static Vector2 InterestScrollPosition = Vector2.zero;
 
         //Assets
-        public static Texture2D ViewButton = ContentFinder<Texture2D>.Get("Buttons/RimpsycheView", true);
-        public static Texture2D PsycheButton = ContentFinder<Texture2D>.Get("Buttons/RimpsycheEdit", true);
-        public static Texture2D RevealButton = ContentFinder<Texture2D>.Get("Buttons/RimpsycheReveal", true);
-        public static Texture2D HideButton = ContentFinder<Texture2D>.Get("Buttons/RimpsycheHide", true);
 
         //Options
         public static bool rightPanelVisible = false;
@@ -103,14 +100,14 @@ namespace Maux36.RimPsyche
             );
             if (rightPanelVisible)
             {
-                if (Widgets.ButtonImage(openButtonRect, HideButton))
+                if (Widgets.ButtonImage(openButtonRect, Rimpsyche_UI_Utility.HideButton))
                 {
                     rightPanelVisible = !rightPanelVisible; // Toggle visibility
                 }
             }
             else
             {
-                if (Widgets.ButtonImage(openButtonRect, RevealButton))
+                if (Widgets.ButtonImage(openButtonRect, Rimpsyche_UI_Utility.RevealButton))
                 {
                     rightPanelVisible = !rightPanelVisible; // Toggle visibility
                 }
@@ -140,9 +137,83 @@ namespace Maux36.RimPsyche
             GUI.EndGroup();
         }
 
+        private static Dictionary<Pawn, List<PersonalityDisplayData>> cachedPersonalityData = new Dictionary<Pawn, List<PersonalityDisplayData>>();
+        private static Pawn lastPawn;
+        private struct PersonalityDisplayData
+        {
+            public PersonalityDef Personality;
+            public float Value;
+            public float AbsValue;
+            // New fields for cached display text and color (for showBothSide = false mode)
+            public string CachedLabelText;
+            public Color CachedLabelColor;
+        }
+
+        private static List<PersonalityDisplayData> GetSortedPersonalityData(CompPsyche compPsyche, Pawn currentPawn)
+        {
+            if (currentPawn == lastPawn && cachedPersonalityData.ContainsKey(currentPawn))
+            {
+                return cachedPersonalityData[currentPawn];
+            }
+
+            lastPawn = currentPawn;
+
+            var personalityDefList = DefDatabase<PersonalityDef>.AllDefs;
+            var sortedData = new List<PersonalityDisplayData>();
+
+            foreach (var personality in personalityDefList)
+            {
+                float value = compPsyche.Personality.GetPersonality(personality);
+                float absValue = Mathf.Abs(value);
+
+                string cachedLabelText = "";
+                Color cachedLabelColor = Color.white;
+
+                string intensityKey = "RimPsycheIntensityBarely";
+                if (absValue >= 0.75f)
+                {
+                    intensityKey = "RimPsycheIntensityExtremely";
+                }
+                else if (absValue >= 0.5f)
+                {
+                    intensityKey = "RimPsycheIntensityVery";
+                }
+                else if (absValue >= 0.25f)
+                {
+                    intensityKey = "RimPsycheIntensitySomewhat";
+                }
+                else if (absValue > 0f)
+                {
+                    intensityKey = "RimPsycheIntensityMarginally";
+                }
+
+                string personalityName = (value >= 0) ? personality.high : personality.low;
+
+                if (LanguageDatabase.activeLanguage.HaveTextForKey(intensityKey))
+                {
+                    cachedLabelText = intensityKey.Translate(personalityName);
+                }
+                else
+                {
+                    cachedLabelText = intensityKey.Replace("RimPsycheIntensity", "") + " " + personalityName;
+                }
+                cachedLabelColor = Color.Lerp(Color.yellow, Color.green, absValue);
+                sortedData.Add(new PersonalityDisplayData
+                {
+                    Personality = personality,
+                    Value = value,
+                    AbsValue = absValue,
+                    CachedLabelText = cachedLabelText,
+                    CachedLabelColor = cachedLabelColor
+                });
+            }
+            sortedData = sortedData.OrderByDescending(p => p.AbsValue).ToList();
+            cachedPersonalityData[currentPawn] = sortedData;
+            return sortedData;
+        }
+
         public static void DrawPersonalityBox(Rect personalityRect, CompPsyche compPsyche,  Pawn pawn)
         {
-            var personalityDefList = DefDatabase<PersonalityDef>.AllDefs;
             TextAnchor oldAnchor = Text.Anchor;
             GameFont oldFont = Text.Font;
 
@@ -172,7 +243,7 @@ namespace Maux36.RimPsyche
             Rect viewIconRect = new Rect(viewIconX, (headerHeight - iconSize) / 2f, iconSize, iconSize);
 
             // Draw & handle click
-            if (Widgets.ButtonImage(viewIconRect, ViewButton))
+            if (Widgets.ButtonImage(viewIconRect, Rimpsyche_UI_Utility.ViewButton))
             {
                 showBothSide = !showBothSide;
             }
@@ -182,7 +253,7 @@ namespace Maux36.RimPsyche
             Rect editIconRect = new Rect(editIconX, (headerHeight - iconSize) / 2f, iconSize, iconSize);
             if (Prefs.DevMode)
             {
-                if (Widgets.ButtonImage(editIconRect, PsycheButton))
+                if (Widgets.ButtonImage(editIconRect, Rimpsyche_UI_Utility.EditButton))
                 {
                     Find.WindowStack.Add(new PsycheEditPopup(pawn));
                 }
@@ -193,7 +264,9 @@ namespace Maux36.RimPsyche
 
             // === Scroll View Setup ===
             Text.Font = GameFont.Small;
-            float viewHeight = personalityDefList.Count() * rowHeight + 3f;
+            var personalitiesToDisplay = GetSortedPersonalityData(compPsyche, pawn);
+
+            float viewHeight = personalitiesToDisplay.Count() * rowHeight + 3f;
             Rect scrollContentRect = new Rect(0f, 0f, personalityRect.width - 20f, viewHeight);
 
             Rect scrollRect = new Rect(
@@ -209,9 +282,10 @@ namespace Maux36.RimPsyche
 
             if (showBothSide)
             {
-                foreach (var personality in personalityDefList)
+                foreach (var pData in personalitiesToDisplay)
                 {
-                    var value = compPsyche.Personality.GetPersonality(personality);
+                    var personality = pData.Personality;
+                    var value = pData.Value;
                     var (leftLabel, rightLabel, leftColor, rightColor) = (personality.low, personality.high, Color.red, Color.green);
 
                     Rect rowRect = new Rect(0f, y, scrollContentRect.width, rowHeight);
@@ -258,19 +332,7 @@ namespace Maux36.RimPsyche
             }
             else
             {
-                // Filter out personalities with value 0 and sort by absolute value (descending)
-                var significantPersonalities = personalityDefList
-                    .Select(personality => new
-                    {
-                        Personality = personality,
-                        Value = compPsyche.Personality.GetPersonality(personality),
-                        AbsValue = Mathf.Abs(compPsyche.Personality.GetPersonality(personality))
-                    })
-                    .Where(p => Mathf.Abs(p.Value) > float.Epsilon) // Use Epsilon for float comparison to check if value is not zero
-                    .OrderByDescending(p => p.AbsValue)
-                    .ToList();
-
-                foreach (var p in significantPersonalities)
+                foreach (var pData in personalitiesToDisplay)
                 {
                     Rect rowRect = new Rect(0f, y, scrollContentRect.width, rowHeight);
 
@@ -278,48 +340,14 @@ namespace Maux36.RimPsyche
                     if (Mouse.IsOver(rowRect))
                     {
                         Widgets.DrawHighlight(rowRect);
-                        TooltipHandler.TipRegion(rowRect, $"{p.Personality.label}: {Math.Round(p.Value, 1)}");
+                        TooltipHandler.TipRegion(rowRect, $"{pData.Personality.label}: {Math.Round(pData.Value, 1)}");
                     }
-
-                    string labelText = "";
-                    Color labelColor = Color.white; // Default color, will be updated
-
-                    string intensityPrefix = "";
-                    if (p.AbsValue >= 0.75f)
-                    {
-                        intensityPrefix = "Extremely".Translate() + " ";
-                    }
-                    else if (p.AbsValue >= 0.5f)
-                    {
-                        intensityPrefix = "Very".Translate() + " ";
-                    }
-                    else if (p.AbsValue >= 0.25f)
-                    {
-                        intensityPrefix = "Somewhat".Translate() + " ";
-                    }
-                    else if (p.AbsValue > 0f) // Marginally >= 0, but we filtered out 0 already
-                    {
-                        intensityPrefix = "Marginally".Translate() + " ";
-                    }
-
-                    if (p.Value > 0)
-                    {
-                        labelText = intensityPrefix + p.Personality.high;
-                    }
-                    else
-                    {
-                        labelText = intensityPrefix + p.Personality.low;
-                    }
-
-                    // Color code: closer to 0 -> yellow, closer to 1 -> green
-                    // AbsValue is already between 0 and 1
-                    labelColor = Color.Lerp(Color.yellow, Color.green, p.AbsValue);
 
                     // Draw label
                     Text.Anchor = TextAnchor.MiddleLeft;
-                    GUI.color = labelColor;
+                    GUI.color = pData.CachedLabelColor;
                     Rect labelRect = new Rect(rowRect.x + labelPadding, rowRect.y, scrollContentRect.width - (2 * labelPadding), rowHeight);
-                    Widgets.Label(labelRect, labelText);
+                    Widgets.Label(labelRect, pData.CachedLabelText);
                     GUI.color = Color.white; // Reset color
 
                     y += rowHeight;
