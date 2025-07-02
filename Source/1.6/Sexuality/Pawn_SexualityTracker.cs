@@ -5,20 +5,23 @@ namespace Maux36.RimPsyche
     public enum SexualOrientation : byte
     {
         None,
+        Developing,
         Heterosexual,
         Bisexual,
         Homosexual,
-        Asexual,
-        Developing
+        Asexual
     }
     public class Pawn_SexualityTracker : IExposable
     {
         private Pawn pawn;
         public SexualOrientation orientationCategory = SexualOrientation.None;
+        //Heterosexual: 0~0.15
+        //Bisexual: 0.15~0.85
+        //Homosexual: 0.85~1
         public float kinsey = -1f;
         public float sexDrive = 0f;
-        public float attractionM = 0f;
-        public float attractionF = 0f;
+        public float mAattraction = 0f;
+        public float fAattraction = 0f;
         public Pawn_SexualityTracker(Pawn p)
         {
             pawn = p;
@@ -47,8 +50,8 @@ namespace Maux36.RimPsyche
             Scribe_Values.Look(ref orientationCategory, "category", SexualOrientation.None);
             Scribe_Values.Look(ref kinsey, "kinsey", -1f);
             Scribe_Values.Look(ref sexDrive, "sexDrive", 0f);
-            Scribe_Values.Look(ref attractionM, "attractionM", 0f);
-            Scribe_Values.Look(ref attractionF, "attractionF", 0f);
+            Scribe_Values.Look(ref mAattraction, "mAattraction", 0f);
+            Scribe_Values.Look(ref fAattraction, "fAattraction", 0f);
         }
     }
 }

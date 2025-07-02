@@ -395,7 +395,13 @@ namespace Maux36.RimPsyche
                 {
                     var facetI = group[i];
 
-                    if (!changes.TryGetValue(facetI, out float delta) || delta == 0f)
+                    if (!changes.TryGetValue(facetI, out float delta) || Mathf.Approximately(delta,0f))
+                        continue;
+
+                    if (delta > 0 && Mathf.Approximately(GetFacetValueRaw(facetI), 50f))
+                        continue;
+
+                    if (delta < 0 && Mathf.Approximately(GetFacetValueRaw(facetI), -50f))
                         continue;
 
                     // Apply direct change
