@@ -980,11 +980,192 @@
               </li>
             </weights>
           </li>
+          <li>
+            <!-- + : Likes talking about recent events | - : Not interested -->
+            <name>recent_events</name>
+            <controversiality>0</controversiality>
+            <weights>
+              <li>
+                <facet>Sociability</facet>
+                <weight>0.35</weight>
+              </li>
+              <li>
+                <facet>Curiosity</facet>
+                <weight>0.25</weight>
+              </li>
+              <li>
+                <facet>Assertiveness</facet>
+                <weight>0.15</weight>
+              </li>
+              <li>
+                <facet>Pessimism</facet>
+                <weight>-0.15</weight>
+              </li>
+              <li>
+                <facet>Insecurity</facet>
+                <weight>-0.1</weight>
+              </li>
+            </weights>
+          </li>
+          <li>
+            <!-- + : Likes partying | - : Not interested -->
+            <name>party</name>
+            <controversiality>0</controversiality>
+            <weights>
+                <li>
+                    <facet>Sociability</facet>
+                    <weight>0.4</weight>
+                </li>
+                <li>
+                    <facet>Enthusiasm</facet>
+                    <weight>0.35</weight>
+                </li>
+                <li>
+                    <facet>Assertiveness</facet>
+                    <weight>0.1</weight>
+                </li>
+                <li>
+                    <facet>Pessimism</facet>
+                    <weight>-0.05</weight>
+                </li>
+                <li>
+                    <facet>Insecurity</facet>
+                    <weight>-0.05</weight>
+                </li>
+                <li>
+                    <facet>Orderliness</facet>
+                    <weight>-0.025</weight>
+                </li>
+                <li>
+                    <facet>Industriousness</facet>
+                    <weight>-0.025</weight>
+                </li>
+            </weights>
+          </li>
         </topics>
       </li>
+      <li>
+            <!-- + : Welcoming | - : Guarded-->
+          <name>outsiders</name>
+          <controversiality>0.6</controversiality>
+          <weights>
+              <li>
+                  <facet>Curiosity</facet>
+                  <weight>0.3</weight>
+              </li>
+              <li>
+                  <facet>Sociability</facet>
+                  <weight>0.3</weight>
+              </li>
+              <li>
+                  <facet>Intellect</facet>
+                  <weight>0.1</weight>
+              </li>
+              <li>
+                  <facet>Orderliness</facet>
+                  <weight>-0.2</weight>
+              </li>
+              <li>
+                  <facet>Pessimism</facet>
+                  <weight>-0.05</weight>
+              </li>
+              <li>
+                  <facet>Insecurity</facet>
+                  <weight>-0.05</weight>
+              </li>
+              <li>
+                  <facet>Volatility</facet>
+                  <weight>-0.05</weight>
+              </li>
+          </weights>
+      </li>
 
+
+      <li>
+        <name>InterestColonyLife</name>
+        <description>The present shared experience.</description>
+        <scoreWeight>
+          <li>
+            <facet>Sociability</facet>
+            <weight>0.05</weight>
+          </li>
+          <li>
+            <facet>Cooperation</facet>
+            <weight>0.05</weight>
+          </li>
+        </scoreWeight>
+        <topics>
+          <li>
+            <!-- + : Celebrating gender diversity and own identity | - : Prioritizing traditional gender roles and compliance -->
+              <name>gender</name>
+              <controversiality>0.5</controversiality>
+              <weights>
+                  <li>
+                      <facet>Intellect</facet>
+                      <weight>0.25</weight>
+                  </li>
+                  <li>
+                      <facet>Curiosity</facet>
+                      <weight>0.3</weight>
+                  </li>
+                  <li>
+                      <facet>Orderliness</facet>
+                      <weight>-0.2</weight>
+                  </li>
+                  <li>
+                      <facet>Compassion</facet>
+                      <weight>0.15</weight>
+                  </li>
+                  <li>
+                      <facet>Enthusiasm</facet>
+                      <weight>0.05</weight>
+                  </li>
+                  <li>
+                      <facet>Insecurity</facet>
+                      <weight>-0.05</weight>
+                  </li>
+              </weights>
+          </li>
+
+          <li>
+            <!-- + : high self-esteem, confidence | - : low self-esteem, self-doubt -->
+    <name>self_worth</name>
+    <controversiality>0.3</controversiality>
+    <weights>
+        <li>
+            <facet>Assertiveness</facet>
+            <weight>0.35</weight>
+        </li>
+        <li>
+            <facet>Integrity</facet>
+            <weight>0.2</weight>
+        </li>
+        <li>
+            <facet>Enthusiasm</facet>
+            <weight>0.1</weight>
+        </li>
+        <li>
+            <facet>Industriousness</facet>
+            <weight>0.05</weight>
+        </li>
+        <li>
+            <facet>Sociability</facet>
+            <weight>0.05</weight>
+        </li>
+        <li>
+            <facet>Insecurity</facet>
+            <weight>-0.2</weight>
+        </li>
+        <li>
+            <facet>Pessimism</facet>
+            <weight>-0.1</weight>
+        </li>
+        <li>
+            <facet>Volatility</facet>
+            <weight>-0.05</weight>
+        </li>
+    </weights>
+</li>
     </interests>
   </Maux36.RimPsyche.InterestDomainDef>
-
-
 </Defs>
