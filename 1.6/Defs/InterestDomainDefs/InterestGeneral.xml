@@ -70,7 +70,11 @@
               </li>
               <li>
                 <facet>Pessimism</facet>
-                <weight>-0.6</weight>
+                <weight>-0.2</weight>
+              </li>
+              <li>
+                <facet>Humbleness</facet>
+                <weight>0.4</weight>
               </li>
             </weights>
           </li>
@@ -96,7 +100,7 @@
                 <weight>0.2</weight>
               </li>
               <li>
-                <facet>Industriousness</facet>
+                <facet>Humbleness</facet>
                 <weight>0.2</weight>
               </li>
             </weights>
@@ -107,7 +111,7 @@
             <controversiality>0</controversiality>
             <weights>
               <li>
-                <facet>Industriousness</facet>
+                <facet>Humbleness</facet>
                 <weight>0.2</weight>
               </li>
               <li>
@@ -138,7 +142,7 @@
                 <weight>-0.1</weight>
               </li>
               <li>
-                <facet>Industriousness</facet>
+                <facet>Humbleness</facet>
                 <weight>-0.25</weight>
               </li>
               <li>
@@ -223,11 +227,15 @@
             <weights>
               <li>
                 <facet>Pessimism</facet>
-                <weight>-0.35</weight>
+                <weight>-0.25</weight>
+              </li>
+              <li>
+                <facet>Intellect</facet>
+                <weight>0.2</weight>
               </li>
               <li>
                 <facet>Volatility</facet>
-                <weight>-0.2</weight>
+                <weight>-0.1</weight>
               </li>
               <li>
                 <facet>Imagination</facet>
@@ -272,8 +280,8 @@
                 <weight>0.3</weight>
               </li>
               <li>
-                <facet>Volatility</facet>
-                <weight>0.2</weight>
+                <facet>Intellect</facet>
+                <weight>-0.15</weight>
               </li>
               <li>
                 <facet>Imagination</facet>
@@ -281,7 +289,7 @@
               </li>
               <li>
                 <facet>Curiosity</facet>
-                <weight>-0.15</weight>
+                <weight>-0.2</weight>
               </li>
               <li>
                 <facet>Humbleness</facet>
@@ -323,7 +331,7 @@
             <weights>
               <li>
                 <facet>Curiosity</facet>
-                <weight>0.4</weight>
+                <weight>0.3</weight>
               </li>
               <li>
                 <facet>Volatility</facet>
@@ -334,8 +342,12 @@
                 <weight>-0.2</weight>
               </li>
               <li>
+                <facet>Intellect</facet>
+                <weight>0.2</weight>
+              </li>
+              <li>
                 <facet>Orderliness</facet>
-                <weight>-0.3</weight>
+                <weight>-0.2</weight>
               </li>
             </weights>
           </li>
@@ -349,7 +361,7 @@
                 <weight>0.3</weight>
               </li>
               <li>
-                <facet>Industriousness</facet>
+                <facet>Assertiveness</facet>
                 <weight>0.1</weight>
               </li>
               <li>
@@ -381,7 +393,7 @@
               </li>
               <li>
                 <facet>Assertiveness</facet>
-                <weight>0.1</weight>
+                <weight>0.2</weight>
               </li>
               <li>
                 <facet>Pessimism</facet>
@@ -390,10 +402,6 @@
               <li>
                 <facet>Insecurity</facet>
                 <weight>-0.4</weight>
-              </li>
-              <li>
-                <facet>Volatility</facet>
-                <weight>-0.1</weight>
               </li>
             </weights>
           </li>
@@ -426,12 +434,16 @@
             <controversiality>0</controversiality>
             <weights>
               <li>
-                <facet>Orderliness</facet>
-                <weight>0.4</weight>
-              </li>
-              <li>
                 <facet>Industriousness</facet>
                 <weight>0.3</weight>
+              </li>
+              <li>
+                <facet>Orderliness</facet>
+                <weight>0.25</weight>
+              </li>
+              <li>
+                <facet>Intellect</facet>
+                <weight>-0.15</weight>
               </li>
               <li>
                 <facet>Integrity</facet>
@@ -939,7 +951,7 @@
           </li>
           <li>
             <!-- + : Values cohesion | - : Values individual autonomy -->
-            <name>leadership</name>
+            <name>community</name>
             <controversiality>0.5</controversiality>
             <weights>
               <li>
