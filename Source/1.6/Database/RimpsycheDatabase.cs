@@ -17,6 +17,7 @@ namespace Maux36.RimPsyche
         public static HashSet<string> TopicNameList = new();
         public static Dictionary<Pair<string, int>, List<(Facet, float, float)>> TraitGateDatabase = new();
         public static Dictionary<Pair<string, int>, List<(string, float, float)>> TraitScopeDatabase = new();
+        public static Facet[] AllFacets = (Facet[])Enum.GetValues(typeof(Facet));
         //public static Dictionary<Facet, float> facetAccumulated = new();
         static RimpsycheDatabase()
         {

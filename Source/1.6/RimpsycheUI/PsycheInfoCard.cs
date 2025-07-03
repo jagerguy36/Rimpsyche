@@ -25,7 +25,22 @@ namespace Maux36.RimPsyche
         public static Vector2 PersonalityScrollPosition = Vector2.zero;
         public static Vector2 InterestScrollPosition = Vector2.zero;
 
-        //Assets
+        //Cache
+        private static List<PersonalityDisplayData> cachedPersonalityData = new List<PersonalityDisplayData>();
+        private static Pawn lastPawn;
+        private struct PersonalityDisplayData
+        {
+            public PersonalityDef Personality;
+            public float Value;
+            public float AbsValue;
+            public string CachedLabelText;
+            public Color CachedLabelColor;
+        }
+
+        public static void CacheClean()
+        {
+            cachedPersonalityData = null;
+        }
 
         //Options
         public static bool rightPanelVisible = false;
@@ -137,23 +152,11 @@ namespace Maux36.RimPsyche
             GUI.EndGroup();
         }
 
-        private static Dictionary<Pawn, List<PersonalityDisplayData>> cachedPersonalityData = new Dictionary<Pawn, List<PersonalityDisplayData>>();
-        private static Pawn lastPawn;
-        private struct PersonalityDisplayData
-        {
-            public PersonalityDef Personality;
-            public float Value;
-            public float AbsValue;
-            // New fields for cached display text and color (for showBothSide = false mode)
-            public string CachedLabelText;
-            public Color CachedLabelColor;
-        }
-
         private static List<PersonalityDisplayData> GetSortedPersonalityData(CompPsyche compPsyche, Pawn currentPawn)
         {
-            if (currentPawn == lastPawn && cachedPersonalityData.ContainsKey(currentPawn))
+            if (currentPawn == lastPawn && cachedPersonalityData != null)
             {
-                return cachedPersonalityData[currentPawn];
+                return cachedPersonalityData;
             }
 
             lastPawn = currentPawn;
@@ -208,7 +211,7 @@ namespace Maux36.RimPsyche
                 });
             }
             sortedData = sortedData.OrderByDescending(p => p.AbsValue).ToList();
-            cachedPersonalityData[currentPawn] = sortedData;
+            cachedPersonalityData = sortedData;
             return sortedData;
         }
 

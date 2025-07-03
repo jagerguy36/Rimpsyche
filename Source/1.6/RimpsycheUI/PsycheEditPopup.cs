@@ -70,9 +70,9 @@ namespace Maux36.RimPsyche
 
             DrawFacetCard(leftRect, pawn);
 
-            DrawPsycheEditcard(middleRect, pawn); // You will define this method
+            DrawPsycheEditcard(middleRect, pawn);
 
-            DrawSIEditCard(rightRect, pawn); // You will define this method
+            DrawSIEditCard(rightRect, pawn);
         }
 
         public static void DrawSIEditCard(Rect rect, Pawn pawn)
@@ -240,17 +240,10 @@ namespace Maux36.RimPsyche
             Text.Anchor = TextAnchor.UpperLeft;
         }
 
-        public static void DrawFacetCard(Rect rect, Pawn pawn) // Renamed personalityRect to rect for consistency
+        public static void DrawFacetCard(Rect rect, Pawn pawn)
         {
             var compPsyche = pawn.compPsyche();
-            if (compPsyche == null) return; // Added null check for compPsyche
-
-            List<Tuple<Facet, float>> FacetList = new();
-            foreach (Facet facet in Enum.GetValues(typeof(Facet)))
-            {
-                // No need for notation here, it's used in DrawTraitList
-                FacetList.Add(new Tuple<Facet, float>(facet, compPsyche.Personality.GetFacetValue(facet)));
-            }
+            if (compPsyche == null) return;
 
             Text.Font = GameFont.Small;
             TextAnchor oldAnchor = Text.Anchor;
@@ -290,22 +283,17 @@ namespace Maux36.RimPsyche
             }
             TooltipHandler.TipRegion(resetButtonRect, "Psyche_ResetTooltip");
 
-            // The viewRect defines the total scrollable content area within the scroll view.
-            // Its x and y should be 0, as it's the internal coordinate system of the scroll view.
-            float viewHeight = FacetList.Count * rowHeight + 3f;
+            float viewHeight = 15f * rowHeight + 3f;
             Rect viewRect = new Rect(0f, 0f, innerRect.width - 16f, viewHeight); // 16f for scrollbar width
 
-            // The scrollRect defines the *visible area* of the scroll view, and its position
-            // and size must be relative to the 'rect' parameter.
             Rect scrollRect = new Rect(innerRect.x, titleRect.yMax + 5f, innerRect.width, innerRect.height - (titleRect.height + 5f));
             Widgets.BeginScrollView(scrollRect, ref FacetNodeScrollPosition, viewRect);
 
             float y = 0f; // This 'y' is correct as it's relative to the *inside* of the scroll view.
 
-            for (int i = 0; i < FacetList.Count; i++)
+            foreach (Facet facet in FacetHelper.AllFacets)
             {
-                var (facet, value) = FacetList[i];
-                // Ensure InterfaceComponents.FacetNotation is accessible and correctly returns the tuple
+                var value = compPsyche.Personality.GetFacetValue(facet)
                 var (leftLabel, rightLabel, lefColor, rightColor) = InterfaceComponents.FacetNotation[facet];
 
                 // rowRect and its sub-rects are correctly relative to 'y' which is inside viewRect
@@ -337,11 +325,10 @@ namespace Maux36.RimPsyche
                 Widgets.DrawBoxSolid(barRect, new Color(0.2f, 0.2f, 0.2f, 0.5f)); // Bar background
 
                 // Value bar
-                float clamped = Mathf.Clamp(value, -50f, 50f);
-                float halfBar = (Mathf.Abs(clamped) / 50f) * (barWidth / 2f);
+                float halfBar = (Mathf.Abs(value) / 50f) * (barWidth / 2f);
                 Rect valueRect;
 
-                if (clamped >= 0)
+                if (value >= 0)
                 {
                     valueRect = new Rect(barCenterX, barRect.y, halfBar, barHeight);
                 }
@@ -351,7 +338,7 @@ namespace Maux36.RimPsyche
                 }
 
                 // Color gradient: red → green
-                Color barColor = Color.Lerp(lefColor, rightColor, (clamped + 50f) / 100f);
+                Color barColor = Color.Lerp(lefColor, rightColor, (value + 50f) / 100f);
                 Widgets.DrawBoxSolid(valueRect, barColor);
 
                 y += rowHeight * 1f;
@@ -359,6 +346,12 @@ namespace Maux36.RimPsyche
 
             Widgets.EndScrollView();
             Text.Anchor = oldAnchor;
+        }
+
+        public override void PostClose()
+        {
+            base.PostClose()
+            PsycheInfoCard.CacheClean();
         }
     }
 }
