@@ -31,14 +31,14 @@
             <weights>
               <li>
                 <facet>Imagination</facet>
-                <weight>0.1</weight>
-              </li>
-              <li>
-                <facet>Sociability</facet>
-                <weight>0.35</weight>
+                <weight>0.2</weight>
               </li>
               <li>
                 <facet>Enthusiasm</facet>
+                <weight>0.25</weight>
+              </li>
+              <li>
+                <facet>Sociability</facet>
                 <weight>0.15</weight>
               </li>
               <li>
@@ -271,7 +271,7 @@
             </weights>
           </li>
           <li>
-            <!-- + : strong aversion | - : disregard -->
+            <!-- + : strong aversion | - : less affected -->
             <name>fear_of_death</name>
             <controversiality>0</controversiality>
             <weights>
@@ -281,7 +281,7 @@
               </li>
               <li>
                 <facet>Intellect</facet>
-                <weight>-0.15</weight>
+                <weight>-0.25</weight>
               </li>
               <li>
                 <facet>Imagination</facet>
@@ -289,11 +289,7 @@
               </li>
               <li>
                 <facet>Curiosity</facet>
-                <weight>-0.2</weight>
-              </li>
-              <li>
-                <facet>Humbleness</facet>
-                <weight>-0.15</weight>
+                <weight>-0.25</weight>
               </li>
             </weights>
           </li>
@@ -331,7 +327,11 @@
             <weights>
               <li>
                 <facet>Curiosity</facet>
-                <weight>0.3</weight>
+                <weight>0.325</weight>
+              </li>
+              <li>
+                <facet>Intellect</facet>
+                <weight>0.25</weight>
               </li>
               <li>
                 <facet>Volatility</facet>
@@ -340,10 +340,6 @@
               <li>
                 <facet>Pessimism</facet>
                 <weight>-0.2</weight>
-              </li>
-              <li>
-                <facet>Intellect</facet>
-                <weight>0.2</weight>
               </li>
               <li>
                 <facet>Orderliness</facet>
@@ -393,7 +389,7 @@
               </li>
               <li>
                 <facet>Assertiveness</facet>
-                <weight>0.2</weight>
+                <weight>0.25</weight>
               </li>
               <li>
                 <facet>Pessimism</facet>
@@ -401,7 +397,7 @@
               </li>
               <li>
                 <facet>Insecurity</facet>
-                <weight>-0.4</weight>
+                <weight>-0.35</weight>
               </li>
             </weights>
           </li>
@@ -470,10 +466,14 @@
             <weights>
               <li>
                 <facet>Orderliness</facet>
-                <weight>0.4</weight>
+                <weight>0.25</weight>
               </li>
               <li>
                 <facet>Industriousness</facet>
+                <weight>0.15</weight>
+              </li>
+              <li>
+                <facet>Cooperation</facet>
                 <weight>0.2</weight>
               </li>
               <li>
@@ -540,12 +540,12 @@
                 <weight>0.3</weight>
               </li>
               <li>
-                <facet>Pessimism</facet>
-                <weight>-0.2</weight>
+                <facet>Integrity</facet>
+                <weight>0.1</weight>
               </li>
               <li>
                 <facet>Curiosity</facet>
-                <weight>-0.05</weight>
+                <weight>-0.15</weight>
               </li>
               <li>
                 <facet>Volatility</facet>
@@ -603,12 +603,16 @@
                 <weight>0.05</weight>
               </li>
               <li>
+                <facet>Curiosity</facet>
+                <weight>0.1</weight>
+              </li>
+              <li>
                 <facet>Volatility</facet>
-                <weight>-0.4</weight>
+                <weight>-0.35</weight>
               </li>
               <li>
                 <facet>Pessimism</facet>
-                <weight>-0.2</weight>
+                <weight>-0.15</weight>
               </li>
             </weights>
           </li>
@@ -631,7 +635,7 @@
                 <weight>0.1</weight>
               </li>
               <li>
-                <facet>Pessimism</facet>
+                <facet>Humbleness</facet>
                 <weight>-0.2</weight>
               </li>
               <li>
@@ -832,8 +836,12 @@
                 <weight>0.2</weight>
               </li>
               <li>
+                <facet>Integrity</facet>
+                <weight>0.2</weight>
+              </li>
+              <li>
                 <facet>Pessimism</facet>
-                <weight>-0.4</weight>
+                <weight>-0.2</weight>
               </li>
               <li>
                 <facet>Enthusiasm</facet>
@@ -871,11 +879,11 @@
             <weights>
               <li>
                 <facet>Sociability</facet>
-                <weight>0.4</weight>
+                <weight>0.35</weight>
               </li>
               <li>
                 <facet>Cooperation</facet>
-                <weight>0.3</weight>
+                <weight>0.35</weight>
               </li>
               <li>
                 <facet>Compassion</facet>
@@ -902,14 +910,14 @@
             <weights>
               <li>
                 <facet>Integrity</facet>
-                <weight>0.4</weight>
-              </li>
-              <li>
-                <facet>Orderliness</facet>
-                <weight>0.3</weight>
+                <weight>0.35</weight>
               </li>
               <li>
                 <facet>Cooperation</facet>
+                <weight>0.3</weight>
+              </li>
+              <li>
+                <facet>Orderliness</facet>
                 <weight>0.2</weight>
               </li>
               <li>
@@ -917,8 +925,8 @@
                 <weight>-0.05</weight>
               </li>
               <li>
-                <facet>Pessimism</facet>
-                <weight>-0.05</weight>
+                <facet>Humbleness</facet>
+                <weight>0.1</weight>
               </li>
             </weights>
           </li>
@@ -956,11 +964,11 @@
             <weights>
               <li>
                 <facet>Sociability</facet>
-                <weight>0.35</weight>
+                <weight>0.3</weight>
               </li>
               <li>
                 <facet>Cooperation</facet>
-                <weight>0.25</weight>
+                <weight>0.3</weight>
               </li>
               <li>
                 <facet>Compassion</facet>
@@ -1012,160 +1020,280 @@
             <name>party</name>
             <controversiality>0</controversiality>
             <weights>
-                <li>
-                    <facet>Sociability</facet>
-                    <weight>0.4</weight>
-                </li>
-                <li>
-                    <facet>Enthusiasm</facet>
-                    <weight>0.35</weight>
-                </li>
-                <li>
-                    <facet>Assertiveness</facet>
-                    <weight>0.1</weight>
-                </li>
-                <li>
-                    <facet>Pessimism</facet>
-                    <weight>-0.05</weight>
-                </li>
-                <li>
-                    <facet>Insecurity</facet>
-                    <weight>-0.05</weight>
-                </li>
-                <li>
-                    <facet>Orderliness</facet>
-                    <weight>-0.025</weight>
-                </li>
-                <li>
-                    <facet>Industriousness</facet>
-                    <weight>-0.025</weight>
-                </li>
+              <li>
+                <facet>Sociability</facet>
+                <weight>0.4</weight>
+              </li>
+              <li>
+                <facet>Enthusiasm</facet>
+                <weight>0.35</weight>
+              </li>
+              <li>
+                <facet>Assertiveness</facet>
+                <weight>0.1</weight>
+              </li>
+              <li>
+                <facet>Pessimism</facet>
+                <weight>-0.05</weight>
+              </li>
+              <li>
+                <facet>Insecurity</facet>
+                <weight>-0.05</weight>
+              </li>
+              <li>
+                <facet>Industriousness</facet>
+                <weight>-0.05</weight>
+              </li>
+            </weights>
+          </li>
+          <li>
+            <!-- + : Welcoming | - : Guarded-->
+            <name>outsiders</name>
+            <controversiality>0.5</controversiality>
+            <weights>
+              <li>
+                <facet>Sociability</facet>
+                <weight>0.25</weight>
+              </li>
+              <li>
+                <facet>Cooperation</facet>
+                <weight>0.25</weight>
+              </li>
+              <li>
+                <facet>Curiosity</facet>
+                <weight>0.2</weight>
+              </li>
+              <li>
+                <facet>Intellect</facet>
+                <weight>0.1</weight>
+              </li>
+              <li>
+                <facet>Pessimism</facet>
+                <weight>-0.1</weight>
+              </li>
+              <li>
+                <facet>Insecurity</facet>
+                <weight>-0.1</weight>
+              </li>
             </weights>
           </li>
         </topics>
       </li>
-      <li>
-            <!-- + : Welcoming | - : Guarded-->
-          <name>outsiders</name>
-          <controversiality>0.6</controversiality>
-          <weights>
-              <li>
-                  <facet>Curiosity</facet>
-                  <weight>0.3</weight>
-              </li>
-              <li>
-                  <facet>Sociability</facet>
-                  <weight>0.3</weight>
-              </li>
-              <li>
-                  <facet>Intellect</facet>
-                  <weight>0.1</weight>
-              </li>
-              <li>
-                  <facet>Orderliness</facet>
-                  <weight>-0.2</weight>
-              </li>
-              <li>
-                  <facet>Pessimism</facet>
-                  <weight>-0.05</weight>
-              </li>
-              <li>
-                  <facet>Insecurity</facet>
-                  <weight>-0.05</weight>
-              </li>
-              <li>
-                  <facet>Volatility</facet>
-                  <weight>-0.05</weight>
-              </li>
-          </weights>
-      </li>
 
 
       <li>
-        <name>InterestColonyLife</name>
-        <description>The present shared experience.</description>
+        <name>InterestIdentity</name>
+        <description>Who they are and how they view themselves.</description>
         <scoreWeight>
           <li>
-            <facet>Sociability</facet>
+            <facet>Assertiveness</facet>
             <weight>0.05</weight>
           </li>
           <li>
-            <facet>Cooperation</facet>
-            <weight>0.05</weight>
+            <facet>Humbleness</facet>
+            <weight>-0.05</weight>
+          </li>
+          <li>
+            <facet>Insecurity</facet>
+            <weight>-0.05</weight>
           </li>
         </scoreWeight>
         <topics>
           <li>
             <!-- + : Celebrating gender diversity and own identity | - : Prioritizing traditional gender roles and compliance -->
-              <name>gender</name>
-              <controversiality>0.5</controversiality>
-              <weights>
-                  <li>
-                      <facet>Intellect</facet>
-                      <weight>0.25</weight>
-                  </li>
-                  <li>
-                      <facet>Curiosity</facet>
-                      <weight>0.3</weight>
-                  </li>
-                  <li>
-                      <facet>Orderliness</facet>
-                      <weight>-0.2</weight>
-                  </li>
-                  <li>
-                      <facet>Compassion</facet>
-                      <weight>0.15</weight>
-                  </li>
-                  <li>
-                      <facet>Enthusiasm</facet>
-                      <weight>0.05</weight>
-                  </li>
-                  <li>
-                      <facet>Insecurity</facet>
-                      <weight>-0.05</weight>
-                  </li>
-              </weights>
+            <name>gender</name>
+            <controversiality>1</controversiality>
+            <weights>
+              <li>
+                <facet>Intellect</facet>
+                <weight>0.25</weight>
+              </li>
+              <li>
+                <facet>Curiosity</facet>
+                <weight>0.25</weight>
+              </li>
+              <li>
+                <facet>Orderliness</facet>
+                <weight>-0.2</weight>
+              </li>
+              <li>
+                <facet>Compassion</facet>
+                <weight>0.15</weight>
+              </li>
+              <li>
+                <facet>Enthusiasm</facet>
+                <weight>0.05</weight>
+              </li>
+              <li>
+                <facet>Insecurity</facet>
+                <weight>-0.05</weight>
+              </li>
+              <li>
+                <facet>Humbleness</facet>
+                <weight>-0.05</weight>
+              </li>
+            </weights>
           </li>
-
           <li>
             <!-- + : high self-esteem, confidence | - : low self-esteem, self-doubt -->
-    <name>self_worth</name>
-    <controversiality>0.3</controversiality>
-    <weights>
-        <li>
-            <facet>Assertiveness</facet>
-            <weight>0.35</weight>
-        </li>
-        <li>
-            <facet>Integrity</facet>
-            <weight>0.2</weight>
-        </li>
-        <li>
-            <facet>Enthusiasm</facet>
-            <weight>0.1</weight>
-        </li>
-        <li>
-            <facet>Industriousness</facet>
-            <weight>0.05</weight>
-        </li>
-        <li>
-            <facet>Sociability</facet>
-            <weight>0.05</weight>
-        </li>
-        <li>
-            <facet>Insecurity</facet>
-            <weight>-0.2</weight>
-        </li>
-        <li>
-            <facet>Pessimism</facet>
-            <weight>-0.1</weight>
-        </li>
-        <li>
-            <facet>Volatility</facet>
-            <weight>-0.05</weight>
-        </li>
-    </weights>
-</li>
+            <name>self_worth</name>
+            <controversiality>0</controversiality>
+            <weights>
+              <li>
+                <facet>Assertiveness</facet>
+                <weight>0.35</weight>
+              </li>
+              <li>
+                <facet>Humbleness</facet>
+                <weight>-0.3</weight>
+              </li>
+              <li>
+                <facet>Enthusiasm</facet>
+                <weight>0.15</weight>
+              </li>
+              <li>
+                <facet>Insecurity</facet>
+                <weight>-0.2</weight>
+              </li>
+            </weights>
+          </li>
+          <li>
+            <!-- + : Embracing leadership, actively participating | - : Preferring to be a follower or observer, disliking group dynamics -->
+            <name>role_in_group</name>
+            <controversiality>0</controversiality>
+            <weights>
+                <li>
+                    <facet>Assertiveness</facet>
+                    <weight>0.45</weight>
+                </li>
+                <li>
+                    <facet>Enthusiasm</facet>
+                    <weight>0.2</weight>
+                </li>
+                <li>
+                    <facet>Cooperation</facet>
+                    <weight>0.2</weight>
+                </li>
+                <li>
+                    <facet>Insecurity</facet>
+                    <weight>-0.1</weight>
+                </li>
+                <li>
+                    <facet>Humbleness</facet>
+                    <weight>-0.05</weight>
+                </li>
+            </weights>
+          </li>
+          <li>
+            <!-- + :Valuing self-reliance, own choices, personal agency | - : Preferring reliance on others, conformity, seeking guidance and approval, and being comfortable with external direction. -->
+            <name>independence</name>
+            <controversiality>0</controversiality>
+            <weights>
+              <li>
+                <facet>Intellect</facet>
+                <weight>0.1</weight>
+              </li>
+              <li>
+                <facet>Assertiveness</facet>
+                <weight>0.4</weight>
+              </li>
+              <li>
+                <facet>Cooperation</facet>
+                <weight>-0.2</weight>
+              </li>
+              <li>
+                <facet>Humbleness</facet>
+                <weight>-0.15</weight>
+              </li>
+              <li>
+                <facet>Insecurity</facet>
+                <weight>-0.15</weight>
+              </li>
+            </weights>
+          </li>
+          <li>
+            <!-- + :Embracing ambition, setting challenging goals, striving for achievement | - : Lacking ambition, being content with the status quo, avoiding challenges. -->
+            <name>aspirations</name>
+            <controversiality>0</controversiality>
+            <weights>
+              <li>
+                <facet>Industriousness</facet>
+                <weight>0.4</weight>
+              </li>
+              <li>
+                <facet>Imagination</facet>
+                <weight>0.2</weight>
+              </li>
+              <li>
+                <facet>Enthusiasm</facet>
+                <weight>0.2</weight>
+              </li>
+              <li>
+                <facet>Pessimism</facet>
+                <weight>-0.15</weight>
+              </li>
+              <li>
+                <facet>Insecurity</facet>
+                <weight>-0.05</weight>
+              </li>
+            </weights>
+          </li>
+          <li>
+            <!-- + :A strong sense of self. confidence in one's personal self; a desire to express individuality. | - : Discomfort with one's self-perception; Blend in or adopt external identities rather than expressing a unique self. -->
+            <name>identity</name>
+            <controversiality>0</controversiality>
+            <weights>
+              <li>
+                <facet>Intellect</facet>
+                <weight>0.2</weight>
+              </li>
+              <li>
+                <facet>Assertiveness</facet>
+                <weight>0.2</weight>
+              </li>
+              <li>
+                <facet>Humbleness</facet>
+                <weight>-0.35</weight>
+              </li>
+              <li>
+                <facet>Integrity</facet>
+                <weight>0.1</weight>
+              </li>
+              <li>
+                <facet>Insecurity</facet>
+                <weight>-0.15</weight>
+              </li>
+            </weights>
+          </li>
+          <li>
+            <!-- + Valuing authenticity, self-disclosure,demonstration of inner self.. | - : Prioritizing conformity, suppressing self, and avoiding drawing attention to oneself. -->
+            <name>expression</name>
+            <controversiality>0.6</controversiality>
+            <weights>
+              <li>
+                <facet>Imagination</facet>
+                <weight>0.15</weight>
+              </li>
+              <li>
+                <facet>Assertiveness</facet>
+                <weight>0.25</weight>
+              </li>
+              <li>
+                <facet>Enthusiasm</facet>
+                <weight>0.1</weight>
+              </li>
+              <li>
+                <facet>Humbleness</facet>
+                <weight>-0.3</weight>
+              </li>
+              <li>
+                <facet>Insecurity</facet>
+                <weight>-0.2</weight>
+              </li>
+            </weights>
+          </li>
+        </topics>
+      </li>
     </interests>
   </Maux36.RimPsyche.InterestDomainDef>
 </Defs>
