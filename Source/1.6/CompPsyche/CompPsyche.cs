@@ -246,7 +246,7 @@ namespace Maux36.RimPsyche
             startedByParentPawn = false;
             pawnScore = 0f;
             partnerScore = 0f;
-            
+
             var partnerPsyche = convoPartner.compPsyche();
             if (partnerPsyche != null)
             {
@@ -267,7 +267,7 @@ namespace Maux36.RimPsyche
                 float partnerPassion = partnerPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Passion);
                 float partnerTalkativeness = partnerPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Talkativeness);
 
-                
+
                 float talkRand = Rand.Value;
 
                 if (topicAlignment > 0)
@@ -307,17 +307,28 @@ namespace Maux36.RimPsyche
                 partnerScore = negativeScoreBase * (1f - (0.3f * partnerReceiveScore)); //(-2~0) * 0.1~1.9 = -3.8 ~[-1]~ 0
                 Log.Message($"pawnScore: {pawnScore}.partnerScore: {partnerScore}.");
                 //Calcualte fight Chance
-                float pawnStartFightChance = Rimpsyche_Utility.ConvoSocialFightChance(parentPawn, convoPartner, -0.005f * pawnScore * lengthMult * Personality.GetMultiplier(RimpsycheDatabase.SocialFightChanceMultiplier), pawnOpinion);
-                float partnerStartFightChance = Rimpsyche_Utility.ConvoSocialFightChance(convoPartner, parentPawn, -0.005f * partnerScore * lengthMult * partnerPsyche.Personality.GetMultiplier(RimpsycheDatabase.SocialFightChanceMultiplier), partnerOpinion);
-                Log.Message($"pawnStartFightChance: {pawnStartFightChance}. partnerStartFightChance: {partnerStartFightChance}.");
-                if (Rand.Chance(partnerStartFightChance))
+                float pawnStartCandBaseChance = -0.005f * pawnScore * lengthMult * Personality.GetMultiplier(RimpsycheDatabase.SocialFightChanceMultiplier);
+                float partnerStartCandBaseChance = -0.005f * partnerScore * lengthMult * partnerPsyche.Personality.GetMultiplier(RimpsycheDatabase.SocialFightChanceMultiplier);
+                if (pawnStartCandBaseChance >= 0.005f)
                 {
-                    startFight = true;
+
+                    float pawnStartFightChance = Rimpsyche_Utility.ConvoSocialFightChance(parentPawn, convoPartner, pawnStartCandBaseChance, pawnOpinion);
+                    Log.Message($"pawnStartFightChance: {pawnStartFightChance}.");
+                    if (Rand.Chance(pawnStartFightChance))
+                    {
+                        startFight = true;
+                    }
                 }
-                else if (Rand.Chance(pawnStartFightChance))
+                else if (partnerStartCandBaseChance >= 0.005f)
                 {
-                    startFight = true;
-                    startedByParentPawn = true;
+
+                    float partnerStartFightChance = Rimpsyche_Utility.ConvoSocialFightChance(convoPartner, parentPawn, partnerStartCandBaseChance, partnerOpinion);
+                    Log.Message($"partnerStartFightChance: {partnerStartFightChance}.");
+                    if (Rand.Chance(partnerStartFightChance))
+                    {
+                        startFight = true;
+                        startedByParentPawn = true;
+                    }
                 }
                 return startFight;
             }
@@ -331,8 +342,8 @@ namespace Maux36.RimPsyche
             float opinion = parentPawn.relations.OpinionOf(convoPartner) * 0.01f;
             float score = resultOffset; //0~20
             float ageFactor = 0.48f * adultHoodAge / (pawnAge + 0.6f * adultHoodAge) - 0.3f; //0.43333~-0.31072
-            float scoreBase = Mathf.Max(0f,score-11f+pawnTrust*2f+ageFactor*10f);
-            float influenceChance = scoreBase*scoreBase * (1f + opinion*0.2f) * 0.0025f;
+            float scoreBase = Mathf.Max(0f, score - 11f + pawnTrust * 2f + ageFactor * 10f);
+            float influenceChance = scoreBase * scoreBase * (1f + opinion * 0.2f) * 0.0025f;
             Log.Message($"{parentPawn.Name} affect pawn entered with {resultOffset}. scorebase: {scoreBase} direction: {direction}, chance {influenceChance}");
             if (Mathf.Approximately(influenceChance, 0f)) return false;
             if (Rand.Chance(Mathf.Clamp01(influenceChance)))
