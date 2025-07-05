@@ -10,27 +10,6 @@ namespace Maux36.RimPsyche
 {
     public class Rimpsyche_Utility
     {
-
-        public static ThoughtDef CreateSocialThought(string defName, string label, float offset)
-        {
-            ThoughtDef newDef = new ThoughtDef();
-            newDef.defName = defName;
-            newDef.durationDays = 5f;
-            newDef.nullifyingTraits = new List<TraitDef> { TraitDefOf.Psychopath };
-            newDef.thoughtClass = typeof(Thought_MemoryPostDefined);
-            newDef.stackedEffectMultiplier = 0.9f;
-            newDef.stackLimitForSameOtherPawn = 10;
-            newDef.stackLimit = 300;
-            newDef.developmentalStageFilter = DevelopmentalStage.Baby | DevelopmentalStage.Child | DevelopmentalStage.Adult;
-            newDef.socialTargetDevelopmentalStageFilter = DevelopmentalStage.Baby | DevelopmentalStage.Child | DevelopmentalStage.Adult;
-            ThoughtStage stage = new ThoughtStage
-            {
-                label = label,
-                baseOpinionOffset = offset
-            };
-            newDef.stages.Add(stage);
-            return newDef;
-        }
         public static float SaddleShapeFunction(float x, float y, float controversiality = 1)
         {
             float C = 2 * controversiality * controversiality;
@@ -70,8 +49,15 @@ namespace Maux36.RimPsyche
             return false;
         }
         private static int maxConvoOpinions = 10;
-        public static void GainCoversationMemoryFast(Thought_Memory newThought, float opinionOffset, Pawn parentPawn, Pawn otherPawn)
+        public static void GainCoversationMemoryFast(string labelOverride, float opinionOffset, Pawn parentPawn, Pawn otherPawn)
         {
+            Thought_MemoryPostDefined newThought = (Thought_MemoryPostDefined)Activator.CreateInstance(DefOfRimpsyche.Rimpsyche_ConversationOpinion.ThoughtClass);
+            newThought.def = DefOfRimpsyche.Rimpsyche_ConversationOpinion;
+            newThought.sourcePrecept = null;
+            newThought.Init();
+            newThought.labelOverride = labelOverride;
+            newThought.opinionOffset = opinionOffset;
+            Log.Message($"adding thought about {labelOverride} with opinionOffset {opinionOffset}");
             if (newThought.otherPawn == null && otherPawn == null)
             {
                 Log.Error(string.Concat("Can't gain social thought ", newThought.def, " because its otherPawn is null and otherPawn passed to this method is also null. Social thoughts must have otherPawn."));
@@ -105,7 +91,7 @@ namespace Maux36.RimPsyche
                 for (int i = maxConvoOpinions - 1; i < currentConvoMemories.Count; i++)
                 {
                     Thought_MemoryPostDefined m = currentConvoMemories[i];
-                    Log.Message($"{m.def.defName} will be removed");
+                    Log.Message($"{m.labelOverride} will be removed");
                     m.age = m.DurationTicks + 300;
                 }
                 parentPawn.needs?.mood?.thoughts?.memories?.Memories.Add(newThought);

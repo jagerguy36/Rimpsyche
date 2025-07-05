@@ -234,13 +234,7 @@ namespace Maux36.RimPsyche
             {
                 if (opinionOffset != 0)
                 {
-                    ThoughtDef newDef = Rimpsyche_Utility.CreateSocialThought(
-                        "Rimpsyche_Conversation" + parentPawn.GetHashCode() + topic.name,
-                        string.Format("ConversationStage {0}".Translate(), topic.name),
-                        opinionOffset);
-
-                    //Use custom Gain Memory
-                    Rimpsyche_Utility.GainCoversationMemoryFast(ThoughtMaker.MakeThought(newDef, null), opinionOffset, parentPawn, convoPartner);
+                    Rimpsyche_Utility.GainCoversationMemoryFast(string.Format("ConversationStage {0}".Translate(), topic.name), opinionOffset, parentPawn, convoPartner);
                     if(opinionOffset>0) AffectPawn(opinionOffset);
                 }
             }

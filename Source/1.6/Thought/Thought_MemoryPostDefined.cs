@@ -5,41 +5,42 @@ namespace Maux36.RimPsyche
 {
     public class Thought_MemoryPostDefined : Thought_MemorySocial
     {
-        public string defNameOverride;
         public string labelOverride;
-        public float baseOpinionOffsetOverride;
+
         public Thought_MemoryPostDefined(){}
         public override void ExposeData()
         {
-            if (def != null) def.defName = "Rimpsyche_ConversationOpinion";
             base.ExposeData();
-            Scribe_Values.Look(ref defNameOverride, "defNameOverride", "Rimpsyche_ConversationOpinion");
             Scribe_Values.Look(ref labelOverride, "labelOverride", "conversation");
-            Scribe_Values.Look(ref baseOpinionOffsetOverride, "baseOpinionOffsetOverride", 0);
-            if (Scribe.mode == LoadSaveMode.PostLoadInit)
-            {
-                ThoughtDef newDef = Rimpsyche_Utility.CreateSocialThought(defNameOverride, labelOverride, baseOpinionOffsetOverride);
-                def = newDef;
-            }
-            def.defName = defNameOverride;
         }
         public override void Init()
         {
             base.Init();
-            defNameOverride = def.defName;
-            labelOverride = def.stages[0].label;
-            baseOpinionOffsetOverride = def.stages[0].baseOpinionOffset;
-        }
-        public override float OpinionOffset()
-        {
-            return baseOpinionOffsetOverride;
+            labelOverride = "Conversed";
         }
         public override string LabelCap
         {
             get
             {
-                return labelOverride.CapitalizeFirst(); // Per-instance label
+                return labelOverride.CapitalizeFirst();
             }
+        }
+        public override bool GroupsWith(Thought other)
+        {
+            if (!(other is Thought_MemoryPostDefined Thought_MemoryPostDefined))
+            {
+                return false;
+            }
+
+            if (base.GroupsWith(other))
+            {
+                if (otherPawn == Thought_MemoryPostDefined.otherPawn && labelOverride == Thought_MemoryPostDefined.labelOverride)
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
     }
 }
