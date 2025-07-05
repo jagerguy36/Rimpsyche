@@ -207,10 +207,32 @@ namespace Maux36.RimPsyche
                 Pair<string, int> pair = new Pair<string, int>(trait.def.defName, trait.Degree);
                 if (RimpsycheDatabase.TraitGateDatabase.TryGetValue(pair, out var values))
                 {
-                    foreach(var value in values)
+                    foreach (var value in values)
                     {
-                        Log.Message($"{pawn.Name}'s gate is being added by {trait.def.defName} to {value.Item1}");
-                        newGate[value.Item1] = (value.Item2, value.Item3);
+                        var facet = value.Item1;
+                        var newRange = (value.Item2, value.Item3);
+                        if (newGate.TryGetValue(facet, out var existingRange))
+                        {
+                            // Calculate intersection
+                            float intersectMin = Math.Max(existingRange.Item1, newRange.Item1);
+                            float intersectMax = Math.Min(existingRange.Item2, newRange.Item2);
+
+                            if (intersectMin <= intersectMax)
+                            {
+                                newGate[facet] = (intersectMin, intersectMax);
+                                Log.Message($"{pawn.Name}'s gate for {facet} intersected to ({intersectMin}, {intersectMax})");
+                            }
+                            else
+                            {
+                                Log.Warning($"{pawn.Name}'s gate for {facet} has no overlap; removing the restrictions");
+                                 newGate.Remove(facet);
+                            }
+                        }
+                        else
+                        {
+                            newGate[facet] = newRange;
+                            Log.Message($"{pawn.Name}'s gate is being added by {trait.def.defName} to {facet}");
+                        }
                     }
                 }
             }

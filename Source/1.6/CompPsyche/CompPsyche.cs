@@ -212,7 +212,7 @@ namespace Maux36.RimPsyche
                     convoPartner.interactions.StartSocialFight(parentPawn);
                 }
             }
-            var entry = new PlayLogEntry_InteractionConversation(intDef, parentPawn, convoPartner, topic.name, extraSents);
+            PlayLogEntry_InteractionConversation entry = new PlayLogEntry_InteractionConversation(intDef, parentPawn, convoPartner, topic.name, extraSents);
             if (showMote)
             {
                 if (convoPartner.Map != null && parentPawn.Map != null)
@@ -346,6 +346,7 @@ namespace Maux36.RimPsyche
             float scoreBase = Mathf.Max(0f,score-11f+pawnTrust*2f+ageFactor*10f);
             float influenceChance = scoreBase*scoreBase * (1f + opinion*0.2f) * 0.0025f;
             Log.Message($"{parentPawn.Name} affect pawn entered with {resultOffset}. scorebase: {scoreBase} direction: {direction}, chance {influenceChance}");
+            if (Mathf.Approximately(influenceChance, 0f)) return false;
             if (Rand.Chance(Mathf.Clamp01(influenceChance)))
             {
                 influenceChance *= direction;

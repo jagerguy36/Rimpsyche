@@ -50,6 +50,13 @@
         <weight>-0.25</weight>
       </li>
     </scoreWeight>
+    <scopes>
+      <li MayRequire="Ludeon.RimWorld.Biotech">
+        <traitDefname>Recluse</traitDefname>
+        <lowEnd>-1</lowEnd>
+        <highEnd>0</highEnd>
+      </li>
+    </scopes>
   </Maux36.RimPsyche.PersonalityDef>
 
   <Maux36.RimPsyche.PersonalityDef>
@@ -196,6 +203,13 @@
         <weight>0.2</weight>
       </li>
     </scoreWeight>
+    <scopes>
+      <li>
+        <traitDefname>Nudist</traitDefname>
+        <lowEnd>-1</lowEnd>
+        <highEnd>0</highEnd>
+      </li>
+    </scopes>
   </Maux36.RimPsyche.PersonalityDef>
 
   <Maux36.RimPsyche.PersonalityDef>

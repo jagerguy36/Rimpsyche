@@ -291,9 +291,9 @@ namespace Maux36.RimPsyche
 
             float y = 0f; // This 'y' is correct as it's relative to the *inside* of the scroll view.
 
-            foreach (Facet facet in FacetHelper.AllFacets)
+            foreach (Facet facet in RimpsycheDatabase.AllFacets)
             {
-                var value = compPsyche.Personality.GetFacetValue(facet)
+                var value = compPsyche.Personality.GetFacetValue(facet);
                 var (leftLabel, rightLabel, lefColor, rightColor) = InterfaceComponents.FacetNotation[facet];
 
                 // rowRect and its sub-rects are correctly relative to 'y' which is inside viewRect
@@ -350,7 +350,7 @@ namespace Maux36.RimPsyche
 
         public override void PostClose()
         {
-            base.PostClose()
+            base.PostClose();
             PsycheInfoCard.CacheClean();
         }
     }
