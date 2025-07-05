@@ -80,8 +80,6 @@ namespace Maux36.RimPsyche
 
         public float GetPersonality(PersonalityDef personality) //-1~1
         {
-            if (personality == null || string.IsNullOrEmpty(personality.defName))
-                return 0f;
             if (personalityCache.TryGetValue(personality.defName, out float cachedValue))
             {
                 return cachedValue;

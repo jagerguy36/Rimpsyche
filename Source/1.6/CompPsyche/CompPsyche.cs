@@ -200,7 +200,7 @@ namespace Maux36.RimPsyche
             var intDef = DefOfRimpsyche.Rimpsyche_EndConversation;
             List<RulePackDef> extraSents = [];
             //If partnerScore<0 or pawnScore <0 check social fight chance.
-            if(startedSocialFight)
+            if (startedSocialFight)
             {
                 extraSents.Add(DefOfRimpsyche.Sentence_RimpsycheSocialFightConvoInitiatorStarted);
                 if (startedByParentPawn)
@@ -235,15 +235,10 @@ namespace Maux36.RimPsyche
                 if (opinionOffset != 0)
                 {
                     Rimpsyche_Utility.GainCoversationMemoryFast(string.Format("ConversationStage {0}".Translate(), topic.name), opinionOffset, parentPawn, convoPartner);
-                    if(opinionOffset>0) AffectPawn(opinionOffset);
+                    if (opinionOffset > 0) AffectPawn(opinionOffset);
                 }
             }
-            convoStartedTick = -1;
-            convoCheckTick = -1;
-            convoPartner = null;
-            topic = null;
-            topicAlignment = 0f;
-            direction = 0f;
+            CleanUp();
         }
         public bool GetConvoResult(float lengthMult, out float pawnScore, out float partnerScore, out bool startedByParentPawn)
         {
@@ -315,15 +310,14 @@ namespace Maux36.RimPsyche
                 float pawnStartFightChance = Rimpsyche_Utility.ConvoSocialFightChance(parentPawn, convoPartner, -0.005f * pawnScore * lengthMult * Personality.GetMultiplier(RimpsycheDatabase.SocialFightChanceMultiplier), pawnOpinion);
                 float partnerStartFightChance = Rimpsyche_Utility.ConvoSocialFightChance(convoPartner, parentPawn, -0.005f * partnerScore * lengthMult * partnerPsyche.Personality.GetMultiplier(RimpsycheDatabase.SocialFightChanceMultiplier), partnerOpinion);
                 Log.Message($"pawnStartFightChance: {pawnStartFightChance}. partnerStartFightChance: {partnerStartFightChance}.");
-                if (Rand.Chance(pawnStartFightChance))
+                if (Rand.Chance(partnerStartFightChance))
                 {
                     startFight = true;
-                    startedByParentPawn = true;
                 }
                 else if (Rand.Chance(pawnStartFightChance))
                 {
                     startFight = true;
-                    startedByParentPawn = false;
+                    startedByParentPawn = true;
                 }
                 return startFight;
             }
