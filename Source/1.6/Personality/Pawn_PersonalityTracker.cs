@@ -247,8 +247,30 @@ namespace Maux36.RimPsyche
                 {
                     foreach(var value in values)
                     {
-                        Log.Message($"{pawn.Name}'s scope is being added by {trait.def.defName} to {value.Item1}");
-                        newScope[value.Item1] = (value.Item2, value.Item3);
+                        var personalityName = value.Item1;
+                        var newRange = (value.Item2, value.Item3);
+                        if (newScope.TryGetValue(personalityName, out var existingRange))
+                        {
+                            // Calculate intersection
+                            float intersectMin = Math.Max(existingRange.Item1, newRange.Item1);
+                            float intersectMax = Math.Min(existingRange.Item2, newRange.Item2);
+
+                            if (intersectMin <= intersectMax)
+                            {
+                                newScope[personalityName] = (intersectMin, intersectMax);
+                                Log.Message($"{pawn.Name}'s scope for {personalityName} intersected to ({intersectMin}, {intersectMax})");
+                            }
+                            else
+                            {
+                                Log.Warning($"{pawn.Name}'s scope for {personalityName} has no overlap; removing the restrictions");
+                                newScope.Remove(personalityName);
+                            }
+                        }
+                        else
+                        {
+                            newScope[personalityName] = newRange;
+                            Log.Message($"{pawn.Name}'s scope is being added by {trait.def.defName} to {personalityName}");
+                        }
                     }
                 }
             }

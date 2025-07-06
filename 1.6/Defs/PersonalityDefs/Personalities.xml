@@ -57,6 +57,20 @@
         <highEnd>0</highEnd>
       </li>
     </scopes>
+    <scopes>
+      <li>
+        <traitDefname>TooSmart</traitDefname>
+        <lowEnd>-1</lowEnd>
+        <highEnd>0</highEnd>
+      </li>
+    </scopes>
+    <scopes>
+      <li>
+        <traitDefname>Recluse</traitDefname>
+        <lowEnd>-1</lowEnd>
+        <highEnd>-0.5</highEnd>
+      </li>
+    </scopes>
   </Maux36.RimPsyche.PersonalityDef>
 
   <Maux36.RimPsyche.PersonalityDef>
@@ -91,6 +105,13 @@
         <weight>-0.05</weight>
       </li>
     </scoreWeight>
+    <scopes>
+      <li>
+        <traitDefname>Abrasive</traitDefname>
+        <lowEnd>-1</lowEnd>
+        <highEnd>0</highEnd>
+      </li>
+    </scopes>
   </Maux36.RimPsyche.PersonalityDef>
 
   <Maux36.RimPsyche.PersonalityDef>
@@ -125,6 +146,18 @@
         <weight>0.05</weight>
       </li>
     </scoreWeight>
+    <scopes>
+      <li>
+        <traitDefname>BodyPurist</traitDefname>
+        <lowEnd>-1</lowEnd>
+        <highEnd>0</highEnd>
+      </li>
+      <li>
+        <traitDefname>Transhumanist</traitDefname>
+        <lowEnd>0</lowEnd>
+        <highEnd>1</highEnd>
+      </li>
+    </scopes>
   </Maux36.RimPsyche.PersonalityDef>
 
   <Maux36.RimPsyche.PersonalityDef>
@@ -240,6 +273,18 @@
         <weight>0.25</weight>
       </li>
     </scoreWeight>
+    <scopes>
+      <li>
+        <traitDefname>Bloodlust</traitDefname>
+        <lowEnd>0</lowEnd>
+        <highEnd>1</highEnd>
+      </li>
+      <li>
+        <traitDefname>Kind</traitDefname>
+        <lowEnd>-1</lowEnd>
+        <highEnd>0</highEnd>
+      </li>
+    </scopes>
   </Maux36.RimPsyche.PersonalityDef>
 
   <Maux36.RimPsyche.PersonalityDef>
@@ -270,6 +315,26 @@
         <weight>-0.1</weight>
       </li>
     </scoreWeight>
+    <scopes>
+      <li>
+        <traitDefname>DrugDesire</traitDefname>
+        <degree>-1</degree>
+        <lowEnd>-1</lowEnd>
+        <highEnd>0</highEnd>
+      </li>
+      <li>
+        <traitDefname>DrugDesire</traitDefname>
+        <degree>1</degree>
+        <lowEnd>0</lowEnd>
+        <highEnd>1</highEnd>
+      </li>
+      <li>
+        <traitDefname>DrugDesire</traitDefname>
+        <degree>2</degree>
+        <lowEnd>0.5</lowEnd>
+        <highEnd>1</highEnd>
+      </li>
+    </scopes>
   </Maux36.RimPsyche.PersonalityDef>
 
   <Maux36.RimPsyche.PersonalityDef>
@@ -296,6 +361,13 @@
         <weight>-0.1</weight>
       </li>
     </scoreWeight>
+    <scopes>
+      <li>
+        <traitDefname>TorturedArtist</traitDefname>
+        <lowEnd>0</lowEnd>
+        <highEnd>1</highEnd>
+      </li>
+    </scopes>
   </Maux36.RimPsyche.PersonalityDef>
 
   <Maux36.RimPsyche.PersonalityDef>
@@ -326,6 +398,32 @@
         <weight>-0.1</weight>
       </li>
     </scoreWeight>
+    <scopes>
+      <li>
+        <traitDefname>Industriousness</traitDefname>
+        <degree>2</degree>
+        <lowEnd>0.5</lowEnd>
+        <highEnd>1</highEnd>
+      </li>
+      <li>
+        <traitDefname>Industriousness</traitDefname>
+        <degree>1</degree>
+        <lowEnd>0</lowEnd>
+        <highEnd>1</highEnd>
+      </li>
+      <li>
+        <traitDefname>Industriousness</traitDefname>
+        <degree>-1</degree>
+        <lowEnd>-1</lowEnd>
+        <highEnd>0</highEnd>
+      </li>
+      <li>
+        <traitDefname>Industriousness</traitDefname>
+        <degree>-2</degree>
+        <lowEnd>-1</lowEnd>
+        <highEnd>-0.5</highEnd>
+      </li>
+    </scopes>
   </Maux36.RimPsyche.PersonalityDef>
 
   <Maux36.RimPsyche.PersonalityDef>
@@ -356,6 +454,20 @@
         <weight>-0.1</weight>
       </li>
     </scoreWeight>
+    <scopes>
+      <li>
+        <traitDefname>Neurotic</traitDefname>
+        <degree>1</degree>
+        <lowEnd>0</lowEnd>
+        <highEnd>1</highEnd>
+      </li>
+      <li>
+        <traitDefname>Nerves</traitDefname>
+        <degree>2</degree>
+        <lowEnd>0.5</lowEnd>
+        <highEnd>1</highEnd>
+      </li>
+    </scopes>
   </Maux36.RimPsyche.PersonalityDef>
 
   <Maux36.RimPsyche.PersonalityDef>
@@ -386,6 +498,26 @@
         <weight>-0.1</weight>
       </li>
     </scoreWeight>
+    <scopes>
+      <li>
+        <traitDefname>DrugDesire</traitDefname>
+        <degree>-1</degree>
+        <lowEnd>0</lowEnd>
+        <highEnd>1</highEnd>
+      </li>
+      <li>
+        <traitDefname>DrugDesire</traitDefname>
+        <degree>1</degree>
+        <lowEnd>-1</lowEnd>
+        <highEnd>0</highEnd>
+      </li>
+      <li>
+        <traitDefname>DrugDesire</traitDefname>
+        <degree>2</degree>
+        <lowEnd>-1</lowEnd>
+        <highEnd>-0.5</highEnd>
+      </li>
+    </scopes>
   </Maux36.RimPsyche.PersonalityDef>
 
   <Maux36.RimPsyche.PersonalityDef>
@@ -476,6 +608,13 @@
         <weight>0.3</weight>
       </li>
     </scoreWeight>
+    <scopes>
+      <li>
+        <traitDefname>Psychopath</traitDefname>
+        <lowEnd>-1</lowEnd>
+        <highEnd>0</highEnd>
+      </li>
+    </scopes>
   </Maux36.RimPsyche.PersonalityDef>
 
   <Maux36.RimPsyche.PersonalityDef>
@@ -502,6 +641,13 @@
         <weight>0.1</weight>
       </li>
     </scoreWeight>
+    <scopes>
+      <li>
+        <traitDefname>Psychopath</traitDefname>
+        <lowEnd>-1</lowEnd>
+        <highEnd>-0.75</highEnd>
+      </li>
+    </scopes>
   </Maux36.RimPsyche.PersonalityDef>
 
   <Maux36.RimPsyche.PersonalityDef>
@@ -536,6 +682,32 @@
         <weight>0.2</weight>
       </li>
     </scoreWeight>
+    <scopes>
+      <li>
+        <traitDefname>Nerves</traitDefname>
+        <degree>-2</degree>
+        <lowEnd>0.5</lowEnd>
+        <highEnd>1</highEnd>
+      </li>
+      <li>
+        <traitDefname>Nerves</traitDefname>
+        <degree>-1</degree>
+        <lowEnd>0</lowEnd>
+        <highEnd>1</highEnd>
+      </li>
+      <li>
+        <traitDefname>Nerves</traitDefname>
+        <degree>1</degree>
+        <lowEnd>-1</lowEnd>
+        <highEnd>0</highEnd>
+      </li>
+      <li>
+        <traitDefname>Nerves</traitDefname>
+        <degree>2</degree>
+        <lowEnd>-1</lowEnd>
+        <highEnd>-0.5</highEnd>
+      </li>
+    </scopes>
   </Maux36.RimPsyche.PersonalityDef>
 
   <Maux36.RimPsyche.PersonalityDef>
@@ -570,6 +742,13 @@
         <weight>0.1</weight>
       </li>
     </scoreWeight>
+    <scopes>
+      <li>
+        <traitDefname>Psychopath</traitDefname>
+        <lowEnd>-1</lowEnd>
+        <highEnd>0</highEnd>
+      </li>
+    </scopes>
   </Maux36.RimPsyche.PersonalityDef>
 
 <Maux36.RimPsyche.PersonalityDef>
@@ -678,6 +857,13 @@
         <weight>-0.1</weight>
       </li>
     </scoreWeight>
+    <scopes>
+      <li>
+        <traitDefname>Psychopath</traitDefname>
+        <lowEnd>-1</lowEnd>
+        <highEnd>0</highEnd>
+      </li>
+    </scopes>
   </Maux36.RimPsyche.PersonalityDef>
 
   <Maux36.RimPsyche.PersonalityDef>
@@ -780,6 +966,20 @@
         <weight>0.1</weight>
       </li>
     </scoreWeight>
+    <scopes>
+      <li>
+        <traitDefname>ShootingAccuracy</traitDefname>
+        <degree>1</degree>
+        <lowEnd>0</lowEnd>
+        <highEnd>1</highEnd>
+      </li>
+      <li>
+        <traitDefname>ShootingAccuracy</traitDefname>
+        <degree>-1</degree>
+        <lowEnd>-1</lowEnd>
+        <highEnd>0</highEnd>
+      </li>
+    </scopes>
   </Maux36.RimPsyche.PersonalityDef>
 
   <Maux36.RimPsyche.PersonalityDef>
@@ -870,6 +1070,13 @@
         <weight>-0.25</weight>
       </li>
     </scoreWeight>
+    <scopes>
+      <li>
+        <traitDefname>Wimp</traitDefname>
+        <lowEnd>-1</lowEnd>
+        <highEnd>0</highEnd>
+      </li>
+    </scopes>
   </Maux36.RimPsyche.PersonalityDef>
 
   <Maux36.RimPsyche.PersonalityDef>
@@ -952,6 +1159,13 @@
         <weight>-0.4</weight>
       </li>
     </scoreWeight>
+    <scopes>
+      <li>
+        <traitDefname>Jealous</traitDefname>
+        <lowEnd>0</lowEnd>
+        <highEnd>1</highEnd>
+      </li>
+    </scopes>
   </Maux36.RimPsyche.PersonalityDef>
 
   <Maux36.RimPsyche.PersonalityDef>
@@ -986,5 +1200,12 @@
         <weight>-0.15</weight>
       </li>
     </scoreWeight>
+    <scopes>
+      <li>
+        <traitDefname>Greedy</traitDefname>
+        <lowEnd>0</lowEnd>
+        <highEnd>1</highEnd>
+      </li>
+    </scopes>
   </Maux36.RimPsyche.PersonalityDef>
 </Defs>
