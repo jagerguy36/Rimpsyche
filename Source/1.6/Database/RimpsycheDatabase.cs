@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -11,15 +12,35 @@ namespace Maux36.RimPsyche
     public class RimpsycheDatabase
     {
         public static HashSet<Interest> InterestList = new();
-        public static HashSet<string> InterestNameList = new();
         public static Dictionary<Interest, InterestDomainDef> InterestDomainDict = new();
-        public static HashSet<Topic> TopicList = new();
-        public static HashSet<string> TopicNameList = new();
+        //public static HashSet<string> InterestNameList = new();
+        //public static HashSet<Topic> TopicList = new();
+        //public static HashSet<string> TopicNameList = new();
         public static Dictionary<Pair<string, int>, List<(string, float, float)>> TraitScopeDatabase = new();
         public static Facet[] AllFacets = (Facet[])Enum.GetValues(typeof(Facet));
         //public static Dictionary<Facet, float> facetAccumulated = new();
+
+        public static Dictionary<string, string> IntensityKeysDefault = new Dictionary<string, string>()
+        {
+            { "RimPsycheIntensityExtremely", "Extremely" },
+            { "RimPsycheIntensityVery", "Very" },
+            { "RimPsycheIntensitySomewhat", "Somewhat" },
+            { "RimPsycheIntensityMarginally", "Marginally" },
+            { "RimPsycheIntensityBarely", "Barely" }
+        };
+        public static string conversationMemoryString;
+
         static RimpsycheDatabase()
         {
+            if (LanguageDatabase.activeLanguage.HaveTextForKey("MemoryReportString"))
+            {
+                conversationMemoryString = "MemoryReportString".Translate();
+            }
+            else
+            {
+                conversationMemoryString = "Conversation about {0}";
+            }
+
             //Interest and Topic
             foreach (var interestdomain in DefDatabase<InterestDomainDef>.AllDefs)
             {
@@ -27,11 +48,11 @@ namespace Maux36.RimPsyche
                 foreach (var interest in interestdomain.interests)
                 {
                     InterestDomainDict.Add(interest, interestdomain);
-                    InterestNameList.Add(interest.name);
-                    TopicList.AddRange(interest.topics);
+                    //InterestNameList.Add(interest.name);
+                    //TopicList.AddRange(interest.topics);
                     foreach(var topic in interest.topics)
                     {
-                        TopicNameList.Add(topic.name);
+                        //TopicNameList.Add(topic.name);
                         float absoluteWeightSum = topic.weights.Sum(fw => Mathf.Abs(fw.weight));
                         if (Math.Abs(absoluteWeightSum - 1) > 0.001f) // Use a small tolerance due to floating-point precision
                         {

@@ -433,57 +433,53 @@ namespace Maux36.RimPsyche
 
             foreach (var group in Groups.Values)
             {
-                for (int i = 0; i < group.Length; i++)
+                int groupLength = group.Length;
+                for (int i = 0; i < groupLength; i++)
                 {
                     var facetI = group[i];
 
                     if (!changes.TryGetValue(facetI, out float delta) || Mathf.Approximately(delta,0f))
                         continue;
-
-                    if (delta > 0 && Mathf.Approximately(GetFacetValueRaw(facetI), 50f))
+                    
+                    float currentFacetValue = GetFacetValueRaw(facetI);
+                    if (delta > 0 && Mathf.Approximately(currentFacetValue, 50f))
                         continue;
 
-                    if (delta < 0 && Mathf.Approximately(GetFacetValueRaw(facetI), -50f))
+                    if (delta < 0 && Mathf.Approximately(currentFacetValue, -50f))
                         continue;
 
                     // Apply direct change
                     netChanges[facetI] = delta;
 
                     // Apply side-effects to other facets in the group
-                    for (int j = 0; j < group.Length; j++)
+                    for (int j = 0; j < groupLength; j++)
                     {
                         if (i == j) continue;
 
                         var facetJ = group[j];
-                        if (changes.ContainsKey(facetJ)) continue;
-                        netChanges.TryGetValue(facetJ, out float existing);
-                        netChanges[facetJ] = existing + delta * 0.1f;
-                    }
-                    // Apply side-effects to other facets in the group
-                    foreach (var facetJ in group)
-                    {
-                        if (facetI == facetJ || changes.ContainsKey(facetJ))
-                            continue;
 
-                        netChanges.TryGetValue(facetJ, out float existing);
-                        netChanges[facetJ] = existing + delta * 0.1f;
+                        if (!changes.ContainsKey(facetJ))
+                        {
+                            if (!netChanges.ContainsKey(facetJ))
+                                netChanges[facetJ] = delta * 0.1f;
+                            else
+                                netChanges[facetJ] += delta * 0.1f;
+                        }
                     }
                 }
             }
 
             // Apply all accumulated changes
+            bool hasGateCache = !gateCache.NullOrEmpty();
             foreach (var kvp in netChanges)
             {
                 float currentValue = GetFacetValue(kvp.Key);
                 float adjustedFuture = currentValue+kvp.Value;
 
-                if (!gateCache.NullOrEmpty())
+                if (hasGateCache && gateCache.TryGetValue(kvp.Key, out var range))
                 {
-                    if (gateCache.TryGetValue(kvp.Key, out var range))
-                    {
-                        var (low, high) = range;
-                        adjustedFuture = Rimpsyche_Utility.RestoreGatedValue(adjustedFuture, low, high);
-                    }
+                    var (low, high) = range;
+                    adjustedFuture = Rimpsyche_Utility.RestoreGatedValue(adjustedFuture, low, high);
                 }
                 Log.Message($"adjusting facet {kvp.Key} from {GetFacetValueRaw(kvp.Key)} to {adjustedFuture}");
                 if (SetFacetValue(kvp.Key, adjustedFuture))

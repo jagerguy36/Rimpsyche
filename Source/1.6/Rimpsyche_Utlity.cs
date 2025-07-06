@@ -49,15 +49,16 @@ namespace Maux36.RimPsyche
             return false;
         }
         private static int maxConvoOpinions = 10;
-        public static void GainCoversationMemoryFast(string labelOverride, float opinionOffset, Pawn parentPawn, Pawn otherPawn)
+        public static void GainCoversationMemoryFast(string topicName, string topicLabel, float opinionOffset, Pawn parentPawn, Pawn otherPawn)
         {
             Thought_MemoryPostDefined newThought = (Thought_MemoryPostDefined)Activator.CreateInstance(DefOfRimpsyche.Rimpsyche_ConversationOpinion.ThoughtClass);
             newThought.def = DefOfRimpsyche.Rimpsyche_ConversationOpinion;
             newThought.sourcePrecept = null;
             newThought.Init();
-            newThought.labelOverride = labelOverride;
+            newThought.topicName = topicName;
+            newThought.topicLabel = topicLabel;
             newThought.opinionOffset = opinionOffset;
-            Log.Message($"adding thought about {labelOverride} with opinionOffset {opinionOffset}");
+            Log.Message($"adding thought about {topicLabel} with opinionOffset {opinionOffset}");
             if (newThought.otherPawn == null && otherPawn == null)
             {
                 Log.Error(string.Concat("Can't gain social thought ", newThought.def, " because its otherPawn is null and otherPawn passed to this method is also null. Social thoughts must have otherPawn."));
@@ -91,7 +92,7 @@ namespace Maux36.RimPsyche
                 for (int i = maxConvoOpinions - 1; i < currentConvoMemories.Count; i++)
                 {
                     Thought_MemoryPostDefined m = currentConvoMemories[i];
-                    Log.Message($"{m.labelOverride} will be removed");
+                    Log.Message($"{m.topicLabel} will be removed");
                     m.age = m.DurationTicks + 300;
                 }
                 parentPawn.needs?.mood?.thoughts?.memories?.Memories.Add(newThought);
@@ -115,7 +116,7 @@ namespace Maux36.RimPsyche
                 }
             }
             float num = startCandOpinio;
-            socialFightBaseChance = ((!(num < 0f)) ? (socialFightBaseChance * GenMath.LerpDouble(0f, 100f, 1f, 0.6f, num)) : (socialFightBaseChance * GenMath.LerpDouble(-100f, 0f, 4f, 1f, num)));
+            socialFightBaseChance = ((!(num < 0f)) ? (socialFightBaseChance * GenMath.LerpDouble(0f, 1f, 1f, 0.6f, num)) : (socialFightBaseChance * GenMath.LerpDouble(-1f, 0f, 4f, 1f, num)));
             if (startCand.RaceProps.Humanlike)
             {
                 List<Trait> allTraits = startCand.story.traits.allTraits;
@@ -179,7 +180,7 @@ namespace Maux36.RimPsyche
 
         public static float GetMinAdultAge(Pawn pawn)
         {
-            return pawn.ageTracker.AdultMinAge; ;
+            return Mathf.Max(1f, pawn.ageTracker.AdultMinAge);
         }
 
     }

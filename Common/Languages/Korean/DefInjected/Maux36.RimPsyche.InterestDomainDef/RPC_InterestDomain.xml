@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<LanguageData>
+  <Rimpsyche_InterestDomainGeneral.label>일반 관심사</Rimpsyche_InterestDomainGeneral.label>
+  <Rimpsyche_InterestDomainGeneral.interests.0.label>일상</Rimpsyche_InterestDomainGeneral.interests.0.label>
+  <Rimpsyche_InterestDomainGeneral.interests.0.topics.0.label>날씨</Rimpsyche_InterestDomainGeneral.interests.0.topics.0.label>
+  <Rimpsyche_InterestDomainGeneral.interests.0.topics.1.label>수면의 질</Rimpsyche_InterestDomainGeneral.interests.0.topics.1.label>
+  <Rimpsyche_InterestDomainGeneral.interests.0.topics.2.label>고통</Rimpsyche_InterestDomainGeneral.interests.0.topics.2.label>
+  <Rimpsyche_InterestDomainGeneral.interests.0.topics.3.label>배고픔</Rimpsyche_InterestDomainGeneral.interests.0.topics.3.label>
+  <Rimpsyche_InterestDomainGeneral.interests.0.topics.4.label>편안함</Rimpsyche_InterestDomainGeneral.interests.0.topics.4.label>
+  <Rimpsyche_InterestDomainGeneral.interests.0.topics.5.label>안전</Rimpsyche_InterestDomainGeneral.interests.0.topics.5.label>
+  <Rimpsyche_InterestDomainGeneral.interests.0.topics.6.label>부상</Rimpsyche_InterestDomainGeneral.interests.0.topics.6.label>
+
+  <Rimpsyche_InterestDomainGeneral.interests.1.label>꿈과 두려움</Rimpsyche_InterestDomainGeneral.interests.1.label>
+  <Rimpsyche_InterestDomainGeneral.interests.1.topics.0.label>악몽</Rimpsyche_InterestDomainGeneral.interests.1.topics.0.label>
+  <Rimpsyche_InterestDomainGeneral.interests.1.topics.1.label>희망</Rimpsyche_InterestDomainGeneral.interests.1.topics.1.label>
+  <Rimpsyche_InterestDomainGeneral.interests.1.topics.2.label>죽음과 공포</Rimpsyche_InterestDomainGeneral.interests.1.topics.2.label>
+  <Rimpsyche_InterestDomainGeneral.interests.1.topics.3.label>상실</Rimpsyche_InterestDomainGeneral.interests.1.topics.3.label>
+  <Rimpsyche_InterestDomainGeneral.interests.1.topics.4.label>불확실성</Rimpsyche_InterestDomainGeneral.interests.1.topics.4.label>
+  <Rimpsyche_InterestDomainGeneral.interests.1.topics.5.label>갈망</Rimpsyche_InterestDomainGeneral.interests.1.topics.5.label>
+  <Rimpsyche_InterestDomainGeneral.interests.1.topics.6.label>용기</Rimpsyche_InterestDomainGeneral.interests.1.topics.6.label>
+
+  <Rimpsyche_InterestDomainGeneral.interests.2.label>하루 일과</Rimpsyche_InterestDomainGeneral.interests.2.label>
+  <Rimpsyche_InterestDomainGeneral.interests.2.topics.0.label>잡무</Rimpsyche_InterestDomainGeneral.interests.2.topics.0.label>
+  <Rimpsyche_InterestDomainGeneral.interests.2.topics.1.label>식사 시간</Rimpsyche_InterestDomainGeneral.interests.2.topics.1.label>
+  <Rimpsyche_InterestDomainGeneral.interests.2.topics.2.label>쉬는 시간</Rimpsyche_InterestDomainGeneral.interests.2.topics.2.label>
+  <Rimpsyche_InterestDomainGeneral.interests.2.topics.3.label>업무 일정</Rimpsyche_InterestDomainGeneral.interests.2.topics.3.label>
+  <Rimpsyche_InterestDomainGeneral.interests.2.topics.4.label>수면 시간</Rimpsyche_InterestDomainGeneral.interests.2.topics.4.label>
+  <Rimpsyche_InterestDomainGeneral.interests.2.topics.5.label>일과</Rimpsyche_InterestDomainGeneral.interests.2.topics.5.label>
+  <Rimpsyche_InterestDomainGeneral.interests.2.topics.6.label>최애 작업</Rimpsyche_InterestDomainGeneral.interests.2.topics.6.label>
+
+  <Rimpsyche_InterestDomainGeneral.interests.3.label>과거와 기억</Rimpsyche_InterestDomainGeneral.interests.3.label>
+  <Rimpsyche_InterestDomainGeneral.interests.3.topics.0.label>유년기</Rimpsyche_InterestDomainGeneral.interests.3.topics.0.label>
+  <Rimpsyche_InterestDomainGeneral.interests.3.topics.1.label>고향</Rimpsyche_InterestDomainGeneral.interests.3.topics.1.label>
+  <Rimpsyche_InterestDomainGeneral.interests.3.topics.2.label>가족</Rimpsyche_InterestDomainGeneral.interests.3.topics.2.label>
+  <Rimpsyche_InterestDomainGeneral.interests.3.topics.3.label>친구</Rimpsyche_InterestDomainGeneral.interests.3.topics.3.label>
+  <Rimpsyche_InterestDomainGeneral.interests.3.topics.4.label>소중한 기억</Rimpsyche_InterestDomainGeneral.interests.3.topics.4.label>
+  <Rimpsyche_InterestDomainGeneral.interests.3.topics.5.label>고된 기억</Rimpsyche_InterestDomainGeneral.interests.3.topics.5.label>
+  <Rimpsyche_InterestDomainGeneral.interests.3.topics.6.label>기억에 남는 순간</Rimpsyche_InterestDomainGeneral.interests.3.topics.6.label>
+
+  <Rimpsyche_InterestDomainGeneral.interests.4.label>정착지 생활</Rimpsyche_InterestDomainGeneral.interests.4.label>
+  <Rimpsyche_InterestDomainGeneral.interests.4.topics.0.label>다른 정착민들</Rimpsyche_InterestDomainGeneral.interests.4.topics.0.label>
+  <Rimpsyche_InterestDomainGeneral.interests.4.topics.1.label>정착지의 규율</Rimpsyche_InterestDomainGeneral.interests.4.topics.1.label>
+  <Rimpsyche_InterestDomainGeneral.interests.4.topics.2.label>리더쉽</Rimpsyche_InterestDomainGeneral.interests.4.topics.2.label>
+  <Rimpsyche_InterestDomainGeneral.interests.4.topics.3.label>공동체</Rimpsyche_InterestDomainGeneral.interests.4.topics.3.label>
+  <Rimpsyche_InterestDomainGeneral.interests.4.topics.4.label>최근 사건들</Rimpsyche_InterestDomainGeneral.interests.4.topics.4.label>
+  <Rimpsyche_InterestDomainGeneral.interests.4.topics.5.label>파티</Rimpsyche_InterestDomainGeneral.interests.4.topics.5.label>
+  <Rimpsyche_InterestDomainGeneral.interests.4.topics.6.label>외부인들</Rimpsyche_InterestDomainGeneral.interests.4.topics.6.label>
+
+  <Rimpsyche_InterestDomainGeneral.interests.5.label>정체성</Rimpsyche_InterestDomainGeneral.interests.5.label>
+  <Rimpsyche_InterestDomainGeneral.interests.5.topics.0.label>성별</Rimpsyche_InterestDomainGeneral.interests.5.topics.0.label>
+  <Rimpsyche_InterestDomainGeneral.interests.5.topics.1.label>자존감</Rimpsyche_InterestDomainGeneral.interests.5.topics.1.label>
+  <Rimpsyche_InterestDomainGeneral.interests.5.topics.2.label>그룹 내 역할</Rimpsyche_InterestDomainGeneral.interests.5.topics.2.label>
+  <Rimpsyche_InterestDomainGeneral.interests.5.topics.3.label>자립심</Rimpsyche_InterestDomainGeneral.interests.5.topics.3.label>
+  <Rimpsyche_InterestDomainGeneral.interests.5.topics.4.label>열망</Rimpsyche_InterestDomainGeneral.interests.5.topics.4.label>
+  <Rimpsyche_InterestDomainGeneral.interests.5.topics.5.label>정체성</Rimpsyche_InterestDomainGeneral.interests.5.topics.5.label>
+  <Rimpsyche_InterestDomainGeneral.interests.5.topics.6.label>자아실현</Rimpsyche_InterestDomainGeneral.interests.5.topics.6.label>
+</LanguageData>

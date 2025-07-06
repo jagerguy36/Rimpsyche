@@ -198,7 +198,7 @@ namespace Maux36.RimPsyche
                 }
                 else
                 {
-                    cachedLabelText = intensityKey.Replace("RimPsycheIntensity", "") + " " + personalityName;
+                    cachedLabelText = RimpsycheDatabase.IntensityKeysDefault[intensityKey] + " " + personalityName;
                 }
                 cachedLabelColor = Color.Lerp(Color.yellow, Color.green, absValue);
                 sortedData.Add(new PersonalityDisplayData
@@ -479,7 +479,7 @@ namespace Maux36.RimPsyche
                 if (Mouse.IsOver(rowRect))
                 {
                     Widgets.DrawHighlight(rowRect);
-                    TooltipHandler.TipRegion(rowRect, $"{interest.name}: {Math.Round(value, 1)}");
+                    TooltipHandler.TipRegion(rowRect, $"{interest.label}: {Math.Round(value, 1)}");
                 }
 
                 float barCenterX = rowRect.x + rowRect.width / 2f;
@@ -488,7 +488,7 @@ namespace Maux36.RimPsyche
                 // Left label
                 Rect leftRect = new Rect(rowRect.x + labelPadding, centerY - Text.LineHeight / 2f, labelWidth, Text.LineHeight);
                 Text.Anchor = TextAnchor.MiddleLeft;
-                Widgets.Label(leftRect, interest.name);
+                Widgets.Label(leftRect, interest.label);
 
                 // Bar background
                 Rect barRect = new Rect(leftRect.x + labelWidth, centerY - barHeight / 2f, barWidth, barHeight);

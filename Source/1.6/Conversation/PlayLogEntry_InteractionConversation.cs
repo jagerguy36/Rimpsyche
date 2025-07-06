@@ -1,13 +1,15 @@
 ﻿using RimWorld;
 using System;
 using System.Collections.Generic;
+using System.Reflection.Emit;
 using Verse;
 
 namespace Maux36.RimPsyche
 {
     public class PlayLogEntry_InteractionConversation : PlayLogEntry_Interaction
     {
-        public string topic;
+        public string topicName;
+        public string topicLabel;
         private string RecipientName
         {
             get
@@ -23,7 +25,7 @@ namespace Maux36.RimPsyche
         public PlayLogEntry_InteractionConversation()
         {
         }
-        public PlayLogEntry_InteractionConversation(InteractionDef intDef, Pawn initiator, Pawn recipient, string topicName, List<RulePackDef> extraSentencePacks)
+        public PlayLogEntry_InteractionConversation(InteractionDef intDef, Pawn initiator, Pawn recipient, string tName, string tLabel, List<RulePackDef> extraSentencePacks)
         {
             this.intDef = intDef;
             this.initiator = initiator;
@@ -31,18 +33,20 @@ namespace Maux36.RimPsyche
             this.extraSentencePacks = extraSentencePacks;
             initiatorFaction = initiator.Faction;
             initiatorIdeo = initiator.Ideo;
-            topic = topicName;
+            topicName = tName;
+            topicLabel = tLabel;
         }
 
         protected override string ToGameStringFromPOV_Worker(Thing pov, bool forceLog)
         {
             var original = base.ToGameStringFromPOV_Worker(pov, forceLog);
-            return string.Format(original, topic);
+            return string.Format(original, topicLabel);
         }
         public override void ExposeData()
         {
             base.ExposeData();
-            Scribe_Values.Look(ref topic, "topic", "Something");
+            Scribe_Values.Look(ref topicName, "topicName", "topicName");
+            Scribe_Values.Look(ref topicLabel, "topicLabel", "Something");
         }
         public override string ToString()
         {

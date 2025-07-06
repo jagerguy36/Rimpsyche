@@ -5,9 +5,10 @@ using Verse;
 
 namespace Maux36.RimPsyche
 {
-    public class Topic : IExposable
+    public class Topic
     {
         public string name;
+        public string label;
         public float controversiality = 1;
         public bool allowChild = true;
         public bool NSFW = false;
@@ -50,14 +51,6 @@ namespace Maux36.RimPsyche
                 initDirection = 0f;
             }
             return Mathf.Clamp(score, -1f, 1f);
-        }
-        public void ExposeData()
-        {
-            Scribe_Values.Look(ref name, "name");
-            Scribe_Values.Look(ref controversiality, "controversiality", 1);
-            Scribe_Values.Look(ref allowChild, "allowChild", true);
-            Scribe_Values.Look(ref NSFW, "NSFW", false);
-            Scribe_Collections.Look(ref weights, "weights", LookMode.Deep);
         }
     }
 

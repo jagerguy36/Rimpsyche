@@ -22,19 +22,19 @@ namespace Maux36.RimPsyche
     //    }
     //}
 
-    [HarmonyPatch(typeof(SocialInteractionUtility), nameof(SocialInteractionUtility.CanReceiveRandomInteraction))]
-    public static class SocialInteractionUtility_CanReceiveRandomInteractionPatch
-    {
-        [HarmonyPrefix]
-        public static bool RimPsycheOverrideReceiveRandomInteraction(ref bool __result, Pawn p)
-        {
-            var compPsyche = p.compPsyche();
-            if (compPsyche?.convoStartedTick > 0)
-            {
-                __result = false;
-                return false;
-            }
-            return true;
-        }
-    }
+    //[HarmonyPatch(typeof(SocialInteractionUtility), nameof(SocialInteractionUtility.CanReceiveRandomInteraction))]
+    //public static class SocialInteractionUtility_CanReceiveRandomInteractionPatch
+    //{
+    //    [HarmonyPrefix]
+    //    public static bool RimPsycheOverrideReceiveRandomInteraction(ref bool __result, Pawn p)
+    //    {
+    //        var compPsyche = p.compPsyche();
+    //        if (compPsyche?.convoStartedTick > 0)
+    //        {
+    //            __result = false;
+    //            return false;
+    //        }
+    //        return true;
+    //    }
+    //}
 }

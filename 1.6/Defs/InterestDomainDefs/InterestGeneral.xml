@@ -12,6 +12,7 @@
     <interests>
       <li>
         <name>InterestLife</name>
+        <label>Daily life</label>
         <description>Common experiences and basic needs.</description>
         <scoreWeight>
           <li>
@@ -27,6 +28,7 @@
           <li>
             <!-- + : unbothered, enjoy | - : affected -->
             <name>weather</name>
+            <label>the weather</label>
             <controversiality>0</controversiality>
             <weights>
               <li>
@@ -54,6 +56,7 @@
           <li>
             <!-- + : better tolerance | - : strongly affected -->
             <name>sleep_quality</name>
+            <label>sleep quality</label>
             <controversiality>0</controversiality>
             <weights>
               <li>
@@ -81,6 +84,7 @@
           <li>
             <!-- + : high tolerance | - : strong aversion -->
             <name>pain</name>
+            <label>pain</label>
             <controversiality>0</controversiality>
             <weights>
               <li>
@@ -108,6 +112,7 @@
           <li>
             <!-- + : disciplined approach | - : agitated by hunger -->
             <name>hunger</name>
+            <label>hunger</label>
             <controversiality>0</controversiality>
             <weights>
               <li>
@@ -135,6 +140,7 @@
           <li>
             <!-- + : prioritize ease | - : embrace hardship, experience -->
             <name>comfort</name>
+            <label>comfort</label>
             <controversiality>0</controversiality>
             <weights>
               <li>
@@ -158,6 +164,7 @@
           <li>
             <!-- + : precautious | - : dismissive -->
             <name>safety</name>
+            <label>safety</label>
             <controversiality>0</controversiality>
             <weights>
               <li>
@@ -185,6 +192,7 @@
           <li>
              <!-- + : dismissive | - : concerned -->
             <name>injuries</name>
+            <label>injuries</label>
             <controversiality>0</controversiality>
             <weights>
               <li>
@@ -208,6 +216,7 @@
 
       <li>
         <name>InterestDreamsFears</name>
+        <label>Dreams and Fears</label>
         <description>Emotional, personal reflections.</description>
         <scoreWeight>
           <li>
@@ -223,6 +232,7 @@
           <li>
             <!-- + : resilient | - : distressed -->
             <name>nightmares</name>
+            <label>nightmares</label>
             <controversiality>0</controversiality>
             <weights>
               <li>
@@ -250,6 +260,7 @@
           <li>
             <!-- + : Optimism | - : Cynicism -->
             <name>hopes</name>
+            <label>hopes</label>
             <controversiality>0</controversiality>
             <weights>
               <li>
@@ -273,6 +284,7 @@
           <li>
             <!-- + : strong aversion | - : less affected -->
             <name>fear_of_death</name>
+            <label>fear of death</label>
             <controversiality>0</controversiality>
             <weights>
               <li>
@@ -296,6 +308,7 @@
           <li>
             <!-- + : prevention and avoidance | - : coping with and adapting to -->
             <name>loss</name>
+            <label>loss</label>
             <controversiality>0</controversiality>
             <weights>
               <li>
@@ -327,6 +340,7 @@
           <li>
             <!-- + : Embracing | - : Feeling anxious -->
             <name>uncertainty</name>
+            <label>uncertainty</label>
             <controversiality>0</controversiality>
             <weights>
               <li>
@@ -354,6 +368,7 @@
           <li>
             <!-- + : hopeful, idealistic | - : feeling dissatisfaction -->
             <name>longing</name>
+            <label>longing</label>
             <controversiality>0</controversiality>
             <weights>
               <li>
@@ -381,6 +396,7 @@
           <li>
             <!-- + : embracing risks | - : shying away from risks -->
             <name>courage</name>
+            <label>courage</label>
             <controversiality>0</controversiality>
             <weights>
               <li>
@@ -412,6 +428,7 @@
 
       <li>
         <name>InterestDailyRoutine</name>
+        <label>Daily Routines</label>
         <description>Mundane but relatable chatter.</description>
         <scoreWeight>
           <li>
@@ -431,6 +448,7 @@
           <li>
             <!-- + : necessary, responsible living | - : tedious, boring -->
             <name>chores</name>
+            <label>chores</label>
             <controversiality>0</controversiality>
             <weights>
               <li>
@@ -466,6 +484,7 @@
           <li>
             <!-- + : important anchors | - : finding rigid meal times restrictive -->
             <name>meal_times</name>
+            <label>meal times</label>
             <controversiality>0</controversiality>
             <weights>
               <li>
@@ -501,6 +520,7 @@
           <li>
             <!-- + : enjoying downtime | - : wasted time -->
             <name>idle_time</name>
+            <label>idle time</label>
             <controversiality>0</controversiality>
             <weights>
               <li>
@@ -532,6 +552,7 @@
           <li>
             <!-- + : necessary and productive | - : boring, prioritizing leisure -->
             <name>work_schedule</name>
+            <label>work schedule</label>
             <controversiality>0</controversiality>
             <allowChild>false</allowChild>
             <weights>
@@ -560,6 +581,7 @@
           <li>
             <!-- + : Valuing consistent sleep patterns | - : Disregarding a consistent sleep schedule-->
             <name>sleep_schedule</name>
+            <label>sleep schedule</label>
             <controversiality>0</controversiality>
             <weights>
               <li>
@@ -587,6 +609,7 @@
           <li>
             <!-- + : Tolerating minor inconveniences | - : Being easily frustrated, irritated, or overwhelmed by small disruptions-->
             <name>routine_annoyances</name>
+            <label>daily routines</label>
             <controversiality>0.2</controversiality>
             <allowChild>false</allowChild>
             <weights>
@@ -623,6 +646,7 @@
           <li>
             <!-- + : Finding motivation and satisfaction in preferred activitie | - : No particular favorite daily activity-->
             <name>favorite_task</name>
+            <label>favorite tasks</label>
             <controversiality>0.05</controversiality>
             <allowChild>false</allowChild>
             <weights>
@@ -655,6 +679,7 @@
 
       <li>
         <name>InterestMemoriesPastLife</name>
+        <label>Past Life</label>
         <description>Nostalgia or origin stories.</description>
         <scoreWeight>
           <li>
@@ -678,6 +703,7 @@
           <li>
             <!-- + : Fondness for past experiences | - : Desire to distance oneself from past experiences -->
             <name>childhood</name>
+            <label>childhood</label>
             <controversiality>0</controversiality>
             <weights>
               <li>
@@ -701,6 +727,7 @@
           <li>
             <!-- + :  Deep sense of belonging | - : Desire to distance oneself from one's origins -->
             <name>homeworld</name>
+            <label>homeworld</label>
             <controversiality>0</controversiality>
             <weights>
               <li>
@@ -732,6 +759,7 @@
           <li>
             <!-- + :  Cherishing familial bonds | - : Feeling burdened by family expectations -->
             <name>family</name>
+            <label>family</label>
             <controversiality>0.1</controversiality>
             <weights>
               <li>
@@ -759,6 +787,7 @@
           <li>
             <!-- + :  Cherishing past friendships | - : Disinterest in or discomfort with dwelling on past friendships -->
             <name>memory_friends</name>
+            <label>memories of firends</label>
             <controversiality>0</controversiality>
             <allowChild>false</allowChild>
             <weights>
@@ -787,6 +816,7 @@
           <li>
             <!-- + :  Finding joy in fond recal | - : Disinterest in fond memories, general forward-looking stance -->
             <name>cherished_memory</name>
+            <label>cherished memories</label>
             <controversiality>0</controversiality>
             <weights>
               <li>
@@ -818,6 +848,7 @@
           <li>
             <!-- + :  Finding meaning or strength | - : Feeling resentment -->
             <name>memory_of_hardship</name>
+            <label>memories of hardship</label>
             <controversiality>0.2</controversiality>
             <weights>
               <li>
@@ -845,6 +876,7 @@
           <li>
             <!-- + :  Inspiring, and uplifting experiences | - : Ffnding difficult moments more impactful -->
             <name>memorable_moments</name>
+            <label>memorable moments</label>
             <controversiality>0</controversiality>
             <weights>
               <li>
@@ -880,6 +912,7 @@
 
       <li>
         <name>InterestColonyLife</name>
+        <label>Colony Life</label>
         <description>The present shared experience.</description>
         <scoreWeight>
           <li>
@@ -895,6 +928,7 @@
           <li>
             <!-- + : Valuing community | - : Preferring solitude, being independent -->
             <name>other_colonists</name>
+            <label>other colonists</label>
             <controversiality>0</controversiality>
             <weights>
               <li>
@@ -926,6 +960,7 @@
           <li>
             <!-- + : Respecting, adhering to | - : Disregarding, challenging -->
             <name>colony_rules</name>
+            <label>colony rules</label>
             <controversiality>1</controversiality>
             <weights>
               <li>
@@ -953,6 +988,7 @@
           <li>
             <!-- + : Values strong guidance | - : Values individual autonomy -->
             <name>leadership</name>
+            <label>leadership</label>
             <controversiality>0.5</controversiality>
             <weights>
               <li>
@@ -980,6 +1016,7 @@
           <li>
             <!-- + : Values cohesion | - : Values individual autonomy -->
             <name>community</name>
+            <label>the community</label>
             <controversiality>0.5</controversiality>
             <weights>
               <li>
@@ -1011,6 +1048,7 @@
           <li>
             <!-- + : Likes talking about recent events | - : Not interested -->
             <name>recent_events</name>
+            <label>recent events</label>
             <controversiality>0</controversiality>
             <weights>
               <li>
@@ -1038,6 +1076,7 @@
           <li>
             <!-- + : Likes partying | - : Not interested -->
             <name>party</name>
+            <label>parties</label>
             <controversiality>0</controversiality>
             <weights>
               <li>
@@ -1069,6 +1108,7 @@
           <li>
             <!-- + : Welcoming | - : Guarded-->
             <name>outsiders</name>
+            <label>outsiders</label>
             <controversiality>0.5</controversiality>
             <weights>
               <li>
@@ -1103,6 +1143,7 @@
 
       <li>
         <name>InterestIdentity</name>
+        <label>Identity</label>
         <description>Who they are and how they view themselves.</description>
         <scoreWeight>
           <li>
@@ -1122,6 +1163,7 @@
           <li>
             <!-- + : Celebrating gender diversity and own identity | - : Prioritizing traditional gender roles and compliance -->
             <name>gender</name>
+            <label>gender</label>
             <controversiality>1</controversiality>
             <weights>
               <li>
@@ -1157,6 +1199,7 @@
           <li>
             <!-- + : high self-esteem, confidence | - : low self-esteem, self-doubt -->
             <name>self_worth</name>
+            <label>self-worth</label>
             <controversiality>0</controversiality>
             <weights>
               <li>
@@ -1180,6 +1223,7 @@
           <li>
             <!-- + : Embracing leadership, actively participating | - : Preferring to be a follower or observer, disliking group dynamics -->
             <name>role_in_group</name>
+            <label>their role in the group</label>
             <controversiality>0</controversiality>
             <weights>
                 <li>
@@ -1207,6 +1251,7 @@
           <li>
             <!-- + :Valuing self-reliance, own choices, personal agency | - : Preferring reliance on others, conformity, seeking guidance and approval, and being comfortable with external direction. -->
             <name>independence</name>
+            <label>independence</label>
             <controversiality>0</controversiality>
             <weights>
               <li>
@@ -1234,6 +1279,7 @@
           <li>
             <!-- + :Embracing ambition, setting challenging goals, striving for achievement | - : Lacking ambition, being content with the status quo, avoiding challenges. -->
             <name>aspirations</name>
+            <label>aspirations</label>
             <controversiality>0</controversiality>
             <weights>
               <li>
@@ -1265,6 +1311,7 @@
           <li>
             <!-- + :A strong sense of self. confidence in one's personal self; a desire to express individuality. | - : Discomfort with one's self-perception; Blend in or adopt external identities rather than expressing a unique self. -->
             <name>identity</name>
+            <label>identity</label>
             <controversiality>0</controversiality>
             <weights>
               <li>
@@ -1292,6 +1339,7 @@
           <li>
             <!-- + Valuing authenticity, self-disclosure,demonstration of inner self.. | - : Prioritizing conformity, suppressing self, and avoiding drawing attention to oneself. -->
             <name>expression</name>
+            <label>self-expression</label>
             <controversiality>0.6</controversiality>
             <weights>
               <li>

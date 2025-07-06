@@ -2,22 +2,54 @@
 <Defs>
   <!-- Random social interactions -->
   <InteractionDef>
-    <defName>Rimpsyche_StartConversation</defName>
-    <label>start conversation</label>
+    <defName>Rimpsyche_Conversation</defName>
+    <label>ended conversation</label>
     <workerClass>Maux36.RimPsyche.InteractionWorker_StartConversation</workerClass>
     <symbol>Things/Mote/SpeechSymbols/Conversation</symbol>
     <logRulesInitiator>
       <rulesStrings>
-        <li>r_logentry(p=4)->[INITIATOR_nameDef] [conversed] with [RECIPIENT_nameDef].</li>
-        <li>r_logentry->[INITIATOR_nameDef] hailed [RECIPIENT_nameDef] for a conversation.</li>
-		
-        <li>conversed(p=4)->struck up a conversation</li>
-        <li>conversed->started talking</li>
-        <li>conversed->brought up a topic</li>
-        <li>conversed->started discussing something</li>
+        <li>r_logentry->They spoke for a while.</li>
+        <li>r_logentry->They took a moment to talk.</li>
+        <li>r_logentry->They chatted for some time.</li>
       </rulesStrings>
     </logRulesInitiator>
   </InteractionDef>
+
+  <RulePackDef>
+    <defName>Sentence_RimpsycheConversationPositiveGood</defName>
+    <rulePack>
+      <rulesStrings>
+        <li>sent->They found common ground and enjoyed a pleasant chat.</li>
+      </rulesStrings>
+    </rulePack>
+  </RulePackDef>
+
+  <RulePackDef>
+    <defName>Sentence_RimpsycheConversationPositiveBad</defName>
+    <rulePack>
+      <rulesStrings>
+        <li>sent->They saw eye-to-eye, but the chat still felt oddly uncomfortable.</li>
+      </rulesStrings>
+    </rulePack>
+  </RulePackDef>
+
+  <RulePackDef>
+    <defName>Sentence_RimpsycheConversationNegativeGood</defName>
+    <rulePack>
+      <rulesStrings>
+        <li>sent->Despite differing views, they had a respectful conversation.</li>
+      </rulesStrings>
+    </rulePack>
+  </RulePackDef>
+
+  <RulePackDef>
+    <defName>Sentence_RimpsycheConversationNegativeBad</defName>
+    <rulePack>
+      <rulesStrings>
+        <li>sent->Their clashing opinions sparked a tense exchange.</li>
+      </rulesStrings>
+    </rulePack>
+  </RulePackDef>
 
   <RulePackDef>
     <defName>Sentence_RimpsycheConversationFail</defName>
@@ -30,38 +62,15 @@
     </rulePack>
   </RulePackDef>
 
-  <!-- Never actually used besides for the mote. Maybe remove it? -->
   <InteractionDef>
-    <defName>Rimpsyche_Conversation</defName>
-    <label>continue conversation</label>
-    <workerClass>Maux36.RimPsyche.InteractionWorker_Conversation</workerClass>
-    <symbol>Things/Mote/SpeechSymbols/Conversation</symbol>
-    <logRulesInitiator>
-      <rulesStrings>
-        <li>r_logentry->[INITIATOR_nameDef] [conversed] with [RECIPIENT_nameDef].</li>
-        <li>conversed(p=4)->continued the talk</li>
-        <li>conversed->carried on the conversation</li>
-        <li>conversed->delved deeper into the topic</li>
-        <li>conversed->kept chatting</li>
-      </rulesStrings>
-    </logRulesInitiator>
-  </InteractionDef>
-
-  <InteractionDef>
-    <defName>Rimpsyche_EndConversation</defName>
-    <label>ended conversation</label>
+    <defName>Rimpsyche_ReportConversation</defName>
+    <label>started conversation</label>
     <workerClass>InteractionWorker_DeepTalk</workerClass>
-    <symbol>Things/Mote/SpeechSymbols/Chitchat</symbol>
+    <symbol>Things/Mote/SpeechSymbols/Hail</symbol>
     <logRulesInitiator>
       <rulesStrings>
-        <li>r_logentry->[INITIATOR_nameDef] and [RECIPIENT_nameDef] about {0}.</li>
-        <li>r_logentry->[INITIATOR_nameDef] had a conversation about {0} with [RECIPIENT_nameDef].</li>
-        <li>r_logentry->[INITIATOR_nameDef] discussed {0} with [RECIPIENT_nameDef].</li>
-        <li>r_logentry->[INITIATOR_nameDef] and [RECIPIENT_nameDef] exchanged thoughts on {0}.</li>
-        <li>r_logentry->[INITIATOR_nameDef] and [RECIPIENT_nameDef] had a talk about {0}.</li>
-        <li>r_logentry->[INITIATOR_nameDef] and [RECIPIENT_nameDef] shared views on {0}.</li>
-        <li>r_logentry->[INITIATOR_nameDef] spoke to [RECIPIENT_nameDef] about {0}.</li>
-        <li>r_logentry->[INITIATOR_nameDef] and [RECIPIENT_nameDef] had a chat about {0}.</li>
+        <li>r_logentry(p=4)->[INITIATOR_nameDef] started talking about {0} with [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] hailed [RECIPIENT_nameDef] for a conversation about {0}.</li>
       </rulesStrings>
     </logRulesInitiator>
   </InteractionDef>
