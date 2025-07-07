@@ -110,7 +110,6 @@ namespace Maux36.RimPsyche
             float ageFactor = 8f * adultHoodAge / (pawnAge + 0.6f * adultHoodAge) - 5f; //8.3333~-3.70036
             float scoreBase = Mathf.Max(0f, score - 5f + pawnTrust * 2f + ageFactor);
             float influenceChance = Mathf.Clamp01(scoreBase * scoreBase * (0.15f + opinion * 0.03f) / (pawnAge + 1f));
-            Log.Message($"{parentPawn.Name} affect pawn entered with {resultOffset}. scorebase: {scoreBase} direction: {direction}, chance {influenceChance}");
             if (Rand.Chance(influenceChance))
             {
                 influenceChance *= direction;

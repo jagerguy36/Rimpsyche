@@ -105,7 +105,6 @@ namespace Maux36.RimPsyche
                 float spontaneousF = (initSpontaneity + reciSpontaneity + 2f) * 0.05f; // 0~0.2 [0.1]
                 float aligntmentLengthFactor = -1.5f * tAbs * (tAbs - 2f) + 1f;
                 float lengthMult = 0.1f * (5f + initTalkF + reciTalkF) * aligntmentLengthFactor * Rand.Range(1f - spontaneousF, 1f + spontaneousF); // 0.1f * (5.5~[9.5]~20) * ([1]~2.5) || 0.55~[0.95]~5
-                Log.Message($"{initiator.Name} started conversation with {recipient.Name}. convoTopic: {convoTopic.name}. topicAlignment: {topicAlignment}. lengthMult = {lengthMult}. continuationChance: {continuationChance}");
 
                 //GetResult
                 bool startFight = false;
