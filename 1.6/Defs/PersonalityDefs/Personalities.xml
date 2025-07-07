@@ -209,7 +209,7 @@
     <label>prudishness</label>
     <high>prudish</high>
     <low>uninhibited</low>
-    <description>Reflects how a person responds to matters of modesty and explicit content. Prudish individuals feel uneasy or disapproving in situations involving nudity or provocative topics, while uninhibited individuals are more open and unbothered by them.</description>
+    <description>Reflects how a person responds to explicit content. Prudish individuals feel uneasy or disapproving in situations involving nudity or provocative topics, while uninhibited individuals are more open and unbothered by them.</description>
     <scoreWeight>
       <li>
         <facet>Curiosity</facet>
@@ -622,7 +622,7 @@
     <label>emotionality</label>
     <high>emotional</high>
     <low>stoic</low>
-    <description>Reflects how a person typically experiences and expresses their emotions. Emotional individuals tend to feel their emotions deeply and react strongly to both positive and negative events. On the other hand, stoic individuals maintain a calm, composed demeanor even in the face of strong emotions.</description>
+    <description>Reflects how a person typically experiences and expresses their emotions. Emotional individuals tend to feel their emotions deeply and react strongly to both positive and negative events. On the other hand, stoic individuals experience emotions with less intensity and remains calm and composed.</description>
     <scoreWeight>
       <li>
         <facet>Imagination</facet>

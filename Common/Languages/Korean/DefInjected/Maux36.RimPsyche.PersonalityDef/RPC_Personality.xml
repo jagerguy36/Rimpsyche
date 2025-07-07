@@ -30,5 +30,53 @@
   <Rimpsyche_Inquisitiveness.low>무관심한</Rimpsyche_Inquisitiveness.low>
   <Rimpsyche_Inquisitiveness.description>주변 세계에 대해 얼마나 호기심을 가지는지를 나타냅니다. 호기심 많은 사람은 질문을 자주 하고, 새로운 지식을 얻으려 하며, 평소 관심사 밖의 주제에도 대화를 시도하는 경향이 있습니다. 반면, 무관심한 사람은 자신의 관심사 외에는 별다른 흥미를 보이지 않습니다.</Rimpsyche_Inquisitiveness.description>
 
+  <Rimpsyche_Prudishness.label>수줍음</Rimpsyche_Prudishness.label>
+  <Rimpsyche_Prudishness.high>수줍은</Rimpsyche_Prudishness.high>
+  <Rimpsyche_Prudishness.low>거리낌 없는</Rimpsyche_Prudishness.low>
+  <Rimpsyche_Prudishness.description>노출이 있거나 자극적인 주제에 어떻게 반응하는지를 나타냅니다. 수줍음이 많은 사람은 그런 상황에서 불편해하거나 꺼려하는 반면, 거리낌 없는 사람은 그런 것들에 대해 좀 더 열린 태도를 가지고 편안해합니다.</Rimpsyche_Prudishness.description>
 
+  <Rimpsyche_Aggressiveness.label>공격성</Rimpsyche_Aggressiveness.label>
+  <Rimpsyche_Aggressiveness.high>공격적인</Rimpsyche_Aggressiveness.high>
+  <Rimpsyche_Aggressiveness.low>온화한</Rimpsyche_Aggressiveness.low>
+  <Rimpsyche_Aggressiveness.description>얼마나 쉽게 대립하거나 적대적인 태도를 보이는지를 나타냅니다. 공격적인 사람은 자기주장을 강하게 내세우며 때로는 거친 말이나 행동을 하기도 하지만, 온화한 사람은 차분하게 상황을 받아들이며 갈등을 피하는 편입니다.</Rimpsyche_Aggressiveness.description>
+
+  <Rimpsyche_Experimentation.label>실험성</Rimpsyche_Experimentation.label>
+  <Rimpsyche_Experimentation.high>실험적인</Rimpsyche_Experimentation.high>
+  <Rimpsyche_Experimentation.low>보수적인</Rimpsyche_Experimentation.low>
+  <Rimpsyche_Experimentation.description>새로운 방법이나 아이디어를 시도하려는 태도를 나타냅니다. 실험적인 사람은 변화를 받아들이고 새로운 경험을 적극적으로 찾아 나서며, 보수적인 사람은 익숙한 방식을 선호하고 검증된 방법을 고수하는 편입니다.</Rimpsyche_Experimentation.description>
+  
+  <Rimpsyche_Imagination.label>상상력</Rimpsyche_Imagination.label>
+  <Rimpsyche_Imagination.high>상상력이 풍부한</Rimpsyche_Imagination.high>
+  <Rimpsyche_Imagination.low>현실적인</Rimpsyche_Imagination.low>
+  <Rimpsyche_Imagination.description>현실과 상상의 세계 중 어느 쪽에 더 무게를 두는지를 나타냅니다. 현실적인 사람은 실용적이고 구체적인 일에 집중하는 반면, 상상력이 풍부한 사람은 공상에 잠기거나 창의적인 생각, 추상적인 개념을 탐구하는 경향이 있습니다.</Rimpsyche_Imagination.description>
+
+  <Rimpsyche_Diligence.label>성실성</Rimpsyche_Diligence.label>
+  <Rimpsyche_Diligence.high>성실한</Rimpsyche_Diligence.high>
+  <Rimpsyche_Diligence.low>게으른</Rimpsyche_Diligence.low>
+  <Rimpsyche_Diligence.description>과제나 책임에 얼마나 성실하게 임하는지를 나타냅니다. 성실한 사람은 맡은 일을 끝까지 해내려는 의지가 강하고, 끈기 있게 노력하는 편입니다. 반면, 게으른 사람은 힘든 일을 피하려 하거나 책임감이 부족해 쉬운 일이나 여가를 더 중시할 수 있습니다.</Rimpsyche_Diligence.description>
+
+  <Rimpsyche_Organization.label>정리성</Rimpsyche_Organization.label>
+  <Rimpsyche_Organization.high>체계적인</Rimpsyche_Organization.high>
+  <Rimpsyche_Organization.low>산만한</Rimpsyche_Organization.low>
+  <Rimpsyche_Organization.description>얼마나 체계적이고 정돈된 방식을 선호하는지를 나타냅니다. 체계적인 사람은 물건이나 일처리를 정리된 방식으로 관리하고, 명확한 절차를 따르는 편입니다. 반면, 산만한 사람은 질서에 크게 신경 쓰지 않으며, 다소 혼란스러운 환경에서도 잘 적응하거나 오히려 편하게 느낄 수 있습니다.</Rimpsyche_Organization.description>
+
+  <Rimpsyche_Discipline.label>자제력</Rimpsyche_Discipline.label>
+  <Rimpsyche_Discipline.high>절제된</Rimpsyche_Discipline.high>
+  <Rimpsyche_Discipline.low>산만한</Rimpsyche_Discipline.low>
+  <Rimpsyche_Discipline.description>집중력, 자기 통제력, 규칙이나 일과를 얼마나 잘 지키는지를 나타냅니다. 절제된 사람은 계획을 잘 따르고 충동을 억제하며 목표를 향해 꾸준히 나아갑니다. 반면, 산만한 사람은 일관성을 유지하기 어렵고 쉽게 주의가 흐트러지며, 일을 끝까지 해내는 데 어려움을 겪을 수 있습니다.</Rimpsyche_Discipline.description>
+
+  <Rimpsyche_Focus.label>집중 성향</Rimpsyche_Focus.label>
+  <Rimpsyche_Focus.high>집중하는</Rimpsyche_Focus.high>
+  <Rimpsyche_Focus.low>탐색적인</Rimpsyche_Focus.low>
+  <Rimpsyche_Focus.description>사람이 정신적 에너지와 주의를 어디에, 어떻게 분산시키는지를 나타냅니다. 집중하는 사람은 하나의 일이나 주제에 깊이 몰입해 파고드는 경향이 강합니다. 반면, 탐색적인 사람은 다양한 주제에 관심을 두고, 한 가지에 몰두하기보다는 새롭고 다양한 것을 발견하는 데서 더 큰 즐거움을 느낍니다.</Rimpsyche_Focus.description>
+
+  <Rimpsyche_Tension.label>긴장도</Rimpsyche_Tension.label>
+  <Rimpsyche_Tension.high>예민한</Rimpsyche_Tension.high>
+  <Rimpsyche_Tension.low>느긋한</Rimpsyche_Tension.low>
+  <Rimpsyche_Tension.description>평소 내면의 긴장감이나 불안 수준을 나타냅니다. 신경이 예민한 사람은 쉽게 불안해하거나 초조해하며, 스트레스에 강하게 반응하는 경향이 있습니다. 반면, 느긋한 사람은 웬만한 일에도 침착하게 반응하고, 여유로운 태도로 상황을 받아들입니다.</Rimpsyche_Tension.description>
+
+  <Rimpsyche_Emotionality.label>감수성</Rimpsyche_Emotionality.label>
+  <Rimpsyche_Emotionality.high>감정적인</Rimpsyche_Emotionality.high>
+  <Rimpsyche_Emotionality.low>무덤덤한</Rimpsyche_Emotionality.low>
+  <Rimpsyche_Emotionality.description>감정을 얼마나 깊이 느끼고, 얼마나 자주 드러내는지를 나타냅니다. 감정적인 사람은 기쁨이나 슬픔 같은 감정을 강하게 느끼고, 상황에 따라 격하게 반응하는 편입니다. 반면, 무덤덤한 사람은 감정을 덜 강렬하게 경험하며, 침착하고 차분한 태도를 유지합니다.</Rimpsyche_Emotionality.description>
 </LanguageData>
