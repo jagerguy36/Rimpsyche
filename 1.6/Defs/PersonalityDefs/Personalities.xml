@@ -187,7 +187,7 @@
     <label>inquisitiveness</label>
     <high>inquisitive</high>
     <low>indifferent</low>
-    <description>Reflects how curious a person is about the world around them. Inquisitive individuals tend to ask questions, seek new knowledge, and engage in deeper conversations, while indifferent individuals show little interest in things outside their immediate focus.</description>
+    <description>Reflects how curious a person is about the world around them. Inquisitive individuals tend to ask questions, seek new knowledge, and are more likely to engage in conversations beyond their usual interests while indifferent individuals show little interest in things outside their immediate focus.</description>
     <scoreWeight>
       <li>
         <facet>Imagination</facet>

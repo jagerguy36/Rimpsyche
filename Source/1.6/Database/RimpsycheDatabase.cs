@@ -28,17 +28,13 @@ namespace Maux36.RimPsyche
             { "RimPsycheIntensityMarginally", "Marginally" },
             { "RimPsycheIntensityBarely", "Barely" }
         };
-        public static string conversationMemoryString;
+        public static string conversationMemoryString = "Conversation about {0}";
 
         static RimpsycheDatabase()
         {
             if (LanguageDatabase.activeLanguage.HaveTextForKey("MemoryReportString"))
             {
                 conversationMemoryString = "MemoryReportString".Translate();
-            }
-            else
-            {
-                conversationMemoryString = "Conversation about {0}";
             }
 
             //Interest and Topic

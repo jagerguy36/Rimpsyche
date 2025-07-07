@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<LanguageData>
+  <Rimpsyche_Talkativeness.label>수다스러움</Rimpsyche_Talkativeness.label>
+  <Rimpsyche_Talkativeness.high>말이 많은</Rimpsyche_Talkativeness.high>
+  <Rimpsyche_Talkativeness.low>과묵한</Rimpsyche_Talkativeness.low>
+  <Rimpsyche_Talkativeness.description>얼마나 말을 자주 하고 대화를 시작하려는 성향이 있는지를 나타냅니다. 말이 많은 사람은 대화를 먼저 시작하고 오래 이어가는 경향이 있습니다. 반면, 과묵한 사람은 짧고 간단하게 말하거나 자신의 생각을 잘 드러내지 않습니다.</Rimpsyche_Talkativeness.description>
+  
+  <Rimpsyche_Sociability.label>사교성</Rimpsyche_Sociability.label>
+  <Rimpsyche_Sociability.high>사교적인</Rimpsyche_Sociability.high>
+  <Rimpsyche_Sociability.low>내성적인</Rimpsyche_Sociability.low>
+  <Rimpsyche_Sociability.description>사회적 상호작용을 얼마나 자연스럽고 즐겁게 받아들이는지를 나타냅니다. 사교적인 사람은 다른 이들과 자주, 편하게 어울립니다. 내향적인 사람은 거리를 두거나 사회적 접촉을 최소화하는 경향이 있습니다.</Rimpsyche_Sociability.description>
+
+  <Rimpsyche_Tact.label>사회성</Rimpsyche_Tact.label>
+  <Rimpsyche_Tact.high>외교적인</Rimpsyche_Tact.high>
+  <Rimpsyche_Tact.low>무례한</Rimpsyche_Tact.low>
+  <Rimpsyche_Tact.description>사회적 상황에서 얼마나 적절한 말과 행동을 선택하는지 나타냅니다. 외교적인 사람은 말을 신중하게 골라 좋은 인상을 남기는 편입니다. 반면 무례한 사람은 거칠고 직설적으로 느껴질 수 있습니다.</Rimpsyche_Tact.description>
+
+  <Rimpsyche_Openness.label>개방성</Rimpsyche_Openness.label>
+  <Rimpsyche_Openness.high>개방적인</Rimpsyche_Openness.high>
+  <Rimpsyche_Openness.low>편협한</Rimpsyche_Openness.low>
+  <Rimpsyche_Openness.description>새로운 아이디어, 경험, 관점을 받아들이는 정도를 나타냅니다. 개방적인 사람은 호기심이 많고 다양한 시각을 기꺼이 수용합니다. 반면, 편협한 사람은 익숙한 신념에 머무르며 다른 생각을 쉽게 배척할 수 있습니다.</Rimpsyche_Openness.description>
+
+  <Rimpsyche_Confidence.label>자신감</Rimpsyche_Confidence.label>
+  <Rimpsyche_Confidence.high>자신감 있는</Rimpsyche_Confidence.high>
+  <Rimpsyche_Confidence.low>자신 없는</Rimpsyche_Confidence.low>
+  <Rimpsyche_Confidence.description>자신과 자신의 행동에 대해 얼마나 확신을 느끼는지를 나타냅니다. 자신감 있는 사람은 자신의 능력과 의견을 믿으며 단호한 태도를 보입니다. 반면 자신 없는 사람은 자신에 대한 의심이 많거나 타인의 영향에 쉽게 흔들릴 수 있습니다.</Rimpsyche_Confidence.description>
+
+  <Rimpsyche_Inquisitiveness.label>호기심</Rimpsyche_Inquisitiveness.label>
+  <Rimpsyche_Inquisitiveness.high>호기심 많은</Rimpsyche_Inquisitiveness.high>
+  <Rimpsyche_Inquisitiveness.low>무관심한</Rimpsyche_Inquisitiveness.low>
+  <Rimpsyche_Inquisitiveness.description>주변 세계에 대해 얼마나 호기심을 가지는지를 나타냅니다. 호기심 많은 사람은 질문을 자주 하고, 새로운 지식을 얻으려 하며, 평소 관심사 밖의 주제에도 대화를 시도하는 경향이 있습니다. 반면, 무관심한 사람은 자신의 관심사 외에는 별다른 흥미를 보이지 않습니다.</Rimpsyche_Inquisitiveness.description>
+
+
+</LanguageData>

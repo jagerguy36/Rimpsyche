@@ -98,22 +98,13 @@ namespace Maux36.RimPsyche
                 Topic convoTopic = convoInterest.GetRandomTopic((initiator.DevelopmentalStage.Juvenile() || recipient.DevelopmentalStage.Juvenile()), true); //TODO: NSFW check
                 float topicAlignment = convoTopic.GetScore(initiator, recipient, out float initDirection); // -1~1 [0]
                 float tAbs = Mathf.Abs(topicAlignment);
-                float initInterestF = (1f + (0.5f * initOpinion)) + (initInterestScore * (1f + (0.5f * initPassion))) + 0.25f * ((1f - initInterestScore) * (1f + initInquisitiveness)); // 0.5~3 [1.5]
-                float reciInterestF = (1f + (0.5f * reciOpinion)) + (reciInterestScore * (1f + (0.5f * reciPassion))) + 0.25f * ((1f - reciInterestScore) * (1f + reciInquisitiveness)); // 0.5~3 [1.5]
+                float initInterestF = (1f + (0.5f * initOpinion)) + (initInterestScore * (1f + (0.5f * initPassion))) + 0.25f * ((1f - initInterestScore) * (1f + initInquisitiveness)); //0.5~1.5+ 0~1.5 => 0.5~3 [1.5]
+                float reciInterestF = (1f + (0.5f * reciOpinion)) + (reciInterestScore * (1f + (0.5f * reciPassion))) + 0.25f * ((1f - reciInterestScore) * (1f + reciInquisitiveness)); //0.5~1.5+ 0~1.5 => 0.5~3 [1.5]
                 float initTalkF = (1.5f + initTalkativeness) * initInterestF; // 0.25~7.5 [2.25]
                 float reciTalkF = (1.5f + reciTalkativeness) * reciInterestF; // 0.25~7.5 [2.25]
                 float spontaneousF = (initSpontaneity + reciSpontaneity + 2f) * 0.05f; // 0~0.2 [0.1]
                 float aligntmentLengthFactor = -1.5f * tAbs * (tAbs - 2f) + 1f;
-                float lengthMult = 0.05f * ( (4f + initTalkF + reciTalkF) * aligntmentLengthFactor * Rand.Range(1f - spontaneousF, 1f + spontaneousF) - 8.5f); // 0.05f ( (4.5~[8.5]~19)*([1]~2.5) - 8.5 ) || -0.2~[0]~1.95
-                //continuation
-                float continuationChance = 0f;
-                continuationChance += 0.1f + ((initTalkativeness + reciTalkativeness) / 2f) * 0.1f + (initInterestF * reciInterestF) * 0.01f + tAbs * 0.3f; // 10% base chance +  ( -0.1 ~ 0.1 ) + ( 0 ~ 0.3 ) + ( 0.075 ~ 0.027 )
-                continuationChance = Mathf.Clamp01(continuationChance);
-                continuationChance *= Rand.Range(1f - spontaneousF, 1f + spontaneousF);
-                if ( Rand.Chance(continuationChance) )
-                {
-                    lengthMult *= 2;
-                }
+                float lengthMult = 0.1f * (5f + initTalkF + reciTalkF) * aligntmentLengthFactor * Rand.Range(1f - spontaneousF, 1f + spontaneousF); // 0.1f * (5.5~[9.5]~20) * ([1]~2.5) || 0.55~[0.95]~5
                 Log.Message($"{initiator.Name} started conversation with {recipient.Name}. convoTopic: {convoTopic.name}. topicAlignment: {topicAlignment}. lengthMult = {lengthMult}. continuationChance: {continuationChance}");
 
                 //GetResult
@@ -185,28 +176,29 @@ namespace Maux36.RimPsyche
                                 startedByParentPawn = true;
                             }
                         }
-                        extraSentencePacks.Add(DefOfRimpsyche.Sentence_RimpsycheConversationNegativeBad);
+                        
+                        if (startFight)
+                        {
+                            extraSentencePacks.Add(DefOfRimpsyche.Sentence_RimpsycheSocialFightConvoInitiatorStarted);
+                            if (startedByParentPawn)
+                            {
+                                initiator.interactions.StartSocialFight(recipient);
+                            }
+                            else
+                            {
+                                recipient.interactions.StartSocialFight(initiator);
+                            }
+                        }
+                        else
+                        {
+                            extraSentencePacks.Add(DefOfRimpsyche.Sentence_RimpsycheConversationNegativeBad);
+                        }
                     }
-
                 }
 
                 Log.Message($"GetConvoResult: {initiator.Name}: {pawnScore} | {recipient.Name}: {partnerScore}");
-                var intDef = DefOfRimpsyche.Rimpsyche_ReportConversation;
-                List<RulePackDef> extraSents = [];
-                //If partnerScore<0 or pawnScore <0 check social fight chance.
-                if (startFight)
-                {
-                    extraSents.Add(DefOfRimpsyche.Sentence_RimpsycheSocialFightConvoInitiatorStarted);
-                    if (startedByParentPawn)
-                    {
-                        initiator.interactions.StartSocialFight(recipient);
-                    }
-                    else
-                    {
-                        recipient.interactions.StartSocialFight(initiator);
-                    }
-                }
-                PlayLogEntry_InteractionConversation entry = new PlayLogEntry_InteractionConversation(intDef, initiator, recipient, convoTopic.name, convoTopic.label, extraSents);
+                //Add hailing log first
+                PlayLogEntry_InteractionConversation entry = new PlayLogEntry_InteractionConversation(DefOfRimpsyche.Rimpsyche_ReportConversation, initiator, recipient, convoTopic.name, convoTopic.label, null);
                 Find.PlayLog.Add(entry);
                 float initOpinionOffset = pawnScore * (6f * lengthMult) / (lengthMult + 2f);
                 float reciOpinionOffset = partnerScore * (6f * lengthMult) / (lengthMult + 2f);

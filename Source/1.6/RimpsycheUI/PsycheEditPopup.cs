@@ -82,7 +82,7 @@ namespace Maux36.RimPsyche
             if (compPsyche == null) return;
 
             Rect innerRect = rect.ContractedBy(innerPadding);
-            float upperHeight = 100f;
+            float upperHeight = compPsyche.Sexuality.ShowOnUI()?100f:0f;
             float lowerHeight = innerRect.height - upperHeight;
 
             // Create the upper and lower Rects
@@ -90,14 +90,17 @@ namespace Maux36.RimPsyche
             Rect lowerRect = new Rect(innerRect.x, innerRect.y + upperHeight, innerRect.width, lowerHeight);
 
             // Set font and alignment for titles
-            Rect upperTitleRect = new Rect(upperRect.x, upperRect.y, upperRect.width, 35f);
-            Text.Font = GameFont.Medium;
-            Text.Anchor = TextAnchor.UpperCenter;
-            Widgets.Label(upperTitleRect, "Sexuality");
-            Text.Anchor = TextAnchor.UpperLeft;
-            Text.Font = GameFont.Small;
-            Rect upperContentRect = new Rect(upperRect.x, upperRect.y+35f, upperRect.width, upperRect.height-35f);
-            Widgets.DrawBoxSolid(upperContentRect, new Color(0.2f, 0.2f, 0.2f, 0.5f));
+            if (compPsyche.Sexuality.ShowOnUI())
+            {
+                Rect upperTitleRect = new Rect(upperRect.x, upperRect.y, upperRect.width, 35f);
+                Text.Font = GameFont.Medium;
+                Text.Anchor = TextAnchor.UpperCenter;
+                Widgets.Label(upperTitleRect, "Sexuality");
+                Text.Anchor = TextAnchor.UpperLeft;
+                Text.Font = GameFont.Small;
+                Rect upperContentRect = new Rect(upperRect.x, upperRect.y+35f, upperRect.width, upperRect.height-35f);
+                Widgets.DrawBoxSolid(upperContentRect, new Color(0.2f, 0.2f, 0.2f, 0.5f));
+            }
 
             // Draw the lower title
             Rect lowerTitleRect = new Rect(lowerRect.x, lowerRect.y, lowerRect.width, 35f);
@@ -221,14 +224,14 @@ namespace Maux36.RimPsyche
                     Widgets.DrawBoxSolid(barRect, new Color(0.2f, 0.2f, 0.2f, 0.5f));
 
                     // Value bar
-                    float clamped = Mathf.Clamp(currentValue, -1f, 1f); // now value is between -1 ~ 1
+                    float clamped = Mathf.Clamp(currentValue, -1f, 1f);
                     float halfBar = Mathf.Abs(clamped) * (barWidth) / 2f;
                     Rect valueRect = clamped >= 0
                         ? new Rect(barCenterX, barRect.y, halfBar, barHeight)
                         : new Rect(barCenterX - halfBar, barRect.y, halfBar, barHeight);
 
                     // Color based on intensity (small = yellow, strong = green)
-                    float intensity = Mathf.Abs(clamped) * 2f; // maps 0–0.5 to 0–1
+                    float intensity = Mathf.Abs(clamped) * 2f;
                     Color barColor = Color.Lerp(Color.yellow, Color.green, intensity);
                     Widgets.DrawBoxSolid(valueRect, barColor);
                 }
@@ -281,7 +284,7 @@ namespace Maux36.RimPsyche
             {
                 compPsyche.Personality.Initialize(); // Call the instance method
             }
-            TooltipHandler.TipRegion(resetButtonRect, "Psyche_ResetTooltip");
+            TooltipHandler.TipRegion(resetButtonRect, "ResetPsycheTooltip");
 
             float viewHeight = 15f * rowHeight + 3f;
             Rect viewRect = new Rect(0f, 0f, innerRect.width - 16f, viewHeight); // 16f for scrollbar width

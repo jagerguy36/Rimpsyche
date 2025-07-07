@@ -2,7 +2,7 @@
 	<Operation Class="PatchOperationReplace">
 			<xpath>*/InteractionDef[defName="Chitchat"]/label</xpath>
 			<value>
-				<label>smalltalk</label>
+				<label>greeting</label>
 			</value>
 	</Operation>
 	<Operation Class="PatchOperationReplace">

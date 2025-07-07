@@ -20,6 +20,8 @@
     <rulePack>
       <rulesStrings>
         <li>sent->They found common ground and enjoyed a pleasant chat.</li>
+        <li>sent->A shared understanding quickly formed as they discussed their similar views.</li>
+        <li>sent->Shared perspectives made their conversation mutually satisfying.</li>
       </rulesStrings>
     </rulePack>
   </RulePackDef>
@@ -29,6 +31,8 @@
     <rulePack>
       <rulesStrings>
         <li>sent->They saw eye-to-eye, but the chat still felt oddly uncomfortable.</li>
+        <li>sent->Their shared views didn't quite bridge a subtle awkwardness.</li>
+        <li>sent->Even with common ground, something about the interaction felt off.</li>
       </rulesStrings>
     </rulePack>
   </RulePackDef>
@@ -38,6 +42,8 @@
     <rulePack>
       <rulesStrings>
         <li>sent->Despite differing views, they had a respectful conversation.</li>
+        <li>sent->Though opinions diverged, the discussion remained civil.</li>
+        <li>sent->They acknowledged their differences without animosity.</li>
       </rulesStrings>
     </rulePack>
   </RulePackDef>
@@ -47,6 +53,8 @@
     <rulePack>
       <rulesStrings>
         <li>sent->Their clashing opinions sparked a tense exchange.</li>
+        <li>sent->Sharp words were exchanged as their views collided.</li>
+        <li>sent->Disagreement escalated, leaving both participants feeling frustrated.</li>
       </rulesStrings>
     </rulePack>
   </RulePackDef>
@@ -55,7 +63,7 @@
     <defName>Sentence_RimpsycheConversationFail</defName>
     <rulePack>
       <rulesStrings>
-        <li>sent->[RECIPIENT_nameDef] ignored [INITIATOR_objective].</li>
+        <li>sent(p=2)->[RECIPIENT_nameDef] ignored [INITIATOR_objective].</li>
         <li>sent->[RECIPIENT_nameDef] did not respond.</li>
         <li>sent->[RECIPIENT_nameDef] brushed [INITIATOR_objective] off.</li>
       </rulesStrings>
@@ -69,8 +77,9 @@
     <symbol>Things/Mote/SpeechSymbols/Hail</symbol>
     <logRulesInitiator>
       <rulesStrings>
-        <li>r_logentry(p=4)->[INITIATOR_nameDef] started talking about {0} with [RECIPIENT_nameDef].</li>
         <li>r_logentry->[INITIATOR_nameDef] hailed [RECIPIENT_nameDef] for a conversation about {0}.</li>
+        <li>r_logentry->[INITIATOR_nameDef] started talking about {0} with [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] started talking to [RECIPIENT_nameDef] about {0}.</li>
       </rulesStrings>
     </logRulesInitiator>
   </InteractionDef>
@@ -80,6 +89,7 @@
     <rulePack>
       <rulesStrings>
         <li>sent->Their differences escalated until [INITIATOR_nameDef] started a fight!</li>
+        <li>sent->What started as a disagreement quickly turned into a fight when [INITIATOR_nameDef] lost their temper!</li>
       </rulesStrings>
     </rulePack>
   </RulePackDef>
@@ -88,7 +98,8 @@
     <defName>Sentence_RimpsycheSocialFightConvoRecipientStarted</defName>
     <rulePack>
       <rulesStrings>
-        <li>sent->Their differences escalated until [RECIPIENT_nameDef] started a fight!</li>
+        <li>sent->Their clash of opinions turned personal, and [INITIATOR_nameDef] initiated a fight!</li>
+        <li>sent->The conversation became heated, culminating in [INITIATOR_nameDef] starting a fight!</li>
       </rulesStrings>
     </rulePack>
   </RulePackDef>
