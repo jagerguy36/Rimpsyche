@@ -118,8 +118,8 @@
     <defName>Rimpsyche_Openness</defName>
     <label>openness</label>
     <high>open-minded</high>
-    <low>judgemental</low>
-    <description>Describes how willing a person is to consider new ideas, experiences, or perspectives. Open-minded individuals are curious and receptive to different viewpoints. Those who are more judgmental tend to stick to familiar beliefs and may dismiss alternative ideas.</description>
+    <low>traditional</low>
+    <description>Describes how willing a person is to consider new ideas, experiences, or perspectives. Open-minded individuals are curious and receptive to different viewpoints. Those who are more traditional tend to stick to familiar beliefs and may dismiss alternative ideas.</description>
     <scoreWeight>
       <li>
         <facet>Intellect</facet>
@@ -715,7 +715,7 @@
     <label>morality</label>
     <high>principled</high>
     <low>amoral</low>
-    <description>Reflects a person's sense of right and wrong, as well as their adherence to ethical or moral guidelines. Amoral individuals are less concerned with societal or personal morality, often focusing on their own self-interest or practicality. In contrast, principled individuals have a strong moral compass and seek to live according to their values, often prioritizing fairness, justice, and empathy in their actions and decisions.</description>
+    <description>Reflects a person's sense of right and wrong, as well as their adherence to ethical or moral guidelines. Amoral individuals are less concerned with societal or personal morality, often focusing on their own self-interest or practicality. Principled individuals, on the other hand, strongly adhere to a personal or societal code of ethics. They tend to act in ways that align with their internal values, even when inconvenient.</description>
     <scoreWeight>
       <li>
         <facet>Integrity</facet>
