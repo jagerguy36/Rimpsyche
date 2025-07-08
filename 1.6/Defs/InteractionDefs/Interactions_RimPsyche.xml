@@ -8,9 +8,7 @@
     <symbol>Things/Mote/SpeechSymbols/Conversation</symbol>
     <logRulesInitiator>
       <rulesStrings>
-        <li>r_logentry->They spoke for a while.</li>
-        <li>r_logentry->They took a moment to talk.</li>
-        <li>r_logentry->They chatted for some time.</li>
+        <li>r_logentry->...</li>
       </rulesStrings>
     </logRulesInitiator>
   </InteractionDef>
@@ -55,6 +53,17 @@
         <li>sent->Their clashing opinions sparked a tense exchange.</li>
         <li>sent->Sharp words were exchanged as their views collided.</li>
         <li>sent->Disagreement escalated, leaving both participants feeling frustrated.</li>
+      </rulesStrings>
+    </rulePack>
+  </RulePackDef>
+
+  <RulePackDef>
+    <defName>Sentence_RimpsycheConversationSuccess</defName>
+    <rulePack>
+      <rulesStrings>
+        <li>sent->they spoke for a while.</li>
+        <li>sent->they took a moment to talk.</li>
+        <li>sent->they chatted for some time.</li>
       </rulesStrings>
     </rulePack>
   </RulePackDef>

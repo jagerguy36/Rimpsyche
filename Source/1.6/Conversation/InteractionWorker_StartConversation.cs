@@ -78,9 +78,14 @@ namespace Maux36.RimPsyche
 
                 //Select the convo interest area by initiator. See if the recipient is willing to talk to the initiator about that area.
                 Interest convoInterest = initiatorPsyche.Interests.ChoseInterest();
+                Topic convoTopic = convoInterest.GetRandomTopic((initiator.DevelopmentalStage.Juvenile() || recipient.DevelopmentalStage.Juvenile()), true); //TODO: NSFW check
                 // 0 ~ 1
                 float initInterestScore = recipientPsyche.Interests.GetOrCreateInterestScore(convoInterest) * 0.01f;
                 float reciInterestScore = recipientPsyche.Interests.GetOrCreateInterestScore(convoInterest) * 0.01f;
+
+                //Add hailing log first
+                PlayLogEntry_InteractionConversation entry = new PlayLogEntry_InteractionConversation(DefOfRimpsyche.Rimpsyche_ReportConversation, initiator, recipient, convoTopic.name, convoTopic.label, null);
+                Find.PlayLog.Add(entry);
 
                 //If the opinion is negative, there is a chance for the pawn to brush off the conversation.
                 if (reciOpinion < 0)
@@ -93,9 +98,9 @@ namespace Maux36.RimPsyche
                         return;
                     }
                 }
+                extraSentencePacks.Add(DefOfRimpsyche.Sentence_RimpsycheConversationSuccess);
 
                 //Conversation.
-                Topic convoTopic = convoInterest.GetRandomTopic((initiator.DevelopmentalStage.Juvenile() || recipient.DevelopmentalStage.Juvenile()), true); //TODO: NSFW check
                 float topicAlignment = convoTopic.GetScore(initiator, recipient, out float initDirection); // -1~1 [0]
                 float tAbs = Mathf.Abs(topicAlignment);
                 float initInterestF = (1f + (0.5f * initOpinion)) + (initInterestScore * (1f + (0.5f * initPassion))) + 0.25f * ((1f - initInterestScore) * (1f + initInquisitiveness)); //0.5~1.5+ 0~1.5 => 0.5~3 [1.5]
@@ -196,9 +201,6 @@ namespace Maux36.RimPsyche
                 }
 
                 Log.Message($"GetConvoResult: {initiator.Name}: {pawnScore} | {recipient.Name}: {partnerScore}");
-                //Add hailing log first
-                PlayLogEntry_InteractionConversation entry = new PlayLogEntry_InteractionConversation(DefOfRimpsyche.Rimpsyche_ReportConversation, initiator, recipient, convoTopic.name, convoTopic.label, null);
-                Find.PlayLog.Add(entry);
                 float initOpinionOffset = pawnScore * (6f * lengthMult) / (lengthMult + 2f);
                 float reciOpinionOffset = partnerScore * (6f * lengthMult) / (lengthMult + 2f);
                 if (initOpinionOffset != 0)

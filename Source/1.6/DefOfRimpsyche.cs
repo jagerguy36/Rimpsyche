@@ -9,11 +9,12 @@ namespace Maux36.RimPsyche
         public static InteractionDef Rimpsyche_Conversation;
         public static InteractionDef Rimpsyche_ReportConversation;
 
+        public static RulePackDef Sentence_RimpsycheConversationSuccess;
+        public static RulePackDef Sentence_RimpsycheConversationFail;
         public static RulePackDef Sentence_RimpsycheConversationPositiveGood;
         public static RulePackDef Sentence_RimpsycheConversationPositiveBad;
         public static RulePackDef Sentence_RimpsycheConversationNegativeGood;
         public static RulePackDef Sentence_RimpsycheConversationNegativeBad;
-        public static RulePackDef Sentence_RimpsycheConversationFail;
         public static RulePackDef Sentence_RimpsycheSocialFightConvoInitiatorStarted;
         public static RulePackDef Sentence_RimpsycheSocialFightConvoRecipientStarted;
 

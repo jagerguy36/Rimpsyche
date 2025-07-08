@@ -26,7 +26,7 @@ namespace Maux36.RimPsyche
             { "RimPsycheIntensityVery", "Very" },
             { "RimPsycheIntensitySomewhat", "Somewhat" },
             { "RimPsycheIntensityMarginally", "Marginally" },
-            { "RimPsycheIntensityBarely", "Barely" }
+            { "RimPsycheIntensityNeutral", "Neutral" }
         };
         public static string conversationMemoryString = "Conversation about {0}";
 

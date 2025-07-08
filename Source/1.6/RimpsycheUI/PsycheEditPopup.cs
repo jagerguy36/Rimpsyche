@@ -20,7 +20,7 @@ namespace Maux36.RimPsyche
                 float screenHeight = UI.screenHeight;
 
                 // Calculate desired width and height based on screen size
-                float desiredWidth = screenWidth * 0.5f;
+                float desiredWidth = screenWidth * 0.55f;
                 float desiredHeight = screenHeight * 0.5f;
 
                 float minWidth = 900f;
@@ -32,25 +32,25 @@ namespace Maux36.RimPsyche
         //Shared
         public static readonly float innerPadding = 5f;
         public static readonly float titleHeight = 35f;
-        public static readonly float scrollBarWidth = 15f;
+        public static readonly float scrollBarWidth = 20f;
         public static readonly float titleContentSpacing = 5f;
         public static readonly Color barBackgroundColor = new Color(0.2f, 0.2f, 0.2f, 0.5f);
 
         //Facet
 
         //Personality
-        public static List<PersonalityDef> personalityDefList = DefDatabase<PersonalityDef>.AllDefs;
+        public static readonly IEnumerable<PersonalityDef> personalityDefList = DefDatabase<PersonalityDef>.AllDefs;
         public static readonly float personalityRowHeight = 32f;
-        public static float personalityViewHeight = personalityDefList.Count() * personalityRowHeight + 40f;
+        public static float personalityViewHeight = personalityDefList.Count() * personalityRowHeight;
         public static readonly float personalityLabelPadding = 2f;
         public static readonly float personalityLabelWidth = 130f;
         public static readonly float personalityBarWidth = 120f;
         public static readonly float personalityBarHeight = 4f;
 
         //Interest
-        public static readonly var interestList = RimpsycheDatabase.InterestList;
+        public static readonly HashSet<Interest> interestList = RimpsycheDatabase.InterestList;
         public static readonly float interestRowHeight = 32f;
-        public static readonly float interestViewHeight = interestList.Count() * interestRowHeight + 40f;
+        public static readonly float interestViewHeight = interestList.Count() * interestRowHeight;
         public static readonly float interestLabelPadding = 2f;
         public static readonly float interestLabelWidth = 130f;
         public static readonly float interestBarWidth = 120f;
@@ -103,12 +103,16 @@ namespace Maux36.RimPsyche
 
             Rect rightTopRect = new Rect(middleRect.xMax, inRect.y, rightWidth, compPsyche.Sexuality.ShowOnUI() ? 100f : 0f);
             Rect rightBottomRect = new Rect(middleRect.xMax, rightTopRect.yMax, rightWidth, inRect.height- rightTopRect.height);
+            bool showSexuality = compPsyche.Sexuality.ShowOnUI();
+
 
             DrawFacetCard(leftRect, pawn, compPsyche);
 
             DrawPersonalityEditcard(middleRect, pawn, compPsyche);
-
-            DrawSexualityEditCard(rightTopRect, pawn, compPsyche);
+            if (showSexuality)
+            {
+                DrawSexualityEditCard(rightTopRect, pawn, compPsyche);
+            }
             DrawInterestEditCard(rightBottomRect, pawn, compPsyche);
         }
         public static void DrawSexualityEditCard(Rect rect, Pawn pawn, CompPsyche compPsyche)
@@ -124,8 +128,8 @@ namespace Maux36.RimPsyche
             Widgets.Label(titleRect, "Sexuality");
             Text.Anchor = TextAnchor.UpperLeft;
             Text.Font = GameFont.Small;
-            Rect lowerContentRect = new Rect(innerRect.x, innerRect.y + 35f, innerRect.width, innerRect.height titleHeight);
-            Widgets.DrawBoxSolid(lowerContentRect, new Color(0.2f, 0.2f, 0.2f, 0.5f));
+            Rect ContentRect = new Rect(innerRect.x, titleRect.yMax, innerRect.width, innerRect.height - titleHeight);
+            Widgets.DrawBoxSolid(ContentRect, new Color(0.2f, 0.2f, 0.2f, 0.5f));
             Text.Anchor = oldAnchor;
             Text.Font = oldFont;
         }
@@ -140,7 +144,7 @@ namespace Maux36.RimPsyche
             Rect titleRect = new Rect(innerRect.x, innerRect.y, innerRect.width, titleHeight);
             Text.Anchor = TextAnchor.MiddleCenter;
             Text.Font = GameFont.Medium;
-            float titleString = "Interest".Translate()
+            string titleString = "Interest".Translate();
             Widgets.Label(titleRect, titleString);
             Vector2 titleTextSize = Text.CalcSize(titleString);
             // Text.Anchor = oldAnchor;
@@ -218,7 +222,7 @@ namespace Maux36.RimPsyche
             Rect titleRect = new Rect(innerRect.x, innerRect.y, innerRect.width, titleHeight);
             Text.Anchor = TextAnchor.MiddleCenter;
             Text.Font = GameFont.Medium;
-            float titleString = "Personality".Translate()
+            string titleString = "Personality".Translate();
             Widgets.Label(titleRect, titleString);
             Vector2 titleTextSize = Text.CalcSize(titleString);
             // Text.Anchor = oldAnchor;
@@ -302,8 +306,8 @@ namespace Maux36.RimPsyche
                     float clamped = Mathf.Clamp(currentValue, -1f, 1f);
                     float halfBar = Mathf.Abs(clamped) * (personalityBarWidth) / 2f;
                     Rect valueRect = clamped >= 0
-                        ? new Rect(barCenterX, barRect.y, halfBar, barHeight)
-                        : new Rect(barCenterX - halfBar, barRect.y, halfBar, barHeight);
+                        ? new Rect(barCenterX, barRect.y, halfBar, personalityBarHeight)
+                        : new Rect(barCenterX - halfBar, barRect.y, halfBar, personalityBarHeight);
 
                     // Color based on intensity (small = yellow, strong = green)
                     float intensity = Mathf.Abs(clamped) * 2f;
@@ -359,7 +363,7 @@ namespace Maux36.RimPsyche
             }
             TooltipHandler.TipRegion(resetButtonRect, "ResetPsycheTooltip");
 
-            float viewHeight = 15f * personalityRowHeight + 3f;
+            float viewHeight = 15f * rowHeight + 3f;
             Rect viewRect = new Rect(0f, 0f, innerRect.width - 16f, viewHeight); // 16f for scrollbar width
 
             Rect scrollRect = new Rect(innerRect.x, titleRect.yMax + 5f, innerRect.width, innerRect.height - (titleRect.height + 5f));

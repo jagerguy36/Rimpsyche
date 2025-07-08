@@ -10,7 +10,7 @@ namespace Maux36.RimPsyche
     public class PsycheInfoCard
     {
         // Constants and style settings
-        public static Rect PsycheRect = new Rect(0f, 0f, Mathf.Clamp(UI.screenWidth * 0.5f, 450f, 550f) , Mathf.Clamp(UI.screenHeight*0.5f,350f, 450f));
+        public static Rect PsycheRect = new Rect(0f, 0f, Mathf.Clamp(UI.screenWidth * 0.5f, 500f, 600f) , Mathf.Clamp(UI.screenHeight*0.5f,350f, 450f));
         public static GUIStyle style;
         public static Vector2 PersonalityScrollPosition = Vector2.zero;
         public static Vector2 InterestScrollPosition = Vector2.zero;
@@ -21,11 +21,11 @@ namespace Maux36.RimPsyche
         public static readonly float headerHeight = 35f;
         public static readonly float labelPadding = 2f;
         public static readonly float innerPadding = 5f;
-        public static readonly float scrollWidth = 15f;
+        public static readonly float scrollWidth = 20f;
 
         //Cache
-        private static List<PersonalityDisplayData> cachedPersonalityData = new List<PersonalityDisplayData>();
-        private static List<InterestDisplayData> cachedInterestData = new List<InterestDisplayData>();
+        private static List<PersonalityDisplayData> cachedPersonalityData = null;
+        private static List<InterestDisplayData> cachedInterestData = null;
         private static Pawn lastPawn;
         private struct PersonalityDisplayData
         {
@@ -40,6 +40,7 @@ namespace Maux36.RimPsyche
         {
             public Interest Interest;
             public float Value;
+            public float AbsValue;
             public string CachedLabelText;
             public string CachedDescription;
             public Color CachedLabelColor;
@@ -48,7 +49,16 @@ namespace Maux36.RimPsyche
         public static void CacheClean()
         {
             cachedPersonalityData = null;
+            cachedInterestData = null;
         }
+
+        public static void GenerateCacheData(CompPsyche compPsyche, Pawn currentPawn)
+        {
+            lastPawn = currentPawn;
+            GenerateSortedPersonalityData(compPsyche, currentPawn);
+            GenerateSortedInterestData(compPsyche, currentPawn);
+        }
+
 
         //Options
         public static bool rightPanelVisible = false;
@@ -152,9 +162,9 @@ namespace Maux36.RimPsyche
             {
                 if (showSexuality)
                 {
-                    DrawSexaulityBox(sexualityRect, compPsyche);
+                    DrawSexaulityBox(sexualityRect, compPsyche, pawn);
                 }
-                DrawInterestBox(interestRect, compPsyche);
+                DrawInterestBox(interestRect, compPsyche, pawn);
             }
             
 
@@ -168,9 +178,22 @@ namespace Maux36.RimPsyche
             {
                 return cachedPersonalityData;
             }
+            GenerateCacheData(compPsyche, currentPawn);
+            return cachedPersonalityData;
+        }
 
-            lastPawn = currentPawn;
+        private static List<InterestDisplayData> GetSortedInterestData(CompPsyche compPsyche, Pawn currentPawn)
+        {
+            if (currentPawn == lastPawn && cachedInterestData != null)
+            {
+                return cachedInterestData;
+            }
+            GenerateCacheData(compPsyche, currentPawn);
+            return cachedInterestData;
+        }
 
+        private static void GenerateSortedPersonalityData(CompPsyche compPsyche, Pawn currentPawn)
+        {
             var personalityDefList = DefDatabase<PersonalityDef>.AllDefs;
             var sortedData = new List<PersonalityDisplayData>();
 
@@ -217,14 +240,38 @@ namespace Maux36.RimPsyche
                     Value = value,
                     AbsValue = absValue,
                     CachedLabelText = cachedLabelText,
-                    CachedLabelColor = cachedLabelColor
+                    CachedLabelColor = cachedLabelColor,
                     CachedDescription = $"{personality.label}: {Math.Round(value, 1)}\n{personality.description}"
                 });
             }
             sortedData = sortedData.OrderByDescending(p => p.AbsValue).ToList();
             cachedPersonalityData = sortedData;
-            return sortedData;
         }
+        private static void GenerateSortedInterestData(CompPsyche compPsyche, Pawn currentPawn)
+        {
+            var interestList = RimpsycheDatabase.InterestList;
+            var sortedData = new List<InterestDisplayData>();
+
+            foreach (var interest in interestList)
+            {
+                float value = compPsyche.Interests.GetOrCreateInterestScore(interest);
+                float absValue = Mathf.Abs(value);
+                string cachedLabelText = interest.label;
+                Color cachedLabelColor = Color.Lerp(Color.yellow, Color.green, absValue);
+                sortedData.Add(new InterestDisplayData
+                {
+                    Interest = interest,
+                    Value = value,
+                    AbsValue = absValue,
+                    CachedLabelText = cachedLabelText,
+                    CachedLabelColor = cachedLabelColor,
+                    CachedDescription = $"{interest.label}: {Math.Round(value, 1)}\n{interest.description}"
+                });
+            }
+            sortedData = sortedData.OrderByDescending(p => p.AbsValue).ToList();
+            cachedInterestData = sortedData;
+        }
+
 
         public static readonly float personalityLabelWidth = 130f;
         public static readonly float personalityRowHeight = 28f;
@@ -302,13 +349,13 @@ namespace Maux36.RimPsyche
                     if (Mouse.IsOver(rowRect))
                     {
                         Widgets.DrawHighlight(rowRect);
-                        TooltipHandler.TipRegion(rowRect, CachedDescription);
+                        TooltipHandler.TipRegion(rowRect, pData.CachedDescription);
                     }
 
                     float barCenterX = rowRect.x + rowRect.width / 2f;
                     float centerY = rowRect.y + rowRect.height / 2f;
                     float textY = centerY - Text.LineHeight / 2f;
-                    float barY = centerY - personalityBarHeight / 2f
+                    float barY = centerY - personalityBarHeight / 2f;
 
                     // Left label
                     Rect leftRect = new Rect(rowRect.x + labelPadding, textY, personalityLabelWidth, Text.LineHeight);
@@ -325,13 +372,13 @@ namespace Maux36.RimPsyche
                     Widgets.DrawBoxSolid(barRect, new Color(0.2f, 0.2f, 0.2f, 0.5f));
 
                     // Value bar
-                    float halfBar = pData.absValue * (personalityBarWidth) / 2f;
+                    float halfBar = pData.AbsValue * (personalityBarWidth) / 2f;
                     Rect valueRect = value >= 0
                         ? new Rect(barCenterX, barRect.y, halfBar, personalityBarHeight)
                         : new Rect(barCenterX - halfBar, barRect.y, halfBar, personalityBarHeight);
 
                     // Color based on intensity (small = yellow, strong = green)
-                    Widgets.DrawBoxSolid(valueRect, pData.cachedLabelColor);
+                    Widgets.DrawBoxSolid(valueRect, pData.CachedLabelColor);
 
                     y += personalityRowHeight;
                 }
@@ -346,7 +393,7 @@ namespace Maux36.RimPsyche
                     if (Mouse.IsOver(rowRect))
                     {
                         Widgets.DrawHighlight(rowRect);
-                        TooltipHandler.TipRegion(rowRect, CachedDescription);
+                        TooltipHandler.TipRegion(rowRect, pData.CachedDescription);
                     }
 
                     // Draw label
@@ -367,7 +414,7 @@ namespace Maux36.RimPsyche
             Text.Font = oldFont;
         }
 
-        public static void DrawSexaulityBox(Rect sexualityRect, CompPsyche compPsyche)
+        public static void DrawSexaulityBox(Rect sexualityRect, CompPsyche compPsyche, Pawn pawn)
         {
             TextAnchor oldAnchor = Text.Anchor;
             GameFont oldFont = Text.Font;
@@ -429,46 +476,14 @@ namespace Maux36.RimPsyche
             Text.Font = oldFont;
         }
 
-        public static List<InterestDisplayData> GetSortedInterestData(CompPsyche compPsyche, Pawn currentPawn)
-        {
-            if (currentPawn == lastPawn && cachedInterestData != null)
-            {
-                return cachedInterestData;
-            }
 
-            lastPawn = currentPawn;
-
-            var interestList = RimpsycheDatabase.InterestList;
-            var sortedData = new List<InterestDisplayData>();
-
-            foreach (var interest in interestList)
-            {
-                float value = compPsyche.Interests.GetOrCreateInterestScore(interest);
-                float absValue = Mathf.Abs(value);
-
-                string cachedLabelText = interest.label;
-                Color cachedLabelColor = Color.Lerp(Color.yellow, Color.green, absValue);
-                sortedData.Add(new InterestDisplayData
-                {
-                    Interest = interest,
-                    Value = value,
-                    AbsValue = absValue,
-                    CachedLabelText = cachedLabelText,
-                    CachedLabelColor = cachedLabelColor
-                    CachedDescription = $"{interest.label}: {Math.Round(value, 1)}\n{interest.description}"
-                });
-            }
-            sortedData = sortedData.OrderByDescending(p => p.AbsValue).ToList();
-            cachedPersonalityData = sortedData;
-            return sortedData;
-        }
 
 
         public static readonly float interestLabelWidth = 150f;
         public static readonly float interestRowHeight = 28f;
         public static readonly float interestBarHeight = 4f;
 
-        public static void DrawInterestBox(Rect interestRect, CompPsyche compPsyche)
+        public static void DrawInterestBox(Rect interestRect, CompPsyche compPsyche, Pawn pawn)
         {
             TextAnchor oldAnchor = Text.Anchor;
             GameFont oldFont = Text.Font;
@@ -518,7 +533,7 @@ namespace Maux36.RimPsyche
                 if (Mouse.IsOver(rowRect))
                 {
                     Widgets.DrawHighlight(rowRect);
-                    TooltipHandler.TipRegion(rowRect, interestData.description);
+                    TooltipHandler.TipRegion(rowRect, interestData.CachedDescription);
                 }
 
                 float barCenterX = rowRect.x + rowRect.width / 2f;
@@ -535,10 +550,10 @@ namespace Maux36.RimPsyche
                 // Value bar
                 float normalizedValue = value * 0.01f; // Normalize value to 0-1 range
                 float fillWidth = normalizedValue * barWidth; // Calculate the width of the filled part
-                Rect valueRect = new Rect(barRect.x, barRect.y, fillWidth, barHeinterestBarHeightight); // Bar fills from the left
+                Rect valueRect = new Rect(barRect.x, barRect.y, fillWidth, interestBarHeight); // Bar fills from the left
 
                 // Color based on intensity (small = yellow, strong = green)
-                Widgets.DrawBoxSolid(valueRect, interestData.cachedLabelColor);
+                Widgets.DrawBoxSolid(valueRect, interestData.CachedLabelColor);
 
                 y += interestRowHeight;
             }
