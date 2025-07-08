@@ -10,20 +10,18 @@ namespace Maux36.RimPsyche
     public class PsycheInfoCard
     {
         // Constants and style settings
-        public static TextAnchor OldAnchor;
-        public static int OldSmallFontSize = Text.fontStyles[1].fontSize;
-
         public static Rect PsycheRect = new Rect(0f, 0f, Mathf.Clamp(UI.screenWidth * 0.5f, 450f, 550f) , Mathf.Clamp(UI.screenHeight*0.5f,350f, 450f));
-        public static bool ShowNumbersBool = false;
         public static GUIStyle style;
-        public const int OptionFontSize = 16;
-        public static float expandButtonSize = 8f;
-        public static float rightPanelWidthConstant = 250f;
-
-        public static readonly Color LineColor = new Color(97f, 108f, 122f, 0.25f);
-        public static float BoundaryPadding = 5f;
         public static Vector2 PersonalityScrollPosition = Vector2.zero;
         public static Vector2 InterestScrollPosition = Vector2.zero;
+
+        public static readonly float expandButtonSize = 8f;
+        public static readonly float rightPanelWidthConstant = 250f;
+        public static readonly Color LineColor = new Color(97f, 108f, 122f, 0.25f);
+        public static readonly float headerHeight = 35f;
+        public static readonly float labelPadding = 2f;
+        public static readonly float innerPadding = 5f;
+        public static readonly float scrollWidth = 15f;
 
         //Cache
         private static List<PersonalityDisplayData> cachedPersonalityData = new List<PersonalityDisplayData>();
@@ -45,6 +43,7 @@ namespace Maux36.RimPsyche
         //Options
         public static bool rightPanelVisible = false;
         public static bool showBothSide = false;
+        public static bool showNumbers = false;
 
 
         public static void DrawPsycheCard(Rect totalRect, Pawn pawn)
@@ -52,60 +51,61 @@ namespace Maux36.RimPsyche
             totalRect.width -= (rightPanelVisible ? 0f : rightPanelWidthConstant);
             var compPsyche = pawn.compPsyche();
             bool showSexuality = compPsyche.Sexuality.ShowOnUI();
-            // Save state
-            OldAnchor = Text.Anchor;
-            Text.Font = GameFont.Small;
-            GUI.color = Color.white;
+
+             // Save state           
+            TextAnchor oldAnchor = Text.Anchor;
+            GameFont oldFont = Text.Font;
 
             // Setup font style
+            Text.Font = GameFont.Small;
+            GUI.color = Color.white;
             style = Text.fontStyles[1];
 
             // All drawing will happen within this group
             GUI.BeginGroup(totalRect);
             totalRect.position = Vector2.zero;
 
-            // === Layout constants ===
+            // Layout constants
             float rightPanelWidth = rightPanelVisible ? rightPanelWidthConstant : 0f;
-            float rightPanelHeight = 0f;
+            float rightTopPanelHeight = 0f;
             if (showSexuality)
             {
-                rightPanelHeight = 150f;
+                rightTopPanelHeight = 150f;
             }
 
-            // === Define the sexuality (right side) panel rect ===
+            // Define the sexuality panel rect
             Rect sexualityRect = new Rect(
                 totalRect.xMax - rightPanelWidth,
                 totalRect.y,
                 rightPanelWidth,
-                rightPanelHeight
+                rightTopPanelHeight
             );
 
-            // === Define the interest (right side) panel rect ===
+            // Define the interest panel rect
             Rect interestRect = new Rect(
                 totalRect.xMax - rightPanelWidth,
-                sexualityRect.y + rightPanelHeight,
+                sexualityRect.y + rightTopPanelHeight,
                 rightPanelWidth,
-                totalRect.height - rightPanelHeight
+                totalRect.height - rightTopPanelHeight
             );
 
-            // === Define the personality (left side) panel rect ===
+            // Define the personality panel rect
             Rect personalityRect = totalRect;
             personalityRect.xMax = sexualityRect.x;
 
-            // === Draw separating lines between personality & sexuality sections ===
+            // Draw separating lines between personality & sexuality sections
             if (rightPanelVisible)
             {
                 GUI.color = LineColor;
                 Widgets.DrawLineVertical(personalityRect.xMax - 1, totalRect.y + 1, totalRect.height - 2); // Vertical divider
                 if (showSexuality)
                 {
-                    Widgets.DrawLineHorizontal(personalityRect.xMax, rightPanelHeight, totalRect.width - personalityRect.xMax-1); // Horizontal divider
+                    Widgets.DrawLineHorizontal(personalityRect.xMax, rightTopPanelHeight, totalRect.width - personalityRect.xMax-1); // Horizontal divider
                 }
                 GUI.color = Color.white;
             }
 
-            // === Draw Expanding Button
-
+            // Draw Expanding Button
             personalityRect.xMax -= expandButtonSize;
             Rect openButtonRect = new Rect(
                 personalityRect.xMax-expandButtonSize/2, // Center the button in the buttonAreaWidth
@@ -117,24 +117,24 @@ namespace Maux36.RimPsyche
             {
                 if (Widgets.ButtonImage(openButtonRect, Rimpsyche_UI_Utility.HideButton))
                 {
-                    rightPanelVisible = !rightPanelVisible; // Toggle visibility
+                    rightPanelVisible = !rightPanelVisible;
                 }
             }
             else
             {
                 if (Widgets.ButtonImage(openButtonRect, Rimpsyche_UI_Utility.RevealButton))
                 {
-                    rightPanelVisible = !rightPanelVisible; // Toggle visibility
+                    rightPanelVisible = !rightPanelVisible;
                 }
             }
 
 
             if (showSexuality)
             {
-                sexualityRect = sexualityRect.ContractedBy(BoundaryPadding);
+                sexualityRect = sexualityRect.ContractedBy(innerPadding);
             }
-            interestRect = interestRect.ContractedBy(BoundaryPadding);
-            personalityRect = personalityRect.ContractedBy(BoundaryPadding); // Add padding
+            interestRect = interestRect.ContractedBy(innerPadding);
+            personalityRect = personalityRect.ContractedBy(innerPadding); // Add padding
 
             // === Draw content ===
             DrawPersonalityBox(personalityRect, compPsyche, pawn);
@@ -208,6 +208,7 @@ namespace Maux36.RimPsyche
                     AbsValue = absValue,
                     CachedLabelText = cachedLabelText,
                     CachedLabelColor = cachedLabelColor
+                    CachedDescription = $"{personality.label}: {Math.Round(value, 1)}\n{personality.description}"
                 });
             }
             sortedData = sortedData.OrderByDescending(p => p.AbsValue).ToList();
@@ -215,28 +216,22 @@ namespace Maux36.RimPsyche
             return sortedData;
         }
 
+        public static readonly float personalityRowHeight = 28f;
+        public static readonly float personalityBarWidth = 80f;
+        public static readonly float personalityBarHeight = 4f;
+
         public static void DrawPersonalityBox(Rect personalityRect, CompPsyche compPsyche,  Pawn pawn)
         {
             TextAnchor oldAnchor = Text.Anchor;
             GameFont oldFont = Text.Font;
 
-            // === Header Config ===
-            float headerHeight = 35f;
-            float rowHeight = 28f;
-            float labelPadding = 2f;
-            float barWidth = 80f;
-            float barHeight = 4f;
-
-            // === Draw Header ===
+            // Draw Header
             Rect headerRect = new Rect(personalityRect.x, personalityRect.y, personalityRect.width, headerHeight);
             GUI.BeginGroup(headerRect);
-
-            // Title: "Personality"
             Text.Font = GameFont.Medium;
             Text.Anchor = TextAnchor.MiddleCenter;
             Rect titleRect = new Rect(0f, 0f, headerRect.width, headerRect.height);
             Widgets.Label(titleRect, "Personality".Translate());
-
             Vector2 titleTextSize = Text.CalcSize("Personality".Translate());
 
             // Icon on the right
@@ -252,8 +247,7 @@ namespace Maux36.RimPsyche
             }
             TooltipHandler.TipRegion(viewIconRect, "RimpsycheView");
 
-            float editIconX = viewIconRect.xMax + spacing;
-            Rect editIconRect = new Rect(editIconX, (headerHeight - iconSize) / 2f, iconSize, iconSize);
+            Rect editIconRect = new Rect(viewIconRect.xMax + spacing, (headerHeight - iconSize) / 2f, iconSize, iconSize);
             if (Prefs.DevMode)
             {
                 if (Widgets.ButtonImage(editIconRect, Rimpsyche_UI_Utility.EditButton))
@@ -265,12 +259,12 @@ namespace Maux36.RimPsyche
 
             GUI.EndGroup();
 
-            // === Scroll View Setup ===
+            // Scroll View Setup
             Text.Font = GameFont.Small;
             var personalitiesToDisplay = GetSortedPersonalityData(compPsyche, pawn);
 
-            float viewHeight = personalitiesToDisplay.Count() * rowHeight + 3f;
-            Rect scrollContentRect = new Rect(0f, 0f, personalityRect.width - 20f, viewHeight);
+            float viewHeight = personalitiesToDisplay.Count() * personalityRowHeight + 3f;
+            Rect scrollContentRect = new Rect(0f, 0f, personalityRect.width - scrollWidth, viewHeight);
 
             Rect scrollRect = new Rect(
                 personalityRect.x,
@@ -297,38 +291,37 @@ namespace Maux36.RimPsyche
                     if (Mouse.IsOver(rowRect))
                     {
                         Widgets.DrawHighlight(rowRect);
-                        TooltipHandler.TipRegion(rowRect, $"{personality.label}: {Math.Round(value, 1)}");
+                        TooltipHandler.TipRegion(rowRect, CachedDescription);
                     }
 
                     float labelWidth = 130f;
                     float barCenterX = rowRect.x + rowRect.width / 2f;
                     float centerY = rowRect.y + rowRect.height / 2f;
+                    float textY = centerY - Text.LineHeight / 2f;
+                    float barY = centerY - personalityBarHeight / 2f
 
                     // Left label
-                    Rect leftRect = new Rect(rowRect.x + labelPadding, centerY - Text.LineHeight / 2f, labelWidth, Text.LineHeight);
+                    Rect leftRect = new Rect(rowRect.x + labelPadding, textY, labelWidth, Text.LineHeight);
                     Text.Anchor = TextAnchor.MiddleLeft;
                     Widgets.Label(leftRect, leftLabel);
 
                     // Right label
-                    Rect rightRect = new Rect(rowRect.xMax - labelWidth - labelPadding, centerY - Text.LineHeight / 2f, labelWidth, Text.LineHeight);
+                    Rect rightRect = new Rect(rowRect.xMax - labelWidth - labelPadding, textY, labelWidth, Text.LineHeight);
                     Text.Anchor = TextAnchor.MiddleRight;
                     Widgets.Label(rightRect, rightLabel);
 
                     // Bar background
-                    Rect barRect = new Rect(barCenterX - barWidth / 2f, centerY - barHeight / 2f, barWidth, barHeight);
+                    Rect barRect = new Rect(barCenterX - personalityBarWidth / 2f, barY, personalityBarWidth, personalityBarHeight);
                     Widgets.DrawBoxSolid(barRect, new Color(0.2f, 0.2f, 0.2f, 0.5f));
 
                     // Value bar
-                    float clamped = Mathf.Clamp(value, -1f, 1f); // now value is between -1 ~ 1
-                    float halfBar = Mathf.Abs(clamped) * (barWidth) / 2f;
-                    Rect valueRect = clamped >= 0
-                        ? new Rect(barCenterX, barRect.y, halfBar, barHeight)
-                        : new Rect(barCenterX - halfBar, barRect.y, halfBar, barHeight);
+                    float halfBar = pData.absValue * (personalityBarWidth) / 2f;
+                    Rect valueRect = value >= 0
+                        ? new Rect(barCenterX, barRect.y, halfBar, personalityBarHeight)
+                        : new Rect(barCenterX - halfBar, barRect.y, halfBar, personalityBarHeight);
 
                     // Color based on intensity (small = yellow, strong = green)
-                    float intensity = Mathf.Abs(clamped) * 2f; // maps 0–0.5 to 0–1
-                    Color barColor = Color.Lerp(Color.yellow, Color.green, intensity);
-                    Widgets.DrawBoxSolid(valueRect, barColor);
+                    Widgets.DrawBoxSolid(valueRect, pData.cachedLabelColor);
 
                     y += rowHeight;
                 }
@@ -343,7 +336,7 @@ namespace Maux36.RimPsyche
                     if (Mouse.IsOver(rowRect))
                     {
                         Widgets.DrawHighlight(rowRect);
-                        TooltipHandler.TipRegion(rowRect, $"{pData.Personality.label}: {Math.Round(pData.Value, 1)}");
+                        TooltipHandler.TipRegion(rowRect, CachedDescription);
                     }
 
                     // Draw label
@@ -456,7 +449,7 @@ namespace Maux36.RimPsyche
             // === Scroll View Setup ===
             Text.Font = GameFont.Small;
             float viewHeight = RimpsycheDatabase.InterestList.Count() * rowHeight + 3f;
-            Rect scrollContentRect = new Rect(0f, 0f, interestRect.width - 10f, viewHeight);
+            Rect scrollContentRect = new Rect(0f, 0f, interestRect.width - scrollWidth, viewHeight);
 
             Rect scrollRect = new Rect(
                 interestRect.x,
