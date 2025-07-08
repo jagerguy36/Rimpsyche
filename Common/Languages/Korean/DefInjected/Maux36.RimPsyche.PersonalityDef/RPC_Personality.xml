@@ -113,7 +113,32 @@
   <Rimpsyche_Trust.label>신뢰</Rimpsyche_Trust.label>
   <Rimpsyche_Trust.high>순진한</Rimpsyche_Trust.high>
   <Rimpsyche_Trust.low>회의적인</Rimpsyche_Trust.low>
-  <Rimpsyche_Trust.description>타인의 의도에 얼마나 쉽게 신뢰를 두는지를 나타냅니다. 순진한 사람은 타인의 선의에 믿음을 가지는 경향이 있습니다. 반면, 회의적인 사람은 더 신중하고, 종종 의도를 의심하거나 신뢰를 주기 전에 증거나 반복적인 긍정적 상호작용을 요구합니다.</Rimpsyche_Trust.description>
+  <Rimpsyche_Trust.description>사람을 얼마나 쉽게 믿는 성향인지를 나타냅니다. 순진한 사람은 타인의 정직함이나 의도를 의심하기보다는 선의로 받아들이는 편입니다. 반면, 회의적인 사람은 타인을 쉽게 믿지 않으며, 반복된 긍정적 경험이나 분명한 증거가 있어야 신뢰를 보입니다.</Rimpsyche_Trust.description>
+
+  <Rimpsyche_Deliberation.label>신중함</Rimpsyche_Deliberation.label>
+  <Rimpsyche_Deliberation.high>신중한</Rimpsyche_Deliberation.high>
+  <Rimpsyche_Deliberation.low>성급한</Rimpsyche_Deliberation.low>
+  <Rimpsyche_Deliberation.description>일이나 결정을 얼마나 차분하게 생각하고 처리하는지를 나타냅니다. 신중한 사람은 충분한 시간을 들여 여러 가능성을 따져보며, 빠르기보다는 정확함을 중요하게 여깁니다. 반면, 성급한 사람은 속도를 우선시하며, 꼼꼼함을 포기하더라도 빨리 행동하려는 경향이 있습니다.</Rimpsyche_Deliberation.description>
+
+  <Rimpsyche_Cognition.label>사고 방식</Rimpsyche_Cognition.label>
+  <Rimpsyche_Cognition.high>이성적인</Rimpsyche_Cognition.high>
+  <Rimpsyche_Cognition.low>직관적인</Rimpsyche_Cognition.low>
+  <Rimpsyche_Cognition.description>정보를 처리하고 판단을 내릴 때 어떤 방식에 더 기대는지를 나타냅니다. 이성적인 사람은 문제를 논리적으로 분석하고, 세부 사항을 신중히 따져보며 결정을 내리는 편입니다. 반면, 직관적인 사람은 감각이나 직감에 따라 판단하고, 순간적인 인상이나 느낌을 바탕으로 행동하는 경향이 있습니다.</Rimpsyche_Cognition.description>
+
+  <Rimpsyche_Playfulness.label>유쾌함</Rimpsyche_Playfulness.label>
+  <Rimpsyche_Playfulness.high>장난기 많은</Rimpsyche_Playfulness.high>
+  <Rimpsyche_Playfulness.low>진지한</Rimpsyche_Playfulness.low>
+  <Rimpsyche_Playfulness.description>어느 정도 가볍고 유쾌한 태도로 사람이나 상황을 대하는지를 나타냅니다. 장난기 많은 사람은 농담이나 재치 있는 말을 즐기고, 일상적인 상황에서도 가볍게 넘기는 편입니다. 반면, 진지한 사람은 장난보다는 진중하고 솔직한 태도를 선호하며, 농담에 쉽게 반응하지 않는 편입니다.</Rimpsyche_Playfulness.description>
+
+  <Rimpsyche_Bravery.label>용기</Rimpsyche_Bravery.label>
+  <Rimpsyche_Bravery.high>용감한</Rimpsyche_Bravery.high>
+  <Rimpsyche_Bravery.low>겁이 많은</Rimpsyche_Bravery.low>
+  <Rimpsyche_Bravery.description>두려움이나 위험, 어려운 상황에 얼마나 맞설 수 있는지를 나타냅니다. 용감한 사람은 위험이 따르더라도 문제를 정면으로 마주하려는 경향이 있습니다. 반면, 겁이 많은 사람은 불안하거나 불편한 상황을 피하려 하며, 맞서기보다는 안전을 우선시하는 편입니다.</Rimpsyche_Bravery.description>
+
+  <Rimpsyche_Patience.label>인내심</Rimpsyche_Patience.label>
+  <Rimpsyche_Patience.high>참을성 있는</Rimpsyche_Patience.high>
+  <Rimpsyche_Patience.low>참을성 없는</Rimpsyche_Patience.low>
+  <Rimpsyche_Patience.description>얼마나 오랜 기다림이나 불편함을 견딜 수 있는지를 나타냅니다. 참을성 있는 사람은 원하는 결과를 기다리는 동안에도 침착하게 버티며, 사소한 문제나 긴 기다림에도 쉽게 흔들리지 않습니다. 반면, 참을성 없는 사람은 일이 빨리 진행되지 않거나 지체될 때 금세 불안해하거나 짜증을 내는 경향이 있습니다.</Rimpsyche_Patience.description>
 
 
 </LanguageData>
