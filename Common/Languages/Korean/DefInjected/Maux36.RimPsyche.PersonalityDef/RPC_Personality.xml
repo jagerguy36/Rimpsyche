@@ -79,4 +79,41 @@
   <Rimpsyche_Emotionality.high>감정적인</Rimpsyche_Emotionality.high>
   <Rimpsyche_Emotionality.low>무덤덤한</Rimpsyche_Emotionality.low>
   <Rimpsyche_Emotionality.description>감정을 얼마나 깊이 느끼고, 얼마나 자주 드러내는지를 나타냅니다. 감정적인 사람은 기쁨이나 슬픔 같은 감정을 강하게 느끼고, 상황에 따라 격하게 반응하는 편입니다. 반면, 무덤덤한 사람은 감정을 덜 강렬하게 경험하며, 침착하고 차분한 태도를 유지합니다.</Rimpsyche_Emotionality.description>
+
+  <Rimpsyche_Volatility.label>감정 기복</Rimpsyche_Volatility.label>
+  <Rimpsyche_Volatility.high>불안정한</Rimpsyche_Volatility.high>
+  <Rimpsyche_Volatility.low>차분한</Rimpsyche_Volatility.low>
+  <Rimpsyche_Volatility.description>감정 상태가 얼마나 자주, 또 얼마나 갑작스럽게 변하는지를 나타냅니다. 감정 기복이 불안정한 사람은 감정의 변화가 크고 잦아, 상황에 강하게 반응하거나 예기치 않게 감정이 요동칠 수 있습니다. 반대로 차분한 사람은 감정의 흐름이 일정하고, 웬만한 상황에도 침착하게 반응하는 편입니다.</Rimpsyche_Volatility.description>
+
+  <Rimpsyche_Morality.label>도덕성</Rimpsyche_Morality.label>
+  <Rimpsyche_Morality.high>원칙적인</Rimpsyche_Morality.high>
+  <Rimpsyche_Morality.low>비도덕한</Rimpsyche_Morality.low>
+  <Rimpsyche_Morality.description>옳고 그름에 대한 감각과 윤리 기준을 얼마나 따르는지를 나타냅니다. 비도덕한 사람은 도덕이나 규범에 크게 신경 쓰지 않고, 실리나 자신의 이익을 우선시하는 경향이 있습니다. 반대로 원칙적인 사람은 개인적 또는 사회적 윤리 기준을 중시하며, 불리한 상황에서도 자신의 가치관에 따라 행동하려고 합니다.</Rimpsyche_Morality.description>
+
+  <Rimpsyche_Optimism.label>낙관성</Rimpsyche_Optimism.label>
+  <Rimpsyche_Optimism.high>낙관적인</Rimpsyche_Optimism.high>
+  <Rimpsyche_Optimism.low>비관적인</Rimpsyche_Optimism.low>
+  <Rimpsyche_Optimism.description>삶에 대한 전반적인 태도와 미래에 대한 기대를 나타냅니다. 낙관적인 사람은 좋은 결과를 기대하고, 어려운 상황에서도 희망적인 시각을 유지하며, 긍정적인 면을 잘 봅니다. 반면, 비관적인 사람은 부정적인 결과를 예상하거나, 난관에 더 매몰되어 쉽게 낙담할 수 있습니다.</Rimpsyche_Optimism.description>
+
+  <Rimpsyche_Ambition.label>야심</Rimpsyche_Ambition.label>
+  <Rimpsyche_Ambition.high>야심찬</Rimpsyche_Ambition.high>
+  <Rimpsyche_Ambition.low>안주하는</Rimpsyche_Ambition.low>
+  <Rimpsyche_Ambition.description>성취, 성공, 또는 향상에 대한 욕구와 추진력을 나타냅니다. 야심찬 사람은 도전적인 목표를 설정하고 이를 달성하기 위해 높은 동기를 가지며, 종종 진급, 인정 또는 개인적인 성장을 추구합니다. 반면, 안주하는 사람은 현재 상황에 만족하며, 큰 변화나 더 높은 성과를 추구하는 경향이 적습니다.</Rimpsyche_Ambition.description>
+
+  <Rimpsyche_Compassion.label>연민</Rimpsyche_Compassion.label>
+  <Rimpsyche_Compassion.high>연민 있는</Rimpsyche_Compassion.high>
+  <Rimpsyche_Compassion.low>냉담한</Rimpsyche_Compassion.low>
+  <Rimpsyche_Compassion.description>타인의 고통에 대해 얼마나 공감하고 관심을 가지는지를 나타냅니다. 연민 있는 사람은 타인의 고통에 깊이 공감하며 남을 돕고 친절을 베푸는데 자신을 아끼지 않습니다. 반면, 냉담한 사람은 타인의 고통에 무관심하고 자신이 가진 필요나 목표에 더 집중하는 경향이 있습니다.</Rimpsyche_Compassion.description>
+
+  <Rimpsyche_Spontaneity.label>즉흥성</Rimpsyche_Spontaneity.label>
+  <Rimpsyche_Spontaneity.high>즉흥적인</Rimpsyche_Spontaneity.high>
+  <Rimpsyche_Spontaneity.low>일관된</Rimpsyche_Spontaneity.low>
+  <Rimpsyche_Spontaneity.description>사람이 얼마나 예측 불가능하거나 안정적인 성향을 가지는지를 나타냅니다. 즉흥적인 사람은 충동적으로 행동하여 예기치 않거나 다양한 행동을 보이는 경향이 있습니다. 반면, 일관된 사람은 보다 신중하고 일정한 성향을 가집니다.</Rimpsyche_Spontaneity.description>
+
+  <Rimpsyche_Trust.label>신뢰</Rimpsyche_Trust.label>
+  <Rimpsyche_Trust.high>순진한</Rimpsyche_Trust.high>
+  <Rimpsyche_Trust.low>회의적인</Rimpsyche_Trust.low>
+  <Rimpsyche_Trust.description>타인의 의도에 얼마나 쉽게 신뢰를 두는지를 나타냅니다. 순진한 사람은 타인의 선의에 믿음을 가지는 경향이 있습니다. 반면, 회의적인 사람은 더 신중하고, 종종 의도를 의심하거나 신뢰를 주기 전에 증거나 반복적인 긍정적 상호작용을 요구합니다.</Rimpsyche_Trust.description>
+
+
 </LanguageData>

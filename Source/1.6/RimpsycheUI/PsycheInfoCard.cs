@@ -226,6 +226,7 @@ namespace Maux36.RimPsyche
             return sortedData;
         }
 
+        public static readonly float personalityLabelWidth = 130f;
         public static readonly float personalityRowHeight = 28f;
         public static readonly float personalityBarWidth = 80f;
         public static readonly float personalityBarHeight = 4f;
@@ -295,7 +296,7 @@ namespace Maux36.RimPsyche
                     var value = pData.Value;
                     var (leftLabel, rightLabel, leftColor, rightColor) = (personality.low, personality.high, Color.red, Color.green);
 
-                    Rect rowRect = new Rect(0f, y, scrollContentRect.width, rowHeight);
+                    Rect rowRect = new Rect(0f, y, scrollContentRect.width, personalityRowHeight);
 
                     // Hover highlight + tooltip
                     if (Mouse.IsOver(rowRect))
@@ -304,19 +305,18 @@ namespace Maux36.RimPsyche
                         TooltipHandler.TipRegion(rowRect, CachedDescription);
                     }
 
-                    float labelWidth = 130f;
                     float barCenterX = rowRect.x + rowRect.width / 2f;
                     float centerY = rowRect.y + rowRect.height / 2f;
                     float textY = centerY - Text.LineHeight / 2f;
                     float barY = centerY - personalityBarHeight / 2f
 
                     // Left label
-                    Rect leftRect = new Rect(rowRect.x + labelPadding, textY, labelWidth, Text.LineHeight);
+                    Rect leftRect = new Rect(rowRect.x + labelPadding, textY, personalityLabelWidth, Text.LineHeight);
                     Text.Anchor = TextAnchor.MiddleLeft;
                     Widgets.Label(leftRect, leftLabel);
 
                     // Right label
-                    Rect rightRect = new Rect(rowRect.xMax - labelWidth - labelPadding, textY, labelWidth, Text.LineHeight);
+                    Rect rightRect = new Rect(rowRect.xMax - personalityLabelWidth - labelPadding, textY, personalityLabelWidth, Text.LineHeight);
                     Text.Anchor = TextAnchor.MiddleRight;
                     Widgets.Label(rightRect, rightLabel);
 
@@ -333,14 +333,14 @@ namespace Maux36.RimPsyche
                     // Color based on intensity (small = yellow, strong = green)
                     Widgets.DrawBoxSolid(valueRect, pData.cachedLabelColor);
 
-                    y += rowHeight;
+                    y += personalityRowHeight;
                 }
             }
             else
             {
                 foreach (var pData in personalitiesToDisplay)
                 {
-                    Rect rowRect = new Rect(0f, y, scrollContentRect.width, rowHeight);
+                    Rect rowRect = new Rect(0f, y, scrollContentRect.width, personalityRowHeight);
 
                     // Hover highlight + tooltip
                     if (Mouse.IsOver(rowRect))
@@ -352,11 +352,11 @@ namespace Maux36.RimPsyche
                     // Draw label
                     Text.Anchor = TextAnchor.MiddleLeft;
                     GUI.color = pData.CachedLabelColor;
-                    Rect labelRect = new Rect(rowRect.x + labelPadding, rowRect.y, scrollContentRect.width - (2 * labelPadding), rowHeight);
+                    Rect labelRect = new Rect(rowRect.x + labelPadding, rowRect.y, scrollContentRect.width - (2 * labelPadding), personalityRowHeight);
                     Widgets.Label(labelRect, pData.CachedLabelText);
                     GUI.color = Color.white; // Reset color
 
-                    y += rowHeight;
+                    y += personalityRowHeight;
                 }
             }
 
@@ -464,17 +464,14 @@ namespace Maux36.RimPsyche
         }
 
 
+        public static readonly float interestLabelWidth = 150f;
+        public static readonly float interestRowHeight = 28f;
+        public static readonly float interestBarHeight = 4f;
+
         public static void DrawInterestBox(Rect interestRect, CompPsyche compPsyche)
         {
             TextAnchor oldAnchor = Text.Anchor;
             GameFont oldFont = Text.Font;
-
-            // === Header Config ===
-            float headerHeight = 35f;
-            float labelWidth = 150f;
-            float rowHeight = 28f;
-            float labelPadding = 2f;
-            float barHeight = 4f;
 
             // === Draw Header ===
             Rect headerRect = new Rect(interestRect.x, interestRect.y, interestRect.width, headerHeight);
@@ -495,7 +492,7 @@ namespace Maux36.RimPsyche
             // === Scroll View Setup ===
             Text.Font = GameFont.Small;
             var interestsToDisplay = GetSortedInterestData(compPsyche, pawn);
-            float viewHeight = interestsToDisplay.Count() * rowHeight + 3f;
+            float viewHeight = interestsToDisplay.Count() * interestRowHeight + 3f;
             Rect scrollContentRect = new Rect(0f, 0f, interestRect.width - scrollWidth, viewHeight);
 
             Rect scrollRect = new Rect(
@@ -508,12 +505,14 @@ namespace Maux36.RimPsyche
             Widgets.BeginScrollView(scrollRect, ref InterestScrollPosition, scrollContentRect);
 
             float y = 0f;
-            float barWidth = scrollContentRect.width - labelWidth - labelPadding-5f;
+            float barWidth = scrollContentRect.width - interestLabelWidth - labelPadding-5f;
 
+            Text.Font = GameFont.Small;
+            Text.Anchor = TextAnchor.MiddleLeft;
             foreach (var interestData in interestsToDisplay)
             {
                 var value = interestData.Value;
-                Rect rowRect = new Rect(5f, y, scrollContentRect.width, rowHeight);
+                Rect rowRect = new Rect(5f, y, scrollContentRect.width, interestRowHeight);
 
                 // Hover highlight + tooltip
                 if (Mouse.IsOver(rowRect))
@@ -526,23 +525,22 @@ namespace Maux36.RimPsyche
                 float centerY = rowRect.y + rowRect.height / 2f;
 
                 // Left label
-                Rect leftRect = new Rect(rowRect.x + labelPadding, centerY - Text.LineHeight / 2f, labelWidth, Text.LineHeight);
-                Text.Anchor = TextAnchor.MiddleLeft;
+                Rect leftRect = new Rect(rowRect.x + labelPadding, centerY - Text.LineHeight / 2f, interestLabelWidth, Text.LineHeight);
                 Widgets.Label(leftRect, interestData.CachedLabelText);
 
                 // Bar background
-                Rect barRect = new Rect(leftRect.x + labelWidth, centerY - barHeight / 2f, barWidth, barHeight);
+                Rect barRect = new Rect(leftRect.x + interestLabelWidth, centerY - interestBarHeight / 2f, barWidth, interestBarHeight);
                 Widgets.DrawBoxSolid(barRect, new Color(0.2f, 0.2f, 0.2f, 0.5f));
 
                 // Value bar
                 float normalizedValue = value * 0.01f; // Normalize value to 0-1 range
                 float fillWidth = normalizedValue * barWidth; // Calculate the width of the filled part
-                Rect valueRect = new Rect(barRect.x, barRect.y, fillWidth, barHeight); // Bar fills from the left
+                Rect valueRect = new Rect(barRect.x, barRect.y, fillWidth, barHeinterestBarHeightight); // Bar fills from the left
 
                 // Color based on intensity (small = yellow, strong = green)
                 Widgets.DrawBoxSolid(valueRect, interestData.cachedLabelColor);
 
-                y += rowHeight;
+                y += interestRowHeight;
             }
 
             Widgets.EndScrollView();
