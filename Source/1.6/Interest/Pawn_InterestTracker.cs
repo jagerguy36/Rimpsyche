@@ -86,6 +86,17 @@ namespace Maux36.RimPsyche
             }
             return Mathf.Clamp(offsetValue + score, 0f, 100f);
         }
+
+        public void SetInterestScore(Interest key, float score)
+        {
+            float delta = score - GetOrCreateInterestScore(key);
+            if (interestScore.TryGetValue(key.name, out float s))
+            {
+                if ((delta<0f && s == -30f) || (delta>0f && s == 30f)) return;
+                interestScore[key.name] = Mathf.Clamp(interestScore[key.name] + delta, -30f, 30f);
+            }
+        }
+
         public Interest ChoseInterest()
         {
             return GenCollection.RandomElementByWeight(RimpsycheDatabase.InterestList, GetOrCreateInterestScore);

@@ -4,8 +4,6 @@ using System;
 using System.Linq;
 using UnityEngine;
 using Verse;
-using Verse.Sound;
-using static UnityEngine.GUI;
 
 namespace Maux36.RimPsyche
 {
@@ -59,8 +57,8 @@ namespace Maux36.RimPsyche
         public static Vector2 FacetNodeScrollPosition = Vector2.zero;
         public static Vector2 PersonalityNodeScrollPosition = Vector2.zero;
         public static Vector2 InterestNodeScrollPosition = Vector2.zero;
-        public static bool editPersonalityOn = true;
-        public static bool editInterestOn = true;
+        public static bool editPersonalityOn = false;
+        public static bool editInterestOn = false;
         
 
         public override void PreOpen()
@@ -170,18 +168,17 @@ namespace Maux36.RimPsyche
             Rect viewRect = new Rect(0f, 0f, scrollRect.width - scrollBarWidth, interestViewHeight);
 
             Widgets.BeginScrollView(scrollRect, ref InterestNodeScrollPosition, viewRect);
-
             float y = 0f;
             foreach (var interest in RimpsycheDatabase.InterestList)
             {
-                var value = compPsyche.Interests.GetOrCreateInterestScore(interest);
+                float currentValue = compPsyche.Interests.GetOrCreateInterestScore(interest);
                 Rect rowRect = new Rect(0f, y, scrollRect.width, interestRowHeight);
 
                 // Hover highlight + tooltip
                 if (Mouse.IsOver(rowRect))
                 {
                     Widgets.DrawHighlight(rowRect);
-                    TooltipHandler.TipRegion(rowRect, $"{interest.label}: {Math.Round(value, 1)}");
+                    TooltipHandler.TipRegion(rowRect, $"{interest.label}: {Math.Round(currentValue, 1)}");
                 }
                 float centerY = rowRect.y + rowRect.height / 2f;
 
@@ -190,16 +187,30 @@ namespace Maux36.RimPsyche
                 Text.Anchor = TextAnchor.MiddleLeft;
                 Widgets.Label(leftRect, interest.label);
 
-                // Bar background
-                Rect barRect = new Rect(leftRect.x + interestLabelWidth, centerY - interestBarHeight / 2f, interestBarWidth, interestBarHeight);
-                Widgets.DrawBoxSolid(barRect, barBackgroundColor);
 
-                // Value bar
-                float normalizedValue = value * 0.01f;
-                float fillWidth = normalizedValue * interestBarWidth;
-                Rect valueRect = new Rect(barRect.x, barRect.y, fillWidth, interestBarHeight);
-                Color barColor = Color.Lerp(Color.yellow, Color.green, normalizedValue);
-                Widgets.DrawBoxSolid(valueRect, barColor);
+                if (editInterestOn)
+                {
+                    float minValue = 0f;
+                    float maxValue = 100f;
+                    Rect sliderRect = new Rect(leftRect.x + interestLabelWidth, centerY - interestBarHeight / 2f, interestBarWidth, interestRowHeight);
+                    float newValue = Widgets.HorizontalSlider(sliderRect, currentValue, minValue, maxValue);
+                    newValue = Mathf.Clamp(newValue, minValue, maxValue);
+                    if (newValue != currentValue)
+                    {
+                        compPsyche.Interests.SetInterestScore(interest, newValue);
+                    }
+                }
+                else
+                {
+                    Rect barRect = new Rect(leftRect.x + interestLabelWidth, centerY - interestBarHeight / 2f, interestBarWidth, interestBarHeight);
+                    Widgets.DrawBoxSolid(barRect, barBackgroundColor);
+
+                    float normalizedValue = currentValue * 0.01f;
+                    float fillWidth = normalizedValue * interestBarWidth;
+                    Rect valueRect = new Rect(barRect.x, barRect.y, fillWidth, interestBarHeight);
+                    Color barColor = Color.Lerp(Color.yellow, Color.green, normalizedValue);
+                    Widgets.DrawBoxSolid(valueRect, barColor);
+                }
 
                 y += interestRowHeight;
             }
@@ -288,7 +299,7 @@ namespace Maux36.RimPsyche
                         }
                     }
                     //Rect sliderRect = new Rect(barCenterX + barWidth / 2f * lowend , centerY - barHeight / 2f, barWidth*(highend-lowend)*0.5f, 24f);?
-                    Rect sliderRect = new Rect(barCenterX - personalityBarWidth / 2f, centerY - personalityBarHeight / 2f, personalityBarWidth, 24f);
+                    Rect sliderRect = new Rect(barCenterX - personalityBarWidth / 2f, centerY - personalityBarHeight / 2f, personalityBarWidth, personalityRowHeight);
                     float newValue = Widgets.HorizontalSlider(sliderRect, currentValue, lowend, highend);
                     Mathf.Clamp(newValue, lowend, highend);
                     if (newValue != currentValue)
