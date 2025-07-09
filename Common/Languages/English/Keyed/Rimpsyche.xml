@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LanguageData>
   <TabPsyche>Psyche</TabPsyche>
+  <RimpsycheSettingCategory>RimPsyche</RimpsycheSettingCategory>
+  <RimpsycheGeneralSetting>RimPsyche</RimpsycheGeneralSetting>
   <MemoryReportString>Conversation about {0}</MemoryReportString>
+  <RPC_Interest>Interest</RPC_Interest>
+  <RPC_Personality>Personality</RPC_Personality>
+  <RimPsycheIntensityNeutral>Neutral</RimPsycheIntensityNeutral>
+  <RimPsycheIntensityExtremely>Extremely</RimPsycheIntensityExtremely>
+  <RimPsycheIntensityVery>Very</RimPsycheIntensityVery>
+  <RimPsycheIntensitySomewhat>Somewhat</RimPsycheIntensitySomewhat>
+  <RimPsycheIntensityMarginally>Marginally</RimPsycheIntensityMarginally>
 </LanguageData>

@@ -142,7 +142,7 @@ namespace Maux36.RimPsyche
             Rect titleRect = new Rect(innerRect.x, innerRect.y, innerRect.width, titleHeight);
             Text.Anchor = TextAnchor.MiddleCenter;
             Text.Font = GameFont.Medium;
-            string titleString = "Interest".Translate();
+            string titleString = "RPC_Interest".Translate();
             Widgets.Label(titleRect, titleString);
             Vector2 titleTextSize = Text.CalcSize(titleString);
             // Text.Anchor = oldAnchor;
@@ -233,7 +233,7 @@ namespace Maux36.RimPsyche
             Rect titleRect = new Rect(innerRect.x, innerRect.y, innerRect.width, titleHeight);
             Text.Anchor = TextAnchor.MiddleCenter;
             Text.Font = GameFont.Medium;
-            string titleString = "Personality".Translate();
+            string titleString = "RPC_Personality".Translate();
             Widgets.Label(titleRect, titleString);
             Vector2 titleTextSize = Text.CalcSize(titleString);
             // Text.Anchor = oldAnchor;

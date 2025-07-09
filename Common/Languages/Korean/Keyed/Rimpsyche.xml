@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LanguageData>
   <TabPsyche>성격</TabPsyche>
+  <RimpsycheSettingCategory>림사이키</RimpsycheSettingCategory>
+  <RimpsycheGeneralSetting>림사이키</RimpsycheGeneralSetting>
   <MemoryReportString>{0}에 대한 대화</MemoryReportString>
+  <RPC_Interest>관심사</RPC_Interest>
+  <RPC_Personality>성격</RPC_Personality>
+  <RimPsycheIntensityNeutral>중립</RimPsycheIntensityNeutral>
+  <RimPsycheIntensityExtremely>극히</RimPsycheIntensityExtremely>
+  <RimPsycheIntensityVery>매우</RimPsycheIntensityVery>
+  <RimPsycheIntensitySomewhat>조금</RimPsycheIntensitySomewhat>
+  <RimPsycheIntensityMarginally>약간</RimPsycheIntensityMarginally>
 </LanguageData>

@@ -87,7 +87,7 @@
     <logRulesInitiator>
       <rulesStrings>
         <li>r_logentry->[INITIATOR_nameDef] hailed [RECIPIENT_nameDef] for a conversation about {0}.</li>
-        <li>r_logentry->[INITIATOR_nameDef] started talking about {0} with [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] started talking about {0} to [RECIPIENT_nameDef].</li>
         <li>r_logentry->[INITIATOR_nameDef] started talking to [RECIPIENT_nameDef] about {0}.</li>
       </rulesStrings>
     </logRulesInitiator>
@@ -99,6 +99,8 @@
       <rulesStrings>
         <li>sent->Their differences escalated until [INITIATOR_nameDef] started a fight!</li>
         <li>sent->What started as a disagreement quickly turned into a fight when [INITIATOR_nameDef] lost their temper!</li>
+        <li>sent->Their clash of opinions turned personal, and [INITIATOR_nameDef] initiated a fight!</li>
+        <li>sent->The conversation became heated, culminating in [INITIATOR_nameDef] starting a fight!</li>
       </rulesStrings>
     </rulePack>
   </RulePackDef>
@@ -107,8 +109,10 @@
     <defName>Sentence_RimpsycheSocialFightConvoRecipientStarted</defName>
     <rulePack>
       <rulesStrings>
-        <li>sent->Their clash of opinions turned personal, and [INITIATOR_nameDef] initiated a fight!</li>
-        <li>sent->The conversation became heated, culminating in [INITIATOR_nameDef] starting a fight!</li>
+        <li>sent->Their differences escalated until [RECIPIENT_nameDef] started a fight!</li>
+        <li>sent->What started as a disagreement quickly turned into a fight when [RECIPIENT_nameDef] lost their temper!</li>
+        <li>sent->Their clash of opinions turned personal, and [RECIPIENT_nameDef] initiated a fight!</li>
+        <li>sent->The conversation became heated, culminating in [RECIPIENT_nameDef] starting a fight!</li>
       </rulesStrings>
     </rulePack>
   </RulePackDef>

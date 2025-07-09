@@ -183,14 +183,15 @@ namespace Maux36.RimPsyche
                         
                         if (startFight)
                         {
-                            extraSentencePacks.Add(DefOfRimpsyche.Sentence_RimpsycheSocialFightConvoInitiatorStarted);
                             if (startedByParentPawn)
                             {
                                 initiator.interactions.StartSocialFight(recipient);
+                                extraSentencePacks.Add(DefOfRimpsyche.Sentence_RimpsycheSocialFightConvoInitiatorStarted);
                             }
                             else
                             {
                                 recipient.interactions.StartSocialFight(initiator);
+                                extraSentencePacks.Add(DefOfRimpsyche.Sentence_RimpsycheSocialFightConvoRecipientStarted);
                             }
                         }
                         else

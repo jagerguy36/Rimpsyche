@@ -289,8 +289,8 @@ namespace Maux36.RimPsyche
             Text.Font = GameFont.Medium;
             Text.Anchor = TextAnchor.MiddleCenter;
             Rect titleRect = new Rect(0f, 0f, headerRect.width, headerRect.height);
-            Widgets.Label(titleRect, "Personality".Translate());
-            Vector2 titleTextSize = Text.CalcSize("Personality".Translate());
+            Widgets.Label(titleRect, "RPC_Personality".Translate());
+            Vector2 titleTextSize = Text.CalcSize("RPC_Personality".Translate());
 
             // Icon on the right
             float iconSize = 24f;

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <Sentence_RimpsycheConversationPositiveGood.rulePack.rulesStrings.1>sent->공통된 견해에 대해 즐거운 대화를 나눔.</Sentence_RimpsycheConversationPositiveGood.rulePack.rulesStrings.1>
+  <Sentence_RimpsycheConversationPositiveGood.rulePack.rulesStrings.2>sent->유사한 견해에 대해 논의하며 서로를 더 잘 이해함.</Sentence_RimpsycheConversationPositiveGood.rulePack.rulesStrings.2>
+  <Sentence_RimpsycheConversationPositiveGood.rulePack.rulesStrings.3>sent->공통된 관점에 대한 만족스러운 대화를 함.</Sentence_RimpsycheConversationPositiveGood.rulePack.rulesStrings.3>
+
+  <Sentence_RimpsycheConversationPositiveBad.rulePack.rulesStrings.1>sent->의견이 같았음에도 불구하고 불편한 대화를 나눔.</Sentence_RimpsycheConversationPositiveBad.rulePack.rulesStrings.1>
+  <Sentence_RimpsycheConversationPositiveBad.rulePack.rulesStrings.2>sent->동일한 관점을 공유했지만 여전히 어색한 대화를 나눔.</Sentence_RimpsycheConversationPositiveBad.rulePack.rulesStrings.2>
+  <Sentence_RimpsycheConversationPositiveBad.rulePack.rulesStrings.3>sent->공감대를 형성했지만 뭔가 어색한 대화를 나눔.</Sentence_RimpsycheConversationPositiveBad.rulePack.rulesStrings.3>
+
+  <Sentence_RimpsycheConversationNegativeGood.rulePack.rulesStrings.1>sent->의견이 달랐지만 서로를 존중하며 대화를 나눔.</Sentence_RimpsycheConversationNegativeGood.rulePack.rulesStrings.1>
+  <Sentence_RimpsycheConversationNegativeGood.rulePack.rulesStrings.2>sent->서로 다른 의견에 대해 정중하게 대화를 나눔.</Sentence_RimpsycheConversationNegativeGood.rulePack.rulesStrings.2>
+  <Sentence_RimpsycheConversationNegativeGood.rulePack.rulesStrings.3>sent->별다른 불화 없이 서로의 다른 의견을 수긍함.</Sentence_RimpsycheConversationNegativeGood.rulePack.rulesStrings.3>
+
+  <Sentence_RimpsycheConversationNegativeBad.rulePack.rulesStrings.1>sent->서로 다른 의견에 불편한 대화를 나눔.</Sentence_RimpsycheConversationNegativeBad.rulePack.rulesStrings.1>
+  <Sentence_RimpsycheConversationNegativeBad.rulePack.rulesStrings.2>sent->충돌되는 의견에 높은 언성으로 대화를 나눔.</Sentence_RimpsycheConversationNegativeBad.rulePack.rulesStrings.2>
+  <Sentence_RimpsycheConversationNegativeBad.rulePack.rulesStrings.3>sent->이견이 좁혀지지 않아 서로 불만스러운 대화를 함.</Sentence_RimpsycheConversationNegativeBad.rulePack.rulesStrings.3>
+
+  <Sentence_RimpsycheConversationSuccess.rulePack.rulesStrings.1>sent->둘은</Sentence_RimpsycheConversationSuccess.rulePack.rulesStrings.1>
+  <Sentence_RimpsycheConversationSuccess.rulePack.rulesStrings.2>sent->둘은</Sentence_RimpsycheConversationSuccess.rulePack.rulesStrings.2>
+  <Sentence_RimpsycheConversationSuccess.rulePack.rulesStrings.3>sent->둘은</Sentence_RimpsycheConversationSuccess.rulePack.rulesStrings.3>
+
+  <Sentence_RimpsycheConversationFail.rulePack.rulesStrings.1>sent(p=2)->[RECIPIENT_nameDef](은)는 [INITIATOR_objective]를 무시함.</Sentence_RimpsycheConversationFail.rulePack.rulesStrings.1>
+  <Sentence_RimpsycheConversationFail.rulePack.rulesStrings.2>sent->[RECIPIENT_nameDef](은)는 반응을 보이지 않음.</Sentence_RimpsycheConversationFail.rulePack.rulesStrings.2>
+  <Sentence_RimpsycheConversationFail.rulePack.rulesStrings.3>sent->[RECIPIENT_nameDef](은)는 [INITIATOR_objective]를 쌩깜.</Sentence_RimpsycheConversationFail.rulePack.rulesStrings.3>
+
+  <Sentence_RimpsycheSocialFightConvoInitiatorStarted.rulePack.rulesStrings.1>sent->둘의 의견차이가 점점 심해짐. 결국 [INITIATOR_nameDef](이)가 싸움을 시작함!</Sentence_RimpsycheSocialFightConvoInitiatorStarted.rulePack.rulesStrings.1>
+  <Sentence_RimpsycheSocialFightConvoInitiatorStarted.rulePack.rulesStrings.2>sent->[INITIATOR_nameDef](이)가 화를 내면서 결국 의견의 격차가 싸움으로 번짐!</Sentence_RimpsycheSocialFightConvoInitiatorStarted.rulePack.rulesStrings.2>
+  <Sentence_RimpsycheSocialFightConvoInitiatorStarted.rulePack.rulesStrings.3>sent->의견의 충돌에 사적인 감정이 들어가면서 결국 [INITIATOR_nameDef](이)가 싸움을 시작함!</Sentence_RimpsycheSocialFightConvoInitiatorStarted.rulePack.rulesStrings.3>
+  <Sentence_RimpsycheSocialFightConvoInitiatorStarted.rulePack.rulesStrings.4>sent->대화가 점점 격양되다 결국 [INITIATOR_nameDef](이)가 싸움을 시작함!</Sentence_RimpsycheSocialFightConvoInitiatorStarted.rulePack.rulesStrings.4>
+
+  <Sentence_RimpsycheSocialFightConvoRecipientStarted.rulePack.rulesStrings.1>sent->둘의 의견차이가 점점 심해짐. 결국 [RECIPIENT_nameDef](이)가 싸움을 시작함!</Sentence_RimpsycheSocialFightConvoRecipientStarted.rulePack.rulesStrings.1>
+  <Sentence_RimpsycheSocialFightConvoRecipientStarted.rulePack.rulesStrings.2>sent->[RECIPIENT_nameDef](이)가 화를 내면서 결국 의견의 격차가 싸움으로 번짐!</Sentence_RimpsycheSocialFightConvoRecipientStarted.rulePack.rulesStrings.2>
+  <Sentence_RimpsycheSocialFightConvoRecipientStarted.rulePack.rulesStrings.3>sent->의견의 충돌에 사적인 감정이 들어가면서 결국 [RECIPIENT_nameDef](이)가 싸움을 시작함!</Sentence_RimpsycheSocialFightConvoRecipientStarted.rulePack.rulesStrings.3>
+  <Sentence_RimpsycheSocialFightConvoRecipientStarted.rulePack.rulesStrings.4>sent->대화가 점점 격양되다 결국 [RECIPIENT_nameDef](이)가 싸움을 시작함!</Sentence_RimpsycheSocialFightConvoRecipientStarted.rulePack.rulesStrings.4>
+
+</LanguageData>
