@@ -9,57 +9,57 @@ namespace Maux36.RimPsyche
         public static Dictionary<Facet, Tuple<string, string, Color, Color>> FacetNotation = new()
         {
             // Openness
-            { Facet.Imagination, Tuple.Create("Realistic", "Imaginative", Color.magenta, Color.cyan) },
-            { Facet.Intellect, Tuple.Create("Practical", "Philosophical", Color.magenta, Color.cyan) },
-            { Facet.Curiosity, Tuple.Create("Conventional", "Explorative", Color.magenta, Color.cyan) },
+            { Facet.Imagination, Tuple.Create("RPC_Realistic".Translate(), "RPC_Imaginative".Translate(), Color.magenta, Color.cyan) },
+            { Facet.Intellect, Tuple.Create("RPC_Practical".Translate(), "RPC_Philosophical".Translate(), Color.magenta, Color.cyan) },
+            { Facet.Curiosity, Tuple.Create("RPC_Conventional".Translate(), "RPC_Explorative".Translate(), Color.magenta, Color.cyan) },
 
             // Conscientiousness
-            { Facet.Industriousness, Tuple.Create("Unmotivated", "Industrious", Color.gray, Color.yellow) },
-            { Facet.Orderliness, Tuple.Create("Disorganized", "Organized", Color.gray, Color.yellow) },
-            { Facet.Integrity, Tuple.Create("Inconsistent", "Reliable", Color.gray, Color.yellow) },
+            { Facet.Industriousness, Tuple.Create("RPC_Unmotivated".Translate(), "RPC_Industrious".Translate(), Color.gray, Color.yellow) },
+            { Facet.Orderliness, Tuple.Create("RPC_Disorganized".Translate(), "RPC_Organized".Translate(), Color.gray, Color.yellow) },
+            { Facet.Integrity, Tuple.Create("RPC_Inconsistent".Translate(), "RPC_Reliable".Translate(), Color.gray, Color.yellow) },
 
             // Extraversion
-            { Facet.Sociability, Tuple.Create("Aloof", "Friendly", Color.magenta, Color.green) },
-            { Facet.Assertiveness, Tuple.Create("Timid", "Assertive", Color.magenta, Color.green) },
-            { Facet.Enthusiasm, Tuple.Create("Stoic", "Cheerful", Color.magenta, Color.green) },
+            { Facet.Sociability, Tuple.Create("RPC_Aloof".Translate(), "RPC_Friendly".Translate(), Color.magenta, Color.green) },
+            { Facet.Assertiveness, Tuple.Create("RPC_Timid".Translate(), "RPC_Assertive".Translate(), Color.magenta, Color.green) },
+            { Facet.Enthusiasm, Tuple.Create("RPC_Stoic".Translate(), "RPC_Cheerful".Translate(), Color.magenta, Color.green) },
 
             // Agreeableness
-            { Facet.Compassion, Tuple.Create("Detached", "Compassionate", Color.blue, Color.green) },
-            { Facet.Cooperation, Tuple.Create("Stubborn", "Accommodating", Color.blue, Color.green) },
-            { Facet.Humbleness, Tuple.Create("Arrogant", "Humble", Color.blue, Color.green) },
+            { Facet.Compassion, Tuple.Create("RPC_Detached".Translate(), "RPC_Compassionate".Translate(), Color.blue, Color.green) },
+            { Facet.Cooperation, Tuple.Create("RPC_Stubborn".Translate(), "RPC_Accommodating".Translate(), Color.blue, Color.green) },
+            { Facet.Humbleness, Tuple.Create("RPC_Arrogant".Translate(), "RPC_Humble".Translate(), Color.blue, Color.green) },
 
             // Neuroticism
-            { Facet.Volatility, Tuple.Create("Stable", "Volatile", Color.green, Color.red) },
-            { Facet.Pessimism, Tuple.Create("Optimistic", "Pessimistic", Color.green, Color.red) },
-            { Facet.Insecurity, Tuple.Create("Confident", "Insecure", Color.green, Color.red) }
+            { Facet.Volatility, Tuple.Create("RPC_Stable".Translate(), "RPC_Volatile".Translate(), Color.green, Color.red) },
+            { Facet.Pessimism, Tuple.Create("RPC_Optimistic".Translate(), "RPC_Pessimistic".Translate(), Color.green, Color.red) },
+            { Facet.Insecurity, Tuple.Create("RPC_Confident".Translate(), "RPC_Insecure".Translate(), Color.green, Color.red) }
         };
 
         public static Dictionary<Facet, string> FacetDescription = new()
         {
             // Openness
-            { Facet.Imagination, "Reflects a vivid inner world and emotional sensitivity to art and beauty. Imaginative pawns are drawn to daydreams, music, and Realistic pawns are more grounded and practical." },
-            { Facet.Intellect, "Captures interest in abstract thinking and complex ideas. Philosophical pawns enjoy deep conversations and philosophical questions; Practical pawns prefer concrete, straightforward thinking." },
-            { Facet.Curiosity, "Describes a drive for novelty, diversity, and exploration. Explorative pawns seek new experiences and challenge norms; Conventional pawns favor routine and familiar settings." },
+            { Facet.Imagination, "RPC_Imagination_Tooltip".Translate() },
+            { Facet.Intellect, "RPC_Intellect_Tooltip".Translate()},
+            { Facet.Curiosity, "RPC_Curiosity_Tooltip".Translate() },
 
             // Conscientiousness
-            { Facet.Industriousness, "Tooltip1" },
-            { Facet.Orderliness, "Tooltip1" },
-            { Facet.Integrity, "Tooltip1" },
+            { Facet.Industriousness, "RPC_Industriousness_Tooltip".Translate() },
+            { Facet.Orderliness, "RPC_Orderliness_Tooltip".Translate() },
+            { Facet.Integrity, "RPC_Integrity_Tooltip".Translate() },
 
             // Extraversion
-            { Facet.Sociability, "Tooltip1" },
-            { Facet.Assertiveness, "Tooltip1" },
-            { Facet.Enthusiasm, "Tooltip1" },
+            { Facet.Sociability, "RPC_Sociability_Tooltip".Translate() },
+            { Facet.Assertiveness, "RPC_Assertiveness_Tooltip".Translate() },
+            { Facet.Enthusiasm, "RPC_Enthusiasm_Tooltip".Translate() },
 
             // Agreeableness
-            { Facet.Compassion, "Tooltip1" },
-            { Facet.Cooperation, "Tooltip1" },
-            { Facet.Humbleness, "Tooltip1" },
+            { Facet.Compassion, "RPC_Compassion_Tooltip".Translate() },
+            { Facet.Cooperation, "RPC_Cooperation_Tooltip".Translate() },
+            { Facet.Humbleness, "RPC_Humbleness_Tooltip".Translate() },
 
             // Neuroticism
-            { Facet.Volatility, "Tooltip1" },
-            { Facet.Pessimism, "Tooltip1" },
-            { Facet.Insecurity, "Tooltip1" }
+            { Facet.Volatility, "RPC_Volatility_Tooltip".Translate() },
+            { Facet.Pessimism, "RPC_Pessimism_Tooltip".Translate()},
+            { Facet.Insecurity, "RPC_Insecurity_Tooltip".Translate() }
         };
     }
 }

@@ -11,4 +11,49 @@
   <RimPsycheIntensityVery>Very</RimPsycheIntensityVery>
   <RimPsycheIntensitySomewhat>Somewhat</RimPsycheIntensitySomewhat>
   <RimPsycheIntensityMarginally>Marginally</RimPsycheIntensityMarginally>
+  <RPC_Realistic>Realistic</RPC_Realistic>
+  <RPC_Imaginative>Imaginative</RPC_Imaginative>
+  <RPC_Practical>Practical</RPC_Practical>
+  <RPC_Philosophical>Philosophical</RPC_Philosophical>
+  <RPC_Conventional>Conventional</RPC_Conventional>
+  <RPC_Explorative>Explorative</RPC_Explorative>
+  <RPC_Unmotivated>Unmotivated</RPC_Unmotivated>
+  <RPC_Industrious>Industrious</RPC_Industrious>
+  <RPC_Disorganized>Disorganized</RPC_Disorganized>
+  <RPC_Organized>Organized</RPC_Organized>
+  <RPC_Inconsistent>Inconsistent</RPC_Inconsistent>
+  <RPC_Reliable>Reliable</RPC_Reliable>
+  <RPC_Aloof>Aloof</RPC_Aloof>
+  <RPC_Friendly>Friendly</RPC_Friendly>
+  <RPC_Timid>Timid</RPC_Timid>
+  <RPC_Assertive>Assertive</RPC_Assertive>
+  <RPC_Stoic>Stoic</RPC_Stoic>
+  <RPC_Cheerful>Cheerful</RPC_Cheerful>
+  <RPC_Detached>Detached</RPC_Detached>
+  <RPC_Compassionate>Compassionate</RPC_Compassionate>
+  <RPC_Stubborn>Stubborn</RPC_Stubborn>
+  <RPC_Accommodating>Accommodating</RPC_Accommodating>
+  <RPC_Arrogant>Arrogant</RPC_Arrogant>
+  <RPC_Humble>Humble</RPC_Humble>
+  <RPC_Stable>Stable</RPC_Stable>
+  <RPC_Volatile>Volatile</RPC_Volatile>
+  <RPC_Optimistic>Optimistic</RPC_Optimistic>
+  <RPC_Pessimistic>Pessimistic</RPC_Pessimistic>
+  <RPC_Confident>Confident</RPC_Confident>
+  <RPC_Insecure>Insecure</RPC_Insecure>
+  <RPC_Imagination_Tooltip>Reflects a vivid inner world and emotional sensitivity to art and beauty. Imaginative pawns are drawn to daydreams, music, and Realistic pawns are more grounded and practical.</RPC_Imagination_Tooltip>
+  <RPC_Intellect_Tooltip>Captures interest in abstract thinking and complex ideas. Philosophical pawns enjoy deep conversations and philosophical questions; Practical pawns prefer concrete, straightforward thinking</RPC_Intellect_Tooltip>
+  <RPC_Curiosity_Tooltip>Describes a drive for novelty, diversity, and exploration. Explorative pawns seek new experiences and challenge norms; Conventional pawns favor routine and familiar settings.</RPC_Curiosity_Tooltip>
+  <RPC_Industriousness_Tooltip>Describes a drive to achieve long-term goals through hard work and persistence. Industrious pawns are motivated and focused, seeing tasks through to completion; Unmotivated pawns tend to lack drive and may abandon tasks.</RPC_Industriousness_Tooltip>
+  <RPC_Orderliness_Tooltip>Describes a preference for structure, tidiness, and careful planning. Organized pawns manage their environments and tasks with forethought, valuing order and disliking chaos; Disorganized pawns tend to be less structured and may struggle with keeping track of tasks.</RPC_Orderliness_Tooltip>
+  <RPC_Integrity_Tooltip>Describes a commitment to honesty, self-discipline, and moral consistency. Reliable pawns hold themselves to their promises, follow rules, and prioritize doing what's right; Inconsistent pawns may struggle with self-regulation, taking shortcuts or acting unreliably.</RPC_Integrity_Tooltip>
+  <RPC_Sociability_Tooltip>Reflects a pawn's warmth and engagement in social interactions. Friendly pawns enjoy connecting with others and are approachable; Aloof pawns tend to be more reserved and less outwardly social.</RPC_Sociability_Tooltip>
+  <RPC_Assertiveness_Tooltip>Describes a pawn's tendency to take charge, voice opinions, and influence others in social settings. Assertive pawns are bold and confident speakers; Timid pawns are more reserved and may hesitate to express themselves.</RPC_Assertiveness_Tooltip>
+  <RPC_Enthusiasm_Tooltip>Captures a pawn's desire for stimulation, positivity, and activity. Cheerful pawns are energetic, easily excited, and often on the move; Stoic pawns tend to be more reserved in their behavior and less outwardly driven by excitement.</RPC_Enthusiasm_Tooltip>
+  <RPC_Compassion_Tooltip>Reflects a pawn's capacity for emotional empathy and their desire to alleviate distress in others. Compassionate pawns are kind, nurturing, and emotionally attuned to others' feelings; Detached pawns tend to be less sensitive to the emotional states of those around them.</RPC_Compassion_Tooltip>
+  <RPC_Cooperation_Tooltip>Describes a pawn's preference for peaceful interactions and their willingness to trust. Accommodating pawns avoid arguments, value compromise, and dislike tension; Stubborn pawns may resist compromise and prefer to stick to their own views.</RPC_Cooperation_Tooltip>
+  <RPC_Humbleness_Tooltip>Captures a pawn's tendency to downplay their own importance and avoid arrogance. Humble pawns are unassuming and respectful, seeing themselves as equals to others; Arrogant pawns tend to exhibit self-importance and may act superior.</RPC_Humbleness_Tooltip>
+  <RPC_Volatility_Tooltip>Reflects a pawn's tendency to experience intense, rapidly changing emotions. Volatile pawns struggle with emotional regulation and may exhibit erratic behavior under stress; Stable pawns maintain a more consistent and calm emotional state.</RPC_Volatility_Tooltip>
+  <RPC_Pessimism_Tooltip>Captures a pawn's predisposition towards negative emotions such as sadness, resentment, and irritability. Pessimistic pawns often feel hopeless and are prone to depressive moods; Optimistic pawns maintain a more positive outlook.</RPC_Pessimism_Tooltip>
+  <RPC_Insecurity_Tooltip>Describes a pawn's susceptibility to feeling overwhelmed and their lack of confidence in stressful situations. Insecure pawns avoid pressure, fear failure, and may withdraw socially; Confident pawns approach challenges with self-assurance and are less affected by judgment.</RPC_Insecurity_Tooltip>
 </LanguageData>
