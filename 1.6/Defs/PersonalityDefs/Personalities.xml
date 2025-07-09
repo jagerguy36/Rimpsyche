@@ -261,6 +261,10 @@
         <weight>0.3</weight>
       </li>
       <li>
+        <facet>Compassion</facet>
+        <weight>-0.1</weight>
+      </li>
+      <li>
         <facet>Cooperation</facet>
         <weight>-0.25</weight>
       </li>
@@ -270,7 +274,7 @@
       </li>
       <li>
         <facet>Pessimism</facet>
-        <weight>0.25</weight>
+        <weight>0.15</weight>
       </li>
     </scoreWeight>
     <scopes>
@@ -1080,19 +1084,15 @@
   </Maux36.RimPsyche.PersonalityDef>
 
   <Maux36.RimPsyche.PersonalityDef>
-    <defName>Rimpsyche_Patience</defName>
-    <label>patience</label>
-    <high>patient</high>
-    <low>impatient</low>
-    <description>Reflects a person's ability to tolerate delays, annoyances, or long waits without becoming agitated or frustrated. Patient individuals can calmly endure extended periods or minor irritations, maintaining composure while waiting for desired outcomes. In contrast, impatient individuals tend to become restless, irritable, or easily annoyed when faced with delays or when things don't happen quickly enough.</description>
+    <defName>Rimpsyche_Resilience</defName>
+    <label>resilience</label>
+    <high>resilient</high>
+    <low>fragile</low>
+    <description>Reflects a person's ability to endure hardship, maintain self-control, and stay focused under pressure. Resilient individuals can weather discomfort and emotional stress better, persisting through challenges without losing composure. Fragile individuals may become easily overwhelmed, lose focus, or get frustrated by setbacks.</description>
     <scoreWeight>
       <li>
         <facet>Industriousness</facet>
-        <weight>0.1</weight>
-      </li>
-      <li>
-        <facet>Orderliness</facet>
-        <weight>0.1</weight>
+        <weight>0.2</weight>
       </li>
       <li>
         <facet>Integrity</facet>

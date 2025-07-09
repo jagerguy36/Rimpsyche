@@ -70,6 +70,11 @@
   <Rimpsyche_Focus.low>탐색적인</Rimpsyche_Focus.low>
   <Rimpsyche_Focus.description>사람이 정신적 에너지와 주의를 어디에, 어떻게 분산시키는지를 나타냅니다. 집중하는 사람은 하나의 일이나 주제에 깊이 몰입해 파고드는 경향이 강합니다. 반면, 탐색적인 사람은 다양한 주제에 관심을 두고, 한 가지에 몰두하기보다는 새롭고 다양한 것을 발견하는 데서 더 큰 즐거움을 느낍니다.</Rimpsyche_Focus.description>
 
+  <Rimpsyche_Passion.label>열정</Rimpsyche_Passion.label>
+  <Rimpsyche_Passion.high>열정적인</Rimpsyche_Passion.high>
+  <Rimpsyche_Passion.low>무관심한</Rimpsyche_Passion.low>
+  <Rimpsyche_Passion.description>자신의 관심사, 목표, 관계를 얼마나 열정적으로 추구하는지를 나타냅니다. 열정적인 사람은 자신이 중요하게 생각하는 일에 많은 에너지와 감정을 쏟아붓습니다. 반면, 무관심한 사람은 그만큼의 집중력이나 에너지를 들이지 않고, 보다 가볍게 접근하는 경향이 있습니다.</Rimpsyche_Passion.description>
+
   <Rimpsyche_Tension.label>긴장도</Rimpsyche_Tension.label>
   <Rimpsyche_Tension.high>예민한</Rimpsyche_Tension.high>
   <Rimpsyche_Tension.low>느긋한</Rimpsyche_Tension.low>
@@ -135,10 +140,23 @@
   <Rimpsyche_Bravery.low>겁이 많은</Rimpsyche_Bravery.low>
   <Rimpsyche_Bravery.description>두려움이나 위험, 어려운 상황에 얼마나 맞설 수 있는지를 나타냅니다. 용감한 사람은 위험이 따르더라도 문제를 정면으로 마주하려는 경향이 있습니다. 반면, 겁이 많은 사람은 불안하거나 불편한 상황을 피하려 하며, 맞서기보다는 안전을 우선시하는 편입니다.</Rimpsyche_Bravery.description>
 
-  <Rimpsyche_Patience.label>인내심</Rimpsyche_Patience.label>
-  <Rimpsyche_Patience.high>참을성 있는</Rimpsyche_Patience.high>
-  <Rimpsyche_Patience.low>참을성 없는</Rimpsyche_Patience.low>
-  <Rimpsyche_Patience.description>얼마나 오랜 기다림이나 불편함을 견딜 수 있는지를 나타냅니다. 참을성 있는 사람은 원하는 결과를 기다리는 동안에도 침착하게 버티며, 사소한 문제나 긴 기다림에도 쉽게 흔들리지 않습니다. 반면, 참을성 없는 사람은 일이 빨리 진행되지 않거나 지체될 때 금세 불안해하거나 짜증을 내는 경향이 있습니다.</Rimpsyche_Patience.description>
+  <Rimpsyche_Resilience.label>강인함</Rimpsyche_Resilience.label>
+  <Rimpsyche_Resilience.high>강인한</Rimpsyche_Resilience.high>
+  <Rimpsyche_Resilience.low>유약한</Rimpsyche_Resilience.low>
+  <Rimpsyche_Resilience.description>어려움에 맞서 자제력을 유지하고, 스트레스 상황에서도 집중력을 잃지 않는 성향을 나타냅니다. 강인한 가진 사람은 불편한 상황이나 감정적인 압박에도 잘 견디며, 도중에 포기하지 않고 계속해서 문제를 해결하려 합니다. 반면, 유약한 사람은 스트레스나 어려움에 쉽게 지치거나 불안해하고, 상황을 견디지 못할 수 있습니다.</Rimpsyche_Resilience.description>
 
+  <Rimpsyche_Loyalty.label>충성심</Rimpsyche_Loyalty.label>
+  <Rimpsyche_Loyalty.high>충직한</Rimpsyche_Loyalty.high>
+  <Rimpsyche_Loyalty.low>불충한</Rimpsyche_Loyalty.low>
+  <Rimpsyche_Loyalty.description>개인, 그룹, 또는 원칙에 대해 얼마나 충성스럽고 헌신적인지를 나타냅니다. 충직한 사람은 자신이 믿고 따르는 대상을 위해 성실히 지원하며, 그들의 이익을 우선시하는 경향이 있습니다. 반면, 불충한 사람은 자신의 이익을 우선시하거나 신뢰를 쉽게 저버리는 경향이 있습니다.</Rimpsyche_Loyalty.description>
 
+  <Rimpsyche_Competitiveness.label>경쟁심</Rimpsyche_Competitiveness.label>
+  <Rimpsyche_Competitiveness.high>경쟁적인</Rimpsyche_Competitiveness.high>
+  <Rimpsyche_Competitiveness.low>협력적인</Rimpsyche_Competitiveness.low>
+  <Rimpsyche_Competitiveness.description>다른 사람보다 더 성공하려는 욕구와 경쟁에 참여하려는 성향을 나타냅니다. 경쟁적인 사람은 비교를 통해 동기를 부여받고, 다른 사람을 능가하려 하며, 승리와 성취를 중요하게 생각합니다. 반면, 협력적인 사람은 공동의 목표와 상호 성공을 우선시하며, 개인적인 승리를 추구하기보다는 팀워크와 협력을 중시합니다.</Rimpsyche_Competitiveness.description>
+
+  <Rimpsyche_SelfInterest.label>이기심</Rimpsyche_SelfInterest.label>
+  <Rimpsyche_SelfInterest.high>자기중심적인</Rimpsyche_SelfInterest.high>
+  <Rimpsyche_SelfInterest.low>이타적인</Rimpsyche_SelfInterest.low>
+  <Rimpsyche_SelfInterest.description>자신의 필요를 타인의 행복보다 얼마나 우선시하는지를 나타냅니다. 이타적인 사람은 타인을 돕는 데 진심을 다하며, 개인적인 이득보다는 공동의 이익을 중요시합니다. 반면, 자기중심적인 사람은 자신의 욕구와 이익을 우선시하는 경향이 있습니다.</Rimpsyche_SelfInterest.description>
 </LanguageData>
