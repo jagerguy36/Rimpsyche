@@ -4,7 +4,7 @@
   <Rimpsyche_Talkativeness.high>말이 많은</Rimpsyche_Talkativeness.high>
   <Rimpsyche_Talkativeness.low>과묵한</Rimpsyche_Talkativeness.low>
   <Rimpsyche_Talkativeness.description>얼마나 말을 자주 하고 대화를 시작하려는 성향이 있는지를 나타냅니다. 말이 많은 사람은 대화를 먼저 시작하고 오래 이어가는 경향이 있습니다. 반면, 과묵한 사람은 짧고 간단하게 말하거나 자신의 생각을 잘 드러내지 않습니다.</Rimpsyche_Talkativeness.description>
-  
+
   <Rimpsyche_Sociability.label>사교성</Rimpsyche_Sociability.label>
   <Rimpsyche_Sociability.high>사교적인</Rimpsyche_Sociability.high>
   <Rimpsyche_Sociability.low>내성적인</Rimpsyche_Sociability.low>
@@ -44,7 +44,7 @@
   <Rimpsyche_Experimentation.high>실험적인</Rimpsyche_Experimentation.high>
   <Rimpsyche_Experimentation.low>보수적인</Rimpsyche_Experimentation.low>
   <Rimpsyche_Experimentation.description>새로운 방법이나 아이디어를 시도하려는 태도를 나타냅니다. 실험적인 사람은 변화를 받아들이고 새로운 경험을 적극적으로 찾아 나서며, 보수적인 사람은 익숙한 방식을 선호하고 검증된 방법을 고수하는 편입니다.</Rimpsyche_Experimentation.description>
-  
+
   <Rimpsyche_Imagination.label>상상력</Rimpsyche_Imagination.label>
   <Rimpsyche_Imagination.high>상상력이 풍부한</Rimpsyche_Imagination.high>
   <Rimpsyche_Imagination.low>현실적인</Rimpsyche_Imagination.low>
