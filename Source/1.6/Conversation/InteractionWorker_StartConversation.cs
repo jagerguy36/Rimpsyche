@@ -201,9 +201,10 @@ namespace Maux36.RimPsyche
                     }
                 }
 
-                Log.Message($"GetConvoResult: {initiator.Name}: {pawnScore} | {recipient.Name}: {partnerScore}");
-                float initOpinionOffset = pawnScore * (6f * lengthMult) / (lengthMult + 2f);
-                float reciOpinionOffset = partnerScore * (6f * lengthMult) / (lengthMult + 2f);
+                float lengthOpinionMult = (6f * lengthMult) / (lengthMult + 2f);
+                float initOpinionOffset = pawnScore * lengthOpinionMult;
+                float reciOpinionOffset = partnerScore * lengthOpinionMult;
+                Log.Message($"GetConvoResult: {initiator.Name}: {pawnScore} | {recipient.Name}: {partnerScore} | lengthOpinionMult: {lengthOpinionMult}");
                 if (initOpinionOffset != 0)
                 {
                     Rimpsyche_Utility.GainCoversationMemoryFast(convoTopic.name, convoTopic.label, initOpinionOffset, initiator, recipient);

@@ -19,6 +19,7 @@ namespace Maux36.RimPsyche
         };
 
         private Pawn pawn;
+        private CompPsyche compPsyche;
         // Facets -50~50
         private float imagination = 0f;
         private float intellect = 0f;
@@ -145,6 +146,7 @@ namespace Maux36.RimPsyche
         public Pawn_PersonalityTracker(Pawn p)
         {
             pawn = p;
+            compPsyche = p.compPsyche();
         }
         public void Initialize(int inputSeed = 0)
         {
@@ -529,7 +531,6 @@ namespace Maux36.RimPsyche
         {
             personalityCache.Clear();
             MultiplierCache.Clear();
-            var compPsyche = pawn.compPsyche();
             if (compPsyche != null)
             {
                 compPsyche.Interests?.interestOffset.Clear();
