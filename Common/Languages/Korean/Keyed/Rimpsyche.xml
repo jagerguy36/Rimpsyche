@@ -6,11 +6,11 @@
   <MemoryReportString>{0}에 대한 대화</MemoryReportString>
   <RPC_Interest>관심사</RPC_Interest>
   <RPC_Personality>성격</RPC_Personality>
-  <RimPsycheIntensityNeutral>중립</RimPsycheIntensityNeutral>
-  <RimPsycheIntensityExtremely>극히</RimPsycheIntensityExtremely>
-  <RimPsycheIntensityVery>매우</RimPsycheIntensityVery>
-  <RimPsycheIntensitySomewhat>조금</RimPsycheIntensitySomewhat>
-  <RimPsycheIntensityMarginally>약간</RimPsycheIntensityMarginally>
+  <RimPsycheIntensityNeutral>중립 {0}</RimPsycheIntensityNeutral>
+  <RimPsycheIntensityExtremely>극히 {0}</RimPsycheIntensityExtremely>
+  <RimPsycheIntensityVery>매우 {0}</RimPsycheIntensityVery>
+  <RimPsycheIntensitySomewhat>조금 {0}</RimPsycheIntensitySomewhat>
+  <RimPsycheIntensityMarginally>약간 {0}</RimPsycheIntensityMarginally>
   <RPC_Realistic>현실적</RPC_Realistic>
   <RPC_Imaginative>창의적</RPC_Imaginative>
   <RPC_Practical>실용적</RPC_Practical>

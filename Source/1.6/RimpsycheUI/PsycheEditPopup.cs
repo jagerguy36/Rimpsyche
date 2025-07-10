@@ -32,6 +32,7 @@ namespace Maux36.RimPsyche
         public static readonly float titleHeight = 35f;
         public static readonly float scrollBarWidth = 20f;
         public static readonly float titleContentSpacing = 5f;
+        public static readonly float iconSpacing = 2f;
         public static readonly Color barBackgroundColor = new Color(0.2f, 0.2f, 0.2f, 0.5f);
 
         //Facet
@@ -241,16 +242,29 @@ namespace Maux36.RimPsyche
 
             // Icon on the right
             float iconSize = 24f;
-            float editIconX = titleRect.x + (titleRect.width / 2f) + (titleTextSize.x / 2f) + 8f;
-            Rect editIconRect = new Rect(editIconX, titleRect.y + (titleHeight - iconSize) / 2f, iconSize, iconSize);
+            float infoIconX = titleRect.x + (titleRect.width / 2f) + (titleTextSize.x / 2f) + 8f;
+            Rect infoIconRect = new Rect(infoIconX, titleRect.y + (titleHeight - iconSize) / 2f, iconSize, iconSize);
+
+            // Draw & handle click
+            if (Mouse.IsOver(infoIconRect))
+            {
+                GUI.DrawTexture(infoIconRect, Rimpsyche_UI_Utility.InfoHLButton);
+            }
+            else
+            {
+                GUI.DrawTexture(infoIconRect, Rimpsyche_UI_Utility.InfoButton);
+                TooltipHandler.TipRegion(infoIconRect, "RimpsychePersonalityInfo".Translate());
+            }
+
+
+            Rect editIconRect = new Rect(infoIconRect.xMax + iconSpacing, titleRect.y + (titleHeight - iconSize) / 2f, iconSize, iconSize);
 
             // Draw & handle click
             if (Widgets.ButtonImage(editIconRect, Rimpsyche_UI_Utility.EditButton))
             {
                 editPersonalityOn = !editPersonalityOn;
             }
-            TooltipHandler.TipRegion(editIconRect, "RimpsycheEdit");
-
+            TooltipHandler.TipRegion(editIconRect, "RimpsychePersonalityEdit".Translate());
 
             Text.Anchor = TextAnchor.UpperLeft;
             Text.Font = GameFont.Small;
@@ -370,9 +384,9 @@ namespace Maux36.RimPsyche
 
             if (Widgets.ButtonImage(resetButtonRect, resetIcon))
             {
-                compPsyche.Personality.Initialize(); // Call the instance method
+                compPsyche.Personality.Initialize();
             }
-            TooltipHandler.TipRegion(resetButtonRect, "ResetPsycheTooltip");
+            TooltipHandler.TipRegion(resetButtonRect, "ResetPsycheTooltip".Translate());
 
             float viewHeight = 15f * rowHeight + 3f;
             Rect viewRect = new Rect(0f, 0f, innerRect.width - 16f, viewHeight); // 16f for scrollbar width
@@ -388,7 +402,7 @@ namespace Maux36.RimPsyche
                 var (leftLabel, rightLabel, lefColor, rightColor) = InterfaceComponents.FacetNotation[facet];
 
                 // rowRect and its sub-rects are correctly relative to 'y' which is inside viewRect
-                Rect rowRect = new Rect(0f, y, viewRect.width, personalityRowHeight);
+                Rect rowRect = new Rect(0f, y, viewRect.width, rowHeight);
 
                 // Hover & tooltip
                 if (Mouse.IsOver(rowRect))

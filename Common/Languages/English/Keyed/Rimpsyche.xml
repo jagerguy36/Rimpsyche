@@ -6,11 +6,11 @@
   <MemoryReportString>Conversation about {0}</MemoryReportString>
   <RPC_Interest>Interest</RPC_Interest>
   <RPC_Personality>Personality</RPC_Personality>
-  <RimPsycheIntensityNeutral>Neutral</RimPsycheIntensityNeutral>
-  <RimPsycheIntensityExtremely>Extremely</RimPsycheIntensityExtremely>
-  <RimPsycheIntensityVery>Very</RimPsycheIntensityVery>
-  <RimPsycheIntensitySomewhat>Somewhat</RimPsycheIntensitySomewhat>
-  <RimPsycheIntensityMarginally>Marginally</RimPsycheIntensityMarginally>
+  <RimPsycheIntensityNeutral>Neutral {0}</RimPsycheIntensityNeutral>
+  <RimPsycheIntensityExtremely>Extremely {0}</RimPsycheIntensityExtremely>
+  <RimPsycheIntensityVery>Very {0}</RimPsycheIntensityVery>
+  <RimPsycheIntensitySomewhat>Somewhat {0}</RimPsycheIntensitySomewhat>
+  <RimPsycheIntensityMarginally>Marginally {0}</RimPsycheIntensityMarginally>
   <RPC_Realistic>Realistic</RPC_Realistic>
   <RPC_Imaginative>Imaginative</RPC_Imaginative>
   <RPC_Practical>Practical</RPC_Practical>

@@ -1,8 +1,0 @@
-<Patch>
-	<Operation Class="PatchOperationReplace">
-			<xpath>*/ThoughtDef[defName="Chitchat"]/stages/li[1]/label</xpath>
-			<value>
-				<label>greeting</label>
-			</value>
-	</Operation>	
-</Patch>

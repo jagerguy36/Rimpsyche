@@ -3,6 +3,24 @@
 
   <!-- Random social interactions -->
   <ThoughtDef>
+    <defName>Rimpsyche_Greeting</defName>
+    <thoughtClass>Thought_MemorySocialCumulative</thoughtClass>
+    <stackLimit>300</stackLimit>
+    <maxCumulatedOpinionOffset>10</maxCumulatedOpinionOffset>
+    <developmentalStageFilter>Baby, Child, Adult</developmentalStageFilter>
+    <socialTargetDevelopmentalStageFilter>Baby, Child, Adult</socialTargetDevelopmentalStageFilter>
+    <nullifyingTraits>
+      <li>Psychopath</li>
+    </nullifyingTraits>
+    <stages>
+      <li>
+        <label>greeting</label>
+        <baseOpinionOffset>0.66</baseOpinionOffset>
+      </li>
+    </stages>
+  </ThoughtDef>
+
+  <ThoughtDef>
     <defName>Rimpsyche_ConversationOpinion</defName>
     <thoughtClass>Maux36.RimPsyche.Thought_MemoryPostDefined</thoughtClass>
     <durationDays>5</durationDays>

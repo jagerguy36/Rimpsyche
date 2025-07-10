@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Verse;
 
 namespace Maux36.RimPsyche
 {
     public class InterfaceComponents
     {
-        public static Dictionary<Facet, Tuple<string, string, Color, Color>> FacetNotation = new()
+        public static Dictionary<Facet, Tuple<TaggedString, TaggedString, Color, Color>> FacetNotation = new()
         {
             // Openness
             { Facet.Imagination, Tuple.Create("RPC_Realistic".Translate(), "RPC_Imaginative".Translate(), Color.magenta, Color.cyan) },

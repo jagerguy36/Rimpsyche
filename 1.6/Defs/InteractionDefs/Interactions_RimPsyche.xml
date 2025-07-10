@@ -2,6 +2,24 @@
 <Defs>
   <!-- Random social interactions -->
   <InteractionDef>
+    <defName>Rimpsyche_Greeting</defName>
+    <label>greeting</label>
+    <workerClass>InteractionWorker_Chitchat</workerClass>
+    <symbol>Things/Mote/SpeechSymbols/Chitchat</symbol>
+    <initiatorThought>Rimpsyche_Greeting</initiatorThought>
+    <initiatorXpGainSkill>Social</initiatorXpGainSkill>
+    <initiatorXpGainAmount>4</initiatorXpGainAmount>
+    <recipientThought>Rimpsyche_Greeting</recipientThought>
+    <logRulesInitiator>
+      <rulesStrings>
+        <li>r_logentry->[INITIATOR_nameDef] gave a passing nod to [RECIPIENT_nameDef].</li>
+        <li>r_logentry(p=0.8)->[INITIATOR_nameDef] greeted [RECIPIENT_nameDef] in passing.</li>
+        <li>r_logentry(p=0.2)->[INITIATOR_nameDef] waved at [RECIPIENT_nameDef].</li>
+      </rulesStrings>
+    </logRulesInitiator>
+  </InteractionDef>
+
+  <InteractionDef>
     <defName>Rimpsyche_Conversation</defName>
     <label>ended conversation</label>
     <workerClass>Maux36.RimPsyche.InteractionWorker_StartConversation</workerClass>
