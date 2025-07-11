@@ -63,18 +63,18 @@ namespace Maux36.RimPsyche
             }
         }
 
-        private Dictionary<string, float> MultiplierCache = new Dictionary<string, float>();
-        public float GetMultiplier(RimpsycheMultiplier rimpsycheMultiplier)
+        private Dictionary<string, float> EvaluationCache = new Dictionary<string, float>();
+        public float Evaluate(RimpsycheFormula rimpsycheMultiplier)
         {
-            if (MultiplierCache.TryGetValue(rimpsycheMultiplier.multiplierName, out float cachedValue))
+            if (EvaluationCache.TryGetValue(rimpsycheMultiplier.formulaName, out float cachedValue))
             {
                 return cachedValue;
             }
             else
             {
                 float calculatedValue = rimpsycheMultiplier.calculationFunction.Invoke(this);
-                MultiplierCache[rimpsycheMultiplier.multiplierName] = calculatedValue;
-                Log.Message($"calculating {pawn.Name}'s {rimpsycheMultiplier.multiplierName} : {calculatedValue} || {nameof(rimpsycheMultiplier)}");
+                EvaluationCache[rimpsycheMultiplier.formulaName] = calculatedValue;
+                Log.Message($"calculating {pawn.Name}'s {rimpsycheMultiplier.formulaName} : {calculatedValue} || {nameof(rimpsycheMultiplier)}");
                 return calculatedValue;
             }
         }
@@ -530,7 +530,7 @@ namespace Maux36.RimPsyche
         public void DirtyCache()
         {
             personalityCache.Clear();
-            MultiplierCache.Clear();
+            EvaluationCache.Clear();
             if (compPsyche != null)
             {
                 compPsyche.Interests?.interestOffset.Clear();

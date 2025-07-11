@@ -68,7 +68,7 @@
     <Compile Include="CompPsyche\CompPsyche.cs" />
     <Compile Include="CompPsyche\CompToHumanlikes.cs" />
     <Compile Include="Conversation\PlayLogEntry_InteractionConversation.cs" />
-    <Compile Include="Database\RimpsycheMultiplier.cs" />
+    <Compile Include="Database\RimpsycheFormula.cs" />
     <Compile Include="GameComponent\VersionManager.cs" />
     <Compile Include="HarmonyPatches\Pawn_Notify_DisabledWorkTypesChanged.cs" />
     <Compile Include="Personality\Pawn_PersonalityTracker.cs" />

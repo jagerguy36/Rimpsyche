@@ -2,13 +2,13 @@
 
 namespace Maux36.RimPsyche
 {
-    public class RimpsycheMultiplier
+    public class RimpsycheFormula
     {
-        public string multiplierName;
+        public string formulaName;
         public Func<Pawn_PersonalityTracker, float> calculationFunction;
-        public RimpsycheMultiplier(string name, Func<Pawn_PersonalityTracker, float> calculation)
+        public RimpsycheFormula(string name, Func<Pawn_PersonalityTracker, float> calculation)
         {
-            multiplierName = name;
+            formulaName = name;
             calculationFunction = calculation;
         }
     }

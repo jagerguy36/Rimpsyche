@@ -98,7 +98,7 @@ namespace Maux36.RimPsyche
             }
         }
 
-        public static RimpsycheMultiplier SocialFightChanceMultiplier = new(
+        public static RimpsycheFormula SocialFightChanceMultiplier = new(
             "SocialFightChanceMultiplier",
             (tracker) =>
             {

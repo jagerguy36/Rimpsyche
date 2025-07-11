@@ -2,19 +2,31 @@
 <Defs>
   <!-- Random social interactions -->
   <InteractionDef>
-    <defName>Rimpsyche_Greeting</defName>
-    <label>greeting</label>
+    <defName>Rimpsyche_Smalltalk</defName>
+    <label>smalltalk</label>
     <workerClass>InteractionWorker_Chitchat</workerClass>
     <symbol>Things/Mote/SpeechSymbols/Chitchat</symbol>
-    <initiatorThought>Rimpsyche_Greeting</initiatorThought>
+    <initiatorThought>Rimpsyche_Smalltalk</initiatorThought>
     <initiatorXpGainSkill>Social</initiatorXpGainSkill>
     <initiatorXpGainAmount>4</initiatorXpGainAmount>
-    <recipientThought>Rimpsyche_Greeting</recipientThought>
+    <recipientThought>Rimpsyche_Smalltalk</recipientThought>
     <logRulesInitiator>
       <rulesStrings>
-        <li>r_logentry->[INITIATOR_nameDef] gave a passing nod to [RECIPIENT_nameDef].</li>
-        <li>r_logentry(p=0.8)->[INITIATOR_nameDef] greeted [RECIPIENT_nameDef] in passing.</li>
-        <li>r_logentry(p=0.2)->[INITIATOR_nameDef] waved at [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] [commentedabout] [subject] to [RECIPIENT_nameDef].</li>
+        <li>r_logentry(p=0.7)->[INITIATOR_nameDef] brought up [subject] in a brief chat with [RECIPIENT_nameDef].</li>
+        <li>r_logentry(p=0.5)->[INITIATOR_nameDef] mentioned something about [subject] while passing by [RECIPIENT_nameDef].</li>
+
+        <li>r_logentry(p=0.3)->[INITIATOR_nameDef] gave a passing nod to [RECIPIENT_nameDef].</li>
+        <li>r_logentry(p=0.1)->[INITIATOR_nameDef] greeted [RECIPIENT_nameDef] in passing.</li>
+        <li>r_logentry(p=0.1)->[INITIATOR_nameDef] waved at [RECIPIENT_nameDef].</li>
+
+        <li>subject(INITIATOR_cubeInterest==false)->[TalkTopicLight]</li>
+        <li>subject(INITIATOR_cubeInterest==true)->[TalkTopicCube]</li>
+
+        <li>commentedabout->made a comment about</li>
+        <li>commentedabout->casually remarked on</li>
+        <li>commentedabout->muttered something about</li>
+        <li>commentedabout->made a quick observation about</li>
       </rulesStrings>
     </logRulesInitiator>
   </InteractionDef>

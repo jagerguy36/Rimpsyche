@@ -159,8 +159,8 @@ namespace Maux36.RimPsyche
                         pawnScore = negativeScoreBase * (1f - (0.3f * pawnReceiveScore)); //-3.8 ~ 0
                         partnerScore = negativeScoreBase * (1f - (0.3f * partnerReceiveScore)); //(-2~0) * 0.1~1.9 = -3.8 ~[-1]~ 0
                         //Calcualte fight Chance
-                        float pawnStartCandBaseChance = -0.005f * pawnScore * lengthMult * initiatorPsyche.Personality.GetMultiplier(RimpsycheDatabase.SocialFightChanceMultiplier);
-                        float partnerStartCandBaseChance = -0.005f * partnerScore * lengthMult * recipientPsyche.Personality.GetMultiplier(RimpsycheDatabase.SocialFightChanceMultiplier);
+                        float pawnStartCandBaseChance = -0.005f * pawnScore * lengthMult * initiatorPsyche.Personality.Evaluate(RimpsycheDatabase.SocialFightChanceMultiplier);
+                        float partnerStartCandBaseChance = -0.005f * partnerScore * lengthMult * recipientPsyche.Personality.Evaluate(RimpsycheDatabase.SocialFightChanceMultiplier);
                         if (pawnStartCandBaseChance >= 0.005f)
                         {
 

@@ -3,7 +3,7 @@
 
   <!-- Random social interactions -->
   <ThoughtDef>
-    <defName>Rimpsyche_Greeting</defName>
+    <defName>Rimpsyche_Smalltalk</defName>
     <thoughtClass>Thought_MemorySocialCumulative</thoughtClass>
     <stackLimit>300</stackLimit>
     <maxCumulatedOpinionOffset>10</maxCumulatedOpinionOffset>
@@ -12,9 +12,12 @@
     <nullifyingTraits>
       <li>Psychopath</li>
     </nullifyingTraits>
+    <nullifyingHediffs>
+      <li MayRequire="Ludeon.RimWorld.Anomaly">Inhumanized</li>
+    </nullifyingHediffs>
     <stages>
       <li>
-        <label>greeting</label>
+        <label>small talk</label>
         <baseOpinionOffset>0.66</baseOpinionOffset>
       </li>
     </stages>
