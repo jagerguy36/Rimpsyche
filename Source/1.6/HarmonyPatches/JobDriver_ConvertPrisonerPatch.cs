@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Reflection.Emit;
 using System.Reflection;
 using System;
+using Verse;
 
 namespace Maux36.RimPsyche
 {
@@ -14,18 +15,55 @@ namespace Maux36.RimPsyche
         {
             public static MethodBase TargetMethod()
             {
-                foreach (Type nestedType in typeof(JobDriver_ConvertPrisoner).GetNestedTypes(BindingFlags.NonPublic | BindingFlags.Instance))
+                Type jobDriverType = typeof(JobDriver_VisitSickPawn);
+                foreach (var method in jobDriverType.GetMethods(BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static))
                 {
-                    if (nestedType.Name.StartsWith("<MakeNewToils>d__"))
+                    if (MethodMatches(method))
                     {
-                        MethodInfo moveNextMethod = nestedType.GetMethod("MoveNext", BindingFlags.Instance | BindingFlags.NonPublic);
-                        if (moveNextMethod != null)
+                        return method;
+                    }
+                }
+                foreach (var nestedType in jobDriverType.GetNestedTypes(BindingFlags.NonPublic))
+                {
+                    if (nestedType.Name.StartsWith("<MakeNewToils>"))
+                    {
+                        foreach (var method in nestedType.GetMethods(BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static))
                         {
-                            return moveNextMethod;
+                            if (MethodMatches(method))
+                            {
+                                return method;
+                            }
                         }
                     }
                 }
+
                 return null;
+            }
+
+            private static bool MethodMatches(MethodInfo method)
+            {
+                if (!method.Name.Contains("MakeNewToils"))
+                    return false;
+                try
+                {
+                    var instructions = PatchProcessor.GetOriginalInstructions(method);
+                    foreach (var instruction in instructions)
+                    {
+                        if (instruction.opcode == OpCodes.Ldsfld &&
+                            instruction.operand is FieldInfo fieldInfo &&
+                            fieldInfo.DeclaringType == typeof(InteractionDefOf) &&
+                            fieldInfo.Name == nameof(InteractionDefOf.Chitchat))
+                        {
+                            //Log.Message($"Convert Prisoner Found matching pattern in {method.Name}");
+                            return true;
+                        }
+                    }
+                }
+                catch
+                {
+                    return false;
+                }
+                return false;
             }
 
             static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
