@@ -78,7 +78,6 @@
     <Compile Include="Database\RimpsycheDatabase.cs" />
     <Compile Include="DefOfRimpsyche.cs" />
     <Compile Include="HarmonyPatches\CharacterCardUtility.cs" />
-    <Compile Include="HarmonyPatches\SocialInteractionUtility_RandomInteractionPatch.cs" />
     <Compile Include="HarmonyPatches\InteractionWorker_DeepTalk_SelectionWeightPatch.cs" />
     <Compile Include="HarmonyPatches\Pawn_InteractionTracker_Transpiler.cs" />
     <Compile Include="Interest\Interest.cs" />

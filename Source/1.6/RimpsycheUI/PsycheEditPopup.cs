@@ -33,14 +33,22 @@ namespace Maux36.RimPsyche
         public static readonly float scrollBarWidth = 20f;
         public static readonly float titleContentSpacing = 5f;
         public static readonly float iconSpacing = 2f;
+        public static readonly float resetButtonSize = 24f;
+        public static readonly float resetButtonMargin = 5f;
         public static readonly Color barBackgroundColor = new Color(0.2f, 0.2f, 0.2f, 0.5f);
 
         //Facet
+        public static readonly float facetRowHeight = 28f;
+        public static readonly float facetViewHeight = 15f * facetRowHeight;
+        public static readonly float facetLabelPadding = 2f;
+        public static readonly float facetLabelWidth = 130f;
+        public static readonly float facetBarWidth = 80f;
+        public static readonly float facetBarHeight = 4f;
 
         //Personality
         public static readonly IEnumerable<PersonalityDef> personalityDefList = DefDatabase<PersonalityDef>.AllDefs;
         public static readonly float personalityRowHeight = 32f;
-        public static float personalityViewHeight = personalityDefList.Count() * personalityRowHeight;
+        public static readonly float personalityViewHeight = personalityDefList.Count() * personalityRowHeight;
         public static readonly float personalityLabelPadding = 2f;
         public static readonly float personalityLabelWidth = 130f;
         public static readonly float personalityBarWidth = 120f;
@@ -124,7 +132,7 @@ namespace Maux36.RimPsyche
             Rect titleRect = new Rect(innerRect.x, innerRect.y, innerRect.width, titleHeight);
             Text.Anchor = TextAnchor.MiddleCenter;
             Text.Font = GameFont.Medium;
-            Widgets.Label(titleRect, "Sexuality");
+            Widgets.Label(titleRect, "RPC_Sexuality".Translate());
             Text.Anchor = TextAnchor.UpperLeft;
             Text.Font = GameFont.Small;
             Rect ContentRect = new Rect(innerRect.x, titleRect.yMax, innerRect.width, innerRect.height - titleHeight);
@@ -159,7 +167,7 @@ namespace Maux36.RimPsyche
             {
                 editInterestOn = !editInterestOn;
             }
-            TooltipHandler.TipRegion(editIconRect, "RimpsycheEdit");
+            TooltipHandler.TipRegion(editIconRect, "RimpsycheEdit".Translate());
 
 
             Text.Anchor = TextAnchor.UpperLeft;
@@ -179,7 +187,7 @@ namespace Maux36.RimPsyche
                 if (Mouse.IsOver(rowRect))
                 {
                     Widgets.DrawHighlight(rowRect);
-                    TooltipHandler.TipRegion(rowRect, $"{interest.label}: {Math.Round(currentValue, 1)}");
+                    TooltipHandler.TipRegion(rowRect, $"{interest.label}: {Math.Round(currentValue, 1)}\n{interest.description}");
                 }
                 float centerY = rowRect.y + rowRect.height / 2f;
 
@@ -253,8 +261,8 @@ namespace Maux36.RimPsyche
             else
             {
                 GUI.DrawTexture(infoIconRect, Rimpsyche_UI_Utility.InfoButton);
-                TooltipHandler.TipRegion(infoIconRect, "RimpsychePersonalityInfo".Translate());
             }
+            TooltipHandler.TipRegion(infoIconRect, "RimpsychePersonalityInfo".Translate());
 
 
             Rect editIconRect = new Rect(infoIconRect.xMax + iconSpacing, titleRect.y + (titleHeight - iconSize) / 2f, iconSize, iconSize);
@@ -264,7 +272,7 @@ namespace Maux36.RimPsyche
             {
                 editPersonalityOn = !editPersonalityOn;
             }
-            TooltipHandler.TipRegion(editIconRect, "RimpsychePersonalityEdit".Translate());
+            TooltipHandler.TipRegion(editIconRect, "RimpsycheEdit".Translate());
 
             Text.Anchor = TextAnchor.UpperLeft;
             Text.Font = GameFont.Small;
@@ -289,7 +297,7 @@ namespace Maux36.RimPsyche
                 if (Mouse.IsOver(rowRect))
                 {
                     Widgets.DrawHighlight(rowRect);
-                    TooltipHandler.TipRegion(rowRect, $"{def.label}: {Mathf.Round(currentValue * 100f) / 100f}");
+                    TooltipHandler.TipRegion(rowRect, $"{def.label}: {(currentValue * 100f).ToString("F1")}\n{def.description}");
                 }
                 float centerY = rowRect.y + rowRect.height / 2f;
                 // Left label
@@ -352,101 +360,80 @@ namespace Maux36.RimPsyche
         {
             Text.Font = GameFont.Small;
             TextAnchor oldAnchor = Text.Anchor;
-            float rowHeight = 28f;
-            float labelPadding = 2f;
-            float barWidth = 80f;
-            float barHeight = 4f;
-
-            // Define internal padding/margins if desired
             Rect innerRect = rect.ContractedBy(innerPadding);
 
             // Title for the Facet Card
             Text.Font = GameFont.Medium;
             Rect titleRect = new Rect(innerRect.x, innerRect.y, innerRect.width, 35f);
             Text.Anchor = TextAnchor.MiddleCenter;
-            Widgets.Label(titleRect, "Facets"); // Assuming this card is for Facets
+            Widgets.Label(titleRect, "RPC_Facets".Translate());
             Text.Anchor = TextAnchor.UpperLeft;
             Text.Font = GameFont.Small;
 
-            // --- ADDED RESET BUTTON ---
-            float resetButtonSize = 24f; // Standard button size
-            float resetButtonMargin = 5f;
-
-            // Position the button on the right side of the title area
             Rect resetButtonRect = new Rect(
-                titleRect.xMax - resetButtonSize - resetButtonMargin, // Align right, with a margin
-                titleRect.y + (titleRect.height - resetButtonSize) / 2f, // Center vertically within titleRect
+                titleRect.xMax - resetButtonSize - resetButtonMargin,
+                titleRect.y + (titleRect.height - resetButtonSize) / 2f,
                 resetButtonSize,
                 resetButtonSize
             );
 
-            Texture2D resetIcon = ContentFinder<Texture2D>.Get("Buttons/RimpsycheRefresh", true); // Ensure the path is correct
-
-            if (Widgets.ButtonImage(resetButtonRect, resetIcon))
+            if (Widgets.ButtonImage(resetButtonRect, Rimpsyche_UI_Utility.resetIcon))
             {
                 compPsyche.Personality.Initialize();
             }
             TooltipHandler.TipRegion(resetButtonRect, "ResetPsycheTooltip".Translate());
 
-            float viewHeight = 15f * rowHeight + 3f;
-            Rect viewRect = new Rect(0f, 0f, innerRect.width - 16f, viewHeight); // 16f for scrollbar width
-
+            Rect viewRect = new Rect(0f, 0f, innerRect.width - scrollBarWidth, facetViewHeight);
             Rect scrollRect = new Rect(innerRect.x, titleRect.yMax + 5f, innerRect.width, innerRect.height - (titleRect.height + 5f));
             Widgets.BeginScrollView(scrollRect, ref FacetNodeScrollPosition, viewRect);
 
-            float y = 0f; // This 'y' is correct as it's relative to the *inside* of the scroll view.
-
+            float y = 0f;
             foreach (Facet facet in RimpsycheDatabase.AllFacets)
             {
                 var value = compPsyche.Personality.GetFacetValue(facet);
                 var (leftLabel, rightLabel, lefColor, rightColor) = InterfaceComponents.FacetNotation[facet];
-
-                // rowRect and its sub-rects are correctly relative to 'y' which is inside viewRect
-                Rect rowRect = new Rect(0f, y, viewRect.width, rowHeight);
-
-                // Hover & tooltip
+                Rect rowRect = new Rect(0f, y, viewRect.width, facetRowHeight);
                 if (Mouse.IsOver(rowRect))
                 {
                     Widgets.DrawHighlight(rowRect);
                     TooltipHandler.TipRegion(rowRect, $"{facet}: {Math.Round(value, 1)} \n\n" + InterfaceComponents.FacetDescription[facet]);
                 }
 
-                float labelWidth = 130f;
                 float barCenterX = rowRect.x + rowRect.width / 2f;
                 float centerY = rowRect.y + rowRect.height / 2f;
 
                 // Left label
-                Rect leftRect = new Rect(rowRect.x + labelPadding, centerY - Text.LineHeight / 2f, labelWidth, Text.LineHeight);
+                Rect leftRect = new Rect(rowRect.x + facetLabelPadding, centerY - Text.LineHeight / 2f, facetLabelWidth, Text.LineHeight);
                 Text.Anchor = TextAnchor.MiddleLeft;
                 Widgets.Label(leftRect, leftLabel);
 
                 // Right label
-                Rect rightRect = new Rect(rowRect.xMax - labelWidth - labelPadding, centerY - Text.LineHeight / 2f, labelWidth, Text.LineHeight);
+                Rect rightRect = new Rect(rowRect.xMax - facetLabelWidth - facetLabelPadding, centerY - Text.LineHeight / 2f, facetLabelWidth, Text.LineHeight);
                 Text.Anchor = TextAnchor.MiddleRight;
                 Widgets.Label(rightRect, rightLabel);
 
                 // Bar (centered vertically)
-                Rect barRect = new Rect(barCenterX - barWidth / 2f, centerY - barHeight / 2f, barWidth, barHeight);
-                Widgets.DrawBoxSolid(barRect, new Color(0.2f, 0.2f, 0.2f, 0.5f)); // Bar background
+                Rect barRect = new Rect(barCenterX - facetBarWidth / 2f, centerY - facetBarHeight / 2f, facetBarWidth, facetBarHeight);
+                Widgets.DrawBoxSolid(barRect, barBackgroundColor);
 
                 // Value bar
-                float halfBar = (Mathf.Abs(value) / 50f) * (barWidth / 2f);
+                float halfBar = (Mathf.Abs(value) / 50f) * (facetBarWidth / 2f);
                 Rect valueRect;
 
                 if (value >= 0)
                 {
-                    valueRect = new Rect(barCenterX, barRect.y, halfBar, barHeight);
+                    valueRect = new Rect(barCenterX, barRect.y, halfBar, facetBarHeight);
                 }
                 else
                 {
-                    valueRect = new Rect(barCenterX - halfBar, barRect.y, halfBar, barHeight);
+                    valueRect = new Rect(barCenterX - halfBar, barRect.y, halfBar, facetBarHeight);
                 }
 
                 // Color gradient: red → green
                 Color barColor = Color.Lerp(lefColor, rightColor, (value + 50f) / 100f);
                 Widgets.DrawBoxSolid(valueRect, barColor);
 
-                y += rowHeight * 1f;
+                y += facetRowHeight;
             }
 
             Widgets.EndScrollView();

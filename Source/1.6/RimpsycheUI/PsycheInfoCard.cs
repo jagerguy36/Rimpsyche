@@ -241,7 +241,7 @@ namespace Maux36.RimPsyche
                     AbsValue = absValue,
                     CachedLabelText = cachedLabelText,
                     CachedLabelColor = cachedLabelColor,
-                    CachedDescription = $"{personality.label}: {Math.Round(value, 1)}\n{personality.description}"
+                    CachedDescription = $"{personality.label}: {(value*100f).ToString("F1")}\n{personality.description}"
                 });
             }
             sortedData = sortedData.OrderByDescending(p => p.AbsValue).ToList();
@@ -303,7 +303,15 @@ namespace Maux36.RimPsyche
             {
                 showBothSide = !showBothSide;
             }
-            TooltipHandler.TipRegion(viewIconRect, "RimpsycheView");
+            if (showBothSide)
+            {
+                TooltipHandler.TipRegion(viewIconRect, "RimpsycheShowList".Translate());
+            }
+            else
+            {
+                TooltipHandler.TipRegion(viewIconRect, "RimpsycheShowBar".Translate());
+            }
+            
 
             Rect editIconRect = new Rect(viewIconRect.xMax + spacing, (headerHeight - iconSize) / 2f, iconSize, iconSize);
             if (Prefs.DevMode)
@@ -312,7 +320,7 @@ namespace Maux36.RimPsyche
                 {
                     Find.WindowStack.Add(new PsycheEditPopup(pawn));
                 }
-                TooltipHandler.TipRegion(editIconRect, "RimpsycheEdit");
+                TooltipHandler.TipRegion(editIconRect, "RimpsycheEdit".Translate());
             }
 
             GUI.EndGroup();
@@ -432,7 +440,7 @@ namespace Maux36.RimPsyche
             Text.Font = GameFont.Medium;
             Text.Anchor = TextAnchor.MiddleCenter;
             Rect titleRect = new Rect(0f, 0f, headerRect.width, headerRect.height);
-            Widgets.Label(titleRect, "Sexuality");
+            Widgets.Label(titleRect, "RPC_Sexuality".Translate());
 
             GUI.EndGroup();
 
@@ -446,15 +454,15 @@ namespace Maux36.RimPsyche
             float y = 0f;
             // Sexuality
             Rect sexualityDetailRect = new Rect(0f, y, sexualityRect.width, lineHeight);
-            Widgets.Label(sexualityDetailRect, "Sexuality: " + compPsyche.Sexuality.GetOrientationCategory());
+            Widgets.Label(sexualityDetailRect, "RPC_Orientation".Translate() + ": " + compPsyche.Sexuality.GetOrientationCategory());
             y += lineHeight;
 
             Rect sexualityKinseyRect = new Rect(0f, y, sexualityRect.width, lineHeight);
-            Widgets.Label(sexualityKinseyRect, "kinsey: " + (compPsyche.Sexuality.kinsey).ToString("F0"));
+            Widgets.Label(sexualityKinseyRect, "RPC_Kinsey".Translate() + ": " + (compPsyche.Sexuality.kinsey).ToString("F0"));
             y += lineHeight;
 
             Rect sexDriveRect = new Rect(0f, y, sexualityRect.width, lineHeight);
-            Widgets.Label(sexDriveRect, "Sex Drive: " + compPsyche.Sexuality.sexDrive);
+            Widgets.Label(sexDriveRect, "RPC_SexDrive".Translate() + ": " + compPsyche.Sexuality.sexDrive);
             y += lineHeight;
 
             //// Sexuality
@@ -496,7 +504,7 @@ namespace Maux36.RimPsyche
             Text.Font = GameFont.Medium;
             Text.Anchor = TextAnchor.MiddleCenter;
             Rect titleRect = new Rect(0f, 0f, headerRect.width, headerRect.height);
-            Widgets.Label(titleRect, "Interest");
+            Widgets.Label(titleRect, "RPC_Interest".Translate());
 
             GUI.EndGroup();
 

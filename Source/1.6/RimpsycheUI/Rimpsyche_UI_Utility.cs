@@ -20,6 +20,7 @@ namespace Maux36.RimPsyche
         public static Texture2D EditButton = ContentFinder<Texture2D>.Get("Buttons/RimpsycheEdit", true);
         public static Texture2D InfoButton = ContentFinder<Texture2D>.Get("Buttons/RimpsycheInfo", true);
         public static Texture2D InfoHLButton = ContentFinder<Texture2D>.Get("Buttons/RimpsycheInfoHL", true);
+        public static Texture2D resetIcon = ContentFinder<Texture2D>.Get("Buttons/RimpsycheRefresh", true);
         public static Texture2D RevealButton = ContentFinder<Texture2D>.Get("Buttons/RimpsycheReveal", true);
         public static Texture2D HideButton = ContentFinder<Texture2D>.Get("Buttons/RimpsycheHide", true);
     }

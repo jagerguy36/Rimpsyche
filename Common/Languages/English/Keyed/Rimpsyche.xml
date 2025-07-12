@@ -1,16 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LanguageData>
-  <TabPsyche>Psyche</TabPsyche>
+
+  <!-- General -->
   <RimpsycheSettingCategory>RimPsyche</RimpsycheSettingCategory>
   <RimpsycheGeneralSetting>RimPsyche</RimpsycheGeneralSetting>
-  <MemoryReportString>Conversation about {0}</MemoryReportString>
-  <RPC_Interest>Interest</RPC_Interest>
+
+  <!-- Title -->
   <RPC_Personality>Personality</RPC_Personality>
+  <RPC_Interest>Interest</RPC_Interest>
+  <RPC_Sexuality>Sexuality</RPC_Sexuality>
+
+  <!-- Tab -->
+  <TabPsyche>Psyche</TabPsyche>
+
+  <RimpsycheShowList>Show as List</RimpsycheShowList>
+  <RimpsycheShowBar>Show as Bars</RimpsycheShowBar>
+  <RimpsycheEdit>Edit</RimpsycheEdit>
+
+  <RPC_Orientation>Sexuality</RPC_Orientation>
+  <RPC_Kinsey>Kinsey Rating</RPC_Kinsey>
+  <RPC_SexDrive>Sex Drive</RPC_SexDrive>
+
+
+  <!-- Interaction -->
+  <MemoryReportString>Conversation about {0}</MemoryReportString>
   <RimPsycheIntensityNeutral>Neutral {0}</RimPsycheIntensityNeutral>
   <RimPsycheIntensityExtremely>Extremely {0}</RimPsycheIntensityExtremely>
   <RimPsycheIntensityVery>Very {0}</RimPsycheIntensityVery>
   <RimPsycheIntensitySomewhat>Somewhat {0}</RimPsycheIntensitySomewhat>
   <RimPsycheIntensityMarginally>Marginally {0}</RimPsycheIntensityMarginally>
+
+  <!-- Edit Mode -->
+  <RPC_Facets>Facets</RPC_Facets>
+
+  <!-- Facet -->
   <RPC_Realistic>Realistic</RPC_Realistic>
   <RPC_Imaginative>Imaginative</RPC_Imaginative>
   <RPC_Practical>Practical</RPC_Practical>

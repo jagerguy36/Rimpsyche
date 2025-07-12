@@ -16,27 +16,13 @@ namespace Maux36.RimPsyche
             public static MethodBase TargetMethod()
             {
                 Type jobDriverType = typeof(JobDriver_VisitSickPawn);
-                foreach (var method in jobDriverType.GetMethods(BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static))
+                foreach (var method in jobDriverType.GetMethods(BindingFlags.NonPublic | BindingFlags.Instance))
                 {
                     if (MethodMatches(method))
                     {
                         return method;
                     }
                 }
-                foreach (var nestedType in jobDriverType.GetNestedTypes(BindingFlags.NonPublic))
-                {
-                    if (nestedType.Name.StartsWith("<MakeNewToils>"))
-                    {
-                        foreach (var method in nestedType.GetMethods(BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static))
-                        {
-                            if (MethodMatches(method))
-                            {
-                                return method;
-                            }
-                        }
-                    }
-                }
-
                 return null;
             }
 
@@ -44,7 +30,6 @@ namespace Maux36.RimPsyche
             {
                 if (!method.Name.Contains("MakeNewToils"))
                     return false;
-
                 try
                 {
                     var instructions = PatchProcessor.GetOriginalInstructions(method);
@@ -98,8 +83,10 @@ namespace Maux36.RimPsyche
 
         public static InteractionDef ChoseInteraction(Pawn pawn)
         {
-            Log.Message($"This is called by {pawn.Name}");
-            return DefOfRimpsyche.Rimpsyche_Smalltalk;
+            //float smalltalkChance = 1f / (1f + (1 + pawn.compPsyche().Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Talkativeness)) * 1.6f);
+            float smalltalkChance = 0.8f;
+            InteractionDef intDef = ((Rand.Value < smalltalkChance) ? DefOfRimpsyche.Rimpsyche_Smalltalk : DefOfRimpsyche.Rimpsyche_Conversation);
+            return intDef;
         }
     }
 }

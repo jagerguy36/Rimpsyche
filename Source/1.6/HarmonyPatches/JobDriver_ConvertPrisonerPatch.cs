@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Reflection.Emit;
 using System.Reflection;
 using System;
-using Verse;
 
 namespace Maux36.RimPsyche
 {
@@ -16,27 +15,13 @@ namespace Maux36.RimPsyche
             public static MethodBase TargetMethod()
             {
                 Type jobDriverType = typeof(JobDriver_VisitSickPawn);
-                foreach (var method in jobDriverType.GetMethods(BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static))
+                foreach (var method in jobDriverType.GetMethods(BindingFlags.NonPublic | BindingFlags.Instance))
                 {
                     if (MethodMatches(method))
                     {
                         return method;
                     }
                 }
-                foreach (var nestedType in jobDriverType.GetNestedTypes(BindingFlags.NonPublic))
-                {
-                    if (nestedType.Name.StartsWith("<MakeNewToils>"))
-                    {
-                        foreach (var method in nestedType.GetMethods(BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static))
-                        {
-                            if (MethodMatches(method))
-                            {
-                                return method;
-                            }
-                        }
-                    }
-                }
-
                 return null;
             }
 
