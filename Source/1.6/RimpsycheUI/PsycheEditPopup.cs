@@ -289,7 +289,7 @@ namespace Maux36.RimPsyche
             foreach (var def in personalityDefList)
             {
                 float currentValue = compPsyche.Personality.GetPersonalityDirect(def);
-                var (leftLabel, rightLabel, leftColor, rightColor) = (def.low, def.high, Color.red, Color.green);
+                var (leftLabel, rightLabel, leftColor, rightColor) = (def.low.CapitalizeFirst(), def.high.CapitalizeFirst(), Color.red, Color.green);
 
                 // rowRect and its sub-rects are correctly relative to 'y' which is inside viewRect
                 Rect rowRect = new Rect(0f, y, viewRect.width, personalityRowHeight);
@@ -297,7 +297,12 @@ namespace Maux36.RimPsyche
                 if (Mouse.IsOver(rowRect))
                 {
                     Widgets.DrawHighlight(rowRect);
-                    TooltipHandler.TipRegion(rowRect, $"{def.label}: {(currentValue * 100f).ToString("F1")}\n{def.description}");
+                    string tooltipString = $"{def.label.CapitalizeFirst()}: {(currentValue * 100f).ToString("F1")}\n{def.description}";
+                    if (compPsyche.Personality.scopeInfoCache.TryGetValue(def.defName, out string explanation))
+                    {
+                        tooltipString += $"\n\n{explanation}";
+                    }
+                    TooltipHandler.TipRegion(rowRect, tooltipString);
                 }
                 float centerY = rowRect.y + rowRect.height / 2f;
                 // Left label
@@ -366,9 +371,41 @@ namespace Maux36.RimPsyche
             Text.Font = GameFont.Medium;
             Rect titleRect = new Rect(innerRect.x, innerRect.y, innerRect.width, 35f);
             Text.Anchor = TextAnchor.MiddleCenter;
-            Widgets.Label(titleRect, "RPC_Facets".Translate());
+            string titleString = "RPC_Facets".Translate();
+            Widgets.Label(titleRect, titleString);
+            Vector2 titleTextSize = Text.CalcSize(titleString);
             Text.Anchor = TextAnchor.UpperLeft;
             Text.Font = GameFont.Small;
+
+
+            // Icon on the right
+            float iconSize = 24f;
+            float infoIconX = titleRect.x + (titleRect.width / 2f) + (titleTextSize.x / 2f) + 8f;
+            Rect infoIconRect = new Rect(infoIconX, titleRect.y + (titleHeight - iconSize) / 2f, iconSize, iconSize);
+
+            // Draw & handle click
+            if (Mouse.IsOver(infoIconRect))
+            {
+                GUI.DrawTexture(infoIconRect, Rimpsyche_UI_Utility.InfoHLButton);
+            }
+            else
+            {
+                GUI.DrawTexture(infoIconRect, Rimpsyche_UI_Utility.InfoButton);
+            }
+            TooltipHandler.TipRegion(infoIconRect, "RimpsycheFacetInfo".Translate());
+
+
+            //Rect editIconRect = new Rect(infoIconRect.xMax + iconSpacing, titleRect.y + (titleHeight - iconSize) / 2f, iconSize, iconSize);
+
+            //// Draw & handle click
+            //if (Widgets.ButtonImage(editIconRect, Rimpsyche_UI_Utility.EditButton))
+            //{
+            //    editPersonalityOn = !editPersonalityOn;
+            //}
+            //TooltipHandler.TipRegion(editIconRect, "RimpsycheEdit".Translate());
+
+            //Text.Anchor = TextAnchor.UpperLeft;
+            //Text.Font = GameFont.Small;
 
             Rect resetButtonRect = new Rect(
                 titleRect.xMax - resetButtonSize - resetButtonMargin,
@@ -396,7 +433,12 @@ namespace Maux36.RimPsyche
                 if (Mouse.IsOver(rowRect))
                 {
                     Widgets.DrawHighlight(rowRect);
-                    TooltipHandler.TipRegion(rowRect, $"{facet}: {Math.Round(value, 1)} \n\n" + InterfaceComponents.FacetDescription[facet]);
+                    string tooltipString = $"{facet}: {(value*2f).ToString("F1")}\n\n{InterfaceComponents.FacetDescription[facet]}";
+                    if (compPsyche.Personality.gateInfoCache.TryGetValue(facet, out string explanation))
+                    {
+                        tooltipString += $"\n\n{explanation}";
+                    }
+                    TooltipHandler.TipRegion(rowRect, tooltipString);
                 }
 
                 float barCenterX = rowRect.x + rowRect.width / 2f;

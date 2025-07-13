@@ -42,6 +42,7 @@ namespace Maux36.RimPsyche
         private float insecurity = 0f;
 
         private Dictionary<Facet, (float, float)> gateCacheInternal = null; //new Dictionary<Facet, Tuple<float, float>>();
+        public Dictionary<Facet, string> gateInfoCache = [];
         public Dictionary<Facet, (float, float)> gateCache
         {
             get
@@ -53,6 +54,7 @@ namespace Maux36.RimPsyche
 
         //Personality Value is cached whenever FacetValueNorm is updated.
         private Dictionary<string, float> personalityCache = new Dictionary<string, float>();
+        public Dictionary<string, string> scopeInfoCache = [];
         private Dictionary<string, (float, float)> scopeCacheInternal = null; //new Dictionary<string, Tuple<float, float>>();
         public Dictionary<string, (float, float)> scopeCache
         {
@@ -200,6 +202,7 @@ namespace Maux36.RimPsyche
         }
         public Dictionary<Facet, (float, float)> GenerateGate()
         {
+            gateInfoCache.Clear();
             var newGate = new Dictionary<Facet, (float, float)>();
             List<Trait> traits = pawn.story?.traits?.allTraits;
             foreach (Trait trait in traits)
@@ -231,7 +234,15 @@ namespace Maux36.RimPsyche
                         else
                         {
                             newGate[facet] = newRange;
-                            Log.Message($"{pawn.Name}'s gate is being added by {trait.def.defName} to {facet}");
+                            Log.Message($"{pawn.Name}'s gate is being added by {trait.Label} to {facet}");
+                        }
+                        if (gateInfoCache.TryGetValue(facet, out string explanation))
+                        {
+                            gateInfoCache[facet] = explanation + $", {trait.Label}";
+                        }
+                        else
+                        {
+                            gateInfoCache.Add(facet, $"{"TraitAffected".Translate()} {trait.Label}");
                         }
                     }
                 }
@@ -272,6 +283,14 @@ namespace Maux36.RimPsyche
                         {
                             newScope[personalityName] = newRange;
                             Log.Message($"{pawn.Name}'s scope is being added by {trait.def.defName} to {personalityName}");
+                        }
+                        if (scopeInfoCache.TryGetValue(personalityName, out string explanation))
+                        {
+                            scopeInfoCache[personalityName] = explanation + $", {trait.Label}";
+                        }
+                        else
+                        {
+                            scopeInfoCache.Add(personalityName, $"{"TraitAffected".Translate()} {trait.Label}");
                         }
                     }
                 }

@@ -21,6 +21,7 @@
   <RPC_Kinsey>Kinsey Rating</RPC_Kinsey>
   <RPC_SexDrive>Sex Drive</RPC_SexDrive>
 
+  <TraitAffected>Affected by trait(s):</TraitAffected>
 
   <!-- Interaction -->
   <MemoryReportString>Conversation about {0}</MemoryReportString>
@@ -32,8 +33,10 @@
 
   <!-- Edit Mode -->
   <RPC_Facets>Facets</RPC_Facets>
+  <RimpsycheFacetInfo>Facets are the core building blocks of a pawn's unique mind. They represent fundamental aspects of their inner world, influencing how they think, feel, and perceive the world around them.</RimpsycheFacetInfo>
+  <RimpsychePersonalityInfo>A character's personality is the result of their individual facets coming together. It influences their behavior, relationships, and decisions. Each personality node represent different ways these facets are expressed, affecting everything from social interactions to how they handle challenges.</RimpsychePersonalityInfo>
 
-  <!-- Facet -->
+  <!-- Facet Desc. -->
   <RPC_Realistic>Realistic</RPC_Realistic>
   <RPC_Imaginative>Imaginative</RPC_Imaginative>
   <RPC_Practical>Practical</RPC_Practical>
