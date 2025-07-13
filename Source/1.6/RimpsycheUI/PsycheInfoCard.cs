@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using UnityEngine;
 using Verse;
 
@@ -241,7 +242,7 @@ namespace Maux36.RimPsyche
                     AbsValue = absValue,
                     CachedLabelText = cachedLabelText,
                     CachedLabelColor = cachedLabelColor,
-                    CachedDescription = $"{personality.label}: {(value*100f).ToString("F1")}\n{personality.description}"
+                    CachedDescription = $"{personality.label.CapitalizeFirst()}: {(value*100f).ToString("F1")}\n{personality.description}"
                 });
             }
             sortedData = sortedData.OrderByDescending(p => p.AbsValue).ToList();
@@ -349,7 +350,7 @@ namespace Maux36.RimPsyche
                 {
                     var personality = pData.Personality;
                     var value = pData.Value;
-                    var (leftLabel, rightLabel, leftColor, rightColor) = (personality.low, personality.high, Color.red, Color.green);
+                    var (leftLabel, rightLabel, leftColor, rightColor) = (personality.low.CapitalizeFirst(), personality.high.CapitalizeFirst(), Color.red, Color.green);
 
                     Rect rowRect = new Rect(0f, y, scrollContentRect.width, personalityRowHeight);
 

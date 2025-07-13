@@ -27,6 +27,7 @@ namespace Maux36.RimPsyche
 
                 if (initOpinion < 0f)
                 {
+                    //TODO: fix logic
                     bool giveupConverse = initOpinion + initSociability + initSpontaneity + Rand.Value < 0f;
                     if (giveupConverse) return 0f;
                 }
