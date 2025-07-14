@@ -10,6 +10,13 @@ namespace Maux36.RimPsyche
 {
     public class Rimpsyche_Utility
     {
+        public static float Boost(float A, float boostFactor = 0.5f)
+        {
+            float res = A * (1f + boostFactor * (1f - A * A));
+            Log.Message($"Boosting {A} -> {res}");
+            return res;
+
+        }
         public static float SaddleShapeFunction(float x, float y, float controversiality = 1)
         {
             float C = 2 * controversiality * controversiality;
@@ -18,6 +25,7 @@ namespace Maux36.RimPsyche
             float sum = (x + y);
             float sum2 = sum * sum;
             float val = (-(1f + C) * diff2 + sum2) / (4f + C * diff2);
+            val = Boost(val);
             Log.Message($"SaddleShapeFunction: {x}, {y} | controversiality: {controversiality}. val: {val}");
             return val;
         }

@@ -28,8 +28,8 @@ namespace Maux36.RimPsyche
                     initiatorAttitude += initiatorPsyche.Personality.GetFacetValueNorm(weight.facet) * weight.weight;
                     recipientAttitude += recipientPsyche.Personality.GetFacetValueNorm(weight.facet) * weight.weight;
                 }
-                initiatorAttitude = Mathf.Clamp(initiatorAttitude * 0.02f, -1f, 1f);
-                recipientAttitude = Mathf.Clamp(recipientAttitude * 0.02f, -1f, 1f);
+                initiatorAttitude =Rimpsyche_Utility.Boost(Mathf.Clamp(initiatorAttitude * 0.02f, -1f, 1f));
+                recipientAttitude = Rimpsyche_Utility.Boost(Mathf.Clamp(recipientAttitude * 0.02f, -1f, 1f));
                 score = Rimpsyche_Utility.SaddleShapeFunction(initiatorAttitude, recipientAttitude, controversiality);
                 Log.Message($"initiatorAttitude: {initiatorAttitude}. recipientAttitude: {recipientAttitude} | score: {score}");
             }

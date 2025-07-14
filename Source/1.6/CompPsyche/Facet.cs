@@ -36,14 +36,9 @@ namespace Maux36.RimPsyche
         Insecurity // Insecure | Confident
     }
 
-    public class FacetWeight : IExposable
+    public struct FacetWeight
     {
         public Facet facet;
         public float weight;
-        public void ExposeData()
-        {
-            Scribe_Values.Look(ref facet, "facet");
-            Scribe_Values.Look(ref weight, "weight");
-        }
     }
 }

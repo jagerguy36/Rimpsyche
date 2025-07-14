@@ -121,15 +121,15 @@ namespace Maux36.RimPsyche
 
                 if (topicAlignment > 0)
                 {
-                    float partnerScoreBase = 1f + (0.5f * reciOpinion) + (2f * topicAlignment); //0.5[2]3.5
+                    float partnerScoreBase = 1f + (0.5f * reciOpinion) + (3f * topicAlignment); //0.5[2.5]4.5
                     float partnerScoreModifier = (0.2f * initTact) + (0.2f * initPassion); //-0.4~[0]~0.4
                     partnerScoreModifier = (1f + talkRand) * partnerScoreModifier; // -0.8~[0]~0.8
-                    partnerScore = (partnerScoreBase + partnerScoreModifier); // -0.3[2]4.3
+                    partnerScore = (partnerScoreBase + partnerScoreModifier); // -0.3[2.5]5.3
 
-                    float pawnScoreBase = 1f + (0.5f * initOpinion) + (2f * topicAlignment); //0.5[2]3.5
+                    float pawnScoreBase = 1f + (0.5f * initOpinion) + (3f * topicAlignment); //0.5[2.5]4.5
                     float pawnScoreModifier = (0.2f * reciTact) + (0.2f * reciPassion); //-0.4~[0]~0.4
                     pawnScoreModifier = (1f + talkRand) * pawnScoreModifier; // -0.8~[0]~0.8
-                    pawnScore = (pawnScoreBase + pawnScoreModifier); // -0.3[2]4.3
+                    pawnScore = (pawnScoreBase + pawnScoreModifier); // -0.3[2.5]5.3
 
                     if (partnerScore < 0f || pawnScore < 0f)
                     {
