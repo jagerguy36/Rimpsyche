@@ -203,8 +203,13 @@ namespace Maux36.RimPsyche
         public Dictionary<Facet, (float, float)> GenerateGate()
         {
             gateInfoCache.Clear();
+            var gateAccumulator = new Dictionary<Facet, (float centerSum, float minRange)>();
             var newGate = new Dictionary<Facet, (float, float)>();
             List<Trait> traits = pawn.story?.traits?.allTraits;
+            if (traits == null)
+            {
+                return newGate;
+            }
             foreach (Trait trait in traits)
             {
                 Pair<string, int> pair = new Pair<string, int>(trait.def.defName, trait.Degree);
@@ -213,28 +218,20 @@ namespace Maux36.RimPsyche
                     foreach (var value in values)
                     {
                         var facet = value.Item1;
-                        var newRange = (value.Item2, value.Item3);
-                        if (newGate.TryGetValue(facet, out var existingRange))
+                        float centerOffset = value.Item2;
+                        float range = value.Item3;
+                        if (gateAccumulator.TryGetValue(facet, out var existingData))
                         {
-                            // Calculate intersection
-                            float intersectMin = Math.Max(existingRange.Item1, newRange.Item1);
-                            float intersectMax = Math.Min(existingRange.Item2, newRange.Item2);
-
-                            if (intersectMin <= intersectMax)
-                            {
-                                newGate[facet] = (intersectMin, intersectMax);
-                                Log.Message($"{pawn.Name}'s gate for {facet} intersected to ({intersectMin}, {intersectMax})");
-                            }
-                            else
-                            {
-                                Log.Warning($"{pawn.Name}'s gate for {facet} has no overlap; removing the restrictions");
-                                 newGate.Remove(facet);
-                            }
+                            float newCenterSum = existingData.centerSum + centerOffset;
+                            float newMinRange = Math.Min(existingData.minRange, range);
+                            
+                            gateAccumulator[facet] = (newCenterSum, newMinRange);
+                            Log.Message($"{pawn.Name}'s gate for {facet} updated: center sum = {newCenterSum}, min range = {newMinRange}");
                         }
                         else
                         {
-                            newGate[facet] = newRange;
-                            Log.Message($"{pawn.Name}'s gate is being added by {trait.Label} to {facet}");
+                            gateAccumulator.Add(facet, (centerOffset, range));
+                            Log.Message($"{pawn.Name}'s gate for {facet} added by {trait.Label}: center = {centerOffset}, range = {range}");
                         }
                         if (gateInfoCache.TryGetValue(facet, out string explanation))
                         {
@@ -247,12 +244,28 @@ namespace Maux36.RimPsyche
                     }
                 }
             }
+            // Convert the accumulated data into the final (min, max) gate format.
+            foreach (var kvp in gateAccumulator)
+            {
+                var facet = kvp.Key;
+                var totalCenter = kvp.Value.centerSum;
+                var minRange = kvp.Value.minRange;
+
+                // Convert from the final (center, range) to (min, max)
+                newGate.Add(facet, (totalCenter - minRange, totalCenter + minRange));
+            }
             return newGate;
         }
         public Dictionary<string, (float, float)> GenerateScope()
         {
+            scopeInfoCache.Clear();
+            var scopeAccumulator = new Dictionary<Facet, (float centerSum, float minRange)>();
             var newScope = new Dictionary<string, (float, float)>();
             List<Trait> traits = pawn.story?.traits?.allTraits;
+            if (traits == null)
+            {
+                return newScope;
+            }
             foreach (Trait trait in traits)
             {
                 Pair<string, int> pair = new Pair<string, int>(trait.def.defName, trait.Degree);
@@ -261,27 +274,19 @@ namespace Maux36.RimPsyche
                     foreach(var value in values)
                     {
                         var personalityName = value.Item1;
-                        var newRange = (value.Item2, value.Item3);
-                        if (newScope.TryGetValue(personalityName, out var existingRange))
+                        float centerOffset = value.Item2;
+                        float range = value.Item3;
+                        if (scopeAccumulator.TryGetValue(personalityName, out var existingData))
                         {
-                            // Calculate intersection
-                            float intersectMin = Math.Max(existingRange.Item1, newRange.Item1);
-                            float intersectMax = Math.Min(existingRange.Item2, newRange.Item2);
+                            float newCenterSum = existingData.centerSum + centerOffset;
+                            float newMinRange = Math.Min(existingData.minRange, range);
 
-                            if (intersectMin <= intersectMax)
-                            {
-                                newScope[personalityName] = (intersectMin, intersectMax);
-                                Log.Message($"{pawn.Name}'s scope for {personalityName} intersected to ({intersectMin}, {intersectMax})");
-                            }
-                            else
-                            {
-                                Log.Warning($"{pawn.Name}'s scope for {personalityName} has no overlap; removing the restrictions");
-                                newScope.Remove(personalityName);
-                            }
+                            scopeAccumulator[personalityName] = (newCenterSum, newMinRange);
+                            Log.Message($"{pawn.Name}'s scope for {personalityName} updated: center sum = {newCenterSum}, min range = {newMinRange}");
                         }
                         else
                         {
-                            newScope[personalityName] = newRange;
+                            scopeAccumulator.Add(personalityName, (centerOffset, range));
                             Log.Message($"{pawn.Name}'s scope is being added by {trait.def.defName} to {personalityName}");
                         }
                         if (scopeInfoCache.TryGetValue(personalityName, out string explanation))
@@ -294,6 +299,13 @@ namespace Maux36.RimPsyche
                         }
                     }
                 }
+            }
+            foreach (var kvp in scopeAccumulator)
+            {
+                var facet = kvp.Key;
+                var totalCenter = kvp.Value.centerSum;
+                var minRange = kvp.Value.minRange;
+                newScope.Add(facet, (totalCenter - minRange, totalCenter + minRange));
             }
             return newScope;
         }
