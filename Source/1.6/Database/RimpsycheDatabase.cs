@@ -115,20 +115,20 @@ namespace Maux36.RimPsyche
         {
             [new Pair<string, int>("Psychopath", 0)] = new List<(Facet, float, float)>
             {
-                (Facet.Compassion, -50f, -40f),
-                (Facet.Humbleness, -50f, 0f),
-                (Facet.Integrity, -50f, -40f),
-                (Facet.Volatility, -50f, -40f),
-                (Facet.Pessimism, -50f, 0f),
-                (Facet.Insecurity, -50f, 0f)
+                (Facet.Compassion, -45f, 5f),
+                (Facet.Humbleness, -25f, 25f),
+                (Facet.Integrity, -45f, 5f),
+                (Facet.Volatility, -45f, 5f),
+                (Facet.Pessimism, -25f, 25f),
+                (Facet.Insecurity, -25f, 25f)
             },
             [new Pair<string, int>("TooSmart", 0)] = new List<(Facet, float, float)>
             {
-                (Facet.Intellect, 0f, 50f)
+                (Facet.Intellect, 25f, 25f)
             },
             [new Pair<string, int>("Jealous", 0)] = new List<(Facet, float, float)>
             {
-                (Facet.Humbleness, -50f, 0f)
+                (Facet.Humbleness, -25f, 25f)
             }
         };
     }

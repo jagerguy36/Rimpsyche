@@ -15,7 +15,7 @@ namespace Maux36.RimPsyche
     {
         public string traitDefname;
         public int degree;
-        public float lowEnd;
-        public float highEnd;
+        public float ceterOffset;
+        public float range;
     }
 }
