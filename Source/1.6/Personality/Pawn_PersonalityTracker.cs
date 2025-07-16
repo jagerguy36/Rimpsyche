@@ -203,7 +203,7 @@ namespace Maux36.RimPsyche
         public Dictionary<Facet, (float, float)> GenerateGate()
         {
             gateInfoCache.Clear();
-            var gateAccumulator = new Dictionary<Facet, (float centerSum, float minRange)>();
+            var gateAccumulator = new Dictionary<Facet, (float center, float minRange)>();
             var newGate = new Dictionary<Facet, (float, float)>();
             List<Trait> traits = pawn.story?.traits?.allTraits;
             if (traits == null)
@@ -257,7 +257,7 @@ namespace Maux36.RimPsyche
             foreach (var kvp in gateAccumulator)
             {
                 var facet = kvp.Key;
-                var totalCenter = kvp.Value.centerSum;
+                var totalCenter = kvp.Value.center;
                 var minRange = kvp.Value.minRange;
 
                 // Convert from the final (center, range) to (min, max)
@@ -268,7 +268,7 @@ namespace Maux36.RimPsyche
         public Dictionary<string, (float, float)> GenerateScope()
         {
             scopeInfoCache.Clear();
-            var scopeAccumulator = new Dictionary<Facet, (float centerSum, float minRange)>();
+            var scopeAccumulator = new Dictionary<string, (float center, float minRange)>();
             var newScope = new Dictionary<string, (float, float)>();
             List<Trait> traits = pawn.story?.traits?.allTraits;
             if (traits == null)
@@ -287,7 +287,7 @@ namespace Maux36.RimPsyche
                         float range = value.Item3;
                         if (scopeAccumulator.TryGetValue(personalityName, out var existingData))
                         {
-                            float newCenterSum = existingData.centerSum + centerOffset;
+                            float newCenterSum = existingData.center + centerOffset;
                             float newMinRange = Math.Min(existingData.minRange, range);
 
                             scopeAccumulator[personalityName] = (newCenterSum, newMinRange);
@@ -312,7 +312,7 @@ namespace Maux36.RimPsyche
             foreach (var kvp in scopeAccumulator)
             {
                 var facet = kvp.Key;
-                var totalCenter = kvp.Value.centerSum;
+                var totalCenter = kvp.Value.center;
                 var minRange = kvp.Value.minRange;
                 newScope.Add(facet, (totalCenter - minRange, totalCenter + minRange));
             }

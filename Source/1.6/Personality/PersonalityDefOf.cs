@@ -23,7 +23,7 @@ namespace Maux36.RimPsyche
         public static PersonalityDef Rimpsyche_Passion;
         public static PersonalityDef Rimpsyche_Tension;
         public static PersonalityDef Rimpsyche_Emotionality;
-        public static PersonalityDef Rimpsyche_Volatility;
+        public static PersonalityDef Rimpsyche_Stability;
         public static PersonalityDef Rimpsyche_Morality;
         public static PersonalityDef Rimpsyche_Optimism;
         public static PersonalityDef Rimpsyche_Ambition;
@@ -35,10 +35,10 @@ namespace Maux36.RimPsyche
         public static PersonalityDef Rimpsyche_Bravery;
         public static PersonalityDef Rimpsyche_Resilience;
         public static PersonalityDef Rimpsyche_Loyalty;
-        public static PersonalityDef Rimpsyche_Expectations;
+        public static PersonalityDef Rimpsyche_Expectation;
         public static PersonalityDef Rimpsyche_Competitiveness;
-        public static PersonalityDef Rimpsyche_Cognition;
         public static PersonalityDef Rimpsyche_SelfInterest;
+        //public static PersonalityDef Rimpsyche_Cognition;
 
         static PersonalityDefOf()
         {

@@ -87,12 +87,19 @@ namespace Maux36.RimPsyche
                 {
                     foreach (var scopeData in scopeList)
                     {
+                        var scopeCenter = scopeData.ceterOffset;
+                        var scopeRange = scopeData.range;
+                        if (scopeRange <= 0 || scopeCenter -  scopeRange < -1 || scopeCenter + scopeRange > 1)
+                        {
+                            Log.Error($"Error parsing Scope data of {personalityDef.label}. Either its range is not positive or Its range gets outside of -1 ~ 1.");
+                            continue;
+                        }
                         var key = new Pair<string, int>(scopeData.traitDefname, scopeData.degree);
                         if (!TraitScopeDatabase.ContainsKey(key))
                         {
                             TraitScopeDatabase[key] = new List<(string, float, float)>();
                         }
-                        TraitScopeDatabase[key].Add((personalityDef.defName, scopeData.lowEnd, scopeData.highEnd));
+                        TraitScopeDatabase[key].Add((personalityDef.defName, scopeData.ceterOffset, scopeData.range));
                     }
                 }
             }

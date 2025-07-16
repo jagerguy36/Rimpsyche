@@ -53,22 +53,13 @@
     <scopes>
       <li MayRequire="Ludeon.RimWorld.Biotech">
         <traitDefname>Recluse</traitDefname>
-        <lowEnd>-1</lowEnd>
-        <highEnd>0</highEnd>
+        <ceterOffset>-0.75</ceterOffset>
+        <range>0.25</range>
       </li>
-    </scopes>
-    <scopes>
       <li>
         <traitDefname>TooSmart</traitDefname>
-        <lowEnd>-1</lowEnd>
-        <highEnd>0</highEnd>
-      </li>
-    </scopes>
-    <scopes>
-      <li>
-        <traitDefname>Recluse</traitDefname>
-        <lowEnd>-1</lowEnd>
-        <highEnd>-0.5</highEnd>
+        <ceterOffset>-0.5</ceterOffset>
+        <range>0.5</range>
       </li>
     </scopes>
   </Maux36.RimPsyche.PersonalityDef>
@@ -108,8 +99,8 @@
     <scopes>
       <li>
         <traitDefname>Abrasive</traitDefname>
-        <lowEnd>-1</lowEnd>
-        <highEnd>0</highEnd>
+        <ceterOffset>-0.5</ceterOffset>
+        <range>0.5</range>
       </li>
     </scopes>
   </Maux36.RimPsyche.PersonalityDef>
@@ -149,13 +140,13 @@
     <scopes>
       <li>
         <traitDefname>BodyPurist</traitDefname>
-        <lowEnd>-1</lowEnd>
-        <highEnd>0</highEnd>
+        <ceterOffset>-0.5</ceterOffset>
+        <range>0.5</range>
       </li>
       <li>
         <traitDefname>Transhumanist</traitDefname>
-        <lowEnd>0</lowEnd>
-        <highEnd>1</highEnd>
+        <ceterOffset>0.5</ceterOffset>
+        <range>0.5</range>
       </li>
     </scopes>
   </Maux36.RimPsyche.PersonalityDef>
@@ -239,8 +230,8 @@
     <scopes>
       <li>
         <traitDefname>Nudist</traitDefname>
-        <lowEnd>-1</lowEnd>
-        <highEnd>0</highEnd>
+        <ceterOffset>-0.5</ceterOffset>
+        <range>0.5</range>
       </li>
     </scopes>
   </Maux36.RimPsyche.PersonalityDef>
@@ -280,13 +271,13 @@
     <scopes>
       <li>
         <traitDefname>Bloodlust</traitDefname>
-        <lowEnd>0</lowEnd>
-        <highEnd>1</highEnd>
+        <ceterOffset>0.5</ceterOffset>
+        <range>0.5</range>
       </li>
       <li>
         <traitDefname>Kind</traitDefname>
-        <lowEnd>-1</lowEnd>
-        <highEnd>0</highEnd>
+        <ceterOffset>-0.5</ceterOffset>
+        <range>0.5</range>
       </li>
     </scopes>
   </Maux36.RimPsyche.PersonalityDef>
@@ -323,20 +314,20 @@
       <li>
         <traitDefname>DrugDesire</traitDefname>
         <degree>-1</degree>
-        <lowEnd>-1</lowEnd>
-        <highEnd>0</highEnd>
+        <ceterOffset>-0.5</ceterOffset>
+        <range>0.5</range>
       </li>
       <li>
         <traitDefname>DrugDesire</traitDefname>
         <degree>1</degree>
-        <lowEnd>0</lowEnd>
-        <highEnd>1</highEnd>
+        <ceterOffset>0.5</ceterOffset>
+        <range>0.5</range>
       </li>
       <li>
         <traitDefname>DrugDesire</traitDefname>
         <degree>2</degree>
-        <lowEnd>0.5</lowEnd>
-        <highEnd>1</highEnd>
+        <ceterOffset>0.75</ceterOffset>
+        <range>0.25</range>
       </li>
     </scopes>
   </Maux36.RimPsyche.PersonalityDef>
@@ -368,8 +359,8 @@
     <scopes>
       <li>
         <traitDefname>TorturedArtist</traitDefname>
-        <lowEnd>0</lowEnd>
-        <highEnd>1</highEnd>
+        <ceterOffset>0.5</ceterOffset>
+        <range>0.5</range>
       </li>
     </scopes>
   </Maux36.RimPsyche.PersonalityDef>
@@ -406,26 +397,26 @@
       <li>
         <traitDefname>Industriousness</traitDefname>
         <degree>2</degree>
-        <lowEnd>0.5</lowEnd>
-        <highEnd>1</highEnd>
+        <ceterOffset>0.75</ceterOffset>
+        <range>0.25</range>
       </li>
       <li>
         <traitDefname>Industriousness</traitDefname>
         <degree>1</degree>
-        <lowEnd>0</lowEnd>
-        <highEnd>1</highEnd>
+        <ceterOffset>0.5</ceterOffset>
+        <range>0.5</range>
       </li>
       <li>
         <traitDefname>Industriousness</traitDefname>
         <degree>-1</degree>
-        <lowEnd>-1</lowEnd>
-        <highEnd>0</highEnd>
+        <ceterOffset>-0.5</ceterOffset>
+        <range>0.5</range>
       </li>
       <li>
         <traitDefname>Industriousness</traitDefname>
         <degree>-2</degree>
-        <lowEnd>-1</lowEnd>
-        <highEnd>-0.5</highEnd>
+        <ceterOffset>-0.75</ceterOffset>
+        <range>0.25</range>
       </li>
     </scopes>
   </Maux36.RimPsyche.PersonalityDef>
@@ -462,14 +453,14 @@
       <li>
         <traitDefname>Neurotic</traitDefname>
         <degree>1</degree>
-        <lowEnd>0</lowEnd>
-        <highEnd>1</highEnd>
+        <ceterOffset>0.5</ceterOffset>
+        <range>0.5</range>
       </li>
       <li>
         <traitDefname>Nerves</traitDefname>
         <degree>2</degree>
-        <lowEnd>0.5</lowEnd>
-        <highEnd>1</highEnd>
+        <ceterOffset>0.75</ceterOffset>
+        <range>0.25</range>
       </li>
     </scopes>
   </Maux36.RimPsyche.PersonalityDef>
@@ -506,20 +497,20 @@
       <li>
         <traitDefname>DrugDesire</traitDefname>
         <degree>-1</degree>
-        <lowEnd>0</lowEnd>
-        <highEnd>1</highEnd>
+        <ceterOffset>0.5</ceterOffset>
+        <range>0.5</range>
       </li>
       <li>
         <traitDefname>DrugDesire</traitDefname>
         <degree>1</degree>
-        <lowEnd>-1</lowEnd>
-        <highEnd>0</highEnd>
+        <ceterOffset>-0.5</ceterOffset>
+        <range>0.5</range>
       </li>
       <li>
         <traitDefname>DrugDesire</traitDefname>
         <degree>2</degree>
-        <lowEnd>-1</lowEnd>
-        <highEnd>-0.5</highEnd>
+        <ceterOffset>-0.75</ceterOffset>
+        <range>0.25</range>
       </li>
     </scopes>
   </Maux36.RimPsyche.PersonalityDef>
@@ -615,8 +606,8 @@
     <scopes>
       <li>
         <traitDefname>Psychopath</traitDefname>
-        <lowEnd>-1</lowEnd>
-        <highEnd>0</highEnd>
+        <ceterOffset>-0.5</ceterOffset>
+        <range>0.5</range>
       </li>
     </scopes>
   </Maux36.RimPsyche.PersonalityDef>
@@ -648,68 +639,68 @@
     <scopes>
       <li>
         <traitDefname>Psychopath</traitDefname>
-        <lowEnd>-1</lowEnd>
-        <highEnd>-0.75</highEnd>
+        <ceterOffset>-0.9</ceterOffset>
+        <range>0.1</range>
       </li>
     </scopes>
   </Maux36.RimPsyche.PersonalityDef>
 
   <Maux36.RimPsyche.PersonalityDef>
-    <defName>Rimpsyche_Volatility</defName>
-    <label>volatility</label>
-    <high>volatile</high>
-    <low>stable</low>
-    <description>Reflects how prone a person is to rapid and unpredictable shifts in their mood and emotional state. Volatile individuals experience frequent and intense changes in their feelings, often reacting strongly and suddenly to events. In contrast, stable individuals maintain a more consistent emotional baseline, generally experiencing fewer dramatic mood swings and reacting to situations with greater emotional evenness.</description>
+    <defName>Rimpsyche_Stability</defName>
+    <label>stability</label>
+    <high>stable</high>
+    <low>unstable</low>
+    <description>Reflects how consistent and steady a person’s emotional state tends to be. Stable individuals maintain an even emotional baseline, experiencing fewer mood swings and responding to situations with emotional consistency. In contrast, unstable individuals experience more frequent and intense emotional shifts, often reacting more strongly to events.</description>
     <scoreWeight>
       <li>
         <facet>Orderliness</facet>
-        <weight>-0.1</weight>
+        <weight>0.1</weight>
       </li>
       <li>
         <facet>Integrity</facet>
-        <weight>-0.05</weight>
+        <weight>0.05</weight>
       </li>
       <li>
         <facet>Enthusiasm</facet>
-        <weight>0.1</weight>
+        <weight>-0.1</weight>
       </li>
       <li>
         <facet>Volatility</facet>
-        <weight>0.45</weight>
+        <weight>-0.45</weight>
       </li>
       <li>
         <facet>Pessimism</facet>
-        <weight>0.1</weight>
+        <weight>-0.1</weight>
       </li>
       <li>
         <facet>Insecurity</facet>
-        <weight>0.2</weight>
+        <weight>-0.2</weight>
       </li>
     </scoreWeight>
     <scopes>
       <li>
         <traitDefname>Nerves</traitDefname>
         <degree>-2</degree>
-        <lowEnd>0.5</lowEnd>
-        <highEnd>1</highEnd>
+        <ceterOffset>-0.75</ceterOffset>
+        <range>0.25</range>
       </li>
       <li>
         <traitDefname>Nerves</traitDefname>
         <degree>-1</degree>
-        <lowEnd>0</lowEnd>
-        <highEnd>1</highEnd>
+        <ceterOffset>-0.5</ceterOffset>
+        <range>0.5</range>
       </li>
       <li>
         <traitDefname>Nerves</traitDefname>
         <degree>1</degree>
-        <lowEnd>-1</lowEnd>
-        <highEnd>0</highEnd>
+        <ceterOffset>0.5</ceterOffset>
+        <range>0.5</range>
       </li>
       <li>
         <traitDefname>Nerves</traitDefname>
         <degree>2</degree>
-        <lowEnd>-1</lowEnd>
-        <highEnd>-0.5</highEnd>
+        <ceterOffset>0.75</ceterOffset>
+        <range>0.25</range>
       </li>
     </scopes>
   </Maux36.RimPsyche.PersonalityDef>
@@ -749,8 +740,8 @@
     <scopes>
       <li>
         <traitDefname>Psychopath</traitDefname>
-        <lowEnd>-1</lowEnd>
-        <highEnd>0</highEnd>
+        <ceterOffset>-0.5</ceterOffset>
+        <range>0.5</range>
       </li>
     </scopes>
   </Maux36.RimPsyche.PersonalityDef>
@@ -783,26 +774,26 @@
       <li>
         <traitDefname>NaturalMood</traitDefname>
         <degree>2</degree>
-        <lowEnd>0.5</lowEnd>
-        <highEnd>1</highEnd>
+        <ceterOffset>0.75</ceterOffset>
+        <range>0.25</range>
       </li>
       <li>
         <traitDefname>NaturalMood</traitDefname>
         <degree>1</degree>
-        <lowEnd>0</lowEnd>
-        <highEnd>1</highEnd>
+        <ceterOffset>0.5</ceterOffset>
+        <range>0.5</range>
       </li>
       <li>
         <traitDefname>NaturalMood</traitDefname>
         <degree>-1</degree>
-        <lowEnd>-1</lowEnd>
-        <highEnd>0</highEnd>
+        <ceterOffset>-0.5</ceterOffset>
+        <range>0.5</range>
       </li>
       <li>
         <traitDefname>NaturalMood</traitDefname>
         <degree>-2</degree>
-        <lowEnd>-1</lowEnd>
-        <highEnd>-0.5</highEnd>
+        <ceterOffset>-0.75</ceterOffset>
+        <range>0.25</range>
       </li>
     </scopes>
   </Maux36.RimPsyche.PersonalityDef>
@@ -864,8 +855,8 @@
     <scopes>
       <li>
         <traitDefname>Psychopath</traitDefname>
-        <lowEnd>-1</lowEnd>
-        <highEnd>0</highEnd>
+        <ceterOffset>-0.5</ceterOffset>
+        <range>0.5</range>
       </li>
     </scopes>
   </Maux36.RimPsyche.PersonalityDef>
@@ -974,46 +965,16 @@
       <li>
         <traitDefname>ShootingAccuracy</traitDefname>
         <degree>1</degree>
-        <lowEnd>0</lowEnd>
-        <highEnd>1</highEnd>
+        <ceterOffset>0.5</ceterOffset>
+        <range>0.5</range>
       </li>
       <li>
         <traitDefname>ShootingAccuracy</traitDefname>
         <degree>-1</degree>
-        <lowEnd>-1</lowEnd>
-        <highEnd>0</highEnd>
+        <ceterOffset>-0.5</ceterOffset>
+        <range>0.5</range>
       </li>
     </scopes>
-  </Maux36.RimPsyche.PersonalityDef>
-
-  <Maux36.RimPsyche.PersonalityDef>
-    <defName>Rimpsyche_Cognition</defName>
-    <label>cognition</label>
-    <high>analytical</high>
-    <low>instinctive</low>
-    <description>Reflects how a person typically processes information and makes decisions. Analytical individuals tend to break down problems, preferring logical reasoning and careful evaluation of details. In contrast, instinctive individuals are more likely to rely on intuition, gut feelings, and immediate impressions to guide their understanding and choices.</description>
-    <scoreWeight>
-      <li>
-        <facet>Intellect</facet>
-        <weight>0.45</weight>
-      </li>
-      <li>
-        <facet>Orderliness</facet>
-        <weight>0.1</weight>
-      </li>
-      <li>
-        <facet>Assertiveness</facet>
-        <weight>-0.2</weight>
-      </li>
-      <li>
-        <facet>Pessimism</facet>
-        <weight>0.1</weight>
-      </li>
-      <li>
-        <facet>Insecurity</facet>
-        <weight>0.15</weight>
-      </li>
-    </scoreWeight>
   </Maux36.RimPsyche.PersonalityDef>
 
   <Maux36.RimPsyche.PersonalityDef>
@@ -1055,11 +1016,11 @@
     <scoreWeight>
       <li>
         <facet>Integrity</facet>
-        <weight>0.15</weight>
+        <weight>0.2</weight>
       </li>
       <li>
         <facet>Assertiveness</facet>
-        <weight>0.45</weight>
+        <weight>0.4</weight>
       </li>
       <li>
         <facet>Enthusiasm</facet>
@@ -1077,8 +1038,8 @@
     <scopes>
       <li>
         <traitDefname>Wimp</traitDefname>
-        <lowEnd>-1</lowEnd>
-        <highEnd>0</highEnd>
+        <ceterOffset>-0.5</ceterOffset>
+        <range>0.5</range>
       </li>
     </scopes>
   </Maux36.RimPsyche.PersonalityDef>
@@ -1136,6 +1097,43 @@
   </Maux36.RimPsyche.PersonalityDef>
 
   <Maux36.RimPsyche.PersonalityDef>
+    <defName>Rimpsyche_Expectation</defName>
+    <label>expectation</label>
+    <high>demanding</high>
+    <low>spartan</low>
+    <description>Reflects how much importance a person places on their own comfort, status, and treatment. Demanding individuals feel they deserve the best and are quick to notice when their needs aren't met. Spartan individuals have low concern for luxury or special treatment, often indifferent to comfort and content with the basics.</description>
+    <scoreWeight>
+      <li>
+        <facet>Orderliness</facet>
+        <weight>0.1</weight>
+      </li>
+      <li>
+        <facet>Assertiveness</facet>
+        <weight>0.25</weight>
+      </li>
+      <li>
+        <facet>Cooperation</facet>
+        <weight>-0.15</weight>
+      </li>
+      <li>
+        <facet>Humbleness</facet>
+        <weight>-0.4</weight>
+      </li>
+      <li>
+        <facet>Insecurity</facet>
+        <weight>-0.1</weight>
+      </li>
+    </scoreWeight>
+    <scopes>
+      <li>
+        <traitDefname>Ascetic</traitDefname>
+        <ceterOffset>-0.5</ceterOffset>
+        <range>0.5</range>
+      </li>
+    </scopes>
+  </Maux36.RimPsyche.PersonalityDef>
+
+  <Maux36.RimPsyche.PersonalityDef>
     <defName>Rimpsyche_Competitiveness</defName>
     <label>competitiveness</label>
     <high>competitive</high>
@@ -1152,18 +1150,18 @@
       </li>
       <li>
         <facet>Cooperation</facet>
-        <weight>-0.25</weight>
+        <weight>-0.35</weight>
       </li>
       <li>
         <facet>Humbleness</facet>
-        <weight>-0.4</weight>
+        <weight>-0.3</weight>
       </li>
     </scoreWeight>
     <scopes>
       <li>
         <traitDefname>Jealous</traitDefname>
-        <lowEnd>0</lowEnd>
-        <highEnd>1</highEnd>
+        <ceterOffset>0.5</ceterOffset>
+        <range>0.5</range>
       </li>
     </scopes>
   </Maux36.RimPsyche.PersonalityDef>
@@ -1177,35 +1175,65 @@
     <scoreWeight>
       <li>
         <facet>Sociability</facet>
-        <weight>0.05</weight>
-      </li>
-      <li>
-        <facet>Compassion</facet>
-        <weight>0.25</weight>
-      </li>
-      <li>
-        <facet>Cooperation</facet>
-        <weight>0.05</weight>
-      </li>
-      <li>
-        <facet>Humbleness</facet>
-        <weight>0.45</weight>
-      </li>
-      <li>
-        <facet>Pessimism</facet>
         <weight>-0.05</weight>
       </li>
       <li>
+        <facet>Compassion</facet>
+        <weight>-0.4</weight>
+      </li>
+      <li>
+        <facet>Cooperation</facet>
+        <weight>-0.05</weight>
+      </li>
+      <li>
+        <facet>Humbleness</facet>
+        <weight>-0.4</weight>
+      </li>
+      <li>
+        <facet>Pessimism</facet>
+        <weight>0.05</weight>
+      </li>
+      <li>
         <facet>Insecurity</facet>
-        <weight>-0.15</weight>
+        <weight>0.05</weight>
       </li>
     </scoreWeight>
     <scopes>
       <li>
         <traitDefname>Greedy</traitDefname>
-        <lowEnd>0</lowEnd>
-        <highEnd>1</highEnd>
+        <ceterOffset>0.5</ceterOffset>
+        <range>0.5</range>
       </li>
     </scopes>
   </Maux36.RimPsyche.PersonalityDef>
+
+<!--   <Maux36.RimPsyche.PersonalityDef>
+    <defName>Rimpsyche_Cognition</defName>
+    <label>cognition</label>
+    <high>analytical</high>
+    <low>instinctive</low>
+    <description>Reflects how a person typically processes information and makes decisions. Analytical individuals tend to break down problems, preferring logical reasoning and careful evaluation of details. In contrast, instinctive individuals are more likely to rely on intuition, gut feelings, and immediate impressions to guide their understanding and choices.</description>
+    <scoreWeight>
+      <li>
+        <facet>Intellect</facet>
+        <weight>0.45</weight>
+      </li>
+      <li>
+        <facet>Orderliness</facet>
+        <weight>0.1</weight>
+      </li>
+      <li>
+        <facet>Assertiveness</facet>
+        <weight>-0.2</weight>
+      </li>
+      <li>
+        <facet>Pessimism</facet>
+        <weight>0.1</weight>
+      </li>
+      <li>
+        <facet>Insecurity</facet>
+        <weight>0.15</weight>
+      </li>
+    </scoreWeight>
+  </Maux36.RimPsyche.PersonalityDef> -->
 </Defs>
