@@ -222,11 +222,20 @@ namespace Maux36.RimPsyche
                         float range = value.Item3;
                         if (gateAccumulator.TryGetValue(facet, out var existingData))
                         {
-                            float newCenterSum = existingData.centerSum + centerOffset;
+                            float newCenter;
+                            float existingCenter = existingData.center;
+                            if ((existingCenter >= 0f && centerOffset >= 0f) || (existingCenter < 0f && centerOffset < 0f))
+                            {
+                                newCenter = Math.Abs(existingCenter) > Math.Abs(centerOffset) ? existingCenter : centerOffset;
+                            }
+                            else
+                            {
+                                newCenter = existingCenter + centerOffset;
+                            }
                             float newMinRange = Math.Min(existingData.minRange, range);
                             
-                            gateAccumulator[facet] = (newCenterSum, newMinRange);
-                            Log.Message($"{pawn.Name}'s gate for {facet} updated: center sum = {newCenterSum}, min range = {newMinRange}");
+                            gateAccumulator[facet] = (newCenter, newMinRange);
+                            Log.Message($"{pawn.Name}'s gate for {facet} updated: center sum = {newCenter}, min range = {newMinRange}");
                         }
                         else
                         {
