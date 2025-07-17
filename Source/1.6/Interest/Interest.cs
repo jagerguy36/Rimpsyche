@@ -16,11 +16,6 @@ namespace Maux36.RimPsyche
         public List<FacetWeight> scoreWeight;
         public List<Topic> topics;
 
-        //public Topic GetRandomTopic()
-        //{
-        //    int topicIndex = Rand.Range(0, topics.Count);
-        //    return topics[topicIndex];
-        //}
         public Topic GetRandomTopic(bool childInvolved = false, bool allowNSWF = false)
         {
             int topicCount = topics.Count;

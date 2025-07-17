@@ -85,14 +85,10 @@ namespace Maux36.RimPsyche
         {
             if (sexuality == null)
             {
-                sexuality = GetSexualityTracker(parentPawn);
+                sexuality = new Pawn_SexualityTracker(pawn);
             }
-            //For save-game trait safety with Sexuality Module
+            //Initialize even when not null for save-game trait safety with Sexuality Module.
             sexuality.Initialize(parentPawn);
-        }
-        public static Pawn_SexualityTracker GetSexualityTracker(Pawn pawn)
-        {
-            return new Pawn_SexualityTracker(pawn);
         }
         public void DirtyTraitCache()
         {
@@ -107,9 +103,9 @@ namespace Maux36.RimPsyche
             float pawnTrust = parentPawn.compPsyche().personality.GetPersonality(PersonalityDefOf.Rimpsyche_Trust); //-1~1
             float pawnAge = (float)parentPawn.ageTracker.AgeBiologicalYears; //0~100
             float score = resultOffset; //0~20
-            float ageFactor = 8f * adultHoodAge / (pawnAge + 0.6f * adultHoodAge) - 5f; //8.3333~-3.70036
+            float ageFactor = 8f * adultHoodAge / (pawnAge + 0.6f * adultHoodAge) - 5f; //8.3333 ~ -5
             float scoreBase = Mathf.Max(0f, score - 5f + pawnTrust * 2f + ageFactor);
-            float influenceChance = Mathf.Clamp01(scoreBase * scoreBase * (0.15f + opinion * 0.03f) / (pawnAge + 1f));
+            float influenceChance = Mathf.Clamp01(scoreBase * scoreBase * (0.15f + opinion * 0.05f) / (pawnAge + 1f));
             if (Rand.Chance(influenceChance))
             {
                 influenceChance *= direction;
@@ -141,6 +137,7 @@ namespace Maux36.RimPsyche
             base.PostExposeData();
             Scribe_Deep.Look(ref personality, "personality", new object[] { parent as Pawn });
             Scribe_Deep.Look(ref interests, "interests", new object[] { parent as Pawn });
+            Scribe_Deep.Look(ref sexuality, "sexuality", new object[] { parent as Pawn });
             if (Scribe.mode == LoadSaveMode.PostLoadInit)
             {
                 PsycheValueSetup();

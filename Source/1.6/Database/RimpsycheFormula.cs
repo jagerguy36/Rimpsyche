@@ -12,10 +12,4 @@ namespace Maux36.RimPsyche
             calculationFunction = calculation;
         }
     }
-
-    public class PersonalityWeight
-    {
-        public PersonalityDef personality;
-        public float weight;
-    }
 }

@@ -18,11 +18,11 @@ namespace Maux36.RimPsyche
         {
             foreach (InterestDomainDef interestdomainDef in DefDatabase<InterestDomainDef>.AllDefs)
             {
-                GenerateInterestScoresForDomain(interestdomainDef, true);
+                GenerateInterestOffsetsForDomain(interestdomainDef, generateScore = true);
             }
         }
 
-        public void GenerateInterestScoresForDomain(InterestDomainDef interestdomainDef, bool generateScore = false) // 0~100
+        public void GenerateInterestOffsetsForDomain(InterestDomainDef interestdomainDef, bool generateScore = false) // 0~100
         {
             var compPsyche = pawn.compPsyche();
             float domainOffsetValue = 50;
@@ -70,7 +70,7 @@ namespace Maux36.RimPsyche
         {
             if (!interestOffset.TryGetValue(key.name, out float offsetValue))
             {
-                GenerateInterestScoresForDomain(RimpsycheDatabase.InterestDomainDict[key], false);
+                GenerateInterestOffsetsForDomain(RimpsycheDatabase.InterestDomainDict[key]);
                 if (!interestOffset.TryGetValue(key.name, out offsetValue))
                 {
                     offsetValue = 50;
