@@ -178,7 +178,7 @@
     <label>inquisitiveness</label>
     <high>inquisitive</high>
     <low>indifferent</low>
-    <description>Reflects how curious a person is about the world around them. Inquisitive individuals tend to ask questions, seek new knowledge, and are more likely to engage in conversations beyond their usual interests while indifferent individuals show little interest in things outside their immediate focus.</description>
+    <description>Reflects how curious a person is about the world around them. Inquisitive individuals tend to ask questions, seek new knowledge, and are more likely to engage in conversations beyond their usual interests. Indifferent individuals, on the other hand, show little interest in things outside their immediate focus.</description>
     <scoreWeight>
       <li>
         <facet>Imagination</facet>
@@ -519,8 +519,8 @@
     <defName>Rimpsyche_Focus</defName>
     <label>focus</label>
     <high>focused</high>
-    <low>explorative</low>
-    <description>Reflects how a person directs their mental energy and attention. Focused individuals are excellent at concentrating on a single task or topic, diving deep into a specific area of interest. Explorative individuals, in contrast, prefer to spread their attention across a wider range of subjects, finding more joy in discovering new things than in mastering one.</description>
+    <low>eclectic</low>
+    <description>Reflects how a person directs their attention. Focused individuals are excellent at concentrating on a single task or topic, diving deep into a specific area of interest. Eclectic individuals, in contrast, prefer to spread their attention across a wider range of subjects, finding more joy in discovering new things than in mastering one.</description>
     <scoreWeight>
       <li>
         <facet>Intellect</facet>
@@ -650,7 +650,7 @@
     <label>stability</label>
     <high>stable</high>
     <low>unstable</low>
-    <description>Reflects how consistent and steady a person’s emotional state tends to be. Stable individuals maintain an even emotional baseline, experiencing fewer mood swings and responding to situations with emotional consistency. In contrast, unstable individuals experience more frequent and intense emotional shifts, often reacting more strongly to events.</description>
+    <description>Reflects how consistent and steady a person's emotional state tends to be. Stable individuals maintain an even emotional baseline, experiencing fewer mood swings and responding to situations with emotional consistency. In contrast, unstable individuals experience more frequent and intense emotional shifts, often reacting more strongly to events.</description>
     <scoreWeight>
       <li>
         <facet>Orderliness</facet>
@@ -896,7 +896,7 @@
     <label>trust</label>
     <high>trusting</high>
     <low>skeptical</low>
-    <description>Reflects how readily a person places confidence in others' honesty, intentions, and reliability. Trusting individuals are inclined to believe in the good faith of others. In contrast, skeptical individuals are more cautious, often questioning motives and requiring proof or repeated positive interactions before extending their trust.</description>
+    <description>Reflects how readily a person places confidence in others. Trusting individuals are inclined to believe in the good faith of others. In contrast, skeptical individuals are more cautious, often questioning motives and requiring proof or repeated positive interactions before extending their trust.</description>
     <scoreWeight>
       <li>
         <facet>Intellect</facet>
@@ -1049,7 +1049,7 @@
     <label>resilience</label>
     <high>resilient</high>
     <low>fragile</low>
-    <description>Reflects a person's ability to endure hardship, maintain self-control, and stay focused under pressure. Resilient individuals can weather discomfort and emotional stress better, persisting through challenges without losing composure. Fragile individuals may become easily overwhelmed, lose focus, or get frustrated by setbacks.</description>
+    <description>Reflects a person's ability to endure hardship and maintain self-control under pressure. Resilient individuals can weather stress better, persisting through challenges without losing composure. Fragile individuals may become easily overwhelmed, lose focus, or get frustrated by setbacks.</description>
     <scoreWeight>
       <li>
         <facet>Industriousness</facet>
@@ -1075,7 +1075,7 @@
     <label>loyalty</label>
     <high>loyal</high>
     <low>disloyal</low>
-    <description>Reflects a person's faithfulness and commitment to individuals, groups, or principles. Loyal individuals demonstrate steadfast support and devotion, often prioritizing the well-being and interests of those they are committed to. In contrast, disloyal individuals may be more inclined to prioritize their own self-interest, shift allegiances, or betray trust.</description>
+    <description>Reflects a person's faithfulness and commitment. Loyal individuals demonstrate steadfast support and devotion, often prioritizing the well-being and interests of those they are committed to. In contrast, disloyal individuals may be more inclined to prioritize their own self-interest, shift allegiances, or betray trust.</description>
     <scoreWeight>
       <li>
         <facet>Integrity</facet>

@@ -3,107 +3,107 @@
   <Rimpsyche_Talkativeness.label>수다스러움</Rimpsyche_Talkativeness.label>
   <Rimpsyche_Talkativeness.high>말이 많은</Rimpsyche_Talkativeness.high>
   <Rimpsyche_Talkativeness.low>과묵한</Rimpsyche_Talkativeness.low>
-  <Rimpsyche_Talkativeness.description>얼마나 말을 자주 하고 대화를 시작하려는 성향이 있는지를 나타냅니다. 말이 많은 사람은 대화를 먼저 시작하고 오래 이어가는 경향이 있습니다. 반면, 과묵한 사람은 짧고 간단하게 말하거나 자신의 생각을 잘 드러내지 않습니다.</Rimpsyche_Talkativeness.description>
+  <Rimpsyche_Talkativeness.description>대화를 얼마나 많이 하고 말을 많이 거는지를 나타냅니다. 말이 많은 사람은 먼저 말을 걸고 대화를 오래 이어가려는 경향이 있습니다. 반대로 과묵한 사람은 말을 간단하게 하거나 자신의 생각을 잘 드러내지 않습니다.</Rimpsyche_Talkativeness.description>
 
   <Rimpsyche_Sociability.label>사교성</Rimpsyche_Sociability.label>
   <Rimpsyche_Sociability.high>사교적인</Rimpsyche_Sociability.high>
   <Rimpsyche_Sociability.low>내성적인</Rimpsyche_Sociability.low>
-  <Rimpsyche_Sociability.description>사회적 상호작용을 얼마나 자연스럽고 즐겁게 받아들이는지를 나타냅니다. 사교적인 사람은 다른 이들과 자주, 편하게 어울립니다. 내향적인 사람은 거리를 두거나 사회적 접촉을 최소화하는 경향이 있습니다.</Rimpsyche_Sociability.description>
+  <Rimpsyche_Sociability.description>사회적 상호작용을 얼마나 자연스럽고 편하게 받아들이는지를 나타냅니다. 사교적인 사람은 다른 이들과 자주어울리며 사회적 상황을 즐깁니다. 반대로 내성적인 사람은 사회적인 거리를 두거나 사람들과의 접촉을 피하는 경향이 있습니다.</Rimpsyche_Sociability.description>
 
   <Rimpsyche_Tact.label>사회성</Rimpsyche_Tact.label>
   <Rimpsyche_Tact.high>외교적인</Rimpsyche_Tact.high>
   <Rimpsyche_Tact.low>무례한</Rimpsyche_Tact.low>
-  <Rimpsyche_Tact.description>사회적 상황에서 얼마나 적절한 말과 행동을 선택하는지 나타냅니다. 외교적인 사람은 말을 신중하게 골라 좋은 인상을 남기는 편입니다. 반면 무례한 사람은 거칠고 직설적으로 느껴질 수 있습니다.</Rimpsyche_Tact.description>
+  <Rimpsyche_Tact.description>사회적 상황에서 얼마나 말과 행동을 얼마나 신중하게 고르는지를 나타냅니다. 외교적인 사람은 말을 조심스럽게 골라 좋은 인상을 남기는 편입니다. 반면 무례한 사람은 거칠고 직설적으로 느껴질 수 있는 말을 하곤 합니다.</Rimpsyche_Tact.description>
 
   <Rimpsyche_Openness.label>개방성</Rimpsyche_Openness.label>
   <Rimpsyche_Openness.high>개방적인</Rimpsyche_Openness.high>
-  <Rimpsyche_Openness.low>편협한</Rimpsyche_Openness.low>
-  <Rimpsyche_Openness.description>새로운 아이디어, 경험, 관점을 받아들이는 정도를 나타냅니다. 개방적인 사람은 호기심이 많고 다양한 시각을 기꺼이 수용합니다. 반면, 편협한 사람은 익숙한 신념에 머무르며 다른 생각을 쉽게 배척할 수 있습니다.</Rimpsyche_Openness.description>
+  <Rimpsyche_Openness.low>전통적인</Rimpsyche_Openness.low>
+  <Rimpsyche_Openness.description>새로운 생각, 경험, 관점을 받아들이는 태도를 나타냅니다. 개방적인 사람은 호기심이 많고 다양한 시각을 더 잘 받아들입니다. 반면 전통적인 사람은 익숙한 신념을 고수하는 경향이 있고 다른 생각을 쉽게 배척하기도 합니다.</Rimpsyche_Openness.description>
 
   <Rimpsyche_Confidence.label>자신감</Rimpsyche_Confidence.label>
   <Rimpsyche_Confidence.high>자신감 있는</Rimpsyche_Confidence.high>
   <Rimpsyche_Confidence.low>자신 없는</Rimpsyche_Confidence.low>
-  <Rimpsyche_Confidence.description>자신과 자신의 행동에 대해 얼마나 확신을 느끼는지를 나타냅니다. 자신감 있는 사람은 자신의 능력과 의견을 믿으며 단호한 태도를 보입니다. 반면 자신 없는 사람은 자신에 대한 의심이 많거나 타인의 영향에 쉽게 흔들릴 수 있습니다.</Rimpsyche_Confidence.description>
+  <Rimpsyche_Confidence.description>자신과 자신의 행동에 대해 얼마나 자신감을 느끼는지를 나타냅니다. 자신감 있는 사람은 자신의 능력과 의견을 믿으며 확신에 찬 태도를 보입니다. 반면 자신 없는 사람은 스스로에 대한 믿음이 없으며 타인의 영향에 쉽게 흔들리곤 합니다.</Rimpsyche_Confidence.description>
 
   <Rimpsyche_Inquisitiveness.label>호기심</Rimpsyche_Inquisitiveness.label>
   <Rimpsyche_Inquisitiveness.high>호기심 많은</Rimpsyche_Inquisitiveness.high>
   <Rimpsyche_Inquisitiveness.low>무관심한</Rimpsyche_Inquisitiveness.low>
-  <Rimpsyche_Inquisitiveness.description>주변 세계에 대해 얼마나 호기심을 가지는지를 나타냅니다. 호기심 많은 사람은 질문을 자주 하고, 새로운 지식을 얻으려 하며, 평소 관심사 밖의 주제에도 대화를 시도하는 경향이 있습니다. 반면, 무관심한 사람은 자신의 관심사 외에는 별다른 흥미를 보이지 않습니다.</Rimpsyche_Inquisitiveness.description>
+  <Rimpsyche_Inquisitiveness.description>주변 세계에 대해 얼마나 호기심을 가지는지를 나타냅니다. 호기심 많은 사람은 질문을 던지고 새로인 지식을 얻으려 하며, 평소 관심사 밖의 주제에 대해서도 대화를 이어가는 경향이 있습니다. 반면, 무관심한 사람은 자신의 관심사 외에는 별다른 흥미를 보이지 않습니다.</Rimpsyche_Inquisitiveness.description>
 
   <Rimpsyche_Prudishness.label>수줍음</Rimpsyche_Prudishness.label>
   <Rimpsyche_Prudishness.high>수줍은</Rimpsyche_Prudishness.high>
   <Rimpsyche_Prudishness.low>거리낌 없는</Rimpsyche_Prudishness.low>
-  <Rimpsyche_Prudishness.description>노출이 있거나 자극적인 주제에 어떻게 반응하는지를 나타냅니다. 수줍음이 많은 사람은 그런 상황에서 불편해하거나 꺼려하는 반면, 거리낌 없는 사람은 그런 것들에 대해 좀 더 열린 태도를 가지고 편안해합니다.</Rimpsyche_Prudishness.description>
+  <Rimpsyche_Prudishness.description>선정적인 주제에 어떻게 반응하는지를 나타냅니다. 수줍음은은 사람은 노출이 있고 자극적인 주제를 불편해 하거나 꺼려하는 반면, 거리낌 없는 사람은 불편함 없이 열린 태도로 이를 받아들입니다.</Rimpsyche_Prudishness.description>
 
   <Rimpsyche_Aggressiveness.label>공격성</Rimpsyche_Aggressiveness.label>
   <Rimpsyche_Aggressiveness.high>공격적인</Rimpsyche_Aggressiveness.high>
   <Rimpsyche_Aggressiveness.low>온화한</Rimpsyche_Aggressiveness.low>
-  <Rimpsyche_Aggressiveness.description>얼마나 쉽게 대립하거나 적대적인 태도를 보이는지를 나타냅니다. 공격적인 사람은 자기주장을 강하게 내세우며 때로는 거친 말이나 행동을 하기도 하지만, 온화한 사람은 차분하게 상황을 받아들이며 갈등을 피하는 편입니다.</Rimpsyche_Aggressiveness.description>
+  <Rimpsyche_Aggressiveness.description>타인과 대립하거나 적대적인 태도를 보이는 정도를 나타냅니다. 공격적인 사람은 자기주장을 강하게 내세우며 때로는 과격한 언행을 하기도 합니다. 이와 달리 온화한 사람은 대게 차분하게 상황을 수용하며 갈등을 피하는 편입니다.</Rimpsyche_Aggressiveness.description>
 
   <Rimpsyche_Experimentation.label>실험성</Rimpsyche_Experimentation.label>
   <Rimpsyche_Experimentation.high>실험적인</Rimpsyche_Experimentation.high>
   <Rimpsyche_Experimentation.low>보수적인</Rimpsyche_Experimentation.low>
-  <Rimpsyche_Experimentation.description>새로운 방법이나 아이디어를 시도하려는 태도를 나타냅니다. 실험적인 사람은 변화를 받아들이고 새로운 경험을 적극적으로 찾아 나서며, 보수적인 사람은 익숙한 방식을 선호하고 검증된 방법을 고수하는 편입니다.</Rimpsyche_Experimentation.description>
+  <Rimpsyche_Experimentation.description>새로운 방법이나 아이디어를 시도하려는 정도를 나타냅니다. 실험적인 사람은 변화를 받아들이고 새로운 경험을 적극적으로 찾아 나서는 반면, 보수적인 사람은 익숙한 방식을 선호하고 검증된 방법을 고수하는 편입니다.</Rimpsyche_Experimentation.description>
 
   <Rimpsyche_Imagination.label>상상력</Rimpsyche_Imagination.label>
   <Rimpsyche_Imagination.high>창의적인</Rimpsyche_Imagination.high>
   <Rimpsyche_Imagination.low>현실적인</Rimpsyche_Imagination.low>
-  <Rimpsyche_Imagination.description>현실과 상상의 세계 중 어느 쪽에 더 무게를 두는지를 나타냅니다. 현실적인 사람은 실용적이고 구체적인 일에 집중하는 반면, 상상력이 풍부한 사람은 공상에 잠기거나 창의적인 생각, 추상적인 개념을 탐구하는 경향이 있습니다.</Rimpsyche_Imagination.description>
+  <Rimpsyche_Imagination.description>현실과 상상의 세계 중 어느 쪽에 더 무게를 두는지를 나타냅니다. 현실적인 사람은 실용적이고 구체적인 일에 집중하는 반면, 창의적인 사람은 공상에 잠기거나 창의적인 생각, 추상적인 개념을 탐구하는 경향이 있습니다.</Rimpsyche_Imagination.description>
 
   <Rimpsyche_Diligence.label>성실성</Rimpsyche_Diligence.label>
   <Rimpsyche_Diligence.high>성실한</Rimpsyche_Diligence.high>
   <Rimpsyche_Diligence.low>게으른</Rimpsyche_Diligence.low>
-  <Rimpsyche_Diligence.description>과제나 책임에 얼마나 성실하게 임하는지를 나타냅니다. 성실한 사람은 맡은 일을 끝까지 해내려는 의지가 강하고, 끈기 있게 노력하는 편입니다. 반면, 게으른 사람은 힘든 일을 피하려 하거나 책임감이 부족해 쉬운 일이나 여가를 더 중시할 수 있습니다.</Rimpsyche_Diligence.description>
+  <Rimpsyche_Diligence.description>과제나 책임에 얼마나 성실하게 임하는지를 나타냅니다. 성실한 사람은 맡은 일을 끝까지 해내려는 의지가 강하고, 끈기 있게 노력하는 편입니다. 반대로 게으른 사람은 힘든 일을 피하려 하고 책임감이 부족하며 생산성보다는 편안을 더 추구하곤 합니다.</Rimpsyche_Diligence.description>
 
   <Rimpsyche_Organization.label>정리성</Rimpsyche_Organization.label>
   <Rimpsyche_Organization.high>체계적인</Rimpsyche_Organization.high>
   <Rimpsyche_Organization.low>산만한</Rimpsyche_Organization.low>
-  <Rimpsyche_Organization.description>얼마나 체계적이고 정돈된 방식을 선호하는지를 나타냅니다. 체계적인 사람은 물건이나 일처리를 정리된 방식으로 관리하고, 명확한 절차를 따르는 편입니다. 반면, 산만한 사람은 질서에 크게 신경 쓰지 않으며, 다소 혼란스러운 환경에서도 잘 적응하거나 오히려 편하게 느낄 수 있습니다.</Rimpsyche_Organization.description>
+  <Rimpsyche_Organization.description>얼마나 규칙적이고 체계적인 성향을 가졌는지를 나타냅니다. 체계적인 사람들은 명확한 규칙에 따라 주변을 질서정연하게 유지하려 합니다. 반대로 산만한 사람들은 엄격한 질서에 크게 얽매이지 않으며, 다소 자유롭거나 예측 불가능한 상황에서도 잘 적응하는 경향이 있습니다.</Rimpsyche_Organization.description>
 
   <Rimpsyche_Discipline.label>자제력</Rimpsyche_Discipline.label>
   <Rimpsyche_Discipline.high>절제된</Rimpsyche_Discipline.high>
-  <Rimpsyche_Discipline.low>산만한</Rimpsyche_Discipline.low>
-  <Rimpsyche_Discipline.description>집중력, 자기 통제력, 규칙이나 일과를 얼마나 잘 지키는지를 나타냅니다. 절제된 사람은 계획을 잘 따르고 충동을 억제하며 목표를 향해 꾸준히 나아갑니다. 반면, 산만한 사람은 일관성을 유지하기 어렵고 쉽게 주의가 흐트러지며, 일을 끝까지 해내는 데 어려움을 겪을 수 있습니다.</Rimpsyche_Discipline.description>
+  <Rimpsyche_Discipline.low>무절제한</Rimpsyche_Discipline.low>
+  <Rimpsyche_Discipline.description>얼마나 집중력과 자기 통제력을 가지고 규칙이나 습관을 잘 지키는지를 나타냅니다. 절제된 사람은 계획을 잘 지키고 충동을 억제하며 목표를 향해 꾸준히 나아가는 경향이 있습니다. 반대로 무절제한 사람은 일관성을 유지하기 어려워 하고, 쉽게 주의가 분산되며 마음먹은 바를 완수하지 끝까지 완수하지 못하곤 합니다.</Rimpsyche_Discipline.description>
 
   <Rimpsyche_Focus.label>집중 성향</Rimpsyche_Focus.label>
-  <Rimpsyche_Focus.high>집중하는</Rimpsyche_Focus.high>
-  <Rimpsyche_Focus.low>탐색적인</Rimpsyche_Focus.low>
-  <Rimpsyche_Focus.description>사람이 정신적 에너지와 주의를 어디에, 어떻게 분산시키는지를 나타냅니다. 집중하는 사람은 하나의 일이나 주제에 깊이 몰입해 파고드는 경향이 강합니다. 반면, 탐색적인 사람은 다양한 주제에 관심을 두고, 한 가지에 몰두하기보다는 새롭고 다양한 것을 발견하는 데서 더 큰 즐거움을 느낍니다.</Rimpsyche_Focus.description>
+  <Rimpsyche_Focus.high>몰두하는</Rimpsyche_Focus.high>
+  <Rimpsyche_Focus.low>폭넓은</Rimpsyche_Focus.low>
+  <Rimpsyche_Focus.description>주의를 집중하는 성향을 나타냅니다. 몰두하는 사람은 하나의 과제나 주제에 집중하는데 탁월하며 하나의 관심사를 깊이 파고드는 성향이 있습니다. 반대로 폭넓은 사람은 다양한 주제에 골고루 관심을 두는 것을 선호하며, 한가지에 깊이 파고들기보다는 새로운 것을 발견하는 데서 더 큰 즐거움을 느낍니다.</Rimpsyche_Focus.description>
 
   <Rimpsyche_Passion.label>열정</Rimpsyche_Passion.label>
   <Rimpsyche_Passion.high>열정적인</Rimpsyche_Passion.high>
   <Rimpsyche_Passion.low>무관심한</Rimpsyche_Passion.low>
-  <Rimpsyche_Passion.description>자신의 관심사, 목표, 관계를 얼마나 열정적으로 추구하는지를 나타냅니다. 열정적인 사람은 자신이 중요하게 생각하는 일에 많은 에너지와 감정을 쏟아붓습니다. 반면, 무관심한 사람은 그만큼의 집중력이나 에너지를 들이지 않고, 보다 가볍게 접근하는 경향이 있습니다.</Rimpsyche_Passion.description>
+  <Rimpsyche_Passion.description>자신의 관심사, 목표, 인간관계를 얼마나 강한 열정과 의지를 가지고 추구하는지를 나타냅니다. 열정적인 사람은 자신이 중요하게 여기는 대상에 깊이 몰두하며, 많은 에너지와 감정을 쏟습니다. 반대로 무관심한 사람은 보다 느긋하고 가벼운 태도로 임하며, 관심사나 목표를 추구하는 데 있어 열정과 집중이 상대적으로 덜할 수 있습니다.</Rimpsyche_Passion.description>
 
   <Rimpsyche_Tension.label>긴장도</Rimpsyche_Tension.label>
   <Rimpsyche_Tension.high>예민한</Rimpsyche_Tension.high>
   <Rimpsyche_Tension.low>느긋한</Rimpsyche_Tension.low>
-  <Rimpsyche_Tension.description>평소 내면의 긴장감이나 불안 수준을 나타냅니다. 신경이 예민한 사람은 쉽게 불안해하거나 초조해하며, 스트레스에 강하게 반응하는 경향이 있습니다. 반면, 느긋한 사람은 웬만한 일에도 침착하게 반응하고, 여유로운 태도로 상황을 받아들입니다.</Rimpsyche_Tension.description>
+  <Rimpsyche_Tension.description>평소 느끼는 내면의 안정감이나 불안감을 나타냅니다. 예민한 사람은 쉽게 불안해하거나 초조해하며, 스트레스 상황에 강하게 반응하는 경향이 있습니다. 반면 느긋한 사람은 평온한 태도를 유지하며, 크게 동요하지 않고 여유로운 태도로 상황을 받아들입니다.</Rimpsyche_Tension.description>
 
   <Rimpsyche_Emotionality.label>감수성</Rimpsyche_Emotionality.label>
   <Rimpsyche_Emotionality.high>감정적인</Rimpsyche_Emotionality.high>
   <Rimpsyche_Emotionality.low>무덤덤한</Rimpsyche_Emotionality.low>
-  <Rimpsyche_Emotionality.description>감정을 얼마나 깊이 느끼고, 얼마나 자주 드러내는지를 나타냅니다. 감정적인 사람은 기쁨이나 슬픔 같은 감정을 강하게 느끼고, 상황에 따라 격하게 반응하는 편입니다. 반면, 무덤덤한 사람은 감정을 덜 강렬하게 경험하며, 침착하고 차분한 태도를 유지합니다.</Rimpsyche_Emotionality.description>
+  <Rimpsyche_Emotionality.description>감정을 얼마나 깊이 느끼고 자주 표현하는지를 나타냅니다. 감정적인 사람은 기쁨이나 슬픔 같은 감정을 강하게 느끼고, 긍정적이든 부정적이든 사건에 강하게 반응하는 경향이 있습니다. 반면, 무덤덤한 사람은 감정을 비교적 담담하게 받아들이며, 침착하고 차분한 태도를 유지합니다.</Rimpsyche_Emotionality.description>
 
-  <Rimpsyche_Volatility.label>감정 기복</Rimpsyche_Volatility.label>
-  <Rimpsyche_Volatility.high>불안정한</Rimpsyche_Volatility.high>
-  <Rimpsyche_Volatility.low>차분한</Rimpsyche_Volatility.low>
-  <Rimpsyche_Volatility.description>감정 상태가 얼마나 자주, 또 얼마나 갑작스럽게 변하는지를 나타냅니다. 감정 기복이 불안정한 사람은 감정의 변화가 크고 잦아, 상황에 강하게 반응하거나 예기치 않게 감정이 요동칠 수 있습니다. 반대로 차분한 사람은 감정의 흐름이 일정하고, 웬만한 상황에도 침착하게 반응하는 편입니다.</Rimpsyche_Volatility.description>
+  <Rimpsyche_Volatility.label>정서</Rimpsyche_Volatility.label>
+  <Rimpsyche_Volatility.high>안정적인</Rimpsyche_Volatility.high>
+  <Rimpsyche_Volatility.low>불안정한</Rimpsyche_Volatility.low>
+  <Rimpsyche_Volatility.description>정서 상태가 얼마나 일관되고 안정적인지를 나타냅니다. 안정적인 사람은 감정 기복이 적고 감정적으로 평온한 상태를 유지하며, 상황에 대해 일관되게 반응하는 경향이 있습니다. 반면 불안정한 사람은 감정 변화가 잦고 강하게 나타나며, 매사에 더 극적으로 반응하는 경우가 많습니다.</Rimpsyche_Volatility.description>
 
   <Rimpsyche_Morality.label>도덕성</Rimpsyche_Morality.label>
   <Rimpsyche_Morality.high>원칙적인</Rimpsyche_Morality.high>
-  <Rimpsyche_Morality.low>비도덕한</Rimpsyche_Morality.low>
-  <Rimpsyche_Morality.description>옳고 그름에 대한 감각과 윤리 기준을 얼마나 따르는지를 나타냅니다. 비도덕한 사람은 도덕이나 규범에 크게 신경 쓰지 않고, 실리나 자신의 이익을 우선시하는 경향이 있습니다. 반대로 원칙적인 사람은 개인적 또는 사회적 윤리 기준을 중시하며, 불리한 상황에서도 자신의 가치관에 따라 행동하려고 합니다.</Rimpsyche_Morality.description>
+  <Rimpsyche_Morality.low>비도덕적인</Rimpsyche_Morality.low>
+  <Rimpsyche_Morality.description>옳고 그름에 대한 개인의 인식과 윤리적 기준을 따르는 정도를 나타냅니다. 비도덕적인 사람은 사회적 혹은 개인적 규범에 크게 구애되지 않고 실리나 자신의 이익을 우선시하는 경향이 있습니다. 반면 원칙적인 사람은 윤리 규범을 굳게 지키며, 손해를 보는 한이 있더라도 자신의 가치관에 맞게 행동하려고 합니다.</Rimpsyche_Morality.description>
 
   <Rimpsyche_Optimism.label>낙관성</Rimpsyche_Optimism.label>
   <Rimpsyche_Optimism.high>낙관적인</Rimpsyche_Optimism.high>
   <Rimpsyche_Optimism.low>비관적인</Rimpsyche_Optimism.low>
-  <Rimpsyche_Optimism.description>삶에 대한 전반적인 태도와 미래에 대한 기대를 나타냅니다. 낙관적인 사람은 좋은 결과를 기대하고, 어려운 상황에서도 희망적인 시각을 유지하며, 긍정적인 면을 잘 봅니다. 반면, 비관적인 사람은 부정적인 결과를 예상하거나, 난관에 더 매몰되어 쉽게 낙담할 수 있습니다.</Rimpsyche_Optimism.description>
+  <Rimpsyche_Optimism.description>삶에 대한 전반적인 전망과 미래에 대한 기대를 나타냅니다. 낙관적인 사람은 긍정적인 결과를 예상하며, 어려운 상황에서도 희망적인 태도를 유지하고 상황의 좋은 면을 잘 발견하는 경향이 있습니다. 반면 비관적인 사람은 부정적인 결과를 더 쉽게 예상하고, 난관에 매몰되어 쉽게 낙담하는 편입니다.</Rimpsyche_Optimism.description>
 
   <Rimpsyche_Ambition.label>야심</Rimpsyche_Ambition.label>
   <Rimpsyche_Ambition.high>야심찬</Rimpsyche_Ambition.high>
   <Rimpsyche_Ambition.low>안주하는</Rimpsyche_Ambition.low>
-  <Rimpsyche_Ambition.description>성취, 성공, 또는 향상에 대한 욕구와 추진력을 나타냅니다. 야심찬 사람은 도전적인 목표를 설정하고 이를 달성하기 위해 높은 동기를 가지며, 종종 진급, 인정 또는 개인적인 성장을 추구합니다. 반면, 안주하는 사람은 현재 상황에 만족하며, 큰 변화나 더 높은 성과를 추구하는 경향이 적습니다.</Rimpsyche_Ambition.description>
+  <Rimpsyche_Ambition.description>성취, 성공, 또는 발전에 대한 개인의 추진력과 욕구를 나타냅니다. 야심찬 사람은 도전적인 목표를 설정하고 이를 달성하려는 동기가 강하며, 승진, 인정 또는 개인적인 성장을 추구하는 경향이 있습니다. 반면, 안주하는 사람은 현재 상황에 대체로 만족하며, 큰 변화를 추구하거나 더 높은 성과를 위해 노력하는 경향이 적습니다.</Rimpsyche_Ambition.description>
 
   <Rimpsyche_Compassion.label>연민</Rimpsyche_Compassion.label>
   <Rimpsyche_Compassion.high>연민 있는</Rimpsyche_Compassion.high>
@@ -113,50 +113,55 @@
   <Rimpsyche_Spontaneity.label>즉흥성</Rimpsyche_Spontaneity.label>
   <Rimpsyche_Spontaneity.high>즉흥적인</Rimpsyche_Spontaneity.high>
   <Rimpsyche_Spontaneity.low>일관된</Rimpsyche_Spontaneity.low>
-  <Rimpsyche_Spontaneity.description>사람이 얼마나 예측 불가능하거나 안정적인 성향을 가지는지를 나타냅니다. 즉흥적인 사람은 충동적으로 행동하여 예기치 않거나 다양한 행동을 보이는 경향이 있습니다. 반면, 일관된 사람은 보다 신중하고 일정한 성향을 가집니다.</Rimpsyche_Spontaneity.description>
+  <Rimpsyche_Spontaneity.description>개인이 얼마나 예측 불가능한지를 나타냅니다. 충동적인 사람은 순간적인 기분에 따라 행동하여 예기치 않거나 다양한 행동을 보이는 경향이 있습니다. 반면, 일관된 사람은 보다 변동 없이 일정한 성향을 가집니다.</Rimpsyche_Spontaneity.description>
 
   <Rimpsyche_Trust.label>신뢰</Rimpsyche_Trust.label>
   <Rimpsyche_Trust.high>순진한</Rimpsyche_Trust.high>
   <Rimpsyche_Trust.low>회의적인</Rimpsyche_Trust.low>
-  <Rimpsyche_Trust.description>사람을 얼마나 쉽게 믿는 성향인지를 나타냅니다. 순진한 사람은 타인의 정직함이나 의도를 의심하기보다는 선의로 받아들이는 편입니다. 반면, 회의적인 사람은 타인을 쉽게 믿지 않으며, 반복된 긍정적 경험이나 분명한 증거가 있어야 신뢰를 보입니다.</Rimpsyche_Trust.description>
+  <Rimpsyche_Trust.description>사람을 얼마나 쉽게 믿는 성향인지를 나타냅니다. 순진한 사람은 타인의 선의를 쉽게 믿는 경향이 있습니다. 반면, 회의적인 사람은 타인의 동기를 신중하게 살피며, 신뢰를 보내기 전에 증거나 오랜 시간 쌓아온 긍정적 관계를 필요로 하는 경우가 많습니다.</Rimpsyche_Trust.description>
 
   <Rimpsyche_Deliberation.label>신중함</Rimpsyche_Deliberation.label>
   <Rimpsyche_Deliberation.high>신중한</Rimpsyche_Deliberation.high>
   <Rimpsyche_Deliberation.low>성급한</Rimpsyche_Deliberation.low>
-  <Rimpsyche_Deliberation.description>일이나 결정을 얼마나 차분하게 생각하고 처리하는지를 나타냅니다. 신중한 사람은 충분한 시간을 들여 여러 가능성을 따져보며, 빠르기보다는 정확함을 중요하게 여깁니다. 반면, 성급한 사람은 속도를 우선시하며, 꼼꼼함을 포기하더라도 빨리 행동하려는 경향이 있습니다.</Rimpsyche_Deliberation.description>
-
-  <Rimpsyche_Cognition.label>사고 방식</Rimpsyche_Cognition.label>
-  <Rimpsyche_Cognition.high>이성적인</Rimpsyche_Cognition.high>
-  <Rimpsyche_Cognition.low>직관적인</Rimpsyche_Cognition.low>
-  <Rimpsyche_Cognition.description>정보를 처리하고 판단을 내릴 때 어떤 방식에 더 기대는지를 나타냅니다. 이성적인 사람은 문제를 논리적으로 분석하고, 세부 사항을 신중히 따져보며 결정을 내리는 편입니다. 반면, 직관적인 사람은 감각이나 직감에 따라 판단하고, 순간적인 인상이나 느낌을 바탕으로 행동하는 경향이 있습니다.</Rimpsyche_Cognition.description>
+  <Rimpsyche_Deliberation.description>일이나 결정을 얼마나 신중하게 접근하는지를 나타냅니다. 신중한 사람은 속도보다는 정확성을 중시하며, 행동하기 전에 여러 측면을 충분히 고려합니다. 반대로 성급한 사람은 속도를 우선시하며, 꼼꼼함을 포기하더라도 즉각적인 행동에 나서는 경향이 있습니다.</Rimpsyche_Deliberation.description>
 
   <Rimpsyche_Playfulness.label>유쾌함</Rimpsyche_Playfulness.label>
   <Rimpsyche_Playfulness.high>장난기 많은</Rimpsyche_Playfulness.high>
   <Rimpsyche_Playfulness.low>진지한</Rimpsyche_Playfulness.low>
-  <Rimpsyche_Playfulness.description>어느 정도 가볍고 유쾌한 태도로 사람이나 상황을 대하는지를 나타냅니다. 장난기 많은 사람은 농담이나 재치 있는 말을 즐기고, 일상적인 상황에서도 가볍게 넘기는 편입니다. 반면, 진지한 사람은 장난보다는 진중하고 솔직한 태도를 선호하며, 농담에 쉽게 반응하지 않는 편입니다.</Rimpsyche_Playfulness.description>
+  <Rimpsyche_Playfulness.description>상황을 얼마나 가볍고 유쾌하게 받아들이는지를 나타냅니다. 장난기 많은 사람은 농담이나 재치 있는 말을 즐기고, 상황을 유머러스하고 가벼운 태도로 대하는 경향이 있습니다. 반대로 진지한 사람은 장난보다는 진중하고 솔직한 태도를 선호하며, 농담에 쉽게 반응하지 않는 편입니다.</Rimpsyche_Playfulness.description>
 
   <Rimpsyche_Bravery.label>용기</Rimpsyche_Bravery.label>
   <Rimpsyche_Bravery.high>용감한</Rimpsyche_Bravery.high>
   <Rimpsyche_Bravery.low>겁이 많은</Rimpsyche_Bravery.low>
-  <Rimpsyche_Bravery.description>두려움이나 위험, 어려운 상황에 얼마나 맞설 수 있는지를 나타냅니다. 용감한 사람은 위험이 따르더라도 문제를 정면으로 마주하려는 경향이 있습니다. 반면, 겁이 많은 사람은 불안하거나 불편한 상황을 피하려 하며, 맞서기보다는 안전을 우선시하는 편입니다.</Rimpsyche_Bravery.description>
+  <Rimpsyche_Bravery.description>두려움이나 위험, 어려운 상황에 직면하는 태도를 나타냅니다. 용감한 사람은 위험이나 역경 앞에서도 주저하지 않고 도전에 맞서려고 합니다. 반면, 겁이 많은 사람은 불안하거나 불편한 상황을 피하려 하며, 이를 직면하기 보다는 안전을 우선시하려는 경향이 있습니다.</Rimpsyche_Bravery.description>
 
   <Rimpsyche_Resilience.label>강인함</Rimpsyche_Resilience.label>
   <Rimpsyche_Resilience.high>강인한</Rimpsyche_Resilience.high>
   <Rimpsyche_Resilience.low>유약한</Rimpsyche_Resilience.low>
-  <Rimpsyche_Resilience.description>어려움에 맞서 자제력을 유지하고, 스트레스 상황에서도 집중력을 잃지 않는 성향을 나타냅니다. 강인한 가진 사람은 불편한 상황이나 감정적인 압박에도 잘 견디며, 도중에 포기하지 않고 계속해서 문제를 해결하려 합니다. 반면, 유약한 사람은 스트레스나 어려움에 쉽게 지치거나 불안해하고, 상황을 견디지 못할 수 있습니다.</Rimpsyche_Resilience.description>
+  <Rimpsyche_Resilience.description>어려움에 맞서 역경을 이겨내고 자제력을 유지하는 성향을 나타냅니다. 강인한 사람은 스트레스를 잘 견디며 어려움 속에서도 포기하지 않고 꾸준히 나아가려 합니다. 반대로 유약한 사람은 작은 문제에도 쉽게 압도되거나 초점을 잃고 좌절감을 느끼는 경향이 있습니다.</Rimpsyche_Resilience.description>
 
   <Rimpsyche_Loyalty.label>충성심</Rimpsyche_Loyalty.label>
   <Rimpsyche_Loyalty.high>충직한</Rimpsyche_Loyalty.high>
   <Rimpsyche_Loyalty.low>불충한</Rimpsyche_Loyalty.low>
-  <Rimpsyche_Loyalty.description>개인, 그룹, 또는 원칙에 대해 얼마나 충성스럽고 헌신적인지를 나타냅니다. 충직한 사람은 자신이 믿고 따르는 대상을 위해 성실히 지원하며, 그들의 이익을 우선시하는 경향이 있습니다. 반면, 불충한 사람은 자신의 이익을 우선시하거나 신뢰를 쉽게 저버리는 경향이 있습니다.</Rimpsyche_Loyalty.description>
+  <Rimpsyche_Loyalty.description>충실함과 헌신의 정도를 나타냅니다. 충직한 사람은 자신이 믿고 따르는 대상dp 대해 변함없는 지지와 헌신을 보이며, 그들의 이익을 우선시하는 경향이 있습니다. 반면, 불충한 사람은 자신의 이익을 우선시하거나 소속을 바꾸는 등 신뢰를 쉽게 저버리는 경향이 있습니다.</Rimpsyche_Loyalty.description>
+
+  <Rimpsyche_Expectation.label>기대치</Rimpsyche_Expectation.label>
+  <Rimpsyche_Expectation.high>까다로운</Rimpsyche_Expectation.high>
+  <Rimpsyche_Expectation.low>간소한</Rimpsyche_Expectation.low>
+  <Rimpsyche_Expectation.description>자신의 안락함, 지위, 대우에 얼마나 큰 중요성을 두는지를 나타냅니다. 까다로운 사람은 자신이 최고의 대우를 받을 자격이 있다고 여기며, 자신의 요구가 충족되지 않을 때 더 민감하게 반응합니다. 반대로 간소한 사람은 사치나 특별한 대우에 큰 관심이 없으며, 기본적인 것만으로도 만족하는 경향이 있습니다.</Rimpsyche_Expectation.description>
 
   <Rimpsyche_Competitiveness.label>경쟁심</Rimpsyche_Competitiveness.label>
   <Rimpsyche_Competitiveness.high>경쟁적인</Rimpsyche_Competitiveness.high>
   <Rimpsyche_Competitiveness.low>협력적인</Rimpsyche_Competitiveness.low>
-  <Rimpsyche_Competitiveness.description>다른 사람보다 더 성공하려는 욕구와 경쟁에 참여하려는 성향을 나타냅니다. 경쟁적인 사람은 비교를 통해 동기를 부여받고, 다른 사람을 능가하려 하며, 승리와 성취를 중요하게 생각합니다. 반면, 협력적인 사람은 공동의 목표와 상호 성공을 우선시하며, 개인적인 승리를 추구하기보다는 팀워크와 협력을 중시합니다.</Rimpsyche_Competitiveness.description>
+  <Rimpsyche_Competitiveness.description>다른 사람보다 앞서고자 하는 욕구와 경쟁에 임하는 성향을 나타냅니다. 경쟁적인 사람은 타인과의 비교에서 동기를 얻으며, 성과와 승리를 중요하게 여겨 다른 사람을 능가하려는 경향이 있습니다. 반면, 협력적인 사람은 공동의 목표와 상호 성공을 우선시하며, 개인적인 승리를 추구하기보다는 팀워크와 협력을 중시합니다.</Rimpsyche_Competitiveness.description>
 
   <Rimpsyche_SelfInterest.label>이기심</Rimpsyche_SelfInterest.label>
   <Rimpsyche_SelfInterest.high>자기중심적인</Rimpsyche_SelfInterest.high>
   <Rimpsyche_SelfInterest.low>이타적인</Rimpsyche_SelfInterest.low>
-  <Rimpsyche_SelfInterest.description>자신의 필요를 타인의 행복보다 얼마나 우선시하는지를 나타냅니다. 이타적인 사람은 타인을 돕는 데 진심을 다하며, 개인적인 이득보다는 공동의 이익을 중요시합니다. 반면, 자기중심적인 사람은 자신의 욕구와 이익을 우선시하는 경향이 있습니다.</Rimpsyche_SelfInterest.description>
+  <Rimpsyche_SelfInterest.description>자신의 필요를 타인의 안녕보다 얼마나 우선시하는지를 나타냅니다. 이타적인 사람은 타인을 돕는 데 진심을 다하며, 개인적인 이익보다 공동의 선을 더 중요하게 여깁니다. 반면, 자기중심적인 사람은 자신의 욕구와 이익을 우선시하는 경향이 있습니다.</Rimpsyche_SelfInterest.description>
+
+  <!-- <Rimpsyche_Cognition.label>사고 방식</Rimpsyche_Cognition.label>
+  <Rimpsyche_Cognition.high>이성적인</Rimpsyche_Cognition.high>
+  <Rimpsyche_Cognition.low>직관적인</Rimpsyche_Cognition.low>
+  <Rimpsyche_Cognition.description>정보를 처리하고 판단을 내릴 때 어떤 방식에 더 기대는지를 나타냅니다. 이성적인 사람은 문제를 논리적으로 분석하고, 세부 사항을 신중히 따져보며 결정을 내리는 편입니다. 반면, 직관적인 사람은 감각이나 직감에 따라 판단하고, 순간적인 인상이나 느낌을 바탕으로 행동하는 경향이 있습니다.</Rimpsyche_Cognition.description> -->
 </LanguageData>

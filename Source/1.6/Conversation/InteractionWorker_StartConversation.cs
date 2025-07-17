@@ -9,10 +9,10 @@ namespace Maux36.RimPsyche
     {
         public override float RandomSelectionWeight(Pawn initiator, Pawn recipient)
         {
-            if (!initiator.health.capacities.CapableOf(PawnCapacityDefOf.Talking) || !recipient.health.capacities.CapableOf(PawnCapacityDefOf.Talking))
-            {
-                return 0f;
-            }
+            if (initiator.Inhumanized())
+			{
+				return 0f;
+			}
             var initiatorPsyche = initiator.compPsyche();
             var recipientPsyche = recipient.compPsyche();
             if (initiatorPsyche != null && recipientPsyche != null)
