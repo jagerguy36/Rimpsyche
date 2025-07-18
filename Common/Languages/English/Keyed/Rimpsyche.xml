@@ -33,8 +33,9 @@
 
   <!-- Edit Mode -->
   <RPC_Facets>Facets</RPC_Facets>
-  <RimpsycheFacetInfo>Facets are the core building blocks of a pawn's unique mind. They represent fundamental aspects of their inner world, influencing how they think, feel, and perceive the world around them.</RimpsycheFacetInfo>
-  <RimpsychePersonalityInfo>A character's personality is the result of their individual facets coming together. It influences their behavior, relationships, and decisions. Each personality node represent different ways these facets are expressed, affecting everything from social interactions to how they handle challenges.</RimpsychePersonalityInfo>
+  <ResetPsycheTooltip>Reset Personality</ResetPsycheTooltip>
+  <RimpsycheFacetInfo>Facets are the core building blocks that shape a pawn's thoughts, feelings, and behavior. Each one represents a specific aspect of how they see the world and react to it.</RimpsycheFacetInfo>
+  <RimpsychePersonalityInfo>A pawn’s personality is the result of their individual facets coming together. It influences their behavior, relationships, and decisions.</RimpsychePersonalityInfo>
 
   <!-- Facet Desc. -->
   <RPC_Realistic>Realistic</RPC_Realistic>
@@ -67,7 +68,7 @@
   <RPC_Pessimistic>Pessimistic</RPC_Pessimistic>
   <RPC_Confident>Confident</RPC_Confident>
   <RPC_Insecure>Insecure</RPC_Insecure>
-  <RPC_Imagination_Tooltip>Reflects a vivid inner world and emotional sensitivity to art and beauty. Imaginative pawns are drawn to daydreams, music, and Realistic pawns are more grounded and practical.</RPC_Imagination_Tooltip>
+  <RPC_Imagination_Tooltip>Reflects a vivid inner world and emotional sensitivity to art and beauty. Imaginative pawns are drawn to things like daydreams, music and art; Realistic pawns are more grounded and practical.</RPC_Imagination_Tooltip>
   <RPC_Intellect_Tooltip>Captures interest in abstract thinking and complex ideas. Philosophical pawns enjoy deep conversations and philosophical questions; Practical pawns prefer concrete, straightforward thinking</RPC_Intellect_Tooltip>
   <RPC_Curiosity_Tooltip>Describes a drive for novelty, diversity, and exploration. Explorative pawns seek new experiences and challenge norms; Conventional pawns favor routine and familiar settings.</RPC_Curiosity_Tooltip>
   <RPC_Industriousness_Tooltip>Describes a drive to achieve long-term goals through hard work and persistence. Industrious pawns are motivated and focused, seeing tasks through to completion; Unmotivated pawns tend to lack drive and may abandon tasks.</RPC_Industriousness_Tooltip>

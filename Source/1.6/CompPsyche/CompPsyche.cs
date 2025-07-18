@@ -57,7 +57,7 @@ namespace Maux36.RimPsyche
             {
                 if (sexuality == null)
                 {
-                    sexuality = GetSexualityTracker(parentPawn);
+                    sexuality = new Pawn_SexualityTracker(parentPawn);
                     sexuality.Initialize(parentPawn);
                 }
                 return sexuality;
@@ -85,7 +85,7 @@ namespace Maux36.RimPsyche
         {
             if (sexuality == null)
             {
-                sexuality = new Pawn_SexualityTracker(pawn);
+                sexuality = new Pawn_SexualityTracker(parentPawn);
             }
             //Initialize even when not null for save-game trait safety with Sexuality Module.
             sexuality.Initialize(parentPawn);

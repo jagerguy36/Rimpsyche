@@ -319,7 +319,7 @@ namespace Maux36.RimPsyche
             return newScope;
         }
         // IO
-        public float GetFacetValueRaw(Facet facet)
+        public float GetFacetValueRaw(Facet facet) //Actual raw facet values
         {
             return facet switch
             {
@@ -350,7 +350,7 @@ namespace Maux36.RimPsyche
                 _ => throw new ArgumentOutOfRangeException(nameof(facet), facet, null),
             };
         }
-        public float GetFacetValue(Facet facet)
+        public float GetFacetValue(Facet facet) //Gated facet values
         {
             float value = facet switch
             {
@@ -396,7 +396,7 @@ namespace Maux36.RimPsyche
             }
             return value;
         }
-        public int GetFacetValueNorm(Facet facet)
+        public int GetFacetValueNorm(Facet facet) //Normalized facet value to use with personalities
         {
             return (int)(GetFacetValue(facet));
         }

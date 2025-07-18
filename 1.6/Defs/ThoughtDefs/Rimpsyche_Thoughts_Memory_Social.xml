@@ -29,7 +29,7 @@
     <durationDays>5</durationDays>
     <stackLimit>300</stackLimit>
     <stackLimitForSameOtherPawn>10</stackLimitForSameOtherPawn>
-    <stackedEffectMultiplier>0.9</stackedEffectMultiplier>
+    <stackedEffectMultiplier>1</stackedEffectMultiplier>
     <developmentalStageFilter>Baby, Child, Adult</developmentalStageFilter>
     <socialTargetDevelopmentalStageFilter>Baby, Child, Adult</socialTargetDevelopmentalStageFilter>
     <stages>

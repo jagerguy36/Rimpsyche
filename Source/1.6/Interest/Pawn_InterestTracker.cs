@@ -7,8 +7,8 @@ namespace Maux36.RimPsyche
     public class Pawn_InterestTracker : IExposable
     {
         private Pawn pawn;
-        public Dictionary<string, float> interestOffset = new Dictionary<string, float>(); // 30~70
-        public Dictionary<string, float> interestScore = new Dictionary<string, float>(); // -30~30
+        public Dictionary<string, float> interestOffset = new Dictionary<string, float>(); // 35~65
+        public Dictionary<string, float> interestScore = new Dictionary<string, float>(); // -35~35
 
         public Pawn_InterestTracker(Pawn p)
         {
@@ -18,7 +18,7 @@ namespace Maux36.RimPsyche
         {
             foreach (InterestDomainDef interestdomainDef in DefDatabase<InterestDomainDef>.AllDefs)
             {
-                GenerateInterestOffsetsForDomain(interestdomainDef, generateScore = true);
+                GenerateInterestOffsetsForDomain(interestdomainDef, true);
             }
         }
 
@@ -44,7 +44,7 @@ namespace Maux36.RimPsyche
                         interestOffsetValue += compPsyche.Personality.GetFacetValueNorm(sw.facet) * sw.weight;
                     }
                 }
-                interestOffset[interest.name] = Mathf.Clamp(interestOffsetValue, 30f, 70f);
+                interestOffset[interest.name] = Mathf.Clamp(interestOffsetValue, 35f, 65f);
                 if (generateScore)
                 {
                     GenerateInterestScore(interest.name);
@@ -53,16 +53,7 @@ namespace Maux36.RimPsyche
         }
         public void GenerateInterestScore(string interestname, int maxAttempts = 4)
         {
-            float result;
-            int attempts = 0;
-
-            do
-            {
-                result = Rand.Gaussian(0, 10f); // center at basevalue, 3widthfactor == 30
-                attempts++;
-            }
-            while ((result < -30f || result > 30f) && attempts < maxAttempts);
-            result = Mathf.Clamp(result, -30f, 30f);
+            float result = Rand.Range(-35f, 35f);
             interestScore[interestname] = result;
         }
 
@@ -92,8 +83,8 @@ namespace Maux36.RimPsyche
             float delta = score - GetOrCreateInterestScore(key);
             if (interestScore.TryGetValue(key.name, out float s))
             {
-                if ((delta<0f && s == -30f) || (delta>0f && s == 30f)) return;
-                interestScore[key.name] = Mathf.Clamp(interestScore[key.name] + delta, -30f, 30f);
+                if ((delta<0f && s == -35f) || (delta>0f && s == 35f)) return;
+                interestScore[key.name] = Mathf.Clamp(interestScore[key.name] + delta, -35f, 35f);
             }
         }
 

@@ -17,6 +17,46 @@ namespace Maux36.RimPsyche
             return res;
 
         }
+        public static float Boost2(float A)
+        {
+            float adjA;
+            float res;
+            if (A >= 0)
+            {
+                adjA = (A - 1f);
+                res = 1f - (adjA * adjA);
+                Log.Message($"Boosting2 {A} -> {res}");
+                return res;
+            }
+            else
+            {
+                adjA = (A + 1f);
+                res = (adjA * adjA) - 1f;
+                Log.Message($"Boosting2 {A} -> {res}");
+                return res;
+            }
+
+        }
+        public static float Boost3(float A)
+        {
+            float adjA;
+            float res;
+            if (A >= 0)
+            {
+                adjA = (1f - A);
+                res = 1f - (adjA * adjA * adjA);
+                Log.Message($"Boosting3 {A} -> {res}");
+                return res;
+            }
+            else
+            {
+                adjA = (1f + A);
+                res = (adjA * adjA * adjA) - 1f;
+                Log.Message($"Boosting3 {A} -> {res}");
+                return res;
+            }
+
+        }
         public static float SaddleShapeFunction(float x, float y, float controversiality = 1)
         {
             float C = 2 * controversiality * controversiality;
@@ -25,7 +65,7 @@ namespace Maux36.RimPsyche
             float sum = (x + y);
             float sum2 = sum * sum;
             float val = (-(1f + C) * diff2 + sum2) / (4f + C * diff2);
-            val = Boost(val);
+            val = Boost3(val);
             Log.Message($"SaddleShapeFunction: {x}, {y} | controversiality: {controversiality}. val: {val}");
             return val;
         }

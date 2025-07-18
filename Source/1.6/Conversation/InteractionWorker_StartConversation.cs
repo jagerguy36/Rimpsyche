@@ -107,8 +107,8 @@ namespace Maux36.RimPsyche
                 float initTalkF = (1.5f + initTalkativeness) * initInterestF; // 0.25~7.5 [2.25]
                 float reciTalkF = (1.5f + reciTalkativeness) * reciInterestF; // 0.25~7.5 [2.25]
                 float spontaneousF = (initSpontaneity + reciSpontaneity + 2f) * 0.05f; // 0~0.2 [0.1]
-                float aligntmentLengthFactor = -1.5f * tAbs * (tAbs - 2f) + 1f;
-                float lengthMult = 0.1f * (5f + initTalkF + reciTalkF) * aligntmentLengthFactor * Rand.Range(1f - spontaneousF, 1f + spontaneousF); // 0.1f * (5.5~[9.5]~20) * ([1]~2.5) || 0.55~[0.95]~5
+                float aligntmentLengthFactor = -1f * tAbs * (tAbs - 2f) + 1f;
+                float lengthMult = 0.1f * (5f + initTalkF + reciTalkF) * aligntmentLengthFactor * Rand.Range(1f - spontaneousF, 1f + spontaneousF); // 0.1f * (5.5~[9.5]~20) * ([1]~2) || 0.55~[0.95]~4
 
                 //GetResult
                 bool startFight = false;
@@ -154,9 +154,9 @@ namespace Maux36.RimPsyche
                     else
                     {
                         //Bad Talk
-                        float negativeScoreBase = 2f * topicAlignment * (1f - talkRand); // -2~[-1]~0
-                        pawnScore = negativeScoreBase * (1f - (0.3f * pawnReceiveScore)); //-3.8 ~ 0
-                        partnerScore = negativeScoreBase * (1f - (0.3f * partnerReceiveScore)); //(-2~0) * 0.1~1.9 = -3.8 ~[-1]~ 0
+                        float negativeScoreBase = 3f * topicAlignment * (1f - talkRand); // -3~[-1]~0
+                        pawnScore = negativeScoreBase * (1f - (0.3f * pawnReceiveScore)); //-5.7 ~ 0
+                        partnerScore = negativeScoreBase * (1f - (0.3f * partnerReceiveScore)); //(-3~0) * 0.1~1.9 = -5.7 ~[-1]~ 0
                         //Calcualte fight Chance
                         float pawnStartCandBaseChance = -0.005f * pawnScore * lengthMult * initiatorPsyche.Personality.Evaluate(RimpsycheDatabase.SocialFightChanceMultiplier);
                         float partnerStartCandBaseChance = -0.005f * partnerScore * lengthMult * recipientPsyche.Personality.Evaluate(RimpsycheDatabase.SocialFightChanceMultiplier);
