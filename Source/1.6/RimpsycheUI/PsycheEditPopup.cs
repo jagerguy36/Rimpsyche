@@ -1,6 +1,6 @@
 ﻿using RimWorld;
-using System.Collections.Generic;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using Verse;
@@ -66,6 +66,7 @@ namespace Maux36.RimPsyche
         public static Vector2 FacetNodeScrollPosition = Vector2.zero;
         public static Vector2 PersonalityNodeScrollPosition = Vector2.zero;
         public static Vector2 InterestNodeScrollPosition = Vector2.zero;
+        public static bool editFacetOn = false;
         public static bool editPersonalityOn = false;
         public static bool editInterestOn = false;
         
@@ -73,6 +74,9 @@ namespace Maux36.RimPsyche
         public override void PreOpen()
         {
             base.PreOpen();
+            editFacetOn = false;
+            editPersonalityOn = false;
+            editInterestOn = false;
             FacetNodeScrollPosition = Vector2.zero;
             PersonalityNodeScrollPosition = Vector2.zero;
             InterestNodeScrollPosition = Vector2.zero;
@@ -203,7 +207,7 @@ namespace Maux36.RimPsyche
                     float maxValue = 100f;
                     Rect sliderRect = new Rect(leftRect.x + interestLabelWidth, centerY - interestBarHeight / 2f, interestBarWidth, interestRowHeight);
                     float newValue = Widgets.HorizontalSlider(sliderRect, currentValue, minValue, maxValue);
-                    newValue = Mathf.Clamp(newValue, minValue, maxValue);
+                    //newValue = Mathf.Clamp(newValue, minValue, maxValue);
                     if (newValue != currentValue)
                     {
                         compPsyche.Interests.SetInterestScore(interest, newValue);
@@ -328,7 +332,7 @@ namespace Maux36.RimPsyche
                     //Rect sliderRect = new Rect(barCenterX + barWidth / 2f * lowend , centerY - barHeight / 2f, barWidth*(highend-lowend)*0.5f, 24f);?
                     Rect sliderRect = new Rect(barCenterX - personalityBarWidth / 2f, centerY - personalityBarHeight / 2f, personalityBarWidth, personalityRowHeight);
                     float newValue = Widgets.HorizontalSlider(sliderRect, currentValue, lowend, highend);
-                    Mathf.Clamp(newValue, lowend, highend);
+                    //newValue = Mathf.Clamp(newValue, lowend, highend);
                     if (newValue != currentValue)
                     {
                         compPsyche.Personality.SetPersonalityRating(def, newValue);
@@ -363,6 +367,7 @@ namespace Maux36.RimPsyche
 
         public static void DrawFacetCard(Rect rect, Pawn pawn, CompPsyche compPsyche)
         {
+            var gate = compPsyche.Personality.gateCache;
             Text.Font = GameFont.Small;
             TextAnchor oldAnchor = Text.Anchor;
             Rect innerRect = rect.ContractedBy(innerPadding);
@@ -395,17 +400,17 @@ namespace Maux36.RimPsyche
             TooltipHandler.TipRegion(infoIconRect, "RimpsycheFacetInfo".Translate());
 
 
-            //Rect editIconRect = new Rect(infoIconRect.xMax + iconSpacing, titleRect.y + (titleHeight - iconSize) / 2f, iconSize, iconSize);
+            Rect editIconRect = new Rect(infoIconRect.xMax + iconSpacing, titleRect.y + (titleHeight - iconSize) / 2f, iconSize, iconSize);
 
-            //// Draw & handle click
-            //if (Widgets.ButtonImage(editIconRect, Rimpsyche_UI_Utility.EditButton))
-            //{
-            //    editPersonalityOn = !editPersonalityOn;
-            //}
-            //TooltipHandler.TipRegion(editIconRect, "RimpsycheEdit".Translate());
+            // Draw & handle click
+            if (Widgets.ButtonImage(editIconRect, Rimpsyche_UI_Utility.EditButton))
+            {
+                editFacetOn = !editFacetOn;
+            }
+            TooltipHandler.TipRegion(editIconRect, "RimpsycheEdit".Translate());
 
-            //Text.Anchor = TextAnchor.UpperLeft;
-            //Text.Font = GameFont.Small;
+            Text.Anchor = TextAnchor.UpperLeft;
+            Text.Font = GameFont.Small;
 
             Rect resetButtonRect = new Rect(
                 titleRect.xMax - resetButtonSize - resetButtonMargin,
@@ -433,7 +438,7 @@ namespace Maux36.RimPsyche
                 if (Mouse.IsOver(rowRect))
                 {
                     Widgets.DrawHighlight(rowRect);
-                    string tooltipString = $"{facet}: {(value*2f).ToString("F1")}\n\n{InterfaceComponents.FacetDescription[facet]}";
+                    string tooltipString = $"{facet}: {(value * 2f).ToString("F1")}\n\n{InterfaceComponents.FacetDescription[facet]}";
                     if (compPsyche.Personality.gateInfoCache.TryGetValue(facet, out string explanation))
                     {
                         tooltipString += $"\n\n{explanation}";
@@ -454,26 +459,59 @@ namespace Maux36.RimPsyche
                 Text.Anchor = TextAnchor.MiddleRight;
                 Widgets.Label(rightRect, rightLabel);
 
-                // Bar (centered vertically)
-                Rect barRect = new Rect(barCenterX - facetBarWidth / 2f, centerY - facetBarHeight / 2f, facetBarWidth, facetBarHeight);
-                Widgets.DrawBoxSolid(barRect, barBackgroundColor);
-
-                // Value bar
-                float halfBar = (Mathf.Abs(value) / 50f) * (facetBarWidth / 2f);
-                Rect valueRect;
-
-                if (value >= 0)
+                if (editFacetOn)
                 {
-                    valueRect = new Rect(barCenterX, barRect.y, halfBar, facetBarHeight);
+                    float highend;
+                    float lowend;
+                    if (!gate.NullOrEmpty() && gate.TryGetValue(facet, out var range))
+                    {
+                        (lowend, highend) = range;
+                    }
+                    else
+                    {
+                        highend = 50f;
+                        lowend = -50f;
+                    }
+                    //Rect sliderRect = new Rect(barCenterX + barWidth / 2f * lowend , centerY - barHeight / 2f, barWidth*(highend-lowend)*0.5f, 24f);?
+                    Rect sliderRect = new Rect(barCenterX - (facetBarWidth) / 2f, centerY - facetBarHeight / 2f, facetBarWidth, facetRowHeight);
+                    float newValue = Widgets.HorizontalSlider(sliderRect, value, lowend, highend);
+                    //newValue = Mathf.Clamp(newValue, lowend, highend);
+                    if (newValue != value)
+                    {
+                        if (highend != 50f && lowend != 50f)
+                        {
+                            newValue = Rimpsyche_Utility.RestoreGatedValue(newValue, lowend, highend);
+                        }
+                        if (compPsyche.Personality.SetFacetValue(facet, newValue))
+                        {
+                            compPsyche.Personality.DirtyCache();
+                        }
+                    }
+
                 }
                 else
                 {
-                    valueRect = new Rect(barCenterX - halfBar, barRect.y, halfBar, facetBarHeight);
-                }
+                    // Bar (centered vertically)
+                    Rect barRect = new Rect(barCenterX - facetBarWidth / 2f, centerY - facetBarHeight / 2f, facetBarWidth, facetBarHeight);
+                    Widgets.DrawBoxSolid(barRect, barBackgroundColor);
 
-                // Color gradient: red → green
-                Color barColor = Color.Lerp(lefColor, rightColor, (value + 50f) / 100f);
-                Widgets.DrawBoxSolid(valueRect, barColor);
+                    // Value bar
+                    float halfBar = (Mathf.Abs(value) / 50f) * (facetBarWidth / 2f);
+                    Rect valueRect;
+
+                    if (value >= 0)
+                    {
+                        valueRect = new Rect(barCenterX, barRect.y, halfBar, facetBarHeight);
+                    }
+                    else
+                    {
+                        valueRect = new Rect(barCenterX - halfBar, barRect.y, halfBar, facetBarHeight);
+                    }
+
+                    // Color gradient: red → green
+                    Color barColor = Color.Lerp(lefColor, rightColor, (value + 50f) / 100f);
+                    Widgets.DrawBoxSolid(valueRect, barColor);
+                }
 
                 y += facetRowHeight;
             }

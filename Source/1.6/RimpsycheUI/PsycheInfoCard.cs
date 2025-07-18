@@ -299,7 +299,7 @@ namespace Maux36.RimPsyche
             Rect viewIconRect = new Rect(viewIconX, (headerHeight - iconSize) / 2f, iconSize, iconSize);
 
             // Draw & handle click
-            if (Widgets.ButtonImage(viewIconRect, Rimpsyche_UI_Utility.ViewButton))
+            if (Widgets.ButtonImage(viewIconRect, showBothSide?Rimpsyche_UI_Utility.ViewListButton: Rimpsyche_UI_Utility.ViewBarButton))
             {
                 showBothSide = !showBothSide;
             }
