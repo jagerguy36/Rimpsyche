@@ -403,11 +403,14 @@ namespace Maux36.RimPsyche
             Rect editIconRect = new Rect(infoIconRect.xMax + iconSpacing, titleRect.y + (titleHeight - iconSize) / 2f, iconSize, iconSize);
 
             // Draw & handle click
-            if (Widgets.ButtonImage(editIconRect, Rimpsyche_UI_Utility.EditButton))
+            if (RimpsycheSettings.allowFacetEdit)
             {
-                editFacetOn = !editFacetOn;
+                if (Widgets.ButtonImage(editIconRect, Rimpsyche_UI_Utility.EditButton))
+                {
+                    editFacetOn = !editFacetOn;
+                }
+                TooltipHandler.TipRegion(editIconRect, "RimpsycheEdit".Translate());
             }
-            TooltipHandler.TipRegion(editIconRect, "RimpsycheEdit".Translate());
 
             Text.Anchor = TextAnchor.UpperLeft;
             Text.Font = GameFont.Small;
@@ -478,7 +481,7 @@ namespace Maux36.RimPsyche
                     //newValue = Mathf.Clamp(newValue, lowend, highend);
                     if (newValue != value)
                     {
-                        if (highend != 50f && lowend != 50f)
+                        if (highend != 50f || lowend != 50f)
                         {
                             newValue = Rimpsyche_Utility.RestoreGatedValue(newValue, lowend, highend);
                         }

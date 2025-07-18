@@ -3,7 +3,9 @@
 
   <!-- General -->
   <RimpsycheSettingCategory>RimPsyche</RimpsycheSettingCategory>
-  <RimpsycheGeneralSetting>RimPsyche</RimpsycheGeneralSetting>
+
+  <!-- Settings -->
+  <RimpsycheGeneralSetting>RimPsyche General Settings</RimpsycheGeneralSetting>
 
   <!-- Title -->
   <RPC_Personality>Personality</RPC_Personality>

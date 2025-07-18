@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using Verse;
-using Verse.AI;
 
 namespace Maux36.RimPsyche
 {
@@ -136,6 +134,70 @@ namespace Maux36.RimPsyche
             [new Pair<string, int>("Jealous", 0)] = new List<(Facet, float, float)>
             {
                 (Facet.Humbleness, -25f, 25f)
+            },
+            [new Pair<string, int>("TorturedArtist", 0)] = new List<(Facet, float, float)>
+            {
+                (Facet.Imagination, 25f, 25f)
+            },
+            [new Pair<string, int>("NaturalMood", -2)] = new List<(Facet, float, float)>
+            {
+                (Facet.Pessimism, -25f, 25f)
+            },
+            [new Pair<string, int>("NaturalMood", -1)] = new List<(Facet, float, float)>
+            {
+                (Facet.Pessimism, -25f, 25f)
+            },
+            [new Pair<string, int>("NaturalMood", 1)] = new List<(Facet, float, float)>
+            {
+                (Facet.Pessimism, 25f, 25f)
+            },
+            [new Pair<string, int>("NaturalMood", 2)] = new List<(Facet, float, float)>
+            {
+                (Facet.Pessimism, 25f, 25f)
+            },
+            [new Pair<string, int>("Nerves", -2)] = new List<(Facet, float, float)>
+            {
+                (Facet.Volatility, 25f, 25f)
+            },
+            [new Pair<string, int>("Nerves", -1)] = new List<(Facet, float, float)>
+            {
+                (Facet.Volatility, 25f, 25f)
+            },
+            [new Pair<string, int>("Nerves", 1)] = new List<(Facet, float, float)>
+            {
+                (Facet.Volatility, -25f, 25f)
+            },
+            [new Pair<string, int>("Nerves", 2)] = new List<(Facet, float, float)>
+            {
+                (Facet.Volatility, -25f, 25f)
+            },
+            [new Pair<string, int>("Neurotic", 1)] = new List<(Facet, float, float)>
+            {
+                (Facet.Volatility, 25f, 25f)
+            },
+            [new Pair<string, int>("Neurotic", 2)] = new List<(Facet, float, float)>
+            {
+                (Facet.Volatility, 25f, 25f)
+            },
+            [new Pair<string, int>("Industriousness", -2)] = new List<(Facet, float, float)>
+            {
+                (Facet.Industriousness, -25f, 25f)
+            },
+            [new Pair<string, int>("Industriousness", -1)] = new List<(Facet, float, float)>
+            {
+                (Facet.Industriousness, -25f, 25f)
+            },
+            [new Pair<string, int>("Industriousness", 1)] = new List<(Facet, float, float)>
+            {
+                (Facet.Industriousness, 25f, 25f)
+            },
+            [new Pair<string, int>("Industriousness", 2)] = new List<(Facet, float, float)>
+            {
+                (Facet.Industriousness, 25f, 25f)
+            },
+            [new Pair<string, int>("Recluse", 0)] = new List<(Facet, float, float)>
+            {
+                (Facet.Sociability, -25f, 25f)
             }
         };
     }

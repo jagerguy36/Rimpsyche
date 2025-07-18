@@ -1,7 +1,5 @@
 ﻿using RimWorld;
-using System;
 using System.Collections.Generic;
-using System.Reflection.Emit;
 using Verse;
 
 namespace Maux36.RimPsyche

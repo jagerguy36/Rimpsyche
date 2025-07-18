@@ -212,6 +212,7 @@ namespace Maux36.RimPsyche
             }
             foreach (Trait trait in traits)
             {
+                if (trait.Suppressed) continue;
                 Pair<string, int> pair = new Pair<string, int>(trait.def.defName, trait.Degree);
                 if (RimpsycheDatabase.TraitGateDatabase.TryGetValue(pair, out var values))
                 {
@@ -277,6 +278,7 @@ namespace Maux36.RimPsyche
             }
             foreach (Trait trait in traits)
             {
+                if (trait.Suppressed) continue;
                 Pair<string, int> pair = new Pair<string, int>(trait.def.defName, trait.Degree);
                 if (RimpsycheDatabase.TraitScopeDatabase.TryGetValue(pair, out var values))
                 {
@@ -287,11 +289,20 @@ namespace Maux36.RimPsyche
                         float range = value.Item3;
                         if (scopeAccumulator.TryGetValue(personalityName, out var existingData))
                         {
-                            float newCenterSum = existingData.center + centerOffset;
+                            float newCenter;
+                            float existingCenter = existingData.center;
+                            if ((existingCenter >= 0f && centerOffset >= 0f) || (existingCenter < 0f && centerOffset < 0f))
+                            {
+                                newCenter = Math.Abs(existingCenter) > Math.Abs(centerOffset) ? existingCenter : centerOffset;
+                            }
+                            else
+                            {
+                                newCenter = existingCenter + centerOffset;
+                            }
                             float newMinRange = Math.Min(existingData.minRange, range);
 
-                            scopeAccumulator[personalityName] = (newCenterSum, newMinRange);
-                            Log.Message($"{pawn.Name}'s scope for {personalityName} updated: center sum = {newCenterSum}, min range = {newMinRange}");
+                            scopeAccumulator[personalityName] = (newCenter, newMinRange);
+                            Log.Message($"{pawn.Name}'s scope for {personalityName} updated: center sum = {newCenter}, min range = {newMinRange}");
                         }
                         else
                         {
@@ -394,7 +405,7 @@ namespace Maux36.RimPsyche
                     return Rimpsyche_Utility.ApplyGate(value, low, high);
                 }
             }
-            return value;
+            return Mathf.Clamp(value, -50f, 50f);
         }
         public int GetFacetValueNorm(Facet facet) //Normalized facet value to use with personalities
         {

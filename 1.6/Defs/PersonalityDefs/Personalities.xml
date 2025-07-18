@@ -616,8 +616,8 @@
     <defName>Rimpsyche_Emotionality</defName>
     <label>emotionality</label>
     <high>emotional</high>
-    <low>stoic</low>
-    <description>Reflects how a person typically experiences and expresses their emotions. Emotional individuals tend to feel their emotions deeply and react strongly to both positive and negative events. On the other hand, stoic individuals experience emotions with less intensity and remains calm and composed.</description>
+    <low>phlegmatic</low>
+    <description>Reflects how a person typically experiences and expresses their emotions. Emotional individuals tend to feel their emotions deeply and react strongly to both positive and negative events. On the other hand, phlegmatic individuals experience emotions with less intensity and remains calm and composed.</description>
     <scoreWeight>
       <li>
         <facet>Imagination</facet>
@@ -680,15 +680,9 @@
     <scopes>
       <li>
         <traitDefname>Nerves</traitDefname>
-        <degree>-2</degree>
-        <ceterOffset>-0.75</ceterOffset>
+        <degree>2</degree>
+        <ceterOffset>0.75</ceterOffset>
         <range>0.25</range>
-      </li>
-      <li>
-        <traitDefname>Nerves</traitDefname>
-        <degree>-1</degree>
-        <ceterOffset>-0.5</ceterOffset>
-        <range>0.5</range>
       </li>
       <li>
         <traitDefname>Nerves</traitDefname>
@@ -698,8 +692,14 @@
       </li>
       <li>
         <traitDefname>Nerves</traitDefname>
-        <degree>2</degree>
-        <ceterOffset>0.75</ceterOffset>
+        <degree>-1</degree>
+        <ceterOffset>-0.5</ceterOffset>
+        <range>0.5</range>
+      </li>
+      <li>
+        <traitDefname>Nerves</traitDefname>
+        <degree>-2</degree>
+        <ceterOffset>-0.75</ceterOffset>
         <range>0.25</range>
       </li>
     </scopes>
@@ -1068,6 +1068,46 @@
         <weight>-0.4</weight>
       </li>
     </scoreWeight>
+    <scopes>
+      <li>
+        <traitDefname>Nerves</traitDefname>
+        <degree>2</degree>
+        <ceterOffset>0.75</ceterOffset>
+        <range>0.25</range>
+      </li>
+      <li>
+        <traitDefname>Nerves</traitDefname>
+        <degree>1</degree>
+        <ceterOffset>0.5</ceterOffset>
+        <range>0.5</range>
+      </li>
+      <li>
+        <traitDefname>Nerves</traitDefname>
+        <degree>-1</degree>
+        <ceterOffset>-0.5</ceterOffset>
+        <range>0.5</range>
+      </li>
+      <li>
+        <traitDefname>Nerves</traitDefname>
+        <degree>-2</degree>
+        <ceterOffset>-0.75</ceterOffset>
+        <range>0.25</range>
+      </li>
+    </scopes>
+    <scopes>
+      <li>
+        <traitDefname>Neurotic</traitDefname>
+        <degree>1</degree>
+        <ceterOffset>-0.5</ceterOffset>
+        <range>0.5</range>
+      </li>
+      <li>
+        <traitDefname>Nerves</traitDefname>
+        <degree>2</degree>
+        <ceterOffset>-0.5</ceterOffset>
+        <range>0.5</range>
+      </li>
+    </scopes>
   </Maux36.RimPsyche.PersonalityDef>
 
   <Maux36.RimPsyche.PersonalityDef>
@@ -1128,6 +1168,11 @@
       <li>
         <traitDefname>Ascetic</traitDefname>
         <ceterOffset>-0.5</ceterOffset>
+        <range>0.5</range>
+      </li>
+      <li>
+        <traitDefname>Greedy</traitDefname>
+        <ceterOffset>0.5</ceterOffset>
         <range>0.5</range>
       </li>
     </scopes>

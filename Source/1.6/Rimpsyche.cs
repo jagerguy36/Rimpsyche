@@ -17,14 +17,13 @@ namespace Maux36.RimPsyche
 
             if (ModsConfig.IsActive("maux36.rimpsyche.sexuality"))
             {
-                Log.Message("[Rimpsyche] Sexuality module loaded.");
                 SexualityModuleLoaded = true;
             }
 
-            if (!ModsConfig.IsActive("zetrith.prepatcher"))
-            {
-                Log.Warning("[Rimpsyche] Prepatcher not detected. For optimal performance, Prepatcher is highly recommended.");
-            }
+            //if (!ModsConfig.IsActive("zetrith.prepatcher"))
+            //{
+            //    Log.Warning("[Rimpsyche] Prepatcher not detected. For optimal performance, Prepatcher is highly recommended.");
+            //}
         }
         public override string SettingsCategory()
         {
@@ -46,6 +45,8 @@ namespace Maux36.RimPsyche
 
             listing_Standard.Label("RimpsycheGeneralSetting".Translate());
             listing_Standard.Gap(12f);
+            listing_Standard.CheckboxLabeled("RimpsycheAllowFacetEdit".Translate(), ref RimpsycheSettings.allowFacetEdit, "RimpsycheAllowFacetEditTooltip".Translate());
+            listing_Standard.Gap(6f);
 
             listing_Standard.End();
             Widgets.EndScrollView();

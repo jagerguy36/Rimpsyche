@@ -1,5 +1,4 @@
 ﻿using RimWorld;
-using Verse;
 
 namespace Maux36.RimPsyche
 {
