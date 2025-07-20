@@ -8,7 +8,6 @@ namespace Maux36.RimPsyche
     {
         public static InteractionDef Rimpsyche_Smalltalk;
         public static InteractionDef Rimpsyche_Conversation;
-        public static InteractionDef Rimpsyche_ReportConversation;
 
         public static RulePackDef Sentence_RimpsycheConversationSuccess;
         public static RulePackDef Sentence_RimpsycheConversationFail;

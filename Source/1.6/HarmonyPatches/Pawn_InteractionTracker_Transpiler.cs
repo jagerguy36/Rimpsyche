@@ -1,6 +1,9 @@
 ﻿using HarmonyLib;
 using RimWorld;
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 using System.Reflection.Emit;
 using Verse;
 
@@ -55,5 +58,55 @@ namespace Maux36.RimPsyche
                 return mult * (1f - 0.7f * sociability);
             }
         );
+
+        [HarmonyPatch(typeof(Pawn_InteractionsTracker), nameof(Pawn_InteractionsTracker.TryInteractWith))]
+        public static class Patch_TryInteractWith
+        {
+            static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
+            {
+                List<CodeInstruction> codes = instructions.ToList();
+
+                var defNameField = AccessTools.Field(typeof(Def), nameof(Def.defName));
+                var stringEquals = AccessTools.Method(typeof(Patch_TryInteractWith), nameof(Tester));
+                var playLogAdd = AccessTools.Method(typeof(PlayLog), nameof(PlayLog.Add));
+                var logEntryCtor = AccessTools.Constructor(typeof(PlayLogEntry_Interaction), new[] { typeof(InteractionDef), typeof(Pawn), typeof(Pawn), typeof(List<RulePackDef>) });
+                Label returnTrueLabel = generator.DefineLabel();
+                bool foundInjection = false;
+
+                for (int i = 0; i < codes.Count; i++)
+                {
+                    CodeInstruction code = codes[i];
+
+                    if (!foundInjection && i + 5 < codes.Count)
+                    {
+                        var instr = codes[i];
+                        var instr2 = codes[i + 5];
+                        if (instr.opcode == OpCodes.Ldarg_2 && instr2.opcode == OpCodes.Newobj && Equals(instr2.operand, logEntryCtor))
+                        {
+                            foundInjection = true;
+                            // Inject the conditional before stloc.s playLogEntry_Interaction
+                            yield return new CodeInstruction(OpCodes.Ldarg_2).MoveLabelsFrom(code);
+                            yield return new CodeInstruction(OpCodes.Ldfld, defNameField);
+                            yield return new CodeInstruction(OpCodes.Ldstr, "Rimpsyche_Conversation");
+                            yield return new CodeInstruction(OpCodes.Call, stringEquals);
+                            yield return new CodeInstruction(OpCodes.Brfalse_S, returnTrueLabel);
+
+                            yield return new CodeInstruction(OpCodes.Ldc_I4_1);
+                            yield return new CodeInstruction(OpCodes.Ret);
+                            code.labels.Add(returnTrueLabel);
+                        }
+                    }
+                    yield return code;
+                }
+            }
+            public static bool Tester(string a, string b)
+            {
+                if (a == b)
+                {
+                    return true;
+                }
+                return false;
+            }
+        }
     }
 }

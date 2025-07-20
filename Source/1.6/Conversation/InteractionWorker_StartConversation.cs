@@ -82,10 +82,6 @@ namespace Maux36.RimPsyche
                 float initInterestScore = recipientPsyche.Interests.GetOrCreateInterestScore(convoInterest) * 0.01f;
                 float reciInterestScore = recipientPsyche.Interests.GetOrCreateInterestScore(convoInterest) * 0.01f;
 
-                //Add hailing log first
-                PlayLogEntry_InteractionConversation entry = new PlayLogEntry_InteractionConversation(DefOfRimpsyche.Rimpsyche_ReportConversation, initiator, recipient, convoTopic.name, convoTopic.label, null);
-                Find.PlayLog.Add(entry);
-
                 //If the opinion is negative, there is a chance for the pawn to brush off the conversation.
                 if (reciOpinion < 0)
                 {
@@ -214,6 +210,9 @@ namespace Maux36.RimPsyche
                     Rimpsyche_Utility.GainCoversationMemoryFast(convoTopic.name, convoTopic.label, reciOpinionOffset, recipient, initiator);
                     if (reciOpinionOffset > 0) recipientPsyche.AffectPawn(reciOpinionOffset, reciOpinion, convoTopic, -initDirection);
                 }
+
+                PlayLogEntry_InteractionConversation entry = new PlayLogEntry_InteractionConversation(DefOfRimpsyche.Rimpsyche_Conversation, initiator, recipient, convoTopic.name, convoTopic.label, extraSentencePacks);
+                Find.PlayLog.Add(entry);
             }
         }
     }

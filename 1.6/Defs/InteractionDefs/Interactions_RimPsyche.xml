@@ -33,12 +33,14 @@
 
   <InteractionDef>
     <defName>Rimpsyche_Conversation</defName>
-    <label>ended conversation</label>
+    <label>conversation</label>
     <workerClass>Maux36.RimPsyche.InteractionWorker_StartConversation</workerClass>
     <symbol>Things/Mote/SpeechSymbols/Conversation</symbol>
     <logRulesInitiator>
       <rulesStrings>
-        <li>r_logentry->...</li>
+        <li>r_logentry->[INITIATOR_nameDef] hailed [RECIPIENT_nameDef] for a conversation about {0}.</li>
+        <li>r_logentry->[INITIATOR_nameDef] started talking about {0} to [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] started talking to [RECIPIENT_nameDef] about {0}.</li>
       </rulesStrings>
     </logRulesInitiator>
   </InteractionDef>
@@ -108,20 +110,6 @@
       </rulesStrings>
     </rulePack>
   </RulePackDef>
-
-  <InteractionDef>
-    <defName>Rimpsyche_ReportConversation</defName>
-    <label>started conversation</label>
-    <workerClass>InteractionWorker_DeepTalk</workerClass>
-    <symbol>Things/Mote/SpeechSymbols/Hail</symbol>
-    <logRulesInitiator>
-      <rulesStrings>
-        <li>r_logentry->[INITIATOR_nameDef] hailed [RECIPIENT_nameDef] for a conversation about {0}.</li>
-        <li>r_logentry->[INITIATOR_nameDef] started talking about {0} to [RECIPIENT_nameDef].</li>
-        <li>r_logentry->[INITIATOR_nameDef] started talking to [RECIPIENT_nameDef] about {0}.</li>
-      </rulesStrings>
-    </logRulesInitiator>
-  </InteractionDef>
 
   <RulePackDef>
     <defName>Sentence_RimpsycheSocialFightConvoInitiatorStarted</defName>
