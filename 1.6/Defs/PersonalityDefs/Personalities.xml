@@ -56,11 +56,6 @@
         <ceterOffset>-0.75</ceterOffset>
         <range>0.25</range>
       </li>
-      <li>
-        <traitDefname>TooSmart</traitDefname>
-        <ceterOffset>-0.5</ceterOffset>
-        <range>0.5</range>
-      </li>
     </scopes>
   </Maux36.RimPsyche.PersonalityDef>
 
@@ -473,12 +468,12 @@
     <description>Reflects a person's ability to maintain focus, self-control, and adherence to rules or routines. Disciplined individuals are good at sticking to plans, resisting impulses, and working consistently towards goals. Undisciplined individuals may struggle with consistency, be easily distracted, or have difficulty following through.</description>
     <scoreWeight>
       <li>
-        <facet>Industriousness</facet>
-        <weight>0.15</weight>
+        <facet>Imagination</facet>
+        <weight>-0.05</weight>
       </li>
       <li>
-        <facet>Orderliness</facet>
-        <weight>0.05</weight>
+        <facet>Industriousness</facet>
+        <weight>0.15</weight>
       </li>
       <li>
         <facet>Integrity</facet>
@@ -609,6 +604,47 @@
         <ceterOffset>-0.5</ceterOffset>
         <range>0.5</range>
       </li>
+      <li>
+        <traitDefname>TooSmart</traitDefname>
+        <ceterOffset>0.5</ceterOffset>
+        <range>0.5</range>
+      </li>
+      <li>
+        <traitDefname>Nerves</traitDefname>
+        <degree>2</degree>
+        <ceterOffset>-0.75</ceterOffset>
+        <range>0.25</range>
+      </li>
+      <li>
+        <traitDefname>Nerves</traitDefname>
+        <degree>1</degree>
+        <ceterOffset>-0.5</ceterOffset>
+        <range>0.5</range>
+      </li>
+      <li>
+        <traitDefname>Nerves</traitDefname>
+        <degree>-1</degree>
+        <ceterOffset>0.5</ceterOffset>
+        <range>0.5</range>
+      </li>
+      <li>
+        <traitDefname>Nerves</traitDefname>
+        <degree>-2</degree>
+        <ceterOffset>0.75</ceterOffset>
+        <range>0.25</range>
+      </li>
+      <li>
+        <traitDefname>Neurotic</traitDefname>
+        <degree>1</degree>
+        <ceterOffset>0.5</ceterOffset>
+        <range>0.5</range>
+      </li>
+      <li>
+        <traitDefname>Nerves</traitDefname>
+        <degree>2</degree>
+        <ceterOffset>0.75</ceterOffset>
+        <range>0.25</range>
+      </li>
     </scopes>
   </Maux36.RimPsyche.PersonalityDef>
 
@@ -653,6 +689,10 @@
     <description>Reflects how consistent and steady a person's emotional state tends to be. Stable individuals maintain an even emotional baseline, experiencing fewer mood swings and responding to situations with emotional consistency. In contrast, unstable individuals experience more frequent and intense emotional shifts, often reacting more strongly to events.</description>
     <scoreWeight>
       <li>
+        <facet>Imagination</facet>
+        <weight>0.1</weight>
+      </li>
+      <li>
         <facet>Orderliness</facet>
         <weight>0.1</weight>
       </li>
@@ -674,35 +714,9 @@
       </li>
       <li>
         <facet>Insecurity</facet>
-        <weight>-0.2</weight>
+        <weight>-0.1</weight>
       </li>
     </scoreWeight>
-    <scopes>
-      <li>
-        <traitDefname>Nerves</traitDefname>
-        <degree>2</degree>
-        <ceterOffset>0.75</ceterOffset>
-        <range>0.25</range>
-      </li>
-      <li>
-        <traitDefname>Nerves</traitDefname>
-        <degree>1</degree>
-        <ceterOffset>0.5</ceterOffset>
-        <range>0.5</range>
-      </li>
-      <li>
-        <traitDefname>Nerves</traitDefname>
-        <degree>-1</degree>
-        <ceterOffset>-0.5</ceterOffset>
-        <range>0.5</range>
-      </li>
-      <li>
-        <traitDefname>Nerves</traitDefname>
-        <degree>-2</degree>
-        <ceterOffset>-0.75</ceterOffset>
-        <range>0.25</range>
-      </li>
-    </scopes>
   </Maux36.RimPsyche.PersonalityDef>
 
   <Maux36.RimPsyche.PersonalityDef>
@@ -836,12 +850,16 @@
         <weight>0.1</weight>
       </li>
       <li>
+        <facet>Sociability</facet>
+        <weight>0.1</weight>
+      </li>
+      <li>
         <facet>Compassion</facet>
         <weight>0.45</weight>
       </li>
       <li>
         <facet>Cooperation</facet>
-        <weight>0.3</weight>
+        <weight>0.2</weight>
       </li>
       <li>
         <facet>Humbleness</facet>
@@ -986,7 +1004,7 @@
     <scoreWeight>
       <li>
         <facet>Imagination</facet>
-        <weight>0.05</weight>
+        <weight>0.1</weight>
       </li>
       <li>
         <facet>Curiosity</facet>
@@ -998,7 +1016,7 @@
       </li>
       <li>
         <facet>Enthusiasm</facet>
-        <weight>0.45</weight>
+        <weight>0.4</weight>
       </li>
       <li>
         <facet>Pessimism</facet>
@@ -1094,20 +1112,6 @@
         <range>0.25</range>
       </li>
     </scopes>
-    <scopes>
-      <li>
-        <traitDefname>Neurotic</traitDefname>
-        <degree>1</degree>
-        <ceterOffset>-0.5</ceterOffset>
-        <range>0.5</range>
-      </li>
-      <li>
-        <traitDefname>Nerves</traitDefname>
-        <degree>2</degree>
-        <ceterOffset>-0.5</ceterOffset>
-        <range>0.5</range>
-      </li>
-    </scopes>
   </Maux36.RimPsyche.PersonalityDef>
 
   <Maux36.RimPsyche.PersonalityDef>
@@ -1122,6 +1126,10 @@
         <weight>0.35</weight>
       </li>
       <li>
+        <facet>Sociability</facet>
+        <weight>0.05</weight>
+      </li>
+      <li>
         <facet>Compassion</facet>
         <weight>0.1</weight>
       </li>
@@ -1131,7 +1139,7 @@
       </li>
       <li>
         <facet>Humbleness</facet>
-        <weight>0.2</weight>
+        <weight>0.15</weight>
       </li>
     </scoreWeight>
   </Maux36.RimPsyche.PersonalityDef>

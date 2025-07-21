@@ -209,6 +209,118 @@
               </li>
             </weights>
           </li>
+          <li>
+             <!-- + : worried | - : adventurous -->
+            <name>dangers</name>
+            <label>dangers</label>
+            <controversiality>0.5</controversiality>
+            <weights>
+              <li>
+                <facet>Orderliness</facet>
+                <weight>0.1</weight>
+              </li>
+              <li>
+                <facet>Curiosity</facet>
+                <weight>-0.3</weight>
+              </li>
+              <li>
+                <facet>Enthusiasm</facet>
+                <weight>-0.3</weight>
+              </li>
+              <li>
+                <facet>Pessimism</facet>
+                <weight>0.3</weight>
+            </li>
+            </weights>
+          </li>
+          <li>
+             <!-- + : collective effort | - : less inclined -->
+            <name>survival_together</name>
+            <label>surviving together</label>
+            <controversiality>0</controversiality>
+            <weights>
+              <li>
+                <facet>Compassion</facet>
+                <weight>0.4</weight>
+              </li>
+              <li>
+                <facet>Cooperation</facet>
+                <weight>0.4</weight>
+              </li>
+              <li>
+                <facet>Humbleness</facet>
+                <weight>0.1</weight>
+              </li>
+              <li>
+                <facet>Integrity</facet>
+                <weight>0.05</weight>
+              </li>
+              <li>
+                <facet>Industriousness</facet>
+                <weight>0.05</weight>
+              </li>
+            </weights>
+          </li>
+          <li>
+             <!-- + : enjoy eating, dining | - : food is fuel -->
+            <name>food</name>
+            <label>food</label>
+            <controversiality>0</controversiality>
+            <weights>
+              <li>
+                <facet>Enthusiasm</facet>
+                <weight>0.3</weight>
+              </li>
+              <li>
+                <facet>Sociability</facet>
+                <weight>0.2</weight>
+              </li>
+              <li>
+                <facet>Compassion</facet>
+                <weight>0.15</weight>
+              </li>
+              <li>
+                <facet>Industriousness</facet>
+                <weight>0.1</weight>
+              </li>
+              <li>
+                <facet>Pessimism</facet>
+                <weight>-0.15</weight>
+              </li>
+              <li>
+                <facet>Volatility</facet>
+                <weight>-0.1</weight>
+            </li>
+            </weights>
+          </li>
+          <li>
+             <!-- + : willing | - : prefer self-reliance, reluctance -->
+            <name>help</name>
+            <label>help</label>
+            <controversiality>0.3</controversiality>
+            <weights>
+              <li>
+                <facet>Compassion</facet>
+                <weight>0.4</weight>
+              </li>
+              <li>
+                <facet>Cooperation</facet>
+                <weight>0.3</weight>
+              </li>
+              <li>
+                <facet>Humbleness</facet>
+                <weight>0.1</weight>
+              </li>
+              <li>
+                <facet>Integrity</facet>
+                <weight>0.1</weight>
+              </li>
+              <li>
+                <facet>Insecurity</facet>
+                <weight>-0.1</weight>
+              </li>
+            </weights>
+          </li>
         </topics>
       </li>
 
@@ -418,6 +530,142 @@
               <li>
                 <facet>Insecurity</facet>
                 <weight>-0.35</weight>
+              </li>
+            </weights>
+          </li>
+          <li>
+            <!-- + : idealistic | - : realistic -->
+            <name>ambition</name>
+            <label>ambition</label>
+            <controversiality>0</controversiality>
+            <weights>
+              <li>
+                <facet>Industriousness</facet>
+                <weight>0.3</weight>
+              </li>
+              <li>
+                <facet>Intellect</facet>
+                <weight>0.15</weight>
+              </li>
+              <li>
+                <facet>Assertiveness</facet>
+                <weight>0.2</weight>
+              </li>
+              <li>
+                <facet>Enthusiasm</facet>
+                <weight>0.15</weight>
+              </li>
+              <li>
+                <facet>Pessimism</facet>
+                <weight>-0.15</weight>
+              </li>
+              <li>
+                <facet>Insecurity</facet>
+                <weight>-0.05</weight>
+              </li>
+            </weights>
+          </li>
+          <li>
+            <!-- + : analytical-approach | - : emotional-approach -->
+            <name>regrets</name>
+            <label>regrets</label>
+            <controversiality>0</controversiality>
+            <weights>
+              <li>
+                <facet>Imagination</facet>
+                <weight>0.25</weight>
+              </li>
+              <li>
+                <facet>Intellect</facet>
+                <weight>-0.25</weight>
+              </li>
+              <li>
+                <facet>Compassion</facet>
+                <weight>0.2</weight>
+              </li>
+              <li>
+                <facet>Industriousness</facet>
+                <weight>-0.1</weight>
+              </li>
+              <li>
+                <facet>Insecurity</facet>
+                <weight>0.1</weight>
+              </li>
+              <li>
+                <facet>Integrity</facet>
+                <weight>0.1</weight>
+              </li>
+            </weights>
+          </li>
+          <li>
+            <!-- + : visionary/idealistic orientation | - : pragmatic/restrained orientation -->
+            <name>dreams</name>
+            <label>dreams</label>
+            <controversiality>0</controversiality>
+            <weights>
+              <li>
+                <facet>Imagination</facet>
+                <weight>0.35</weight>
+              </li>
+              <li>
+                <facet>Intellect</facet>
+                <weight>-0.1</weight>
+              </li>
+              <li>
+                <facet>Industriousness</facet>
+                <weight>-0.15</weight>
+              </li>
+              <li>
+                <facet>Integrity</facet>
+                <weight>0.1</weight>
+              </li>
+              <li>
+                <facet>Enthusiasm</facet>
+                <weight>0.1</weight>
+              </li>
+              <li>
+                <facet>Compassion</facet>
+                <weight>0.05</weight>
+              </li>
+              <li>
+                <facet>Pessimism</facet>
+                <weight>-0.15</weight>
+              </li>
+            </weights>
+          </li>
+          <li>
+            <!-- + : hypervigilant/reactive orientation | - : stoic/stable orientation -->
+            <name>anxiety</name>
+            <label>anxiety</label>
+            <controversiality>0</controversiality>
+            <weights>
+              <li>
+                <facet>Volatility</facet>
+                <weight>0.2</weight>
+              </li>
+              <li>
+                <facet>Pessimism</facet>
+                <weight>0.2</weight>
+              </li>
+              <li>
+                <facet>Insecurity</facet>
+                <weight>0.25</weight>
+              </li>
+              <li>
+                <facet>Imagination</facet>
+                <weight>0.1</weight>
+              </li>
+              <li>
+                <facet>Intellect</facet>
+                <weight>-0.1</weight>
+              </li>
+              <li>
+                <facet>Enthusiasm</facet>
+                <weight>-0.05</weight>
+              </li>
+              <li>
+                <facet>Assertiveness</facet>
+                <weight>-0.1</weight>
               </li>
             </weights>
           </li>
@@ -672,6 +920,95 @@
               </li>
             </weights>
            </li>
+           <li>
+            <!-- + : rest-oriented attitude | - : productivity-oriented attitude -->
+            <name>breaks</name>
+            <label>breaks</label>
+            <controversiality>0</controversiality>
+            <weights>
+              <li>
+                <facet>Industriousness</facet>
+                <weight>-0.3</weight>
+              </li>
+              <li>
+                <facet>Orderliness</facet>
+                <weight>-0.15</weight>
+              </li>
+              <li>
+                <facet>Enthusiasm</facet>
+                <weight>0.2</weight>
+              </li>
+              <li>
+                <facet>Volatility</facet>
+                <weight>0.2</weight>
+              </li>
+              <li>
+                <facet>Sociability</facet>
+                <weight>0.05</weight>
+              </li>
+              <li>
+                <facet>Insecurity</facet>
+                <weight>-0.1</weight>
+              </li>
+            </weights>
+          </li>
+          <li>
+            <!-- + : self-improvement | - : contentment -->
+            <name>progress</name>
+            <label>progress</label>
+            <controversiality>0</controversiality>
+            <weights>
+              <li>
+                <facet>Industriousness</facet>
+                <weight>0.4</weight>
+              </li>
+              <li>
+                <facet>Orderliness</facet>
+                <weight>0.2</weight>
+              </li>
+              <li>
+                <facet>Insecurity</facet>
+                <weight>0.1</weight>
+              </li>
+              <li>
+                <facet>Enthusiasm</facet>
+                <weight>0.1</weight>
+              </li>
+              <li>
+                <facet>Humbleness</facet>
+                <weight>-0.2</weight>
+              </li>
+            </weights>
+          </li>
+          <li>
+            <!-- + : responsible | - : disengaged -->
+            <name>work_assignment</name>
+            <label>work_assignment</label>
+            <controversiality>0</controversiality>
+            <weights>
+              <li>
+                <facet>Industriousness</facet>
+                <weight>0.4</weight>
+              </li>
+              <li>
+                <facet>Orderliness</facet>
+                <weight>0.3</weight>
+              </li>
+              <li>
+                <facet>Integrity</facet>
+                <weight>0.15</weight>
+              </li>
+              <li>
+                <facet>Enthusiasm</facet>
+                <weight>0.05</weight>
+              </li>
+              <li>
+                <facet>Pessimism</facet>
+                <weight>-0.1</weight>
+              </li>
+            </weights>
+          </li>
+
         </topics>
       </li>
 
@@ -903,6 +1240,102 @@
                 <facet>Insecurity</facet>
                 <weight>-0.1</weight>
             </li>
+            </weights>
+          </li>
+          <li>
+            <!-- + : nostalgic, emotionally attached to origins | - : detached or pragmatic about origins -->
+            <name>first_experiences</name>
+            <label>first experiences</label>
+            <controversiality>0</controversiality>
+            <weights>
+              <li>
+                <facet>Imagination</facet>
+                <weight>0.25</weight>
+              </li>
+              <li>
+                <facet>Intellect</facet>
+                <weight>-0.1</weight>
+              </li>
+              <li>
+                <facet>Orderliness</facet>
+                <weight>0.10</weight>
+              </li>
+              <li>
+                <facet>Integrity</facet>
+                <weight>0.15</weight>
+              </li>
+              <li>
+                <facet>Compassion</facet>
+                <weight>0.15</weight>
+              </li>
+              <li>
+                <facet>Enthusiasm</facet>
+                <weight>0.10</weight>
+              </li>
+              <li>
+                <facet>Pessimism</facet>
+                <weight>-0.15</weight>
+              </li>
+            </weights>
+          </li>
+          <li>
+            <!-- + : celebratory | - : indifferent -->
+            <name>birthdays</name>
+            <label>birthdays</label>
+            <controversiality>0</controversiality>
+            <weights>
+              <li>
+                <facet>Sociability</facet>
+                <weight>0.3</weight>
+              </li>
+              <li>
+                <facet>Compassion</facet>
+                <weight>0.2</weight>
+              </li>
+              <li>
+                <facet>Enthusiasm</facet>
+                <weight>0.2</weight>
+              </li>
+              <li>
+                <facet>Humbleness</facet>
+                <weight>-0.2</weight>
+              </li>
+              <li>
+                <facet>Insecurity</facet>
+                <weight>-0.1</weight>
+              </li>
+            </weights>
+          </li>
+          <li>
+            <!-- + : nostalgic/origin-oriented | - : detached/forward-looking -->
+            <name>significant_places</name>
+            <label>significant_places</label>
+            <controversiality>0</controversiality>
+            <weights>
+              <li>
+                <facet>Imagination</facet>
+                <weight>0.3</weight>
+              </li>
+              <li>
+                <facet>Curiosity</facet>
+                <weight>-0.2</weight>
+              </li>
+              <li>
+                <facet>Sociability</facet>
+                <weight>0.2</weight>
+              </li>
+              <li>
+                <facet>Volatility</facet>
+                <weight>-0.1</weight>
+              </li>
+              <li>
+                <facet>Pessimism</facet>
+                <weight>-0.1</weight>
+              </li>
+              <li>
+                <facet>Insecurity</facet>
+                <weight>-0.1</weight>
+              </li>
             </weights>
           </li>
         </topics>
@@ -1137,6 +1570,99 @@
               </li>
             </weights>
           </li>
+          <li>
+            <!-- + : communal/collectivist orientation | - : individualist/autonomy orientation -->
+            <name>collective_goals</name>
+            <label>collective goals</label>
+            <controversiality>0</controversiality>
+            <weights>
+              <li>
+                <facet>Cooperation</facet>
+                <weight>0.35</weight>
+              </li>
+              <li>
+                <facet>Compassion</facet>
+                <weight>0.15</weight>
+              </li>
+              <li>
+                <facet>Integrity</facet>
+                <weight>0.15</weight>
+              </li>
+              <li>
+                <facet>Industriousness</facet>
+                <weight>0.1</weight>
+              </li>
+              <li>
+                <facet>Sociability</facet>
+                <weight>0.15</weight>
+              </li>
+              <li>
+                <facet>Assertiveness</facet>
+                <weight>-0.1</weight>
+              </li>
+            </weights>
+          </li>
+          <li>
+            <!-- + : community-growth orientation | - : self-reliance/protectionist orientation -->
+            <name>recruiting</name>
+            <label>recruiting</label>
+            <controversiality>0</controversiality>
+            <weights>
+              <li>
+                <facet>Curiosity</facet>
+                <weight>0.3</weight>
+              </li>
+              <li>
+                <facet>Sociability</facet>
+                <weight>0.25</weight>
+              </li>
+              <li>
+                <facet>Compassion</facet>
+                <weight>0.2</weight>
+              </li>
+              <li>
+                <facet>Insecurity</facet>
+                <weight>-0.15</weight>
+              </li>
+              <li>
+                <facet>Pessimism</facet>
+                <weight>-0.1</weight>
+              </li>
+            </weights>
+          </li>
+          <li>
+            <!-- + : empathic/integrative orientation | - : punitive/exclusionary orientation -->
+            <name>prisoners</name>
+            <label>prisoners</label>
+            <controversiality>0</controversiality>
+            <weights>
+              <li>
+                <facet>Compassion</facet>
+                <weight>0.3</weight>
+              </li>
+              <li>
+                <facet>Orderliness</facet>
+                <weight>-0.2</weight>
+              </li>
+              <li>
+                <facet>Intellect</facet>
+                <weight>0.1</weight>
+              </li>
+              <li>
+                <facet>Integrity</facet>
+                <weight>0.2</weight>
+              </li>
+              <li>
+                <facet>Pessimism</facet>
+                <weight>-0.1</weight>
+              </li>
+              <li>
+                <facet>Cooperation</facet>
+                <weight>0.1</weight>
+              </li>
+            </weights>
+          </li>
+
         </topics>
       </li>
 
@@ -1309,30 +1835,34 @@
             </weights>
           </li>
           <li>
-            <!-- + :A strong sense of self. confidence in one's personal self; a desire to express individuality. | - : Discomfort with one's self-perception; Blend in or adopt external identities rather than expressing a unique self. -->
+            <!-- + : internally-grounded, reflective identity | - : externally-reactive, fluid/self-doubting identity -->
             <name>identity</name>
             <label>identity</label>
             <controversiality>0</controversiality>
             <weights>
               <li>
                 <facet>Intellect</facet>
-                <weight>0.2</weight>
-              </li>
-              <li>
-                <facet>Assertiveness</facet>
-                <weight>0.2</weight>
-              </li>
-              <li>
-                <facet>Humbleness</facet>
-                <weight>-0.35</weight>
+                <weight>0.25</weight>
               </li>
               <li>
                 <facet>Integrity</facet>
-                <weight>0.1</weight>
+                <weight>0.25</weight>
+              </li>
+              <li>
+                <facet>Imagination</facet>
+                <weight>0.15</weight>
               </li>
               <li>
                 <facet>Insecurity</facet>
-                <weight>-0.15</weight>
+                <weight>-0.2</weight>
+              </li>
+              <li>
+                <facet>Assertiveness</facet>
+                <weight>-0.1</weight>
+              </li>
+              <li>
+                <facet>Humbleness</facet>
+                <weight>0.05</weight>
               </li>
             </weights>
           </li>
@@ -1361,6 +1891,110 @@
               <li>
                 <facet>Insecurity</facet>
                 <weight>-0.2</weight>
+              </li>
+            </weights>
+          </li>
+          <li>
+            <!-- + : religion as core personal identity | - : religion as peripheral or rejected identity -->
+            <name>religion</name>
+            <label>religion</label>
+            <controversiality>0</controversiality>
+            <weights>
+              <li>
+                <facet>Integrity</facet>
+                <weight>0.3</weight>
+              </li>
+              <li>
+                <facet>Orderliness</facet>
+                <weight>0.2</weight>
+              </li>
+              <li>
+                <facet>Compassion</facet>
+                <weight>0.1</weight>
+              </li>
+              <li>
+                <facet>Humbleness</facet>
+                <weight>0.1</weight>
+              </li>
+              <li>
+                <facet>Intellect</facet>
+                <weight>-0.2</weight>
+              </li>
+              <li>
+                <facet>Sociability</facet>
+                <weight>0.1</weight>
+              </li>
+            </weights>
+          </li>
+          <li>
+            <!-- + : introspective/contemplative orientation | - : pragmatic/externally oriented orientation -->
+            <name>self_reflection</name>
+            <label>self_reflection</label>
+            <controversiality>0</controversiality>
+            <weights>
+              <li>
+                <facet>Imagination</facet>
+                <weight>0.1</weight>
+              </li>
+              <li>
+                <facet>Intellect</facet>
+                <weight>0.3</weight>
+              </li>
+              <li>
+                <facet>Curiosity</facet>
+                <weight>0.1</weight>
+              </li>
+              <li>
+                <facet>Integrity</facet>
+                <weight>0.2</weight>
+              </li>
+              <li>
+                <facet>Humbleness</facet>
+                <weight>0.15</weight>
+              </li>
+              <li>
+                <facet>Insecurity</facet>
+                <weight>0.05</weight>
+              </li>
+              <li>
+                <facet>Sociability</facet>
+                <weight>-0.10</weight>
+              </li>
+            </weights>
+          </li>
+          <li>
+            <!-- + : strongly principled/self-defined orientation | - : flexible/relativistic orientation -->
+            <name>internal_values</name>
+            <label>internal values</label>
+            <controversiality>0</controversiality>
+            <weights>
+              <li>
+                <facet>Integrity</facet>
+                <weight>0.35</weight>
+              </li>
+              <li>
+                <facet>Industriousness</facet>
+                <weight>0.1</weight>
+              </li>
+              <li>
+                <facet>Intellect</facet>
+                <weight>0.2</weight>
+              </li>
+              <li>
+                <facet>Orderliness</facet>
+                <weight>0.10</weight>
+              </li>
+              <li>
+                <facet>Insecurity</facet>
+                <weight>-0.10</weight>
+              </li>
+              <li>
+                <facet>Curiosity</facet>
+                <weight>-0.10</weight>
+              </li>
+              <li>
+                <facet>Cooperation</facet>
+                <weight>-0.05</weight>
               </li>
             </weights>
           </li>
