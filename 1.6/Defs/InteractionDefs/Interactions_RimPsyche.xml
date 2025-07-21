@@ -38,9 +38,10 @@
     <symbol>Things/Mote/SpeechSymbols/Conversation</symbol>
     <logRulesInitiator>
       <rulesStrings>
-        <li>r_logentry->[INITIATOR_nameDef] hailed [RECIPIENT_nameDef] for a conversation about {0}.</li>
-        <li>r_logentry->[INITIATOR_nameDef] started talking about {0} to [RECIPIENT_nameDef].</li>
-        <li>r_logentry->[INITIATOR_nameDef] started talking to [RECIPIENT_nameDef] about {0}.</li>
+        <li>r_logentry->[INITIATOR_nameDef] struck up a conversation with [RECIPIENT_nameDef] about {0}.</li>
+        <li>r_logentry->[INITIATOR_nameDef] kicked off a discussion with [RECIPIENT_nameDef] on {0}.</li>
+        <li>r_logentry->[INITIATOR_nameDef] brought up {0} with [RECIPIENT_nameDef] in their conversation.</li>
+        <li>r_logentry->[INITIATOR_nameDef] engaged [RECIPIENT_nameDef] in a conversation about {0}.</li>
       </rulesStrings>
     </logRulesInitiator>
   </InteractionDef>
@@ -49,9 +50,9 @@
     <defName>Sentence_RimpsycheConversationPositiveGood</defName>
     <rulePack>
       <rulesStrings>
-        <li>sent->They found common ground and enjoyed a pleasant chat.</li>
-        <li>sent->A shared understanding quickly formed as they discussed their similar views.</li>
-        <li>sent->Shared perspectives made their conversation mutually satisfying.</li>
+        <li>sent->They quickly found common ground, making the conversation feel easy and natural.</li>
+        <li>sent->Their discussion flowed easily, with shared views making things smooth.</li>
+        <li>sent->Both of them enjoyed the exchange, finding common ground on the topic.</li>
       </rulesStrings>
     </rulePack>
   </RulePackDef>
@@ -60,9 +61,9 @@
     <defName>Sentence_RimpsycheConversationPositiveBad</defName>
     <rulePack>
       <rulesStrings>
-        <li>sent->They saw eye-to-eye, but the chat still felt oddly uncomfortable.</li>
-        <li>sent->Their shared views didn't quite bridge a subtle awkwardness.</li>
-        <li>sent->Even with common ground, something about the interaction felt off.</li>
+        <li>sent->Though they agreed on many points, the conversation still felt a little strained.</li>
+        <li>sent->Even though they saw eye-to-eye, there was an underlying awkwardness.</li>
+        <li>sent->Although they found common ground, the conversation didn’t feel entirely comfortable.</li>
       </rulesStrings>
     </rulePack>
   </RulePackDef>
@@ -71,9 +72,9 @@
     <defName>Sentence_RimpsycheConversationNegativeGood</defName>
     <rulePack>
       <rulesStrings>
-        <li>sent->Despite differing views, they had a respectful conversation.</li>
-        <li>sent->Though opinions diverged, the discussion remained civil.</li>
-        <li>sent->They acknowledged their differences without animosity.</li>
+        <li>sent->Despite their differing views, they managed to have a civil conversation.</li>
+        <li>sent->Though their opinions diverged, they kept the discussion civil.</li>
+        <li>sent->Despite their differences, the conversation remained calm and respectful.</li>
       </rulesStrings>
     </rulePack>
   </RulePackDef>
@@ -82,31 +83,9 @@
     <defName>Sentence_RimpsycheConversationNegativeBad</defName>
     <rulePack>
       <rulesStrings>
-        <li>sent->Their clashing opinions sparked a tense exchange.</li>
-        <li>sent->Sharp words were exchanged as their views collided.</li>
-        <li>sent->Disagreement escalated, leaving both participants feeling frustrated.</li>
-      </rulesStrings>
-    </rulePack>
-  </RulePackDef>
-
-  <RulePackDef>
-    <defName>Sentence_RimpsycheConversationSuccess</defName>
-    <rulePack>
-      <rulesStrings>
-        <li>sent->they spoke for a while.</li>
-        <li>sent->they took a moment to talk.</li>
-        <li>sent->they chatted for some time.</li>
-      </rulesStrings>
-    </rulePack>
-  </RulePackDef>
-
-  <RulePackDef>
-    <defName>Sentence_RimpsycheConversationFail</defName>
-    <rulePack>
-      <rulesStrings>
-        <li>sent(p=2)->[RECIPIENT_nameDef] ignored [INITIATOR_objective].</li>
-        <li>sent->[RECIPIENT_nameDef] did not respond.</li>
-        <li>sent->[RECIPIENT_nameDef] brushed [INITIATOR_objective] off.</li>
+        <li>sent->Their differing views led to a tense exchange.</li>
+        <li>sent->Their discussion devolved into sharp words as views collided.</li>
+        <li>sent->The disagreement escalated quickly, making the conversation feel confrontational.</li>
       </rulesStrings>
     </rulePack>
   </RulePackDef>
@@ -131,6 +110,32 @@
         <li>sent->What started as a disagreement quickly turned into a fight when [RECIPIENT_nameDef] lost their temper!</li>
         <li>sent->Their clash of opinions turned personal, and [RECIPIENT_nameDef] initiated a fight!</li>
         <li>sent->The conversation became heated, culminating in [RECIPIENT_nameDef] starting a fight!</li>
+      </rulesStrings>
+    </rulePack>
+  </RulePackDef>
+
+  <InteractionDef>
+    <defName>Rimpsyche_ConversationAttempt</defName>
+    <label>conversation</label>
+    <workerClass>InteractionWorker_DeepTalk</workerClass>
+    <symbol>Things/Mote/SpeechSymbols/Hail</symbol>
+    <logRulesInitiator>
+      <rulesStrings>
+        <li>r_logentry->[INITIATOR_nameDef] hailed [RECIPIENT_nameDef] for a conversation about {0}.</li>
+        <li>r_logentry->[INITIATOR_nameDef] tried to talk about {0} with [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] tried to engage [RECIPIENT_nameDef] in a conversation about {0}.</li>
+        <li>r_logentry->[INITIATOR_nameDef] tried to open up a conversation with [RECIPIENT_nameDef] about {0}.</li>
+      </rulesStrings>
+    </logRulesInitiator>
+  </InteractionDef>
+
+  <RulePackDef>
+    <defName>Sentence_RimpsycheConversationFail</defName>
+    <rulePack>
+      <rulesStrings>
+        <li>sent(p=2)->[RECIPIENT_nameDef] ignored [INITIATOR_objective].</li>
+        <li>sent->[RECIPIENT_nameDef] did not respond.</li>
+        <li>sent->[RECIPIENT_nameDef] brushed [INITIATOR_objective] off.</li>
       </rulesStrings>
     </rulePack>
   </RulePackDef>

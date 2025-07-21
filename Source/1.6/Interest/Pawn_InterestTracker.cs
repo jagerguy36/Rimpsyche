@@ -88,7 +88,7 @@ namespace Maux36.RimPsyche
             }
         }
 
-        public Interest ChoseInterest()
+        public Interest ChooseInterest()
         {
             return GenCollection.RandomElementByWeight(RimpsycheDatabase.InterestList, GetOrCreateInterestScore);
         }

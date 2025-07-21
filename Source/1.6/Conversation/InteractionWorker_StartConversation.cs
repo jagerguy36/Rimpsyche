@@ -23,16 +23,16 @@ namespace Maux36.RimPsyche
                 float initTalkativeness = initiatorPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Talkativeness);
                 float initOpinion = (initiator.relations.OpinionOf(recipient)) * 0.01f; //-1~1
 
+                //TODO: fix logic
                 if (initOpinion < 0f)
                 {
-                    //TODO: fix logic
                     bool giveupConverse = initOpinion + initSociability + initSpontaneity + Rand.Value < 0f;
                     if (giveupConverse) return 0f;
                 }
                 float convoChance = 1f + initTalkativeness; // 0~[1]~2
                 float relationshipOffset = 1f + initOpinion; // 0~[1]~2 
                 convoChance += relationshipOffset; //0~[2]~4
-                return 0.8f * convoChance; //0~[1.6]~3.2
+                return 0.3f * convoChance; //0~[0.6]~1.2
             }
             else
             {
@@ -52,6 +52,8 @@ namespace Maux36.RimPsyche
             var recipientPsyche = recipient.compPsyche();
             if (initiatorPsyche != null && recipientPsyche != null)
             {
+                PlayLogEntry_InteractionConversation entry;
+
                 // -1 ~ 1
                 float initOpinion = initiator.relations.OpinionOf(recipient) * 0.01f;
                 float initTact = initiatorPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Tact);
@@ -76,7 +78,7 @@ namespace Maux36.RimPsyche
 
 
                 //Select the convo interest area by initiator. See if the recipient is willing to talk to the initiator about that area.
-                Interest convoInterest = initiatorPsyche.Interests.ChoseInterest();
+                Interest convoInterest = initiatorPsyche.Interests.ChooseInterest();
                 Topic convoTopic = convoInterest.GetRandomTopic((initiator.DevelopmentalStage.Juvenile() || recipient.DevelopmentalStage.Juvenile()), true); //TODO: NSFW check
                 // 0 ~ 1
                 float initInterestScore = recipientPsyche.Interests.GetOrCreateInterestScore(convoInterest) * 0.01f;
@@ -88,12 +90,15 @@ namespace Maux36.RimPsyche
                     float participateFactor = (reciInterestScore + reciSociability + reciOpinion + 2f) * 0.2f; // 0 ~ 1
                     if (Rand.Chance(1 - participateFactor))
                     {
-                        extraSentencePacks.Add(DefOfRimpsyche.Sentence_RimpsycheConversationFail);
+                        
                         initiator.needs?.mood?.thoughts?.memories?.TryGainMemory(DefOfRimpsyche.Rimpsyche_ConvoIgnored, recipient);
+
+                        extraSentencePacks.Add(DefOfRimpsyche.Sentence_RimpsycheConversationFail);
+                        entry = new PlayLogEntry_InteractionConversation(DefOfRimpsyche.Rimpsyche_ConversationAttempt, initiator, recipient, convoTopic.name, convoTopic.label, extraSentencePacks);
+                        Find.PlayLog.Add(entry);
                         return;
                     }
                 }
-                extraSentencePacks.Add(DefOfRimpsyche.Sentence_RimpsycheConversationSuccess);
 
                 //Conversation.
                 float topicAlignment = convoTopic.GetScore(initiator, recipient, out float initDirection); // -1~1 [0]
@@ -211,7 +216,7 @@ namespace Maux36.RimPsyche
                     if (reciOpinionOffset > 0) recipientPsyche.AffectPawn(reciOpinionOffset, reciOpinion, convoTopic, -initDirection);
                 }
 
-                PlayLogEntry_InteractionConversation entry = new PlayLogEntry_InteractionConversation(DefOfRimpsyche.Rimpsyche_Conversation, initiator, recipient, convoTopic.name, convoTopic.label, extraSentencePacks);
+                entry = new PlayLogEntry_InteractionConversation(DefOfRimpsyche.Rimpsyche_Conversation, initiator, recipient, convoTopic.name, convoTopic.label, extraSentencePacks);
                 Find.PlayLog.Add(entry);
             }
         }
