@@ -15,6 +15,8 @@ namespace Maux36.RimPsyche
         private Pawn_SexualityTracker sexuality;
 
         public int lastProgressTick = -1;
+        public float roomRoleFactor = 1f;
+        public int organizedMood = -1;
 
         private Pawn parentPawn
         {
@@ -134,6 +136,10 @@ namespace Maux36.RimPsyche
         public override void PostExposeData()
         {
             base.PostExposeData();
+            Scribe_Values.Look(ref lastProgressTick, "lastProgressTick", -1);
+            Scribe_Values.Look(ref roomRoleFactor, "roomRoleFactor", 1f);
+            Scribe_Values.Look(ref organizedMood, "organizedMood", -1);
+
             Scribe_Deep.Look(ref personality, "personality", new object[] { parent as Pawn });
             Scribe_Deep.Look(ref interests, "interests", new object[] { parent as Pawn });
             Scribe_Deep.Look(ref sexuality, "sexuality", new object[] { parent as Pawn });

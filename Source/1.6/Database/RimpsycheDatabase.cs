@@ -173,11 +173,11 @@ namespace Maux36.RimPsyche
             },
             [new Pair<string, int>("Neurotic", 1)] = new List<(Facet, float, float)>
             {
-                (Facet.Volatility, 25f, 25f)
+                (Facet.Orderliness, 25f, 25f)
             },
             [new Pair<string, int>("Neurotic", 2)] = new List<(Facet, float, float)>
             {
-                (Facet.Volatility, 25f, 25f)
+                (Facet.Orderliness, 25f, 25f)
             },
             [new Pair<string, int>("Industriousness", -2)] = new List<(Facet, float, float)>
             {
@@ -198,6 +198,14 @@ namespace Maux36.RimPsyche
             [new Pair<string, int>("Recluse", 0)] = new List<(Facet, float, float)>
             {
                 (Facet.Sociability, -25f, 25f)
+            },
+            [new Pair<string, int>("Bloodlust", 0)] = new List<(Facet, float, float)>
+            {
+                (Facet.Compassion, -25f, 25f)
+            },
+            [new Pair<string, int>("Kind", 0)] = new List<(Facet, float, float)>
+            {
+                (Facet.Compassion, 25f, 25f)
             }
         };
     }
