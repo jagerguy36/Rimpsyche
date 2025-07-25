@@ -23,9 +23,41 @@ namespace Maux36.RimPsyche
         public static readonly float innerPadding = 5f;
         public static readonly float scrollWidth = 20f;
 
+        private static readonly float RadarChartSize = 20f; // Diameter of the radar chart
+        private static readonly float RadarChartPadding = 10f; // Padding from the header text
+        private static readonly int NumberOfFacets = 15; // For a pentadecagon
+        private static Material _lineMaterial;
+
+        public static readonly float personalityLabelWidth = 130f;
+        public static readonly float personalityRowHeight = 28f;
+        public static readonly float personalityBarWidth = 80f;
+        public static readonly float personalityBarHeight = 4f;
+
+        static PsycheInfoCard()
+        {
+            EnsureMaterial();
+        }
+        private static void EnsureMaterial()
+        {
+            if (_lineMaterial == null)
+            {
+                Shader shader = Shader.Find("Hidden/Internal-Colored");
+                _lineMaterial = new Material(shader)
+                {
+                    hideFlags = HideFlags.HideAndDontSave
+                };
+                _lineMaterial.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
+                _lineMaterial.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
+                _lineMaterial.SetInt("_Cull", (int)UnityEngine.Rendering.CullMode.Off);
+                _lineMaterial.SetInt("_ZWrite", 0);
+            }
+        }
+
         //Cache
         private static List<PersonalityDisplayData> cachedPersonalityData = null;
         private static List<InterestDisplayData> cachedInterestData = null;
+        private static List<Vector2> cachedValuePointData = null;
+        private static List<Vector2> cachedMaxPointData = null;
         private static Pawn lastPawn;
         private struct PersonalityDisplayData
         {
@@ -50,6 +82,7 @@ namespace Maux36.RimPsyche
         {
             cachedPersonalityData = null;
             cachedInterestData = null;
+            cachedValuePointData = null;
         }
 
         public static void GenerateCacheData(CompPsyche compPsyche, Pawn currentPawn)
@@ -192,6 +225,25 @@ namespace Maux36.RimPsyche
             return cachedInterestData;
         }
 
+        private static List<Vector2> GetValuePointData(Vector2 center, CompPsyche compPsyche, Pawn currentPawn)
+        {
+            if (currentPawn == lastPawn && cachedValuePointData != null)
+            {
+                return cachedValuePointData;
+            }
+            GenerateValuePointData(center, compPsyche);
+            return cachedValuePointData;
+        }
+        private static List<Vector2> GetMaxPointData(Vector2 center, CompPsyche compPsyche, Pawn currentPawn)
+        {
+            if (cachedMaxPointData == null)
+            {
+                GenerateMaxPointData(center, compPsyche);
+            }
+            return cachedMaxPointData;
+        }
+
+
         private static void GenerateSortedPersonalityData(CompPsyche compPsyche, Pawn currentPawn)
         {
             var personalityDefList = DefDatabase<PersonalityDef>.AllDefs;
@@ -271,121 +323,32 @@ namespace Maux36.RimPsyche
             sortedData = sortedData.OrderByDescending(p => p.AbsValue).ToList();
             cachedInterestData = sortedData;
         }
-
-
-        public static readonly float personalityLabelWidth = 130f;
-        public static readonly float personalityRowHeight = 28f;
-        public static readonly float personalityBarWidth = 80f;
-        public static readonly float personalityBarHeight = 4f;
-
-        private static readonly float RadarChartSize = 25f; // Diameter of the radar chart
-        private static readonly float RadarChartPadding = 10f; // Padding from the header text
-        private static readonly int NumberOfFacets = 15; // For a pentadecagon
-        private static readonly float MinFacetValue = -50f;
-        private static readonly float MaxFacetValue = 50f;
-        private static Material _lineMaterial;
-
-        private static void EnsureMaterial()
+        private static void GenerateValuePointData(Vector2 center, CompPsyche compPsyche)
         {
-            if (_lineMaterial == null)
-            {
-                Shader shader = Shader.Find("Hidden/Internal-Colored");
-                _lineMaterial = new Material(shader)
-                {
-                    hideFlags = HideFlags.HideAndDontSave
-                };
-                _lineMaterial.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
-                _lineMaterial.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
-                _lineMaterial.SetInt("_Cull", (int)UnityEngine.Rendering.CullMode.Off);
-                _lineMaterial.SetInt("_ZWrite", 0);
-            }
-        }
-
-        //public static void DrawTriangleFilled(Vector2 a, Vector2 b, Vector2 c, Color color)
-        //{
-        //    EnsureMaterial();
-        //    _lineMaterial.SetPass(0);
-
-        //    GL.PushMatrix();
-        //    GL.Begin(GL.TRIANGLES);
-        //    GL.Color(color);
-        //    GL.Vertex(a);
-        //    GL.Vertex(b);
-        //    GL.Vertex(c);
-        //    GL.End();
-        //    GL.PopMatrix();
-        //}
-
-        //public static void DrawRadarChart(Rect rect, CompPsyche compPsyche)
-        //{
-        //    GUI.BeginGroup(rect);
-        //    Rect chartArea = new Rect(0, 0, rect.width, rect.height);
-        //    Vector2 center = new Vector2((chartArea.center.x), (chartArea.center.y));
-        //    float radius = RadarChartSize / 2f;
-
-        //    List<Vector2> maxPoints = new List<Vector2>();
-        //    List<Vector2> valuePoints = new List<Vector2>();
-
-        //    for (int i = 0; i < NumberOfFacets; i++)
-        //    {
-        //        float angleRad = ((24f) * i - 90f) * Mathf.Deg2Rad;
-        //        float cos = Mathf.Cos(angleRad);
-        //        float sin = Mathf.Sin(angleRad);
-
-        //        Vector2 maxPoint = new Vector2(
-        //            (center.x + radius * cos),
-        //            (center.y + radius * sin)
-        //        );
-        //        maxPoints.Add(maxPoint);
-
-        //        Facet facet = RimpsycheDatabase.AllFacets[i];
-        //        float value = compPsyche.Personality.GetFacetValue(facet);
-        //        float normalized = Mathf.InverseLerp(MinFacetValue, MaxFacetValue, value);
-        //        float valueRadius = normalized * radius;
-
-        //        Vector2 valuePoint = new Vector2(
-        //            (center.x + valueRadius * cos),
-        //            (center.y + valueRadius * sin)
-        //        );
-        //        valuePoints.Add(valuePoint);
-
-        //        Widgets.DrawLine(center, maxPoint, new Color(0.5f, 0.5f, 0.5f, 0.3f), 0.3f);
-        //    }
-
-        //    // Draw max boundary pentadecagon
-        //    for (int i = 0; i < NumberOfFacets; i++)
-        //    {
-        //        Vector2 a = maxPoints[i];
-        //        Vector2 b = maxPoints[(i + 1) % NumberOfFacets];
-        //        Widgets.DrawLine(a, b, new Color(0.6f, 0.6f, 0.6f, 0.4f), 0.3f);
-        //    }
-
-        //    // Fill value polygon with triangles from center
-        //    if (valuePoints.Count >= 3)
-        //    {
-        //        Color fillColor = new Color(0.5f, 1f, 0.5f, 0.3f);
-        //        for (int i = 0; i < NumberOfFacets; i++)
-        //        {
-        //            Vector2 a = valuePoints[i];
-        //            Vector2 b = valuePoints[(i + 1) % NumberOfFacets];
-        //            DrawTriangleFilled(center, a, b, fillColor);
-        //        }
-        //    }
-
-        //    GUI.EndGroup();
-        //}
-
-        public static void DrawRadarChart(Rect rect, CompPsyche compPsyche)
-        {
-            GUI.BeginGroup(rect);
-            Rect chartArea = new Rect(0, 0, rect.width, rect.height);
-            Vector2 center = new Vector2(chartArea.center.x, chartArea.center.y);
+            List<Vector2> valuePointData = new();
             float radius = RadarChartSize / 2f;
 
-            List<Vector2> maxPoints = new List<Vector2>();
-            List<Vector2> valuePoints = new List<Vector2>();
 
-            // Calculations remain the same
+            for (int i = 0; i < NumberOfFacets; i++)
+            {
+                float angleRad = ((24f) * i - 90f) * Mathf.Deg2Rad;
+                float cos = Mathf.Cos(angleRad);
+                float sin = Mathf.Sin(angleRad);
+                Facet facet = RimpsycheDatabase.AllFacets[i];
+                float value = compPsyche.Personality.GetFacetValue(facet);
+                float normalized = Mathf.InverseLerp(-50f, 50f, value);
+                float valueRadius = normalized * radius;
+
+                Vector2 valuePoint = new Vector2(center.x + valueRadius * cos, center.y + valueRadius * sin);
+                valuePointData.Add(valuePoint);
+            }
+            cachedValuePointData= valuePointData;
+        }
+        private static void GenerateMaxPointData(Vector2 center, CompPsyche compPsyche)
+        {
+            List<Vector2> maxPoints = new List<Vector2>();
+            float radius = RadarChartSize / 2f;
+
             for (int i = 0; i < NumberOfFacets; i++)
             {
                 float angleRad = ((24f) * i - 90f) * Mathf.Deg2Rad;
@@ -394,31 +357,31 @@ namespace Maux36.RimPsyche
 
                 Vector2 maxPoint = new Vector2(center.x + radius * cos, center.y + radius * sin);
                 maxPoints.Add(maxPoint);
-
-                Facet facet = RimpsycheDatabase.AllFacets[i];
-                float value = compPsyche.Personality.GetFacetValue(facet);
-                float normalized = Mathf.InverseLerp(MinFacetValue, MaxFacetValue, value);
-                float valueRadius = normalized * radius;
-
-                Vector2 valuePoint = new Vector2(center.x + valueRadius * cos, center.y + valueRadius * sin);
-                valuePoints.Add(valuePoint);
             }
+            cachedMaxPointData = maxPoints;
+        }
 
-            EnsureMaterial();
+        public static void DrawRadarChart(Rect rect, CompPsyche compPsyche, Pawn pawn)
+        {
+            GUI.BeginGroup(rect);
+            Rect chartArea = new Rect(0, 0, rect.width, rect.height);
+            Vector2 center = new Vector2(chartArea.center.x, chartArea.center.y);
+            var valuePoints = GetValuePointData(center, compPsyche, pawn);
+            var maxPoints = GetMaxPointData(center, compPsyche, pawn);
             _lineMaterial.SetPass(0);
 
             GL.PushMatrix();
 
-            // --- Draw all lines in one batch ---
             GL.Begin(GL.LINES);
-            GL.Color(new Color(0.5f, 0.5f, 0.5f, 0.3f)); // Color for spokes
+            //Spokes
+            GL.Color(new Color(0.5f, 0.5f, 0.5f, 0.5f));
             for (int i = 0; i < NumberOfFacets; i++)
             {
                 GL.Vertex(center);
                 GL.Vertex(maxPoints[i]);
             }
-
-            GL.Color(new Color(0.6f, 0.6f, 0.6f, 0.4f)); // Color for max boundary
+            //Circle
+            GL.Color(new Color(0.6f, 0.6f, 0.6f, 0.5f));
             for (int i = 0; i < NumberOfFacets; i++)
             {
                 Vector2 a = maxPoints[i];
@@ -428,22 +391,19 @@ namespace Maux36.RimPsyche
             }
             GL.End();
 
-            // --- Fill value polygon with triangles from center in one batch ---
-            if (valuePoints.Count >= 3)
+            // Triangles
+            Color fillColor = new Color(0.5f, 1f, 0.5f, 0.3f);
+            GL.Begin(GL.TRIANGLES);
+            GL.Color(fillColor);
+            for (int i = 0; i < NumberOfFacets; i++)
             {
-                Color fillColor = new Color(0.5f, 1f, 0.5f, 0.3f);
-                GL.Begin(GL.TRIANGLES);
-                GL.Color(fillColor);
-                for (int i = 0; i < NumberOfFacets; i++)
-                {
-                    Vector2 a = valuePoints[i];
-                    Vector2 b = valuePoints[(i + 1) % NumberOfFacets];
-                    GL.Vertex(center);
-                    GL.Vertex(a);
-                    GL.Vertex(b);
-                }
-                GL.End();
+                Vector2 a = valuePoints[i];
+                Vector2 b = valuePoints[(i + 1) % NumberOfFacets];
+                GL.Vertex(center);
+                GL.Vertex(a);
+                GL.Vertex(b);
             }
+            GL.End();
 
             GL.PopMatrix();
             GUI.EndGroup();
@@ -463,17 +423,15 @@ namespace Maux36.RimPsyche
             Widgets.Label(titleRect, "RPC_Personality".Translate());
             Vector2 titleTextSize = Text.CalcSize("RPC_Personality".Translate());
 
-            // --- NEW: Radar Chart drawing ---
             float radarChartX = (headerRect.width / 2f) - (titleTextSize.x / 2f) - RadarChartSize - RadarChartPadding;
-            Rect radarChartRect = new Rect(radarChartX, (headerHeight - RadarChartSize) / 2f, RadarChartSize, RadarChartSize);
-            DrawRadarChart(radarChartRect, compPsyche);
-            // --- END NEW ---
+            Rect radarChartRect = new Rect(radarChartX, headerRect.y + (titleTextSize.y - RadarChartSize) / 2f, RadarChartSize, RadarChartSize);
+            DrawRadarChart(radarChartRect, compPsyche, pawn);
 
             // Icon on the right
             float iconSize = 24f;
             float spacing = 2;
             float viewIconX = (headerRect.width / 2f) + (titleTextSize.x / 2f) + 8f;
-            Rect viewIconRect = new Rect(viewIconX, (headerHeight - iconSize) / 2f, iconSize, iconSize);
+            Rect viewIconRect = new Rect(viewIconX, headerRect.y + (titleTextSize.y - iconSize) / 2f, iconSize, iconSize);
 
             // Draw & handle click
             if (Widgets.ButtonImage(viewIconRect, showBothSide?Rimpsyche_UI_Utility.ViewListButton: Rimpsyche_UI_Utility.ViewBarButton))
@@ -490,7 +448,7 @@ namespace Maux36.RimPsyche
             }
             
 
-            Rect editIconRect = new Rect(viewIconRect.xMax + spacing, (headerHeight - iconSize) / 2f, iconSize, iconSize);
+            Rect editIconRect = new Rect(viewIconRect.xMax + spacing, viewIconRect.y, iconSize, iconSize);
             if (Prefs.DevMode)
             {
                 if (Widgets.ButtonImage(editIconRect, Rimpsyche_UI_Utility.EditButton))
