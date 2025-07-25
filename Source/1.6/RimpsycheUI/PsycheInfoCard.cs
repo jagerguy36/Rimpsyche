@@ -10,10 +10,14 @@ namespace Maux36.RimPsyche
     public class PsycheInfoCard
     {
         // Constants and style settings
-        public static Rect PsycheRect = new Rect(0f, 0f, Mathf.Clamp(UI.screenWidth * 0.5f, 500f, 600f) , Mathf.Clamp(UI.screenHeight*0.5f,350f, 450f));
+        public static Rect PsycheRect = new Rect(0f, 0f, Mathf.Clamp(UI.screenWidth * 0.5f, 500f, 600f) , Mathf.Clamp(UI.screenHeight*0.5f,350f, 480f));
         public static GUIStyle style;
         public static Vector2 PersonalityScrollPosition = Vector2.zero;
         public static Vector2 InterestScrollPosition = Vector2.zero;
+        public static Color barBackgroundColor = new Color(0.2f, 0.2f, 0.2f, 0.5f);
+        public static Color radarFillColor = new Color(0.5f, 1f, 0.5f, 0.3f);
+        public static Color radarHighlightColor = new Color(0.6f, 0.6f, 0.6f, 0.5f);
+        public static Color radarLineColor = new Color(0.5f, 0.5f, 0.5f, 0.5f);
 
         public static readonly float expandButtonSize = 8f;
         public static readonly float rightPanelWidthConstant = 250f;
@@ -25,7 +29,6 @@ namespace Maux36.RimPsyche
 
         private static readonly float RadarChartSize = 20f; // Diameter of the radar chart
         private static readonly float RadarChartPadding = 10f; // Padding from the header text
-        private static readonly int NumberOfFacets = 15; // For a pentadecagon
         private static Material _lineMaterial;
 
         public static readonly float personalityLabelWidth = 130f;
@@ -95,8 +98,7 @@ namespace Maux36.RimPsyche
 
         //Options
         public static bool rightPanelVisible = false;
-        public static bool showBothSide = false;
-        public static bool showNumbers = false;
+        public static byte showMode = 0;
 
 
         public static void DrawPsycheCard(Rect totalRect, Pawn pawn)
@@ -234,16 +236,14 @@ namespace Maux36.RimPsyche
             GenerateValuePointData(center, compPsyche);
             return cachedValuePointData;
         }
-        private static List<Vector2> GetMaxPointData(Vector2 center, CompPsyche compPsyche, Pawn currentPawn)
+        private static List<Vector2> GetMaxPointData(Vector2 center)
         {
             if (cachedMaxPointData == null)
             {
-                GenerateMaxPointData(center, compPsyche);
+                GenerateMaxPointData(center);
             }
             return cachedMaxPointData;
         }
-
-
         private static void GenerateSortedPersonalityData(CompPsyche compPsyche, Pawn currentPawn)
         {
             var personalityDefList = DefDatabase<PersonalityDef>.AllDefs;
@@ -329,7 +329,7 @@ namespace Maux36.RimPsyche
             float radius = RadarChartSize / 2f;
 
 
-            for (int i = 0; i < NumberOfFacets; i++)
+            for (int i = 0; i < RimpsycheSettings.facetCount; i++)
             {
                 float angleRad = ((24f) * i - 90f) * Mathf.Deg2Rad;
                 float cos = Mathf.Cos(angleRad);
@@ -344,12 +344,13 @@ namespace Maux36.RimPsyche
             }
             cachedValuePointData= valuePointData;
         }
-        private static void GenerateMaxPointData(Vector2 center, CompPsyche compPsyche)
+        private static void GenerateMaxPointData(Vector2 center)
         {
+            List<Vector2> highlightPoints = new List<Vector2>();
             List<Vector2> maxPoints = new List<Vector2>();
-            float radius = RadarChartSize / 2f;
+            float radius = RadarChartSize * 0.5f;
 
-            for (int i = 0; i < NumberOfFacets; i++)
+            for (int i = 0; i < RimpsycheSettings.facetCount; i++)
             {
                 float angleRad = ((24f) * i - 90f) * Mathf.Deg2Rad;
                 float cos = Mathf.Cos(angleRad);
@@ -367,38 +368,30 @@ namespace Maux36.RimPsyche
             Rect chartArea = new Rect(0, 0, rect.width, rect.height);
             Vector2 center = new Vector2(chartArea.center.x, chartArea.center.y);
             var valuePoints = GetValuePointData(center, compPsyche, pawn);
-            var maxPoints = GetMaxPointData(center, compPsyche, pawn);
+            var maxPoints = GetMaxPointData(center);
             _lineMaterial.SetPass(0);
 
             GL.PushMatrix();
 
             GL.Begin(GL.LINES);
-            //Spokes
-            GL.Color(new Color(0.5f, 0.5f, 0.5f, 0.5f));
-            for (int i = 0; i < NumberOfFacets; i++)
+            //Spokes and Circle
+            GL.Color(radarLineColor);
+            for (int i = 0; i < RimpsycheSettings.facetCount; i++)
             {
                 GL.Vertex(center);
                 GL.Vertex(maxPoints[i]);
-            }
-            //Circle
-            GL.Color(new Color(0.6f, 0.6f, 0.6f, 0.5f));
-            for (int i = 0; i < NumberOfFacets; i++)
-            {
-                Vector2 a = maxPoints[i];
-                Vector2 b = maxPoints[(i + 1) % NumberOfFacets];
-                GL.Vertex(a);
-                GL.Vertex(b);
+                GL.Vertex(maxPoints[i]);
+                GL.Vertex(maxPoints[(i + 1) % RimpsycheSettings.facetCount]);
             }
             GL.End();
 
             // Triangles
-            Color fillColor = new Color(0.5f, 1f, 0.5f, 0.3f);
             GL.Begin(GL.TRIANGLES);
-            GL.Color(fillColor);
-            for (int i = 0; i < NumberOfFacets; i++)
+            for (int i = 0; i < RimpsycheSettings.facetCount; i++)
             {
                 Vector2 a = valuePoints[i];
-                Vector2 b = valuePoints[(i + 1) % NumberOfFacets];
+                Vector2 b = valuePoints[(i + 1) % RimpsycheSettings.facetCount];
+                GL.Color(radarFillColor);
                 GL.Vertex(center);
                 GL.Vertex(a);
                 GL.Vertex(b);
@@ -434,20 +427,48 @@ namespace Maux36.RimPsyche
             Rect viewIconRect = new Rect(viewIconX, headerRect.y + (titleTextSize.y - iconSize) / 2f, iconSize, iconSize);
 
             // Draw & handle click
-            if (Widgets.ButtonImage(viewIconRect, showBothSide?Rimpsyche_UI_Utility.ViewListButton: Rimpsyche_UI_Utility.ViewBarButton))
+            if (showMode == 0)
             {
-                showBothSide = !showBothSide;
+                if (Widgets.ButtonImage(viewIconRect, Rimpsyche_UI_Utility.ViewBarButton))
+                {
+                    showMode = 1;
+                }
+                TooltipHandler.TipRegion(viewIconRect, "RimpsycheShowBar".Translate());
             }
-            if (showBothSide)
+            else if (showMode == 1)
             {
+                if (RimpsycheSettings.showFacetInMenu)
+                {
+                    if (Widgets.ButtonImage(viewIconRect, Rimpsyche_UI_Utility.ViewFacetButton))
+                    {
+                        showMode = 2;
+                        PersonalityScrollPosition = Vector2.zero;
+                    }
+                    TooltipHandler.TipRegion(viewIconRect, "RimpsycheShowFacet".Translate());
+                }
+                else
+                {
+                    if (Widgets.ButtonImage(viewIconRect, Rimpsyche_UI_Utility.ViewListButton))
+                    {
+                        showMode = 0;
+                    }
+                    TooltipHandler.TipRegion(viewIconRect, "RimpsycheShowList".Translate());
+                }
+            }
+            else if (showMode == 2)
+            {
+                if (Widgets.ButtonImage(viewIconRect, Rimpsyche_UI_Utility.ViewListButton))
+                {
+                    showMode = 0;
+                    PersonalityScrollPosition = Vector2.zero;
+                }
                 TooltipHandler.TipRegion(viewIconRect, "RimpsycheShowList".Translate());
             }
             else
             {
-                TooltipHandler.TipRegion(viewIconRect, "RimpsycheShowBar".Translate());
+                showMode = 0;
             }
             
-
             Rect editIconRect = new Rect(viewIconRect.xMax + spacing, viewIconRect.y, iconSize, iconSize);
             if (Prefs.DevMode)
             {
@@ -457,14 +478,13 @@ namespace Maux36.RimPsyche
                 }
                 TooltipHandler.TipRegion(editIconRect, "RimpsycheEdit".Translate());
             }
-
             GUI.EndGroup();
 
             // Scroll View Setup
             Text.Font = GameFont.Small;
             var personalitiesToDisplay = GetSortedPersonalityData(compPsyche, pawn);
 
-            float viewHeight = personalitiesToDisplay.Count() * personalityRowHeight + 3f;
+            float viewHeight = (showMode == 2)? 15 * personalityRowHeight + 3f : personalitiesToDisplay.Count() * personalityRowHeight + 3f;
             Rect scrollContentRect = new Rect(0f, 0f, personalityRect.width - scrollWidth, viewHeight);
 
             Rect scrollRect = new Rect(
@@ -477,8 +497,66 @@ namespace Maux36.RimPsyche
             Widgets.BeginScrollView(scrollRect, ref PersonalityScrollPosition, scrollContentRect);
 
             float y = 0f;
+            if (showMode == 2)
+            {
 
-            if (showBothSide)
+                foreach (Facet facet in RimpsycheDatabase.AllFacets)
+                {
+                    var value = compPsyche.Personality.GetFacetValue(facet);
+                    var (leftLabel, rightLabel, lefColor, rightColor) = InterfaceComponents.FacetNotation[facet];
+                    Rect rowRect = new Rect(0f, y, scrollContentRect.width, personalityRowHeight);
+                    if (Mouse.IsOver(rowRect))
+                    {
+                        Widgets.DrawHighlight(rowRect);
+                        string tooltipString = $"{facet}: {(value * 2f).ToString("F1")}\n\n{InterfaceComponents.FacetDescription[facet]}";
+                        if (compPsyche.Personality.gateInfoCache.TryGetValue(facet, out string explanation))
+                        {
+                            tooltipString += $"\n\n{explanation}";
+                        }
+                        TooltipHandler.TipRegion(rowRect, tooltipString);
+                    }
+
+                    float barCenterX = rowRect.x + rowRect.width / 2f;
+                    float centerY = rowRect.y + rowRect.height / 2f;
+                    float textY = centerY - Text.LineHeight / 2f;
+                    float barY = centerY - personalityBarHeight / 2f;
+
+                    // Left label
+                    Rect leftRect = new Rect(rowRect.x + labelPadding, textY, personalityLabelWidth, Text.LineHeight);
+                    Text.Anchor = TextAnchor.MiddleLeft;
+                    Widgets.Label(leftRect, leftLabel);
+
+                    // Right label
+                    Rect rightRect = new Rect(rowRect.xMax - personalityLabelWidth - labelPadding, textY, personalityLabelWidth, Text.LineHeight);
+                    Text.Anchor = TextAnchor.MiddleRight;
+                    Widgets.Label(rightRect, rightLabel);
+
+                    // Bar (centered vertically)
+                    Rect barRect = new Rect(barCenterX - personalityBarWidth / 2f, barY, personalityBarWidth, personalityBarHeight);
+                    Widgets.DrawBoxSolid(barRect, barBackgroundColor);
+
+                    // Value bar
+                    float halfBar = (Mathf.Abs(value) / 50f) * (personalityBarWidth / 2f);
+                    Rect valueRect;
+
+                    if (value >= 0)
+                    {
+                        valueRect = new Rect(barCenterX, barRect.y, halfBar, personalityBarHeight);
+                    }
+                    else
+                    {
+                        valueRect = new Rect(barCenterX - halfBar, barRect.y, halfBar, personalityBarHeight);
+                    }
+
+                    // Color gradient: red → green
+                    Color barColor = Color.Lerp(lefColor, rightColor, (value + 50f) / 100f);
+                    Widgets.DrawBoxSolid(valueRect, barColor);
+
+                    y += personalityRowHeight;
+                }
+            }
+
+            else if (showMode == 1)
             {
                 foreach (var pData in personalitiesToDisplay)
                 {
@@ -512,7 +590,7 @@ namespace Maux36.RimPsyche
 
                     // Bar background
                     Rect barRect = new Rect(barCenterX - personalityBarWidth / 2f, barY, personalityBarWidth, personalityBarHeight);
-                    Widgets.DrawBoxSolid(barRect, new Color(0.2f, 0.2f, 0.2f, 0.5f));
+                    Widgets.DrawBoxSolid(barRect, barBackgroundColor);
 
                     // Value bar
                     float halfBar = pData.AbsValue * (personalityBarWidth) / 2f;
