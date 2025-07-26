@@ -6,6 +6,11 @@
 
   <!-- Settings -->
   <RimpsycheGeneralSetting>RimPsyche General Settings</RimpsycheGeneralSetting>
+  <RimpsycheAllowFacetEdit>Enable Facet Edit</RimpsycheAllowFacetEdit>
+  <RimpsycheAllowFacetEditTooltip>Enable directly editing facets.</RimpsycheAllowFacetEditTooltip>
+  <RimpsycheShowFacetInMenu>Show Facets in UI</RimpsycheShowFacetInMenu>
+  <RimpsycheShowFacetInMenuTooltip>Enable view facets option in Psyche tab.</RimpsycheShowFacetInMenuTooltip>
+
 
   <!-- Title -->
   <RPC_Personality>Personality</RPC_Personality>
@@ -17,6 +22,7 @@
 
   <RimpsycheShowList>Show as List</RimpsycheShowList>
   <RimpsycheShowBar>Show as Bars</RimpsycheShowBar>
+  <RimpsycheShowFacet>Show Facets</RimpsycheShowFacet>
   <RimpsycheEdit>Edit</RimpsycheEdit>
 
   <RPC_Orientation>Sexuality</RPC_Orientation>
@@ -40,6 +46,21 @@
   <RimpsychePersonalityInfo>A pawn’s personality is the result of their individual facets coming together. It influences their behavior, relationships, and decisions.</RimpsychePersonalityInfo>
 
   <!-- Facet Desc. -->
+  <RPC_Imagination>Imagination</RPC_Imagination>
+  <RPC_Intellect>Intellect</RPC_Intellect>
+  <RPC_Curiosity>Curiosity</RPC_Curiosity>
+  <RPC_Industriousness>Industriousness</RPC_Industriousness>
+  <RPC_Orderliness>Orderliness</RPC_Orderliness>
+  <RPC_Integrity>Integrity</RPC_Integrity>
+  <RPC_Sociability>Sociability</RPC_Sociability>
+  <RPC_Assertiveness>Assertiveness</RPC_Assertiveness>
+  <RPC_Enthusiasm>Enthusiasm</RPC_Enthusiasm>
+  <RPC_Compassion>Compassion</RPC_Compassion>
+  <RPC_Cooperation>Cooperation</RPC_Cooperation>
+  <RPC_Humbleness>Humbleness</RPC_Humbleness>
+  <RPC_Volatility>Volatility</RPC_Volatility>
+  <RPC_Pessimism>Pessimism</RPC_Pessimism>
+  <RPC_Insecurity>Insecurity</RPC_Insecurity>
   <RPC_Realistic>Realistic</RPC_Realistic>
   <RPC_Imaginative>Imaginative</RPC_Imaginative>
   <RPC_Practical>Practical</RPC_Practical>
@@ -76,7 +97,7 @@
   <RPC_Industriousness_Tooltip>Describes a drive to achieve long-term goals through hard work and persistence. Industrious pawns are motivated and focused, seeing tasks through to completion; Unmotivated pawns tend to lack drive and may abandon tasks.</RPC_Industriousness_Tooltip>
   <RPC_Orderliness_Tooltip>Describes a preference for structure, tidiness, and careful planning. Organized pawns manage their environments and tasks with forethought, valuing order and disliking chaos; Disorganized pawns tend to be less structured and may struggle with keeping track of tasks.</RPC_Orderliness_Tooltip>
   <RPC_Integrity_Tooltip>Describes a commitment to honesty, self-discipline, and moral consistency. Reliable pawns hold themselves to their promises, follow rules, and prioritize doing what's right; Inconsistent pawns may struggle with self-regulation, taking shortcuts or acting unreliably.</RPC_Integrity_Tooltip>
-  <RPC_Sociability_Tooltip>Reflects a pawn's warmth and engagement in social interactions. Friendly pawns enjoy connecting with others and are approachable; Aloof pawns tend to be more reserved and less outwardly social.</RPC_Sociability_Tooltip>
+  <RPC_Sociability_Tooltip>Reflects a pawn's warmth and engagement in social interactions. Friendly pawns enjoy connecting with others and are approachable; Aloof pawns tend to be more distant and less outwardly social.</RPC_Sociability_Tooltip>
   <RPC_Assertiveness_Tooltip>Describes a pawn's tendency to take charge, voice opinions, and influence others in social settings. Assertive pawns are bold and confident speakers; Timid pawns are more reserved and may hesitate to express themselves.</RPC_Assertiveness_Tooltip>
   <RPC_Enthusiasm_Tooltip>Captures a pawn's desire for stimulation, positivity, and activity. Cheerful pawns are energetic, easily excited, and often on the move; Stoic pawns tend to be more reserved in their behavior and less outwardly driven by excitement.</RPC_Enthusiasm_Tooltip>
   <RPC_Compassion_Tooltip>Reflects a pawn's capacity for emotional empathy and their desire to alleviate distress in others. Compassionate pawns are kind, nurturing, and emotionally attuned to others' feelings; Detached pawns tend to be less sensitive to the emotional states of those around them.</RPC_Compassion_Tooltip>

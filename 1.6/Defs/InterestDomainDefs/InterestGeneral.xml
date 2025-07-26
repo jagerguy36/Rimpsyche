@@ -983,7 +983,7 @@
           <li>
             <!-- + : responsible | - : disengaged -->
             <name>work_assignment</name>
-            <label>work_assignment</label>
+            <label>work assignment</label>
             <controversiality>0</controversiality>
             <weights>
               <li>
@@ -1309,7 +1309,7 @@
           <li>
             <!-- + : nostalgic/origin-oriented | - : detached/forward-looking -->
             <name>significant_places</name>
-            <label>significant_places</label>
+            <label>significant places</label>
             <controversiality>0</controversiality>
             <weights>
               <li>
@@ -1335,6 +1335,34 @@
               <li>
                 <facet>Insecurity</facet>
                 <weight>-0.1</weight>
+              </li>
+            </weights>
+          </li>
+          <li>
+            <!-- + : retrospective/adaptive orientation | - : future-oriented/progressive orientation -->
+            <name>life_lessons</name>
+            <label>life lessons</label>
+            <controversiality>0</controversiality>
+            <weights>
+              <li>
+                <facet>Curiosity</facet>
+                <weight>-0.25</weight>
+              </li>
+              <li>
+                <facet>Humbleness</facet>
+                <weight>0.25</weight>
+              </li>
+              <li>
+                <facet>Intellect</facet>
+                <weight>-0.25</weight>
+              </li>
+              <li>
+                <facet>Integrity</facet>
+                <weight>0.15</weight>
+              </li>
+              <li>
+                <facet>Orderliness</facet>
+                <weight>0.1</weight>
               </li>
             </weights>
           </li>
@@ -1662,7 +1690,38 @@
               </li>
             </weights>
           </li>
-
+          <li>
+            <!-- + : confrontational/expressive orientation | - : harmonizing/avoidant orientation -->
+            <name>conflicts</name>
+            <label>conflicts</label>
+            <controversiality>0</controversiality>
+            <weights>
+              <li>
+                <facet>Assertiveness</facet>
+                <weight>0.3</weight>
+              </li>
+              <li>
+                <facet>Integrity</facet>
+                <weight>0.1</weight>
+              </li>
+              <li>
+                <facet>Intellect</facet>
+                <weight>0.05</weight>
+              </li>
+              <li>
+                <facet>Cooperation</facet>
+                <weight>-0.25</weight>
+              </li>
+              <li>
+                <facet>Compassion</facet>
+                <weight>-0.15</weight>
+              </li>
+              <li>
+                <facet>Insecurity</facet>
+                <weight>-0.15</weight>
+              </li>
+            </weights>
+          </li>
         </topics>
       </li>
 
@@ -1929,7 +1988,7 @@
           <li>
             <!-- + : introspective/contemplative orientation | - : pragmatic/externally oriented orientation -->
             <name>self_reflection</name>
-            <label>self_reflection</label>
+            <label>self-reflection</label>
             <controversiality>0</controversiality>
             <weights>
               <li>
@@ -1995,6 +2054,38 @@
               <li>
                 <facet>Cooperation</facet>
                 <weight>-0.05</weight>
+              </li>
+            </weights>
+          </li>
+          <li>
+            <!-- + : identity-driven / principled orientation | - : pragmatic / flexible orientation -->
+            <name>beliefs</name>
+            <label>beliefs</label>
+            <controversiality>0</controversiality>
+            <weights>
+              <li>
+                <facet>Integrity</facet>
+                <weight>0.35</weight>
+              </li>
+              <li>
+                <facet>Intellect</facet>
+                <weight>0.25</weight>
+              </li>
+              <li>
+                <facet>Curiosity</facet>
+                <weight>-0.15</weight>
+              </li>
+              <li>
+                <facet>Insecurity</facet>
+                <weight>-0.05</weight>
+              </li>
+              <li>
+                <facet>Compassion</facet>
+                <weight>0.1</weight>
+              </li>
+              <li>
+                <facet>Assertiveness</facet>
+                <weight>0.1</weight>
               </li>
             </weights>
           </li>

@@ -85,10 +85,10 @@
   <Rimpsyche_Emotionality.low>무덤덤한</Rimpsyche_Emotionality.low>
   <Rimpsyche_Emotionality.description>감정을 얼마나 깊이 느끼고 자주 표현하는지를 나타냅니다. 감정적인 사람은 기쁨이나 슬픔 같은 감정을 강하게 느끼고, 긍정적이든 부정적이든 사건에 강하게 반응하는 경향이 있습니다. 반면, 무덤덤한 사람은 감정을 비교적 담담하게 받아들이며, 침착하고 차분한 태도를 유지합니다.</Rimpsyche_Emotionality.description>
 
-  <Rimpsyche_Volatility.label>정서</Rimpsyche_Volatility.label>
-  <Rimpsyche_Volatility.high>안정적인</Rimpsyche_Volatility.high>
-  <Rimpsyche_Volatility.low>불안정한</Rimpsyche_Volatility.low>
-  <Rimpsyche_Volatility.description>정서 상태가 얼마나 일관되고 안정적인지를 나타냅니다. 안정적인 사람은 감정 기복이 적고 감정적으로 평온한 상태를 유지하며, 상황에 대해 일관되게 반응하는 경향이 있습니다. 반면 불안정한 사람은 감정 변화가 잦고 강하게 나타나며, 매사에 더 극적으로 반응하는 경우가 많습니다.</Rimpsyche_Volatility.description>
+  <Rimpsyche_Stability.label>정서</Rimpsyche_Stability.label>
+  <Rimpsyche_Stability.high>안정적인</Rimpsyche_Stability.high>
+  <Rimpsyche_Stability.low>불안정한</Rimpsyche_Stability.low>
+  <Rimpsyche_Stability.description>정서 상태가 얼마나 일관되고 안정적인지를 나타냅니다. 안정적인 사람은 감정 기복이 적고 감정적으로 평온한 상태를 유지하며, 상황에 대해 일관되게 반응하는 경향이 있습니다. 반면 불안정한 사람은 감정 변화가 잦고 강하게 나타나며, 매사에 더 극적으로 반응하는 경우가 많습니다.</Rimpsyche_Stability.description>
 
   <Rimpsyche_Morality.label>도덕성</Rimpsyche_Morality.label>
   <Rimpsyche_Morality.high>원칙적인</Rimpsyche_Morality.high>

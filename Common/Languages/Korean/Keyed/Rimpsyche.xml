@@ -1,16 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LanguageData>
-  <TabPsyche>성격</TabPsyche>
+
+  <!-- General -->
   <RimpsycheSettingCategory>림사이키</RimpsycheSettingCategory>
-  <RimpsycheGeneralSetting>림사이키</RimpsycheGeneralSetting>
-  <MemoryReportString>{0}에 대한 대화</MemoryReportString>
-  <RPC_Interest>관심사</RPC_Interest>
+
+  <!-- Settings -->
+  <RimpsycheGeneralSetting>일반 세팅</RimpsycheGeneralSetting>
+  <RimpsycheAllowFacetEdit>성격 측면 수정</RimpsycheAllowFacetEdit>
+  <RimpsycheAllowFacetEditTooltip>성격 측면을 직접 수정할 수 있도록 허용합니다.</RimpsycheAllowFacetEditTooltip>
+  <RimpsycheShowFacetInMenu>성격측면 UI</RimpsycheShowFacetInMenu>
+  <RimpsycheShowFacetInMenuTooltip>성격 탭에서 성격측면 보기 옵션을 선택할 수 있게 합니다.</RimpsycheShowFacetInMenuTooltip>
+
+
+  <!-- Title -->
   <RPC_Personality>성격</RPC_Personality>
+  <RPC_Interest>관심사</RPC_Interest>
+  <RPC_Sexuality>성적 지향</RPC_Sexuality>
+
+  <!-- Tab -->
+  <TabPsyche>성격</TabPsyche>
+
+  <RimpsycheShowList>리스트로 보기</RimpsycheShowList>
+  <RimpsycheShowBar>그래프로 보기</RimpsycheShowBar>
+  <RimpsycheShowFacet>성격측면 보기</RimpsycheShowFacet>
+  <RimpsycheEdit>수정</RimpsycheEdit>
+
+  <RPC_Orientation>성적 지향</RPC_Orientation>
+  <RPC_Kinsey>킨지 척도</RPC_Kinsey>
+  <RPC_SexDrive>성욕</RPC_SexDrive>
+
+  <TraitAffected>다음 특성에 영향을 받고 있음:</TraitAffected>
+
+  <!-- Interaction -->
+  <MemoryReportString>{0}에 대한 대화</MemoryReportString>
   <RimPsycheIntensityNeutral>중립 {0}</RimPsycheIntensityNeutral>
   <RimPsycheIntensityExtremely>극히 {0}</RimPsycheIntensityExtremely>
   <RimPsycheIntensityVery>매우 {0}</RimPsycheIntensityVery>
   <RimPsycheIntensitySomewhat>조금 {0}</RimPsycheIntensitySomewhat>
   <RimPsycheIntensityMarginally>약간 {0}</RimPsycheIntensityMarginally>
+
+  <!-- Edit Mode -->
+  <RPC_Facets>성격측면</RPC_Facets>
+  <ResetPsycheTooltip>무작위</ResetPsycheTooltip>
+  <RimpsycheFacetInfo>성격측면은 개인의 생각, 감정, 행동을 형성하는 핵심적인 요소입니다. 각 성격 측면은 개인이 세상을 어떻게 보고 반응하는지에 대한 면모를 나타냅니다.</RimpsycheFacetInfo>
+  <RimpsychePersonalityInfo>성격은 측면들에 의해 결정됩니다. 성격은 개인의 행동, 관계, 결정에 직접적인 영향을 미칩니다.</RimpsychePersonalityInfo>
+
+  <!-- Facet Desc. -->
+  <RPC_Imagination>감수성</RPC_Imagination>
+  <RPC_Intellect>지성</RPC_Intellect>
+  <RPC_Curiosity>호기심</RPC_Curiosity>
+  <RPC_Industriousness>근면성</RPC_Industriousness>
+  <RPC_Orderliness>체계성</RPC_Orderliness>
+  <RPC_Integrity>정직성</RPC_Integrity>
+  <RPC_Sociability>사회성</RPC_Sociability>
+  <RPC_Assertiveness>주도성</RPC_Assertiveness>
+  <RPC_Enthusiasm>쾌활성</RPC_Enthusiasm>
+  <RPC_Compassion>친화성</RPC_Compassion>
+  <RPC_Cooperation>우호성</RPC_Cooperation>
+  <RPC_Humbleness>겸손</RPC_Humbleness>
+  <RPC_Volatility>불안정성</RPC_Volatility>
+  <RPC_Pessimism>비관성</RPC_Pessimism>
+  <RPC_Insecurity>위축성</RPC_Insecurity>
   <RPC_Realistic>현실적</RPC_Realistic>
   <RPC_Imaginative>창의적</RPC_Imaginative>
   <RPC_Practical>실용적</RPC_Practical>
@@ -18,42 +68,43 @@
   <RPC_Conventional>관습적</RPC_Conventional>
   <RPC_Explorative>탐험적</RPC_Explorative>
   <RPC_Unmotivated>의욕 없음</RPC_Unmotivated>
-  <RPC_Industrious>근면</RPC_Industrious>
-  <RPC_Disorganized>산만</RPC_Disorganized>
+  <RPC_Industrious>근면함</RPC_Industrious>
+  <RPC_Disorganized>산만함</RPC_Disorganized>
   <RPC_Organized>체계적</RPC_Organized>
   <RPC_Inconsistent>비정합적</RPC_Inconsistent>
   <RPC_Reliable>정합적</RPC_Reliable>
-  <RPC_Aloof>무뚝뚝</RPC_Aloof>
-  <RPC_Friendly>친근</RPC_Friendly>
-  <RPC_Timid>소심</RPC_Timid>
-  <RPC_Assertive>적극</RPC_Assertive>
-  <RPC_Stoic>냉담</RPC_Stoic>
-  <RPC_Cheerful>쾌활</RPC_Cheerful>
-  <RPC_Detached>무심</RPC_Detached>
+  <RPC_Aloof>무뚝뚝함</RPC_Aloof>
+  <RPC_Friendly>친근함</RPC_Friendly>
+  <RPC_Timid>소심함</RPC_Timid>
+  <RPC_Assertive>적극적</RPC_Assertive>
+  <RPC_Stoic>냉담함</RPC_Stoic>
+  <RPC_Cheerful>쾌활함</RPC_Cheerful>
+  <RPC_Detached>무심함</RPC_Detached>
   <RPC_Compassionate>온정적</RPC_Compassionate>
-  <RPC_Stubborn>완고</RPC_Stubborn>
+  <RPC_Stubborn>완고함</RPC_Stubborn>
   <RPC_Accommodating>협조적</RPC_Accommodating>
-  <RPC_Arrogant>오만</RPC_Arrogant>
-  <RPC_Humble>겸손</RPC_Humble>
-  <RPC_Stable>안정</RPC_Stable>
-  <RPC_Volatile>불안정</RPC_Volatile>
-  <RPC_Optimistic>낙관</RPC_Optimistic>
-  <RPC_Pessimistic>비관</RPC_Pessimistic>
-  <RPC_Confident>대담</RPC_Confident>
-  <RPC_Insecure>위축</RPC_Insecure>
-  <RPC_Imagination_Tooltip>Reflects a vivid inner world and emotional sensitivity to art and beauty. Imaginative pawns are drawn to daydreams, music, and Realistic pawns are more grounded and practical.</RPC_Imagination_Tooltip>
-  <RPC_Intellect_Tooltip>Captures interest in abstract thinking and complex ideas. Philosophical pawns enjoy deep conversations and philosophical questions; Practical pawns prefer concrete, straightforward thinking</RPC_Intellect_Tooltip>
-  <RPC_Curiosity_Tooltip>Describes a drive for novelty, diversity, and exploration. Explorative pawns seek new experiences and challenge norms; Conventional pawns favor routine and familiar settings.</RPC_Curiosity_Tooltip>
-  <RPC_Industriousness_Tooltip>Describes a drive to achieve long-term goals through hard work and persistence. Industrious pawns are motivated and focused, seeing tasks through to completion; Unmotivated pawns tend to lack drive and may abandon tasks.</RPC_Industriousness_Tooltip>
-  <RPC_Orderliness_Tooltip>Describes a preference for structure, tidiness, and careful planning. Organized pawns manage their environments and tasks with forethought, valuing order and disliking chaos; Disorganized pawns tend to be less structured and may struggle with keeping track of tasks.</RPC_Orderliness_Tooltip>
-  <RPC_Integrity_Tooltip>Describes a commitment to honesty, self-discipline, and moral consistency. Reliable pawns hold themselves to their promises, follow rules, and prioritize doing what's right; Inconsistent pawns may struggle with self-regulation, taking shortcuts or acting unreliably.</RPC_Integrity_Tooltip>
-  <RPC_Sociability_Tooltip>Reflects a pawn's warmth and engagement in social interactions. Friendly pawns enjoy connecting with others and are approachable; Aloof pawns tend to be more reserved and less outwardly social.</RPC_Sociability_Tooltip>
-  <RPC_Assertiveness_Tooltip>Describes a pawn's tendency to take charge, voice opinions, and influence others in social settings. Assertive pawns are bold and confident speakers; Timid pawns are more reserved and may hesitate to express themselves.</RPC_Assertiveness_Tooltip>
-  <RPC_Enthusiasm_Tooltip>Captures a pawn's desire for stimulation, positivity, and activity. Cheerful pawns are energetic, easily excited, and often on the move; Stoic pawns tend to be more reserved in their behavior and less outwardly driven by excitement.</RPC_Enthusiasm_Tooltip>
-  <RPC_Compassion_Tooltip>Reflects a pawn's capacity for emotional empathy and their desire to alleviate distress in others. Compassionate pawns are kind, nurturing, and emotionally attuned to others' feelings; Detached pawns tend to be less sensitive to the emotional states of those around them.</RPC_Compassion_Tooltip>
-  <RPC_Cooperation_Tooltip>Describes a pawn's preference for peaceful interactions and their willingness to trust. Accommodating pawns avoid arguments, value compromise, and dislike tension; Stubborn pawns may resist compromise and prefer to stick to their own views.</RPC_Cooperation_Tooltip>
-  <RPC_Humbleness_Tooltip>Captures a pawn's tendency to downplay their own importance and avoid arrogance. Humble pawns are unassuming and respectful, seeing themselves as equals to others; Arrogant pawns tend to exhibit self-importance and may act superior.</RPC_Humbleness_Tooltip>
-  <RPC_Volatility_Tooltip>Reflects a pawn's tendency to experience intense, rapidly changing emotions. Volatile pawns struggle with emotional regulation and may exhibit erratic behavior under stress; Stable pawns maintain a more consistent and calm emotional state.</RPC_Volatility_Tooltip>
-  <RPC_Pessimism_Tooltip>Captures a pawn's predisposition towards negative emotions such as sadness, resentment, and irritability. Pessimistic pawns often feel hopeless and are prone to depressive moods; Optimistic pawns maintain a more positive outlook.</RPC_Pessimism_Tooltip>
-  <RPC_Insecurity_Tooltip>Describes a pawn's susceptibility to feeling overwhelmed and their lack of confidence in stressful situations. Insecure pawns avoid pressure, fear failure, and may withdraw socially; Confident pawns approach challenges with self-assurance and are less affected by judgment.</RPC_Insecurity_Tooltip>
+  <RPC_Arrogant>오만함</RPC_Arrogant>
+  <RPC_Humble>겸손함</RPC_Humble>
+  <RPC_Stable>안정적</RPC_Stable>
+  <RPC_Volatile>불안정적</RPC_Volatile>
+  <RPC_Optimistic>낙관적</RPC_Optimistic>
+  <RPC_Pessimistic>비관적</RPC_Pessimistic>
+  <RPC_Confident>대담함</RPC_Confident>
+  <RPC_Insecure>위축됨</RPC_Insecure>
+  <RPC_Imagination_Tooltip>깊은 내면 세계와 예술, 아름다움에 대한 감수성을 나타냅니다. 창의적인 림들은 공상, 음악, 예술 등을 선호합니다. 반면, 현실적인 림들은 더 실용적이고 현실적인 성향을 보입니다.</RPC_Imagination_Tooltip>
+  <RPC_Intellect_Tooltip>추상적 사고와 복잡한 아이디어에 대한 흥미를 나타냅니다. 철학적인 림들은 깊이 있는 대화와 철학적 질문을 즐깁니다. 실용적인 림들은 구체적이고 간단한 것들  선호합니다.</RPC_Intellect_Tooltip>
+  <RPC_Curiosity_Tooltip>새로롭고 다양한 것에 대한 욕구와 탐험심을 나타냅니다. 탐험적인 림들은 새로운 경험을 즐기며 규범과 관습에 의문을 제기합니다. 반면, 전통적인 림들은 일상적인 루틴과 익숙한 것을 선호합니다.</RPC_Curiosity_Tooltip>
+  <RPC_Industriousness_Tooltip>꾸준한 노력과 인내로 장기적인 목표를 이루려는 성향을 나타냅니다. 근면한 림들은 동기가 강하고, 집중해서 맡은 바를 끝까지 성취하곤 합니다. 반면, 의욕이 없는 림들은 쉽게 흥미를 잃고 맡은 바를 그만두곤 합니다.</RPC_Industriousness_Tooltip>
+  <RPC_Orderliness_Tooltip>구조와 질서, 및 계획에 대한 선호도를 나타냅니다. 체계적인 림들은 혼란을 싫어하며 미리 계획을 세우고 정돈되게 일을 처리하는 것을 선호합니다. 산만한 림들은 덜 체계적이고 구체적 계획을 따라가는 것을 힘겨워하는 경향이 있습니다.</RPC_Orderliness_Tooltip>
+  <RPC_Integrity_Tooltip>정직함과 자기 절제, 도덕적 일관성에 대한 헌신을 나타냅니다. 정합적인 림은 자신과의 약속을 잘 지키고, 규칙을 따르며, 올바른 일을 하는 것을 중요하게 생각합니다. 반면, 비정합적인 림들은 편법을 쓰거나 규칙을 어기는 등 자신을 잘 규제하지 못하곤 합니다.</RPC_Integrity_Tooltip>
+  <RPC_Sociability_Tooltip>사회적 상호작용에서의 친근함과 사교성을 나타냅니다. 친근한 림들은 친화력이 높고 다른 사람들과 관계를 맺는 것을 즐깁니다. 반면, 무뚝뚝한 림들은 다른 사람과 사회적인 거리를 좀 더 두곤 합니다.</RPC_Sociability_Tooltip>
+  <RPC_Assertiveness_Tooltip>사회적 환경에서 주도적으로 행동하고, 의견을 내며, 다른 사람들에게 영향을 미치는 성향을 나타냅니다. 적극적인 림들은 자신감 있게 의견을 내고 주도적으로 나섭니다. 반면, 소심한 림들은 내향적이며 자기 의견을 잘 피력하려 하지 않습니다.</RPC_Assertiveness_Tooltip>
+  <RPC_Enthusiasm_Tooltip>자극이나 긍정적인 기분, 활발한 행동에 대한 욕구를 나타냅니다. 쾌활한 림들은 에너지가 넘치고 쉽게 흥분하며 활동적입니다. 반면 냉담한 림은 쉽게 흥분하지 않고 차분하 침착함을 유지합니다.</RPC_Enthusiasm_Tooltip>
+  <RPC_Compassion_Tooltip>타인의 감정에 공감하고 고통을 덜어주려는 성향을 나타냅니다. 온정적인 림들은 친절하고, 다른 사람의 감정에 민감하며 타인을 배려하려 노력합니다. 반면, 무심한 림들은 주변 인들의 감정상태에 훤씬 더 둔감합니다.</RPC_Compassion_Tooltip>
+  <RPC_Cooperation_Tooltip>평화로운 관계와 신뢰를 바탕으로 한 관계에 대한 선호를 나타냅니다. 협조적인 림들은 갈등을 회피하고 타협을 중시하며 불편한 상황을 피하려 합니다. 이에 반해 완고한 림은 자신의 의견을 고수하고 타협을 거부하곤 합니다.</RPC_Cooperation_Tooltip>
+  <RPC_Humbleness_Tooltip>스스로를 낮추고 자만하지 않는 성향을 나타냅니다. 겸손한 림들은 자신을 내세우지 않고 타인을 정중하게 대하며 자신과 타인을 평등하게 취급합니다. 반면, 오만한 림은 자신을 더 우월하게 여기고 스스로를 더 중요시 하는 경향이 있습니다.</RPC_Humbleness_Tooltip>
+  <RPC_Volatility_Tooltip>감정의 기복이 심하고 급격히 변하는 정도를 나타냅니다. 불안정적인 림들은 감정 조절에 어려움을 겪으며 스트레스를 받았을 때 급작스런 행동을 보이곤 합니다. 반면 안정적인 림들은 더 일관적이고 차분한 감정상태를 유지합니다.</RPC_Volatility_Tooltip>
+  <RPC_Pessimism_Tooltip>슬픔, 불안, 분노와 같이 부정적인 감정을 겪는 정도를 나타냅니다. 비관적인 림들은 쉽게 낙심하고 우울함에 빠집니다. 반대로 낙관적인 림들은 훨씬 긍정적인 시각으로 세상을 바라보는 경향이 있습니다.</RPC_Pessimism_Tooltip>
+  <RPC_Insecurity_Tooltip>낮은 자신감과 외압에 의해 쉽게 압도당하는 정도를 나타냅니다. 위축된 림들은 압력을 회피하고, 실패를 두려워하며 사회적 상황에서 쉽사리 위축됩니다. 반면, 대담한 림들은 역경에 자신감을 가지고 도전하며, 타인의 판단에 크게 영향을 받지 않습니다.</RPC_Insecurity_Tooltip>
 </LanguageData>
+
