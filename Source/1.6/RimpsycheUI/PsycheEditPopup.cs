@@ -436,12 +436,12 @@ namespace Maux36.RimPsyche
             foreach (Facet facet in RimpsycheDatabase.AllFacets)
             {
                 var value = compPsyche.Personality.GetFacetValue(facet);
-                var (leftLabel, rightLabel, lefColor, rightColor) = InterfaceComponents.FacetNotation[facet];
+                var (facetlabel, leftLabel, rightLabel, lefColor, rightColor) = InterfaceComponents.FacetNotation[facet];
                 Rect rowRect = new Rect(0f, y, viewRect.width, facetRowHeight);
                 if (Mouse.IsOver(rowRect))
                 {
                     Widgets.DrawHighlight(rowRect);
-                    string tooltipString = $"{facet}: {(value * 2f).ToString("F1")}\n\n{InterfaceComponents.FacetDescription[facet]}";
+                    string tooltipString = $"{facetlabel}: {(value * 2f).ToString("F1")}\n\n{InterfaceComponents.FacetDescription[facet]}";
                     if (compPsyche.Personality.gateInfoCache.TryGetValue(facet, out string explanation))
                     {
                         tooltipString += $"\n\n{explanation}";

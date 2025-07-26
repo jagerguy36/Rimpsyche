@@ -5,7 +5,7 @@ namespace Maux36.RimPsyche
     public class VersionManager : GameComponent
     {
         public static string pre_updateVersion = "";
-        public static string lastKnownModVersion = "0.0.0";
+        public static string lastKnownModVersion = "1.0.0";
         public static bool modVersionUpdated = false;
 
         public VersionManager(Game game) : base()

@@ -76,7 +76,7 @@ namespace Maux36.RimPsyche
             {
                 float calculatedValue = rimpsycheMultiplier.calculationFunction.Invoke(this);
                 EvaluationCache[rimpsycheMultiplier.formulaName] = calculatedValue;
-                Log.Message($"calculating {pawn.Name}'s {rimpsycheMultiplier.formulaName} : {calculatedValue} || {nameof(rimpsycheMultiplier)}");
+                //Log.Message($"calculating {pawn.Name}'s {rimpsycheMultiplier.formulaName} : {calculatedValue} || {nameof(rimpsycheMultiplier)}");
                 return calculatedValue;
             }
         }
@@ -236,12 +236,12 @@ namespace Maux36.RimPsyche
                             float newMinRange = Math.Min(existingData.minRange, range);
                             
                             gateAccumulator[facet] = (newCenter, newMinRange);
-                            Log.Message($"{pawn.Name}'s gate for {facet} updated: center sum = {newCenter}, min range = {newMinRange}");
+                            //Log.Message($"{pawn.Name}'s gate for {facet} updated: center sum = {newCenter}, min range = {newMinRange}");
                         }
                         else
                         {
                             gateAccumulator.Add(facet, (centerOffset, range));
-                            Log.Message($"{pawn.Name}'s gate for {facet} added by {trait.Label}: center = {centerOffset}, range = {range}");
+                            //Log.Message($"{pawn.Name}'s gate for {facet} added by {trait.Label}: center = {centerOffset}, range = {range}");
                         }
                         if (gateInfoCache.TryGetValue(facet, out string explanation))
                         {
@@ -302,12 +302,12 @@ namespace Maux36.RimPsyche
                             float newMinRange = Math.Min(existingData.minRange, range);
 
                             scopeAccumulator[personalityName] = (newCenter, newMinRange);
-                            Log.Message($"{pawn.Name}'s scope for {personalityName} updated: center sum = {newCenter}, min range = {newMinRange}");
+                            //Log.Message($"{pawn.Name}'s scope for {personalityName} updated: center sum = {newCenter}, min range = {newMinRange}");
                         }
                         else
                         {
                             scopeAccumulator.Add(personalityName, (centerOffset, range));
-                            Log.Message($"{pawn.Name}'s scope is being added by {trait.def.defName} to {personalityName}");
+                            //Log.Message($"{pawn.Name}'s scope is being added by {trait.def.defName} to {personalityName}");
                         }
                         if (scopeInfoCache.TryGetValue(personalityName, out string explanation))
                         {
@@ -534,7 +534,7 @@ namespace Maux36.RimPsyche
                     var (low, high) = range;
                     adjustedFuture = Rimpsyche_Utility.RestoreGatedValue(adjustedFuture, low, high);
                 }
-                Log.Message($"adjusting facet {kvp.Key} from {GetFacetValueRaw(kvp.Key)} to {adjustedFuture}");
+                //Log.Message($"adjusting facet {kvp.Key} from {GetFacetValueRaw(kvp.Key)} to {adjustedFuture}");
                 if (SetFacetValue(kvp.Key, adjustedFuture))
                 {
                     shouldDirtyCache = true;
@@ -611,15 +611,5 @@ namespace Maux36.RimPsyche
             Scribe_Values.Look(ref pessimism, "pessimism", 0, false);
             Scribe_Values.Look(ref insecurity, "insecurity", 0, false);
         }
-        public void LogAllFactors()
-        {
-            Log.Message($"{pawn.Name}'s OCEAN factors");
-            Log.Message($"Imagination: {imagination}, Intellect: {intellect}, Curiosity: {curiosity}");
-            Log.Message($"Industriousness: {industriousness}, Orderliness: {orderliness}, Integrity: {integrity}");
-            Log.Message($"Sociability: {sociability}, Assertiveness: {assertiveness}, Enthusiasm: {enthusiasm}");
-            Log.Message($"Compassion: {compassion}, Cooperation: {cooperation}, Humbleness: {humbleness}");
-            Log.Message($"Volatility: {volatility}, Pessimism: {pessimism}, Insecurity: {insecurity}");
-        }
-
     }
 }

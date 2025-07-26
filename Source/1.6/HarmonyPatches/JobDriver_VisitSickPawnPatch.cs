@@ -41,7 +41,6 @@ namespace Maux36.RimPsyche
                             instructions[i + 1].opcode == OpCodes.Ldc_R4 &&
                             (float)instructions[i + 1].operand == 0.8f)
                         {
-                            //Log.Message($"Visit Sick Pawn Found matching pattern in {method.Name}");
                             return true;
                         }
                     }

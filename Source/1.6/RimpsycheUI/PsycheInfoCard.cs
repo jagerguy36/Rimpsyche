@@ -7,6 +7,7 @@ using Verse;
 
 namespace Maux36.RimPsyche
 {
+    [StaticConstructorOnStartup]
     public class PsycheInfoCard
     {
         // Constants and style settings
@@ -15,9 +16,10 @@ namespace Maux36.RimPsyche
         public static Vector2 PersonalityScrollPosition = Vector2.zero;
         public static Vector2 InterestScrollPosition = Vector2.zero;
         public static Color barBackgroundColor = new Color(0.2f, 0.2f, 0.2f, 0.5f);
-        public static Color radarFillColor = new Color(0.5f, 1f, 0.5f, 0.3f);
+        public static Color radarFillColor = new Color(0.5f, 1f, 0.5f, 0.6f);
         public static Color radarHighlightColor = new Color(0.6f, 0.6f, 0.6f, 0.5f);
-        public static Color radarLineColor = new Color(0.5f, 0.5f, 0.5f, 0.5f);
+        public static Color radarEdgeColor = new Color(0.5f, 0.5f, 0.5f, 0.6f);
+        public static Color radarSpokeColor = new Color(0.5f, 0.5f, 0.5f, 0.3f);
 
         public static readonly float expandButtonSize = 8f;
         public static readonly float rightPanelWidthConstant = 250f;
@@ -286,6 +288,11 @@ namespace Maux36.RimPsyche
                     cachedLabelText = RimpsycheDatabase.IntensityKeysDefault[intensityKey] + " " + personalityName;
                 }
                 cachedLabelColor = Color.Lerp(Color.yellow, Color.green, absValue);
+                var personalityDesc = $"{personality.label.CapitalizeFirst()}: {(value * 100f).ToString("F1")}\n{personality.description}";
+                if (compPsyche.Personality.scopeInfoCache.TryGetValue(personality.defName, out string explanation))
+                {
+                    personalityDesc += $"\n\n{explanation}";
+                }
                 sortedData.Add(new PersonalityDisplayData
                 {
                     Personality = personality,
@@ -293,7 +300,7 @@ namespace Maux36.RimPsyche
                     AbsValue = absValue,
                     CachedLabelText = cachedLabelText,
                     CachedLabelColor = cachedLabelColor,
-                    CachedDescription = $"{personality.label.CapitalizeFirst()}: {(value*100f).ToString("F1")}\n{personality.description}"
+                    CachedDescription = personalityDesc
                 });
             }
             sortedData = sortedData.OrderByDescending(p => p.AbsValue).ToList();
@@ -326,7 +333,7 @@ namespace Maux36.RimPsyche
         private static void GenerateValuePointData(Vector2 center, CompPsyche compPsyche)
         {
             List<Vector2> valuePointData = new();
-            float radius = RadarChartSize / 2f;
+            float radius = RadarChartSize * 0.5f;
 
 
             for (int i = 0; i < RimpsycheSettings.facetCount; i++)
@@ -375,11 +382,12 @@ namespace Maux36.RimPsyche
 
             GL.Begin(GL.LINES);
             //Spokes and Circle
-            GL.Color(radarLineColor);
             for (int i = 0; i < RimpsycheSettings.facetCount; i++)
             {
+                GL.Color(radarSpokeColor);
                 GL.Vertex(center);
                 GL.Vertex(maxPoints[i]);
+                GL.Color(radarEdgeColor);
                 GL.Vertex(maxPoints[i]);
                 GL.Vertex(maxPoints[(i + 1) % RimpsycheSettings.facetCount]);
             }
@@ -417,14 +425,14 @@ namespace Maux36.RimPsyche
             Vector2 titleTextSize = Text.CalcSize("RPC_Personality".Translate());
 
             float radarChartX = (headerRect.width / 2f) - (titleTextSize.x / 2f) - RadarChartSize - RadarChartPadding;
-            Rect radarChartRect = new Rect(radarChartX, headerRect.y + (titleTextSize.y - RadarChartSize) / 2f, RadarChartSize, RadarChartSize);
+            Rect radarChartRect = new Rect(radarChartX, titleRect.y + (titleRect.height - RadarChartSize) / 2f, RadarChartSize, RadarChartSize);
             DrawRadarChart(radarChartRect, compPsyche, pawn);
 
             // Icon on the right
             float iconSize = 24f;
             float spacing = 2;
             float viewIconX = (headerRect.width / 2f) + (titleTextSize.x / 2f) + 8f;
-            Rect viewIconRect = new Rect(viewIconX, headerRect.y + (titleTextSize.y - iconSize) / 2f, iconSize, iconSize);
+            Rect viewIconRect = new Rect(viewIconX, titleRect.y + (titleRect.height - iconSize) / 2f, iconSize, iconSize);
 
             // Draw & handle click
             if (showMode == 0)
@@ -503,12 +511,12 @@ namespace Maux36.RimPsyche
                 foreach (Facet facet in RimpsycheDatabase.AllFacets)
                 {
                     var value = compPsyche.Personality.GetFacetValue(facet);
-                    var (leftLabel, rightLabel, lefColor, rightColor) = InterfaceComponents.FacetNotation[facet];
+                    var (facetlabel, leftLabel, rightLabel, lefColor, rightColor) = InterfaceComponents.FacetNotation[facet];
                     Rect rowRect = new Rect(0f, y, scrollContentRect.width, personalityRowHeight);
                     if (Mouse.IsOver(rowRect))
                     {
                         Widgets.DrawHighlight(rowRect);
-                        string tooltipString = $"{facet}: {(value * 2f).ToString("F1")}\n\n{InterfaceComponents.FacetDescription[facet]}";
+                        string tooltipString = $"{facetlabel}: {(value * 2f).ToString("F1")}\n\n{InterfaceComponents.FacetDescription[facet]}";
                         if (compPsyche.Personality.gateInfoCache.TryGetValue(facet, out string explanation))
                         {
                             tooltipString += $"\n\n{explanation}";

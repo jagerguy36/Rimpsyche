@@ -114,7 +114,7 @@ namespace Maux36.RimPsyche
                 {
                     influenceChance *= 1.5f;
                 }
-                Log.Message($"Affect. magnitude: {influenceChance}");
+                //Log.Message($"Affect. magnitude: {influenceChance}");
 
                 float totalWeight = topic.weights.Sum(w => Mathf.Abs(w.weight));
                 if (totalWeight == 0f)

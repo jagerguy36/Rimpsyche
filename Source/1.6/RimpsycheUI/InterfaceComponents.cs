@@ -7,32 +7,32 @@ namespace Maux36.RimPsyche
 {
     public class InterfaceComponents
     {
-        public static Dictionary<Facet, Tuple<TaggedString, TaggedString, Color, Color>> FacetNotation = new()
+        public static Dictionary<Facet, Tuple<TaggedString, TaggedString, TaggedString, Color, Color>> FacetNotation = new()
         {
             // Openness
-            { Facet.Imagination, Tuple.Create("RPC_Realistic".Translate(), "RPC_Imaginative".Translate(), Color.magenta, Color.cyan) },
-            { Facet.Intellect, Tuple.Create("RPC_Practical".Translate(), "RPC_Philosophical".Translate(), Color.magenta, Color.cyan) },
-            { Facet.Curiosity, Tuple.Create("RPC_Conventional".Translate(), "RPC_Explorative".Translate(), Color.magenta, Color.cyan) },
+            { Facet.Imagination, Tuple.Create("RPC_Imagination".Translate(), "RPC_Realistic".Translate(), "RPC_Imaginative".Translate(), Color.magenta, Color.cyan) },
+            { Facet.Intellect, Tuple.Create("RPC_Intellect".Translate(), "RPC_Practical".Translate(), "RPC_Philosophical".Translate(), Color.magenta, Color.cyan) },
+            { Facet.Curiosity, Tuple.Create("RPC_Curiosity".Translate(), "RPC_Conventional".Translate(), "RPC_Explorative".Translate(), Color.magenta, Color.cyan) },
 
             // Conscientiousness
-            { Facet.Industriousness, Tuple.Create("RPC_Unmotivated".Translate(), "RPC_Industrious".Translate(), Color.gray, Color.yellow) },
-            { Facet.Orderliness, Tuple.Create("RPC_Disorganized".Translate(), "RPC_Organized".Translate(), Color.gray, Color.yellow) },
-            { Facet.Integrity, Tuple.Create("RPC_Inconsistent".Translate(), "RPC_Reliable".Translate(), Color.gray, Color.yellow) },
+            { Facet.Industriousness, Tuple.Create("RPC_Industriousness".Translate(), "RPC_Unmotivated".Translate(), "RPC_Industrious".Translate(), Color.gray, Color.yellow) },
+            { Facet.Orderliness, Tuple.Create("RPC_Orderliness".Translate(), "RPC_Disorganized".Translate(), "RPC_Organized".Translate(), Color.gray, Color.yellow) },
+            { Facet.Integrity, Tuple.Create("RPC_Integrity".Translate(), "RPC_Inconsistent".Translate(), "RPC_Reliable".Translate(), Color.gray, Color.yellow) },
 
             // Extraversion
-            { Facet.Sociability, Tuple.Create("RPC_Aloof".Translate(), "RPC_Friendly".Translate(), Color.magenta, Color.green) },
-            { Facet.Assertiveness, Tuple.Create("RPC_Timid".Translate(), "RPC_Assertive".Translate(), Color.magenta, Color.green) },
-            { Facet.Enthusiasm, Tuple.Create("RPC_Stoic".Translate(), "RPC_Cheerful".Translate(), Color.magenta, Color.green) },
+            { Facet.Sociability, Tuple.Create("RPC_Sociability".Translate(), "RPC_Aloof".Translate(), "RPC_Friendly".Translate(), Color.magenta, Color.green) },
+            { Facet.Assertiveness, Tuple.Create("RPC_Assertiveness".Translate(), "RPC_Timid".Translate(), "RPC_Assertive".Translate(), Color.magenta, Color.green) },
+            { Facet.Enthusiasm, Tuple.Create("RPC_Enthusiasm".Translate(), "RPC_Stoic".Translate(), "RPC_Cheerful".Translate(), Color.magenta, Color.green) },
 
             // Agreeableness
-            { Facet.Compassion, Tuple.Create("RPC_Detached".Translate(), "RPC_Compassionate".Translate(), Color.blue, Color.green) },
-            { Facet.Cooperation, Tuple.Create("RPC_Stubborn".Translate(), "RPC_Accommodating".Translate(), Color.blue, Color.green) },
-            { Facet.Humbleness, Tuple.Create("RPC_Arrogant".Translate(), "RPC_Humble".Translate(), Color.blue, Color.green) },
+            { Facet.Compassion, Tuple.Create("RPC_Compassion".Translate(), "RPC_Detached".Translate(), "RPC_Compassionate".Translate(), Color.blue, Color.green) },
+            { Facet.Cooperation, Tuple.Create("RPC_Cooperation".Translate(), "RPC_Stubborn".Translate(), "RPC_Accommodating".Translate(), Color.blue, Color.green) },
+            { Facet.Humbleness, Tuple.Create("RPC_Humbleness".Translate(), "RPC_Arrogant".Translate(), "RPC_Humble".Translate(), Color.blue, Color.green) },
 
             // Neuroticism
-            { Facet.Volatility, Tuple.Create("RPC_Stable".Translate(), "RPC_Volatile".Translate(), Color.green, Color.red) },
-            { Facet.Pessimism, Tuple.Create("RPC_Optimistic".Translate(), "RPC_Pessimistic".Translate(), Color.green, Color.red) },
-            { Facet.Insecurity, Tuple.Create("RPC_Confident".Translate(), "RPC_Insecure".Translate(), Color.green, Color.red) }
+            { Facet.Volatility, Tuple.Create("RPC_Volatility".Translate(), "RPC_Stable".Translate(), "RPC_Volatile".Translate(), Color.green, Color.red) },
+            { Facet.Pessimism, Tuple.Create("RPC_Pessimism".Translate(), "RPC_Optimistic".Translate(), "RPC_Pessimistic".Translate(), Color.green, Color.red) },
+            { Facet.Insecurity, Tuple.Create("RPC_Insecurity".Translate(), "RPC_Confident".Translate(), "RPC_Insecure".Translate(), Color.green, Color.red) }
         };
 
         public static Dictionary<Facet, string> FacetDescription = new()

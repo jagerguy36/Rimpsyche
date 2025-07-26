@@ -13,7 +13,6 @@ namespace Maux36.RimPsyche
         public static float Boost(float A, float boostFactor = 0.5f)
         {
             float res = A * (1f + boostFactor * (1f - A * A));
-            Log.Message($"Boosting {A} -> {res}");
             return res;
 
         }
@@ -25,14 +24,12 @@ namespace Maux36.RimPsyche
             {
                 adjA = (A - 1f);
                 res = 1f - (adjA * adjA);
-                Log.Message($"Boosting2 {A} -> {res}");
                 return res;
             }
             else
             {
                 adjA = (A + 1f);
                 res = (adjA * adjA) - 1f;
-                Log.Message($"Boosting2 {A} -> {res}");
                 return res;
             }
 
@@ -45,14 +42,12 @@ namespace Maux36.RimPsyche
             {
                 adjA = (1f - A);
                 res = 1f - (adjA * adjA * adjA);
-                Log.Message($"Boosting3 {A} -> {res}");
                 return res;
             }
             else
             {
                 adjA = (1f + A);
                 res = (adjA * adjA * adjA) - 1f;
-                Log.Message($"Boosting3 {A} -> {res}");
                 return res;
             }
 
@@ -66,7 +61,7 @@ namespace Maux36.RimPsyche
             float sum2 = sum * sum;
             float val = (-(1f + C) * diff2 + sum2) / (4f + C * diff2);
             val = Boost3(val);
-            Log.Message($"SaddleShapeFunction: {x}, {y} | controversiality: {controversiality}. val: {val}");
+            //Log.Message($"SaddleShapeFunction: {x}, {y} | controversiality: {controversiality}. val: {val}");
             return val;
         }
         public static float MapRange(float value, float sourceMin, float sourceMax, float targetMin, float targetMax)
@@ -106,7 +101,7 @@ namespace Maux36.RimPsyche
             newThought.topicName = topicName;
             newThought.topicLabel = topicLabel;
             newThought.opinionOffset = opinionOffset;
-            Log.Message($"adding thought about {topicLabel} with opinionOffset {opinionOffset}");
+            //Log.Message($"adding thought about {topicLabel} with opinionOffset {opinionOffset}");
             if (newThought.otherPawn == null && otherPawn == null)
             {
                 Log.Error(string.Concat("Can't gain social thought ", newThought.def, " because its otherPawn is null and otherPawn passed to this method is also null. Social thoughts must have otherPawn."));
@@ -134,13 +129,11 @@ namespace Maux36.RimPsyche
                 Thought_MemoryPostDefined memoryToCompareWith = currentConvoMemories[maxConvoOpinions - 1];
                 if (Mathf.Abs(opinionOffset) < Mathf.Abs(memoryToCompareWith.OpinionOffset()))
                 {
-                    Log.Message("It's smaller actually. so no adding for you");
                     return;
                 }
                 for (int i = maxConvoOpinions - 1; i < currentConvoMemories.Count; i++)
                 {
                     Thought_MemoryPostDefined m = currentConvoMemories[i];
-                    Log.Message($"{m.topicLabel} will be removed");
                     m.age = m.DurationTicks + 300;
                 }
                 parentPawn.needs?.mood?.thoughts?.memories?.Memories.Add(newThought);
@@ -197,7 +190,7 @@ namespace Maux36.RimPsyche
             {
                 socialFightBaseChance *= other.genes.SocialFightChanceFactor;
             }
-            Log.Message($"{startCand.Name}'s startCandBaseChance: {startCandBaseChance} --> socialFightBaseChance: {socialFightBaseChance}");
+            //Log.Message($"{startCand.Name}'s startCandBaseChance: {startCandBaseChance} --> socialFightBaseChance: {socialFightBaseChance}");
             return Mathf.Clamp01(socialFightBaseChance);
         }
 

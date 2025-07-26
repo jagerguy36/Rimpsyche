@@ -31,11 +31,11 @@ namespace Maux36.RimPsyche
                 initiatorAttitude =Rimpsyche_Utility.Boost2(Mathf.Clamp(initiatorAttitude * 0.02f, -1f, 1f));
                 recipientAttitude = Rimpsyche_Utility.Boost2(Mathf.Clamp(recipientAttitude * 0.02f, -1f, 1f));
                 score = Rimpsyche_Utility.SaddleShapeFunction(initiatorAttitude, recipientAttitude, controversiality);
-                Log.Message($"initiatorAttitude: {initiatorAttitude}. recipientAttitude: {recipientAttitude} | score: {score}");
+                //Log.Message($"initiatorAttitude: {initiatorAttitude}. recipientAttitude: {recipientAttitude} | score: {score}");
             }
             else
             {
-                Log.Message($"Null weight on topic {name}");
+                Log.Error($"Null weight on topic {name}");
                 initiatorAttitude = initiatorPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Tact) + (0.1f * initiator.skills.GetSkill(SkillDefOf.Social).Level);
                 recipientAttitude = recipientPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Tact) + (0.1f * recipient.skills.GetSkill(SkillDefOf.Social).Level);
                 initiatorAttitude = Mathf.Clamp(initiatorAttitude, -1f, 1f);
