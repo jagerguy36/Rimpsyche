@@ -17,6 +17,9 @@
             <downloadUrl>https://github.com/pardeike/HarmonyRimWorld/releases/latest</downloadUrl>
         </li>
     </modDependencies>
+    <incompatibleWith>
+        <li>Community.Psychology.UnofficialUpdate</li>
+    </incompatibleWith>
     <packageId>Maux36.Rimpsyche</packageId>
     <description># Rimpsyche
 
