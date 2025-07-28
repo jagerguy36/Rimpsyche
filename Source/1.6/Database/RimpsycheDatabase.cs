@@ -11,6 +11,7 @@ namespace Maux36.RimPsyche
     {
         public static HashSet<Interest> InterestList = new();
         public static Dictionary<Interest, InterestDomainDef> InterestDomainDict = new();
+        public static Dictionary<string, PersonalityDef> PersonalityDict = new();
         //public static HashSet<string> InterestNameList = new();
         //public static HashSet<Topic> TopicList = new();
         //public static HashSet<string> TopicNameList = new();
@@ -100,6 +101,7 @@ namespace Maux36.RimPsyche
                         TraitScopeDatabase[key].Add((personalityDef.defName, scopeData.ceterOffset, scopeData.range));
                     }
                 }
+                PersonalityDict[personalityDef.defName] = personalityDef;
             }
         }
 

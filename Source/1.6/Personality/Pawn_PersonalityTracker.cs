@@ -81,6 +81,33 @@ namespace Maux36.RimPsyche
             }
         }
 
+        public float GetPersonality(string personalityDefName) //-1~1
+        {
+            if (personalityCache.TryGetValue(personalityDefName, out float cachedValue))
+            {
+                return cachedValue;
+            }
+
+            float sum = 0f;
+            var personality = RimpsycheDatabase.PersonalityDict[personalityDefName];
+            foreach (var w in personality.scoreWeight)
+            {
+                sum += GetFacetValueNorm(w.facet) * w.weight;
+            }
+            float result = Mathf.Clamp(sum * 0.02f, -1f, 1f);
+
+            // Apply scope
+            if (!scopeCache.NullOrEmpty())
+            {
+                if (scopeCache.TryGetValue(personalityDefName, out var range))
+                {
+                    var (low, high) = range;
+                    result = Rimpsyche_Utility.ApplyScope(result, low, high);
+                }
+            }
+            personalityCache[personalityDefName] = result;
+            return result;
+        }
         public float GetPersonality(PersonalityDef personality) //-1~1
         {
             if (personalityCache.TryGetValue(personality.defName, out float cachedValue))

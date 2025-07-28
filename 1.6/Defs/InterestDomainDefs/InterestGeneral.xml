@@ -26,30 +26,30 @@
         </scoreWeight>
         <topics>
           <li>
-            <!-- + : unbothered, enjoy | - : affected -->
+            <!-- + : Weather-aware and responsive | - : Weather-indifferent or dismissive -->
             <name>weather</name>
             <label>the weather</label>
             <controversiality>0</controversiality>
             <weights>
               <li>
-                <facet>Imagination</facet>
+                <personalityDefName>Inquisitiveness</personalityDefName>
+                <weight>0.3</weight>
+              </li>
+              <li>
+                <personalityDefName>Diligence</personalityDefName>
                 <weight>0.2</weight>
               </li>
               <li>
-                <facet>Enthusiasm</facet>
-                <weight>0.25</weight>
+                <personalityDefName>Spontaneity</personalityDefName>
+                <weight>-0.25</weight>
               </li>
               <li>
-                <facet>Sociability</facet>
+                <personalityDefName>Organization</personalityDefName>
                 <weight>0.15</weight>
               </li>
               <li>
-                <facet>Pessimism</facet>
-                <weight>-0.1</weight>
-              </li>
-              <li>
-                <facet>Volatility</facet>
-                <weight>-0.3</weight>
+                <personalityDefName>Deliberation</personalityDefName>
+                <weight>0.1</weight>
               </li>
             </weights>
           </li>
@@ -60,80 +60,72 @@
             <controversiality>0</controversiality>
             <weights>
               <li>
-                <facet>Enthusiasm</facet>
-                <weight>0.2</weight>
+                <personalityDefName>Resilience</personalityDefName>
+                <weight>0.35</weight>
               </li>
               <li>
-                <facet>Integrity</facet>
-                <weight>0.1</weight>
-              </li>
-              <li>
-                <facet>Volatility</facet>
-                <weight>-0.1</weight>
-              </li>
-              <li>
-                <facet>Pessimism</facet>
+                <personalityDefName>Tension</personalityDefName>
                 <weight>-0.2</weight>
               </li>
               <li>
-                <facet>Humbleness</facet>
-                <weight>0.4</weight>
+                <personalityDefName>Stability</personalityDefName>
+                <weight>0.1</weight>
+              </li>
+              <li>
+                <personalityDefName>Expectation</personalityDefName>
+                <weight>-0.35</weight>
               </li>
             </weights>
           </li>
           <li>
-            <!-- + : high tolerance | - : strong aversion -->
+            <!-- + : High tolerance, disregard | - : strong aversion, concern -->
             <name>pain</name>
             <label>pain</label>
             <controversiality>0</controversiality>
             <weights>
               <li>
-                <facet>Compassion</facet>
+                <personalityDefName>Resilience</personalityDefName>
+                <weight>0.4</weight>
+              </li>
+              <li>
+                <personalityDefName>Tension</personalityDefName>
                 <weight>-0.2</weight>
               </li>
               <li>
-                <facet>Pessimism</facet>
-                <weight>-0.2</weight>
+                <personalityDefName>Emotionality</personalityDefName>
+                <weight>-0.15</weight>
               </li>
               <li>
-                <facet>Volatility</facet>
-                <weight>-0.2</weight>
+                <personalityDefName>Compassion</personalityDefName>
+                <weight>-0.25</weight>
               </li>
-              <li>
-                <facet>Integrity</facet>
-                <weight>0.2</weight>
-              </li>
-              <li>
-                <facet>Humbleness</facet>
-                <weight>0.2</weight>
-              </li>
-            </weights>
+          </weights>
           </li>
           <li>
-            <!-- + : disciplined approach | - : agitated by hunger -->
+            <!-- + : Hunger-sensitive and food-conscious | - : Hunger-indifferent and food-detached -->
             <name>hunger</name>
             <label>hunger</label>
             <controversiality>0</controversiality>
             <weights>
               <li>
-                <facet>Humbleness</facet>
-                <weight>0.2</weight>
+                <personalityDefName>Discipline</personalityDefName>
+                <weight>0.3</weight>
               </li>
               <li>
-                <facet>Orderliness</facet>
-                <weight>0.2</weight>
+                <personalityDefName>Deliberation</personalityDefName>
+                <weight>0.25</weight>
               </li>
               <li>
-                <facet>Integrity</facet>
+                <personalityDefName>Spontaneity</personalityDefName>
+                <weight>-0.25</weight>
+              </li>
+              <li>
+                <personalityDefName>Organization</personalityDefName>
                 <weight>0.1</weight>
               </li>
               <li>
-                <facet>Volatility</facet>
-                <weight>-0.3</weight>
-              </li>
-              <li>
-                <facet>Pessimism</facet>
-                <weight>-0.2</weight>
+                <personalityDefName>Diligence</personalityDefName>
+                <weight>0.1</weight>
               </li>
             </weights>
           </li>
@@ -144,51 +136,56 @@
             <controversiality>0</controversiality>
             <weights>
               <li>
-                <facet>Curiosity</facet>
+                <personalityDefName>Expectation</personalityDefName>
+                <weight>0.35</weight>
+              </li>
+              <li>
+                <personalityDefName>SelfInterest</personalityDefName>
+                <weight>0.25</weight>
+              </li>
+              <li>
+                <personalityDefName>Discipline</personalityDefName>
+                <weight>-0.15</weight>
+              </li>
+              <li>
+                <personalityDefName>Resilience</personalityDefName>
+                <weight>-0.15</weight>
+              </li>
+              <li>
+                <personalityDefName>Ambition</personalityDefName>
                 <weight>-0.1</weight>
-              </li>
-              <li>
-                <facet>Humbleness</facet>
-                <weight>-0.25</weight>
-              </li>
-              <li>
-                <facet>Integrity</facet>
-                <weight>-0.25</weight>
-              </li>
-              <li>
-                <facet>Volatility</facet>
-                <weight>0.4</weight>
               </li>
             </weights>
           </li>
           <li>
-            <!-- + : precautious | - : dismissive -->
+            <!-- + : Safety-conscious | - : Risk-tolerant or safety-indifferent -->
             <name>safety</name>
             <label>safety</label>
             <controversiality>0</controversiality>
             <weights>
               <li>
-                <facet>Orderliness</facet>
+                <personalityDefName>Bravery</personalityDefName>
+                <weight>-0.35</weight>
+              </li>
+              <li>
+                <personalityDefName>Optimism</personalityDefName>
+                <weight>-0.25</weight>
+              </li>
+              <li>
+                <personalityDefName>Deliberation</personalityDefName>
                 <weight>0.2</weight>
               </li>
               <li>
-                <facet>Integrity</facet>
+                <personalityDefName>Spontaneity</personalityDefName>
+                <weight>-0.1</weight>
+              </li>
+              <li>
+                <personalityDefName>Inquisitiveness</personalityDefName>
                 <weight>0.1</weight>
-              </li>
-              <li>
-                <facet>Pessimism</facet>
-                <weight>0.2</weight>
-              </li>
-              <li>
-                <facet>Insecurity</facet>
-                <weight>0.3</weight>
-              </li>
-              <li>
-                <facet>Curiosity</facet>
-                <weight>-0.2</weight>
               </li>
             </weights>
           </li>
+
           <li>
              <!-- + : dismissive | - : concerned -->
             <name>injuries</name>

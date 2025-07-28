@@ -121,11 +121,24 @@ namespace Maux36.RimPsyche
                     return false;
 
                 var facetChanges = new Dictionary<Facet, float>();
-                foreach (var weight in topic.weights)
+                foreach (var personalityWeight in topic.weights)
                 {
-                    float contribution = influenceChance * (weight.weight / totalWeight);
+                    float contribution = influenceChance * (personalityWeight.weight / totalWeight);
                     if (contribution != 0f)
-                        facetChanges[weight.facet] = contribution;
+                    {
+                        var personality = RimpsycheDatabase.PersonalityDict[personalityWeight.personalityDefName];
+                        foreach (var weight in personality.scoreWeight)
+                        {
+                            if (facetChanges.ContainsKey(weight.facet))
+                            {
+                                facetChanges[weight.facet] += weight.weight * contribution;
+                            }
+                            else
+                            {
+                                facetChanges[weight.facet] = weight.weight * contribution;
+                            }
+                        }
+                    }
                 }
                 Personality.AffectFacetValue(facetChanges);
 

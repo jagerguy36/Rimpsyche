@@ -18,4 +18,9 @@ namespace Maux36.RimPsyche
         public float ceterOffset;
         public float range;
     }
+    public struct PersonalityWeight
+    {
+        public string personalityDefName;
+        public float weight;
+    }
 }

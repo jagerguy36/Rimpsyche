@@ -12,7 +12,7 @@ namespace Maux36.RimPsyche
         public float controversiality = 1;
         public bool allowChild = true;
         public bool NSFW = false;
-        public List<FacetWeight> weights;
+        public List<PersonalityWeight> weights;
         public float GetScore(Pawn initiator, Pawn recipient, out float initDirection)
         {
             initDirection = 1f;
@@ -23,15 +23,15 @@ namespace Maux36.RimPsyche
             var recipientPsyche = recipient.compPsyche();
             if (weights != null)
             {
-                foreach (FacetWeight weight in weights)
+                foreach (PersonalityWeight weight in weights)
                 {
-                    initiatorAttitude += initiatorPsyche.Personality.GetFacetValueNorm(weight.facet) * weight.weight;
-                    recipientAttitude += recipientPsyche.Personality.GetFacetValueNorm(weight.facet) * weight.weight;
+                    initiatorAttitude += initiatorPsyche.Personality.GetPersonality(weight.personalityDefName) * weight.weight;
+                    recipientAttitude += recipientPsyche.Personality.GetPersonality(weight.personalityDefName) * weight.weight;
                 }
-                initiatorAttitude =Rimpsyche_Utility.Boost2(Mathf.Clamp(initiatorAttitude * 0.02f, -1f, 1f));
-                recipientAttitude = Rimpsyche_Utility.Boost2(Mathf.Clamp(recipientAttitude * 0.02f, -1f, 1f));
+                initiatorAttitude =Rimpsyche_Utility.Boost2(Mathf.Clamp(initiatorAttitude, -1f, 1f));
+                recipientAttitude = Rimpsyche_Utility.Boost2(Mathf.Clamp(recipientAttitude, -1f, 1f));
                 score = Rimpsyche_Utility.SaddleShapeFunction(initiatorAttitude, recipientAttitude, controversiality);
-                //Log.Message($"initiatorAttitude: {initiatorAttitude}. recipientAttitude: {recipientAttitude} | score: {score}");
+                Log.Message($"initiatorAttitude: {initiatorAttitude}. recipientAttitude: {recipientAttitude} | score: {score}");
             }
             else
             {
