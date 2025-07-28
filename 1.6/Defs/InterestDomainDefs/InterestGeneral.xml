@@ -185,135 +185,146 @@
               </li>
             </weights>
           </li>
-
           <li>
-             <!-- + : dismissive | - : concerned -->
+             <!-- + : Cautious and injury-averse | - : Injury-indifferent or risk-accepting -->
             <name>injuries</name>
             <label>injuries</label>
             <controversiality>0</controversiality>
             <weights>
               <li>
-                <facet>Compassion</facet>
-                <weight>-0.5</weight>
+                <personalityDefName>Resilience</personalityDefName>
+                <weight>-0.35</weight>
               </li>
               <li>
-                <facet>Pessimism</facet>
-                <weight>-0.3</weight>
+                <personalityDefName>Bravery</personalityDefName>
+                <weight>-0.15</weight>
               </li>
               <li>
-                <facet>Volatility</facet>
-                <weight>-0.2</weight>
+                <personalityDefName>Emotionality</personalityDefName>
+                <weight>0.2</weight>
+              </li>
+              <li>
+                <personalityDefName>Deliberation</personalityDefName>
+                <weight>0.1</weight>
+              </li>
+              <li>
+                <personalityDefName>Tension</personalityDefName>
+                <weight>0.2</weight>
               </li>
             </weights>
           </li>
           <li>
-             <!-- + : worried | - : adventurous -->
+            <!-- + : Cautious, risk-averse, safety-oriented | - : Risk-tolerant, danger-indifferent, thrill-seeking -->
             <name>dangers</name>
             <label>dangers</label>
             <controversiality>0.5</controversiality>
             <weights>
               <li>
-                <facet>Orderliness</facet>
-                <weight>0.1</weight>
+                <personalityDefName>Bravery</personalityDefName>
+                <weight>-0.35</weight>
               </li>
               <li>
-                <facet>Curiosity</facet>
-                <weight>-0.3</weight>
+                <personalityDefName>Tension</personalityDefName>
+                <weight>0.15</weight>
               </li>
               <li>
-                <facet>Enthusiasm</facet>
-                <weight>-0.3</weight>
+                <personalityDefName>Optimism</personalityDefName>
+                <weight>-0.15</weight>
               </li>
               <li>
-                <facet>Pessimism</facet>
-                <weight>0.3</weight>
-            </li>
+                <personalityDefName>Deliberation</personalityDefName>
+                <weight>0.15</weight>
+              </li>
+              <li>
+                <personalityDefName>Experimentation</personalityDefName>
+                <weight>-0.2</weight>
+              </li>
             </weights>
           </li>
           <li>
-             <!-- + : collective effort | - : less inclined -->
+             <!-- + : Cooperative survival mindset | - : Individualistic survival mindset -->
             <name>survival_together</name>
             <label>surviving together</label>
-            <controversiality>0</controversiality>
+            <controversiality>0.2</controversiality>
             <weights>
               <li>
-                <facet>Compassion</facet>
-                <weight>0.4</weight>
+                <personalityDefName>Compassion</personalityDefName>
+                <weight>0.2</weight>
               </li>
               <li>
-                <facet>Cooperation</facet>
-                <weight>0.4</weight>
+                <personalityDefName>Loyalty</personalityDefName>
+                <weight>0.2</weight>
               </li>
               <li>
-                <facet>Humbleness</facet>
-                <weight>0.1</weight>
+                <personalityDefName>Trust</personalityDefName>
+                <weight>0.15</weight>
               </li>
               <li>
-                <facet>Integrity</facet>
-                <weight>0.05</weight>
+                <personalityDefName>Self-Interest</personalityDefName>
+                <weight>-0.15</weight>
               </li>
               <li>
-                <facet>Industriousness</facet>
-                <weight>0.05</weight>
+                <personalityDefName>Competitiveness</personalityDefName>
+                <weight>-0.1</weight>
+              </li>
+              <li>
+                <personalityDefName>Sociability</personalityDefName>
+                <weight>0.2</weight>
               </li>
             </weights>
           </li>
           <li>
-             <!-- + : enjoy eating, dining | - : food is fuel -->
+            <!-- + : Food-engaged | - : Food-indifferent -->
             <name>food</name>
             <label>food</label>
             <controversiality>0</controversiality>
             <weights>
               <li>
-                <facet>Enthusiasm</facet>
+                <personalityDefName>Experimentation</personalityDefName>
                 <weight>0.3</weight>
               </li>
               <li>
-                <facet>Sociability</facet>
+                <personalityDefName>Inquisitiveness</personalityDefName>
                 <weight>0.2</weight>
               </li>
               <li>
-                <facet>Compassion</facet>
-                <weight>0.15</weight>
-              </li>
-              <li>
-                <facet>Industriousness</facet>
+                <personalityDefName>Passion</personalityDefName>
                 <weight>0.1</weight>
               </li>
               <li>
-                <facet>Pessimism</facet>
-                <weight>-0.15</weight>
+                <personalityDefName>Expectation</personalityDefName>
+                <weight>0.3</weight>
               </li>
               <li>
-                <facet>Volatility</facet>
-                <weight>-0.1</weight>
-            </li>
+                <personalityDefName>Imagination</personalityDefName>
+                <weight>0.1</weight>
+              </li>
             </weights>
           </li>
           <li>
-             <!-- + : willing | - : prefer self-reliance, reluctance -->
+            <!-- + : Help-seeking or receptive | - : Help-avoidant or hyper-independent -->
             <name>help</name>
             <label>help</label>
             <controversiality>0.3</controversiality>
             <weights>
               <li>
-                <facet>Compassion</facet>
-                <weight>0.4</weight>
+                <personalityDefName>Trust</personalityDefName>
+                <weight>0.35</weight>
               </li>
               <li>
-                <facet>Cooperation</facet>
-                <weight>0.3</weight>
+                <personalityDefName>Competitiveness</personalityDefName>
+                <weight>-0.25</weight>
               </li>
               <li>
-                <facet>Humbleness</facet>
-                <weight>0.1</weight>
+                <personalityDefName>Deliberation</personalityDefName>
+                <weight>0.15</weight>
               </li>
               <li>
-                <facet>Integrity</facet>
-                <weight>0.1</weight>
+                <personalityDefName>Sociability</personalityDefName>
+                <weight>0.15</weight>
               </li>
               <li>
-                <facet>Insecurity</facet>
+                <personalityDefName>Confidence</personalityDefName>
                 <weight>-0.1</weight>
               </li>
             </weights>
@@ -339,54 +350,62 @@
         </scoreWeight>
         <topics>
           <li>
-            <!-- + : resilient | - : distressed -->
+            <!-- + : Engaged and reflective toward nightmares | - : Dismissive or avoidant of nightmares -->
             <name>nightmares</name>
             <label>nightmares</label>
             <controversiality>0</controversiality>
             <weights>
               <li>
-                <facet>Pessimism</facet>
-                <weight>-0.15</weight>
+                <personalityDefName>Emotionality</personalityDefName>
+                <weight>0.25</weight>
               </li>
               <li>
-                <facet>Intellect</facet>
-                <weight>0.3</weight>
+                <personalityDefName>Inquisitiveness</personalityDefName>
+                <weight>0.2</weight>
               </li>
               <li>
-                <facet>Volatility</facet>
-                <weight>-0.1</weight>
+                <personalityDefName>Openness</personalityDefName>
+                <weight>0.2</weight>
               </li>
               <li>
-                <facet>Imagination</facet>
-                <weight>-0.35</weight>
+                <personalityDefName>Resilience</personalityDefName>
+                <weight>-0.2</weight>
               </li>
               <li>
-                <facet>Enthusiasm</facet>
-                <weight>0.1</weight>
+                <personalityDefName>Tension</personalityDefName>
+                <weight>0.15</weight>
               </li>
             </weights>
           </li>
           <li>
-            <!-- + : Optimism | - : Cynicism -->
+            <!-- + : Hopeful and future-oriented | - : Cynical or dismissive of hope -->
             <name>hopes</name>
             <label>hopes</label>
             <controversiality>0</controversiality>
             <weights>
               <li>
-                <facet>Pessimism</facet>
-                <weight>-0.35</weight>
-              </li>
-              <li>
-                <facet>Enthusiasm</facet>
+                <personalityDefName>Optimism</personalityDefName>
                 <weight>0.3</weight>
               </li>
               <li>
-                <facet>Imagination</facet>
-                <weight>0.25</weight>
+                <personalityDefName>Imagination</personalityDefName>
+                <weight>0.2</weight>
               </li>
               <li>
-                <facet>Industriousness</facet>
+                <personalityDefName>Ambition</personalityDefName>
+                <weight>0.2</weight>
+              </li>
+              <li>
+                <personalityDefName>Passion</personalityDefName>
+                <weight>0.15</weight>
+              </li>
+              <li>
+                <personalityDefName>Resilience</personalityDefName>
                 <weight>0.1</weight>
+              </li>
+              <li>
+                <personalityDefName>Confidence</personalityDefName>
+                <weight>0.05</weight>
               </li>
             </weights>
           </li>
@@ -415,34 +434,30 @@
             </weights>
           </li>
           <li>
-            <!-- + : prevention and avoidance | - : coping with and adapting to -->
+            <!-- + : Acceptance, finding closure | - : Prolonged grief, difficulty coping, dwelling on what was lost -->
             <name>loss</name>
             <label>loss</label>
             <controversiality>0</controversiality>
             <weights>
               <li>
-                <facet>Orderliness</facet>
+                <personalityDefName>Resilience</personalityDefName>
                 <weight>0.3</weight>
               </li>
               <li>
-                <facet>Intellect</facet>
+                <personalityDefName>Stability</personalityDefName>
                 <weight>0.15</weight>
               </li>
               <li>
-                <facet>Industriousness</facet>
-                <weight>0.2</weight>
-              </li>
-              <li>
-                <facet>Pessimism</facet>
+                <personalityDefName>Optimism</personalityDefName>
                 <weight>0.15</weight>
               </li>
               <li>
-                <facet>Curiosity</facet>
-                <weight>-0.1</weight>
+                <personalityDefName>Emotionality</personalityDefName>
+                <weight>-0.25</weight>
               </li>
               <li>
-                <facet>Imagination</facet>
-                <weight>-0.1</weight>
+                <personalityDefName>Tension</personalityDefName>
+                <weight>-0.15</weight>
               </li>
             </weights>
           </li>
