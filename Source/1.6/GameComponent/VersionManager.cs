@@ -10,13 +10,13 @@ namespace Maux36.RimPsyche
 
         public VersionManager(Game game) : base()
         {
-            if (Rimpsyche.currentVersion != lastKnownModVersion)
-            {
-                modVersionUpdated = true;
-                pre_updateVersion = lastKnownModVersion;
-                lastKnownModVersion = Rimpsyche.currentVersion;
-                Log.Message($"[Rimpsyche] Version updated from {pre_updateVersion} -> {lastKnownModVersion}");
-            }
+            //if (Rimpsyche.currentVersion != lastKnownModVersion)
+            //{
+            //    modVersionUpdated = true;
+            //    pre_updateVersion = lastKnownModVersion;
+            //    lastKnownModVersion = Rimpsyche.currentVersion;
+            //    Log.Message($"[Rimpsyche] Version updated from {pre_updateVersion} -> {lastKnownModVersion}");
+            //}
         }
 
         public override void ExposeData()
