@@ -37,6 +37,8 @@ namespace Maux36.RimPsyche
         public static PersonalityDef Rimpsyche_Expectation;
         public static PersonalityDef Rimpsyche_Competitiveness;
         public static PersonalityDef Rimpsyche_SelfInterest;
+        public static PersonalityDef Rimpsyche_Reflectiveness;
+        public static PersonalityDef Rimpsyche_Authenticity;
         //public static PersonalityDef Rimpsyche_Cognition;
 
         static PersonalityDefOf()

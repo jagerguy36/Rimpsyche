@@ -13,11 +13,11 @@
       </li>
       <li>
         <facet>Assertiveness</facet>
-        <weight>0.35</weight>
+        <weight>0.4</weight>
       </li>
       <li>
         <facet>Enthusiasm</facet>
-        <weight>0.2</weight>
+        <weight>0.15</weight>
       </li>
       <li>
         <facet>Insecurity</facet>
@@ -39,15 +39,15 @@
       </li>
       <li>
         <facet>Enthusiasm</facet>
-        <weight>0.15</weight>
+        <weight>0.2</weight>
       </li>
       <li>
         <facet>Cooperation</facet>
-        <weight>0.15</weight>
+        <weight>0.2</weight>
       </li>
       <li>
         <facet>Insecurity</facet>
-        <weight>-0.25</weight>
+        <weight>-0.15</weight>
       </li>
     </scoreWeight>
     <scopes>
@@ -243,12 +243,16 @@
         <weight>-0.05</weight>
       </li>
       <li>
+        <facet>Sociability</facet>
+        <weight>-0.05</weight>
+      </li>
+      <li>
         <facet>Assertiveness</facet>
-        <weight>0.3</weight>
+        <weight>0.25</weight>
       </li>
       <li>
         <facet>Compassion</facet>
-        <weight>-0.1</weight>
+        <weight>-0.15</weight>
       </li>
       <li>
         <facet>Cooperation</facet>
@@ -256,7 +260,7 @@
       </li>
       <li>
         <facet>Volatility</facet>
-        <weight>0.15</weight>
+        <weight>0.1</weight>
       </li>
       <li>
         <facet>Pessimism</facet>
@@ -736,7 +740,11 @@
       </li>
       <li>
         <facet>Compassion</facet>
-        <weight>0.2</weight>
+        <weight>0.1</weight>
+      </li>
+      <li>
+        <facet>Cooperation</facet>
+        <weight>0.1</weight>
       </li>
       <li>
         <facet>Humbleness</facet>
@@ -832,8 +840,12 @@
         <weight>-0.2</weight>
       </li>
       <li>
+        <facet>Pessimism</facet>
+        <weight>-0.05</weight>
+      </li>
+      <li>
         <facet>Insecurity</facet>
-        <weight>-0.15</weight>
+        <weight>-0.1</weight>
       </li>
     </scoreWeight>
   </Maux36.RimPsyche.PersonalityDef>
@@ -968,7 +980,11 @@
       </li>
       <li>
         <facet>Enthusiasm</facet>
-        <weight>-0.2</weight>
+        <weight>-0.1</weight>
+      </li>
+      <li>
+        <facet>Volatility</facet>
+        <weight>0.1</weight>
       </li>
       <li>
         <facet>Pessimism</facet>
@@ -1023,6 +1039,13 @@
         <weight>-0.2</weight>
       </li>
     </scoreWeight>
+    <scopes MayRequire="Ludeon.RimWorld.Anomaly">
+      <li>
+        <traitDefname>Joyous</traitDefname>
+        <ceterOffset>0.75</ceterOffset>
+        <range>0.25</range>
+      </li>
+    </scopes>
   </Maux36.RimPsyche.PersonalityDef>
 
   <Maux36.RimPsyche.PersonalityDef>
@@ -1168,8 +1191,12 @@
         <weight>-0.4</weight>
       </li>
       <li>
+        <facet>Pessimism</facet>
+        <weight>-0.05</weight>
+      </li>
+      <li>
         <facet>Insecurity</facet>
-        <weight>-0.1</weight>
+        <weight>-0.05</weight>
       </li>
     </scoreWeight>
     <scopes>
@@ -1249,6 +1276,76 @@
       <li>
         <facet>Insecurity</facet>
         <weight>0.05</weight>
+      </li>
+    </scoreWeight>
+    <scopes>
+      <li>
+        <traitDefname>Greedy</traitDefname>
+        <ceterOffset>0.5</ceterOffset>
+        <range>0.5</range>
+      </li>
+    </scopes>
+  </Maux36.RimPsyche.PersonalityDef>
+
+  <Maux36.RimPsyche.PersonalityDef>
+    <defName>Rimpsyche_Reflectiveness</defName>
+    <label>reflectiveness</label>
+    <high>contemplative</high>
+    <low>pragmatic</low>
+    <description>Reflects a person's tendency to engage in deep thought, introspection, and consideration of abstract ideas. Contemplative individuals often spend time analyzing and pondering. Pragmatic individuals tend to focus on immediate, concrete matters.</description>
+    <scoreWeight>
+      <li>
+        <facet>Imagination</facet>
+        <weight>0.35</weight>
+      </li>
+      <li>
+        <facet>Intellect</facet>
+        <weight>0.4</weight>
+      </li>
+      <li>
+        <facet>Curiosity</facet>
+        <weight>0.05</weight>
+      </li>
+      <li>
+        <facet>Enthusiasm</facet>
+        <weight>-0.15</weight>
+      </li>
+      <li>
+        <facet>Pessimism</facet>
+        <weight>-0.05</weight>
+      </li>
+    </scoreWeight>
+    <scopes>
+      <li>
+        <traitDefname>TooSmart</traitDefname>
+        <ceterOffset>0.75</ceterOffset>
+        <range>0.25</range>
+      </li>
+    </scopes>
+  </Maux36.RimPsyche.PersonalityDef>
+
+  <Maux36.RimPsyche.PersonalityDef>
+    <defName>Rimpsyche_Authenticity</defName>
+    <label>authenticity</label>
+    <high>genuine</high>
+    <low>polished</low>
+    <description>Reflects how true a person is to their inner self in their presentation. Genuine individuals express themselves with sincerity, valuing authenticity over appearances. Polished individuals, in contrast, are more deliberate in shaping how they are perceived.</description>
+    <scoreWeight>
+      <li>
+        <facet>Integrity</facet>
+        <weight>0.2</weight>
+      </li>
+      <li>
+        <facet>Cooperation</facet>
+        <weight>0.25</weight>
+      </li>
+      <li>
+        <facet>Humbleness</facet>
+        <weight>0.35</weight>
+      </li>
+      <li>
+        <facet>Insecurity</facet>
+        <weight>-0.2</weight>
       </li>
     </scoreWeight>
     <scopes>
