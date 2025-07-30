@@ -770,7 +770,7 @@
             </weights>
           </li>
           <li>
-            <!-- TODO: Rethink -->
+            <!-- TODO: Rethink some weights esp. after this point. -->
             <!-- + : structured, prefers a fixed work schedule | - : flexible, prefers fluid work hours -->
             <name>work_schedule</name>
             <label>work schedule</label>
@@ -796,7 +796,7 @@
             </weights>
           </li>
           <li>
-            <!-- + : Valuing consistent sleep patterns | - : Disregarding a consistent sleep schedule-->
+            <!-- + : Structured, consistent sleeper | - : Irregular, spontaneous sleeper -->
             <name>sleep_schedule</name>
             <label>sleep schedule</label>
             <controversiality>0</controversiality>
@@ -806,16 +806,20 @@
                 <weight>0.35</weight>
               </li>
               <li>
-                <personalityDefName>Spontaneity</personalityDefName>
-                <weight>-0.3</weight>
-              </li>
-              <li>
                 <personalityDefName>Organization</personalityDefName>
-                <weight>0.2</weight>
+                <weight>0.25</weight>
               </li>
               <li>
-                <personalityDefName>Deliberation</personalityDefName>
-                <weight>0.15</weight>
+                <personalityDefName>Focus</personalityDefName>
+                <weight>0.10</weight>
+              </li>
+              <li>
+                <personalityDefName>Diligence</personalityDefName>
+                <weight>0.10</weight>
+              </li>
+              <li>
+                <personalityDefName>Spontaneity</personalityDefName>
+                <weight>-0.20</weight>
               </li>
             </weights>
           </li>
@@ -827,32 +831,20 @@
             <allowChild>false</allowChild>
             <weights>
               <li>
-                <facet>Orderliness</facet>
-                <weight>-0.2</weight>
+                <personalityDefName>Stability</personalityDefName>
+                <weight>0.15</weight>
               </li>
               <li>
-                <facet>Industriousness</facet>
-                <weight>-0.1</weight>
+                <personalityDefName>Tension</personalityDefName>
+                <weight>-0.30</weight>
               </li>
               <li>
-                <facet>Sociability</facet>
-                <weight>0.05</weight>
+                <personalityDefName>Resilience</personalityDefName>
+                <weight>0.25</weight>
               </li>
               <li>
-                <facet>Cooperation</facet>
-                <weight>0.05</weight>
-              </li>
-              <li>
-                <facet>Curiosity</facet>
-                <weight>0.1</weight>
-              </li>
-              <li>
-                <facet>Volatility</facet>
-                <weight>-0.35</weight>
-              </li>
-              <li>
-                <facet>Pessimism</facet>
-                <weight>-0.15</weight>
+                <personalityDefName>Organization</personalityDefName>
+                <weight>-0.3</weight>
               </li>
             </weights>
           </li>
@@ -864,24 +856,20 @@
             <allowChild>false</allowChild>
             <weights>
               <li>
-                <facet>Enthusiasm</facet>
-                <weight>0.4</weight>
+                <personalityDefName>Passion</personalityDefName>
+                <weight>0.35</weight>
               </li>
               <li>
-                <facet>Orderliness</facet>
-                <weight>0.1</weight>
+                <personalityDefName>Diligence</personalityDefName>
+                <weight>0.3</weight>
               </li>
               <li>
-                <facet>Industriousness</facet>
-                <weight>0.1</weight>
+                <personalityDefName>Inquisitiveness</personalityDefName>
+                <weight>0.2</weight>
               </li>
               <li>
-                <facet>Humbleness</facet>
-                <weight>-0.2</weight>
-              </li>
-              <li>
-                <facet>Volatility</facet>
-                <weight>-0.2</weight>
+                <personalityDefName>Focus</personalityDefName>
+                <weight>0.15</weight>
               </li>
             </weights>
            </li>
@@ -892,28 +880,24 @@
             <controversiality>0</controversiality>
             <weights>
               <li>
-                <facet>Industriousness</facet>
-                <weight>-0.3</weight>
+                <personalityDefName>Discipline</personalityDefName>
+                <weight>-0.25</weight>
               </li>
               <li>
-                <facet>Orderliness</facet>
-                <weight>-0.15</weight>
+                <personalityDefName>Tension</personalityDefName>
+                <weight>0.25</weight>
               </li>
               <li>
-                <facet>Enthusiasm</facet>
+                <personalityDefName>Spontaneity</personalityDefName>
                 <weight>0.2</weight>
               </li>
               <li>
-                <facet>Volatility</facet>
-                <weight>0.2</weight>
-              </li>
-              <li>
-                <facet>Sociability</facet>
-                <weight>0.05</weight>
-              </li>
-              <li>
-                <facet>Insecurity</facet>
+                <personalityDefName>Diligence</personalityDefName>
                 <weight>-0.1</weight>
+              </li>
+              <li>
+                <personalityDefName>Playfulness</personalityDefName>
+                <weight>0.2</weight>
               </li>
             </weights>
           </li>
@@ -924,24 +908,28 @@
             <controversiality>0</controversiality>
             <weights>
               <li>
-                <facet>Industriousness</facet>
-                <weight>0.4</weight>
+                <personalityDefName>Ambition</personalityDefName>
+                <weight>0.35</weight>
               </li>
               <li>
-                <facet>Orderliness</facet>
+                <personalityDefName>Diligence</personalityDefName>
                 <weight>0.2</weight>
               </li>
               <li>
-                <facet>Insecurity</facet>
+                <personalityDefName>Optimism</personalityDefName>
+                <weight>0.2</weight>
+              </li>
+              <li>
+                <personalityDefName>Spontaneity</personalityDefName>
+                <weight>-0.1</weight>
+              </li>
+              <li>
+                <personalityDefName>Experimentation</personalityDefName>
                 <weight>0.1</weight>
               </li>
               <li>
-                <facet>Enthusiasm</facet>
-                <weight>0.1</weight>
-              </li>
-              <li>
-                <facet>Humbleness</facet>
-                <weight>-0.2</weight>
+                <personalityDefName>Passion</personalityDefName>
+                <weight>0.05</weight>
               </li>
             </weights>
           </li>
@@ -952,28 +940,31 @@
             <controversiality>0</controversiality>
             <weights>
               <li>
-                <facet>Industriousness</facet>
-                <weight>0.4</weight>
-              </li>
-              <li>
-                <facet>Orderliness</facet>
+                <personalityDefName>Diligence</personalityDefName>
                 <weight>0.3</weight>
               </li>
               <li>
-                <facet>Integrity</facet>
-                <weight>0.15</weight>
+                <personalityDefName>Discipline</personalityDefName>
+                <weight>0.2</weight>
               </li>
               <li>
-                <facet>Enthusiasm</facet>
+                <personalityDefName>Spontaneity</personalityDefName>
+                <weight>-0.25</weight>
+              </li>
+              <li>
+                <personalityDefName>Ambition</personalityDefName>
+                <weight>0.1</weight>
+              </li>
+              <li>
+                <personalityDefName>Organization</personalityDefName>
+                <weight>0.1</weight>
+              </li>
+              <li>
+                <personalityDefName>Deliberation</personalityDefName>
                 <weight>0.05</weight>
-              </li>
-              <li>
-                <facet>Pessimism</facet>
-                <weight>-0.1</weight>
               </li>
             </weights>
           </li>
-
         </topics>
       </li>
 
@@ -1003,26 +994,38 @@
         </scoreWeight>
         <topics>
           <li>
-            <!-- + : Fondness for past experiences | - : Desire to distance oneself from past experiences -->
+            <!-- + : meaningful or nostalgic | - : irrelevant, unimportant, or something to move past -->
             <name>childhood</name>
             <label>childhood</label>
             <controversiality>0</controversiality>
             <weights>
               <li>
-                <facet>Imagination</facet>
-                <weight>0.4</weight>
+                <personalityDefName>Reflectiveness</personalityDefName>
+                <weight>0.3</weight>
               </li>
               <li>
-                <facet>Pessimism</facet>
-                <weight>-0.2</weight>
+                <personalityDefName>Emotionality</personalityDefName>
+                <weight>0.2</weight>
               </li>
               <li>
-                <facet>Humbleness</facet>
-                <weight>-0.1</weight>
+                <personalityDefName>Inquisitiveness</personalityDefName>
+                <weight>0.15</weight>
               </li>
               <li>
-                <facet>Insecurity</facet>
-                <weight>-0.3</weight>
+                <personalityDefName>Authenticity</personalityDefName>
+                <weight>0.1</weight>
+              </li>
+              <li>
+                <personalityDefName>Stability</personalityDefName>
+                <weight>0.1</weight>
+              </li>
+              <li>
+                <personalityDefName>Resilience</personalityDefName>
+                <weight>0.1</weight>
+              </li>
+              <li>
+                <personalityDefName>Openness</personalityDefName>
+                <weight>0.05</weight>
               </li>
             </weights>
           </li>
@@ -1033,28 +1036,28 @@
             <controversiality>0</controversiality>
             <weights>
               <li>
-                <facet>Imagination</facet>
+                <personalityDefName>Reflectiveness</personalityDefName>
+                <weight>0.3</weight>
+              </li>
+              <li>
+                <personalityDefName>Emotionality</personalityDefName>
                 <weight>0.25</weight>
               </li>
               <li>
-                <facet>Curiosity</facet>
-                <weight>-0.2</weight>
-              </li>
-              <li>
-                <facet>Sociability</facet>
+                <personalityDefName>Inquisitiveness</personalityDefName>
                 <weight>0.2</weight>
               </li>
               <li>
-                <facet>Compassion</facet>
+                <personalityDefName>Authenticity</personalityDefName>
                 <weight>0.1</weight>
               </li>
               <li>
-                <facet>Humbleness</facet>
-                <weight>0.15</weight>
+                <personalityDefName>Stability</personalityDefName>
+                <weight>0.1</weight>
               </li>
               <li>
-                <facet>Pessimism</facet>
-                <weight>-0.1</weight>
+                <personalityDefName>Openness</personalityDefName>
+                <weight>0.05</weight>
               </li>
             </weights>
           </li>
@@ -1065,24 +1068,24 @@
             <controversiality>0.1</controversiality>
             <weights>
               <li>
-                <facet>Imagination</facet>
-                <weight>0.2</weight>
-              </li>
-              <li>
-                <facet>Cooperation</facet>
-                <weight>0.2</weight>
-              </li>
-              <li>
-                <facet>Sociability</facet>
+                <personalityDefName>Loyalty</personalityDefName>
                 <weight>0.3</weight>
               </li>
               <li>
-                <facet>Pessimism</facet>
-                <weight>-0.1</weight>
+                <personalityDefName>Reflectiveness</personalityDefName>
+                <weight>0.25</weight>
               </li>
               <li>
-                <facet>Insecurity</facet>
-                <weight>-0.2</weight>
+                <personalityDefName>Emotionality</personalityDefName>
+                <weight>0.2</weight>
+              </li>
+              <li>
+                <personalityDefName>Authenticity</personalityDefName>
+                <weight>0.15</weight>
+              </li>
+              <li>
+                <personalityDefName>Compassion</personalityDefName>
+                <weight>0.1</weight>
               </li>
             </weights>
           </li>
@@ -1094,56 +1097,52 @@
             <allowChild>false</allowChild>
             <weights>
               <li>
-                <facet>Imagination</facet>
-                <weight>0.2</weight>
-              </li>
-              <li>
-                <facet>Cooperation</facet>
-                <weight>0.2</weight>
-              </li>
-              <li>
-                <facet>Sociability</facet>
+                <personalityDefName>Loyalty</personalityDefName>
                 <weight>0.3</weight>
               </li>
               <li>
-                <facet>Pessimism</facet>
-                <weight>-0.1</weight>
+                <personalityDefName>Reflectiveness</personalityDefName>
+                <weight>0.25</weight>
               </li>
               <li>
-                <facet>Insecurity</facet>
-                <weight>-0.2</weight>
+                <personalityDefName>Emotionality</personalityDefName>
+                <weight>0.25</weight>
+              </li>
+              <li>
+                <personalityDefName>Authenticity</personalityDefName>
+                <weight>0.1</weight>
+              </li>
+              <li>
+                <personalityDefName>Compassion</personalityDefName>
+                <weight>0.1</weight>
               </li>
             </weights>
           </li>
           <li>
-            <!-- + :  Finding joy in fond recal | - : Disinterest in fond memories, general forward-looking stance -->
+            <!-- + :  Cherishing, nostalgic, joy in fond recalㅣ | - : Disinterest in the past, forward-looking, future oriented -->
             <name>cherished_memory</name>
             <label>cherished memories</label>
             <controversiality>0</controversiality>
             <weights>
               <li>
-                <facet>Imagination</facet>
+                <personalityDefName>Reflectiveness</personalityDefName>
                 <weight>0.4</weight>
               </li>
               <li>
-                <facet>Compassion</facet>
-                <weight>0.2</weight>
+                <personalityDefName>Emotionality</personalityDefName>
+                <weight>0.3</weight>
               </li>
               <li>
-                <facet>Enthusiasm</facet>
+                <personalityDefName>Authenticity</personalityDefName>
                 <weight>0.15</weight>
               </li>
               <li>
-                <facet>Curiosity</facet>
-                <weight>-0.15</weight>
+                <personalityDefName>Stability</personalityDefName>
+                <weight>0.1</weight>
               </li>
               <li>
-                <facet>Industriousness</facet>
-                <weight>-0.05</weight>
-              </li>
-              <li>
-                <facet>Pessimism</facet>
-                <weight>-0.05</weight>
+                <personalityDefName>Loyalty</personalityDefName>
+                <weight>0.05</weight>
               </li>
             </weights>
           </li>

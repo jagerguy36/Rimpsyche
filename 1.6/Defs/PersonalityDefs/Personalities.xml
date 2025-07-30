@@ -1348,13 +1348,6 @@
         <weight>-0.2</weight>
       </li>
     </scoreWeight>
-    <scopes>
-      <li>
-        <traitDefname>Greedy</traitDefname>
-        <ceterOffset>0.5</ceterOffset>
-        <range>0.5</range>
-      </li>
-    </scopes>
   </Maux36.RimPsyche.PersonalityDef>
 
 <!--   <Maux36.RimPsyche.PersonalityDef>
