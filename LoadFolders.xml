@@ -4,5 +4,6 @@
 	<v1.6>
 		<li>1.6</li>
 		<li>Common</li>
+		<li IfModActive="lovelydovey.sex.witheuterpe">Mods/Intimacy/1.6</li>
 	</v1.6>
 </loadFolders>
