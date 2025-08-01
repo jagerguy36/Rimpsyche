@@ -7,6 +7,7 @@ namespace Maux36.RimPsyche
     public static class DefOfRimpsyche
     {
         public static InteractionDef Rimpsyche_Smalltalk;
+        public static InteractionDef Rimpsyche_StartConversation;
         public static InteractionDef Rimpsyche_Conversation;
         public static InteractionDef Rimpsyche_ConversationAttempt;
 

@@ -3,7 +3,14 @@
 	<Operation Class="PatchOperationReplace">
 		<xpath>*/InteractionDef[defName="Chitchat"]/workerClass</xpath>
 		<value>
-			<workerClass>InteractionWorker_DeepTalk</workerClass>
+			<workerClass>Maux36.RimPsyche.InteractionWroker_NeverRandom</workerClass>
+		</value>
+	</Operation>
+
+	<Operation Class="PatchOperationReplace">
+		<xpath>*/InteractionDef[defName="DeepTalk"]/workerClass</xpath>
+		<value>
+			<workerClass>Maux36.RimPsyche.InteractionWroker_NeverRandom</workerClass>
 		</value>
 	</Operation>
 	
