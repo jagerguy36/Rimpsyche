@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RimWorld;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -31,6 +32,8 @@ namespace Maux36.RimPsyche
 
         static RimpsycheDatabase()
         {
+            InteractionDefOf.Chitchat = DefOfRimpsyche.Rimpsyche_Smalltalk;
+            InteractionDefOf.DeepTalk = DefOfRimpsyche.Rimpsyche_StartConversation;
             if (LanguageDatabase.activeLanguage.HaveTextForKey("MemoryReportString"))
             {
                 conversationMemoryString = "MemoryReportString".Translate();

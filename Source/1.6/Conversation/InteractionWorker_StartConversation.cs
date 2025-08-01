@@ -1,5 +1,6 @@
 ﻿using RimWorld;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using Verse;
 
@@ -120,15 +121,15 @@ namespace Maux36.RimPsyche
 
                 if (topicAlignment > 0)
                 {
-                    float partnerScoreBase = 1f + (0.5f * reciOpinion) + (3f * topicAlignment); //0.5[2.5]4.5
+                    float partnerScoreBase = 1f + (0.5f * reciOpinion) + (4f * topicAlignment); //0.5[2.5]5.5
                     float partnerScoreModifier = (0.2f * initTact) + (0.2f * initPassion); //-0.4~[0]~0.4
                     partnerScoreModifier = (1f + talkRand) * partnerScoreModifier; // -0.8~[0]~0.8
-                    partnerScore = (partnerScoreBase + partnerScoreModifier); // -0.3[2.5]5.3
+                    partnerScore = (partnerScoreBase + partnerScoreModifier); // -0.3[2.5]6.3
 
-                    float pawnScoreBase = 1f + (0.5f * initOpinion) + (3f * topicAlignment); //0.5[2.5]4.5
+                    float pawnScoreBase = 1f + (0.5f * initOpinion) + (4f * topicAlignment); //0.5[2.5]5.5
                     float pawnScoreModifier = (0.2f * reciTact) + (0.2f * reciPassion); //-0.4~[0]~0.4
                     pawnScoreModifier = (1f + talkRand) * pawnScoreModifier; // -0.8~[0]~0.8
-                    pawnScore = (pawnScoreBase + pawnScoreModifier); // -0.3[2.5]5.3
+                    pawnScore = (pawnScoreBase + pawnScoreModifier); // -0.3[2.5]6.3
 
                     if (partnerScore < 0f || pawnScore < 0f)
                     {
@@ -155,9 +156,9 @@ namespace Maux36.RimPsyche
                     else
                     {
                         //Bad Talk
-                        float negativeScoreBase = 3f * topicAlignment * (1f - talkRand); // -3~[-1]~0
-                        pawnScore = negativeScoreBase * (1f - (0.3f * pawnReceiveScore)); //-5.7 ~ 0
-                        partnerScore = negativeScoreBase * (1f - (0.3f * partnerReceiveScore)); //(-3~0) * 0.1~1.9 = -5.7 ~[-1]~ 0
+                        float negativeScoreBase = 4f * topicAlignment * (1f - talkRand); // -4~[-1]~0
+                        pawnScore = negativeScoreBase * (1f - (0.3f * pawnReceiveScore)); //-7.6 ~ 0
+                        partnerScore = negativeScoreBase * (1f - (0.3f * partnerReceiveScore)); //(-4~0) * 0.1~1.9 = -7.6 ~[-1]~ 0
                         //Calcualte fight Chance
                         float pawnStartCandBaseChance = -0.005f * pawnScore * lengthMult * initiatorPsyche.Personality.Evaluate(RimpsycheDatabase.SocialFightChanceMultiplier);
                         float partnerStartCandBaseChance = -0.005f * partnerScore * lengthMult * recipientPsyche.Personality.Evaluate(RimpsycheDatabase.SocialFightChanceMultiplier);
@@ -201,7 +202,7 @@ namespace Maux36.RimPsyche
                     }
                 }
 
-                float lengthOpinionMult = (6f * lengthMult) / (lengthMult + 2f);
+                float lengthOpinionMult = (6f * lengthMult) / (lengthMult + 2f); //boost lower/middle part while maintaining the range. 1.3 ~ 4
                 float initOpinionOffset = pawnScore * lengthOpinionMult;
                 float reciOpinionOffset = partnerScore * lengthOpinionMult;
                 //Log.Message($"GetConvoResult: {initiator.Name}: {pawnScore} | {recipient.Name}: {partnerScore} | lengthOpinionMult: {lengthOpinionMult}");
@@ -218,7 +219,13 @@ namespace Maux36.RimPsyche
 
                 entry = new PlayLogEntry_InteractionConversation(DefOfRimpsyche.Rimpsyche_Conversation, initiator, recipient, convoTopic.name, convoTopic.label, extraSentencePacks);
                 Find.PlayLog.Add(entry);
+                extraSentencePacks.Clear();
+                InteractionHook(initiator, recipient, convoTopic, topicAlignment, initOpinionOffset, reciOpinionOffset);
             }
         }
+
+        //Harmony hook for mod compatibility.
+        [MethodImpl(MethodImplOptions.NoInlining)]
+        public static void InteractionHook(Pawn initiator, Pawn recipient, Topic convoTopic, float alignment, float initOpinionOffset, float reciOpinionOffset) { }
     }
 }

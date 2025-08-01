@@ -28,7 +28,7 @@ namespace Maux36.RimPsyche
                     initiatorAttitude += initiatorPsyche.Personality.GetPersonality(weight.personalityDefName) * weight.weight;
                     recipientAttitude += recipientPsyche.Personality.GetPersonality(weight.personalityDefName) * weight.weight;
                 }
-                initiatorAttitude =Rimpsyche_Utility.Boost2(Mathf.Clamp(initiatorAttitude, -1f, 1f));
+                initiatorAttitude = Rimpsyche_Utility.Boost2(Mathf.Clamp(initiatorAttitude, -1f, 1f));
                 recipientAttitude = Rimpsyche_Utility.Boost2(Mathf.Clamp(recipientAttitude, -1f, 1f));
                 score = Rimpsyche_Utility.SaddleShapeFunction(initiatorAttitude, recipientAttitude, controversiality);
                 Log.Message($"initiatorAttitude: {initiatorAttitude}. recipientAttitude: {recipientAttitude} | score: {score}");

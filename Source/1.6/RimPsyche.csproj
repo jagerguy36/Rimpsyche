@@ -67,11 +67,10 @@
     <Compile Include="CompPsyche\CompProperties_Psyche.cs" />
     <Compile Include="CompPsyche\CompPsyche.cs" />
     <Compile Include="CompPsyche\CompToHumanlikes.cs" />
+    <Compile Include="Conversation\InteractionWroker_NeverRandom.cs" />
     <Compile Include="Conversation\PlayLogEntry_InteractionConversation.cs" />
     <Compile Include="Database\RimpsycheFormula.cs" />
     <Compile Include="GameComponent\VersionManager.cs" />
-    <Compile Include="HarmonyPatches\JobDriver_VisitSickPawnPatch.cs" />
-    <Compile Include="HarmonyPatches\JobDriver_ConvertPrisonerPatch.cs" />
     <Compile Include="HarmonyPatches\Pawn_Notify_DisabledWorkTypesChanged.cs" />
     <Compile Include="Personality\Pawn_PersonalityTracker.cs" />
     <Compile Include="Conversation\InteractionWorker_StartConversation.cs" />

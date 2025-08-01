@@ -424,9 +424,12 @@ namespace Maux36.RimPsyche
             Widgets.Label(titleRect, "RPC_Personality".Translate());
             Vector2 titleTextSize = Text.CalcSize("RPC_Personality".Translate());
 
-            float radarChartX = (headerRect.width / 2f) - (titleTextSize.x / 2f) - RadarChartSize - RadarChartPadding;
-            Rect radarChartRect = new Rect(radarChartX, titleRect.y + (titleRect.height - RadarChartSize) / 2f, RadarChartSize, RadarChartSize);
-            DrawRadarChart(radarChartRect, compPsyche, pawn);
+            if (RimpsycheSettings.showFacetGraph)
+            {
+                float radarChartX = (headerRect.width / 2f) - (titleTextSize.x / 2f) - RadarChartSize - RadarChartPadding;
+                Rect radarChartRect = new Rect(radarChartX, titleRect.y + (titleRect.height - RadarChartSize) / 2f, RadarChartSize, RadarChartSize);
+                DrawRadarChart(radarChartRect, compPsyche, pawn);
+            }
 
             // Icon on the right
             float iconSize = 24f;

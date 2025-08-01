@@ -32,10 +32,26 @@
   </InteractionDef>
 
   <InteractionDef>
-    <defName>Rimpsyche_Conversation</defName>
+    <defName>Rimpsyche_StartConversation</defName>
     <label>conversation</label>
     <workerClass>Maux36.RimPsyche.InteractionWorker_StartConversation</workerClass>
     <symbol>Things/Mote/SpeechSymbols/Conversation</symbol>
+    <initiatorXpGainSkill>Social</initiatorXpGainSkill>
+    <initiatorXpGainAmount>10</initiatorXpGainAmount>
+    <logRulesInitiator>
+      <rulesStrings>
+        <li>r_logentry->Their interaction ended.</li>
+      </rulesStrings>
+    </logRulesInitiator>
+  </InteractionDef>
+
+  <InteractionDef>
+    <defName>Rimpsyche_Conversation</defName>
+    <label>conversation</label>
+    <workerClass>Maux36.RimPsyche.InteractionWroker_NeverRandom</workerClass>
+    <symbol>Things/Mote/SpeechSymbols/Conversation</symbol>
+    <initiatorXpGainSkill>Social</initiatorXpGainSkill>
+    <initiatorXpGainAmount>10</initiatorXpGainAmount>
     <logRulesInitiator>
       <rulesStrings>
         <li>r_logentry->[INITIATOR_nameDef] struck up a conversation with [RECIPIENT_nameDef] about {0}.</li>
