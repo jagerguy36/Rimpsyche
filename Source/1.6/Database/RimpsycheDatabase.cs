@@ -18,7 +18,6 @@ namespace Maux36.RimPsyche
         //public static HashSet<string> TopicNameList = new();
         public static Dictionary<Pair<string, int>, List<(string, float, float)>> TraitScopeDatabase = new();
         public static Facet[] AllFacets = (Facet[])Enum.GetValues(typeof(Facet));
-        //public static Dictionary<Facet, float> facetAccumulated = new();
 
         public static Dictionary<string, string> IntensityKeysDefault = new Dictionary<string, string>()
         {
@@ -56,22 +55,8 @@ namespace Maux36.RimPsyche
                         {
                             Log.Error($"Facet weight absolute sum for topic {topic.name} is not 1. It is {absoluteWeightSum}");
                         }
-                        //FOR DEVELOPMENT
-                        //foreach(var eachweight in topic.weights)
-                        //{
-                        //    if (facetAccumulated.ContainsKey(eachweight.facet))
-                        //    {
-                        //        facetAccumulated[eachweight.facet] += Mathf.Abs(eachweight.weight);
-                        //    }
-                        //    else
-                        //    {
-                        //        facetAccumulated.Add(eachweight.facet, Mathf.Abs(eachweight.weight));
-                        //    }
-                        //}
                     }
                 }
-                //FOR DEVELOPMENT
-                //Log.Message(string.Join("\n", facetAccumulated.Select(pair => $"{pair.Key}: {pair.Value}")));
             }
 
             //Scope

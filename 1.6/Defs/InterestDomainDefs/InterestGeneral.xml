@@ -32,23 +32,23 @@
             <controversiality>0</controversiality>
             <weights>
               <li>
-                <personalityDefName>Inquisitiveness</personalityDefName>
+                <personalityDefName>Rimpsyche_Inquisitiveness</personalityDefName>
                 <weight>0.3</weight>
               </li>
               <li>
-                <personalityDefName>Diligence</personalityDefName>
+                <personalityDefName>Rimpsyche_Diligence</personalityDefName>
                 <weight>0.2</weight>
               </li>
               <li>
-                <personalityDefName>Spontaneity</personalityDefName>
+                <personalityDefName>Rimpsyche_Spontaneity</personalityDefName>
                 <weight>-0.25</weight>
               </li>
               <li>
-                <personalityDefName>Organization</personalityDefName>
+                <personalityDefName>Rimpsyche_Organization</personalityDefName>
                 <weight>0.15</weight>
               </li>
               <li>
-                <personalityDefName>Deliberation</personalityDefName>
+                <personalityDefName>Rimpsyche_Deliberation</personalityDefName>
                 <weight>0.1</weight>
               </li>
             </weights>
@@ -60,44 +60,44 @@
             <controversiality>0</controversiality>
             <weights>
               <li>
-                <personalityDefName>Resilience</personalityDefName>
+                <personalityDefName>Rimpsyche_Resilience</personalityDefName>
                 <weight>0.35</weight>
               </li>
               <li>
-                <personalityDefName>Tension</personalityDefName>
+                <personalityDefName>Rimpsyche_Tension</personalityDefName>
                 <weight>-0.2</weight>
               </li>
               <li>
-                <personalityDefName>Stability</personalityDefName>
+                <personalityDefName>Rimpsyche_Stability</personalityDefName>
                 <weight>0.1</weight>
               </li>
               <li>
-                <personalityDefName>Expectation</personalityDefName>
+                <personalityDefName>Rimpsyche_Expectation</personalityDefName>
                 <weight>-0.35</weight>
               </li>
             </weights>
           </li>
           <li>
-            <!-- + : High tolerance, disregard | - : strong aversion, concern -->
+            <!-- + : High tolerance, enduring  | - : strong aversion, concern -->
             <name>pain</name>
             <label>pain</label>
             <controversiality>0</controversiality>
             <weights>
               <li>
-                <personalityDefName>Resilience</personalityDefName>
-                <weight>0.4</weight>
+                <personalityDefName>Rimpsyche_Resilience</personalityDefName>
+                <weight>0.25</weight>
               </li>
               <li>
-                <personalityDefName>Tension</personalityDefName>
+                <personalityDefName>Rimpsyche_Tension</personalityDefName>
                 <weight>-0.2</weight>
               </li>
               <li>
-                <personalityDefName>Emotionality</personalityDefName>
-                <weight>-0.15</weight>
+                <personalityDefName>Rimpsyche_Emotionality</personalityDefName>
+                <weight>-0.25</weight>
               </li>
               <li>
-                <personalityDefName>Compassion</personalityDefName>
-                <weight>-0.25</weight>
+                <personalityDefName>Rimpsyche_Compassion</personalityDefName>
+                <weight>-0.3</weight>
               </li>
           </weights>
           </li>
@@ -108,23 +108,23 @@
             <controversiality>0</controversiality>
             <weights>
               <li>
-                <personalityDefName>Discipline</personalityDefName>
+                <personalityDefName>Rimpsyche_Discipline</personalityDefName>
                 <weight>0.3</weight>
               </li>
               <li>
-                <personalityDefName>Deliberation</personalityDefName>
+                <personalityDefName>Rimpsyche_Deliberation</personalityDefName>
                 <weight>0.25</weight>
               </li>
               <li>
-                <personalityDefName>Spontaneity</personalityDefName>
+                <personalityDefName>Rimpsyche_Spontaneity</personalityDefName>
                 <weight>-0.25</weight>
               </li>
               <li>
-                <personalityDefName>Organization</personalityDefName>
+                <personalityDefName>Rimpsyche_Organization</personalityDefName>
                 <weight>0.1</weight>
               </li>
               <li>
-                <personalityDefName>Diligence</personalityDefName>
+                <personalityDefName>Rimpsyche_Diligence</personalityDefName>
                 <weight>0.1</weight>
               </li>
             </weights>
@@ -136,79 +136,83 @@
             <controversiality>0</controversiality>
             <weights>
               <li>
-                <personalityDefName>Expectation</personalityDefName>
-                <weight>0.35</weight>
+                <personalityDefName>Rimpsyche_Expectation</personalityDefName>
+                <weight>0.45</weight>
               </li>
               <li>
-                <personalityDefName>SelfInterest</personalityDefName>
+                <personalityDefName>Rimpsyche_SelfInterest</personalityDefName>
                 <weight>0.25</weight>
               </li>
               <li>
-                <personalityDefName>Discipline</personalityDefName>
+                <personalityDefName>Rimpsyche_Discipline</personalityDefName>
                 <weight>-0.15</weight>
               </li>
               <li>
-                <personalityDefName>Resilience</personalityDefName>
+                <personalityDefName>Rimpsyche_Resilience</personalityDefName>
                 <weight>-0.15</weight>
-              </li>
-              <li>
-                <personalityDefName>Ambition</personalityDefName>
-                <weight>-0.1</weight>
               </li>
             </weights>
           </li>
           <li>
-            <!-- + : Safety-conscious | - : Risk-tolerant or safety-indifferent -->
+            <!-- + : Systematic Precaution | - : Adaptive Improvisation -->
             <name>safety</name>
             <label>safety</label>
             <controversiality>0</controversiality>
             <weights>
               <li>
-                <personalityDefName>Bravery</personalityDefName>
-                <weight>-0.35</weight>
+                <personalityDefName>Rimpsyche_Discipline</personalityDefName>
+                <weight>0.25</weight>
               </li>
               <li>
-                <personalityDefName>Optimism</personalityDefName>
-                <weight>-0.25</weight>
-              </li>
-              <li>
-                <personalityDefName>Deliberation</personalityDefName>
+                <personalityDefName>Rimpsyche_Deliberation</personalityDefName>
                 <weight>0.2</weight>
               </li>
               <li>
-                <personalityDefName>Spontaneity</personalityDefName>
+                <personalityDefName>Rimpsyche_Organization</personalityDefName>
+                <weight>0.25</weight>
+              </li>
+              <li>
+                <personalityDefName>Rimpsyche_Experimentation</personalityDefName>
                 <weight>-0.1</weight>
               </li>
               <li>
-                <personalityDefName>Inquisitiveness</personalityDefName>
-                <weight>0.1</weight>
+                <personalityDefName>Rimpsyche_Spontaneity</personalityDefName>
+                <weight>-0.1</weight>
+              </li>
+              <li>
+                <personalityDefName>Rimpsyche_Confidence</personalityDefName>
+                <weight>-0.1</weight>
               </li>
             </weights>
           </li>
           <li>
-             <!-- + : Cautious and injury-averse | - : Injury-indifferent or risk-accepting -->
+             <!-- + : Prioritize recovery, serious risk | - : Prioritize maintaining, downplaying risk -->
             <name>injuries</name>
             <label>injuries</label>
             <controversiality>0</controversiality>
             <weights>
               <li>
-                <personalityDefName>Resilience</personalityDefName>
-                <weight>-0.35</weight>
+                <personalityDefName>Rimpsyche_Resilience</personalityDefName>
+                <weight>-0.1</weight>
               </li>
               <li>
-                <personalityDefName>Bravery</personalityDefName>
+                <personalityDefName>Rimpsyche_Bravery</personalityDefName>
+                <weight>-0.1</weight>
+              </li>
+              <li>
+                <personalityDefName>Rimpsyche_Ambition</personalityDefName>
                 <weight>-0.15</weight>
               </li>
               <li>
-                <personalityDefName>Emotionality</personalityDefName>
-                <weight>0.2</weight>
+                <personalityDefName>Rimpsyche_Deliberation</personalityDefName>
+                <weight>0.3</weight>
               </li>
               <li>
-                <personalityDefName>Deliberation</personalityDefName>
-                <weight>0.1</weight>
+                <personalityDefName>Rimpsyche_Optimism</personalityDefName>
+                <weight>-0.15</weight>
               </li>
               <li>
-                <personalityDefName>Tension</personalityDefName>
+                <personalityDefName>Rimpsyche_Tension</personalityDefName>
                 <weight>0.2</weight>
               </li>
             </weights>
@@ -220,55 +224,55 @@
             <controversiality>0.5</controversiality>
             <weights>
               <li>
-                <personalityDefName>Bravery</personalityDefName>
-                <weight>-0.35</weight>
+                <personalityDefName>Rimpsyche_Bravery</personalityDefName>
+                <weight>-0.4</weight>
               </li>
               <li>
-                <personalityDefName>Tension</personalityDefName>
+                <personalityDefName>Rimpsyche_Tension</personalityDefName>
                 <weight>0.15</weight>
               </li>
               <li>
-                <personalityDefName>Optimism</personalityDefName>
+                <personalityDefName>Rimpsyche_Optimism</personalityDefName>
                 <weight>-0.15</weight>
               </li>
               <li>
-                <personalityDefName>Deliberation</personalityDefName>
+                <personalityDefName>Rimpsyche_Deliberation</personalityDefName>
                 <weight>0.15</weight>
               </li>
               <li>
-                <personalityDefName>Experimentation</personalityDefName>
-                <weight>-0.2</weight>
+                <personalityDefName>Rimpsyche_Experimentation</personalityDefName>
+                <weight>-0.15</weight>
               </li>
             </weights>
           </li>
           <li>
-             <!-- + : Cooperative survival mindset | - : Individualistic survival mindset -->
+            <!-- + : Cooperative survival mindset | - : Individualistic survival mindset -->
             <name>survival_together</name>
             <label>surviving together</label>
             <controversiality>0.2</controversiality>
             <weights>
               <li>
-                <personalityDefName>Compassion</personalityDefName>
+                <personalityDefName>Rimpsyche_Compassion</personalityDefName>
                 <weight>0.2</weight>
               </li>
               <li>
-                <personalityDefName>Loyalty</personalityDefName>
+                <personalityDefName>Rimpsyche_Loyalty</personalityDefName>
                 <weight>0.2</weight>
               </li>
               <li>
-                <personalityDefName>Trust</personalityDefName>
+                <personalityDefName>Rimpsyche_Trust</personalityDefName>
                 <weight>0.15</weight>
               </li>
               <li>
-                <personalityDefName>Self-Interest</personalityDefName>
+                <personalityDefName>Rimpsyche_SelfInterest</personalityDefName>
                 <weight>-0.15</weight>
               </li>
               <li>
-                <personalityDefName>Competitiveness</personalityDefName>
+                <personalityDefName>Rimpsyche_Competitiveness</personalityDefName>
                 <weight>-0.1</weight>
               </li>
               <li>
-                <personalityDefName>Sociability</personalityDefName>
+                <personalityDefName>Rimpsyche_Sociability</personalityDefName>
                 <weight>0.2</weight>
               </li>
             </weights>
@@ -280,23 +284,23 @@
             <controversiality>0</controversiality>
             <weights>
               <li>
-                <personalityDefName>Experimentation</personalityDefName>
+                <personalityDefName>Rimpsyche_Experimentation</personalityDefName>
                 <weight>0.3</weight>
               </li>
               <li>
-                <personalityDefName>Inquisitiveness</personalityDefName>
+                <personalityDefName>Rimpsyche_Inquisitiveness</personalityDefName>
                 <weight>0.2</weight>
               </li>
               <li>
-                <personalityDefName>Passion</personalityDefName>
+                <personalityDefName>Rimpsyche_Passion</personalityDefName>
                 <weight>0.1</weight>
               </li>
               <li>
-                <personalityDefName>Expectation</personalityDefName>
+                <personalityDefName>Rimpsyche_Expectation</personalityDefName>
                 <weight>0.3</weight>
               </li>
               <li>
-                <personalityDefName>Imagination</personalityDefName>
+                <personalityDefName>Rimpsyche_Imagination</personalityDefName>
                 <weight>0.1</weight>
               </li>
             </weights>
@@ -308,23 +312,23 @@
             <controversiality>0.3</controversiality>
             <weights>
               <li>
-                <personalityDefName>Trust</personalityDefName>
+                <personalityDefName>Rimpsyche_Trust</personalityDefName>
                 <weight>0.35</weight>
               </li>
               <li>
-                <personalityDefName>Competitiveness</personalityDefName>
+                <personalityDefName>Rimpsyche_Competitiveness</personalityDefName>
                 <weight>-0.25</weight>
               </li>
               <li>
-                <personalityDefName>Deliberation</personalityDefName>
+                <personalityDefName>Rimpsyche_Deliberation</personalityDefName>
                 <weight>0.15</weight>
               </li>
               <li>
-                <personalityDefName>Sociability</personalityDefName>
+                <personalityDefName>Rimpsyche_Sociability</personalityDefName>
                 <weight>0.15</weight>
               </li>
               <li>
-                <personalityDefName>Confidence</personalityDefName>
+                <personalityDefName>Rimpsyche_Confidence</personalityDefName>
                 <weight>-0.1</weight>
               </li>
             </weights>
@@ -356,23 +360,27 @@
             <controversiality>0</controversiality>
             <weights>
               <li>
-                <personalityDefName>Emotionality</personalityDefName>
-                <weight>0.25</weight>
-              </li>
-              <li>
-                <personalityDefName>Inquisitiveness</personalityDefName>
+                <personalityDefName>Rimpsyche_Emotionality</personalityDefName>
                 <weight>0.2</weight>
               </li>
               <li>
-                <personalityDefName>Openness</personalityDefName>
+                <personalityDefName>Rimpsyche_Inquisitiveness</personalityDefName>
                 <weight>0.2</weight>
               </li>
               <li>
-                <personalityDefName>Resilience</personalityDefName>
-                <weight>-0.2</weight>
+                <personalityDefName>Rimpsyche_Openness</personalityDefName>
+                <weight>0.2</weight>
               </li>
               <li>
-                <personalityDefName>Tension</personalityDefName>
+                <personalityDefName>Rimpsyche_Resilience</personalityDefName>
+                <weight>-0.1</weight>
+              </li>
+              <li>
+                <personalityDefName>Rimpsyche_Reflectiveness</personalityDefName>
+                <weight>0.15</weight>
+              </li>
+              <li>
+                <personalityDefName>Rimpsyche_Tension</personalityDefName>
                 <weight>0.15</weight>
               </li>
             </weights>
@@ -384,28 +392,28 @@
             <controversiality>0</controversiality>
             <weights>
               <li>
-                <personalityDefName>Optimism</personalityDefName>
+                <personalityDefName>Rimpsyche_Optimism</personalityDefName>
                 <weight>0.3</weight>
               </li>
               <li>
-                <personalityDefName>Imagination</personalityDefName>
-                <weight>0.2</weight>
-              </li>
-              <li>
-                <personalityDefName>Ambition</personalityDefName>
-                <weight>0.2</weight>
-              </li>
-              <li>
-                <personalityDefName>Passion</personalityDefName>
+                <personalityDefName>Rimpsyche_Imagination</personalityDefName>
                 <weight>0.15</weight>
               </li>
               <li>
-                <personalityDefName>Resilience</personalityDefName>
+                <personalityDefName>Rimpsyche_Ambition</personalityDefName>
+                <weight>0.2</weight>
+              </li>
+              <li>
+                <personalityDefName>Rimpsyche_Passion</personalityDefName>
+                <weight>0.15</weight>
+              </li>
+              <li>
+                <personalityDefName>Rimpsyche_Resilience</personalityDefName>
                 <weight>0.1</weight>
               </li>
               <li>
-                <personalityDefName>Confidence</personalityDefName>
-                <weight>0.05</weight>
+                <personalityDefName>Rimpsyche_Confidence</personalityDefName>
+                <weight>0.1</weight>
               </li>
             </weights>
           </li>
@@ -416,24 +424,28 @@
             <controversiality>0</controversiality>
             <weights>
               <li>
-                <personalityDefName>Tension</personalityDefName>
-                <weight>0.35</weight>
+                <personalityDefName>Rimpsyche_Reflectiveness</personalityDefName>
+                <weight>0.1</weight>
               </li>
               <li>
-                <personalityDefName>Bravery</personalityDefName>
+                <personalityDefName>Rimpsyche_Tension</personalityDefName>
+                <weight>0.1</weight>
+              </li>
+              <li>
+                <personalityDefName>Rimpsyche_Bravery</personalityDefName>
+                <weight>-0.3</weight>
+              </li>
+              <li>
+                <personalityDefName>Rimpsyche_Emotionality</personalityDefName>
+                <weight>0.15</weight>
+              </li>
+              <li>
+                <personalityDefName>Rimpsyche_Imagination</personalityDefName>
+                <weight>0.1</weight>
+              </li>
+              <li>
+                <personalityDefName>Rimpsyche_Optimism</personalityDefName>
                 <weight>-0.25</weight>
-              </li>
-              <li>
-                <personalityDefName>Emotionality</personalityDefName>
-                <weight>0.15</weight>
-              </li>
-              <li>
-                <personalityDefName>Imagination</personalityDefName>
-                <weight>0.15</weight>
-              </li>
-              <li>
-                <personalityDefName>Optimism</personalityDefName>
-                <weight>-0.1</weight>
               </li>
             </weights>
           </li>
@@ -444,23 +456,23 @@
             <controversiality>0</controversiality>
             <weights>
               <li>
-                <personalityDefName>Resilience</personalityDefName>
+                <personalityDefName>Rimpsyche_Resilience</personalityDefName>
                 <weight>0.3</weight>
               </li>
               <li>
-                <personalityDefName>Stability</personalityDefName>
+                <personalityDefName>Rimpsyche_Stability</personalityDefName>
                 <weight>0.15</weight>
               </li>
               <li>
-                <personalityDefName>Optimism</personalityDefName>
+                <personalityDefName>Rimpsyche_Optimism</personalityDefName>
                 <weight>0.15</weight>
               </li>
               <li>
-                <personalityDefName>Emotionality</personalityDefName>
+                <personalityDefName>Rimpsyche_Emotionality</personalityDefName>
                 <weight>-0.25</weight>
               </li>
               <li>
-                <personalityDefName>Tension</personalityDefName>
+                <personalityDefName>Rimpsyche_Tension</personalityDefName>
                 <weight>-0.15</weight>
               </li>
             </weights>
@@ -472,23 +484,23 @@
             <controversiality>0</controversiality>
             <weights>
               <li>
-                <personalityDefName>Tension</personalityDefName>
-                <weight>-0.35</weight>
+                <personalityDefName>Rimpsyche_Tension</personalityDefName>
+                <weight>-0.2</weight>
               </li>
               <li>
-                <personalityDefName>Optimism</personalityDefName>
+                <personalityDefName>Rimpsyche_Optimism</personalityDefName>
                 <weight>0.2</weight>
               </li>
               <li>
-                <personalityDefName>Openness</personalityDefName>
-                <weight>0.15</weight>
-              </li>
-              <li>
-                <personalityDefName>Bravery</personalityDefName>
+                <personalityDefName>Rimpsyche_Openness</personalityDefName>
                 <weight>0.2</weight>
               </li>
               <li>
-                <personalityDefName>Focus</personalityDefName>
+                <personalityDefName>Rimpsyche_Bravery</personalityDefName>
+                <weight>0.3</weight>
+              </li>
+              <li>
+                <personalityDefName>Rimpsyche_Focus</personalityDefName>
                 <weight>-0.1</weight>
               </li>
             </weights>
@@ -500,23 +512,23 @@
             <controversiality>0</controversiality>
             <weights>
               <li>
-                <personalityDefName>Optimism</personalityDefName>
+                <personalityDefName>Rimpsyche_Optimism</personalityDefName>
                 <weight>0.3</weight>
               </li>
               <li>
-                <personalityDefName>Imagination</personalityDefName>
+                <personalityDefName>Rimpsyche_Imagination</personalityDefName>
                 <weight>0.2</weight>
               </li>
               <li>
-                <personalityDefName>Expectation</personalityDefName>
+                <personalityDefName>Rimpsyche_Expectation</personalityDefName>
                 <weight>-0.2</weight>
               </li>
               <li>
-                <personalityDefName>Tension</personalityDefName>
+                <personalityDefName>Rimpsyche_Tension</personalityDefName>
                 <weight>-0.15</weight>
               </li>
               <li>
-                <personalityDefName>Passion</personalityDefName>
+                <personalityDefName>Rimpsyche_Passion</personalityDefName>
                 <weight>0.15</weight>
               </li>
             </weights>
@@ -528,23 +540,23 @@
             <controversiality>0</controversiality>
             <weights>
               <li>
-                <personalityDefName>Bravery</personalityDefName>
-                <weight>0.3</weight>
+                <personalityDefName>Rimpsyche_Bravery</personalityDefName>
+                <weight>0.45</weight>
               </li>
               <li>
-                <personalityDefName>Resilience</personalityDefName>
-                <weight>0.25</weight>
-              </li>
-              <li>
-                <personalityDefName>Confidence</personalityDefName>
+                <personalityDefName>Rimpsyche_Resilience</personalityDefName>
                 <weight>0.2</weight>
               </li>
               <li>
-                <personalityDefName>Optimism</personalityDefName>
+                <personalityDefName>Rimpsyche_Confidence</personalityDefName>
                 <weight>0.15</weight>
               </li>
               <li>
-                <personalityDefName>Inquisitiveness</personalityDefName>
+                <personalityDefName>Rimpsyche_Optimism</personalityDefName>
+                <weight>0.1</weight>
+              </li>
+              <li>
+                <personalityDefName>Rimpsyche_Inquisitiveness</personalityDefName>
                 <weight>0.1</weight>
               </li>
             </weights>
@@ -556,27 +568,27 @@
             <controversiality>0</controversiality>
             <weights>
               <li>
-                <personalityDefName>Ambition</personalityDefName>
+                <personalityDefName>Rimpsyche_Ambition</personalityDefName>
                 <weight>0.3</weight>
               </li>
               <li>
-                <personalityDefName>Confidence</personalityDefName>
+                <personalityDefName>Rimpsyche_Confidence</personalityDefName>
                 <weight>0.2</weight>
               </li>
               <li>
-                <personalityDefName>Imagination</personalityDefName>
+                <personalityDefName>Rimpsyche_Imagination</personalityDefName>
                 <weight>0.2</weight>
               </li>
               <li>
-                <personalityDefName>Optimism</personalityDefName>
+                <personalityDefName>Rimpsyche_Optimism</personalityDefName>
                 <weight>0.15</weight>
               </li>
               <li>
-                <personalityDefName>Resilience</personalityDefName>
+                <personalityDefName>Rimpsyche_Resilience</personalityDefName>
                 <weight>0.1</weight>
               </li>
               <li>
-                <personalityDefName>Inquisitiveness</personalityDefName>
+                <personalityDefName>Rimpsyche_Inquisitiveness</personalityDefName>
                 <weight>0.05</weight>
               </li>
             </weights>
@@ -588,19 +600,19 @@
             <controversiality>0</controversiality>
             <weights>
               <li>
-                <personalityDefName>Emotionality</personalityDefName>
-                <weight>-0.4</weight>
+                <personalityDefName>Rimpsyche_Emotionality</personalityDefName>
+                <weight>-0.35</weight>
               </li>
               <li>
-                <personalityDefName>Reflectiveness</personalityDefName>
+                <personalityDefName>Rimpsyche_Reflectiveness</personalityDefName>
                 <weight>0.3</weight>
               </li>
               <li>
-                <personalityDefName>Stability</personalityDefName>
-                <weight>0.15</weight>
+                <personalityDefName>Rimpsyche_Stability</personalityDefName>
+                <weight>0.2</weight>
               </li>
               <li>
-                <personalityDefName>Tension</personalityDefName>
+                <personalityDefName>Rimpsyche_Tension</personalityDefName>
                 <weight>-0.15</weight>
               </li>
             </weights>
@@ -612,23 +624,23 @@
             <controversiality>0</controversiality>
             <weights>
               <li>
-                <personalityDefName>Imagination</personalityDefName>
+                <personalityDefName>Rimpsyche_Imagination</personalityDefName>
                 <weight>0.3</weight>
               </li>
               <li>
-                <personalityDefName>Ambition</personalityDefName>
+                <personalityDefName>Rimpsyche_Ambition</personalityDefName>
                 <weight>0.25</weight>
               </li>
               <li>
-                <personalityDefName>Optimism</personalityDefName>
+                <personalityDefName>Rimpsyche_Optimism</personalityDefName>
                 <weight>0.2</weight>
               </li>
               <li>
-                <personalityDefName>Bravery</personalityDefName>
+                <personalityDefName>Rimpsyche_Bravery</personalityDefName>
                 <weight>0.15</weight>
               </li>
               <li>
-                <personalityDefName>Experimentation</personalityDefName>
+                <personalityDefName>Rimpsyche_Experimentation</personalityDefName>
                 <weight>0.1</weight>
               </li>
             </weights>
@@ -640,23 +652,23 @@
             <controversiality>0</controversiality>
             <weights>
               <li>
-                <personalityDefName>Tension</personalityDefName>
+                <personalityDefName>Rimpsyche_Tension</personalityDefName>
                 <weight>0.35</weight>
               </li>
               <li>
-                <personalityDefName>Stability</personalityDefName>
+                <personalityDefName>Rimpsyche_Stability</personalityDefName>
                 <weight>-0.25</weight>
               </li>
               <li>
-                <personalityDefName>Emotionality</personalityDefName>
+                <personalityDefName>Rimpsyche_Emotionality</personalityDefName>
                 <weight>0.15</weight>
               </li>
               <li>
-                <personalityDefName>Confidence</personalityDefName>
+                <personalityDefName>Rimpsyche_Confidence</personalityDefName>
                 <weight>-0.15</weight>
               </li>
               <li>
-                <personalityDefName>Imagination</personalityDefName>
+                <personalityDefName>Rimpsyche_Imagination</personalityDefName>
                 <weight>0.1</weight>
               </li>
             </weights>
@@ -692,23 +704,23 @@
             <controversiality>0</controversiality>
             <weights>
               <li>
-                <personalityDefName>Diligence</personalityDefName>
+                <personalityDefName>Rimpsyche_Diligence</personalityDefName>
                 <weight>0.3</weight>
               </li>
               <li>
-                <personalityDefName>Organization</personalityDefName>
+                <personalityDefName>Rimpsyche_Organization</personalityDefName>
                 <weight>0.3</weight>
               </li>
               <li>
-                <personalityDefName>Discipline</personalityDefName>
+                <personalityDefName>Rimpsyche_Discipline</personalityDefName>
                 <weight>0.2</weight>
               </li>
               <li>
-                <personalityDefName>Spontaneity</personalityDefName>
+                <personalityDefName>Rimpsyche_Spontaneity</personalityDefName>
                 <weight>-0.15</weight>
               </li>
               <li>
-                <personalityDefName>Focus</personalityDefName>
+                <personalityDefName>Rimpsyche_Focus</personalityDefName>
                 <weight>0.05</weight>
               </li>
             </weights>
@@ -720,23 +732,23 @@
             <controversiality>0</controversiality>
             <weights>
               <li>
-                <personalityDefName>Organization</personalityDefName>
+                <personalityDefName>Rimpsyche_Organization</personalityDefName>
                 <weight>0.3</weight>
               </li>
               <li>
-                <personalityDefName>Sociability</personalityDefName>
+                <personalityDefName>Rimpsyche_Sociability</personalityDefName>
                 <weight>0.25</weight>
               </li>
               <li>
-                <personalityDefName>Discipline</personalityDefName>
+                <personalityDefName>Rimpsyche_Discipline</personalityDefName>
                 <weight>0.2</weight>
               </li>
               <li>
-                <personalityDefName>Spontaneity</personalityDefName>
+                <personalityDefName>Rimpsyche_Spontaneity</personalityDefName>
                 <weight>-0.2</weight>
               </li>
               <li>
-                <personalityDefName>Talkativeness</personalityDefName>
+                <personalityDefName>Rimpsyche_Talkativeness</personalityDefName>
                 <weight>0.05</weight>
               </li>
             </weights>
@@ -748,29 +760,28 @@
             <controversiality>0</controversiality>
             <weights>
               <li>
-                <personalityDefName>Diligence</personalityDefName>
+                <personalityDefName>Rimpsyche_Diligence</personalityDefName>
                 <weight>-0.25</weight>
               </li>
               <li>
-                <personalityDefName>Imagination</personalityDefName>
+                <personalityDefName>Rimpsyche_Imagination</personalityDefName>
                 <weight>0.2</weight>
               </li>
               <li>
-                <personalityDefName>Discipline</personalityDefName>
+                <personalityDefName>Rimpsyche_Discipline</personalityDefName>
                 <weight>-0.2</weight>
               </li>
               <li>
-                <personalityDefName>Playfulness</personalityDefName>
+                <personalityDefName>Rimpsyche_Playfulness</personalityDefName>
                 <weight>0.2</weight>
               </li>
               <li>
-                <personalityDefName>Ambition</personalityDefName>
+                <personalityDefName>Rimpsyche_Ambition</personalityDefName>
                 <weight>-0.15</weight>
               </li>
             </weights>
           </li>
           <li>
-            <!-- TODO: Rethink some weights esp. after this point. -->
             <!-- + : structured, prefers a fixed work schedule | - : flexible, prefers fluid work hours -->
             <name>work_schedule</name>
             <label>work schedule</label>
@@ -778,20 +789,24 @@
             <allowChild>false</allowChild>
             <weights>
               <li>
-                <personalityDefName>Organization</personalityDefName>
+                <personalityDefName>Rimpsyche_Organization</personalityDefName>
                 <weight>0.35</weight>
               </li>
               <li>
-                <personalityDefName>Spontaneity</personalityDefName>
+                <personalityDefName>Rimpsyche_Spontaneity</personalityDefName>
                 <weight>-0.3</weight>
               </li>
               <li>
-                <personalityDefName>Deliberation</personalityDefName>
+                <personalityDefName>Rimpsyche_Deliberation</personalityDefName>
                 <weight>0.2</weight>
               </li>
               <li>
-                <personalityDefName>Experimentation</personalityDefName>
-                <weight>-0.15</weight>
+                <personalityDefName>Rimpsyche_Focus</personalityDefName>
+                <weight>0.1</weight>
+              </li>
+              <li>
+                <personalityDefName>Rimpsyche_Experimentation</personalityDefName>
+                <weight>-0.05</weight>
               </li>
             </weights>
           </li>
@@ -802,23 +817,19 @@
             <controversiality>0</controversiality>
             <weights>
               <li>
-                <personalityDefName>Discipline</personalityDefName>
+                <personalityDefName>Rimpsyche_Discipline</personalityDefName>
                 <weight>0.35</weight>
               </li>
               <li>
-                <personalityDefName>Organization</personalityDefName>
-                <weight>0.25</weight>
+                <personalityDefName>Rimpsyche_Organization</personalityDefName>
+                <weight>0.35</weight>
               </li>
               <li>
-                <personalityDefName>Focus</personalityDefName>
+                <personalityDefName>Rimpsyche_Diligence</personalityDefName>
                 <weight>0.10</weight>
               </li>
               <li>
-                <personalityDefName>Diligence</personalityDefName>
-                <weight>0.10</weight>
-              </li>
-              <li>
-                <personalityDefName>Spontaneity</personalityDefName>
+                <personalityDefName>Rimpsyche_Spontaneity</personalityDefName>
                 <weight>-0.20</weight>
               </li>
             </weights>
@@ -831,24 +842,29 @@
             <allowChild>false</allowChild>
             <weights>
               <li>
-                <personalityDefName>Stability</personalityDefName>
-                <weight>0.15</weight>
+                <personalityDefName>Rimpsyche_Stability</personalityDefName>
+                <weight>0.1</weight>
               </li>
               <li>
-                <personalityDefName>Tension</personalityDefName>
+                <personalityDefName>Rimpsyche_Tension</personalityDefName>
                 <weight>-0.30</weight>
               </li>
               <li>
-                <personalityDefName>Resilience</personalityDefName>
-                <weight>0.25</weight>
+                <personalityDefName>Rimpsyche_Resilience</personalityDefName>
+                <weight>0.15</weight>
               </li>
               <li>
-                <personalityDefName>Organization</personalityDefName>
+                <personalityDefName>Rimpsyche_Passion</personalityDefName>
+                <weight>-0.15</weight>
+              </li>
+              <li>
+                <personalityDefName>Rimpsyche_Organization</personalityDefName>
                 <weight>-0.3</weight>
               </li>
             </weights>
           </li>
           <li>
+            <!-- TODO: Rethink some weights esp. after this point. -->
             <!-- + : Finding motivation and satisfaction in preferred activitie | - : No particular favorite daily activity-->
             <name>favorite_task</name>
             <label>favorite tasks</label>
@@ -856,19 +872,19 @@
             <allowChild>false</allowChild>
             <weights>
               <li>
-                <personalityDefName>Passion</personalityDefName>
+                <personalityDefName>Rimpsyche_Passion</personalityDefName>
                 <weight>0.35</weight>
               </li>
               <li>
-                <personalityDefName>Diligence</personalityDefName>
+                <personalityDefName>Rimpsyche_Diligence</personalityDefName>
                 <weight>0.3</weight>
               </li>
               <li>
-                <personalityDefName>Inquisitiveness</personalityDefName>
+                <personalityDefName>Rimpsyche_Inquisitiveness</personalityDefName>
                 <weight>0.2</weight>
               </li>
               <li>
-                <personalityDefName>Focus</personalityDefName>
+                <personalityDefName>Rimpsyche_Focus</personalityDefName>
                 <weight>0.15</weight>
               </li>
             </weights>
@@ -880,23 +896,23 @@
             <controversiality>0</controversiality>
             <weights>
               <li>
-                <personalityDefName>Discipline</personalityDefName>
+                <personalityDefName>Rimpsyche_Discipline</personalityDefName>
                 <weight>-0.25</weight>
               </li>
               <li>
-                <personalityDefName>Tension</personalityDefName>
+                <personalityDefName>Rimpsyche_Tension</personalityDefName>
                 <weight>0.25</weight>
               </li>
               <li>
-                <personalityDefName>Spontaneity</personalityDefName>
+                <personalityDefName>Rimpsyche_Spontaneity</personalityDefName>
                 <weight>0.2</weight>
               </li>
               <li>
-                <personalityDefName>Diligence</personalityDefName>
+                <personalityDefName>Rimpsyche_Diligence</personalityDefName>
                 <weight>-0.1</weight>
               </li>
               <li>
-                <personalityDefName>Playfulness</personalityDefName>
+                <personalityDefName>Rimpsyche_Playfulness</personalityDefName>
                 <weight>0.2</weight>
               </li>
             </weights>
@@ -908,27 +924,27 @@
             <controversiality>0</controversiality>
             <weights>
               <li>
-                <personalityDefName>Ambition</personalityDefName>
+                <personalityDefName>Rimpsyche_Ambition</personalityDefName>
                 <weight>0.35</weight>
               </li>
               <li>
-                <personalityDefName>Diligence</personalityDefName>
+                <personalityDefName>Rimpsyche_Diligence</personalityDefName>
                 <weight>0.2</weight>
               </li>
               <li>
-                <personalityDefName>Optimism</personalityDefName>
+                <personalityDefName>Rimpsyche_Optimism</personalityDefName>
                 <weight>0.2</weight>
               </li>
               <li>
-                <personalityDefName>Spontaneity</personalityDefName>
+                <personalityDefName>Rimpsyche_Spontaneity</personalityDefName>
                 <weight>-0.1</weight>
               </li>
               <li>
-                <personalityDefName>Experimentation</personalityDefName>
+                <personalityDefName>Rimpsyche_Experimentation</personalityDefName>
                 <weight>0.1</weight>
               </li>
               <li>
-                <personalityDefName>Passion</personalityDefName>
+                <personalityDefName>Rimpsyche_Passion</personalityDefName>
                 <weight>0.05</weight>
               </li>
             </weights>
@@ -940,27 +956,27 @@
             <controversiality>0</controversiality>
             <weights>
               <li>
-                <personalityDefName>Diligence</personalityDefName>
+                <personalityDefName>Rimpsyche_Diligence</personalityDefName>
                 <weight>0.3</weight>
               </li>
               <li>
-                <personalityDefName>Discipline</personalityDefName>
+                <personalityDefName>Rimpsyche_Discipline</personalityDefName>
                 <weight>0.2</weight>
               </li>
               <li>
-                <personalityDefName>Spontaneity</personalityDefName>
+                <personalityDefName>Rimpsyche_Spontaneity</personalityDefName>
                 <weight>-0.25</weight>
               </li>
               <li>
-                <personalityDefName>Ambition</personalityDefName>
+                <personalityDefName>Rimpsyche_Ambition</personalityDefName>
                 <weight>0.1</weight>
               </li>
               <li>
-                <personalityDefName>Organization</personalityDefName>
+                <personalityDefName>Rimpsyche_Organization</personalityDefName>
                 <weight>0.1</weight>
               </li>
               <li>
-                <personalityDefName>Deliberation</personalityDefName>
+                <personalityDefName>Rimpsyche_Deliberation</personalityDefName>
                 <weight>0.05</weight>
               </li>
             </weights>
@@ -1000,64 +1016,56 @@
             <controversiality>0</controversiality>
             <weights>
               <li>
-                <personalityDefName>Reflectiveness</personalityDefName>
+                <personalityDefName>Rimpsyche_Reflectiveness</personalityDefName>
                 <weight>0.3</weight>
               </li>
               <li>
-                <personalityDefName>Emotionality</personalityDefName>
+                <personalityDefName>Rimpsyche_Emotionality</personalityDefName>
+                <weight>0.3</weight>
+              </li>
+              <li>
+                <personalityDefName>Rimpsyche_Imagination</personalityDefName>
                 <weight>0.2</weight>
               </li>
               <li>
-                <personalityDefName>Inquisitiveness</personalityDefName>
-                <weight>0.15</weight>
-              </li>
-              <li>
-                <personalityDefName>Authenticity</personalityDefName>
+                <personalityDefName>Rimpsyche_Playfulness</personalityDefName>
                 <weight>0.1</weight>
               </li>
               <li>
-                <personalityDefName>Stability</personalityDefName>
+                <personalityDefName>Rimpsyche_Stability</personalityDefName>
                 <weight>0.1</weight>
-              </li>
-              <li>
-                <personalityDefName>Resilience</personalityDefName>
-                <weight>0.1</weight>
-              </li>
-              <li>
-                <personalityDefName>Openness</personalityDefName>
-                <weight>0.05</weight>
               </li>
             </weights>
           </li>
           <li>
-            <!-- + :  Deep sense of belonging | - : Desire to distance oneself from one's origins -->
+            <!-- + :  Deep sense of belonging | - : Homeworld is incidental, identity is self-defined or transient -->
             <name>homeworld</name>
             <label>homeworld</label>
             <controversiality>0</controversiality>
             <weights>
               <li>
-                <personalityDefName>Reflectiveness</personalityDefName>
-                <weight>0.3</weight>
+                <personalityDefName>Rimpsyche_Loyalty</personalityDefName>
+                <weight>0.35</weight>
               </li>
               <li>
-                <personalityDefName>Emotionality</personalityDefName>
-                <weight>0.25</weight>
-              </li>
-              <li>
-                <personalityDefName>Inquisitiveness</personalityDefName>
-                <weight>0.2</weight>
-              </li>
-              <li>
-                <personalityDefName>Authenticity</personalityDefName>
+                <personalityDefName>Rimpsyche_Reflectiveness</personalityDefName>
                 <weight>0.1</weight>
               </li>
               <li>
-                <personalityDefName>Stability</personalityDefName>
+                <personalityDefName>Rimpsyche_Experimentation</personalityDefName>
+                <weight>-0.15</weight>
+              </li>
+              <li>
+                <personalityDefName>Rimpsyche_Inquisitiveness</personalityDefName>
+                <weight>-0.1</weight>
+              </li>
+              <li>
+                <personalityDefName>Rimpsyche_Stability</personalityDefName>
                 <weight>0.1</weight>
               </li>
               <li>
-                <personalityDefName>Openness</personalityDefName>
-                <weight>0.05</weight>
+                <personalityDefName>Rimpsyche_Openness</personalityDefName>
+                <weight>-0.2</weight>
               </li>
             </weights>
           </li>
@@ -1068,23 +1076,23 @@
             <controversiality>0.1</controversiality>
             <weights>
               <li>
-                <personalityDefName>Loyalty</personalityDefName>
+                <personalityDefName>Rimpsyche_Loyalty</personalityDefName>
                 <weight>0.3</weight>
               </li>
               <li>
-                <personalityDefName>Reflectiveness</personalityDefName>
-                <weight>0.25</weight>
+                <personalityDefName>Rimpsyche_Openness</personalityDefName>
+                <weight>-0.15</weight>
               </li>
               <li>
-                <personalityDefName>Emotionality</personalityDefName>
-                <weight>0.2</weight>
-              </li>
-              <li>
-                <personalityDefName>Authenticity</personalityDefName>
+                <personalityDefName>Rimpsyche_Sociability</personalityDefName>
                 <weight>0.15</weight>
               </li>
               <li>
-                <personalityDefName>Compassion</personalityDefName>
+                <personalityDefName>Rimpsyche_SelfInterest</personalityDefName>
+                <weight>-0.3</weight>
+              </li>
+              <li>
+                <personalityDefName>Rimpsyche_Compassion</personalityDefName>
                 <weight>0.1</weight>
               </li>
             </weights>
@@ -1097,147 +1105,147 @@
             <allowChild>false</allowChild>
             <weights>
               <li>
-                <personalityDefName>Loyalty</personalityDefName>
-                <weight>0.3</weight>
-              </li>
-              <li>
-                <personalityDefName>Reflectiveness</personalityDefName>
+                <personalityDefName>Rimpsyche_Loyalty</personalityDefName>
                 <weight>0.25</weight>
               </li>
               <li>
-                <personalityDefName>Emotionality</personalityDefName>
-                <weight>0.25</weight>
+                <personalityDefName>Rimpsyche_Compassion</personalityDefName>
+                <weight>0.2</weight>
               </li>
               <li>
-                <personalityDefName>Authenticity</personalityDefName>
+                <personalityDefName>Rimpsyche_Reflectiveness</personalityDefName>
                 <weight>0.1</weight>
               </li>
               <li>
-                <personalityDefName>Compassion</personalityDefName>
+                <personalityDefName>Rimpsyche_Inquisitiveness</personalityDefName>
+                <weight>0.2</weight>
+              </li>
+              <li>
+                <personalityDefName>Rimpsyche_Passion</personalityDefName>
                 <weight>0.1</weight>
+              </li>
+              <li>
+                <personalityDefName>Rimpsyche_SelfInterest</personalityDefName>
+                <weight>-0.15</weight>
               </li>
             </weights>
           </li>
           <li>
-            <!-- + :  Cherishing, nostalgic, joy in fond recalㅣ | - : Disinterest in the past, forward-looking, future oriented -->
+            <!-- + :  Cherishing, nostalgic, joy in fond recall | - : Disinterest in the past, forward-looking, future oriented -->
             <name>cherished_memory</name>
             <label>cherished memories</label>
             <controversiality>0</controversiality>
             <weights>
               <li>
-                <personalityDefName>Reflectiveness</personalityDefName>
-                <weight>0.4</weight>
+                <personalityDefName>Rimpsyche_Reflectiveness</personalityDefName>
+                <weight>0.25</weight>
               </li>
               <li>
-                <personalityDefName>Emotionality</personalityDefName>
-                <weight>0.3</weight>
+                <personalityDefName>Rimpsyche_Ambition</personalityDefName>
+                <weight>-0.2</weight>
               </li>
               <li>
-                <personalityDefName>Authenticity</personalityDefName>
-                <weight>0.15</weight>
-              </li>
-              <li>
-                <personalityDefName>Stability</personalityDefName>
+                <personalityDefName>Rimpsyche_Emotionality</personalityDefName>
                 <weight>0.1</weight>
               </li>
               <li>
-                <personalityDefName>Loyalty</personalityDefName>
-                <weight>0.05</weight>
+                <personalityDefName>Rimpsyche_Passion</personalityDefName>
+                <weight>0.1</weight>
+              </li>
+              <li>
+                <personalityDefName>Rimpsyche_Imagination</personalityDefName>
+                <weight>0.25</weight>
+              </li>
+              <li>
+                <personalityDefName>Rimpsyche_Competitiveness</personalityDefName>
+                <weight>-0.1</weight>
               </li>
             </weights>
           </li>
           <li>
-            <!-- + :  Finding meaning or strength | - : Feeling resentment -->
+            <!-- + :  Finding meaning | - : Feeling resentment -->
             <name>memory_of_hardship</name>
             <label>memories of hardship</label>
             <controversiality>0.2</controversiality>
             <weights>
               <li>
-                <facet>Industriousness</facet>
-                <weight>0.2</weight>
-              </li>
-              <li>
-                <facet>Integrity</facet>
+                <personalityDefName>Rimpsyche_Resilience</personalityDefName>
                 <weight>0.3</weight>
               </li>
               <li>
-                <facet>Compassion</facet>
-                <weight>-0.1</weight>
+                <personalityDefName>Rimpsyche_Stability</personalityDefName>
+                <weight>0.2</weight>
               </li>
               <li>
-                <facet>Pessimism</facet>
-                <weight>-0.3</weight>
+                <personalityDefName>Rimpsyche_Optimism</personalityDefName>
+                <weight>0.1</weight>
               </li>
               <li>
-                <facet>Insecurity</facet>
-                <weight>-0.1</weight>
+                <personalityDefName>Rimpsyche_Tension</personalityDefName>
+                <weight>-0.15</weight>
+              </li>
+              <li>
+                <personalityDefName>Rimpsyche_Expectation</personalityDefName>
+                <weight>-0.25</weight>
               </li>
             </weights>
           </li>
           <li>
-            <!-- + :  Inspiring, and uplifting experiences | - : Ffnding difficult moments more impactful -->
+            <!-- + :  Inspiring, and uplifting experiences | - : Finding difficult moments more impactful -->
             <name>memorable_moments</name>
             <label>memorable moments</label>
             <controversiality>0</controversiality>
             <weights>
               <li>
-                <facet>Imagination</facet>
+                <personalityDefName>Rimpsyche_Confidence</personalityDefName>
                 <weight>0.2</weight>
               </li>
               <li>
-                <facet>Integrity</facet>
-                <weight>0.2</weight>
-              </li>
-              <li>
-                <facet>Pessimism</facet>
-                <weight>-0.15</weight>
-              </li>
-              <li>
-                <facet>Compassion</facet>
-                <weight>-0.05</weight>
-              </li>
-              <li>
-                <facet>Enthusiasm</facet>
-                <weight>0.3</weight>
-              </li>
-              <li>
-                <facet>Insecurity</facet>
+                <personalityDefName>Rimpsyche_Tension</personalityDefName>
                 <weight>-0.1</weight>
-            </li>
+              </li>
+              <li>
+                <personalityDefName>Rimpsyche_Stability</personalityDefName>
+                <weight>0.2</weight>
+              </li>
+              <li>
+                <personalityDefName>Rimpsyche_Resilience</personalityDefName>
+                <weight>0.25</weight>
+              </li>
+              <li>
+                <personalityDefName>Rimpsyche_Passion</personalityDefName>
+                <weight>0.15</weight>
+              </li>
+              <li>
+                <personalityDefName>Rimpsyche_Optimism</personalityDefName>
+                <weight>0.1</weight>
+              </li>
             </weights>
           </li>
           <li>
-            <!-- + : nostalgic, emotionally attached to origins | - : detached or pragmatic about origins -->
+            <!-- + : excitement, opportunity for growth | - : remember the stress of the situation -->
             <name>first_experiences</name>
             <label>first experiences</label>
             <controversiality>0</controversiality>
             <weights>
               <li>
-                <facet>Imagination</facet>
+                <personalityDefName>Rimpsyche_Bravery</personalityDefName>
+                <weight>0.35</weight>
+              </li>
+              <li>
+                <personalityDefName>Rimpsyche_Experimentation</personalityDefName>
                 <weight>0.25</weight>
               </li>
               <li>
-                <facet>Intellect</facet>
-                <weight>-0.1</weight>
+                <personalityDefName>Rimpsyche_Optimism</personalityDefName>
+                <weight>0.1</weight>
               </li>
               <li>
-                <facet>Orderliness</facet>
-                <weight>0.10</weight>
-              </li>
-              <li>
-                <facet>Integrity</facet>
+                <personalityDefName>Rimpsyche_Confidence</personalityDefName>
                 <weight>0.15</weight>
               </li>
               <li>
-                <facet>Compassion</facet>
-                <weight>0.15</weight>
-              </li>
-              <li>
-                <facet>Enthusiasm</facet>
-                <weight>0.10</weight>
-              </li>
-              <li>
-                <facet>Pessimism</facet>
+                <personalityDefName>Rimpsyche_Tension</personalityDefName>
                 <weight>-0.15</weight>
               </li>
             </weights>
@@ -1249,24 +1257,24 @@
             <controversiality>0</controversiality>
             <weights>
               <li>
-                <facet>Sociability</facet>
+                <personalityDefName>Rimpsyche_SelfInterest</personalityDefName>
+                <weight>0.2</weight>
+              </li>
+              <li>
+                <personalityDefName>Rimpsyche_Sociability</personalityDefName>
                 <weight>0.3</weight>
               </li>
               <li>
-                <facet>Compassion</facet>
-                <weight>0.2</weight>
+                <personalityDefName>Rimpsyche_Expectation</personalityDefName>
+                <weight>0.25</weight>
               </li>
               <li>
-                <facet>Enthusiasm</facet>
-                <weight>0.2</weight>
+                <personalityDefName>Rimpsyche_Playfulness</personalityDefName>
+                <weight>0.1</weight>
               </li>
               <li>
-                <facet>Humbleness</facet>
-                <weight>-0.2</weight>
-              </li>
-              <li>
-                <facet>Insecurity</facet>
-                <weight>-0.1</weight>
+                <personalityDefName>Rimpsyche_Authenticity</personalityDefName>
+                <weight>-0.15</weight>
               </li>
             </weights>
           </li>
@@ -1277,27 +1285,23 @@
             <controversiality>0</controversiality>
             <weights>
               <li>
-                <facet>Imagination</facet>
-                <weight>0.3</weight>
+                <personalityDefName>Rimpsyche_Reflectiveness</personalityDefName>
+                <weight>0.25</weight>
               </li>
               <li>
-                <facet>Curiosity</facet>
-                <weight>-0.2</weight>
-              </li>
-              <li>
-                <facet>Sociability</facet>
+                <personalityDefName>Rimpsyche_Imagination</personalityDefName>
                 <weight>0.2</weight>
               </li>
               <li>
-                <facet>Volatility</facet>
-                <weight>-0.1</weight>
+                <personalityDefName>Rimpsyche_Emotionality</personalityDefName>
+                <weight>0.25</weight>
               </li>
               <li>
-                <facet>Pessimism</facet>
-                <weight>-0.1</weight>
+                <personalityDefName>Rimpsyche_Openness</personalityDefName>
+                <weight>-0.2</weight>
               </li>
               <li>
-                <facet>Insecurity</facet>
+                <personalityDefName>Rimpsyche_Experimentation</personalityDefName>
                 <weight>-0.1</weight>
               </li>
             </weights>
@@ -1309,23 +1313,23 @@
             <controversiality>0</controversiality>
             <weights>
               <li>
-                <facet>Curiosity</facet>
-                <weight>-0.25</weight>
-              </li>
-              <li>
-                <facet>Humbleness</facet>
-                <weight>0.25</weight>
-              </li>
-              <li>
-                <facet>Intellect</facet>
-                <weight>-0.25</weight>
-              </li>
-              <li>
-                <facet>Integrity</facet>
+                <personalityDefName>Rimpsyche_Reflectiveness</personalityDefName>
                 <weight>0.15</weight>
               </li>
               <li>
-                <facet>Orderliness</facet>
+                <personalityDefName>Rimpsyche_Openness</personalityDefName>
+                <weight>-0.3</weight>
+              </li>
+              <li>
+                <personalityDefName>Rimpsyche_Experimentation</personalityDefName>
+                <weight>-0.35</weight>
+              </li>
+              <li>
+                <personalityDefName>Rimpsyche_Inquisitiveness</personalityDefName>
+                <weight>-0.1</weight>
+              </li>
+              <li>
+                <personalityDefName>Rimpsyche_Organization</personalityDefName>
                 <weight>0.1</weight>
               </li>
             </weights>
@@ -1351,34 +1355,34 @@
         </scoreWeight>
         <topics>
           <li>
-            <!-- + : Valuing community | - : Preferring solitude, being independent -->
+            <!-- + : Valuing community | - : Preferring solitude, being independent or self-preservation over group cohesion. -->
             <name>other_colonists</name>
             <label>other colonists</label>
             <controversiality>0</controversiality>
             <weights>
               <li>
-                <facet>Sociability</facet>
-                <weight>0.35</weight>
+                <personalityDefName>Rimpsyche_Sociability</personalityDefName>
+                <weight>0.25</weight>
               </li>
               <li>
-                <facet>Cooperation</facet>
-                <weight>0.35</weight>
+                <personalityDefName>Rimpsyche_Trust</personalityDefName>
+                <weight>0.2</weight>
               </li>
               <li>
-                <facet>Compassion</facet>
+                <personalityDefName>Rimpsyche_Compassion</personalityDefName>
+                <weight>0.1</weight>
+              </li>
+              <li>
+                <personalityDefName>Rimpsyche_Competitiveness</personalityDefName>
                 <weight>0.15</weight>
               </li>
               <li>
-                <facet>Assertiveness</facet>
-                <weight>0.05</weight>
+                <personalityDefName>Rimpsyche_Loyalty</personalityDefName>
+                <weight>0.15</weight>
               </li>
               <li>
-                <facet>Volatility</facet>
-                <weight>-0.05</weight>
-              </li>
-              <li>
-                <facet>Insecurity</facet>
-                <weight>-0.05</weight>
+                <personalityDefName>Rimpsyche_SelfInterest</personalityDefName>
+                <weight>-0.15</weight>
               </li>
             </weights>
           </li>
@@ -1389,51 +1393,59 @@
             <controversiality>1</controversiality>
             <weights>
               <li>
-                <facet>Integrity</facet>
+                <personalityDefName>Rimpsyche_Morality</personalityDefName>
                 <weight>0.35</weight>
               </li>
               <li>
-                <facet>Cooperation</facet>
-                <weight>0.3</weight>
-              </li>
-              <li>
-                <facet>Orderliness</facet>
+                <personalityDefName>Rimpsyche_Discipline</personalityDefName>
                 <weight>0.2</weight>
               </li>
               <li>
-                <facet>Assertiveness</facet>
-                <weight>-0.05</weight>
+                <personalityDefName>Rimpsyche_Experimentation</personalityDefName>
+                <weight>-0.1</weight>
               </li>
               <li>
-                <facet>Humbleness</facet>
+                <personalityDefName>Rimpsyche_Aggressiveness</personalityDefName>
+                <weight>-0.1</weight>
+              </li>
+              <li>
+                <personalityDefName>Rimpsyche_Loyalty</personalityDefName>
                 <weight>0.1</weight>
+              </li>
+              <li>
+                <personalityDefName>Rimpsyche_Organization</personalityDefName>
+                <weight>0.15</weight>
               </li>
             </weights>
           </li>
           <li>
-            <!-- + : Values strong guidance | - : Values individual autonomy -->
+            <!-- + : Values strong, hierarchical guidance | - : Values autonomous decision -->
             <name>leadership</name>
             <label>leadership</label>
             <controversiality>0.5</controversiality>
             <weights>
               <li>
-                <facet>Assertiveness</facet>
-                <weight>0.3</weight>
+                <personalityDefName>Rimpsyche_Organization</personalityDefName>
+                <weight>0.2</weight>
               </li>
               <li>
-                <facet>Intellect</facet>
-                <weight>-0.3</weight>
+                <personalityDefName>Rimpsyche_Competitiveness</personalityDefName>
+                <weight>0.25</weight>
               </li>
               <li>
-                <facet>Curiosity</facet>
-                <weight>-0.2</weight>
+                <personalityDefName>Rimpsyche_Openness</personalityDefName>
+                <weight>-0.25</weight>
               </li>
               <li>
-                <facet>Cooperation</facet>
+                <personalityDefName>Rimpsyche_Loyalty</personalityDefName>
                 <weight>0.1</weight>
               </li>
               <li>
-                <facet>Humbleness</facet>
+                <personalityDefName>Rimpsyche_Discipline</personalityDefName>
+                <weight>-0.1</weight>
+              </li>
+              <li>
+                <personalityDefName>Rimpsyche_Reflectiveness</personalityDefName>
                 <weight>-0.1</weight>
               </li>
             </weights>
@@ -1445,55 +1457,55 @@
             <controversiality>0.5</controversiality>
             <weights>
               <li>
-                <facet>Sociability</facet>
-                <weight>0.3</weight>
+                <personalityDefName>Rimpsyche_Loyalty</personalityDefName>
+                <weight>0.2</weight>
               </li>
               <li>
-                <facet>Cooperation</facet>
-                <weight>0.3</weight>
+                <personalityDefName>Rimpsyche_Competitiveness</personalityDefName>
+                <weight>-0.15</weight>
               </li>
               <li>
-                <facet>Compassion</facet>
-                <weight>0.15</weight>
+                <personalityDefName>Rimpsyche_Compassion</personalityDefName>
+                <weight>0.2</weight>
               </li>
               <li>
-                <facet>Humbleness</facet>
+                <personalityDefName>Rimpsyche_Trust</personalityDefName>
+                <weight>0.25</weight>
+              </li>
+              <li>
+                <personalityDefName>Rimpsyche_Sociability</personalityDefName>
                 <weight>0.1</weight>
               </li>
               <li>
-                <facet>Assertiveness</facet>
-                <weight>-0.1</weight>
-              </li>
-              <li>
-                <facet>Insecurity</facet>
-                <weight>-0.05</weight>
+                <personalityDefName>Rimpsyche_SelfInterest</personalityDefName>
+                <weight>0.1</weight>
               </li>
             </weights>
           </li>
           <li>
-            <!-- + : Likes talking about recent events | - : Not interested -->
+            <!-- + : interested in recent events, tries to keep updated | - : Not interested -->
             <name>recent_events</name>
             <label>recent events</label>
             <controversiality>0</controversiality>
             <weights>
               <li>
-                <facet>Sociability</facet>
+                <personalityDefName>Rimpsyche_Openness</personalityDefName>
+                <weight>0.1</weight>
+              </li>
+              <li>
+                <personalityDefName>Rimpsyche_Compassion</personalityDefName>
+                <weight>0.1</weight>
+              </li>
+              <li>
+                <personalityDefName>Rimpsyche_Sociability</personalityDefName>
                 <weight>0.35</weight>
               </li>
               <li>
-                <facet>Curiosity</facet>
-                <weight>0.3</weight>
+                <personalityDefName>Rimpsyche_Inquisitiveness</personalityDefName>
+                <weight>0.35</weight>
               </li>
               <li>
-                <facet>Assertiveness</facet>
-                <weight>0.15</weight>
-              </li>
-              <li>
-                <facet>Pessimism</facet>
-                <weight>-0.1</weight>
-              </li>
-              <li>
-                <facet>Insecurity</facet>
+                <personalityDefName>Rimpsyche_SelfInterest</personalityDefName>
                 <weight>-0.1</weight>
               </li>
             </weights>
@@ -1505,28 +1517,28 @@
             <controversiality>0</controversiality>
             <weights>
               <li>
-                <facet>Sociability</facet>
-                <weight>0.4</weight>
+                <personalityDefName>Rimpsyche_Talkativeness</personalityDefName>
+                <weight>0.15</weight>
               </li>
               <li>
-                <facet>Enthusiasm</facet>
-                <weight>0.35</weight>
+                <personalityDefName>Rimpsyche_Sociability</personalityDefName>
+                <weight>0.3</weight>
               </li>
               <li>
-                <facet>Assertiveness</facet>
+                <personalityDefName>Rimpsyche_Playfulness</personalityDefName>
+                <weight>0.25</weight>
+              </li>
+              <li>
+                <personalityDefName>Rimpsyche_Tension</personalityDefName>
+                <weight>-0.1</weight>
+              </li>
+              <li>
+                <personalityDefName>Rimpsyche_Spontaneity</personalityDefName>
                 <weight>0.1</weight>
               </li>
               <li>
-                <facet>Pessimism</facet>
-                <weight>-0.05</weight>
-              </li>
-              <li>
-                <facet>Insecurity</facet>
-                <weight>-0.05</weight>
-              </li>
-              <li>
-                <facet>Industriousness</facet>
-                <weight>-0.05</weight>
+                <personalityDefName>Rimpsyche_Diligence</personalityDefName>
+                <weight>-0.1</weight>
               </li>
             </weights>
           </li>
@@ -1537,27 +1549,31 @@
             <controversiality>0.5</controversiality>
             <weights>
               <li>
-                <facet>Sociability</facet>
+                <personalityDefName>Rimpsyche_Trust</personalityDefName>
                 <weight>0.2</weight>
               </li>
               <li>
-                <facet>Compassion</facet>
-                <weight>-0.2</weight>
+                <personalityDefName>Rimpsyche_Openness</personalityDefName>
+                <weight>0.25</weight>
               </li>
               <li>
-                <facet>Cooperation</facet>
-                <weight>0.2</weight>
+                <personalityDefName>Rimpsyche_Inquisitiveness</personalityDefName>
+                <weight>0.15</weight>
               </li>
               <li>
-                <facet>Curiosity</facet>
-                <weight>0.2</weight>
-              </li>
-              <li>
-                <facet>Intellect</facet>
+                <personalityDefName>Rimpsyche_Compassion</personalityDefName>
                 <weight>0.1</weight>
               </li>
               <li>
-                <facet>Insecurity</facet>
+                <personalityDefName>Rimpsyche_Loyalty</personalityDefName>
+                <weight>-0.1</weight>
+              </li>
+              <li>
+                <personalityDefName>Rimpsyche_Sociability</personalityDefName>
+                <weight>0.1</weight>
+              </li>
+              <li>
+                <personalityDefName>Rimpsyche_Aggressiveness</personalityDefName>
                 <weight>-0.1</weight>
               </li>
             </weights>
@@ -1569,28 +1585,16 @@
             <controversiality>0</controversiality>
             <weights>
               <li>
-                <facet>Cooperation</facet>
-                <weight>0.35</weight>
+                <personalityDefName>Rimpsyche_SelfInterest</personalityDefName>
+                <weight>-0.35</weight>
               </li>
               <li>
-                <facet>Compassion</facet>
-                <weight>0.15</weight>
+                <personalityDefName>Rimpsyche_Competitiveness</personalityDefName>
+                <weight>-0.45</weight>
               </li>
               <li>
-                <facet>Integrity</facet>
-                <weight>0.15</weight>
-              </li>
-              <li>
-                <facet>Industriousness</facet>
-                <weight>0.1</weight>
-              </li>
-              <li>
-                <facet>Sociability</facet>
-                <weight>0.15</weight>
-              </li>
-              <li>
-                <facet>Assertiveness</facet>
-                <weight>-0.1</weight>
+                <personalityDefName>Rimpsyche_Loyalty</personalityDefName>
+                <weight>0.2</weight>
               </li>
             </weights>
           </li>
@@ -1601,24 +1605,24 @@
             <controversiality>0</controversiality>
             <weights>
               <li>
-                <facet>Curiosity</facet>
-                <weight>0.3</weight>
-              </li>
-              <li>
-                <facet>Sociability</facet>
-                <weight>0.25</weight>
-              </li>
-              <li>
-                <facet>Compassion</facet>
+                <personalityDefName>Rimpsyche_Openness</personalityDefName>
                 <weight>0.2</weight>
               </li>
               <li>
-                <facet>Insecurity</facet>
-                <weight>-0.15</weight>
+                <personalityDefName>Rimpsyche_Trust</personalityDefName>
+                <weight>0.25</weight>
               </li>
               <li>
-                <facet>Pessimism</facet>
-                <weight>-0.1</weight>
+                <personalityDefName>Rimpsyche_Sociability</personalityDefName>
+                <weight>0.2</weight>
+              </li>
+              <li>
+                <personalityDefName>Rimpsyche_Compassion</personalityDefName>
+                <weight>0.2</weight>
+              </li>
+              <li>
+                <personalityDefName>Rimpsyche_Optimism</personalityDefName>
+                <weight>0.15</weight>
               </li>
             </weights>
           </li>
@@ -1629,28 +1633,28 @@
             <controversiality>0</controversiality>
             <weights>
               <li>
-                <facet>Compassion</facet>
+                <personalityDefName>Rimpsyche_Compassion</personalityDefName>
                 <weight>0.3</weight>
               </li>
               <li>
-                <facet>Orderliness</facet>
+                <personalityDefName>Rimpsyche_Openness</personalityDefName>
+                <weight>0.1</weight>
+              </li>
+              <li>
+                <personalityDefName>Rimpsyche_Aggressiveness</personalityDefName>
                 <weight>-0.2</weight>
               </li>
               <li>
-                <facet>Intellect</facet>
+                <personalityDefName>Rimpsyche_Inquisitiveness</personalityDefName>
                 <weight>0.1</weight>
               </li>
               <li>
-                <facet>Integrity</facet>
-                <weight>0.2</weight>
+                <personalityDefName>Rimpsyche_Morality</personalityDefName>
+                <weight>-0.15</weight>
               </li>
               <li>
-                <facet>Pessimism</facet>
-                <weight>-0.1</weight>
-              </li>
-              <li>
-                <facet>Cooperation</facet>
-                <weight>0.1</weight>
+                <personalityDefName>Rimpsyche_Trust</personalityDefName>
+                <weight>0.15</weight>
               </li>
             </weights>
           </li>
@@ -1661,28 +1665,28 @@
             <controversiality>0</controversiality>
             <weights>
               <li>
-                <facet>Assertiveness</facet>
-                <weight>0.3</weight>
+                <personalityDefName>Rimpsyche_Aggressiveness</personalityDefName>
+                <weight>0.4</weight>
               </li>
               <li>
-                <facet>Integrity</facet>
+                <personalityDefName>Rimpsyche_Tact</personalityDefName>
+                <weight>-0.1</weight>
+              </li>
+              <li>
+                <personalityDefName>Rimpsyche_Competitiveness</personalityDefName>
+                <weight>0.2</weight>
+              </li>
+              <li>
+                <personalityDefName>Rimpsyche_Bravery</personalityDefName>
                 <weight>0.1</weight>
               </li>
               <li>
-                <facet>Intellect</facet>
-                <weight>0.05</weight>
+                <personalityDefName>Rimpsyche_Compassion</personalityDefName>
+                <weight>0.1</weight>
               </li>
               <li>
-                <facet>Cooperation</facet>
-                <weight>-0.25</weight>
-              </li>
-              <li>
-                <facet>Compassion</facet>
-                <weight>-0.15</weight>
-              </li>
-              <li>
-                <facet>Insecurity</facet>
-                <weight>-0.15</weight>
+                <personalityDefName>Rimpsyche_Stability</personalityDefName>
+                <weight>0.1</weight>
               </li>
             </weights>
           </li>
@@ -1716,32 +1720,24 @@
             <controversiality>1</controversiality>
             <weights>
               <li>
-                <facet>Intellect</facet>
-                <weight>0.25</weight>
+                <personalityDefName>Rimpsyche_Openness</personalityDefName>
+                <weight>0.3</weight>
               </li>
               <li>
-                <facet>Curiosity</facet>
-                <weight>0.25</weight>
+                <personalityDefName>Rimpsyche_Morality</personalityDefName>
+                <weight>-0.3</weight>
               </li>
               <li>
-                <facet>Orderliness</facet>
-                <weight>-0.2</weight>
-              </li>
-              <li>
-                <facet>Compassion</facet>
+                <personalityDefName>Rimpsyche_Experimentation</personalityDefName>
                 <weight>0.15</weight>
               </li>
               <li>
-                <facet>Enthusiasm</facet>
-                <weight>0.05</weight>
+                <personalityDefName>Rimpsyche_Inquisitiveness</personalityDefName>
+                <weight>0.15</weight>
               </li>
               <li>
-                <facet>Insecurity</facet>
-                <weight>-0.05</weight>
-              </li>
-              <li>
-                <facet>Humbleness</facet>
-                <weight>-0.05</weight>
+                <personalityDefName>Rimpsyche_Authenticity</personalityDefName>
+                <weight>0.1</weight>
               </li>
             </weights>
           </li>
@@ -1752,76 +1748,88 @@
             <controversiality>0</controversiality>
             <weights>
               <li>
-                <facet>Assertiveness</facet>
-                <weight>0.35</weight>
+                <personalityDefName>Rimpsyche_Confidence</personalityDefName>
+                <weight>0.4</weight>
               </li>
               <li>
-                <facet>Humbleness</facet>
-                <weight>-0.3</weight>
+                <personalityDefName>Rimpsyche_Stability</personalityDefName>
+                <weight>0.25</weight>
               </li>
               <li>
-                <facet>Enthusiasm</facet>
+                <personalityDefName>Rimpsyche_Optimism</personalityDefName>
                 <weight>0.15</weight>
               </li>
               <li>
-                <facet>Insecurity</facet>
-                <weight>-0.2</weight>
+                <personalityDefName>Rimpsyche_Resilience</personalityDefName>
+                <weight>0.1</weight>
+              </li>
+              <li>
+                <personalityDefName>Rimpsyche_Authenticity</personalityDefName>
+                <weight>0.1</weight>
               </li>
             </weights>
           </li>
           <li>
-            <!-- + : Embracing leadership, actively participating | - : Preferring to be a follower or observer, disliking group dynamics -->
+            <!-- + : Individualistic | - : Communal -->
             <name>role_in_group</name>
             <label>their role in the group</label>
             <controversiality>0</controversiality>
             <weights>
-                <li>
-                    <facet>Assertiveness</facet>
-                    <weight>0.45</weight>
-                </li>
-                <li>
-                    <facet>Enthusiasm</facet>
-                    <weight>0.2</weight>
-                </li>
-                <li>
-                    <facet>Cooperation</facet>
-                    <weight>0.2</weight>
-                </li>
-                <li>
-                    <facet>Insecurity</facet>
-                    <weight>-0.1</weight>
-                </li>
-                <li>
-                    <facet>Humbleness</facet>
-                    <weight>-0.05</weight>
-                </li>
+              <li>
+                <personalityDefName>Rimpsyche_Competitiveness</personalityDefName>
+                <weight>0.3</weight>
+              </li>
+              <li>
+                <personalityDefName>Rimpsyche_SelfInterest</personalityDefName>
+                <weight>0.25</weight>
+              </li>
+              <li>
+                <personalityDefName>Rimpsyche_Ambition</personalityDefName>
+                <weight>0.15</weight>
+              </li>
+              <li>
+                <personalityDefName>Rimpsyche_Sociability</personalityDefName>
+                <weight>-0.1</weight>
+              </li>
+              <li>
+                <personalityDefName>Rimpsyche_Loyalty</personalityDefName>
+                <weight>-0.1</weight>
+              </li>
+              <li>
+                <personalityDefName>Rimpsyche_Compassion</personalityDefName>
+                <weight>-0.1</weight>
+              </li>
             </weights>
           </li>
           <li>
-            <!-- + :Valuing self-reliance, own choices, personal agency | - : Preferring reliance on others, conformity, seeking guidance and approval, and being comfortable with external direction. -->
+            <!-- + :Self-Reliant / Autonomous | - : Interdependent / Group-Reliant -->
             <name>independence</name>
             <label>independence</label>
             <controversiality>0</controversiality>
             <weights>
               <li>
-                <facet>Intellect</facet>
-                <weight>0.1</weight>
+                <personalityDefName>Rimpsyche_Confidence</personalityDefName>
+                <weight>0.3</weight>
               </li>
               <li>
-                <facet>Assertiveness</facet>
-                <weight>0.4</weight>
+                <personalityDefName>Rimpsyche_SelfInterest</personalityDefName>
+                <weight>0.05</weight>
               </li>
               <li>
-                <facet>Cooperation</facet>
+                <personalityDefName>Rimpsyche_Trust</personalityDefName>
                 <weight>-0.2</weight>
               </li>
               <li>
-                <facet>Humbleness</facet>
+                <personalityDefName>Rimpsyche_Sociability</personalityDefName>
                 <weight>-0.15</weight>
               </li>
               <li>
-                <facet>Insecurity</facet>
-                <weight>-0.15</weight>
+                <personalityDefName>Rimpsyche_Ambition</personalityDefName>
+                <weight>0.15</weight>
+              </li>
+              <li>
+                <personalityDefName>Rimpsyche_Competitiveness</personalityDefName>
+                <weight>0.15</weight>
               </li>
             </weights>
           </li>
@@ -1832,28 +1840,24 @@
             <controversiality>0</controversiality>
             <weights>
               <li>
-                <facet>Industriousness</facet>
-                <weight>0.4</weight>
+                <personalityDefName>Rimpsyche_Ambition</personalityDefName>
+                <weight>0.45</weight>
               </li>
               <li>
-                <facet>Imagination</facet>
-                <weight>0.2</weight>
+                <personalityDefName>Rimpsyche_Passion</personalityDefName>
+                <weight>0.25</weight>
               </li>
               <li>
-                <facet>Enthusiasm</facet>
-                <weight>0.2</weight>
+                <personalityDefName>Rimpsyche_Confidence</personalityDefName>
+                <weight>0.15</weight>
               </li>
               <li>
-                <facet>Integrity</facet>
+                <personalityDefName>Rimpsyche_Optimism</personalityDefName>
                 <weight>0.1</weight>
               </li>
               <li>
-                <facet>Pessimism</facet>
-                <weight>-0.05</weight>
-              </li>
-              <li>
-                <facet>Insecurity</facet>
-                <weight>-0.05</weight>
+                <personalityDefName>Rimpsyche_Diligence</personalityDefName>
+                <weight>0.05</weight>
               </li>
             </weights>
           </li>
@@ -1864,28 +1868,20 @@
             <controversiality>0</controversiality>
             <weights>
               <li>
-                <facet>Intellect</facet>
+                <personalityDefName>Rimpsyche_Confidence</personalityDefName>
+                <weight>0.3</weight>
+              </li>
+              <li>
+                <personalityDefName>Rimpsyche_Reflectiveness</personalityDefName>
                 <weight>0.25</weight>
               </li>
               <li>
-                <facet>Integrity</facet>
+                <personalityDefName>Rimpsyche_Authenticity</personalityDefName>
                 <weight>0.25</weight>
               </li>
               <li>
-                <facet>Imagination</facet>
-                <weight>0.15</weight>
-              </li>
-              <li>
-                <facet>Insecurity</facet>
-                <weight>-0.2</weight>
-              </li>
-              <li>
-                <facet>Assertiveness</facet>
-                <weight>-0.1</weight>
-              </li>
-              <li>
-                <facet>Humbleness</facet>
-                <weight>0.05</weight>
+                <personalityDefName>Rimpsyche_Stability</personalityDefName>
+                <weight>0.2</weight>
               </li>
             </weights>
           </li>
@@ -1896,56 +1892,48 @@
             <controversiality>0.6</controversiality>
             <weights>
               <li>
-                <facet>Imagination</facet>
-                <weight>0.15</weight>
+                <personalityDefName>Rimpsyche_Authenticity</personalityDefName>
+                <weight>0.45</weight>
               </li>
               <li>
-                <facet>Assertiveness</facet>
+                <personalityDefName>Rimpsyche_Confidence</personalityDefName>
                 <weight>0.25</weight>
               </li>
               <li>
-                <facet>Enthusiasm</facet>
-                <weight>0.1</weight>
+                <personalityDefName>Rimpsyche_Emotionality</personalityDefName>
+                <weight>0.15</weight>
               </li>
               <li>
-                <facet>Humbleness</facet>
-                <weight>-0.3</weight>
-              </li>
-              <li>
-                <facet>Insecurity</facet>
-                <weight>-0.2</weight>
+                <personalityDefName>Rimpsyche_Trust</personalityDefName>
+                <weight>0.15</weight>
               </li>
             </weights>
           </li>
           <li>
-            <!-- + : religion as core personal identity | - : religion as peripheral or rejected identity -->
+            <!-- + : religion can be important for personal identity | - : religion should be seperate, secular -->
             <name>religion</name>
             <label>religion</label>
             <controversiality>0</controversiality>
             <weights>
               <li>
-                <facet>Integrity</facet>
-                <weight>0.3</weight>
-              </li>
-              <li>
-                <facet>Orderliness</facet>
+                <personalityDefName>Rimpsyche_Reflectiveness</personalityDefName>
                 <weight>0.2</weight>
               </li>
               <li>
-                <facet>Compassion</facet>
-                <weight>0.1</weight>
+                <personalityDefName>Rimpsyche_Morality</personalityDefName>
+                <weight>0.35</weight>
               </li>
               <li>
-                <facet>Humbleness</facet>
-                <weight>0.1</weight>
+                <personalityDefName>Rimpsyche_Loyalty</personalityDefName>
+                <weight>0.25</weight>
               </li>
               <li>
-                <facet>Intellect</facet>
-                <weight>-0.2</weight>
+                <personalityDefName>Rimpsyche_Openness</personalityDefName>
+                <weight>-0.1</weight>
               </li>
               <li>
-                <facet>Sociability</facet>
-                <weight>0.1</weight>
+                <personalityDefName>Rimpsyche_Experimentation</personalityDefName>
+                <weight>-0.1</weight>
               </li>
             </weights>
           </li>
@@ -1956,32 +1944,20 @@
             <controversiality>0</controversiality>
             <weights>
               <li>
-                <facet>Imagination</facet>
-                <weight>0.1</weight>
+                <personalityDefName>Rimpsyche_Reflectiveness</personalityDefName>
+                <weight>0.45</weight>
               </li>
               <li>
-                <facet>Intellect</facet>
-                <weight>0.3</weight>
+                <personalityDefName>Rimpsyche_Imagination</personalityDefName>
+                <weight>0.25</weight>
               </li>
               <li>
-                <facet>Curiosity</facet>
-                <weight>0.1</weight>
+                <personalityDefName>Rimpsyche_Sociability</personalityDefName>
+                <weight>-0.15</weight>
               </li>
               <li>
-                <facet>Integrity</facet>
-                <weight>0.2</weight>
-              </li>
-              <li>
-                <facet>Humbleness</facet>
+                <personalityDefName>Rimpsyche_Emotionality</personalityDefName>
                 <weight>0.15</weight>
-              </li>
-              <li>
-                <facet>Insecurity</facet>
-                <weight>0.05</weight>
-              </li>
-              <li>
-                <facet>Sociability</facet>
-                <weight>-0.10</weight>
               </li>
             </weights>
           </li>
@@ -1992,63 +1968,51 @@
             <controversiality>0</controversiality>
             <weights>
               <li>
-                <facet>Integrity</facet>
-                <weight>0.35</weight>
+                <personalityDefName>Rimpsyche_Morality</personalityDefName>
+                <weight>0.4</weight>
               </li>
               <li>
-                <facet>Industriousness</facet>
-                <weight>0.1</weight>
-              </li>
-              <li>
-                <facet>Intellect</facet>
+                <personalityDefName>Rimpsyche_Discipline</personalityDefName>
                 <weight>0.2</weight>
               </li>
               <li>
-                <facet>Orderliness</facet>
-                <weight>0.10</weight>
+                <personalityDefName>Rimpsyche_Authenticity</personalityDefName>
+                <weight>0.15</weight>
               </li>
               <li>
-                <facet>Insecurity</facet>
-                <weight>-0.10</weight>
+                <personalityDefName>Rimpsyche_Reflectiveness</personalityDefName>
+                <weight>0.15</weight>
               </li>
               <li>
-                <facet>Curiosity</facet>
-                <weight>-0.10</weight>
-              </li>
-              <li>
-                <facet>Cooperation</facet>
-                <weight>-0.05</weight>
+                <personalityDefName>Rimpsyche_Stability</personalityDefName>
+                <weight>0.1</weight>
               </li>
             </weights>
           </li>
           <li>
-            <!-- + : identity-driven / principled orientation | - : pragmatic / flexible orientation -->
+            <!-- + : Conviction-Driven / Ideological | - : Evidence-Driven / Pragmatic -->
             <name>beliefs</name>
             <label>beliefs</label>
             <controversiality>0</controversiality>
             <weights>
               <li>
-                <facet>Integrity</facet>
-                <weight>0.35</weight>
+                <personalityDefName>Rimpsyche_Openness</personalityDefName>
+                <weight>-0.3</weight>
               </li>
               <li>
-                <facet>Intellect</facet>
+                <personalityDefName>Rimpsyche_Trust</personalityDefName>
                 <weight>0.25</weight>
               </li>
               <li>
-                <facet>Curiosity</facet>
-                <weight>-0.15</weight>
+                <personalityDefName>Rimpsyche_Morality</personalityDefName>
+                <weight>0.2</weight>
               </li>
               <li>
-                <facet>Insecurity</facet>
-                <weight>-0.05</weight>
+                <personalityDefName>Rimpsyche_Passion</personalityDefName>
+                <weight>0.15</weight>
               </li>
               <li>
-                <facet>Compassion</facet>
-                <weight>0.1</weight>
-              </li>
-              <li>
-                <facet>Assertiveness</facet>
+                <personalityDefName>Rimpsyche_Reflectiveness</personalityDefName>
                 <weight>0.1</weight>
               </li>
             </weights>
