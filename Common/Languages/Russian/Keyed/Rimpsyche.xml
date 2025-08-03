@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <!-- Общие -->
+  <RimpsycheSettingCategory>RimPsyche</RimpsycheSettingCategory>
+
+  <!-- Настройки -->
+  <RimpsycheGeneralSetting>Основные настройки RimPsyche</RimpsycheGeneralSetting>
+  <RimpsycheAllowFacetEdit>Редактирование черт</RimpsycheAllowFacetEdit>
+  <RimpsycheAllowFacetEditTooltip>Позволяет напрямую редактировать черты характера.</RimpsycheAllowFacetEditTooltip>
+  <RimpsycheShowFacetInMenu>Показывать черты в интерфейсе</RimpsycheShowFacetInMenu>
+  <RimpsycheShowFacetInMenuTooltip>Отображать черты характера во вкладке "Психика".</RimpsycheShowFacetInMenuTooltip>
+
+  <!-- Заголовки -->
+  <RPC_Personality>Личность</RPC_Personality>
+  <RPC_Interest>Интересы</RPC_Interest>
+  <RPC_Sexuality>Сексуальность</RPC_Sexuality>
+
+  <!-- Вкладка -->
+  <TabPsyche>Психика</TabPsyche>
+
+  <RimpsycheShowList>Показать списком</RimpsycheShowList>
+  <RimpsycheShowBar>Показать шкалами</RimpsycheShowBar>
+  <RimpsycheShowFacet>Показать черты</RimpsycheShowFacet>
+  <RimpsycheEdit>Редактировать</RimpsycheEdit>
+
+  <RPC_Orientation>Ориентация</RPC_Orientation>
+  <RPC_Kinsey>Шкала Кинси</RPC_Kinsey>
+  <RPC_SexDrive>Либидо</RPC_SexDrive>
+
+  <TraitAffected>Влияние черт:</TraitAffected>
+
+  <!-- Взаимодействия -->
+  <MemoryReportString>Разговор о {0}</MemoryReportString>
+  <RimPsycheIntensityNeutral>Нейтрально {0}</RimPsycheIntensityNeutral>
+  <RimPsycheIntensityExtremely>Чрезвычайно {0}</RimPsycheIntensityExtremely>
+  <RimPsycheIntensityVery>Очень {0}</RimPsycheIntensityVery>
+  <RimPsycheIntensitySomewhat>Отчасти {0}</RimPsycheIntensitySomewhat>
+  <RimPsycheIntensityMarginally>Слегка {0}</RimPsycheIntensityMarginally>
+
+  <!-- Режим редактирования -->
+  <RPC_Facets>Черты характера</RPC_Facets>
+  <ResetPsycheTooltip>Сбросить личность</ResetPsycheTooltip>
+  <RimpsycheFacetInfo>Черты характера - это основные элементы, формирующие мысли, чувства и поведение персонажа. Каждая черта представляет определённый аспект мировосприятия и реакций.</RimpsycheFacetInfo>
+  <RimpsychePersonalityInfo>Личность персонажа формируется совокупностью его черт характера. Она влияет на поведение, отношения и принимаемые решения.</RimpsychePersonalityInfo>
+
+  <!-- Описания черт -->
+  <RPC_Imagination>Воображение</RPC_Imagination>
+  <RPC_Intellect>Интеллект</RPC_Intellect>
+  <RPC_Curiosity>Любознательность</RPC_Curiosity>
+  <RPC_Industriousness>Трудолюбие</RPC_Industriousness>
+  <RPC_Orderliness>Организованность</RPC_Orderliness>
+  <RPC_Integrity>Принципиальность</RPC_Integrity>
+  <RPC_Sociability>Общительность</RPC_Sociability>
+  <RPC_Assertiveness>Напористость</RPC_Assertiveness>
+  <RPC_Enthusiasm>Энтузиазм</RPC_Enthusiasm>
+  <RPC_Compassion>Сочувствие</RPC_Compassion>
+  <RPC_Cooperation>Сотрудничество</RPC_Cooperation>
+  <RPC_Humbleness>Скромность</RPC_Humbleness>
+  <RPC_Volatility>Эмоциональность</RPC_Volatility>
+  <RPC_Pessimism>Пессимизм</RPC_Pessimism>
+  <RPC_Insecurity>Неуверенность</RPC_Insecurity>
+  <RPC_Realistic>Реалист</RPC_Realistic>
+  <RPC_Imaginative>Мечтатель</RPC_Imaginative>
+  <RPC_Practical>Практик</RPC_Practical>
+  <RPC_Philosophical>Философ</RPC_Philosophical>
+  <RPC_Conventional>Консерватор</RPC_Conventional>
+  <RPC_Explorative>Исследователь</RPC_Explorative>
+  <RPC_Unmotivated>Безвольный</RPC_Unmotivated>
+  <RPC_Industrious>Трудоголик</RPC_Industrious>
+  <RPC_Disorganized>Неорганизованный</RPC_Disorganized>
+  <RPC_Organized>Организованный</RPC_Organized>
+  <RPC_Inconsistent>Непостоянный</RPC_Inconsistent>
+  <RPC_Reliable>Надёжный</RPC_Reliable>
+  <RPC_Aloof>Отстранённый</RPC_Aloof>
+  <RPC_Friendly>Дружелюбный</RPC_Friendly>
+  <RPC_Timid>Робкий</RPC_Timid>
+  <RPC_Assertive>Уверенный</RPC_Assertive>
+  <RPC_Stoic>Стоик</RPC_Stoic>
+  <RPC_Cheerful>Жизнерадостный</RPC_Cheerful>
+  <RPC_Detached>Равнодушный</RPC_Detached>
+  <RPC_Compassionate>Сопереживающий</RPC_Compassionate>
+  <RPC_Stubborn>Упрямый</RPC_Stubborn>
+  <RPC_Accommodating>Уступчивый</RPC_Accommodating>
+  <RPC_Arrogant>Высокомерный</RPC_Arrogant>
+  <RPC_Humble>Скромный</RPC_Humble>
+  <RPC_Stable>Уравновешенный</RPC_Stable>
+  <RPC_Volatile>Эмоциональный</RPC_Volatile>
+  <RPC_Optimistic>Оптимист</RPC_Optimistic>
+  <RPC_Pessimistic>Пессимист</RPC_Pessimistic>
+  <RPC_Confident>Уверенный</RPC_Confident>
+  <RPC_Insecure>Неуверенный</RPC_Insecure>
+
+  <!-- Подсказки черт -->
+  <RPC_Imagination_Tooltip>Отражает богатый внутренний мир и эмоциональную чувствительность к искусству. Мечтатели тяготеют к фантазиям, музыке и искусству; Реалисты более приземлены и практичны.</RPC_Imagination_Tooltip>
+  <RPC_Intellect_Tooltip>Характеризует интерес к абстрактному мышлению. Философы любят глубокие беседы; Практики предпочитают конкретные решения.</RPC_Intellect_Tooltip>
+  <RPC_Curiosity_Tooltip>Описывает тягу к новизне и исследованиям. Исследователи ищут новые впечатления; Консерваторы ценят рутину.</RPC_Curiosity_Tooltip>
+  <RPC_Industriousness_Tooltip>Характеризует упорство в достижении целей. Трудоголики мотивированы и настойчивы; Безвольные часто бросают дела.</RPC_Industriousness_Tooltip>
+  <RPC_Orderliness_Tooltip>Описывает любовь к порядку. Организованные ценят структуру; Неорганизованные действуют хаотично.</RPC_Orderliness_Tooltip>
+  <RPC_Integrity_Tooltip>Отражает приверженность принципам. Надёжные держат слово; Непостоянные меняют решения.</RPC_Integrity_Tooltip>
+  <RPC_Sociability_Tooltip>Показывает общительность. Дружелюбные легко общаются; Отстранённые держатся особняком.</RPC_Sociability_Tooltip>
+  <RPC_Assertiveness_Tooltip>Характеризует уверенность. Уверенные выражают мнение; Робкие стесняются.</RPC_Assertiveness_Tooltip>
+  <RPC_Enthusiasm_Tooltip>Отражает энергичность. Жизнерадостные активны; Стоики сдержаны.</RPC_Enthusiasm_Tooltip>
+  <RPC_Compassion_Tooltip>Показывает эмпатию. Сопереживающие чувствуют других; Равнодушные безучастны.</RPC_Compassion_Tooltip>
+  <RPC_Cooperation_Tooltip>Описывает готовность к компромиссам. Уступчивые избегают конфликтов; Упрямые настаивают на своём.</RPC_Cooperation_Tooltip>
+  <RPC_Humbleness_Tooltip>Характеризует скромность. Скромные не выпячивают себя; Высокомерные превозносятся.</RPC_Humbleness_Tooltip>
+  <RPC_Volatility_Tooltip>Отражает эмоциональность. Эмоциональные подвержены перепадам; Уравновешенные стабильны.</RPC_Volatility_Tooltip>
+  <RPC_Pessimism_Tooltip>Показывает негативный настрой. Пессимисты видят плохое; Оптимисты верят в лучшее.</RPC_Pessimism_Tooltip>
+  <RPC_Insecurity_Tooltip>Описывает неуверенность. Неуверенные боятся ошибок; Уверенные спокойны.</RPC_Insecurity_Tooltip>
+</LanguageData>
