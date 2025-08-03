@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LanguageData>
 
+  <Sentence_RimpsycheConversationPositiveGreat.rulePack.rulesStrings.0>sent->매우 유사한 견해 덕에 둘은 시간가는 줄 모르고 즐겁게 대화함.</Sentence_RimpsycheConversationPositiveGreat.rulePack.rulesStrings.0>
+  <Sentence_RimpsycheConversationPositiveGreat.rulePack.rulesStrings.1>sent->공통된 의견 덕에 둘은 막힘없이 유쾌한 대화를 나눔.</Sentence_RimpsycheConversationPositiveGreat.rulePack.rulesStrings.1>
+  <Sentence_RimpsycheConversationPositiveGreat.rulePack.rulesStrings.2>sent->둘은 빠르게 공감대를 형성하여 즐겁고 흥미로운 대화를 나눔.</Sentence_RimpsycheConversationPositiveGreat.rulePack.rulesStrings.2>
+
   <Sentence_RimpsycheConversationPositiveGood.rulePack.rulesStrings.0>sent->둘은 공통된 견해에 대한 즐거운 대화를 나눔.</Sentence_RimpsycheConversationPositiveGood.rulePack.rulesStrings.0>
   <Sentence_RimpsycheConversationPositiveGood.rulePack.rulesStrings.1>sent->둘은 유사한 견해에 대해 논의하며 서로를 더 잘 이해하게 됨.</Sentence_RimpsycheConversationPositiveGood.rulePack.rulesStrings.1>
   <Sentence_RimpsycheConversationPositiveGood.rulePack.rulesStrings.2>sent->둘은 공통된 관점에 대한 만족스러운 대화를 함.</Sentence_RimpsycheConversationPositiveGood.rulePack.rulesStrings.2>

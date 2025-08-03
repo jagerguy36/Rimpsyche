@@ -63,6 +63,17 @@
   </InteractionDef>
 
   <RulePackDef>
+    <defName>Sentence_RimpsycheConversationPositiveGreat</defName>
+    <rulePack>
+      <rulesStrings>
+        <li>sent->Their conversation was engaging and pleasant, thanks to how closely their views aligned.</li>
+        <li>sent->Their shared views made the conversation flow effortlessly, making it genuinely enjoyable.</li>
+        <li>sent->They immediately saw eye-to-eye, and the exchange felt pleasant and refreshing.</li>
+      </rulesStrings>
+    </rulePack>
+  </RulePackDef>
+
+  <RulePackDef>
     <defName>Sentence_RimpsycheConversationPositiveGood</defName>
     <rulePack>
       <rulesStrings>

@@ -1,7 +1,6 @@
 ﻿using RimWorld;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using Verse;
 
@@ -50,10 +49,14 @@ namespace Maux36.RimPsyche
                     foreach(var topic in interest.topics)
                     {
                         //TopicNameList.Add(topic.name);
-                        float absoluteWeightSum = topic.weights.Sum(fw => Mathf.Abs(fw.weight));
+                        float absoluteWeightSum = 0f;
+                        foreach (var fw in topic.weights)
+                        {
+                            absoluteWeightSum += Mathf.Abs(fw.weight);
+                        }
                         if (Math.Abs(absoluteWeightSum - 1) > 0.001f) // Use a small tolerance due to floating-point precision
                         {
-                            Log.Error($"Facet weight absolute sum for topic {topic.name} is not 1. It is {absoluteWeightSum}");
+                            Log.Error($"Personality weight absolute sum for topic {topic.name} is not 1. It is {absoluteWeightSum}");
                         }
                     }
                 }
@@ -63,7 +66,11 @@ namespace Maux36.RimPsyche
             foreach (var personalityDef in DefDatabase<PersonalityDef>.AllDefs)
             {
                 //Check Personality weight sum
-                float absoluteWeightSum = personalityDef.scoreWeight.Sum(fw => Mathf.Abs(fw.weight));
+                float absoluteWeightSum = 0f;
+                foreach (var fw in personalityDef.scoreWeight)
+                {
+                    absoluteWeightSum += Mathf.Abs(fw.weight);
+                }
                 if (Math.Abs(absoluteWeightSum - 1) > 0.0001f) // Use a small tolerance due to floating-point precision
                 {
                     Log.Error($"Facet weight absolute sum for topic {personalityDef.label} is not 1. It is {absoluteWeightSum}");

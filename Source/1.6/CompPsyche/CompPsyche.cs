@@ -115,15 +115,10 @@ namespace Maux36.RimPsyche
                     influenceChance *= 1.5f;
                 }
                 //Log.Message($"Affect. magnitude: {influenceChance}");
-
-                float totalWeight = topic.weights.Sum(w => Mathf.Abs(w.weight));
-                if (totalWeight == 0f)
-                    return false;
-
                 var facetChanges = new Dictionary<Facet, float>();
                 foreach (var personalityWeight in topic.weights)
                 {
-                    float contribution = influenceChance * (personalityWeight.weight / totalWeight);
+                    float contribution = influenceChance * personalityWeight.weight;
                     if (contribution != 0f)
                     {
                         var personality = RimpsycheDatabase.PersonalityDict[personalityWeight.personalityDefName];

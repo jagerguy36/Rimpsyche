@@ -20,6 +20,11 @@
     <li>commentedabout->에 대해 짧게 의견을 냄</li>
   </Rimpsyche_Smalltalk.logRulesInitiator.rulesStrings>
 
+  <Rimpsyche_StartConversation.label>대화</Rimpsyche_StartConversation.label>
+  <Rimpsyche_StartConversation.logRulesInitiator.rulesStrings>
+        <li>r_logentry->둘의 대화가 끝남.</li>
+  </Rimpsyche_StartConversation.logRulesInitiator.rulesStrings>
+
   <Rimpsyche_Conversation.label>대화</Rimpsyche_Conversation.label>
   <Rimpsyche_Conversation.logRulesInitiator.rulesStrings>
         <li>r_logentry->[INITIATOR_nameDef](은)는 [RECIPIENT_nameDef](와)과 {0}에 대한 대화를 나눔.</li>

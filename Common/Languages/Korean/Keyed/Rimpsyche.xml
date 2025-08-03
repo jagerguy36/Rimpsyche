@@ -10,6 +10,8 @@
   <RimpsycheAllowFacetEditTooltip>성격 측면을 직접 수정할 수 있도록 허용합니다.</RimpsycheAllowFacetEditTooltip>
   <RimpsycheShowFacetInMenu>성격측면 UI</RimpsycheShowFacetInMenu>
   <RimpsycheShowFacetInMenuTooltip>성격 탭에서 성격측면 보기 옵션을 선택할 수 있게 합니다.</RimpsycheShowFacetInMenuTooltip>
+  <RimpsycheShowFacetGraph>성격 차트 표시</RimpsycheShowFacetGraph>
+  <RimpsycheShowFacetGraphuTooltip>성격 탭에 방사형 차트를 표시합니다.</RimpsycheShowFacetGraphuTooltip>
 
 
   <!-- Title -->

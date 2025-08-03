@@ -1,0 +1,10 @@
+<Analyzer>
+    <RimPsyche>
+        <Types>
+            <li>Maux36.RimPsyche.InteractionWorker_StartConversation</li>
+        </Types>
+        <Types>
+            <li>Maux36.RimPsyche.CompPsyche</li>
+        </Types>
+    </RimPsyche>
+</Analyzer>

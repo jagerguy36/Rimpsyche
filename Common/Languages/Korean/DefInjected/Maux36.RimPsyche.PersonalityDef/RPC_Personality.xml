@@ -160,6 +160,16 @@
   <Rimpsyche_SelfInterest.low>이타적인</Rimpsyche_SelfInterest.low>
   <Rimpsyche_SelfInterest.description>자신의 필요를 타인의 안녕보다 얼마나 우선시하는지를 나타냅니다. 이타적인 사람은 타인을 돕는 데 진심을 다하며, 개인적인 이익보다 공동의 선을 더 중요하게 여깁니다. 반면, 자기중심적인 사람은 자신의 욕구와 이익을 우선시하는 경향이 있습니다.</Rimpsyche_SelfInterest.description>
 
+  <Rimpsyche_Reflectiveness.label>성찰성</Rimpsyche_Reflectiveness.label>
+  <Rimpsyche_Reflectiveness.high>사색적인</Rimpsyche_Reflectiveness.high>
+  <Rimpsyche_Reflectiveness.low>즉각적인</Rimpsyche_Reflectiveness.low>
+  <Rimpsyche_Reflectiveness.description>개인이 얼마나 깊이 사고하고 성찰하며 추상적인 개념에 대해 고찰하는지를 나타냅니다. 사색적인 사람은 분석하고 깊이 생각하는데 시간을 투자하는 경향이 있습니다. 반면 즉각적인 사람은 당장의 현실적인 문제에 반응하며, 깊은 성찰보다는 빠른 판단과 실행을 중시합니다.</Rimpsyche_Reflectiveness.description>
+
+  <Rimpsyche_Authenticity.label>진정성</Rimpsyche_Authenticity.label>
+  <Rimpsyche_Authenticity.high>진솔한</Rimpsyche_Authenticity.high>
+  <Rimpsyche_Authenticity.low>연출된</Rimpsyche_Authenticity.low>
+  <Rimpsyche_Authenticity.description>개인이 자신을 얼마나 솔직하게 내비치는지를 나타냅니다. 진솔한 사람은 겉으로 드러난 모습보다 진심을 중시하여 스스로를 그대로 드러냅니다. 반면 연출된 사람은 타인의 시선에 비친 자신의 모습을 의도적으로 구성하는 경향이 있습니다.</Rimpsyche_Authenticity.description>
+
   <!-- <Rimpsyche_Cognition.label>사고 방식</Rimpsyche_Cognition.label>
   <Rimpsyche_Cognition.high>이성적인</Rimpsyche_Cognition.high>
   <Rimpsyche_Cognition.low>직관적인</Rimpsyche_Cognition.low>

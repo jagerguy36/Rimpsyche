@@ -582,7 +582,11 @@ namespace Maux36.RimPsyche
             float adjustedDelta = delta * 50f;
 
             // Total absolute weight (for normalization)
-            float totalWeight = def.scoreWeight.Sum(w => Mathf.Abs(w.weight));
+            float totalWeight = 0f;
+            foreach (var fw in def.scoreWeight)
+            {
+                totalWeight += Mathf.Abs(fw.weight);
+            }
             if (totalWeight == 0f)
                 return;
 

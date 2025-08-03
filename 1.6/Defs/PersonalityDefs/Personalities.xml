@@ -1291,8 +1291,8 @@
     <defName>Rimpsyche_Reflectiveness</defName>
     <label>reflectiveness</label>
     <high>contemplative</high>
-    <low>pragmatic</low>
-    <description>Reflects a person's tendency to engage in deep thought, introspection, and consideration of abstract ideas. Contemplative individuals often spend time analyzing and pondering. Pragmatic individuals tend to focus on immediate, concrete matters.</description>
+    <low>reactive</low>
+    <description>Reflects a person's tendency to engage in deep thought, introspection, and consideration of abstract ideas. Contemplative individuals often spend time analyzing and pondering. Reactive individuals tend to focus on immediate, concrete matters.</description>
     <scoreWeight>
       <li>
         <facet>Imagination</facet>

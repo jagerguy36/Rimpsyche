@@ -38,7 +38,7 @@ namespace Maux36.RimPsyche
             else
             {
                 return 0f;
-            }           
+            }
         }
 
 
@@ -135,6 +135,10 @@ namespace Maux36.RimPsyche
                     {
                         extraSentencePacks.Add(DefOfRimpsyche.Sentence_RimpsycheConversationPositiveBad);
                     }
+                    else if (partnerScore > 3f || pawnScore > 3f)
+                    {
+                        extraSentencePacks.Add(DefOfRimpsyche.Sentence_RimpsycheConversationPositiveGreat);
+                    }
                     else
                     {
                         extraSentencePacks.Add(DefOfRimpsyche.Sentence_RimpsycheConversationPositiveGood);
@@ -205,7 +209,7 @@ namespace Maux36.RimPsyche
                 float lengthOpinionMult = (6f * lengthMult) / (lengthMult + 2f); //boost lower/middle part while maintaining the range. 1.3 ~ 4
                 float initOpinionOffset = pawnScore * lengthOpinionMult;
                 float reciOpinionOffset = partnerScore * lengthOpinionMult;
-                //Log.Message($"GetConvoResult: {initiator.Name}: {pawnScore} | {recipient.Name}: {partnerScore} | lengthOpinionMult: {lengthOpinionMult}");
+                //Log.Message($"GetConvoResult: {initiator.Name}: {initOpinionOffset} | {recipient.Name}: {reciOpinionOffset} | lengthOpinionMult: {lengthOpinionMult}");
                 if (initOpinionOffset != 0)
                 {
                     Rimpsyche_Utility.GainCoversationMemoryFast(convoTopic.name, convoTopic.label, initOpinionOffset, initiator, recipient);
