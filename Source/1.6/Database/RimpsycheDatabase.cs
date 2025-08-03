@@ -30,6 +30,11 @@ namespace Maux36.RimPsyche
 
         static RimpsycheDatabase()
         {
+            Initialize();
+        }
+
+        public static void Initialize()
+        {
             InteractionDefOf.Chitchat = DefOfRimpsyche.Rimpsyche_Smalltalk;
             InteractionDefOf.DeepTalk = DefOfRimpsyche.Rimpsyche_StartConversation;
             if (LanguageDatabase.activeLanguage.HaveTextForKey("MemoryReportString"))
@@ -46,7 +51,7 @@ namespace Maux36.RimPsyche
                     InterestDomainDict.Add(interest, interestdomain);
                     //InterestNameList.Add(interest.name);
                     //TopicList.AddRange(interest.topics);
-                    foreach(var topic in interest.topics)
+                    foreach (var topic in interest.topics)
                     {
                         //TopicNameList.Add(topic.name);
                         float absoluteWeightSum = 0f;
@@ -77,13 +82,13 @@ namespace Maux36.RimPsyche
                 }
 
                 var scopeList = personalityDef.scopes;
-                if(scopeList != null)
+                if (scopeList != null)
                 {
                     foreach (var scopeData in scopeList)
                     {
                         var scopeCenter = scopeData.ceterOffset;
                         var scopeRange = scopeData.range;
-                        if (scopeRange <= 0 || scopeCenter -  scopeRange < -1 || scopeCenter + scopeRange > 1)
+                        if (scopeRange <= 0 || scopeCenter - scopeRange < -1 || scopeCenter + scopeRange > 1)
                         {
                             Log.Error($"Error parsing Scope data of {personalityDef.label}. Either its range is not positive or Its range gets outside of -1 ~ 1.");
                             continue;
