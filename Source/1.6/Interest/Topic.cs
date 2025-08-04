@@ -7,7 +7,9 @@ namespace Maux36.RimPsyche
 {
     public class Topic
     {
+        [NoTranslate]
         public string name;
+
         public string label;
         public float controversiality = 1;
         public bool allowChild = true;

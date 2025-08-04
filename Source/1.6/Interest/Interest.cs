@@ -10,7 +10,9 @@ namespace Maux36.RimPsyche
     }
     public class Interest
     {
+        [NoTranslate]
         public string name;
+
         public string label;
         public string description;
         public List<FacetWeight> scoreWeight;
