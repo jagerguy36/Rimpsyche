@@ -109,8 +109,8 @@ namespace Maux36.RimPsyche
             "SocialFightChanceMultiplier",
             (tracker) =>
             {
-                float aggressiveness = 1f +  tracker.GetPersonality(PersonalityDefOf.Rimpsyche_Aggressiveness) * 0.9f;
-                float emotionality = 1f + tracker.GetPersonality(PersonalityDefOf.Rimpsyche_Emotionality) * 0.4f;
+                float aggressiveness = 1f +  tracker.GetPersonality(PersonalityDefOf.Rimpsyche_Aggressiveness) * 0.4f;
+                float emotionality = 1f + tracker.GetPersonality(PersonalityDefOf.Rimpsyche_Emotionality) * 0.2f;
                 float compassion = tracker.GetPersonality(PersonalityDefOf.Rimpsyche_Compassion);
                 float compassionMult = compassion > 0 ? 1f - compassion * 0.5f : 1f;
                 return aggressiveness * emotionality * compassionMult;
