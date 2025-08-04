@@ -1,0 +1,161 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <!-- Значение спорности по умолчанию 1. Рекомендуемый диапазон 0~[1]~2. -->
+
+  <Rimpsyche_InterestDomainGeneral.label>общие</Rimpsyche_InterestDomainGeneral.label>
+  <Rimpsyche_InterestDomainGeneral.interests.0.name>InterestLife</Rimpsyche_InterestDomainGeneral.interests.0.name>
+  <Rimpsyche_InterestDomainGeneral.interests.0.label>Повседневная жизнь</Rimpsyche_InterestDomainGeneral.interests.0.label>
+  <Rimpsyche_InterestDomainGeneral.interests.0.description>Базовые потребности и повседневный опыт.</Rimpsyche_InterestDomainGeneral.interests.0.description>
+  <Rimpsyche_InterestDomainGeneral.interests.0.topics.0.name>weather</Rimpsyche_InterestDomainGeneral.interests.0.topics.0.name>
+  <Rimpsyche_InterestDomainGeneral.interests.0.topics.0.label>погода</Rimpsyche_InterestDomainGeneral.interests.0.topics.0.label>
+  <Rimpsyche_InterestDomainGeneral.interests.0.topics.1.name>sleep_quality</Rimpsyche_InterestDomainGeneral.interests.0.topics.1.name>
+  <Rimpsyche_InterestDomainGeneral.interests.0.topics.1.label>качество сна</Rimpsyche_InterestDomainGeneral.interests.0.topics.1.label>
+  <Rimpsyche_InterestDomainGeneral.interests.0.topics.2.name>pain</Rimpsyche_InterestDomainGeneral.interests.0.topics.2.name>
+  <Rimpsyche_InterestDomainGeneral.interests.0.topics.2.label>боль</Rimpsyche_InterestDomainGeneral.interests.0.topics.2.label>
+  <Rimpsyche_InterestDomainGeneral.interests.0.topics.3.name>hunger</Rimpsyche_InterestDomainGeneral.interests.0.topics.3.name>
+  <Rimpsyche_InterestDomainGeneral.interests.0.topics.3.label>голод</Rimpsyche_InterestDomainGeneral.interests.0.topics.3.label>
+  <Rimpsyche_InterestDomainGeneral.interests.0.topics.4.name>comfort</Rimpsyche_InterestDomainGeneral.interests.0.topics.4.name>
+  <Rimpsyche_InterestDomainGeneral.interests.0.topics.4.label>комфорт</Rimpsyche_InterestDomainGeneral.interests.0.topics.4.label>
+  <Rimpsyche_InterestDomainGeneral.interests.0.topics.5.name>safety</Rimpsyche_InterestDomainGeneral.interests.0.topics.5.name>
+  <Rimpsyche_InterestDomainGeneral.interests.0.topics.5.label>безопасность</Rimpsyche_InterestDomainGeneral.interests.0.topics.5.label>
+  <Rimpsyche_InterestDomainGeneral.interests.0.topics.6.name>injuries</Rimpsyche_InterestDomainGeneral.interests.0.topics.6.name>
+  <Rimpsyche_InterestDomainGeneral.interests.0.topics.6.label>травмы</Rimpsyche_InterestDomainGeneral.interests.0.topics.6.label>
+  <Rimpsyche_InterestDomainGeneral.interests.0.topics.7.name>dangers</Rimpsyche_InterestDomainGeneral.interests.0.topics.7.name>
+  <Rimpsyche_InterestDomainGeneral.interests.0.topics.7.label>опасности</Rimpsyche_InterestDomainGeneral.interests.0.topics.7.label>
+  <Rimpsyche_InterestDomainGeneral.interests.0.topics.8.name>survival_together</Rimpsyche_InterestDomainGeneral.interests.0.topics.8.name>
+  <Rimpsyche_InterestDomainGeneral.interests.0.topics.8.label>совместное выживание</Rimpsyche_InterestDomainGeneral.interests.0.topics.8.label>
+  <Rimpsyche_InterestDomainGeneral.interests.0.topics.9.name>food</Rimpsyche_InterestDomainGeneral.interests.0.topics.9.name>
+  <Rimpsyche_InterestDomainGeneral.interests.0.topics.9.label>еда</Rimpsyche_InterestDomainGeneral.interests.0.topics.9.label>
+  <Rimpsyche_InterestDomainGeneral.interests.0.topics.10.name>help</Rimpsyche_InterestDomainGeneral.interests.0.topics.10.name>
+  <Rimpsyche_InterestDomainGeneral.interests.0.topics.10.label>помощь</Rimpsyche_InterestDomainGeneral.interests.0.topics.10.label>
+
+  <Rimpsyche_InterestDomainGeneral.interests.1.name>InterestDreamsFears</Rimpsyche_InterestDomainGeneral.interests.1.name>
+  <Rimpsyche_InterestDomainGeneral.interests.1.label>Мечты и страхи</Rimpsyche_InterestDomainGeneral.interests.1.label>
+  <Rimpsyche_InterestDomainGeneral.interests.1.description>Личные переживания и размышления.</Rimpsyche_InterestDomainGeneral.interests.1.description>
+  <Rimpsyche_InterestDomainGeneral.interests.1.topics.0.name>nightmares</Rimpsyche_InterestDomainGeneral.interests.1.topics.0.name>
+  <Rimpsyche_InterestDomainGeneral.interests.1.topics.0.label>кошмары</Rimpsyche_InterestDomainGeneral.interests.1.topics.0.label>
+  <Rimpsyche_InterestDomainGeneral.interests.1.topics.1.name>hopes</Rimpsyche_InterestDomainGeneral.interests.1.topics.1.name>
+  <Rimpsyche_InterestDomainGeneral.interests.1.topics.1.label>надежды</Rimpsyche_InterestDomainGeneral.interests.1.topics.1.label>
+  <Rimpsyche_InterestDomainGeneral.interests.1.topics.2.name>fear_of_death</Rimpsyche_InterestDomainGeneral.interests.1.topics.2.name>
+  <Rimpsyche_InterestDomainGeneral.interests.1.topics.2.label>страх смерти</Rimpsyche_InterestDomainGeneral.interests.1.topics.2.label>
+  <Rimpsyche_InterestDomainGeneral.interests.1.topics.3.name>loss</Rimpsyche_InterestDomainGeneral.interests.1.topics.3.name>
+  <Rimpsyche_InterestDomainGeneral.interests.1.topics.3.label>потери</Rimpsyche_InterestDomainGeneral.interests.1.topics.3.label>
+  <Rimpsyche_InterestDomainGeneral.interests.1.topics.4.name>uncertainty</Rimpsyche_InterestDomainGeneral.interests.1.topics.4.name>
+  <Rimpsyche_InterestDomainGeneral.interests.1.topics.4.label>неопределённость</Rimpsyche_InterestDomainGeneral.interests.1.topics.4.label>
+  <Rimpsyche_InterestDomainGeneral.interests.1.topics.5.name>longing</Rimpsyche_InterestDomainGeneral.interests.1.topics.5.name>
+  <Rimpsyche_InterestDomainGeneral.interests.1.topics.5.label>тоска</Rimpsyche_InterestDomainGeneral.interests.1.topics.5.label>
+  <Rimpsyche_InterestDomainGeneral.interests.1.topics.6.name>courage</Rimpsyche_InterestDomainGeneral.interests.1.topics.6.name>
+  <Rimpsyche_InterestDomainGeneral.interests.1.topics.6.label>смелость</Rimpsyche_InterestDomainGeneral.interests.1.topics.6.label>
+  <Rimpsyche_InterestDomainGeneral.interests.1.topics.7.name>ambition</Rimpsyche_InterestDomainGeneral.interests.1.topics.7.name>
+  <Rimpsyche_InterestDomainGeneral.interests.1.topics.7.label>амбиции</Rimpsyche_InterestDomainGeneral.interests.1.topics.7.label>
+  <Rimpsyche_InterestDomainGeneral.interests.1.topics.8.name>regrets</Rimpsyche_InterestDomainGeneral.interests.1.topics.8.name>
+  <Rimpsyche_InterestDomainGeneral.interests.1.topics.8.label>сожаления</Rimpsyche_InterestDomainGeneral.interests.1.topics.8.label>
+  <Rimpsyche_InterestDomainGeneral.interests.1.topics.9.name>dreams</Rimpsyche_InterestDomainGeneral.interests.1.topics.9.name>
+  <Rimpsyche_InterestDomainGeneral.interests.1.topics.9.label>мечты</Rimpsyche_InterestDomainGeneral.interests.1.topics.9.label>
+  <Rimpsyche_InterestDomainGeneral.interests.1.topics.10.name>anxiety</Rimpsyche_InterestDomainGeneral.interests.1.topics.10.name>
+  <Rimpsyche_InterestDomainGeneral.interests.1.topics.10.label>тревожность</Rimpsyche_InterestDomainGeneral.interests.1.topics.10.label>
+
+  <Rimpsyche_InterestDomainGeneral.interests.2.name>InterestDailyRoutine</Rimpsyche_InterestDomainGeneral.interests.2.name>
+  <Rimpsyche_InterestDomainGeneral.interests.2.label>Повседневные дела</Rimpsyche_InterestDomainGeneral.interests.2.label>
+  <Rimpsyche_InterestDomainGeneral.interests.2.description>Обыденные, но понятные всем темы.</Rimpsyche_InterestDomainGeneral.interests.2.description>
+  <Rimpsyche_InterestDomainGeneral.interests.2.topics.0.name>chores</Rimpsyche_InterestDomainGeneral.interests.2.topics.0.name>
+  <Rimpsyche_InterestDomainGeneral.interests.2.topics.0.label>хозяйственные дела</Rimpsyche_InterestDomainGeneral.interests.2.topics.0.label>
+  <Rimpsyche_InterestDomainGeneral.interests.2.topics.1.name>meal_times</Rimpsyche_InterestDomainGeneral.interests.2.topics.1.name>
+  <Rimpsyche_InterestDomainGeneral.interests.2.topics.1.label>время приёма пищи</Rimpsyche_InterestDomainGeneral.interests.2.topics.1.label>
+  <Rimpsyche_InterestDomainGeneral.interests.2.topics.2.name>idle_time</Rimpsyche_InterestDomainGeneral.interests.2.topics.2.name>
+  <Rimpsyche_InterestDomainGeneral.interests.2.topics.2.label>свободное время</Rimpsyche_InterestDomainGeneral.interests.2.topics.2.label>
+  <Rimpsyche_InterestDomainGeneral.interests.2.topics.3.name>work_schedule</Rimpsyche_InterestDomainGeneral.interests.2.topics.3.name>
+  <Rimpsyche_InterestDomainGeneral.interests.2.topics.3.label>рабочий график</Rimpsyche_InterestDomainGeneral.interests.2.topics.3.label>
+  <Rimpsyche_InterestDomainGeneral.interests.2.topics.4.name>sleep_schedule</Rimpsyche_InterestDomainGeneral.interests.2.topics.4.name>
+  <Rimpsyche_InterestDomainGeneral.interests.2.topics.4.label>режим сна</Rimpsyche_InterestDomainGeneral.interests.2.topics.4.label>
+  <Rimpsyche_InterestDomainGeneral.interests.2.topics.5.name>routine_annoyances</Rimpsyche_InterestDomainGeneral.interests.2.topics.5.name>
+  <Rimpsyche_InterestDomainGeneral.interests.2.topics.5.label>повседневные дела</Rimpsyche_InterestDomainGeneral.interests.2.topics.5.label>
+  <Rimpsyche_InterestDomainGeneral.interests.2.topics.6.name>favorite_task</Rimpsyche_InterestDomainGeneral.interests.2.topics.6.name>
+  <Rimpsyche_InterestDomainGeneral.interests.2.topics.6.label>любимые занятия</Rimpsyche_InterestDomainGeneral.interests.2.topics.6.label>
+  <Rimpsyche_InterestDomainGeneral.interests.2.topics.7.name>breaks</Rimpsyche_InterestDomainGeneral.interests.2.topics.7.name>
+  <Rimpsyche_InterestDomainGeneral.interests.2.topics.7.label>перерывы</Rimpsyche_InterestDomainGeneral.interests.2.topics.7.label>
+  <Rimpsyche_InterestDomainGeneral.interests.2.topics.8.name>progress</Rimpsyche_InterestDomainGeneral.interests.2.topics.8.name>
+  <Rimpsyche_InterestDomainGeneral.interests.2.topics.8.label>прогресс</Rimpsyche_InterestDomainGeneral.interests.2.topics.8.label>
+  <Rimpsyche_InterestDomainGeneral.interests.2.topics.9.name>work_assignment</Rimpsyche_InterestDomainGeneral.interests.2.topics.9.name>
+  <Rimpsyche_InterestDomainGeneral.interests.2.topics.9.label>рабочие обязанности</Rimpsyche_InterestDomainGeneral.interests.2.topics.9.label>
+
+  <Rimpsyche_InterestDomainGeneral.interests.3.name>InterestMemoriesPastLife</Rimpsyche_InterestDomainGeneral.interests.3.name>
+  <Rimpsyche_InterestDomainGeneral.interests.3.label>Прошлая жизнь</Rimpsyche_InterestDomainGeneral.interests.3.label>
+  <Rimpsyche_InterestDomainGeneral.interests.3.description>Ностальгия и истории происхождения.</Rimpsyche_InterestDomainGeneral.interests.3.description>
+  <Rimpsyche_InterestDomainGeneral.interests.3.topics.0.name>childhood</Rimpsyche_InterestDomainGeneral.interests.3.topics.0.name>
+  <Rimpsyche_InterestDomainGeneral.interests.3.topics.0.label>детство</Rimpsyche_InterestDomainGeneral.interests.3.topics.0.label>
+  <Rimpsyche_InterestDomainGeneral.interests.3.topics.1.name>homeworld</Rimpsyche_InterestDomainGeneral.interests.3.topics.1.name>
+  <Rimpsyche_InterestDomainGeneral.interests.3.topics.1.label>родной мир</Rimpsyche_InterestDomainGeneral.interests.3.topics.1.label>
+  <Rimpsyche_InterestDomainGeneral.interests.3.topics.2.name>family</Rimpsyche_InterestDomainGeneral.interests.3.topics.2.name>
+  <Rimpsyche_InterestDomainGeneral.interests.3.topics.2.label>семья</Rimpsyche_InterestDomainGeneral.interests.3.topics.2.label>
+  <Rimpsyche_InterestDomainGeneral.interests.3.topics.3.name>memory_friends</Rimpsyche_InterestDomainGeneral.interests.3.topics.3.name>
+  <Rimpsyche_InterestDomainGeneral.interests.3.topics.3.label>воспоминания о друзьях</Rimpsyche_InterestDomainGeneral.interests.3.topics.3.label>
+  <Rimpsyche_InterestDomainGeneral.interests.3.topics.4.name>cherished_memory</Rimpsyche_InterestDomainGeneral.interests.3.topics.4.name>
+  <Rimpsyche_InterestDomainGeneral.interests.3.topics.4.label>дорогие воспоминания</Rimpsyche_InterestDomainGeneral.interests.3.topics.4.label>
+  <Rimpsyche_InterestDomainGeneral.interests.3.topics.5.name>memory_of_hardship</Rimpsyche_InterestDomainGeneral.interests.3.topics.5.name>
+  <Rimpsyche_InterestDomainGeneral.interests.3.topics.5.label>воспоминания о трудностях</Rimpsyche_InterestDomainGeneral.interests.3.topics.5.label>
+  <Rimpsyche_InterestDomainGeneral.interests.3.topics.6.name>memorable_moments</Rimpsyche_InterestDomainGeneral.interests.3.topics.6.name>
+  <Rimpsyche_InterestDomainGeneral.interests.3.topics.6.label>запоминающиеся моменты</Rimpsyche_InterestDomainGeneral.interests.3.topics.6.label>
+  <Rimpsyche_InterestDomainGeneral.interests.3.topics.7.name>first_experiences</Rimpsyche_InterestDomainGeneral.interests.3.topics.7.name>
+  <Rimpsyche_InterestDomainGeneral.interests.3.topics.7.label>первые впечатления</Rimpsyche_InterestDomainGeneral.interests.3.topics.7.label>
+  <Rimpsyche_InterestDomainGeneral.interests.3.topics.8.name>birthdays</Rimpsyche_InterestDomainGeneral.interests.3.topics.8.name>
+  <Rimpsyche_InterestDomainGeneral.interests.3.topics.8.label>дни рождения</Rimpsyche_InterestDomainGeneral.interests.3.topics.8.label>
+  <Rimpsyche_InterestDomainGeneral.interests.3.topics.9.name>significant_places</Rimpsyche_InterestDomainGeneral.interests.3.topics.9.name>
+  <Rimpsyche_InterestDomainGeneral.interests.3.topics.9.label>значимые места</Rimpsyche_InterestDomainGeneral.interests.3.topics.9.label>
+  <Rimpsyche_InterestDomainGeneral.interests.3.topics.10.name>life_lessons</Rimpsyche_InterestDomainGeneral.interests.3.topics.10.name>
+  <Rimpsyche_InterestDomainGeneral.interests.3.topics.10.label>жизненные уроки</Rimpsyche_InterestDomainGeneral.interests.3.topics.10.label>
+
+  <Rimpsyche_InterestDomainGeneral.interests.4.name>InterestColonyLife</Rimpsyche_InterestDomainGeneral.interests.4.name>
+  <Rimpsyche_InterestDomainGeneral.interests.4.label>Жизнь в колонии</Rimpsyche_InterestDomainGeneral.interests.4.label>
+  <Rimpsyche_InterestDomainGeneral.interests.4.description>Общий текущий опыт.</Rimpsyche_InterestDomainGeneral.interests.4.description>
+  <Rimpsyche_InterestDomainGeneral.interests.4.topics.0.name>other_colonists</Rimpsyche_InterestDomainGeneral.interests.4.topics.0.name>
+  <Rimpsyche_InterestDomainGeneral.interests.4.topics.0.label>другие колонисты</Rimpsyche_InterestDomainGeneral.interests.4.topics.0.label>
+  <Rimpsyche_InterestDomainGeneral.interests.4.topics.1.name>colony_rules</Rimpsyche_InterestDomainGeneral.interests.4.topics.1.name>
+  <Rimpsyche_InterestDomainGeneral.interests.4.topics.1.label>правила колонии</Rimpsyche_InterestDomainGeneral.interests.4.topics.1.label>
+  <Rimpsyche_InterestDomainGeneral.interests.4.topics.2.name>leadership</Rimpsyche_InterestDomainGeneral.interests.4.topics.2.name>
+  <Rimpsyche_InterestDomainGeneral.interests.4.topics.2.label>лидерство</Rimpsyche_InterestDomainGeneral.interests.4.topics.2.label>
+  <Rimpsyche_InterestDomainGeneral.interests.4.topics.3.name>community</Rimpsyche_InterestDomainGeneral.interests.4.topics.3.name>
+  <Rimpsyche_InterestDomainGeneral.interests.4.topics.3.label>сообщество</Rimpsyche_InterestDomainGeneral.interests.4.topics.3.label>
+  <Rimpsyche_InterestDomainGeneral.interests.4.topics.4.name>recent_events</Rimpsyche_InterestDomainGeneral.interests.4.topics.4.name>
+  <Rimpsyche_InterestDomainGeneral.interests.4.topics.4.label>недавние события</Rimpsyche_InterestDomainGeneral.interests.4.topics.4.label>
+  <Rimpsyche_InterestDomainGeneral.interests.4.topics.5.name>party</Rimpsyche_InterestDomainGeneral.interests.4.topics.5.name>
+  <Rimpsyche_InterestDomainGeneral.interests.4.topics.5.label>вечеринки</Rimpsyche_InterestDomainGeneral.interests.4.topics.5.label>
+  <Rimpsyche_InterestDomainGeneral.interests.4.topics.6.name>outsiders</Rimpsyche_InterestDomainGeneral.interests.4.topics.6.name>
+  <Rimpsyche_InterestDomainGeneral.interests.4.topics.6.label>аутсайдеры</Rimpsyche_InterestDomainGeneral.interests.4.topics.6.label>
+  <Rimpsyche_InterestDomainGeneral.interests.4.topics.7.name>collective_goals</Rimpsyche_InterestDomainGeneral.interests.4.topics.7.name>
+  <Rimpsyche_InterestDomainGeneral.interests.4.topics.7.label>коллективные цели</Rimpsyche_InterestDomainGeneral.interests.4.topics.7.label>
+  <Rimpsyche_InterestDomainGeneral.interests.4.topics.8.name>recruiting</Rimpsyche_InterestDomainGeneral.interests.4.topics.8.name>
+  <Rimpsyche_InterestDomainGeneral.interests.4.topics.8.label>рекрутинг</Rimpsyche_InterestDomainGeneral.interests.4.topics.8.label>
+  <Rimpsyche_InterestDomainGeneral.interests.4.topics.9.name>prisoners</Rimpsyche_InterestDomainGeneral.interests.4.topics.9.name>
+  <Rimpsyche_InterestDomainGeneral.interests.4.topics.9.label>заключённые</Rimpsyche_InterestDomainGeneral.interests.4.topics.9.label>
+  <Rimpsyche_InterestDomainGeneral.interests.4.topics.10.name>conflicts</Rimpsyche_InterestDomainGeneral.interests.4.topics.10.name>
+  <Rimpsyche_InterestDomainGeneral.interests.4.topics.10.label>конфликты</Rimpsyche_InterestDomainGeneral.interests.4.topics.10.label>
+
+  <Rimpsyche_InterestDomainGeneral.interests.5.name>InterestIdentity</Rimpsyche_InterestDomainGeneral.interests.5.name>
+  <Rimpsyche_InterestDomainGeneral.interests.5.label>Личность</Rimpsyche_InterestDomainGeneral.interests.5.label>
+  <Rimpsyche_InterestDomainGeneral.interests.5.description>Как они видят себя и своё место в мире.</Rimpsyche_InterestDomainGeneral.interests.5.description>
+  <Rimpsyche_InterestDomainGeneral.interests.5.topics.0.name>gender</Rimpsyche_InterestDomainGeneral.interests.5.topics.0.name>
+  <Rimpsyche_InterestDomainGeneral.interests.5.topics.0.label>гендер</Rimpsyche_InterestDomainGeneral.interests.5.topics.0.label>
+  <Rimpsyche_InterestDomainGeneral.interests.5.topics.1.name>self_worth</Rimpsyche_InterestDomainGeneral.interests.5.topics.1.name>
+  <Rimpsyche_InterestDomainGeneral.interests.5.topics.1.label>самооценка</Rimpsyche_InterestDomainGeneral.interests.5.topics.1.label>
+  <Rimpsyche_InterestDomainGeneral.interests.5.topics.2.name>role_in_group</Rimpsyche_InterestDomainGeneral.interests.5.topics.2.name>
+  <Rimpsyche_InterestDomainGeneral.interests.5.topics.2.label>роль в группе</Rimpsyche_InterestDomainGeneral.interests.5.topics.2.label>
+  <Rimpsyche_InterestDomainGeneral.interests.5.topics.3.name>independence</Rimpsyche_InterestDomainGeneral.interests.5.topics.3.name>
+  <Rimpsyche_InterestDomainGeneral.interests.5.topics.3.label>независимость</Rimpsyche_InterestDomainGeneral.interests.5.topics.3.label>
+  <Rimpsyche_InterestDomainGeneral.interests.5.topics.4.name>aspirations</Rimpsyche_InterestDomainGeneral.interests.5.topics.4.name>
+  <Rimpsyche_InterestDomainGeneral.interests.5.topics.4.label>стремления</Rimpsyche_InterestDomainGeneral.interests.5.topics.4.label>
+  <Rimpsyche_InterestDomainGeneral.interests.5.topics.5.name>identity</Rimpsyche_InterestDomainGeneral.interests.5.topics.5.name>
+  <Rimpsyche_InterestDomainGeneral.interests.5.topics.5.label>идентичность</Rimpsyche_InterestDomainGeneral.interests.5.topics.5.label>
+  <Rimpsyche_InterestDomainGeneral.interests.5.topics.6.name>expression</Rimpsyche_InterestDomainGeneral.interests.5.topics.6.name>
+  <Rimpsyche_InterestDomainGeneral.interests.5.topics.6.label>самовыражение</Rimpsyche_InterestDomainGeneral.interests.5.topics.6.label>
+  <Rimpsyche_InterestDomainGeneral.interests.5.topics.7.name>religion</Rimpsyche_InterestDomainGeneral.interests.5.topics.7.name>
+  <Rimpsyche_InterestDomainGeneral.interests.5.topics.7.label>религия</Rimpsyche_InterestDomainGeneral.interests.5.topics.7.label>
+  <Rimpsyche_InterestDomainGeneral.interests.5.topics.8.name>self_reflection</Rimpsyche_InterestDomainGeneral.interests.5.topics.8.name>
+  <Rimpsyche_InterestDomainGeneral.interests.5.topics.8.label>самоанализ</Rimpsyche_InterestDomainGeneral.interests.5.topics.8.label>
+  <Rimpsyche_InterestDomainGeneral.interests.5.topics.9.name>internal_values</Rimpsyche_InterestDomainGeneral.interests.5.topics.9.name>
+  <Rimpsyche_InterestDomainGeneral.interests.5.topics.9.label>внутренние ценности</Rimpsyche_InterestDomainGeneral.interests.5.topics.9.label>
+  <Rimpsyche_InterestDomainGeneral.interests.5.topics.10.name>beliefs</Rimpsyche_InterestDomainGeneral.interests.5.topics.10.name>
+  <Rimpsyche_InterestDomainGeneral.interests.5.topics.10.label>убеждения</Rimpsyche_InterestDomainGeneral.interests.5.topics.10.label>
+
+</LanguageData>
