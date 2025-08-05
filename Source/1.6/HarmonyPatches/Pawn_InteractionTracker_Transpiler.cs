@@ -1,5 +1,6 @@
 ﻿using HarmonyLib;
 using RimWorld;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection.Emit;
@@ -60,6 +61,7 @@ namespace Maux36.RimPsyche
         [HarmonyPatch(typeof(Pawn_InteractionsTracker), nameof(Pawn_InteractionsTracker.TryInteractWith))]
         public static class Patch_TryInteractWith
         {
+            [HarmonyBefore(["VFEEmpire.Mod"])]
             static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
             {
                 List<CodeInstruction> codes = instructions.ToList();
@@ -89,6 +91,10 @@ namespace Maux36.RimPsyche
                         yield return instr;
                     }
                     else yield return instr;
+                }
+                if (!foundInjection)
+                {
+                    Log.Message("[RimPsyche] failed to patch Interaction.");
                 }
             }
         }
