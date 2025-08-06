@@ -41,6 +41,7 @@ namespace Maux36.RimPsyche
         private float pessimism = 0f;
         private float insecurity = 0f;
 
+        private List<string> gatingGenes = null;
         private Dictionary<Facet, (float, float)> gateCacheInternal = null; //new Dictionary<Facet, Tuple<float, float>>();
         public Dictionary<Facet, string> gateInfoCache = [];
         public Dictionary<Facet, (float, float)> gateCache
