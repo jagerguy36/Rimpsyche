@@ -41,7 +41,16 @@ namespace Maux36.RimPsyche
         private float pessimism = 0f;
         private float insecurity = 0f;
 
-        private List<string> gatingGenes = null;
+        private Dictionary<Facet, (float, float)> geneGateAccumulatorInternal = null;
+        public Dictionary<Facet, string> geneGateInfoCache = [];
+        public Dictionary<Facet, (float, float)> geneGateAccumulator
+        {
+            get
+            {
+                geneGateAccumulatorInternal = geneGateAccumulatorInternal ?? GenerateGeneGateAccumulator();
+                return geneGateAccumulatorInternal;
+            }
+        }
         private Dictionary<Facet, (float, float)> gateCacheInternal = null; //new Dictionary<Facet, Tuple<float, float>>();
         public Dictionary<Facet, string> gateInfoCache = [];
         public Dictionary<Facet, (float, float)> gateCache
@@ -231,18 +240,89 @@ namespace Maux36.RimPsyche
         public Dictionary<Facet, (float, float)> GenerateGate()
         {
             gateInfoCache.Clear();
-            var gateAccumulator = new Dictionary<Facet, (float center, float minRange)>();
             var newGate = new Dictionary<Facet, (float, float)>();
             List<Trait> traits = pawn.story?.traits?.allTraits;
-            if (traits == null)
+            var gateAccumulator = geneGateAccumulator;
+            if (traits != null)
             {
-                return newGate;
+                foreach (Trait trait in traits)
+                {
+                    if (trait.Suppressed) continue;
+                    Pair<string, int> pair = new Pair<string, int>(trait.def.defName, trait.Degree);
+                    if (RimpsycheDatabase.TraitGateDatabase.TryGetValue(pair, out var values))
+                    {
+                        foreach (var value in values)
+                        {
+                            var facet = value.Item1;
+                            float centerOffset = value.Item2;
+                            float range = value.Item3;
+                            if (gateAccumulator.TryGetValue(facet, out var existingData))
+                            {
+                                float newCenter;
+                                float existingCenter = existingData.center;
+                                if ((existingCenter >= 0f && centerOffset >= 0f) || (existingCenter < 0f && centerOffset < 0f))
+                                {
+                                    newCenter = Math.Abs(existingCenter) > Math.Abs(centerOffset) ? existingCenter : centerOffset;
+                                }
+                                else
+                                {
+                                    newCenter = existingCenter + centerOffset;
+                                }
+                                float newMinRange = Math.Min(existingData.minRange, range);
+                                
+                                gateAccumulator[facet] = (newCenter, newMinRange);
+                                //Log.Message($"{pawn.Name}'s gate for {facet} updated: center sum = {newCenter}, min range = {newMinRange}");
+                            }
+                            else
+                            {
+                                gateAccumulator.Add(facet, (centerOffset, range));
+                                //Log.Message($"{pawn.Name}'s gate for {facet} added by {trait.Label}: center = {centerOffset}, range = {range}");
+                            }
+                            if (gateInfoCache.TryGetValue(facet, out string explanation))
+                            {
+                                gateInfoCache[facet] = explanation + $", {trait.Label}";
+                            }
+                            else
+                            {
+                                if (geneGateInfoCache.TryGetValue(facet, out string geneExplanation))
+                                {
+                                    gateInfoCache.Add(facet, $"{geneExplanation}\n{"TraitAffected".Translate()} {trait.Label}");
+                                }
+                                else
+                                {
+                                    gateInfoCache.Add(facet, $"{"TraitAffected".Translate()} {trait.Label}");
+                                }
+                            }
+                        }
+                    }
+                }
             }
-            foreach (Trait trait in traits)
+            // Convert the accumulated data into the final (min, max) gate format.
+            foreach (var kvp in gateAccumulator)
             {
-                if (trait.Suppressed) continue;
-                Pair<string, int> pair = new Pair<string, int>(trait.def.defName, trait.Degree);
-                if (RimpsycheDatabase.TraitGateDatabase.TryGetValue(pair, out var values))
+                var facet = kvp.Key;
+                var totalCenter = kvp.Value.center;
+                var minRange = kvp.Value.minRange;
+
+                // Convert from the final (center, range) to (min, max)
+                newGate.Add(facet, (totalCenter - minRange, totalCenter + minRange));
+            }
+            return newGate;
+        }
+        public Dictionary<Facet, (float, float)> GenerateGeneGateAccumulator()
+        {
+            geneGateInfoCache.clear();
+            var gateAccumulator = new Dictionary<Facet, (float center, float minRange)>();
+            var genes = pawn.genes?.GenesListForReading;
+            if (genes == null)
+            {
+                return gateAccumulator;
+            }
+            foreach (Gene gene in genes)
+            {
+                if (!gene.Active) continue;
+                geneDefName = gene.def.defName;
+                if (RimpsycheDatabase.GeneGateDatabase.TryGetValue(geneDefName, out var values))
                 {
                     foreach (var value in values)
                     {
@@ -271,29 +351,21 @@ namespace Maux36.RimPsyche
                             gateAccumulator.Add(facet, (centerOffset, range));
                             //Log.Message($"{pawn.Name}'s gate for {facet} added by {trait.Label}: center = {centerOffset}, range = {range}");
                         }
-                        if (gateInfoCache.TryGetValue(facet, out string explanation))
+                        if (geneGateInfoCache.TryGetValue(facet, out string explanation))
                         {
-                            gateInfoCache[facet] = explanation + $", {trait.Label}";
+                            geneGateInfoCache[facet] = explanation + $", {trait.Label}";
                         }
                         else
                         {
-                            gateInfoCache.Add(facet, $"{"TraitAffected".Translate()} {trait.Label}");
+                            geneGateInfoCache.Add(facet, $"{"GeneAffected".Translate()} {trait.Label}");
                         }
                     }
                 }
             }
-            // Convert the accumulated data into the final (min, max) gate format.
-            foreach (var kvp in gateAccumulator)
-            {
-                var facet = kvp.Key;
-                var totalCenter = kvp.Value.center;
-                var minRange = kvp.Value.minRange;
-
-                // Convert from the final (center, range) to (min, max)
-                newGate.Add(facet, (totalCenter - minRange, totalCenter + minRange));
-            }
-            return newGate;
+            return gateAccumulator;
         }
+
+
         public Dictionary<string, (float, float)> GenerateScope()
         {
             scopeInfoCache.Clear();
