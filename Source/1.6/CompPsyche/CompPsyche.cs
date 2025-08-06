@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using RimWorld;
+using System.Collections.Generic;
 using UnityEngine;
 using Verse;
 
@@ -32,7 +32,11 @@ namespace Maux36.RimPsyche
             get
             {
                 psycheEnabledInternal ??= checkEnabled();
-                return psycheEnabledInternal && !parentPawn.IsSubhuman;
+                if (psycheEnabledInternal == true)
+                {
+                    return !parentPawn.IsSubhuman;
+                }
+                return false;
             }
         }
         public Pawn_PersonalityTracker Personality

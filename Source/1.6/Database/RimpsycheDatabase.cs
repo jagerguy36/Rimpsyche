@@ -216,37 +216,37 @@ namespace Maux36.RimPsyche
             {
                 (Facet.Intellect, -25f, 25f)
             },
-            [["Learning_Fast"]] = new List<(Facet, float, float)>
+            ["Learning_Fast"] = new List<(Facet, float, float)>
             {
                 (Facet.Intellect, 25f, 25f)
             },
-            [["Mood_Depressive"]] = new List<(Facet, float, float)>
+            ["Mood_Depressive"] = new List<(Facet, float, float)>
             {
                 (Facet.Pessimism, 25f, 25f)
             },
-            [["Mood_Pessimist"]] = new List<(Facet, float, float)>
+            ["Mood_Pessimist"] = new List<(Facet, float, float)>
             {
                 (Facet.Pessimism, 25f, 25f)
             },
-            [["Mood_Optimist"]] = new List<(Facet, float, float)>
+            ["Mood_Optimist"] = new List<(Facet, float, float)>
             {
                 (Facet.Pessimism, -25f, 25f)
             },
-            [["Mood_Sanguine"]] = new List<(Facet, float, float)>
+            ["Mood_Sanguine"] = new List<(Facet, float, float)>
             {
                 (Facet.Pessimism, -25f, 25f)
             },
-            [["Aggression_DeadCalm"]] = new List<(Facet, float, float)>
+            ["Aggression_DeadCalm"] = new List<(Facet, float, float)>
             {
                 (Facet.Assertiveness, -25f, 25f),
                 (Facet.Volatility, -25f, 25f)
             },
-            [["Aggression_Aggressive"]] = new List<(Facet, float, float)>
+            ["Aggression_Aggressive"] = new List<(Facet, float, float)>
             {
                 (Facet.Assertiveness, 25f, 25f),
                 (Facet.Volatility, 25f, 25f)
             },
-            [["Aggression_HyperAggressive"]] = new List<(Facet, float, float)>
+            ["Aggression_HyperAggressive"] = new List<(Facet, float, float)>
             {
                 (Facet.Assertiveness, 25f, 25f),
                 (Facet.Volatility, 25f, 25f)

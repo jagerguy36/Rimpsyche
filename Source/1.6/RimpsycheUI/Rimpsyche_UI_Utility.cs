@@ -1,5 +1,7 @@
-﻿using UnityEngine;
+﻿using RimWorld;
+using UnityEngine;
 using Verse;
+using Verse.Sound;
 
 namespace Maux36.RimPsyche
 {
@@ -21,7 +23,7 @@ namespace Maux36.RimPsyche
         public static Texture2D RevealButton = ContentFinder<Texture2D>.Get("Buttons/RimpsycheReveal", true);
         public static Texture2D HideButton = ContentFinder<Texture2D>.Get("Buttons/RimpsycheHide", true);
 
-        public static DrawEditButton(Rect rect, Pawn pawn)
+        public static void DrawEditButton(Rect rect, Pawn pawn)
         {
             Color oldColor = GUI.color;
             GUI.color = rect.Contains(Event.current.mousePosition) ? ButtonLightColor : ButtonDarkColor;

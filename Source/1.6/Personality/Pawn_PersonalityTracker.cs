@@ -41,9 +41,9 @@ namespace Maux36.RimPsyche
         private float pessimism = 0f;
         private float insecurity = 0f;
 
-        private Dictionary<Facet, (float, float)> geneGateAccumulatorInternal = null;
+        private Dictionary<Facet, (float center, float minRange)> geneGateAccumulatorInternal = null;
         public Dictionary<Facet, string> geneGateInfoCache = [];
-        public Dictionary<Facet, (float, float)> geneGateAccumulator
+        public Dictionary<Facet, (float center, float minRange)> geneGateAccumulator
         {
             get
             {
@@ -311,7 +311,7 @@ namespace Maux36.RimPsyche
         }
         public Dictionary<Facet, (float, float)> GenerateGeneGateAccumulator()
         {
-            geneGateInfoCache.clear();
+            geneGateInfoCache.Clear();
             var gateAccumulator = new Dictionary<Facet, (float center, float minRange)>();
             var genes = pawn.genes?.GenesListForReading;
             if (genes == null)
@@ -321,7 +321,7 @@ namespace Maux36.RimPsyche
             foreach (Gene gene in genes)
             {
                 if (!gene.Active) continue;
-                geneDefName = gene.def.defName;
+                var geneDefName = gene.def.defName;
                 if (RimpsycheDatabase.GeneGateDatabase.TryGetValue(geneDefName, out var values))
                 {
                     foreach (var value in values)
@@ -353,11 +353,11 @@ namespace Maux36.RimPsyche
                         }
                         if (geneGateInfoCache.TryGetValue(facet, out string explanation))
                         {
-                            geneGateInfoCache[facet] = explanation + $", {trait.Label}";
+                            geneGateInfoCache[facet] = explanation + $", {gene.Label}";
                         }
                         else
                         {
-                            geneGateInfoCache.Add(facet, $"{"GeneAffected".Translate()} {trait.Label}");
+                            geneGateInfoCache.Add(facet, $"{"GeneAffected".Translate()} {gene.Label}");
                         }
                     }
                 }
@@ -676,6 +676,13 @@ namespace Maux36.RimPsyche
             AffectFacetValue(facetChanges);
         }
 
+        public void DirtyGeneCache()
+        {
+            geneGateAccumulatorInternal = null;
+            gateCacheInternal = null;
+            scopeCacheInternal = null;
+            DirtyCache();
+        }
         public void DirtyTraitCache()
         {
             gateCacheInternal = null;
