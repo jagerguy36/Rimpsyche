@@ -10,6 +10,7 @@ namespace Maux36.RimPsyche
     {
         //Internals
         private Pawn parentPawnInt = null;
+        private bool? psycheEnabledInternal = null;
         private Pawn_PersonalityTracker personality;
         private Pawn_InterestTracker interests;
         private Pawn_SexualityTracker sexuality;
@@ -24,6 +25,14 @@ namespace Maux36.RimPsyche
             {
                 parentPawnInt ??= parent as Pawn;
                 return parentPawnInt;
+            }
+        }
+        public bool psycheEnabled
+        {
+            get
+            {
+                psycheEnabledInternal ??= checkEnabled();
+                return psycheEnabledInternal;
             }
         }
         public Pawn_PersonalityTracker Personality
@@ -64,6 +73,15 @@ namespace Maux36.RimPsyche
                 return sexuality;
             }
             set => sexuality = value;
+        }
+        public bool checkEnabled()
+        {
+            if (parentPawn.Inhumanized()) return false;
+            return true;
+        }
+        public void nullifyCheck()
+        {
+            psycheEnabledInternal = null;
         }
 
         public void PsycheValueSetup()
