@@ -15,7 +15,7 @@ namespace Maux36.RimPsyche
     {
         public string traitDefname;
         public int degree;
-        public float ceterOffset;
+        public float centerOffset;
         public float range;
     }
     public struct PersonalityWeight

@@ -53,7 +53,7 @@
     <scopes>
       <li MayRequire="Ludeon.RimWorld.Biotech">
         <traitDefname>Recluse</traitDefname>
-        <ceterOffset>-0.75</ceterOffset>
+        <centerOffset>-0.75</centerOffset>
         <range>0.25</range>
       </li>
     </scopes>
@@ -94,7 +94,7 @@
     <scopes>
       <li>
         <traitDefname>Abrasive</traitDefname>
-        <ceterOffset>-0.5</ceterOffset>
+        <centerOffset>-0.5</centerOffset>
         <range>0.5</range>
       </li>
     </scopes>
@@ -135,12 +135,12 @@
     <scopes>
       <li>
         <traitDefname>BodyPurist</traitDefname>
-        <ceterOffset>-0.5</ceterOffset>
+        <centerOffset>-0.5</centerOffset>
         <range>0.5</range>
       </li>
       <li>
         <traitDefname>Transhumanist</traitDefname>
-        <ceterOffset>0.5</ceterOffset>
+        <centerOffset>0.5</centerOffset>
         <range>0.5</range>
       </li>
     </scopes>
@@ -225,7 +225,7 @@
     <scopes>
       <li>
         <traitDefname>Nudist</traitDefname>
-        <ceterOffset>-0.5</ceterOffset>
+        <centerOffset>-0.5</centerOffset>
         <range>0.5</range>
       </li>
     </scopes>
@@ -270,12 +270,12 @@
     <scopes>
       <li>
         <traitDefname>Bloodlust</traitDefname>
-        <ceterOffset>0.5</ceterOffset>
+        <centerOffset>0.5</centerOffset>
         <range>0.5</range>
       </li>
       <li>
         <traitDefname>Kind</traitDefname>
-        <ceterOffset>-0.5</ceterOffset>
+        <centerOffset>-0.5</centerOffset>
         <range>0.5</range>
       </li>
     </scopes>
@@ -313,19 +313,19 @@
       <li>
         <traitDefname>DrugDesire</traitDefname>
         <degree>-1</degree>
-        <ceterOffset>-0.5</ceterOffset>
+        <centerOffset>-0.5</centerOffset>
         <range>0.5</range>
       </li>
       <li>
         <traitDefname>DrugDesire</traitDefname>
         <degree>1</degree>
-        <ceterOffset>0.5</ceterOffset>
+        <centerOffset>0.5</centerOffset>
         <range>0.5</range>
       </li>
       <li>
         <traitDefname>DrugDesire</traitDefname>
         <degree>2</degree>
-        <ceterOffset>0.75</ceterOffset>
+        <centerOffset>0.75</centerOffset>
         <range>0.25</range>
       </li>
     </scopes>
@@ -358,7 +358,7 @@
     <scopes>
       <li>
         <traitDefname>TorturedArtist</traitDefname>
-        <ceterOffset>0.5</ceterOffset>
+        <centerOffset>0.5</centerOffset>
         <range>0.5</range>
       </li>
     </scopes>
@@ -396,25 +396,25 @@
       <li>
         <traitDefname>Industriousness</traitDefname>
         <degree>2</degree>
-        <ceterOffset>0.75</ceterOffset>
+        <centerOffset>0.75</centerOffset>
         <range>0.25</range>
       </li>
       <li>
         <traitDefname>Industriousness</traitDefname>
         <degree>1</degree>
-        <ceterOffset>0.5</ceterOffset>
+        <centerOffset>0.5</centerOffset>
         <range>0.5</range>
       </li>
       <li>
         <traitDefname>Industriousness</traitDefname>
         <degree>-1</degree>
-        <ceterOffset>-0.5</ceterOffset>
+        <centerOffset>-0.5</centerOffset>
         <range>0.5</range>
       </li>
       <li>
         <traitDefname>Industriousness</traitDefname>
         <degree>-2</degree>
-        <ceterOffset>-0.75</ceterOffset>
+        <centerOffset>-0.75</centerOffset>
         <range>0.25</range>
       </li>
     </scopes>
@@ -452,13 +452,13 @@
       <li>
         <traitDefname>Neurotic</traitDefname>
         <degree>1</degree>
-        <ceterOffset>0.5</ceterOffset>
+        <centerOffset>0.5</centerOffset>
         <range>0.5</range>
       </li>
       <li>
         <traitDefname>Nerves</traitDefname>
         <degree>2</degree>
-        <ceterOffset>0.75</ceterOffset>
+        <centerOffset>0.75</centerOffset>
         <range>0.25</range>
       </li>
     </scopes>
@@ -496,19 +496,19 @@
       <li>
         <traitDefname>DrugDesire</traitDefname>
         <degree>-1</degree>
-        <ceterOffset>0.5</ceterOffset>
+        <centerOffset>0.5</centerOffset>
         <range>0.5</range>
       </li>
       <li>
         <traitDefname>DrugDesire</traitDefname>
         <degree>1</degree>
-        <ceterOffset>-0.5</ceterOffset>
+        <centerOffset>-0.5</centerOffset>
         <range>0.5</range>
       </li>
       <li>
         <traitDefname>DrugDesire</traitDefname>
         <degree>2</degree>
-        <ceterOffset>-0.75</ceterOffset>
+        <centerOffset>-0.75</centerOffset>
         <range>0.25</range>
       </li>
     </scopes>
@@ -605,48 +605,48 @@
     <scopes>
       <li>
         <traitDefname>Psychopath</traitDefname>
-        <ceterOffset>-0.5</ceterOffset>
+        <centerOffset>-0.5</centerOffset>
         <range>0.5</range>
       </li>
       <li>
         <traitDefname>TooSmart</traitDefname>
-        <ceterOffset>0.5</ceterOffset>
+        <centerOffset>0.5</centerOffset>
         <range>0.5</range>
       </li>
       <li>
         <traitDefname>Nerves</traitDefname>
         <degree>2</degree>
-        <ceterOffset>-0.75</ceterOffset>
+        <centerOffset>-0.75</centerOffset>
         <range>0.25</range>
       </li>
       <li>
         <traitDefname>Nerves</traitDefname>
         <degree>1</degree>
-        <ceterOffset>-0.5</ceterOffset>
+        <centerOffset>-0.5</centerOffset>
         <range>0.5</range>
       </li>
       <li>
         <traitDefname>Nerves</traitDefname>
         <degree>-1</degree>
-        <ceterOffset>0.5</ceterOffset>
+        <centerOffset>0.5</centerOffset>
         <range>0.5</range>
       </li>
       <li>
         <traitDefname>Nerves</traitDefname>
         <degree>-2</degree>
-        <ceterOffset>0.75</ceterOffset>
+        <centerOffset>0.75</centerOffset>
         <range>0.25</range>
       </li>
       <li>
         <traitDefname>Neurotic</traitDefname>
         <degree>1</degree>
-        <ceterOffset>0.5</ceterOffset>
+        <centerOffset>0.5</centerOffset>
         <range>0.5</range>
       </li>
       <li>
         <traitDefname>Nerves</traitDefname>
         <degree>2</degree>
-        <ceterOffset>0.75</ceterOffset>
+        <centerOffset>0.75</centerOffset>
         <range>0.25</range>
       </li>
     </scopes>
@@ -679,7 +679,7 @@
     <scopes>
       <li>
         <traitDefname>Psychopath</traitDefname>
-        <ceterOffset>-0.9</ceterOffset>
+        <centerOffset>-0.9</centerOffset>
         <range>0.1</range>
       </li>
     </scopes>
@@ -762,7 +762,7 @@
     <scopes>
       <li>
         <traitDefname>Psychopath</traitDefname>
-        <ceterOffset>-0.5</ceterOffset>
+        <centerOffset>-0.5</centerOffset>
         <range>0.5</range>
       </li>
     </scopes>
@@ -796,25 +796,25 @@
       <li>
         <traitDefname>NaturalMood</traitDefname>
         <degree>2</degree>
-        <ceterOffset>0.75</ceterOffset>
+        <centerOffset>0.75</centerOffset>
         <range>0.25</range>
       </li>
       <li>
         <traitDefname>NaturalMood</traitDefname>
         <degree>1</degree>
-        <ceterOffset>0.5</ceterOffset>
+        <centerOffset>0.5</centerOffset>
         <range>0.5</range>
       </li>
       <li>
         <traitDefname>NaturalMood</traitDefname>
         <degree>-1</degree>
-        <ceterOffset>-0.5</ceterOffset>
+        <centerOffset>-0.5</centerOffset>
         <range>0.5</range>
       </li>
       <li>
         <traitDefname>NaturalMood</traitDefname>
         <degree>-2</degree>
-        <ceterOffset>-0.75</ceterOffset>
+        <centerOffset>-0.75</centerOffset>
         <range>0.25</range>
       </li>
     </scopes>
@@ -885,7 +885,7 @@
     <scopes>
       <li>
         <traitDefname>Psychopath</traitDefname>
-        <ceterOffset>-0.5</ceterOffset>
+        <centerOffset>-0.5</centerOffset>
         <range>0.5</range>
       </li>
     </scopes>
@@ -999,13 +999,13 @@
       <li>
         <traitDefname>ShootingAccuracy</traitDefname>
         <degree>1</degree>
-        <ceterOffset>0.5</ceterOffset>
+        <centerOffset>0.5</centerOffset>
         <range>0.5</range>
       </li>
       <li>
         <traitDefname>ShootingAccuracy</traitDefname>
         <degree>-1</degree>
-        <ceterOffset>-0.5</ceterOffset>
+        <centerOffset>-0.5</centerOffset>
         <range>0.5</range>
       </li>
     </scopes>
@@ -1042,7 +1042,7 @@
     <scopes MayRequire="Ludeon.RimWorld.Anomaly">
       <li>
         <traitDefname>Joyous</traitDefname>
-        <ceterOffset>0.75</ceterOffset>
+        <centerOffset>0.75</centerOffset>
         <range>0.25</range>
       </li>
     </scopes>
@@ -1079,7 +1079,7 @@
     <scopes>
       <li>
         <traitDefname>Wimp</traitDefname>
-        <ceterOffset>-0.5</ceterOffset>
+        <centerOffset>-0.5</centerOffset>
         <range>0.5</range>
       </li>
     </scopes>
@@ -1113,25 +1113,25 @@
       <li>
         <traitDefname>Nerves</traitDefname>
         <degree>2</degree>
-        <ceterOffset>0.75</ceterOffset>
+        <centerOffset>0.75</centerOffset>
         <range>0.25</range>
       </li>
       <li>
         <traitDefname>Nerves</traitDefname>
         <degree>1</degree>
-        <ceterOffset>0.5</ceterOffset>
+        <centerOffset>0.5</centerOffset>
         <range>0.5</range>
       </li>
       <li>
         <traitDefname>Nerves</traitDefname>
         <degree>-1</degree>
-        <ceterOffset>-0.5</ceterOffset>
+        <centerOffset>-0.5</centerOffset>
         <range>0.5</range>
       </li>
       <li>
         <traitDefname>Nerves</traitDefname>
         <degree>-2</degree>
-        <ceterOffset>-0.75</ceterOffset>
+        <centerOffset>-0.75</centerOffset>
         <range>0.25</range>
       </li>
     </scopes>
@@ -1202,12 +1202,12 @@
     <scopes>
       <li>
         <traitDefname>Ascetic</traitDefname>
-        <ceterOffset>-0.5</ceterOffset>
+        <centerOffset>-0.5</centerOffset>
         <range>0.5</range>
       </li>
       <li>
         <traitDefname>Greedy</traitDefname>
-        <ceterOffset>0.5</ceterOffset>
+        <centerOffset>0.5</centerOffset>
         <range>0.5</range>
       </li>
     </scopes>
@@ -1240,7 +1240,7 @@
     <scopes>
       <li>
         <traitDefname>Jealous</traitDefname>
-        <ceterOffset>0.5</ceterOffset>
+        <centerOffset>0.5</centerOffset>
         <range>0.5</range>
       </li>
     </scopes>
@@ -1281,7 +1281,7 @@
     <scopes>
       <li>
         <traitDefname>Greedy</traitDefname>
-        <ceterOffset>0.5</ceterOffset>
+        <centerOffset>0.5</centerOffset>
         <range>0.5</range>
       </li>
     </scopes>
@@ -1318,7 +1318,7 @@
     <scopes>
       <li>
         <traitDefname>TooSmart</traitDefname>
-        <ceterOffset>0.75</ceterOffset>
+        <centerOffset>0.75</centerOffset>
         <range>0.25</range>
       </li>
     </scopes>

@@ -86,7 +86,7 @@ namespace Maux36.RimPsyche
                 {
                     foreach (var scopeData in scopeList)
                     {
-                        var scopeCenter = scopeData.ceterOffset;
+                        var scopeCenter = scopeData.centerOffset;
                         var scopeRange = scopeData.range;
                         if (scopeRange <= 0 || scopeCenter - scopeRange < -1 || scopeCenter + scopeRange > 1)
                         {
@@ -98,7 +98,7 @@ namespace Maux36.RimPsyche
                         {
                             TraitScopeDatabase[key] = new List<(string, float, float)>();
                         }
-                        TraitScopeDatabase[key].Add((personalityDef.defName, scopeData.ceterOffset, scopeData.range));
+                        TraitScopeDatabase[key].Add((personalityDef.defName, scopeData.centerOffset, scopeData.range));
                     }
                 }
                 PersonalityDict[personalityDef.defName] = personalityDef;
@@ -143,19 +143,19 @@ namespace Maux36.RimPsyche
             },
             [new Pair<string, int>("NaturalMood", -2)] = new List<(Facet, float, float)>
             {
-                (Facet.Pessimism, -25f, 25f)
+                (Facet.Pessimism, 25f, 25f)
             },
             [new Pair<string, int>("NaturalMood", -1)] = new List<(Facet, float, float)>
             {
-                (Facet.Pessimism, -25f, 25f)
+                (Facet.Pessimism, 25f, 25f)
             },
             [new Pair<string, int>("NaturalMood", 1)] = new List<(Facet, float, float)>
             {
-                (Facet.Pessimism, 25f, 25f)
+                (Facet.Pessimism, -25f, 25f)
             },
             [new Pair<string, int>("NaturalMood", 2)] = new List<(Facet, float, float)>
             {
-                (Facet.Pessimism, 25f, 25f)
+                (Facet.Pessimism, -25f, 25f)
             },
             [new Pair<string, int>("Nerves", -2)] = new List<(Facet, float, float)>
             {
@@ -209,6 +209,48 @@ namespace Maux36.RimPsyche
             {
                 (Facet.Compassion, 25f, 25f)
             }
+        };
+        public static Dictionary<string, List<(Facet, float, float)>> GeneGateDatabase = new()
+        {
+            ["Learning_Slow"] = new List<(Facet, float, float)>
+            {
+                (Facet.Intellect, -25f, 25f)
+            },
+            [["Learning_Fast"]] = new List<(Facet, float, float)>
+            {
+                (Facet.Intellect, 25f, 25f)
+            },
+            [["Mood_Depressive"]] = new List<(Facet, float, float)>
+            {
+                (Facet.Pessimism, 25f, 25f)
+            },
+            [["Mood_Pessimist"]] = new List<(Facet, float, float)>
+            {
+                (Facet.Pessimism, 25f, 25f)
+            },
+            [["Mood_Optimist"]] = new List<(Facet, float, float)>
+            {
+                (Facet.Pessimism, -25f, 25f)
+            },
+            [["Mood_Sanguine"]] = new List<(Facet, float, float)>
+            {
+                (Facet.Pessimism, -25f, 25f)
+            },
+            [["Aggression_DeadCalm"]] = new List<(Facet, float, float)>
+            {
+                (Facet.Assertiveness, -25f, 25f),
+                (Facet.Volatility, -25f, 25f)
+            },
+            [["Aggression_Aggressive"]] = new List<(Facet, float, float)>
+            {
+                (Facet.Assertiveness, 25f, 25f),
+                (Facet.Volatility, 25f, 25f)
+            },
+            [["Aggression_HyperAggressive"]] = new List<(Facet, float, float)>
+            {
+                (Facet.Assertiveness, 25f, 25f),
+                (Facet.Volatility, 25f, 25f)
+            },
         };
     }
 }
