@@ -32,15 +32,7 @@ namespace Maux36.RimPsyche
             if (pawn.compPsyche() != null)
             {
                 Rect rect = new Rect(x + 23f, y - 3f, 30f, 30f);
-                Color oldColor = GUI.color;
-                GUI.color = rect.Contains(Event.current.mousePosition) ? Rimpsyche_UI_Utility.ButtonLightColor : Rimpsyche_UI_Utility.ButtonDarkColor;
-                GUI.DrawTexture(rect, Rimpsyche_UI_Utility.PsycheButton);
-                if (Widgets.ButtonInvisible(rect, false))
-                {
-                    SoundDefOf.Tick_Low.PlayOneShotOnCamera(null);
-                    Find.WindowStack.Add(new PsycheEditPopup(pawn));
-                }
-                GUI.color = oldColor;
+                Rimpsyche_UI_Utility.DrawEditButton(rect, pawn);
             }
             return Widgets.InfoCardButton(x, y, pawn);
         }

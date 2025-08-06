@@ -20,5 +20,18 @@ namespace Maux36.RimPsyche
         public static Texture2D resetIcon = ContentFinder<Texture2D>.Get("Buttons/RimpsycheRefresh", true);
         public static Texture2D RevealButton = ContentFinder<Texture2D>.Get("Buttons/RimpsycheReveal", true);
         public static Texture2D HideButton = ContentFinder<Texture2D>.Get("Buttons/RimpsycheHide", true);
+
+        public static DrawEditButton(Rect rect, Pawn pawn)
+        {
+            Color oldColor = GUI.color;
+            GUI.color = rect.Contains(Event.current.mousePosition) ? ButtonLightColor : ButtonDarkColor;
+            GUI.DrawTexture(rect, PsycheButton);
+            if (Widgets.ButtonInvisible(rect, false))
+            {
+                SoundDefOf.Tick_Low.PlayOneShotOnCamera(null);
+                Find.WindowStack.Add(new PsycheEditPopup(pawn));
+            }
+            GUI.color = oldColor;
+        }
     }
 }
