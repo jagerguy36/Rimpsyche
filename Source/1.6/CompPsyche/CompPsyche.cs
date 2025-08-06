@@ -32,7 +32,7 @@ namespace Maux36.RimPsyche
             get
             {
                 psycheEnabledInternal ??= checkEnabled();
-                return psycheEnabledInternal;
+                return psycheEnabledInternal && !parentPawn.IsSubhuman;
             }
         }
         public Pawn_PersonalityTracker Personality
