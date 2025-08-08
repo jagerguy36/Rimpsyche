@@ -13,7 +13,7 @@ namespace Maux36.RimPsyche
             if (__result > 0f)
             {
                 var compPsyche = ___pawn.compPsyche();
-                if (compPsyche != null)
+                if (compPsyche.psycheEnabled == true)
                 {
                     __result = Mathf.Clamp01(__result * compPsyche.Personality.Evaluate(RimpsycheDatabase.SocialFightChanceMultiplier));
                 }

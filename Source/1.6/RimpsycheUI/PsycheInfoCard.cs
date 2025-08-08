@@ -105,11 +105,12 @@ namespace Maux36.RimPsyche
 
         public static void DrawPsycheCard(Rect totalRect, Pawn pawn)
         {
-            totalRect.width -= (rightPanelVisible ? 0f : rightPanelWidthConstant);
             var compPsyche = pawn.compPsyche();
+            var psycheEnabled = compPsyche.psycheEnabled;
             bool showSexuality = compPsyche.Sexuality.ShowOnUI();
+            totalRect.width -= (psycheEnabled && rightPanelVisible ? 0f : rightPanelWidthConstant);
 
-             // Save state           
+            // Save state           
             TextAnchor oldAnchor = Text.Anchor;
             GameFont oldFont = Text.Font;
 
@@ -151,7 +152,7 @@ namespace Maux36.RimPsyche
             personalityRect.xMax = sexualityRect.x;
 
             // Draw separating lines between personality & sexuality sections
-            if (rightPanelVisible)
+            if (psycheEnabled && rightPanelVisible)
             {
                 GUI.color = LineColor;
                 Widgets.DrawLineVertical(personalityRect.xMax - 1, totalRect.y + 1, totalRect.height - 2); // Vertical divider
@@ -170,18 +171,21 @@ namespace Maux36.RimPsyche
                 expandButtonSize,
                 expandButtonSize
             );
-            if (rightPanelVisible)
+            if (psycheEnabled)
             {
-                if (Widgets.ButtonImage(openButtonRect, Rimpsyche_UI_Utility.HideButton))
+                if (rightPanelVisible)
                 {
-                    rightPanelVisible = !rightPanelVisible;
+                    if (Widgets.ButtonImage(openButtonRect, Rimpsyche_UI_Utility.HideButton))
+                    {
+                        rightPanelVisible = !rightPanelVisible;
+                    }
                 }
-            }
-            else
-            {
-                if (Widgets.ButtonImage(openButtonRect, Rimpsyche_UI_Utility.RevealButton))
+                else
                 {
-                    rightPanelVisible = !rightPanelVisible;
+                    if (Widgets.ButtonImage(openButtonRect, Rimpsyche_UI_Utility.RevealButton))
+                    {
+                        rightPanelVisible = !rightPanelVisible;
+                    }
                 }
             }
 
@@ -195,7 +199,7 @@ namespace Maux36.RimPsyche
 
             // === Draw content ===
             DrawPersonalityBox(personalityRect, compPsyche, pawn);
-            if (rightPanelVisible)
+            if (psycheEnabled && rightPanelVisible)
             {
                 if (showSexuality)
                 {
@@ -203,8 +207,18 @@ namespace Maux36.RimPsyche
                 }
                 DrawInterestBox(interestRect, compPsyche, pawn);
             }
-            
 
+            if (psycheEnabled != true)
+            {
+                Widgets.DrawHighlight(totalRect);
+                Text.Anchor = TextAnchor.MiddleCenter;
+                Text.Font = GameFont.Medium;
+                GUI.color = new Color(1f, 0f, 0f, 0.80f);
+                Widgets.Label(totalRect, "PsycheDisabled".Translate());
+                GUI.color = Color.white;
+                Text.Font = oldFont;
+                Text.Anchor = oldAnchor;
+            }
             // === End group and restore state ===
             GUI.EndGroup();
         }
