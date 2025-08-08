@@ -41,9 +41,9 @@ namespace Maux36.RimPsyche
         private float pessimism = 0f;
         private float insecurity = 0f;
 
-        private Dictionary<Facet, (float center, float minRange)> geneGateAccumulatorInternal = null;
+        private Dictionary<Facet, (float negCenter, float posCenter, float minRange)> geneGateAccumulatorInternal = null;
         public Dictionary<Facet, string> geneGateInfoCache = [];
-        public Dictionary<Facet, (float center, float minRange)> geneGateAccumulator
+        public Dictionary<Facet, (float negCenter, float posCenter, float minRange)> geneGateAccumulator
         {
             get
             {
@@ -256,28 +256,24 @@ namespace Maux36.RimPsyche
                             var facet = value.Item1;
                             float centerOffset = value.Item2;
                             float range = value.Item3;
+
+                            float existingPosCenter = 0f;
+                            float existingNegCenter = 0f;
                             if (gateAccumulator.TryGetValue(facet, out var existingData))
                             {
-                                float newCenter;
-                                float existingCenter = existingData.center;
-                                if ((existingCenter >= 0f && centerOffset >= 0f) || (existingCenter < 0f && centerOffset < 0f))
-                                {
-                                    newCenter = Math.Abs(existingCenter) > Math.Abs(centerOffset) ? existingCenter : centerOffset;
-                                }
-                                else
-                                {
-                                    newCenter = existingCenter + centerOffset;
-                                }
-                                float newMinRange = Math.Min(existingData.minRange, range);
-                                
-                                gateAccumulator[facet] = (newCenter, newMinRange);
-                                //Log.Message($"{pawn.Name}'s gate for {facet} updated: center sum = {newCenter}, min range = {newMinRange}");
+                                existingPosCenter = existingData.posCenter;
+                                existingNegCenter = existingData.negCenter;
+                                range = Math.Min(existingData.minRange, range);
+                            }
+                            if (centerOffset > 0f)
+                            {
+                                existingPosCenter = Mathf.Max(centerOffset, existingPosCenter);
                             }
                             else
                             {
-                                gateAccumulator.Add(facet, (centerOffset, range));
-                                //Log.Message($"{pawn.Name}'s gate for {facet} added by {trait.Label}: center = {centerOffset}, range = {range}");
+                                existingNegCenter = Mathf.Min(centerOffset, existingPosCenter);
                             }
+                            gateAccumulator[facet] = (existingNegCenter, existingPosCenter, range);
                             if (gateInfoCache.TryGetValue(facet, out string explanation))
                             {
                                 gateInfoCache[facet] = explanation + $", {trait.Label}";
@@ -301,7 +297,7 @@ namespace Maux36.RimPsyche
             foreach (var kvp in gateAccumulator)
             {
                 var facet = kvp.Key;
-                var totalCenter = kvp.Value.center;
+                var totalCenter = kvp.Value.negCenter + kvp.Value.posCenter;
                 var minRange = kvp.Value.minRange;
 
                 // Convert from the final (center, range) to (min, max)
@@ -309,10 +305,10 @@ namespace Maux36.RimPsyche
             }
             return newGate;
         }
-        public Dictionary<Facet, (float, float)> GenerateGeneGateAccumulator()
+        public Dictionary<Facet, (float, float, float)> GenerateGeneGateAccumulator()
         {
             geneGateInfoCache.Clear();
-            var gateAccumulator = new Dictionary<Facet, (float center, float minRange)>();
+            var gateAccumulator = new Dictionary<Facet, (float negCenter, float posCenter, float minRange)>();
             var genes = pawn.genes?.GenesListForReading;
             if (genes == null)
             {
@@ -329,28 +325,25 @@ namespace Maux36.RimPsyche
                         var facet = value.Item1;
                         float centerOffset = value.Item2;
                         float range = value.Item3;
+
+                        float existingPosCenter = 0f;
+                        float existingNegCenter = 0f;
                         if (gateAccumulator.TryGetValue(facet, out var existingData))
                         {
-                            float newCenter;
-                            float existingCenter = existingData.center;
-                            if ((existingCenter >= 0f && centerOffset >= 0f) || (existingCenter < 0f && centerOffset < 0f))
-                            {
-                                newCenter = Math.Abs(existingCenter) > Math.Abs(centerOffset) ? existingCenter : centerOffset;
-                            }
-                            else
-                            {
-                                newCenter = existingCenter + centerOffset;
-                            }
-                            float newMinRange = Math.Min(existingData.minRange, range);
-                            
-                            gateAccumulator[facet] = (newCenter, newMinRange);
-                            //Log.Message($"{pawn.Name}'s gate for {facet} updated: center sum = {newCenter}, min range = {newMinRange}");
+                            existingPosCenter = existingData.posCenter;
+                            existingNegCenter = existingData.negCenter;
+                            range = Math.Min(existingData.minRange, range);
+                        }
+                        if (centerOffset > 0f)
+                        {
+                            existingPosCenter = Mathf.Max(centerOffset, existingPosCenter);
                         }
                         else
                         {
-                            gateAccumulator.Add(facet, (centerOffset, range));
-                            //Log.Message($"{pawn.Name}'s gate for {facet} added by {trait.Label}: center = {centerOffset}, range = {range}");
+                            existingNegCenter = Mathf.Min(centerOffset, existingPosCenter);
                         }
+                        gateAccumulator[facet] = (existingNegCenter, existingPosCenter, range);
+
                         if (geneGateInfoCache.TryGetValue(facet, out string explanation))
                         {
                             geneGateInfoCache[facet] = explanation + $", {gene.Label}";
@@ -369,7 +362,7 @@ namespace Maux36.RimPsyche
         public Dictionary<string, (float, float)> GenerateScope()
         {
             scopeInfoCache.Clear();
-            var scopeAccumulator = new Dictionary<string, (float center, float minRange)>();
+            var scopeAccumulator = new Dictionary<string, (float negCenter, float posCenter, float minRange)>();
             var newScope = new Dictionary<string, (float, float)>();
             List<Trait> traits = pawn.story?.traits?.allTraits;
             if (traits == null)
@@ -387,28 +380,25 @@ namespace Maux36.RimPsyche
                         var personalityName = value.Item1;
                         float centerOffset = value.Item2;
                         float range = value.Item3;
+
+                        float existingPosCenter = 0f;
+                        float existingNegCenter = 0f;
                         if (scopeAccumulator.TryGetValue(personalityName, out var existingData))
                         {
-                            float newCenter;
-                            float existingCenter = existingData.center;
-                            if ((existingCenter >= 0f && centerOffset >= 0f) || (existingCenter < 0f && centerOffset < 0f))
-                            {
-                                newCenter = Math.Abs(existingCenter) > Math.Abs(centerOffset) ? existingCenter : centerOffset;
-                            }
-                            else
-                            {
-                                newCenter = existingCenter + centerOffset;
-                            }
-                            float newMinRange = Math.Min(existingData.minRange, range);
+                            existingPosCenter = existingData.posCenter;
+                            existingNegCenter = existingData.negCenter;
+                            range = Math.Min(existingData.minRange, range);
+                        }
 
-                            scopeAccumulator[personalityName] = (newCenter, newMinRange);
-                            //Log.Message($"{pawn.Name}'s scope for {personalityName} updated: center sum = {newCenter}, min range = {newMinRange}");
+                        if (centerOffset > 0f)
+                        {
+                            existingPosCenter = Mathf.Max(centerOffset, existingPosCenter);
                         }
                         else
                         {
-                            scopeAccumulator.Add(personalityName, (centerOffset, range));
-                            //Log.Message($"{pawn.Name}'s scope is being added by {trait.def.defName} to {personalityName}");
+                            existingNegCenter = Mathf.Min(centerOffset, existingPosCenter);
                         }
+                        scopeAccumulator[personalityName] = (existingNegCenter, existingPosCenter, range);
                         if (scopeInfoCache.TryGetValue(personalityName, out string explanation))
                         {
                             scopeInfoCache[personalityName] = explanation + $", {trait.Label}";
@@ -423,7 +413,7 @@ namespace Maux36.RimPsyche
             foreach (var kvp in scopeAccumulator)
             {
                 var facet = kvp.Key;
-                var totalCenter = kvp.Value.center;
+                var totalCenter = kvp.Value.negCenter + kvp.Value.posCenter;
                 var minRange = kvp.Value.minRange;
                 newScope.Add(facet, (totalCenter - minRange, totalCenter + minRange));
             }
