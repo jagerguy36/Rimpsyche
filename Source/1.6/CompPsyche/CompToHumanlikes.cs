@@ -37,7 +37,7 @@ namespace Maux36.RimPsyche
 
                     if (allDef.race?.corpseDef == null)
                     {
-                        Log.Warning("thingDef.race?.corpseDef == null for thingDef = " + allDef.defName);
+                        Log.Warning("[Rimpsyche] thingDef.race?.corpseDef == null for thingDef = " + allDef.defName);
                         continue;
                     }
                     //if (allDef.race.corpseDef.inspectorTabs.NullOrEmpty())
