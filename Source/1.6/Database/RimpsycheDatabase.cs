@@ -12,11 +12,9 @@ namespace Maux36.RimPsyche
         public static HashSet<Interest> InterestList = new();
         public static Dictionary<Interest, InterestDomainDef> InterestDomainDict = new();
         public static Dictionary<string, PersonalityDef> PersonalityDict = new();
-        //public static HashSet<string> InterestNameList = new();
-        //public static HashSet<Topic> TopicList = new();
-        //public static HashSet<string> TopicNameList = new();
         public static Dictionary<Pair<string, int>, List<(string, float, float)>> TraitScopeDatabase = new();
         public static Facet[] AllFacets = (Facet[])Enum.GetValues(typeof(Facet));
+
 
         public static Dictionary<string, string> IntensityKeysDefault = new Dictionary<string, string>()
         {
@@ -49,8 +47,6 @@ namespace Maux36.RimPsyche
                 foreach (var interest in interestdomain.interests)
                 {
                     InterestDomainDict.Add(interest, interestdomain);
-                    //InterestNameList.Add(interest.name);
-                    //TopicList.AddRange(interest.topics);
                     foreach (var topic in interest.topics)
                     {
                         //TopicNameList.Add(topic.name);
@@ -118,138 +114,138 @@ namespace Maux36.RimPsyche
         );
 
 
-        public static Dictionary<Pair<string, int>, List<(Facet, float, float)>> TraitGateDatabase = new()
+        public static Dictionary<Pair<string, int>, List<FacetGate>> TraitGateDatabase = new()
         {
-            [new Pair<string, int>("Psychopath", 0)] = new List<(Facet, float, float)>
+            [new Pair<string, int>("Psychopath", 0)] = new List<FacetGate>
             {
-                (Facet.Compassion, -45f, 5f),
-                (Facet.Humbleness, -25f, 25f),
-                (Facet.Integrity, -45f, 5f),
-                (Facet.Volatility, -45f, 5f),
-                (Facet.Pessimism, -25f, 25f),
-                (Facet.Insecurity, -25f, 25f)
+                new(Facet.Compassion, -45f, 5f, 5),
+                new(Facet.Humbleness, -25f, 25f, 5),
+                new(Facet.Integrity, -45f, 5f, 5),
+                new(Facet.Volatility, -45f, 5f, 5),
+                new(Facet.Pessimism, -25f, 25f),
+                new(Facet.Insecurity, -25f, 25f)
             },
-            [new Pair<string, int>("TooSmart", 0)] = new List<(Facet, float, float)>
+            [new Pair<string, int>("TooSmart", 0)] = new List<FacetGate>
             {
-                (Facet.Intellect, 25f, 25f)
+                new(Facet.Intellect, 25f, 25f)
             },
-            [new Pair<string, int>("Jealous", 0)] = new List<(Facet, float, float)>
+            [new Pair<string, int>("Jealous", 0)] = new List<FacetGate>
             {
-                (Facet.Humbleness, -25f, 25f)
+                new(Facet.Humbleness, -25f, 25f)
             },
-            [new Pair<string, int>("TorturedArtist", 0)] = new List<(Facet, float, float)>
+            [new Pair<string, int>("TorturedArtist", 0)] = new List<FacetGate>
             {
-                (Facet.Imagination, 25f, 25f)
+                new(Facet.Imagination, 25f, 25f)
             },
-            [new Pair<string, int>("NaturalMood", -2)] = new List<(Facet, float, float)>
+            [new Pair<string, int>("NaturalMood", -2)] = new List<FacetGate>
             {
-                (Facet.Pessimism, 25f, 25f)
+                new(Facet.Pessimism, 25f, 25f)
             },
-            [new Pair<string, int>("NaturalMood", -1)] = new List<(Facet, float, float)>
+            [new Pair<string, int>("NaturalMood", -1)] = new List<FacetGate>
             {
-                (Facet.Pessimism, 25f, 25f)
+                new(Facet.Pessimism, 25f, 25f)
             },
-            [new Pair<string, int>("NaturalMood", 1)] = new List<(Facet, float, float)>
+            [new Pair<string, int>("NaturalMood", 1)] = new List<FacetGate>
             {
-                (Facet.Pessimism, -25f, 25f)
+                new(Facet.Pessimism, -25f, 25f)
             },
-            [new Pair<string, int>("NaturalMood", 2)] = new List<(Facet, float, float)>
+            [new Pair<string, int>("NaturalMood", 2)] = new List<FacetGate>
             {
-                (Facet.Pessimism, -25f, 25f)
+                new(Facet.Pessimism, -25f, 25f)
             },
-            [new Pair<string, int>("Nerves", -2)] = new List<(Facet, float, float)>
+            [new Pair<string, int>("Nerves", -2)] = new List<FacetGate>
             {
-                (Facet.Volatility, 25f, 25f)
+                new (Facet.Volatility, 25f, 25f)
             },
-            [new Pair<string, int>("Nerves", -1)] = new List<(Facet, float, float)>
+            [new Pair<string, int>("Nerves", -1)] = new List<FacetGate>
             {
-                (Facet.Volatility, 25f, 25f)
+                new (Facet.Volatility, 25f, 25f)
             },
-            [new Pair<string, int>("Nerves", 1)] = new List<(Facet, float, float)>
+            [new Pair<string, int>("Nerves", 1)] = new List<FacetGate>
             {
-                (Facet.Volatility, -25f, 25f)
+                new(Facet.Volatility, -25f, 25f)
             },
-            [new Pair<string, int>("Nerves", 2)] = new List<(Facet, float, float)>
+            [new Pair<string, int>("Nerves", 2)] = new List<FacetGate>
             {
-                (Facet.Volatility, -25f, 25f)
+                new(Facet.Volatility, -25f, 25f)
             },
-            [new Pair<string, int>("Neurotic", 1)] = new List<(Facet, float, float)>
+            [new Pair<string, int>("Neurotic", 1)] = new List<FacetGate>
             {
-                (Facet.Orderliness, 25f, 25f)
+                new(Facet.Orderliness, 25f, 25f)
             },
-            [new Pair<string, int>("Neurotic", 2)] = new List<(Facet, float, float)>
+            [new Pair<string, int>("Neurotic", 2)] = new List<FacetGate>
             {
-                (Facet.Orderliness, 25f, 25f)
+                new(Facet.Orderliness, 25f, 25f)
             },
-            [new Pair<string, int>("Industriousness", -2)] = new List<(Facet, float, float)>
+            [new Pair<string, int>("Industriousness", -2)] = new List<FacetGate>
             {
-                (Facet.Industriousness, -25f, 25f)
+                new(Facet.Industriousness, -25f, 25f)
             },
-            [new Pair<string, int>("Industriousness", -1)] = new List<(Facet, float, float)>
+            [new Pair<string, int>("Industriousness", -1)] = new List<FacetGate>
             {
-                (Facet.Industriousness, -25f, 25f)
+                new(Facet.Industriousness, -25f, 25f)
             },
-            [new Pair<string, int>("Industriousness", 1)] = new List<(Facet, float, float)>
+            [new Pair<string, int>("Industriousness", 1)] = new List<FacetGate>
             {
-                (Facet.Industriousness, 25f, 25f)
+                new(Facet.Industriousness, 25f, 25f)
             },
-            [new Pair<string, int>("Industriousness", 2)] = new List<(Facet, float, float)>
+            [new Pair<string, int>("Industriousness", 2)] = new List<FacetGate>
             {
-                (Facet.Industriousness, 25f, 25f)
+                new(Facet.Industriousness, 25f, 25f)
             },
-            [new Pair<string, int>("Recluse", 0)] = new List<(Facet, float, float)>
+            [new Pair<string, int>("Recluse", 0)] = new List<FacetGate>
             {
-                (Facet.Sociability, -25f, 25f)
+                new(Facet.Sociability, -25f, 25f)
             },
-            [new Pair<string, int>("Bloodlust", 0)] = new List<(Facet, float, float)>
+            [new Pair<string, int>("Bloodlust", 0)] = new List<FacetGate>
             {
-                (Facet.Compassion, -25f, 25f)
+                new(Facet.Compassion, -25f, 25f)
             },
-            [new Pair<string, int>("Kind", 0)] = new List<(Facet, float, float)>
+            [new Pair<string, int>("Kind", 0)] = new List<FacetGate>
             {
-                (Facet.Compassion, 25f, 25f)
+                new(Facet.Compassion, 25f, 25f)
             }
         };
-        public static Dictionary<string, List<(Facet, float, float)>> GeneGateDatabase = new()
+        public static Dictionary<string, List<FacetGate>> GeneGateDatabase = new()
         {
-            ["Learning_Slow"] = new List<(Facet, float, float)>
+            ["Learning_Slow"] = new List<FacetGate>
             {
-                (Facet.Intellect, -25f, 25f)
+                new(Facet.Intellect, -25f, 25f)
             },
-            ["Learning_Fast"] = new List<(Facet, float, float)>
+            ["Learning_Fast"] = new List<FacetGate>
             {
-                (Facet.Intellect, 25f, 25f)
+                new(Facet.Intellect, 25f, 25f)
             },
-            ["Mood_Depressive"] = new List<(Facet, float, float)>
+            ["Mood_Depressive"] = new List<FacetGate>
             {
-                (Facet.Pessimism, 25f, 25f)
+                new(Facet.Pessimism, 25f, 25f)
             },
-            ["Mood_Pessimist"] = new List<(Facet, float, float)>
+            ["Mood_Pessimist"] = new List<FacetGate>
             {
-                (Facet.Pessimism, 25f, 25f)
+                new(Facet.Pessimism, 25f, 25f)
             },
-            ["Mood_Optimist"] = new List<(Facet, float, float)>
+            ["Mood_Optimist"] = new List<FacetGate>
             {
-                (Facet.Pessimism, -25f, 25f)
+                new(Facet.Pessimism, -25f, 25f)
             },
-            ["Mood_Sanguine"] = new List<(Facet, float, float)>
+            ["Mood_Sanguine"] = new List<FacetGate>
             {
-                (Facet.Pessimism, -25f, 25f)
+                new(Facet.Pessimism, -25f, 25f)
             },
-            ["Aggression_DeadCalm"] = new List<(Facet, float, float)>
+            ["Aggression_DeadCalm"] = new List<FacetGate>
             {
-                (Facet.Assertiveness, -25f, 25f),
-                (Facet.Volatility, -25f, 25f)
+                new(Facet.Assertiveness, -25f, 25f),
+                new(Facet.Volatility, -25f, 25f)
             },
-            ["Aggression_Aggressive"] = new List<(Facet, float, float)>
+            ["Aggression_Aggressive"] = new List<FacetGate>
             {
-                (Facet.Assertiveness, 25f, 25f),
-                (Facet.Volatility, 25f, 25f)
+                new(Facet.Assertiveness, 25f, 25f),
+                new(Facet.Volatility, 25f, 25f)
             },
-            ["Aggression_HyperAggressive"] = new List<(Facet, float, float)>
+            ["Aggression_HyperAggressive"] = new List<FacetGate>
             {
-                (Facet.Assertiveness, 25f, 25f),
-                (Facet.Volatility, 25f, 25f)
+                new(Facet.Assertiveness, 25f, 25f),
+                new(Facet.Volatility, 25f, 25f)
             },
         };
     }

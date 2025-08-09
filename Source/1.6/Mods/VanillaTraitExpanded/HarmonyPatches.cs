@@ -10,41 +10,41 @@ namespace Maux36.RimPsyche.VanillaTraitExpanded
         static VET_TraitDatabaseProvider()
         {
             Log.Message("[Rimpsyche] VTE gate data added");
-            RimpsycheDatabase.TraitGateDatabase[new Pair<string, int>("VTE_Eccentric", 0)] = new List<(Facet, float, float)>
+            RimpsycheDatabase.TraitGateDatabase[new Pair<string, int>("VTE_Eccentric", 0)] = new List<FacetGate>
             {
-                (Facet.Intellect, 25f, 25f)
+                new FacetGate(Facet.Intellect, 25f, 25f)
             };
-            RimpsycheDatabase.TraitGateDatabase[new Pair<string, int>("VTE_Submissive", 0)] = new List<(Facet, float, float)>
+            RimpsycheDatabase.TraitGateDatabase[new Pair<string, int>("VTE_Submissive", 0)] = new List<FacetGate>
             {
-                (Facet.Assertiveness, -25f, 25f)
+                new FacetGate(Facet.Assertiveness, -25f, 25f)
             };
-            RimpsycheDatabase.TraitGateDatabase[new Pair<string, int>("VTE_Dunce", 0)] = new List<(Facet, float, float)>
+            RimpsycheDatabase.TraitGateDatabase[new Pair<string, int>("VTE_Dunce", 0)] = new List<FacetGate>
             {
-                (Facet.Intellect, -25f, 25f)
+                new FacetGate(Facet.Intellect, -25f, 25f)
             };
-            RimpsycheDatabase.TraitGateDatabase[new Pair<string, int>("VTE_Snob", 0)] = new List<(Facet, float, float)>
+            RimpsycheDatabase.TraitGateDatabase[new Pair<string, int>("VTE_Snob", 0)] = new List<FacetGate>
             {
-                (Facet.Humbleness, -25f, 25f)
+                new FacetGate(Facet.Humbleness, -25f, 25f)
             };
-            RimpsycheDatabase.TraitGateDatabase[new Pair<string, int>("VTE_Anxious", 0)] = new List<(Facet, float, float)>
+            RimpsycheDatabase.TraitGateDatabase[new Pair<string, int>("VTE_Anxious", 0)] = new List<FacetGate>
             {
-                (Facet.Insecurity, 25f, 25f)
+                new FacetGate(Facet.Insecurity, 25f, 25f)
             };
-            RimpsycheDatabase.TraitGateDatabase[new Pair<string, int>("VTE_Prodigy", 0)] = new List<(Facet, float, float)>
+            RimpsycheDatabase.TraitGateDatabase[new Pair<string, int>("VTE_Prodigy", 0)] = new List<FacetGate>
             {
-                (Facet.Intellect, 25f, 25f)
+                new FacetGate(Facet.Intellect, 25f, 25f)
             };
-            RimpsycheDatabase.TraitGateDatabase[new Pair<string, int>("VTE_MadSurgeon", 0)] = new List<(Facet, float, float)>
+            RimpsycheDatabase.TraitGateDatabase[new Pair<string, int>("VTE_MadSurgeon", 0)] = new List<FacetGate>
             {
-                (Facet.Compassion, -45f, 5f)
+                new FacetGate(Facet.Compassion, -45f, 5f, 5)
             };
-            RimpsycheDatabase.TraitGateDatabase[new Pair<string, int>("VTE_WorldWeary", 0)] = new List<(Facet, float, float)>
+            RimpsycheDatabase.TraitGateDatabase[new Pair<string, int>("VTE_WorldWeary", 0)] = new List<FacetGate>
             {
-                (Facet.Pessimism, 25f, 25f)
+                new FacetGate(Facet.Pessimism, 25f, 25f)
             };
-            RimpsycheDatabase.TraitGateDatabase[new Pair<string, int>("VTE_Academian", 0)] = new List<(Facet, float, float)>
+            RimpsycheDatabase.TraitGateDatabase[new Pair<string, int>("VTE_Academian", 0)] = new List<FacetGate>
             {
-                (Facet.Intellect, 25f, 25f)
+                new FacetGate(Facet.Intellect, 25f, 25f)
             };
         }
     }

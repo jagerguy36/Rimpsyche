@@ -33,4 +33,12 @@
         public Facet facet;
         public float weight;
     }
+
+    public class FacetGate(Facet facet, float centerOffset, float range, int rank = 0)
+    {
+        public Facet Facet { get; } = facet;
+        public float CenterOffset { get; } = centerOffset;
+        public float Range { get; } = range;
+        public int Rank { get; } = rank;
+    }
 }

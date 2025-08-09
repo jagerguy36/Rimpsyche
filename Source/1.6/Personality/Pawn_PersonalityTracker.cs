@@ -1,7 +1,6 @@
 ﻿using RimWorld;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using Verse;
 
@@ -41,9 +40,9 @@ namespace Maux36.RimPsyche
         private float pessimism = 0f;
         private float insecurity = 0f;
 
-        private Dictionary<Facet, (float negCenter, float posCenter, float minRange)> geneGateAccumulatorInternal = null;
+        private Dictionary<Facet, (float negCenter, float posCenter, float minRange, int rank)> geneGateAccumulatorInternal = null;
         public Dictionary<Facet, string> geneGateInfoCache = [];
-        public Dictionary<Facet, (float negCenter, float posCenter, float minRange)> geneGateAccumulator
+        public Dictionary<Facet, (float negCenter, float posCenter, float minRange, int rank)> geneGateAccumulator
         {
             get
             {
@@ -253,17 +252,31 @@ namespace Maux36.RimPsyche
                     {
                         foreach (var value in values)
                         {
-                            var facet = value.Item1;
-                            float centerOffset = value.Item2;
-                            float range = value.Item3;
+                            var facet = value.Facet;
+                            float centerOffset = value.CenterOffset;
+                            float range = value.Range;
+                            int rank = value.Rank;
+                            bool resetString = false;
 
                             float existingPosCenter = 0f;
                             float existingNegCenter = 0f;
                             if (gateAccumulator.TryGetValue(facet, out var existingData))
                             {
-                                existingPosCenter = existingData.posCenter;
-                                existingNegCenter = existingData.negCenter;
-                                range = Math.Min(existingData.minRange, range);
+                                float existingRank = existingData.rank;
+                                if (existingRank > rank)
+                                {
+                                    continue;
+                                }
+                                else if (existingRank == rank)
+                                {
+                                    existingPosCenter = existingData.posCenter;
+                                    existingNegCenter = existingData.negCenter;
+                                    range = Math.Min(existingData.minRange, range);
+                                }
+                                else
+                                {
+                                    resetString = true;
+                                }
                             }
                             if (centerOffset > 0f)
                             {
@@ -273,23 +286,34 @@ namespace Maux36.RimPsyche
                             {
                                 existingNegCenter = Mathf.Min(centerOffset, existingPosCenter);
                             }
-                            gateAccumulator[facet] = (existingNegCenter, existingPosCenter, range);
-                            if (gateInfoCache.TryGetValue(facet, out string explanation))
+                            gateAccumulator[facet] = (existingNegCenter, existingPosCenter, range, rank);
+                            if (!resetString && gateInfoCache.TryGetValue(facet, out string explanation))
                             {
                                 gateInfoCache[facet] = explanation + $", {trait.Label}";
                             }
                             else
                             {
-                                if (geneGateInfoCache.TryGetValue(facet, out string geneExplanation))
-                                {
-                                    gateInfoCache.Add(facet, $"{geneExplanation}\n{"TraitAffected".Translate()} {trait.Label}");
-                                }
-                                else
-                                {
-                                    gateInfoCache.Add(facet, $"{"TraitAffected".Translate()} {trait.Label}");
-                                }
+                                gateInfoCache[facet] = $"{"TraitAffected".Translate()} {trait.Label}";
                             }
                         }
+                    }
+                }
+            }
+            foreach (Facet facet in Enum.GetValues(typeof(Facet)))
+            {
+                if (geneGateInfoCache.TryGetValue(facet, out string geneExplanation))
+                {
+                    if (gateInfoCache.TryGetValue(facet, out string gateExplanation))
+                    {
+                        gateInfoCache[facet] = $"{geneExplanation}\n{gateExplanation}";
+                    }
+                    gateInfoCache[facet] = geneExplanation;
+                }
+                else
+                {
+                    if (gateInfoCache.TryGetValue(facet, out string gateExplanation))
+                    {
+                        gateInfoCache[facet] = $"{geneExplanation}\n{gateExplanation}";
                     }
                 }
             }
@@ -305,10 +329,10 @@ namespace Maux36.RimPsyche
             }
             return newGate;
         }
-        public Dictionary<Facet, (float, float, float)> GenerateGeneGateAccumulator()
+        public Dictionary<Facet, (float, float, float, int)> GenerateGeneGateAccumulator()
         {
             geneGateInfoCache.Clear();
-            var gateAccumulator = new Dictionary<Facet, (float negCenter, float posCenter, float minRange)>();
+            var gateAccumulator = new Dictionary<Facet, (float negCenter, float posCenter, float minRange, int rank)>();
             var genes = pawn.genes?.GenesListForReading;
             if (genes == null)
             {
@@ -322,17 +346,34 @@ namespace Maux36.RimPsyche
                 {
                     foreach (var value in values)
                     {
-                        var facet = value.Item1;
-                        float centerOffset = value.Item2;
-                        float range = value.Item3;
+                        var facet = value.Facet;
+                        float centerOffset = value.CenterOffset;
+                        float range = value.Range;
+                        int rank = value.Rank;
+                        bool resetString = false;
 
                         float existingPosCenter = 0f;
                         float existingNegCenter = 0f;
                         if (gateAccumulator.TryGetValue(facet, out var existingData))
                         {
-                            existingPosCenter = existingData.posCenter;
-                            existingNegCenter = existingData.negCenter;
-                            range = Math.Min(existingData.minRange, range);
+                            //existingPosCenter = existingData.posCenter;
+                            //existingNegCenter = existingData.negCenter;
+                            //range = Math.Min(existingData.minRange, range);
+                            float existingRank = existingData.rank;
+                            if (existingRank > rank)
+                            {
+                                continue;
+                            }
+                            else if (existingRank == rank)
+                            {
+                                existingPosCenter = existingData.posCenter;
+                                existingNegCenter = existingData.negCenter;
+                                range = Math.Min(existingData.minRange, range);
+                            }
+                            else
+                            {
+                                resetString = true;
+                            }
                         }
                         if (centerOffset > 0f)
                         {
@@ -342,15 +383,15 @@ namespace Maux36.RimPsyche
                         {
                             existingNegCenter = Mathf.Min(centerOffset, existingPosCenter);
                         }
-                        gateAccumulator[facet] = (existingNegCenter, existingPosCenter, range);
+                        gateAccumulator[facet] = (existingNegCenter, existingPosCenter, range, rank);
 
-                        if (geneGateInfoCache.TryGetValue(facet, out string explanation))
+                        if (!resetString && geneGateInfoCache.TryGetValue(facet, out string explanation))
                         {
                             geneGateInfoCache[facet] = explanation + $", {gene.Label}";
                         }
                         else
                         {
-                            geneGateInfoCache.Add(facet, $"{"GeneAffected".Translate()} {gene.Label}");
+                            geneGateInfoCache[facet] = $"{"GeneAffected".Translate()} {gene.Label}";
                         }
                     }
                 }
