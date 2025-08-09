@@ -107,9 +107,9 @@
   </Operation>
 
   <Operation Class="PatchOperationConditional">
-    <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Organization"]/scopes</xpath>
+    <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Deliberation"]/scopes</xpath>
     <match Class="PatchOperationAdd">
-      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Organization"]/scopes</xpath>
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Deliberation"]/scopes</xpath>
         <value>
           <li>
             <traitDefname>VTE_Perfectionist</traitDefname>
@@ -119,7 +119,7 @@
         </value>
     </match>
     <nomatch Class="PatchOperationAdd">
-      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Organization"]</xpath>
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Deliberation"]</xpath>
         <value>
             <scopes>
               <li>
