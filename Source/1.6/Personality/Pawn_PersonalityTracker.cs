@@ -241,7 +241,7 @@ namespace Maux36.RimPsyche
             gateInfoCache.Clear();
             var newGate = new Dictionary<Facet, (float, float)>();
             List<Trait> traits = pawn.story?.traits?.allTraits;
-            var gateAccumulator = geneGateAccumulator;
+            var gateAccumulator = new Dictionary<Facet, (float negCenter, float posCenter, float minRange, int rank)>(geneGateAccumulator);
             if (traits != null)
             {
                 foreach (Trait trait in traits)
@@ -256,7 +256,6 @@ namespace Maux36.RimPsyche
                             float centerOffset = value.CenterOffset;
                             float range = value.Range;
                             int rank = value.Rank;
-                            bool resetString = false;
 
                             float existingPosCenter = 0f;
                             float existingNegCenter = 0f;
@@ -265,6 +264,14 @@ namespace Maux36.RimPsyche
                                 float existingRank = existingData.rank;
                                 if (existingRank > rank)
                                 {
+                                    if (gateInfoCache.TryGetValue(facet, out string explanationInt))
+                                    {
+                                        gateInfoCache[facet] = explanationInt + $", {trait.Label}";
+                                    }
+                                    else
+                                    {
+                                        gateInfoCache[facet] = $"{"TraitAffected".Translate()} {trait.Label}";
+                                    }
                                     continue;
                                 }
                                 else if (existingRank == rank)
@@ -272,10 +279,6 @@ namespace Maux36.RimPsyche
                                     existingPosCenter = existingData.posCenter;
                                     existingNegCenter = existingData.negCenter;
                                     range = Math.Min(existingData.minRange, range);
-                                }
-                                else
-                                {
-                                    resetString = true;
                                 }
                             }
                             if (centerOffset > 0f)
@@ -287,7 +290,7 @@ namespace Maux36.RimPsyche
                                 existingNegCenter = Mathf.Min(centerOffset, existingPosCenter);
                             }
                             gateAccumulator[facet] = (existingNegCenter, existingPosCenter, range, rank);
-                            if (!resetString && gateInfoCache.TryGetValue(facet, out string explanation))
+                            if (gateInfoCache.TryGetValue(facet, out string explanation))
                             {
                                 gateInfoCache[facet] = explanation + $", {trait.Label}";
                             }
@@ -307,7 +310,10 @@ namespace Maux36.RimPsyche
                     {
                         gateInfoCache[facet] = $"{geneExplanation}\n{gateExplanation}";
                     }
-                    gateInfoCache[facet] = geneExplanation;
+                    else
+                    {
+                        gateInfoCache[facet] = geneExplanation;
+                    }
                 }
                 else
                 {
@@ -350,18 +356,22 @@ namespace Maux36.RimPsyche
                         float centerOffset = value.CenterOffset;
                         float range = value.Range;
                         int rank = value.Rank;
-                        bool resetString = false;
 
                         float existingPosCenter = 0f;
                         float existingNegCenter = 0f;
                         if (gateAccumulator.TryGetValue(facet, out var existingData))
                         {
-                            //existingPosCenter = existingData.posCenter;
-                            //existingNegCenter = existingData.negCenter;
-                            //range = Math.Min(existingData.minRange, range);
                             float existingRank = existingData.rank;
                             if (existingRank > rank)
                             {
+                                if (geneGateInfoCache.TryGetValue(facet, out string explanationInt))
+                                {
+                                    geneGateInfoCache[facet] = explanationInt + $", {gene.Label}";
+                                }
+                                else
+                                {
+                                    geneGateInfoCache[facet] = $"{"GeneAffected".Translate()} {gene.Label}";
+                                }
                                 continue;
                             }
                             else if (existingRank == rank)
@@ -369,10 +379,6 @@ namespace Maux36.RimPsyche
                                 existingPosCenter = existingData.posCenter;
                                 existingNegCenter = existingData.negCenter;
                                 range = Math.Min(existingData.minRange, range);
-                            }
-                            else
-                            {
-                                resetString = true;
                             }
                         }
                         if (centerOffset > 0f)
@@ -384,8 +390,7 @@ namespace Maux36.RimPsyche
                             existingNegCenter = Mathf.Min(centerOffset, existingPosCenter);
                         }
                         gateAccumulator[facet] = (existingNegCenter, existingPosCenter, range, rank);
-
-                        if (!resetString && geneGateInfoCache.TryGetValue(facet, out string explanation))
+                        if (geneGateInfoCache.TryGetValue(facet, out string explanation))
                         {
                             geneGateInfoCache[facet] = explanation + $", {gene.Label}";
                         }
