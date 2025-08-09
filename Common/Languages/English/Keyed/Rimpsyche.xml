@@ -32,6 +32,7 @@
   <RPC_SexDrive>Sex Drive</RPC_SexDrive>
 
   <TraitAffected>Affected by trait(s):</TraitAffected>
+  <GeneAffected>Affected by gene(s):</GeneAffected>
 
   <!-- Interaction -->
   <MemoryReportString>Conversation about {0}</MemoryReportString>

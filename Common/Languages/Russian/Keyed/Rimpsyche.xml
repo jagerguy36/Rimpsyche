@@ -29,6 +29,7 @@
   <RPC_SexDrive>Либидо</RPC_SexDrive>
 
   <TraitAffected>Влияние черт:</TraitAffected>
+  <GeneAffected>Влияние генов:</GeneAffected>
 
   <!-- Взаимодействия -->
   <MemoryReportString>Разговор о {0}</MemoryReportString>
