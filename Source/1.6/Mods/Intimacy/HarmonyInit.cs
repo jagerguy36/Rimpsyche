@@ -1,6 +1,7 @@
 ﻿using HarmonyLib;
 using System;
 using System.Reflection;
+using LoveyDoveySexWithEuterpe;
 using Verse;
 
 namespace Maux36.RimPsyche.Intimacy
@@ -14,6 +15,7 @@ namespace Maux36.RimPsyche.Intimacy
             try
             {
                 harmony.PatchAll(Assembly.GetExecutingAssembly());
+                CommonChecks.TryAddInteraction("Rimpsyche_Smalltalk", CommonChecks.IntimateInteractions);
                 Log.Message($"[Rimpsyche] Intimacy patched");
             }
             catch (Exception e)

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<Patch>
+
+  <Operation Class="PatchOperationConditional">
+    <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Loyalty"]/scopes</xpath>
+    <match Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Loyalty"]/scopes</xpath>
+        <value>
+          <li>
+            <traitDefname>Faithful</traitDefname>
+            <centerOffset>0.5</centerOffset>
+            <range>0.5</range>
+          </li>
+        </value>
+    </match>
+    <nomatch Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Loyalty"]</xpath>
+        <value>
+            <scopes>
+              <li>
+                <traitDefname>Faithful</traitDefname>
+                <centerOffset>0.5</centerOffset>
+                <range>0.5</range>
+              </li>
+            </scopes>
+        </value>
+    </nomatch>
+  </Operation>
+
+  <Operation Class="PatchOperationConditional">
+    <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Loyalty"]/scopes</xpath>
+    <match Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Loyalty"]/scopes</xpath>
+        <value>
+          <li>
+            <traitDefname>Philanderer</traitDefname>
+            <centerOffset>-0.5</centerOffset>
+            <range>0.5</range>
+          </li>
+        </value>
+    </match>
+    <nomatch Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Loyalty"]</xpath>
+        <value>
+            <scopes>
+              <li>
+                <traitDefname>Philanderer</traitDefname>
+                <centerOffset>-0.5</centerOffset>
+                <range>0.5</range>
+              </li>
+            </scopes>
+        </value>
+    </nomatch>
+  </Operation>
+
+
+</Patch>

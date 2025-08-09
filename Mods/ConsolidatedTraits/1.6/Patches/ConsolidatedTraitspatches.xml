@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<Patch>
+
+  <Operation Class="PatchOperationConditional">
+    <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Reflectiveness"]/scopes</xpath>
+    <match Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Reflectiveness"]/scopes</xpath>
+        <value>
+          <li>
+            <traitDefname>RCT_Dunce</traitDefname>
+            <centerOffset>-0.5</centerOffset>
+            <range>0.5</range>
+          </li>
+        </value>
+    </match>
+    <nomatch Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Reflectiveness"]</xpath>
+        <value>
+            <scopes>
+              <li>
+                <traitDefname>RCT_Dunce</traitDefname>
+                <centerOffset>-0.5</centerOffset>
+                <range>0.5</range>
+              </li>
+            </scopes>
+        </value>
+    </nomatch>
+  </Operation>
+
+  <Operation Class="PatchOperationConditional">
+    <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Imagination"]/scopes</xpath>
+    <match Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Imagination"]/scopes</xpath>
+        <value>
+          <li>
+            <traitDefname>RCT_Inventor</traitDefname>
+            <centerOffset>0.5</centerOffset>
+            <range>0.5</range>
+          </li>
+        </value>
+    </match>
+    <nomatch Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Imagination"]</xpath>
+        <value>
+            <scopes>
+              <li>
+                <traitDefname>RCT_Inventor</traitDefname>
+                <centerOffset>0.5</centerOffset>
+                <range>0.5</range>
+              </li>
+            </scopes>
+        </value>
+    </nomatch>
+  </Operation>
+
+  <Operation Class="PatchOperationConditional">
+    <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Focus"]/scopes</xpath>
+    <match Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Focus"]/scopes</xpath>
+        <value>
+          <li>
+            <traitDefname>RCT_Inventor</traitDefname>
+            <centerOffset>-0.5</centerOffset>
+            <range>0.5</range>
+          </li>
+        </value>
+    </match>
+    <nomatch Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Focus"]</xpath>
+        <value>
+            <scopes>
+              <li>
+                <traitDefname>RCT_Inventor</traitDefname>
+                <centerOffset>-0.5</centerOffset>
+                <range>0.5</range>
+              </li>
+            </scopes>
+        </value>
+    </nomatch>
+  </Operation>
+
+  <Operation Class="PatchOperationConditional">
+    <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Organization"]/scopes</xpath>
+    <match Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Organization"]/scopes</xpath>
+        <value>
+          <li>
+            <traitDefname>RCT_NeatFreak</traitDefname>
+            <centerOffset>0.9</centerOffset>
+            <range>0.1</range>
+          </li>
+        </value>
+    </match>
+    <nomatch Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Organization"]</xpath>
+        <value>
+            <scopes>
+              <li>
+                <traitDefname>RCT_NeatFreak</traitDefname>
+                <centerOffset>0.9</centerOffset>
+                <range>0.1</range>
+              </li>
+            </scopes>
+        </value>
+    </nomatch>
+  </Operation>
+
+  <Operation Class="PatchOperationConditional">
+    <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Deliberation"]/scopes</xpath>
+    <match Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Deliberation"]/scopes</xpath>
+        <value>
+          <li>
+            <traitDefname>RCT_Perfectionist</traitDefname>
+            <centerOffset>0.9</centerOffset>
+            <range>0.1</range>
+          </li>
+        </value>
+    </match>
+    <nomatch Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Deliberation"]</xpath>
+        <value>
+            <scopes>
+              <li>
+                <traitDefname>RCT_Perfectionist</traitDefname>
+                <centerOffset>0.9</centerOffset>
+                <range>0.1</range>
+              </li>
+            </scopes>
+        </value>
+    </nomatch>
+  </Operation>
+
+  <Operation Class="PatchOperationConditional">
+    <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Tension"]/scopes</xpath>
+    <match Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Tension"]/scopes</xpath>
+        <value>
+          <li>
+            <traitDefname>RCT_Perfectionist</traitDefname>
+            <centerOffset>0.5</centerOffset>
+            <range>0.5</range>
+          </li>
+        </value>
+    </match>
+    <nomatch Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Tension"]</xpath>
+        <value>
+            <scopes>
+              <li>
+                <traitDefname>RCT_Perfectionist</traitDefname>
+                <centerOffset>0.5</centerOffset>
+                <range>0.5</range>
+              </li>
+            </scopes>
+        </value>
+    </nomatch>
+  </Operation>
+
+  <Operation Class="PatchOperationConditional">
+    <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Imagination"]/scopes</xpath>
+    <match Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Imagination"]/scopes</xpath>
+        <value>
+          <li>
+            <traitDefname>RCT_Savant</traitDefname>
+            <centerOffset>0.9</centerOffset>
+            <range>0.1</range>
+          </li>
+        </value>
+    </match>
+    <nomatch Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Imagination"]</xpath>
+        <value>
+            <scopes>
+              <li>
+                <traitDefname>RCT_Savant</traitDefname>
+                <centerOffset>0.9</centerOffset>
+                <range>0.1</range>
+              </li>
+            </scopes>
+        </value>
+    </nomatch>
+  </Operation>
+
+  <Operation Class="PatchOperationConditional">
+    <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Reflectiveness"]/scopes</xpath>
+    <match Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Reflectiveness"]/scopes</xpath>
+        <value>
+          <li>
+            <traitDefname>RCT_Savant</traitDefname>
+            <centerOffset>0.75</centerOffset>
+            <range>0.25</range>
+          </li>
+        </value>
+    </match>
+    <nomatch Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Reflectiveness"]</xpath>
+        <value>
+            <scopes>
+              <li>
+                <traitDefname>RCT_Savant</traitDefname>
+                <centerOffset>0.75</centerOffset>
+                <range>0.25</range>
+              </li>
+            </scopes>
+        </value>
+    </nomatch>
+  </Operation>
+
+  <Operation Class="PatchOperationConditional">
+    <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Diligence"]/scopes</xpath>
+    <match Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Diligence"]/scopes</xpath>
+        <value>
+          <li>
+            <traitDefname>RCT_Savant</traitDefname>
+            <centerOffset>-0.75</centerOffset>
+            <range>0.25</range>
+          </li>
+        </value>
+    </match>
+    <nomatch Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Diligence"]</xpath>
+        <value>
+            <scopes>
+              <li>
+                <traitDefname>RCT_Savant</traitDefname>
+                <centerOffset>-0.75</centerOffset>
+                <range>0.25</range>
+              </li>
+            </scopes>
+        </value>
+    </nomatch>
+  </Operation>
+
+  <Operation Class="PatchOperationConditional">
+    <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Tact"]/scopes</xpath>
+    <match Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Tact"]/scopes</xpath>
+        <value>
+          <li>
+            <traitDefname>RCT_Diplomat</traitDefname>
+            <degree>-1</degree>
+            <centerOffset>-0.5</centerOffset>
+            <range>0.5</range>
+          </li>
+          <li>
+            <traitDefname>RCT_Diplomat</traitDefname>
+            <degree>1</degree>
+            <centerOffset>0.5</centerOffset>
+            <range>0.5</range>
+          </li>
+          <li>
+            <traitDefname>RCT_Diplomat</traitDefname>
+            <degree>2</degree>
+            <centerOffset>0.75</centerOffset>
+            <range>0.25</range>
+          </li>
+        </value>
+    </match>
+    <nomatch Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Tact"]</xpath>
+        <value>
+            <scopes>
+              <li>
+                <traitDefname>RCT_Diplomat</traitDefname>
+                <degree>-1</degree>
+                <centerOffset>-0.5</centerOffset>
+                <range>0.5</range>
+              </li>
+              <li>
+                <traitDefname>RCT_Diplomat</traitDefname>
+                <degree>1</degree>
+                <centerOffset>0.5</centerOffset>
+                <range>0.5</range>
+              </li>
+              <li>
+                <traitDefname>RCT_Diplomat</traitDefname>
+                <degree>2</degree>
+                <centerOffset>0.75</centerOffset>
+                <range>0.25</range>
+              </li>
+            </scopes>
+        </value>
+    </nomatch>
+  </Operation>
+
+</Patch>

@@ -29,6 +29,7 @@ namespace Maux36.RimPsyche
         static RimpsycheDatabase()
         {
             Initialize();
+            ModCompat();
         }
 
         public static void Initialize()
@@ -248,6 +249,107 @@ namespace Maux36.RimPsyche
                 new(Facet.Volatility, 25f, 25f)
             },
         };
+
+        public static void ModCompat()
+        {
+            if (ModsConfig.IsActive("vanillaexpanded.vanillatraitsexpanded"))
+            {
+                Log.Message("[Rimpsyche] VTE gate data added");
+                TraitGateDatabase[new Pair<string, int>("VTE_Eccentric", 0)] = new List<FacetGate>
+                {
+                    new FacetGate(Facet.Intellect, 25f, 25f)
+                };
+                TraitGateDatabase[new Pair<string, int>("VTE_Submissive", 0)] = new List<FacetGate>
+                {
+                    new FacetGate(Facet.Assertiveness, -25f, 25f)
+                };
+                TraitGateDatabase[new Pair<string, int>("VTE_Dunce", 0)] = new List<FacetGate>
+                {
+                    new FacetGate(Facet.Intellect, -25f, 25f)
+                };
+                 TraitGateDatabase[new Pair<string, int>("VTE_Snob", 0)] = new List<FacetGate>
+                {
+                    new FacetGate(Facet.Humbleness, -25f, 25f)
+                };
+                 TraitGateDatabase[new Pair<string, int>("VTE_Anxious", 0)] = new List<FacetGate>
+                {
+                    new FacetGate(Facet.Insecurity, 25f, 25f)
+                };
+                 TraitGateDatabase[new Pair<string, int>("VTE_Prodigy", 0)] = new List<FacetGate>
+                {
+                    new FacetGate(Facet.Intellect, 25f, 25f)
+                };
+                TraitGateDatabase[new Pair<string, int>("VTE_MadSurgeon", 0)] = new List<FacetGate>
+                {
+                    new FacetGate(Facet.Compassion, -45f, 5f, 5)
+                };
+                TraitGateDatabase[new Pair<string, int>("VTE_WorldWeary", 0)] = new List<FacetGate>
+                {
+                    new FacetGate(Facet.Pessimism, 25f, 25f)
+                };
+                TraitGateDatabase[new Pair<string, int>("VTE_Academian", 0)] = new List<FacetGate>
+                {
+                    new FacetGate(Facet.Intellect, 25f, 25f)
+                };
+            }
+
+            if (ModsConfig.IsActive("vanillaracesexpanded.android"))
+            {
+                Log.Message("[Rimpsyche] VRE Android gate data added");
+                GeneGateDatabase["VREA_PsychologyDisabled"] = new List<FacetGate>
+                {
+                    new FacetGate(Facet.Imagination, 0f, 0f, 10),
+                    new FacetGate(Facet.Intellect, 0f, 0f, 10),
+                    new FacetGate(Facet.Curiosity, 0f, 0f, 10),
+                    new FacetGate(Facet.Industriousness, 20f, 0f, 10),
+                    new FacetGate(Facet.Orderliness, 0f, 0f, 10),
+                    new FacetGate(Facet.Integrity, 20f, 0f, 10),
+                    new FacetGate(Facet.Sociability, 20f, 0f, 10),
+                    new FacetGate(Facet.Assertiveness, 0f, 0f, 10),
+                    new FacetGate(Facet.Enthusiasm, 0f, 0f, 10),
+                    new FacetGate(Facet.Compassion, 30f, 0f, 10),
+                    new FacetGate(Facet.Cooperation, 30f, 0f, 10),
+                    new FacetGate(Facet.Humbleness, 30f, 0f, 10),
+                    new FacetGate(Facet.Volatility, -30f, 0f, 10),
+                    new FacetGate(Facet.Pessimism, -30f, 0f, 10),
+                    new FacetGate(Facet.Insecurity, 0f, 0f, 10),
+                };
+            }
+
+
+            if (ModsConfig.IsActive("consolidatedtraits.lc.rw"))
+            {
+                Log.Message("[Rimpsyche] ConsolidatedTraits gate data added");
+                TraitGateDatabase[new Pair<string, int>("RCT_Aesthete", 0)] = new List<FacetGate>
+                {
+                    new FacetGate(Facet.Imagination, 40f, 10f)
+                };
+                TraitGateDatabase[new Pair<string, int>("RCT_Dunce", 0)] = new List<FacetGate>
+                {
+                    new FacetGate(Facet.Intellect, -25f, 25f)
+                };
+                TraitGateDatabase[new Pair<string, int>("RCT_Savant", 0)] = new List<FacetGate>
+                {
+                    new FacetGate(Facet.Intellect, 40f, 10f)
+                };
+            }
+
+
+            if (ModsConfig.IsActive("avius.badpeople"))
+            {
+                Log.Message("[Rimpsyche] BadPeople gate data added");
+                TraitGateDatabase[new Pair<string, int>("BadPeople_Evil", 0)] = new List<FacetGate>
+                {
+                    new FacetGate(Facet.Compassion, -35f, 15f),
+                    new FacetGate(Facet.Integrity, -35f, 15f)
+                };
+                TraitGateDatabase[new Pair<string, int>("BadPeople_Kinslayer", 0)] = new List<FacetGate>
+                {
+                    new FacetGate(Facet.Compassion, -35f, 15f),
+                    new FacetGate(Facet.Integrity, -35f, 15f)
+                };
+            }
+        }
     }
 }
 

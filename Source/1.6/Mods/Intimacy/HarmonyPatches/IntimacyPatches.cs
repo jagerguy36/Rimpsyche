@@ -1,6 +1,5 @@
 ﻿using HarmonyLib;
 using LoveyDoveySexWithEuterpe;
-using RimWorld;
 using Verse;
 
 namespace Maux36.RimPsyche.Intimacy
@@ -27,24 +26,4 @@ namespace Maux36.RimPsyche.Intimacy
 
         }
     }
-
-    [HarmonyPatch(typeof(InteractionWorker), nameof(InteractionWorker.Interacted))]
-    public static class InteractionWorker_Interacted_Patch
-    {
-        private static void TryGainIntimacy(Pawn pawn, float amount)
-        {
-            (pawn.needs?.TryGetNeed<Need_Intimacy>())?.GainIntimacySocial(amount);
-        }
-
-        [HarmonyPostfix]
-        public static void Postfix(InteractionWorker __instance, Pawn initiator, Pawn recipient)
-        {
-            if (__instance != null && __instance.interaction?.defName != null && __instance.interaction.defName == "Rimpsyche_Smalltalk")
-            {
-                TryGainIntimacy(initiator, 0.01f);
-                TryGainIntimacy(recipient, 0.01f);
-            }
-        }
-    }
-
 }
