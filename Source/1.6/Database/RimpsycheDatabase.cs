@@ -248,6 +248,10 @@ namespace Maux36.RimPsyche
                 new(Facet.Assertiveness, 25f, 25f),
                 new(Facet.Volatility, 25f, 25f)
             },
+            ["KillThirst"] = new List<FacetGate>
+            {
+                new(Facet.Compassion, -25f, 25f)
+            }
         };
 
         public static void ModCompat()
