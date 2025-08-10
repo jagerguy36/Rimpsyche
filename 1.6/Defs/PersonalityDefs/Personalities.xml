@@ -591,11 +591,11 @@
       </li>
       <li>
         <facet>Volatility</facet>
-        <weight>0.1</weight>
+        <weight>0.2</weight>
       </li>
       <li>
         <facet>Pessimism</facet>
-        <weight>0.4</weight>
+        <weight>0.3</weight>
       </li>
       <li>
         <facet>Insecurity</facet>
@@ -661,11 +661,11 @@
     <scoreWeight>
       <li>
         <facet>Imagination</facet>
-        <weight>0.45</weight>
+        <weight>0.4</weight>
       </li>
       <li>
         <facet>Compassion</facet>
-        <weight>0.1</weight>
+        <weight>0.15</weight>
       </li>
       <li>
         <facet>Volatility</facet>
