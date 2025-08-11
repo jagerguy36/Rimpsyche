@@ -73,6 +73,7 @@
     <Compile Include="GameComponent\VersionManager.cs" />
     <Compile Include="HarmonyPatches\EdB_PanelAppearance_Draw_Patch.cs" />
     <Compile Include="HarmonyPatches\GeneTracker_Notify_GeneChanged.cs" />
+    <Compile Include="HarmonyPatches\NegativeInteractionUtility_Patch.cs" />
     <Compile Include="HarmonyPatches\Pawn_Notify_DisabledWorkTypesChanged.cs" />
     <Compile Include="Personality\Pawn_PersonalityTracker.cs" />
     <Compile Include="Conversation\InteractionWorker_StartConversation.cs" />
