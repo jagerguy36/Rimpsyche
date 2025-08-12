@@ -44,7 +44,7 @@ namespace Maux36.RimPsyche
             var reciPlayfulness = reciPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Playfulness);
             if(initPlayfulness > 0f && reciPlayfulness < 0f)
             {
-                num *= (1f+0.2f*(initPlayfulness*initPlayfulness*reciPlayfulness*reciPlayfulness))
+                num *= (1f + 0.2f * (initPlayfulness * initPlayfulness * reciPlayfulness * reciPlayfulness));
             }
             __result = num;
             return false;
@@ -53,8 +53,8 @@ namespace Maux36.RimPsyche
             "InitNegativeChanceMultiplier",
             (tracker) =>
             {
-                float intentFactor = tracker.GetPersonality(PersonalityDefOf.Rimpsyche_Aggressiveness) - tracker.GetPersonality(PersonalityDefOf.Rimpsyche_Compassion)
-                intentFactor = intentFactor>0f? 1f + (intentFactor/3f): 1f + (intentFactor/8f) // 0.75~1.666
+                float intentFactor = tracker.GetPersonality(PersonalityDefOf.Rimpsyche_Aggressiveness) - tracker.GetPersonality(PersonalityDefOf.Rimpsyche_Compassion);
+                intentFactor = intentFactor > 0f ? 1f + (intentFactor / 3f) : 1f + (intentFactor / 8f); // 0.75~1.666
                 float deliveryFactor = 1f + tracker.GetPersonality(PersonalityDefOf.Rimpsyche_Tact)*0.2f; // 0.8~1.2
                 return intentFactor * deliveryFactor;
             }
@@ -64,8 +64,8 @@ namespace Maux36.RimPsyche
             "reciNegativeChanceMultiplier",
             (tracker) =>
             {
-                float securityFactor = tracker.GetPersonality(PersonalityDefOf.Rimpsyche_Tension) - tracker.GetPersonality(PersonalityDefOf.Rimpsyche_Stability) + tracker.GetPersonality(PersonalityDefOf.Rimpsyche_Confidence)
-                securityFactor = securityFactor>0f? 1f + (2f*securityFactor/9f): 1f + (securityFactor/12f) // 0.75~1.666
+                float securityFactor = tracker.GetPersonality(PersonalityDefOf.Rimpsyche_Tension) - tracker.GetPersonality(PersonalityDefOf.Rimpsyche_Stability) + tracker.GetPersonality(PersonalityDefOf.Rimpsyche_Confidence);
+                securityFactor = securityFactor > 0f ? 1f + (2f * securityFactor / 9f) : 1f + (securityFactor / 12f); // 0.75~1.666
                 float temperamentFactor = 1f + (tracker.GetPersonality(PersonalityDefOf.Rimpsyche_Aggressiveness) + tracker.GetPersonality(PersonalityDefOf.Rimpsyche_Competitiveness))*0.1f; // 0.8~1.2
                 return securityFactor * temperamentFactor;
             }

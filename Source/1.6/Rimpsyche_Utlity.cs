@@ -101,7 +101,7 @@ namespace Maux36.RimPsyche
             newThought.topicName = topicName;
             newThought.topicLabel = topicLabel;
             newThought.opinionOffset = opinionOffset;
-            newThought.durationTicksOverride = (int)((40f+Mathf.Abs(opinionOffset)) * 60000f)
+            newThought.durationTicksOverride = (int)((40f + Mathf.Abs(opinionOffset)) * 60000f);
             //Log.Message($"adding thought about {topicLabel} with opinionOffset {opinionOffset}");
             if (newThought.otherPawn == null && otherPawn == null)
             {
