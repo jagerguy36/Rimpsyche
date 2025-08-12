@@ -26,7 +26,8 @@
   <ThoughtDef>
     <defName>Rimpsyche_ConversationOpinion</defName>
     <thoughtClass>Maux36.RimPsyche.Thought_MemoryPostDefined</thoughtClass>
-    <durationDays>5</durationDays>
+    <lerpOpinionToZeroAfterDurationPct>0</lerpOpinionToZeroAfterDurationPct>
+    <durationDays>40</durationDays>
     <stackLimit>300</stackLimit>
     <stackLimitForSameOtherPawn>10</stackLimitForSameOtherPawn>
     <stackedEffectMultiplier>1</stackedEffectMultiplier>
