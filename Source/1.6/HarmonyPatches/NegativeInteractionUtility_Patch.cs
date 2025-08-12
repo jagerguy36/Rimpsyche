@@ -25,49 +25,49 @@ namespace Maux36.RimPsyche
             }
             float num = 1f;
             num *= OpinionFactorCurve.Evaluate(initiator.relations.OpinionOf(recipient));
-            //Vanilla curve range 4 ~ 0.4
             if (initiator.story.traits.HasTrait(TraitDefOf.Abrasive))
             {
-                num *= 2.3f;
+                num *= 1.8f; //Reduce influence because tact is already influencing the outcome
             }
+            //Vanilla curve range 4 ~ 0.4
             var initPsyche = initiator.compPsyche(); 
             if (initPsyche != null)
             {
-                //passion
-                //compassion
-                //aggressiveness
-                //stability + tension
-                //tact + passion
-                num *= initPsyche.Personality.Evaluate(TactNegativeChanceMultiplier);
+                num *= initPsyche.Personality.Evaluate(InitNegativeChanceMultiplier); //2~0.6
             }
             var reciPsyche = recipient.compPsyche();
             if (reciPsyche != null)
             {
-                //passion
-                //compassion
-                //aggressiveness
-                //stability + tension
-                //tact + passion --> Treat the init/recip the same
-                num *= reciPsyche.Personality.Evaluate(TensionNegativeChanceMultiplier);
+                num *= reciPsyche.Personality.Evaluate(reciNegativeChanceMultiplier); //2~0.6
+            }
+            var initPlayfulness = initPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Playfulness);
+            var reciPlayfulness = reciPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Playfulness);
+            if(initPlayfulness > 0f && reciPlayfulness < 0f)
+            {
+                num *= (1f+0.2f*(initPlayfulness*initPlayfulness*reciPlayfulness*reciPlayfulness))
             }
             __result = num;
             return false;
         }
-        public static RimpsycheFormula TactNegativeChanceMultiplier = new(
-            "TactNegativeChanceMultiplier",
+        public static RimpsycheFormula InitNegativeChanceMultiplier = new(
+            "InitNegativeChanceMultiplier",
             (tracker) =>
             {
-                float tactFactor = tracker.GetPersonalityAsMult(PersonalityDefOf.Rimpsyche_Tact, 0.75f);
-                return tactFactor;
+                float intentFactor = tracker.GetPersonality(PersonalityDefOf.Rimpsyche_Aggressiveness) - tracker.GetPersonality(PersonalityDefOf.Rimpsyche_Compassion)
+                intentFactor = intentFactor>0f? 1f + (intentFactor/3f): 1f + (intentFactor/8f) // 0.75~1.666
+                float deliveryFactor = 1f + tracker.GetPersonality(PersonalityDefOf.Rimpsyche_Tact)*0.2f; // 0.8~1.2
+                return intentFactor * deliveryFactor;
             }
         );
 
-        public static RimpsycheFormula TensionNegativeChanceMultiplier = new(
-            "TensionNegativeChanceMultiplier",
+        public static RimpsycheFormula reciNegativeChanceMultiplier = new(
+            "reciNegativeChanceMultiplier",
             (tracker) =>
             {
-                float tensionFactor = tracker.GetPersonalityAsMult(PersonalityDefOf.Rimpsyche_Tension, 1.2f);
-                return tensionFactor;
+                float securityFactor = tracker.GetPersonality(PersonalityDefOf.Rimpsyche_Tension) - tracker.GetPersonality(PersonalityDefOf.Rimpsyche_Stability) + tracker.GetPersonality(PersonalityDefOf.Rimpsyche_Confidence)
+                securityFactor = securityFactor>0f? 1f + (2f*securityFactor/9f): 1f + (securityFactor/12f) // 0.75~1.666
+                float temperamentFactor = 1f + (tracker.GetPersonality(PersonalityDefOf.Rimpsyche_Aggressiveness) + tracker.GetPersonality(PersonalityDefOf.Rimpsyche_Competitiveness))*0.1f; // 0.8~1.2
+                return securityFactor * temperamentFactor;
             }
         );
     }
