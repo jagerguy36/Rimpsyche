@@ -19,6 +19,12 @@ namespace Maux36.RimPsyche
         };
         private static bool Prefix(ref float __result, Pawn initiator, Pawn recipient)
         {
+            var initPsyche = initiator.compPsyche(); 
+            var reciPsyche = recipient.compPsyche();
+            if (initPsyche == null || reciPsyche == null)
+            {
+                return true;
+            }
             if (initiator.story.traits.HasTrait(TraitDefOf.Kind))
             {
                 __result = 0f;
@@ -31,16 +37,8 @@ namespace Maux36.RimPsyche
                 num *= 2f; //Reduce influence because tact is already influencing the outcome
             }
             //Vanilla curve range 4 ~ 0.4
-            var initPsyche = initiator.compPsyche(); 
-            if (initPsyche != null)
-            {
-                num *= initPsyche.Personality.Evaluate(InitNegativeChanceMultiplier); //2.4~0.6
-            }
-            var reciPsyche = recipient.compPsyche();
-            if (reciPsyche != null)
-            {
-                num *= reciPsyche.Personality.Evaluate(reciNegativeChanceMultiplier); //2.4~0.6
-            }
+            num *= initPsyche.Personality.Evaluate(InitNegativeChanceMultiplier); //2.4~0.6
+            num *= reciPsyche.Personality.Evaluate(reciNegativeChanceMultiplier); //2.4~0.6
             var initPlayfulness = initPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Playfulness);
             var reciPlayfulness = reciPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Playfulness);
             if(initPlayfulness > 0f && reciPlayfulness < 0f)
