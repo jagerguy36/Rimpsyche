@@ -140,7 +140,7 @@ namespace Maux36.RimPsyche
                 parentPawn.needs?.mood?.thoughts?.memories?.Memories.Add(newThought);
             }
         }
-        public static float ConvoSocialFightChance(Pawn startCand, Pawn other, float startCandBaseChance, float startCandOpinio)
+        public static float ConvoSocialFightChance(Pawn startCand, Pawn other, float startCandBaseChance, float startCandOpinio) //Same as vanilla, just using this to avoid calculating opinion again for performance.
         {
             if (!startCand.interactions.SocialFightPossible(other))
             {
