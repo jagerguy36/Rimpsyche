@@ -10,13 +10,13 @@ namespace Maux36.RimPsyche
 {
     public class Rimpsyche_Utility
     {
-        public static float Boost(float A, float boostFactor = 0.5f)
+        public static float Boost(float A, float boostFactor = 0.5f) //Unused
         {
             float res = A * (1f + boostFactor * (1f - A * A));
             return res;
 
         }
-        public static float Boost2(float A)
+        public static float Boost2(float A) //For opinion. 0.2:0.36 | 0.5:0.75 | 0.7:0.91
         {
             float adjA;
             float res;
@@ -34,7 +34,7 @@ namespace Maux36.RimPsyche
             }
 
         }
-        public static float Boost3(float A)
+        public static float Boost3(float A) //For Saddle shape function. 0.2:0.5 | 0.5:0.875 | 0.7:0.973
         {
             float adjA;
             float res;
