@@ -1,4 +1,5 @@
-﻿using RimWorld.Planet;
+﻿using RimWorld;
+using RimWorld.Planet;
 using System;
 using System.Collections.Generic;
 using Verse;
@@ -15,6 +16,10 @@ namespace Maux36.RimPsyche
             if (CompPsycheCache.TryGetValue(pawn, out CompPsyche comp))
             {
                 return comp;
+            }
+            if (!TrackingDef.Contains(pawn.def?.defName))
+            {
+                return null;
             }
             comp = pawn.GetComp<CompPsyche>();
             if (comp != null)
@@ -50,7 +55,17 @@ namespace Maux36.RimPsyche
             }
             catch (Exception)
             {
-                Log.Error($"Rimpsyche failed to clear caches on world initialization.");
+                Log.Error($"[Rimpsyche] failed to clear caches on world initialization.");
+            }
+            try
+            {
+                //Make sure hijacking is still in place
+                InteractionDefOf.Chitchat = DefOfRimpsyche.Rimpsyche_Smalltalk;
+                InteractionDefOf.DeepTalk = DefOfRimpsyche.Rimpsyche_StartConversation;
+            }
+            catch (Exception)
+            {
+                Log.Error($"[Rimpsyche] failed to hijack chitchat and deeptalk defs.");
             }
         }
     }

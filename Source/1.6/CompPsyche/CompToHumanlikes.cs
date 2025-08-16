@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System;
-using Verse;
+﻿using Verse;
 
 namespace Maux36.RimPsyche
 {
@@ -24,14 +22,6 @@ namespace Maux36.RimPsyche
                     var tabType = typeof(ITab_Pawn_Psyche);
                     var tabBase = InspectTabManager.GetSharedInstance(typeof(ITab_Pawn_Psyche));
 
-                    //if (allDef.inspectorTabs.NullOrEmpty())
-                    //{
-                    //    allDef.inspectorTabs = new List<Type>(1);
-                    //}
-                    //if (allDef.inspectorTabsResolved.NullOrEmpty())
-                    //{
-                    //    allDef.inspectorTabsResolved = new List<InspectTabBase>(1);
-                    //}
                     allDef.inspectorTabs?.AddDistinct(tabType);
                     allDef.inspectorTabsResolved?.AddDistinct(tabBase);
 
@@ -40,14 +30,7 @@ namespace Maux36.RimPsyche
                         Log.Warning("[Rimpsyche] thingDef.race?.corpseDef == null for thingDef = " + allDef.defName);
                         continue;
                     }
-                    //if (allDef.race.corpseDef.inspectorTabs.NullOrEmpty())
-                    //{
-                    //    allDef.race.corpseDef.inspectorTabs = new List<Type>(1);
-                    //}
-                    //if (allDef.race.corpseDef.inspectorTabsResolved.NullOrEmpty())
-                    //{
-                    //    allDef.race.corpseDef.inspectorTabsResolved = new List<InspectTabBase>(1);
-                    //}
+
                     allDef.race.corpseDef.inspectorTabs?.AddDistinct(tabType);
                     allDef.race.corpseDef.inspectorTabsResolved?.AddDistinct(tabBase);
                 }
