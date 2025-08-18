@@ -21,7 +21,7 @@ namespace Maux36.RimPsyche
         {
             var initPsyche = initiator.compPsyche(); 
             var reciPsyche = recipient.compPsyche();
-            if (initPsyche == null || reciPsyche == null)
+            if (initPsyche?.Enabled != true || reciPsyche?.Enabled != true)
             {
                 return true;
             }

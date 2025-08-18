@@ -38,7 +38,7 @@ namespace Maux36.RimPsyche
             public static int InteractionMultipliedValue(int original, Pawn pawn)
             {
                 var psyche = pawn?.compPsyche();
-                if (psyche == null)
+                if (psyche?.Enabled != true)
                 {
                     return original;
                 }

@@ -34,6 +34,8 @@
   <TraitAffected>다음 특성에 영향을 받고 있음:</TraitAffected>
   <GeneAffected>다음 유전자에 영향을 받고 있음:</GeneAffected>
 
+  <PsycheDisabled>비활성화됨</PsycheDisabled>
+
   <!-- Interaction -->
   <MemoryReportString>{0}에 대한 대화</MemoryReportString>
   <RimPsycheIntensityNeutral>중립 {0}</RimPsycheIntensityNeutral>

@@ -126,7 +126,7 @@ namespace Maux36.RimPsyche
             }
             DrawInterestEditCard(rightBottomRect, pawn, compPsyche);
 
-            if (compPsyche.psycheEnabled != true)
+            if (compPsyche?.Enabled != true)
             {
                 TextAnchor oldAnchor = Text.Anchor;
                 GameFont oldFont = Text.Font;
@@ -161,7 +161,7 @@ namespace Maux36.RimPsyche
 
         public static void DrawInterestEditCard(Rect rect, Pawn pawn, CompPsyche compPsyche)
         {
-            var psycheEnabled = compPsyche.psycheEnabled;
+            var psycheEnabled = compPsyche?.Enabled == true;
             TextAnchor oldAnchor = Text.Anchor;
             GameFont oldFont = Text.Font;
             Rect innerRect = rect.ContractedBy(innerPadding);
@@ -254,7 +254,7 @@ namespace Maux36.RimPsyche
 
         public static void DrawPersonalityEditcard(Rect rect, Pawn pawn, CompPsyche compPsyche)
         {
-            var psycheEnabled = compPsyche.psycheEnabled;
+            var psycheEnabled = compPsyche?.Enabled == true;
             var scope = compPsyche.Personality.scopeCache;
             // Define internal padding/margins if desired
             TextAnchor oldAnchor = Text.Anchor;
@@ -389,7 +389,7 @@ namespace Maux36.RimPsyche
 
         public static void DrawFacetCard(Rect rect, Pawn pawn, CompPsyche compPsyche)
         {
-            var psycheEnabled = compPsyche.psycheEnabled;
+            var psycheEnabled = compPsyche?.Enabled == true;
             var gate = compPsyche.Personality.gateCache;
             Text.Font = GameFont.Small;
             TextAnchor oldAnchor = Text.Anchor;

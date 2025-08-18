@@ -16,7 +16,7 @@ namespace Maux36.RimPsyche
 			}
             var initiatorPsyche = initiator.compPsyche();
             var recipientPsyche = recipient.compPsyche();
-            if (initiatorPsyche?.psycheEnabled == true && recipientPsyche?.psycheEnabled == true)
+            if (initiatorPsyche?.Enabled == true && recipientPsyche?.Enabled == true)
             {
 
                 float initSociability = initiatorPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Sociability);
@@ -51,7 +51,7 @@ namespace Maux36.RimPsyche
             lookTargets = null;
             var initiatorPsyche = initiator.compPsyche();
             var recipientPsyche = recipient.compPsyche();
-            if (initiatorPsyche?.psycheEnabled == true && recipientPsyche?.psycheEnabled == true)
+            if (initiatorPsyche?.Enabled == true && recipientPsyche?.Enabled == true)
             {
                 PlayLogEntry_InteractionConversation entry;
 

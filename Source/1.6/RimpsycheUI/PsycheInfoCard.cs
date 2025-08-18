@@ -106,7 +106,7 @@ namespace Maux36.RimPsyche
         public static void DrawPsycheCard(Rect totalRect, Pawn pawn)
         {
             var compPsyche = pawn.compPsyche();
-            var psycheEnabled = compPsyche.psycheEnabled;
+            var psycheEnabled = compPsyche.Enabled;
             bool showSexuality = compPsyche.Sexuality.ShowOnUI();
             totalRect.width -= (psycheEnabled && rightPanelVisible ? 0f : rightPanelWidthConstant);
 

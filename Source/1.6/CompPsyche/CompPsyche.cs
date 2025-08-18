@@ -27,11 +27,11 @@ namespace Maux36.RimPsyche
                 return parentPawnInt;
             }
         }
-        public bool psycheEnabled
+        public bool Enabled
         {
             get
             {
-                psycheEnabledInternal ??= checkEnabled();
+                psycheEnabledInternal ??= CheckEnabled();
                 if (psycheEnabledInternal == true)
                 {
                     return !parentPawn.IsSubhuman;
@@ -78,12 +78,13 @@ namespace Maux36.RimPsyche
             }
             set => sexuality = value;
         }
-        public bool checkEnabled()
+        public bool CheckEnabled()
         {
+            //Core only checks for inhumanized. Other mods should postfix this method and add nullifyCheck method to add their own restrictions.
             if (parentPawn.Inhumanized()) return false;
             return true;
         }
-        public void nullifyCheck()
+        public void NullifyCheck()
         {
             psycheEnabledInternal = null;
         }

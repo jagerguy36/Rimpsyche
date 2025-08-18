@@ -34,6 +34,8 @@
   <TraitAffected>Affected by trait(s):</TraitAffected>
   <GeneAffected>Affected by gene(s):</GeneAffected>
 
+  <PsycheDisabled>Psyche Disabled</PsycheDisabled>
+
   <!-- Interaction -->
   <MemoryReportString>Conversation about {0}</MemoryReportString>
   <RimPsycheIntensityNeutral>Neutral {0}</RimPsycheIntensityNeutral>
