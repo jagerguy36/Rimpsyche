@@ -10,5 +10,6 @@
 		<li IfModActive="divinederivative.romance">Mods/WayBetterRomance/1.6</li>
 		<li IfModActive="consolidatedtraits.lc.rw">Mods/ConsolidatedTraits/1.6</li>
 		<li IfModActive="avius.badpeople">Mods/BadPeople/1.6</li>
+		<li IfModActive="vanillaexpanded.vanomalyeinsanity">Mods/VAE_Insanity/1.6</li>
 	</v1.6>
 </loadFolders>

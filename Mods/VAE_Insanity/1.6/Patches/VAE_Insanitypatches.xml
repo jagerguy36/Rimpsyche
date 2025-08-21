@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<Patch>
+
+<Operation Class="PatchOperationAdd">
+  <xpath>Defs/VAEInsanity.SanityEffectsDef[defName="VAEI_SanityEffects"]/disturbingInitiatorEffects</xpath>
+  <value>
+    <li>
+      <interaction>Rimpsyche_Smalltalk</interaction>
+      <effect>-0.01</effect>
+    </li>
+    <li>
+      <interaction>Rimpsyche_StartConversation</interaction>
+      <effect>-0.02</effect>
+    </li>
+  </value>
+</Operation>
+
+<Operation Class="PatchOperationAdd">
+  <xpath>Defs/VAEInsanity.SanityEffectsDef[defName="VAEI_SanityEffects"]/nonDisturbingInitiatorEffects</xpath>
+  <value>
+    <li>
+      <interaction>Rimpsyche_Smalltalk</interaction>
+      <effect>-0.01</effect>
+    </li>
+    <li>
+      <interaction>Rimpsyche_StartConversation</interaction>
+      <effect>-0.02</effect>
+    </li>
+  </value>
+</Operation>
+
+
+</Patch>
