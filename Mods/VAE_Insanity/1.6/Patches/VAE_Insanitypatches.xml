@@ -11,7 +11,7 @@
     </li>
     <li>
       <interaction>Rimpsyche_StartConversation</interaction>
-      <effect>-0.02</effect>
+      <effect>-0.015</effect>
     </li>
   </value>
 </Operation>
@@ -21,11 +21,11 @@
   <value>
     <li>
       <interaction>Rimpsyche_Smalltalk</interaction>
-      <effect>-0.01</effect>
+      <effect>0.01</effect>
     </li>
     <li>
       <interaction>Rimpsyche_StartConversation</interaction>
-      <effect>-0.02</effect>
+      <effect>0.015</effect>
     </li>
   </value>
 </Operation>
