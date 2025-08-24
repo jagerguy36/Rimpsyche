@@ -19,18 +19,18 @@
   <Sentence_RimpsycheConversationNegativeBad.rulePack.rulesStrings.1>sent->Обсуждение перешло в резкие выпады, когда мнения столкнулись.</Sentence_RimpsycheConversationNegativeBad.rulePack.rulesStrings.1>
   <Sentence_RimpsycheConversationNegativeBad.rulePack.rulesStrings.2>sent->Спор быстро обострился, придав беседе конфронтационный характер.</Sentence_RimpsycheConversationNegativeBad.rulePack.rulesStrings.2>
 
-  <Sentence_RimpsycheSocialFightConvoInitiatorStarted.rulePack.rulesStrings.0>sent->Разногласия переросли в драку, которую [INITIATOR_gender ? начал : начала] [INITIATOR_nameDef]!</Sentence_RimpsycheSocialFightConvoInitiatorStarted.rulePack.rulesStrings.0>
-  <Sentence_RimpsycheSocialFightConvoInitiatorStarted.rulePack.rulesStrings.1>sent->Спор вышел из-под контроля, когда [INITIATOR_nameDef] не [INITIATOR_gender ? сдержал : сдержала] гнев!</Sentence_RimpsycheSocialFightConvoInitiatorStarted.rulePack.rulesStrings.1>
-  <Sentence_RimpsycheSocialFightConvoInitiatorStarted.rulePack.rulesStrings.2>sent->Разница во взглядах стала личной, и [INITIATOR_nameDef] [INITIATOR_gender ? начал : начала] драку!</Sentence_RimpsycheSocialFightConvoInitiatorStarted.rulePack.rulesStrings.2>
-  <Sentence_RimpsycheSocialFightConvoInitiatorStarted.rulePack.rulesStrings.3>sent->Беседа накалилась и закончилась тем, что [INITIATOR_nameDef] [INITIATOR_gender ? полез : полезла] в драку!</Sentence_RimpsycheSocialFightConvoInitiatorStarted.rulePack.rulesStrings.3>
+  <Sentence_RimpsycheSocialFightConvoInitiatorStarted.rulePack.rulesStrings.0>sent->Разногласия переросли в драку, которую {INITIATOR_gender ? начал : начала} [INITIATOR_nameDef]!</Sentence_RimpsycheSocialFightConvoInitiatorStarted.rulePack.rulesStrings.0>
+  <Sentence_RimpsycheSocialFightConvoInitiatorStarted.rulePack.rulesStrings.1>sent->Спор вышел из-под контроля, когда [INITIATOR_nameDef] не {INITIATOR_gender ? сдержал : сдержала} гнев!</Sentence_RimpsycheSocialFightConvoInitiatorStarted.rulePack.rulesStrings.1>
+  <Sentence_RimpsycheSocialFightConvoInitiatorStarted.rulePack.rulesStrings.2>sent->Разница во взглядах стала личной, и [INITIATOR_nameDef] {INITIATOR_gender ? начал : начала} драку!</Sentence_RimpsycheSocialFightConvoInitiatorStarted.rulePack.rulesStrings.2>
+  <Sentence_RimpsycheSocialFightConvoInitiatorStarted.rulePack.rulesStrings.3>sent->Беседа накалилась и закончилась тем, что [INITIATOR_nameDef] {INITIATOR_gender ? полез : полезла} в драку!</Sentence_RimpsycheSocialFightConvoInitiatorStarted.rulePack.rulesStrings.3>
 
-  <Sentence_RimpsycheSocialFightConvoRecipientStarted.rulePack.rulesStrings.0>sent->Разногласия переросли в драку, которую [RECIPIENT_gender ? начал : начала] [RECIPIENT_nameDef]!</Sentence_RimpsycheSocialFightConvoRecipientStarted.rulePack.rulesStrings.0>
-  <Sentence_RimpsycheSocialFightConvoRecipientStarted.rulePack.rulesStrings.1>sent->Спор вышел из-под контроля, когда [RECIPIENT_nameDef] не [RECIPIENT_gender ? сдержал : сдержала] гнев!</Sentence_RimpsycheSocialFightConvoRecipientStarted.rulePack.rulesStrings.1>
-  <Sentence_RimpsycheSocialFightConvoRecipientStarted.rulePack.rulesStrings.2>sent->Разница во взглядах стала личной, и [RECIPIENT_nameDef] [RECIPIENT_gender ? начал : начала] драку!</Sentence_RimpsycheSocialFightConvoRecipientStarted.rulePack.rulesStrings.2>
-  <Sentence_RimpsycheSocialFightConvoRecipientStarted.rulePack.rulesStrings.3>sent->Беседа накалилась и закончилась тем, что [RECIPIENT_nameDef] [RECIPIENT_gender ? полез : полезла] в драку!</Sentence_RimpsycheSocialFightConvoRecipientStarted.rulePack.rulesStrings.3>
+  <Sentence_RimpsycheSocialFightConvoRecipientStarted.rulePack.rulesStrings.0>sent->Разногласия переросли в драку, которую {RECIPIENT_gender ? начал : начала} [RECIPIENT_nameDef]!</Sentence_RimpsycheSocialFightConvoRecipientStarted.rulePack.rulesStrings.0>
+  <Sentence_RimpsycheSocialFightConvoRecipientStarted.rulePack.rulesStrings.1>sent->Спор вышел из-под контроля, когда [RECIPIENT_nameDef] не {RECIPIENT_gender ? сдержал : сдержала} гнев!</Sentence_RimpsycheSocialFightConvoRecipientStarted.rulePack.rulesStrings.1>
+  <Sentence_RimpsycheSocialFightConvoRecipientStarted.rulePack.rulesStrings.2>sent->Разница во взглядах стала личной, и [RECIPIENT_nameDef] {RECIPIENT_gender ? начал : начала} драку!</Sentence_RimpsycheSocialFightConvoRecipientStarted.rulePack.rulesStrings.2>
+  <Sentence_RimpsycheSocialFightConvoRecipientStarted.rulePack.rulesStrings.3>sent->Беседа накалилась и закончилась тем, что [RECIPIENT_nameDef] {RECIPIENT_gender ? полез : полезла} в драку!</Sentence_RimpsycheSocialFightConvoRecipientStarted.rulePack.rulesStrings.3>
 
-  <Sentence_RimpsycheConversationFail.rulePack.rulesStrings.0>sent(p=2)->[RECIPIENT_nameDef] [RECIPIENT_gender ? проигнорировал : проигнорировала] [INITIATOR_objective].</Sentence_RimpsycheConversationFail.rulePack.rulesStrings.0>
-  <Sentence_RimpsycheConversationFail.rulePack.rulesStrings.1>sent->[RECIPIENT_nameDef] не [RECIPIENT_gender ? удостоил : удостоила] ответом.</Sentence_RimpsycheConversationFail.rulePack.rulesStrings.1>
-  <Sentence_RimpsycheConversationFail.rulePack.rulesStrings.2>sent->[RECIPIENT_nameDef] [RECIPIENT_gender ? отмахнулся : отмахнулась] от [INITIATOR_objective].</Sentence_RimpsycheConversationFail.rulePack.rulesStrings.2>
+  <Sentence_RimpsycheConversationFail.rulePack.rulesStrings.0>sent(p=2)->[RECIPIENT_nameDef] {RECIPIENT_gender ? проигнорировал : проигнорировала} [INITIATOR_objective].</Sentence_RimpsycheConversationFail.rulePack.rulesStrings.0>
+  <Sentence_RimpsycheConversationFail.rulePack.rulesStrings.1>sent->[RECIPIENT_nameDef] не {RECIPIENT_gender ? удостоил : удостоила} ответом.</Sentence_RimpsycheConversationFail.rulePack.rulesStrings.1>
+  <Sentence_RimpsycheConversationFail.rulePack.rulesStrings.2>sent->[RECIPIENT_nameDef] {RECIPIENT_gender ? отмахнулся : отмахнулась} от [INITIATOR_objective].</Sentence_RimpsycheConversationFail.rulePack.rulesStrings.2>
 
 </LanguageData>

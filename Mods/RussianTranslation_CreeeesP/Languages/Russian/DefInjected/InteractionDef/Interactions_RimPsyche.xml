@@ -5,31 +5,31 @@
 
   <Rimpsyche_Smalltalk.label>лёгкая беседа</Rimpsyche_Smalltalk.label>
   <Rimpsyche_Smalltalk.logRulesInitiator.rulesStrings.0>r_logentry->[INITIATOR_nameDef] [commentedabout] [subject] в разговоре с [RECIPIENT_nameDef].</Rimpsyche_Smalltalk.logRulesInitiator.rulesStrings.0>
-  <Rimpsyche_Smalltalk.logRulesInitiator.rulesStrings.1>r_logentry(p=0.7)->[INITIATOR_nameDef] [INITIATOR_gender ? завёл : завела] разговор о [subject] с [RECIPIENT_nameDef].</Rimpsyche_Smalltalk.logRulesInitiator.rulesStrings.1>
-  <Rimpsyche_Smalltalk.logRulesInitiator.rulesStrings.2>r_logentry(p=0.5)->[INITIATOR_nameDef] [INITIATOR_gender ? упомянул : упомянула] что-то о [subject], проходя мимо [RECIPIENT_nameDef].</Rimpsyche_Smalltalk.logRulesInitiator.rulesStrings.2>
-  <Rimpsyche_Smalltalk.logRulesInitiator.rulesStrings.3>r_logentry(p=0.3)->[INITIATOR_nameDef] [INITIATOR_gender ? кивнул : кивнула] [RECIPIENT_nameDef].</Rimpsyche_Smalltalk.logRulesInitiator.rulesStrings.3>
-  <Rimpsyche_Smalltalk.logRulesInitiator.rulesStrings.4>r_logentry(p=0.1)->[INITIATOR_nameDef] [INITIATOR_gender ? поздоровался : поздоровалась] с [RECIPIENT_nameDef].</Rimpsyche_Smalltalk.logRulesInitiator.rulesStrings.4>
-  <Rimpsyche_Smalltalk.logRulesInitiator.rulesStrings.5>r_logentry(p=0.1)->[INITIATOR_nameDef] [INITIATOR_gender ? помахал : помахала] [RECIPIENT_nameDef].</Rimpsyche_Smalltalk.logRulesInitiator.rulesStrings.5>
+  <Rimpsyche_Smalltalk.logRulesInitiator.rulesStrings.1>r_logentry(p=0.7)->[INITIATOR_nameDef] {INITIATOR_gender ? завёл : завела} разговор о [subject] с [RECIPIENT_nameDef].</Rimpsyche_Smalltalk.logRulesInitiator.rulesStrings.1>
+  <Rimpsyche_Smalltalk.logRulesInitiator.rulesStrings.2>r_logentry(p=0.5)->[INITIATOR_nameDef] {INITIATOR_gender ? упомянул : упомянула} что-то о [subject], проходя мимо [RECIPIENT_nameDef].</Rimpsyche_Smalltalk.logRulesInitiator.rulesStrings.2>
+  <Rimpsyche_Smalltalk.logRulesInitiator.rulesStrings.3>r_logentry(p=0.3)->[INITIATOR_nameDef] {INITIATOR_gender ? кивнул : кивнула} [RECIPIENT_nameDef].</Rimpsyche_Smalltalk.logRulesInitiator.rulesStrings.3>
+  <Rimpsyche_Smalltalk.logRulesInitiator.rulesStrings.4>r_logentry(p=0.1)->[INITIATOR_nameDef] {INITIATOR_gender ? поздоровался : поздоровалась} с [RECIPIENT_nameDef].</Rimpsyche_Smalltalk.logRulesInitiator.rulesStrings.4>
+  <Rimpsyche_Smalltalk.logRulesInitiator.rulesStrings.5>r_logentry(p=0.1)->[INITIATOR_nameDef] {INITIATOR_gender ? помахал : помахала} [RECIPIENT_nameDef].</Rimpsyche_Smalltalk.logRulesInitiator.rulesStrings.5>
   <Rimpsyche_Smalltalk.logRulesInitiator.rulesStrings.6>subject(INITIATOR_cubeInterest==false)->[TalkTopicLight]</Rimpsyche_Smalltalk.logRulesInitiator.rulesStrings.6>
   <Rimpsyche_Smalltalk.logRulesInitiator.rulesStrings.7>subject(INITIATOR_cubeInterest==true)->[TalkTopicCube]</Rimpsyche_Smalltalk.logRulesInitiator.rulesStrings.7>
-  <Rimpsyche_Smalltalk.logRulesInitiator.rulesStrings.8>commentedabout->[INITIATOR_gender ? прокомментировал : прокомментировала]</Rimpsyche_Smalltalk.logRulesInitiator.rulesStrings.8>
-  <Rimpsyche_Smalltalk.logRulesInitiator.rulesStrings.9>commentedabout->невзначай [INITIATOR_gender ? заметил : заметила]</Rimpsyche_Smalltalk.logRulesInitiator.rulesStrings.9>
-  <Rimpsyche_Smalltalk.logRulesInitiator.rulesStrings.10>commentedabout->[INITIATOR_gender ? пробормотал : пробормотала] что-то о</Rimpsyche_Smalltalk.logRulesInitiator.rulesStrings.10>
-  <Rimpsyche_Smalltalk.logRulesInitiator.rulesStrings.11>commentedabout->[INITIATOR_gender ? сделал : сделала] замечание о</Rimpsyche_Smalltalk.logRulesInitiator.rulesStrings.11>
+  <Rimpsyche_Smalltalk.logRulesInitiator.rulesStrings.8>commentedabout->{INITIATOR_gender ? прокомментировал : прокомментировала}</Rimpsyche_Smalltalk.logRulesInitiator.rulesStrings.8>
+  <Rimpsyche_Smalltalk.logRulesInitiator.rulesStrings.9>commentedabout->невзначай {INITIATOR_gender ? заметил : заметила}</Rimpsyche_Smalltalk.logRulesInitiator.rulesStrings.9>
+  <Rimpsyche_Smalltalk.logRulesInitiator.rulesStrings.10>commentedabout->{INITIATOR_gender ? пробормотал : пробормотала} что-то о</Rimpsyche_Smalltalk.logRulesInitiator.rulesStrings.10>
+  <Rimpsyche_Smalltalk.logRulesInitiator.rulesStrings.11>commentedabout->{INITIATOR_gender ? сделал : сделала} замечание о</Rimpsyche_Smalltalk.logRulesInitiator.rulesStrings.11>
 
   <Rimpsyche_StartConversation.label>разговор</Rimpsyche_StartConversation.label>
   <Rimpsyche_StartConversation.logRulesInitiator.rulesStrings.0>r_logentry->Их взаимодействие завершилось.</Rimpsyche_StartConversation.logRulesInitiator.rulesStrings.0>
 
   <Rimpsyche_Conversation.label>разговор</Rimpsyche_Conversation.label>
-  <Rimpsyche_Conversation.logRulesInitiator.rulesStrings.0>r_logentry->[INITIATOR_nameDef] [INITIATOR_gender ? завёл : завела] разговор с [RECIPIENT_nameDef] о {0}.</Rimpsyche_Conversation.logRulesInitiator.rulesStrings.0>
-  <Rimpsyche_Conversation.logRulesInitiator.rulesStrings.1>r_logentry->[INITIATOR_nameDef] [INITIATOR_gender ? начал : начала] обсуждение {0} с [RECIPIENT_nameDef].</Rimpsyche_Conversation.logRulesInitiator.rulesStrings.1>
-  <Rimpsyche_Conversation.logRulesInitiator.rulesStrings.2>r_logentry->[INITIATOR_nameDef] [INITIATOR_gender ? поднял : подняла] тему {0} в разговоре с [RECIPIENT_nameDef].</Rimpsyche_Conversation.logRulesInitiator.rulesStrings.2>
-  <Rimpsyche_Conversation.logRulesInitiator.rulesStrings.3>r_logentry->[INITIATOR_nameDef] [INITIATOR_gender ? вовлёк : вовлекла] [RECIPIENT_nameDef] в разговор о {0}.</Rimpsyche_Conversation.logRulesInitiator.rulesStrings.3>
+  <Rimpsyche_Conversation.logRulesInitiator.rulesStrings.0>r_logentry->[INITIATOR_nameDef] {INITIATOR_gender ? завёл : завела} разговор с [RECIPIENT_nameDef] о {0}.</Rimpsyche_Conversation.logRulesInitiator.rulesStrings.0>
+  <Rimpsyche_Conversation.logRulesInitiator.rulesStrings.1>r_logentry->[INITIATOR_nameDef] {INITIATOR_gender ? начал : начала} обсуждение {0} с [RECIPIENT_nameDef].</Rimpsyche_Conversation.logRulesInitiator.rulesStrings.1>
+  <Rimpsyche_Conversation.logRulesInitiator.rulesStrings.2>r_logentry->[INITIATOR_nameDef] {INITIATOR_gender ? поднял : подняла} тему {0} в разговоре с [RECIPIENT_nameDef].</Rimpsyche_Conversation.logRulesInitiator.rulesStrings.2>
+  <Rimpsyche_Conversation.logRulesInitiator.rulesStrings.3>r_logentry->[INITIATOR_nameDef] {INITIATOR_gender ? вовлёк : вовлекла} [RECIPIENT_nameDef] в разговор о {0}.</Rimpsyche_Conversation.logRulesInitiator.rulesStrings.3>
 
   <Rimpsyche_ConversationAttempt.label>попытка разговора</Rimpsyche_ConversationAttempt.label>
-  <Rimpsyche_ConversationAttempt.logRulesInitiator.rulesStrings.0>r_logentry->[INITIATOR_nameDef] [INITIATOR_gender ? попытался : попыталась] заговорить с [RECIPIENT_nameDef] о {0}.</Rimpsyche_ConversationAttempt.logRulesInitiator.rulesStrings.0>
-  <Rimpsyche_ConversationAttempt.logRulesInitiator.rulesStrings.1>r_logentry->[INITIATOR_nameDef] [INITIATOR_gender ? попробовал : попробовала] обсудить {0} с [RECIPIENT_nameDef].</Rimpsyche_ConversationAttempt.logRulesInitiator.rulesStrings.1>
-  <Rimpsyche_ConversationAttempt.logRulesInitiator.rulesStrings.2>r_logentry->[INITIATOR_nameDef] [INITIATOR_gender ? попытался : попыталась] вовлечь [RECIPIENT_nameDef] в разговор о {0}.</Rimpsyche_ConversationAttempt.logRulesInitiator.rulesStrings.2>
-  <Rimpsyche_ConversationAttempt.logRulesInitiator.rulesStrings.3>r_logentry->[INITIATOR_nameDef] [INITIATOR_gender ? попробовал : попробовала] начать беседу с [RECIPIENT_nameDef] о {0}.</Rimpsyche_ConversationAttempt.logRulesInitiator.rulesStrings.3>
+  <Rimpsyche_ConversationAttempt.logRulesInitiator.rulesStrings.0>r_logentry->[INITIATOR_nameDef] {INITIATOR_gender ? попытался : попыталась} заговорить с [RECIPIENT_nameDef] о {0}.</Rimpsyche_ConversationAttempt.logRulesInitiator.rulesStrings.0>
+  <Rimpsyche_ConversationAttempt.logRulesInitiator.rulesStrings.1>r_logentry->[INITIATOR_nameDef] {INITIATOR_gender ? попробовал : попробовала} обсудить {0} с [RECIPIENT_nameDef].</Rimpsyche_ConversationAttempt.logRulesInitiator.rulesStrings.1>
+  <Rimpsyche_ConversationAttempt.logRulesInitiator.rulesStrings.2>r_logentry->[INITIATOR_nameDef] {INITIATOR_gender ? попытался : попыталась} вовлечь [RECIPIENT_nameDef] в разговор о {0}.</Rimpsyche_ConversationAttempt.logRulesInitiator.rulesStrings.2>
+  <Rimpsyche_ConversationAttempt.logRulesInitiator.rulesStrings.3>r_logentry->[INITIATOR_nameDef] {INITIATOR_gender ? попробовал : попробовала} начать беседу с [RECIPIENT_nameDef] о {0}.</Rimpsyche_ConversationAttempt.logRulesInitiator.rulesStrings.3>
 
 </LanguageData>
