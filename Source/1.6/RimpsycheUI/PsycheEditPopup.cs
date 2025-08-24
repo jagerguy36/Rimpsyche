@@ -24,7 +24,7 @@ namespace Maux36.RimPsyche
                 float minWidth = 900f;
                 float minHeight = 400f;
 
-                return new Vector2(Mathf.Max(desiredWidth, minWidth), Mathf.Max(desiredHeight, minHeight));
+                return new Vector2(Mathf.Max(desiredWidth, minWidth) + personalityWidthDiff + interestWidthDiff + facetWidthDiff, Mathf.Max(desiredHeight, minHeight));
             }
         }
         //Shared
@@ -38,29 +38,32 @@ namespace Maux36.RimPsyche
         public static readonly Color barBackgroundColor = new Color(0.2f, 0.2f, 0.2f, 0.5f);
 
         //Facet
+        public static float facetLabelWidth => RimpsycheDatabase.maxFacetLabelWidth;
+        public static float facetWidthDiff => 2f * (facetLabelWidth - 130f);
         public static readonly float facetRowHeight = 28f;
         public static readonly float facetViewHeight = 15f * facetRowHeight;
         public static readonly float facetLabelPadding = 2f;
-        public static readonly float facetLabelWidth = 130f;
         public static readonly float facetBarWidth = 80f;
         public static readonly float facetBarHeight = 4f;
 
         //Personality
+        public static float personalityLabelWidth => RimpsycheDatabase.maxPersonalityLabelWidth;
+        public static float personalityWidthDiff => 2f * (personalityLabelWidth - 130f);
         public static readonly IEnumerable<PersonalityDef> personalityDefList = DefDatabase<PersonalityDef>.AllDefs;
         public static readonly float personalityRowHeight = 32f;
         public static readonly float personalityViewHeight = personalityDefList.Count() * personalityRowHeight;
         public static readonly float personalityLabelPadding = 2f;
-        public static readonly float personalityLabelWidth = 130f;
-        public static readonly float personalityBarWidth = 120f;
+        public static readonly float personalityBarWidth = 100f;
         public static readonly float personalityBarHeight = 4f;
 
         //Interest
+        public static float interestLabelWidth => RimpsycheDatabase.maxInterestLabelWidth;
+        public static float interestWidthDiff => 2f * (interestLabelWidth - 130f);
         public static readonly HashSet<Interest> interestList = RimpsycheDatabase.InterestList;
         public static readonly float interestRowHeight = 32f;
         public static readonly float interestViewHeight = interestList.Count() * interestRowHeight;
         public static readonly float interestLabelPadding = 2f;
-        public static readonly float interestLabelWidth = 130f;
-        public static readonly float interestBarWidth = 120f;
+        public static readonly float interestBarWidth = 100f;
         public static readonly float interestBarHeight = 4f;
 
         public static Vector2 FacetNodeScrollPosition = Vector2.zero;
@@ -103,11 +106,11 @@ namespace Maux36.RimPsyche
             if (compPsyche == null) return;
 
             // Divide window into two horizontal parts: 2:3 ratio
-            float totalWidth = inRect.width;
+            float totalWidth = inRect.width - personalityWidthDiff;
 
-            float leftWidth = totalWidth * 0.375f;
-            float midWidth = totalWidth * 0.375f;
-            float rightWidth = totalWidth * 0.25f;
+            float leftWidth = totalWidth * 340f / 930f;
+            float midWidth = totalWidth * 360f / 930f + personalityWidthDiff;
+            float rightWidth = totalWidth * 230f / 930f + interestWidthDiff;
 
             Rect leftRect = new Rect(inRect.x, inRect.y, leftWidth, inRect.height);
             Rect middleRect = new Rect(leftRect.xMax, inRect.y, midWidth, inRect.height);
@@ -332,12 +335,12 @@ namespace Maux36.RimPsyche
                 }
                 float centerY = rowRect.y + rowRect.height / 2f;
                 // Left label
-                Rect leftRect = new Rect(rowRect.x + personalityLabelPadding, centerY - Text.LineHeight / 2f, interestLabelWidth, Text.LineHeight);
+                Rect leftRect = new Rect(rowRect.x + personalityLabelPadding, centerY - Text.LineHeight / 2f, personalityLabelWidth, Text.LineHeight);
                 Text.Anchor = TextAnchor.MiddleLeft;
                 Widgets.Label(leftRect, leftLabel);
 
                 // Right label
-                Rect rightRect = new Rect(rowRect.xMax - interestLabelWidth - personalityLabelPadding, centerY - Text.LineHeight / 2f, interestLabelWidth, Text.LineHeight);
+                Rect rightRect = new Rect(rowRect.xMax - personalityLabelWidth - personalityLabelPadding, centerY - Text.LineHeight / 2f, personalityLabelWidth, Text.LineHeight);
                 Text.Anchor = TextAnchor.MiddleRight;
                 Widgets.Label(rightRect, rightLabel);
                 if (psycheEnabled && editPersonalityOn)

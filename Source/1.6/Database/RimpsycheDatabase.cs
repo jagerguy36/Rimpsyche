@@ -14,7 +14,9 @@ namespace Maux36.RimPsyche
         public static Dictionary<string, PersonalityDef> PersonalityDict = new();
         public static Dictionary<Pair<string, int>, List<(string, float, float)>> TraitScopeDatabase = new();
         public static Facet[] AllFacets = (Facet[])Enum.GetValues(typeof(Facet));
-
+        public static float maxFacetLabelWidth = 130f;
+        public static float maxInterestLabelWidth = 130f;
+        public static float maxPersonalityLabelWidth = 130f;
 
         public static Dictionary<string, string> IntensityKeysDefault = new Dictionary<string, string>()
         {
@@ -41,12 +43,20 @@ namespace Maux36.RimPsyche
                 conversationMemoryString = "MemoryReportString".Translate();
             }
 
+            foreach (var facet in InterfaceComponents.FacetNotation)
+            {
+                var (_, leftLabel, rightLabel, _, _) = facet.Value;
+                maxFacetLabelWidth = Mathf.Max(maxFacetLabelWidth, 5f + Text.CalcSize(leftLabel.CapitalizeFirst()).x);
+                maxFacetLabelWidth = Mathf.Max(maxFacetLabelWidth, 5f + Text.CalcSize(rightLabel.CapitalizeFirst()).x);
+            }
+
             //Interest and Topic
             foreach (var interestdomain in DefDatabase<InterestDomainDef>.AllDefs)
             {
                 InterestList.AddRange(interestdomain.interests);
                 foreach (var interest in interestdomain.interests)
                 {
+                    maxInterestLabelWidth = Mathf.Max(maxInterestLabelWidth, 5f + Text.CalcSize(interest.label).x);
                     InterestDomainDict.Add(interest, interestdomain);
                     foreach (var topic in interest.topics)
                     {
@@ -67,6 +77,8 @@ namespace Maux36.RimPsyche
             //Scope
             foreach (var personalityDef in DefDatabase<PersonalityDef>.AllDefs)
             {
+                maxPersonalityLabelWidth = Mathf.Max(maxPersonalityLabelWidth, 5f + Text.CalcSize(personalityDef.low.CapitalizeFirst()).x);
+                maxPersonalityLabelWidth = Mathf.Max(maxPersonalityLabelWidth, 5f + Text.CalcSize(personalityDef.high.CapitalizeFirst()).x);
                 //Check Personality weight sum
                 float absoluteWeightSum = 0f;
                 foreach (var fw in personalityDef.scoreWeight)
