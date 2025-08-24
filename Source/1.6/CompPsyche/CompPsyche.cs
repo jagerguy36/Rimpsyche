@@ -16,6 +16,7 @@ namespace Maux36.RimPsyche
         private Pawn_SexualityTracker sexuality;
 
         public int progressTick = -1;
+        public int progressLastCauseIndex = 1;//Skill, Quality, Research
         public float roomRoleFactor = 1f;
         public int organizedMood = -1;
 
@@ -168,6 +169,7 @@ namespace Maux36.RimPsyche
         {
             base.PostExposeData();
             Scribe_Values.Look(ref progressTick, "progressTick", -1);
+            Scribe_Values.Look(ref progressLastCauseIndex, "progressLastCauseIndex", 1);
             Scribe_Values.Look(ref roomRoleFactor, "roomRoleFactor", 1f);
             Scribe_Values.Look(ref organizedMood, "organizedMood", -1);
 
@@ -179,6 +181,20 @@ namespace Maux36.RimPsyche
                 PsycheValueSetup();
                 InterestScoreSetup();
                 SexualitySetup();
+                if (Rimpsyche.DispositionModuleLoaded)
+                {
+                    if (progressTick < 0)
+                    {
+                        progressTick = Find.TickManager.TicksGame;
+                    }
+                }
+                else
+                {
+                    progressTick = -1;
+                    progressLastCauseIndex = 1;
+                    roomRoleFactor = 1f;
+                    organizedMood = -1;
+                }
             }
         }
 
