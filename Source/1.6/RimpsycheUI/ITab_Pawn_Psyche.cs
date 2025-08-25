@@ -9,7 +9,7 @@ namespace Maux36.RimPsyche
     {
         public ITab_Pawn_Psyche()
         {
-            size = new Vector2(200f, 200f);
+            size = new Vector2(500, 350f);
             labelKey = "TabPsyche";
             tutorTag = "Psyche";
         }
@@ -43,11 +43,12 @@ namespace Maux36.RimPsyche
         {
             // Get pawn
             Pawn pawn = FillTabPawnHook(PawnToShowInfoAbout);
+            CompPsyche compPsyche = pawn.compPsyche();
             Rect psycheRect = PsycheInfoCard.PsycheRect;
+            psycheRect.width -= (compPsyche.Enabled && PsycheInfoCard.rightPanelVisible ? 0f : PsycheInfoCard.rightPanelWidthActual);
             size = psycheRect.size;
-            size.x -= (PsycheInfoCard.rightPanelVisible ? 0f : PsycheInfoCard.rightPanelWidthConstant);
             GUI.BeginGroup(psycheRect);
-            PsycheInfoCard.DrawPsycheCard(psycheRect, pawn);
+            PsycheInfoCard.DrawPsycheCard(psycheRect, pawn, compPsyche);
             GUI.EndGroup();
         }
 

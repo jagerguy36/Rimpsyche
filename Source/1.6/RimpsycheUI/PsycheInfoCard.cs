@@ -11,7 +11,8 @@ namespace Maux36.RimPsyche
     public class PsycheInfoCard
     {
         // Constants and style settings
-        public static Rect PsycheRect = new Rect(0f, 0f, Mathf.Clamp(UI.screenWidth * 0.5f, 500f, 600f) , Mathf.Clamp(UI.screenHeight*0.5f,350f, 480f));
+        // width: 350 | 220
+        public static Rect PsycheRect = new Rect(0f, 0f, Mathf.Clamp(UI.screenWidth * 0.5f, 570f, UI.screenWidth * 0.8f)+personalityWidthDiff+interestWidthDiff, Mathf.Clamp(UI.screenHeight*0.5f,350f, 480f));
         public static GUIStyle style;
         public static Vector2 PersonalityScrollPosition = Vector2.zero;
         public static Vector2 InterestScrollPosition = Vector2.zero;
@@ -22,7 +23,8 @@ namespace Maux36.RimPsyche
         public static Color radarSpokeColor = new Color(0.5f, 0.5f, 0.5f, 0.3f);
 
         public static readonly float expandButtonSize = 8f;
-        public static readonly float rightPanelWidthConstant = 250f;
+        public static readonly float rightPanelWidthConstant = 220f;
+        public static float rightPanelWidthActual => rightPanelWidthConstant + interestWidthDiff;
         public static readonly Color LineColor = new Color(97f, 108f, 122f, 0.25f);
         public static readonly float headerHeight = 35f;
         public static readonly float labelPadding = 2f;
@@ -33,10 +35,20 @@ namespace Maux36.RimPsyche
         private static readonly float RadarChartPadding = 10f; // Padding from the header text
         private static Material _lineMaterial;
 
-        public static readonly float personalityLabelWidth = 130f;
+        public static float personalityLabelWidth => RimpsycheDatabase.maxPersonalityLabelWidth;
+        public static float personalityWidthDiff => 2f * (personalityLabelWidth - 130f);
         public static readonly float personalityRowHeight = 28f;
         public static readonly float personalityBarWidth = 80f;
         public static readonly float personalityBarHeight = 4f;
+        
+        public static float interestLabelWidth => RimpsycheDatabase.maxInterestLabelWidth;
+        public static float interestWidthDiff => (interestLabelWidth - 130f);
+        public static readonly float interestRowHeight = 28f;
+        public static readonly float interestBarHeight = 4f;
+
+        //Options
+        public static bool rightPanelVisible = false;
+        public static byte showMode = 0;
 
         static PsycheInfoCard()
         {
@@ -97,18 +109,10 @@ namespace Maux36.RimPsyche
             GenerateSortedInterestData(compPsyche, currentPawn);
         }
 
-
-        //Options
-        public static bool rightPanelVisible = false;
-        public static byte showMode = 0;
-
-
-        public static void DrawPsycheCard(Rect totalRect, Pawn pawn)
+        public static void DrawPsycheCard(Rect totalRect, Pawn pawn, CompPsyche compPsyche)
         {
-            var compPsyche = pawn.compPsyche();
             var psycheEnabled = compPsyche.Enabled;
             bool showSexuality = compPsyche.Sexuality.ShowOnUI();
-            totalRect.width -= (psycheEnabled && rightPanelVisible ? 0f : rightPanelWidthConstant);
 
             // Save state           
             TextAnchor oldAnchor = Text.Anchor;
@@ -124,7 +128,7 @@ namespace Maux36.RimPsyche
             totalRect.position = Vector2.zero;
 
             // Layout constants
-            float rightPanelWidth = rightPanelVisible ? rightPanelWidthConstant : 0f;
+            float rightPanelWidth = rightPanelVisible ? rightPanelWidthActual : 0f;
             float rightTopPanelHeight = 0f;
             if (showSexuality)
             {
@@ -721,13 +725,6 @@ namespace Maux36.RimPsyche
             Text.Anchor = oldAnchor;
             Text.Font = oldFont;
         }
-
-
-
-
-        public static readonly float interestLabelWidth = 150f;
-        public static readonly float interestRowHeight = 28f;
-        public static readonly float interestBarHeight = 4f;
 
         public static void DrawInterestBox(Rect interestRect, CompPsyche compPsyche, Pawn pawn)
         {

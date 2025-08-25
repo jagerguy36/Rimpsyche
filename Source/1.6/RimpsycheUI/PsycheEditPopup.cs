@@ -58,7 +58,7 @@ namespace Maux36.RimPsyche
 
         //Interest
         public static float interestLabelWidth => RimpsycheDatabase.maxInterestLabelWidth;
-        public static float interestWidthDiff => 2f * (interestLabelWidth - 130f);
+        public static float interestWidthDiff => (interestLabelWidth - 130f);
         public static readonly HashSet<Interest> interestList = RimpsycheDatabase.InterestList;
         public static readonly float interestRowHeight = 32f;
         public static readonly float interestViewHeight = interestList.Count() * interestRowHeight;
