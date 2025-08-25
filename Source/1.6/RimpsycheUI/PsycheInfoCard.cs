@@ -11,8 +11,8 @@ namespace Maux36.RimPsyche
     public class PsycheInfoCard
     {
         // Constants and style settings
-        // width: 350 | 220
-        public static Rect PsycheRect = new Rect(0f, 0f, Mathf.Clamp(UI.screenWidth * 0.5f, 570f, UI.screenWidth * 0.8f)+personalityWidthDiff+interestWidthDiff, Mathf.Clamp(UI.screenHeight*0.5f,350f, 480f));
+        // width: 380 | 220
+        public static Rect PsycheRect = new Rect(0f, 0f, Mathf.Min(600f + personalityWidthDiff + interestWidthDiff,  UI.screenWidth * 0.8f), Mathf.Clamp(UI.screenHeight*0.5f,350f, 480f));
         public static GUIStyle style;
         public static Vector2 PersonalityScrollPosition = Vector2.zero;
         public static Vector2 InterestScrollPosition = Vector2.zero;
