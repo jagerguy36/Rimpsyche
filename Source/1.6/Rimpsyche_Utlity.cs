@@ -209,6 +209,17 @@ namespace Maux36.RimPsyche
         }
 
         [DebugAction("Pawns", actionType = DebugActionType.ToolMapForPawns, allowedGameStates = AllowedGameStates.PlayingOnMap, displayPriority = 1000)]
+        public static void LogPawnPersonality(Pawn pawn)
+        {
+            var compPsyche = pawn.compPsyche();
+            if (compPsyche != null)
+            {
+                string message = string.Join("\n", DefDatabase<PersonalityDef>.AllDefs.Select(f => $"{f.label}: {compPsyche.Personality.GetPersonality(f)}"));
+                Log.Message($"Personality of {pawn.Name}\n\n{message}");
+            }
+        }
+
+        [DebugAction("Pawns", actionType = DebugActionType.ToolMapForPawns, allowedGameStates = AllowedGameStates.PlayingOnMap, displayPriority = 1000)]
         public static void LogPawnInterest(Pawn pawn)
         {
             var compPsyche = pawn.compPsyche();
