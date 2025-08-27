@@ -191,11 +191,11 @@
   </Maux36.RimPsyche.PersonalityDef>
 
   <Maux36.RimPsyche.PersonalityDef>
-    <defName>Rimpsyche_Prudishness</defName>
-    <label>prudishness</label>
-    <high>prudish</high>
+    <defName>Rimpsyche_Appropriateness</defName>
+    <label>propriety</label>
+    <high>modest</high>
     <low>uninhibited</low>
-    <description>Reflects how a person responds to explicit content. Prudish individuals feel uneasy or disapproving in situations involving nudity or provocative topics, while uninhibited individuals are more open and unbothered by them.</description>
+    <description>Reflects how strongly a person values decency and decorum. Modest individuals feel discomfort or disapproval when confronted with nudity, vulgarity, or breaches of etiquette. Uninhibited individuals are unbothered by indecency or provocative behavior.</description>
     <scoreWeight>
       <li>
         <facet>Curiosity</facet>

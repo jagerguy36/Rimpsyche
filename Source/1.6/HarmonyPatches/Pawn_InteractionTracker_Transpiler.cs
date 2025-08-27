@@ -83,7 +83,7 @@ namespace Maux36.RimPsyche
                             yield return new CodeInstruction(OpCodes.Beq, skiplabel);
                             yield return new CodeInstruction(OpCodes.Br, normallabel);
 
-                            yield return new CodeInstruction(OpCodes.Ldc_I4_1).WithLabels(skiplabel); ;
+                            yield return new CodeInstruction(OpCodes.Ldc_I4_1).WithLabels(skiplabel);
                             yield return new CodeInstruction(OpCodes.Ret);
                             yield return new CodeInstruction(OpCodes.Nop).WithLabels(normallabel);
                             yield return new CodeInstruction(OpCodes.Ldarg_2);

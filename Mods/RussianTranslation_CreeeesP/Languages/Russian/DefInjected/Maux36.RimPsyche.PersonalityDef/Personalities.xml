@@ -31,10 +31,10 @@
   <Rimpsyche_Inquisitiveness.low>Равнодушный</Rimpsyche_Inquisitiveness.low>
   <Rimpsyche_Inquisitiveness.description>Показывает, насколько человек любопытен к окружающему миру. Любознательные задают вопросы, ищут знания и обсуждают новые темы. Равнодушные интересуются только тем, что их непосредственно касается.</Rimpsyche_Inquisitiveness.description>
 
-  <Rimpsyche_Prudishness.label>Брезгливость</Rimpsyche_Prudishness.label>
-  <Rimpsyche_Prudishness.high>Брезгливый</Rimpsyche_Prudishness.high>
-  <Rimpsyche_Prudishness.low>Раскрепощённый</Rimpsyche_Prudishness.low>
-  <Rimpsyche_Prudishness.description>Отражает реакцию человека на откровенный контент. Брезгливые чувствуют дискомфорт при наготе или провокационных темах. Раскрепощённые относятся к этому спокойно.</Rimpsyche_Prudishness.description>
+  <Rimpsyche_Appropriateness.label>Брезгливость</Rimpsyche_Appropriateness.label>
+  <Rimpsyche_Appropriateness.high>Брезгливый</Rimpsyche_Appropriateness.high>
+  <Rimpsyche_Appropriateness.low>Раскрепощённый</Rimpsyche_Appropriateness.low>
+  <Rimpsyche_Appropriateness.description>Отражает реакцию человека на откровенный контент. Брезгливые чувствуют дискомфорт при наготе или провокационных темах. Раскрепощённые относятся к этому спокойно.</Rimpsyche_Appropriateness.description>
 
   <Rimpsyche_Aggressiveness.label>Агрессивность</Rimpsyche_Aggressiveness.label>
   <Rimpsyche_Aggressiveness.high>Агрессивный</Rimpsyche_Aggressiveness.high>

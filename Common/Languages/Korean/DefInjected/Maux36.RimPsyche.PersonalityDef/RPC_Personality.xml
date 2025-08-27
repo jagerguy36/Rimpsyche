@@ -30,10 +30,10 @@
   <Rimpsyche_Inquisitiveness.low>무관심한</Rimpsyche_Inquisitiveness.low>
   <Rimpsyche_Inquisitiveness.description>주변 세계에 대해 얼마나 호기심을 가지는지를 나타냅니다. 호기심 많은 사람은 질문을 던지고 새로인 지식을 얻으려 하며, 평소 관심사 밖의 주제에 대해서도 대화를 이어가는 경향이 있습니다. 반면, 무관심한 사람은 자신의 관심사 외에는 별다른 흥미를 보이지 않습니다.</Rimpsyche_Inquisitiveness.description>
 
-  <Rimpsyche_Prudishness.label>수줍음</Rimpsyche_Prudishness.label>
-  <Rimpsyche_Prudishness.high>수줍은</Rimpsyche_Prudishness.high>
-  <Rimpsyche_Prudishness.low>거리낌 없는</Rimpsyche_Prudishness.low>
-  <Rimpsyche_Prudishness.description>선정적인 주제에 어떻게 반응하는지를 나타냅니다. 수줍음은은 사람은 노출이 있고 자극적인 주제를 불편해 하거나 꺼려하는 반면, 거리낌 없는 사람은 불편함 없이 열린 태도로 이를 받아들입니다.</Rimpsyche_Prudishness.description>
+  <Rimpsyche_Appropriateness.label>품행</Rimpsyche_Appropriateness.label>
+  <Rimpsyche_Appropriateness.high>정숙함</Rimpsyche_Appropriateness.high>
+  <Rimpsyche_Appropriateness.low>거리낌 없는</Rimpsyche_Appropriateness.low>
+  <Rimpsyche_Appropriateness.description>예의와 사회적 품위를 얼마나 중요시하는지를 나타냅니다. 정숙한 사람은 노출, 외설적인 언어, 또는 예의에 어긋나는 행동 불편해 하거나 꺼려하는 반면, 거리낌 없는 사람은 그런 부적절한 행동이나 도발적인 태도에 대해 신경 쓰지 않습니다.</Rimpsyche_Appropriateness.description>
 
   <Rimpsyche_Aggressiveness.label>공격성</Rimpsyche_Aggressiveness.label>
   <Rimpsyche_Aggressiveness.high>공격적인</Rimpsyche_Aggressiveness.high>

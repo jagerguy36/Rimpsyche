@@ -19,6 +19,7 @@ namespace Maux36.RimPsyche
         public int progressLastCauseIndex = 1;//Skill, Quality, Research
         public float roomRoleFactor = 1f;
         public int organizedMood = -1;
+        public int lastResilientSpiritTick = -3600000;
 
         private Pawn parentPawn
         {
@@ -172,6 +173,7 @@ namespace Maux36.RimPsyche
             Scribe_Values.Look(ref progressLastCauseIndex, "progressLastCauseIndex", 1);
             Scribe_Values.Look(ref roomRoleFactor, "roomRoleFactor", 1f);
             Scribe_Values.Look(ref organizedMood, "organizedMood", -1);
+            Scribe_Values.Look(ref lastResilientSpiritTick, "lastResilientSpiritTick", -3600000);
 
             Scribe_Deep.Look(ref personality, "personality", new object[] { parent as Pawn });
             Scribe_Deep.Look(ref interests, "interests", new object[] { parent as Pawn });
