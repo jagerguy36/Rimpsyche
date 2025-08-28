@@ -201,7 +201,7 @@ namespace Maux36.RimPsyche
             var compPsyche = pawn.compPsyche();
             if (compPsyche?.Enabled == true)
             {
-                var sortedPersonality = DefDatabase<PersonalityDef>.AllDefs.OrderByDescending(f => Math.Abs(compPsyche.Personality.GetPersonality(f))).Select(f => $"{f.label.CapitalizeFirst()}: {compPsyche.Personality.GetPersonality(f)}"); // Format each trait
+                var sortedPersonality = DefDatabase<PersonalityDef>.AllDefs.OrderByDescending(f => Math.Abs(compPsyche.Personality.GetPersonality(f))).Select(f => $"{f.label.CapitalizeFirst()}: {compPsyche.Personality.GetPersonality(f).ToString("F2")}"); // Format each trait
                 count = Mathf.Min(count, sortedPersonality.Count());
                 if (count == 0) count = sortedPersonality.Count();
                 return string.Join(", ", [.. sortedPersonality.Take(count)]);
@@ -234,11 +234,11 @@ namespace Maux36.RimPsyche
 
             if (LanguageDatabase.activeLanguage.HaveTextForKey(intensityKey))
             {
-                return intensityKey.Translate(personalityName);
+                return intensityKey.Translate(personalityName) + $" ({(absValue * 100f).ToString("F0")}/100)";
             }
             else
             {
-                return RimpsycheDatabase.IntensityKeysDefault[intensityKey] + " " + personalityName;
+                return RimpsycheDatabase.IntensityKeysDefault[intensityKey] + $" {personalityName} ({(absValue * 100f).ToString("F0")}/100)";
             }
         }
         public static string GetPersonalityDescriptionWord(Pawn pawn, int count = 0)
