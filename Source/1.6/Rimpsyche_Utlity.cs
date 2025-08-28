@@ -195,7 +195,95 @@ namespace Maux36.RimPsyche
             return Mathf.Clamp01(socialFightBaseChance);
         }
 
+        //For Use of LLM
+        public static string GetPersonalityDescriptionNumber(Pawn pawn, int count = 0)
+        {
+            var compPsyche = pawn.compPsyche();
+            if (compPsyche?.Enabled == true)
+            {
+                var sortedPersonality = DefDatabase<PersonalityDef>.AllDefs.OrderByDescending(f => Math.Abs(compPsyche.Personality.GetPersonality(f))).Select(f => $"{f.label.CapitalizeFirst()}: {compPsyche.Personality.GetPersonality(f)}"); // Format each trait
+                count = Mathf.Min(count, sortedPersonality.Count());
+                if (count == 0) count = sortedPersonality.Count();
+                return string.Join(", ", [.. sortedPersonality.Take(count)]);
+            }
+            return string.Empty;
+        }
+
+        private static string PersonalityInWords(float value, string personalityLow, string personalityHigh)
+        {
+            float absValue = Mathf.Abs(value);
+            string intensityKey = "RimPsycheIntensityNeutral";
+            if (absValue >= 0.75f)
+            {
+                intensityKey = "RimPsycheIntensityExtremely";
+            }
+            else if (absValue >= 0.5f)
+            {
+                intensityKey = "RimPsycheIntensityVery";
+            }
+            else if (absValue >= 0.25f)
+            {
+                intensityKey = "RimPsycheIntensitySomewhat";
+            }
+            else if (absValue > 0f)
+            {
+                intensityKey = "RimPsycheIntensityMarginally";
+            }
+
+            string personalityName = (value >= 0) ? personalityHigh : personalityLow;
+
+            if (LanguageDatabase.activeLanguage.HaveTextForKey(intensityKey))
+            {
+                return intensityKey.Translate(personalityName);
+            }
+            else
+            {
+                return RimpsycheDatabase.IntensityKeysDefault[intensityKey] + " " + personalityName;
+            }
+        }
+        public static string GetPersonalityDescriptionWord(Pawn pawn, int count = 0)
+        {
+            var compPsyche = pawn.compPsyche();
+            if (compPsyche?.Enabled == true)
+            {
+                var sortedPersonality = DefDatabase<PersonalityDef>.AllDefs.OrderByDescending(p => Math.Abs(compPsyche.Personality.GetPersonality(p))).Select(p => PersonalityInWords(compPsyche.Personality.GetPersonality(p), p.low, p.high)); // Format each trait
+                count = Mathf.Min(count, sortedPersonality.Count());
+                if (count == 0) count = sortedPersonality.Count();
+                return string.Join(", ", [.. sortedPersonality.Take(count)]);
+            }
+            return string.Empty;
+        }
+
+
         //Debug Actions
+
+        [DebugAction("Pawns", actionType = DebugActionType.ToolMapForPawns, allowedGameStates = AllowedGameStates.PlayingOnMap, displayPriority = 1000)]
+        public static void PersonalityFull_LLM(Pawn pawn)
+        {
+            var message = GetPersonalityDescriptionNumber(pawn, 0) + " (Range: -1 ~ 1)";
+            Log.Message($"RimPsyche info for pawn {pawn.Name}\n\n{message}\n\n");
+        }
+
+        [DebugAction("Pawns", actionType = DebugActionType.ToolMapForPawns, allowedGameStates = AllowedGameStates.PlayingOnMap, displayPriority = 1000)]
+        public static void PersonalityShort_LLM(Pawn pawn)
+        {
+            var message = GetPersonalityDescriptionNumber(pawn, 5) + " (Range: -1 ~ 1)";
+            Log.Message($"RimPsyche info for pawn {pawn.Name}\n\n{message}\n\n");
+        }
+
+        [DebugAction("Pawns", actionType = DebugActionType.ToolMapForPawns, allowedGameStates = AllowedGameStates.PlayingOnMap, displayPriority = 1000)]
+        public static void PersonalityWordsFull_LLM(Pawn pawn)
+        {
+            var message = GetPersonalityDescriptionWord(pawn);
+            Log.Message($"RimPsyche info for pawn {pawn.Name}\n\n{message}\n\n");
+        }
+
+        [DebugAction("Pawns", actionType = DebugActionType.ToolMapForPawns, allowedGameStates = AllowedGameStates.PlayingOnMap, displayPriority = 1000)]
+        public static void PersonalityWordsShort_LLM(Pawn pawn)
+        {
+            var message = GetPersonalityDescriptionWord(pawn, 5);
+            Log.Message($"RimPsyche info for pawn {pawn.Name}\n\n{message}\n\n");
+        }
 
         [DebugAction("Pawns", actionType = DebugActionType.ToolMapForPawns, allowedGameStates = AllowedGameStates.PlayingOnMap, displayPriority = 1000)]
         public static void LogPawnPsyche(Pawn pawn)
