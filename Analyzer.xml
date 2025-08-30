@@ -2,9 +2,8 @@
     <RimPsyche>
         <Types>
             <li>Maux36.RimPsyche.InteractionWorker_StartConversation</li>
-        </Types>
-        <Types>
             <li>Maux36.RimPsyche.CompPsyche</li>
+            <li>Maux36.RimPsyche.Pawn_PersonalityTracker</li>
         </Types>
     </RimPsyche>
 </Analyzer>

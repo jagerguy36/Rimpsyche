@@ -123,7 +123,8 @@ namespace Maux36.RimPsyche
                 float compassion = tracker.GetPersonality(PersonalityDefOf.Rimpsyche_Compassion);
                 float compassionMult = compassion > 0 ? 1f - compassion * 0.5f : 1f; //0.5~1
                 return aggressiveness * emotionality * compassionMult;// 0.24~1.68
-            }
+            },
+            RimpsycheFormulaManager.FormulaIdDict
         );
 
 

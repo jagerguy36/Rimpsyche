@@ -37,8 +37,8 @@ namespace Maux36.RimPsyche
                 num *= 2f; //Reduce influence because tact is already influencing the outcome
             }
             //Vanilla curve range 4 ~ 0.4
-            num *= initPsyche.Personality.Evaluate(InitNegativeChanceMultiplier); //3.85~0.45
-            num *= reciPsyche.Personality.Evaluate(reciNegativeChanceMultiplier); //1.1~0.9
+            num *= initPsyche.Evaluate(InitNegativeChanceMultiplier); //3.85~0.45
+            num *= reciPsyche.Evaluate(reciNegativeChanceMultiplier); //1.1~0.9
             var initPlayfulness = initPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Playfulness);
             var reciPlayfulness = reciPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Playfulness);
             if(initPlayfulness > 0f && reciPlayfulness < 0f)
@@ -60,7 +60,8 @@ namespace Maux36.RimPsyche
                 intentFactor = intentFactor > 0f ? 1f + (intentFactor / 2f) : 1f + (intentFactor / 10f); // 0.5~3.5
                 float deliveryFactor = 1f - tracker.GetPersonality(PersonalityDefOf.Rimpsyche_Tact)*0.1f; // 0.9~1.1
                 return intentFactor * deliveryFactor;
-            }
+            },
+            RimpsycheFormulaManager.FormulaIdDict
         );
 
         public static RimpsycheFormula reciNegativeChanceMultiplier = new(
@@ -71,7 +72,8 @@ namespace Maux36.RimPsyche
                 //securityFactor = securityFactor > 0f ? 1f + (securityFactor / 30f) : 1f + (securityFactor / 10f); // 0.9~1.1
                 securityFactor = 1f + securityFactor / 30f;
                 return securityFactor;
-            }
+            },
+            RimpsycheFormulaManager.FormulaIdDict
         );
     }
 }

@@ -74,22 +74,6 @@ namespace Maux36.RimPsyche
             }
         }
 
-        private Dictionary<string, float> EvaluationCache = new Dictionary<string, float>();
-        public float Evaluate(RimpsycheFormula rimpsycheMultiplier)
-        {
-            if (EvaluationCache.TryGetValue(rimpsycheMultiplier.formulaName, out float cachedValue))
-            {
-                return cachedValue;
-            }
-            else
-            {
-                float calculatedValue = rimpsycheMultiplier.calculationFunction.Invoke(this);
-                EvaluationCache[rimpsycheMultiplier.formulaName] = calculatedValue;
-                //Log.Message($"calculating {pawn.Name}'s {rimpsycheMultiplier.formulaName} : {calculatedValue} || {nameof(rimpsycheMultiplier)}");
-                return calculatedValue;
-            }
-        }
-
         public float GetPersonality(string personalityDefName) //-1~1
         {
             if (personalityCache.TryGetValue(personalityDefName, out float cachedValue))
@@ -728,9 +712,9 @@ namespace Maux36.RimPsyche
         public void DirtyCache()
         {
             personalityCache.Clear();
-            EvaluationCache.Clear();
             if (compPsyche != null)
             {
+                compPsyche.EvaluationCache.Clear();
                 compPsyche.Interests?.interestOffset.Clear();
             }
         }

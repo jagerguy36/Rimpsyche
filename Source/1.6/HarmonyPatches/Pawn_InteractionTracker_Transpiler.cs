@@ -42,7 +42,7 @@ namespace Maux36.RimPsyche
                 {
                     return original;
                 }
-                float socialInteractionMult = psyche.Personality.Evaluate(SocialInteractionIntervalMultiplier);
+                float socialInteractionMult = psyche.Evaluate(SocialInteractionIntervalMultiplier);
                 int result = (int)(original * socialInteractionMult);
                 return result;
             }
@@ -55,7 +55,8 @@ namespace Maux36.RimPsyche
                 float mult = 1f;
                 float sociability = tracker.GetPersonality(PersonalityDefOf.Rimpsyche_Sociability);
                 return mult * (1f - 0.7f * sociability);
-            }
+            },
+            RimpsycheFormulaManager.FormulaIdDict
         );
 
         [HarmonyPatch(typeof(Pawn_InteractionsTracker), nameof(Pawn_InteractionsTracker.TryInteractWith))]

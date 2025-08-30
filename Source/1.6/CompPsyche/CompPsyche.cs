@@ -20,7 +20,7 @@ namespace Maux36.RimPsyche
         public float roomRoleFactor = 1f;
         public int organizedMood = -1;
         public int lastResilientSpiritTick = -3600000;
-
+        public bool IsAdult => parentPawn.DevelopmentalStage == DevelopmentalStage.Adult;
         private Pawn parentPawn
         {
             get
@@ -90,6 +90,24 @@ namespace Maux36.RimPsyche
         {
             psycheEnabledInternal = null;
         }
+
+
+        public readonly Dictionary<int, float> EvaluationCache = new();
+        public float Evaluate(RimpsycheFormula rimpsycheMultiplier)
+        {
+            if (EvaluationCache.TryGetValue(rimpsycheMultiplier.formulaId, out float cachedValue))
+            {
+                return cachedValue;
+            }
+            else
+            {
+                float calculatedValue = rimpsycheMultiplier.calculationFunction.Invoke(this.Personality);
+                EvaluationCache[rimpsycheMultiplier.formulaId] = calculatedValue;
+                //Log.Message($"calculating {pawn.Name}'s {rimpsycheMultiplier.formulaName} : {calculatedValue} || {nameof(rimpsycheMultiplier)}");
+                return calculatedValue;
+            }
+        }
+
 
         public void PsycheValueSetup()
         {
