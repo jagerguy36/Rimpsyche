@@ -32,13 +32,13 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="0Harmony, Version=2.3.6.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\Lib.Harmony.2.3.6\lib\net48\0Harmony.dll</HintPath>
+    <Reference Include="0Harmony, Version=2.4.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\Lib.Harmony.2.4.1\lib\net48\0Harmony.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="0PrepatcherAPI">
       <HintPath>..\..\..\Prepatcher\Assemblies\0PrepatcherAPI.dll</HintPath>
-      <Private>False</Private>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Assembly-CSharp">
       <HintPath>..\..\..\..\RimWorldWin64_Data\Managed\Assembly-CSharp.dll</HintPath>
