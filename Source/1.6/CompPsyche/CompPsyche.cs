@@ -10,7 +10,28 @@ namespace Maux36.RimPsyche
     {
         //Internals
         private Pawn parentPawnInt = null;
+        private Pawn parentPawn
+        {
+            get
+            {
+                parentPawnInt ??= parent as Pawn;
+                return parentPawnInt;
+            }
+        }
         private bool? psycheEnabledInternal = null;
+        public bool Enabled
+        {
+            get
+            {
+                psycheEnabledInternal ??= CheckEnabled();
+                if (psycheEnabledInternal == true)
+                {
+                    return !parentPawn.IsSubhuman;
+                }
+                return false;
+            }
+        }
+        public bool IsAdult => parentPawn.DevelopmentalStage == DevelopmentalStage.Adult;
         private Pawn_PersonalityTracker personality;
         private Pawn_InterestTracker interests;
         private Pawn_SexualityTracker sexuality;
@@ -27,27 +48,45 @@ namespace Maux36.RimPsyche
         //Resilience
         public int lastResilientSpiritTick = -3600000;
 
-        public bool IsAdult => parentPawn.DevelopmentalStage == DevelopmentalStage.Adult;
-        private Pawn parentPawn
+        //Shame
+        public int lastOverwhelmedTick = -3600000;
+        public Dictionary<ThoughtDef, int> activeShameThoughts = null;
+        public Dictionary<ThoughtDef, int> ShameThoughts
         {
             get
             {
-                parentPawnInt ??= parent as Pawn;
-                return parentPawnInt;
-            }
-        }
-        public bool Enabled
-        {
-            get
-            {
-                psycheEnabledInternal ??= CheckEnabled();
-                if (psycheEnabledInternal == true)
+                if(activeShameThoughts == null)
                 {
-                    return !parentPawn.IsSubhuman;
+                    RefreshShameThoughts();
                 }
-                return false;
+                return activeShameThoughts;
             }
         }
+        public void RefreshShameThoughts()
+        {
+            activeShameThoughts = new();
+            var allMoodThoughts = new List<Thought>();
+            parentPawn.needs.mood.thoughts.GetAllMoodThoughts(allMoodThoughts);
+            for (int i = 0; i < allMoodThoughts.Count; i++)
+            {
+                if (allMoodThoughts[i] is Thought_Situational_Shame shamethought)
+                {
+                    if (activeShameThoughts.TryGetValue(shamethought.def, out int count))
+                    {
+                        activeShameThoughts[shamethought.def] = count + 1;
+                    }
+                    else
+                    {
+                        activeShameThoughts[shamethought.def] = 1;
+                    }
+                }
+            }
+        }
+        public void CleanShame()
+        {
+            activeShameThoughts = null;
+        }
+
         public Pawn_PersonalityTracker Personality
         {
             get
@@ -200,6 +239,8 @@ namespace Maux36.RimPsyche
             Scribe_Values.Look(ref roomRoleFactor, "roomRoleFactor", 1f);
             Scribe_Values.Look(ref organizedMood, "organizedMood", -1);
             Scribe_Values.Look(ref lastResilientSpiritTick, "lastResilientSpiritTick", -3600000);
+            Scribe_Values.Look(ref lastOverwhelmedTick, "lastOverwhelmedTick", -3600000);
+            Scribe_Collections.Look(ref activeShameThoughts, "activeShameThoughts", LookMode.Value, LookMode.Value);
 
             Scribe_Deep.Look(ref personality, "personality", new object[] { parent as Pawn });
             Scribe_Deep.Look(ref interests, "interests", new object[] { parent as Pawn });
@@ -223,6 +264,9 @@ namespace Maux36.RimPsyche
                     progressLastCauseIndex = 1;
                     roomRoleFactor = 1f;
                     organizedMood = -1;
+                    //lastResilientSpiritTick = -3600000; Keep this in memory
+                    //lastOverwhelmedTick = -3600000; Keep this in memory
+                    activeShameThoughts = null;
                 }
             }
         }

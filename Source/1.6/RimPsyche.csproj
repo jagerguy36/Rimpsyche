@@ -106,6 +106,7 @@
     <Compile Include="RimpsycheUI\ITab_Pawn_Psyche.cs" />
     <Compile Include="RimpsycheUI\PsycheInfoCard.cs" />
     <Compile Include="RimpsycheUI\PsycheEditPopup.cs" />
+    <Compile Include="Thought\Thought_Situational_Shame.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
