@@ -240,7 +240,6 @@ namespace Maux36.RimPsyche
             Scribe_Values.Look(ref organizedMood, "organizedMood", -1);
             Scribe_Values.Look(ref lastResilientSpiritTick, "lastResilientSpiritTick", -3600000);
             Scribe_Values.Look(ref lastOverwhelmedTick, "lastOverwhelmedTick", -3600000);
-            Scribe_Collections.Look(ref activeShameThoughts, "activeShameThoughts", LookMode.Value, LookMode.Value);
 
             Scribe_Deep.Look(ref personality, "personality", new object[] { parent as Pawn });
             Scribe_Deep.Look(ref interests, "interests", new object[] { parent as Pawn });
