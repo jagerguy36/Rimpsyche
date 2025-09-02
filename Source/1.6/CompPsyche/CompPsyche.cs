@@ -10,7 +10,7 @@ namespace Maux36.RimPsyche
     {
         //Internals
         private Pawn parentPawnInt = null;
-        private Pawn parentPawn
+        public Pawn parentPawn
         {
             get
             {
@@ -49,7 +49,8 @@ namespace Maux36.RimPsyche
         public int lastResilientSpiritTick = -3600000;
 
         //Shame
-        public int lastOverwhelmedTick = -3600000;
+        public float shame = 0f;
+        public int overhwelmRecoveryTick = -3600000;
         public Dictionary<ThoughtDef, int> activeShameThoughts = null;
         public Dictionary<ThoughtDef, int> ShameThoughts
         {
@@ -239,7 +240,8 @@ namespace Maux36.RimPsyche
             Scribe_Values.Look(ref roomRoleFactor, "roomRoleFactor", 1f);
             Scribe_Values.Look(ref organizedMood, "organizedMood", -1);
             Scribe_Values.Look(ref lastResilientSpiritTick, "lastResilientSpiritTick", -3600000);
-            Scribe_Values.Look(ref lastOverwhelmedTick, "lastOverwhelmedTick", -3600000);
+            Scribe_Values.Look(ref shame, "shame", 0f);
+            Scribe_Values.Look(ref overhwelmRecoveryTick, "overhwelmRecoveryTick", -3600000);
 
             Scribe_Deep.Look(ref personality, "personality", new object[] { parent as Pawn });
             Scribe_Deep.Look(ref interests, "interests", new object[] { parent as Pawn });
