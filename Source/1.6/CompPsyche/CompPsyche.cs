@@ -50,7 +50,7 @@ namespace Maux36.RimPsyche
 
         //Shame
         public float shame = 0f;
-        public int overhwelmRecoveryTick = -3600000;
+        public bool isOverwhelmed = false;
         public Dictionary<ThoughtDef, int> activeShameThoughts = null;
         public Dictionary<ThoughtDef, int> ShameThoughts
         {
@@ -241,7 +241,7 @@ namespace Maux36.RimPsyche
             Scribe_Values.Look(ref organizedMood, "organizedMood", -1);
             Scribe_Values.Look(ref lastResilientSpiritTick, "lastResilientSpiritTick", -3600000);
             Scribe_Values.Look(ref shame, "shame", 0f);
-            Scribe_Values.Look(ref overhwelmRecoveryTick, "overhwelmRecoveryTick", -3600000);
+            Scribe_Values.Look(ref isOverwhelmed, "isOverwhelmed", false);
 
             Scribe_Deep.Look(ref personality, "personality", new object[] { parent as Pawn });
             Scribe_Deep.Look(ref interests, "interests", new object[] { parent as Pawn });
@@ -266,7 +266,7 @@ namespace Maux36.RimPsyche
                     roomRoleFactor = 1f;
                     organizedMood = -1;
                     //lastResilientSpiritTick = -3600000; Keep this in memory
-                    //lastOverwhelmedTick = -3600000; Keep this in memory
+                    isOverwhelmed = false;
                     activeShameThoughts = null;
                 }
             }
