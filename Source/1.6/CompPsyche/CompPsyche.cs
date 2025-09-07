@@ -267,7 +267,6 @@ namespace Maux36.RimPsyche
                     organizedMood = -1;
                     //lastResilientSpiritTick = -3600000; Keep this in memory
                     isOverwhelmed = false;
-                    activeShameThoughts = null;
                 }
             }
         }

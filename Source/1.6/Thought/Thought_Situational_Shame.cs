@@ -18,14 +18,17 @@ namespace Maux36.RimPsyche
                         compPsyche.CleanShame();
                         return;
                     }
-                    var shame = compPsyche.ShameThoughts;
-                    if (shame.TryGetValue(def, out int count))
+                    var shame = compPsyche.activeShameThoughts;
+                    if (shame != null)
                     {
-                        shame[def] = count + 1;
-                    }
-                    else
-                    {
-                        shame[def] = 1;
+                        if (shame.TryGetValue(def, out int count))
+                        {
+                            shame[def] = count + 1;
+                        }
+                        else
+                        {
+                            shame[def] = 1;
+                        }
                     }
                 }
             }
@@ -44,26 +47,27 @@ namespace Maux36.RimPsyche
                         compPsyche.CleanShame();
                         return;
                     }
-                    var shame = compPsyche.ShameThoughts;
-                    if (shame.TryGetValue(def, out int count))
+                    var shame = compPsyche.activeShameThoughts;
+                    if (shame != null)
                     {
-                        if (count > 1)
+                        if (shame.TryGetValue(def, out int count))
                         {
-                            shame[def] = count - 1;
+                            if (count > 1)
+                            {
+                                shame[def] = count - 1;
+                            }
+                            else
+                            {
+                                shame.Remove(def);
+                            }
                         }
                         else
                         {
-                            shame.Remove(def);
+                            compPsyche.RefreshShameThoughts();
                         }
-                    }
-                    else
-                    {
-                        compPsyche.RefreshShameThoughts();
                     }
                 }
             }
         }
-
-
     }
 }
