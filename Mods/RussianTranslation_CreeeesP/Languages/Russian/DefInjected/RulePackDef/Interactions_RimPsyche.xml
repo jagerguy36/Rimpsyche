@@ -3,6 +3,10 @@
 
   <!-- Случайные социальные взаимодействия -->
 
+  <Sentence_RimpsycheConversationPositiveGreat.rulePack.rulesStrings.0>sent->Благодаря очень схожим взглядам, они разговаривали, не замечая времени.</Sentence_RimpsycheConversationPositiveGreat.rulePack.rulesStrings.0>
+  <Sentence_RimpsycheConversationPositiveGreat.rulePack.rulesStrings.1>sent->Благодаря общим мнениям, они провели действительно приятную беседу.</Sentence_RimpsycheConversationPositiveGreat.rulePack.rulesStrings.1>
+  <Sentence_RimpsycheConversationPositiveGreat.rulePack.rulesStrings.2>sent->Они быстро нашли общий язык и провели приятный и интересный разговор.</Sentence_RimpsycheConversationPositiveGreat.rulePack.rulesStrings.2>
+
   <Sentence_RimpsycheConversationPositiveGood.rulePack.rulesStrings.0>sent->Они быстро нашли общий язык, и беседа пошла легко и непринуждённо.</Sentence_RimpsycheConversationPositiveGood.rulePack.rulesStrings.0>
   <Sentence_RimpsycheConversationPositiveGood.rulePack.rulesStrings.1>sent->Разговор шёл гладко благодаря общим взглядам.</Sentence_RimpsycheConversationPositiveGood.rulePack.rulesStrings.1>
   <Sentence_RimpsycheConversationPositiveGood.rulePack.rulesStrings.2>sent->Оба насладились беседой, найдя точки соприкосновения.</Sentence_RimpsycheConversationPositiveGood.rulePack.rulesStrings.2>

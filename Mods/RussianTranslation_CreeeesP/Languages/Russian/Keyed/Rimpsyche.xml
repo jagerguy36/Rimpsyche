@@ -10,7 +10,9 @@
   <RimpsycheAllowFacetEditTooltip>Позволяет напрямую редактировать черты характера.</RimpsycheAllowFacetEditTooltip>
   <RimpsycheShowFacetInMenu>Показывать черты в интерфейсе</RimpsycheShowFacetInMenu>
   <RimpsycheShowFacetInMenuTooltip>Отображать черты характера во вкладке "Психика".</RimpsycheShowFacetInMenuTooltip>
-
+  <RimpsycheShowFacetGraph>Показать график черт личности</RimpsycheShowFacetGraph>
+  <RimpsycheShowFacetGraphuTooltip>Показывает радиальную диаграмму на вкладке личности.</RimpsycheShowFacetGraphuTooltip>
+  
   <!-- Заголовки -->
   <RPC_Personality>Личность</RPC_Personality>
   <RPC_Interest>Интересы</RPC_Interest>
