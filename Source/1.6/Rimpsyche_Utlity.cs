@@ -8,7 +8,7 @@ using Verse;
 
 namespace Maux36.RimPsyche
 {
-    public class Rimpsyche_Utility
+    public static class Rimpsyche_Utility
     {
         public static float Boost(float A, float boostFactor = 0.5f) //Unused
         {
