@@ -144,7 +144,7 @@
   <InteractionDef>
     <defName>Rimpsyche_ConversationAttempt</defName>
     <label>conversation</label>
-    <workerClass>InteractionWroker_NeverRandom</workerClass>
+    <workerClass>Maux36.RimPsyche.InteractionWroker_NeverRandom</workerClass>
     <symbol>Things/Mote/SpeechSymbols/Hail</symbol>
     <logRulesInitiator>
       <rulesStrings>
