@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<Patch>
+
+  <Operation Class="PatchOperationConditional">
+    <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Bravery"]/scopes</xpath>
+    <match Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Bravery"]/scopes</xpath>
+        <value>
+          <li>
+            <traitDefname>Bravery</traitDefname>
+            <degree>-1</degree>
+            <centerOffset>-0.5</centerOffset>
+            <range>0.5</range>
+          </li>
+          <li>
+            <traitDefname>Bravery</traitDefname>
+            <degree>1</degree>
+            <centerOffset>0.5</centerOffset>
+            <range>0.5</range>
+          </li>
+          <li>
+            <traitDefname>Bravery</traitDefname>
+            <degree>2</degree>
+            <centerOffset>0.75</centerOffset>
+            <range>0.25</range>
+          </li>
+        </value>
+    </match>
+    <nomatch Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Bravery"]</xpath>
+        <value>
+            <scopes>
+              <li>
+                <traitDefname>Bravery</traitDefname>
+                <degree>-1</degree>
+                <centerOffset>-0.5</centerOffset>
+                <range>0.5</range>
+              </li>
+              <li>
+                <traitDefname>Bravery</traitDefname>
+                <degree>1</degree>
+                <centerOffset>0.5</centerOffset>
+                <range>0.5</range>
+              </li>
+              <li>
+                <traitDefname>Bravery</traitDefname>
+                <degree>2</degree>
+                <centerOffset>0.75</centerOffset>
+                <range>0.25</range>
+              </li>
+            </scopes>
+        </value>
+    </nomatch>
+  </Operation>
+
+</Patch>
