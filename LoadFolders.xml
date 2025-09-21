@@ -4,13 +4,14 @@
 	<v1.6>
 		<li>1.6</li>
 		<li>Common</li>
-		<li IfModNotActive="maux36.rimpsyche.ru">Mods/RussianTranslation_CreeeesP</li>
-		<li IfModActive="lovelydovey.sex.witheuterpe">Mods/Intimacy/1.6</li>
-		<li IfModActive="vanillaexpanded.vanillatraitsexpanded">Mods/VanillaTraitsExpanded/1.6</li>
-		<li IfModActive="divinederivative.romance">Mods/WayBetterRomance/1.6</li>
-		<li IfModActive="consolidatedtraits.lc.rw">Mods/ConsolidatedTraits/1.6</li>
 		<li IfModActive="avius.badpeople">Mods/BadPeople/1.6</li>
-		<li IfModActive="vanillaexpanded.vanomalyeinsanity">Mods/VAE_Insanity/1.6</li>
 		<li IfModActive="ceteam.combatextended">Mods/CombatExtended/1.6</li>
+		<li IfModActive="consolidatedtraits.lc.rw">Mods/ConsolidatedTraits/1.6</li>
+		<li IfModActive="lovelydovey.sex.witheuterpe">Mods/Intimacy/1.6</li>
+		<li IfModNotActive="maux36.rimpsyche.ru">Mods/RussianTranslation_CreeeesP</li>
+		<li IfModActive="mlie.syrindividuality">Mods/SYR_Individuality/1.6</li>
+		<li IfModActive="vanillaexpanded.vanomalyeinsanity">Mods/VAE_Insanity/1.6</li>
+		<li IfModActive="divinederivative.romance">Mods/WayBetterRomance/1.6</li>
+		<li IfModActive="vanillaexpanded.vanillatraitsexpanded">Mods/VanillaTraitsExpanded/1.6</li>
 	</v1.6>
 </loadFolders>
