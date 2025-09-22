@@ -150,7 +150,6 @@ namespace Maux36.RimPsyche
             }
             return result;
         }
-
         public float GetPersonalityAsMult(PersonalityDef personality, float mult)
         {
             var p = GetPersonality(personality);
@@ -162,6 +161,10 @@ namespace Maux36.RimPsyche
             {
                 return (1f - (1/mult)) * p + 1f;
             }
+        }
+        public float Evaluate(RimpsycheFormula rimpsycheMultiplier)
+        {
+            return compPsyche.Evaluate(rimpsycheMultiplier);
         }
 
         // Initialization
