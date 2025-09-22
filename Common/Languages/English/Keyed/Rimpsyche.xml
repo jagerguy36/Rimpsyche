@@ -11,7 +11,7 @@
   <RimpsycheShowFacetInMenu>Show Facets in UI</RimpsycheShowFacetInMenu>
   <RimpsycheShowFacetInMenuTooltip>Enable view facets option in Psyche tab.</RimpsycheShowFacetInMenuTooltip>
   <RimpsycheShowFacetGraph>Show Facets radar chart in UI</RimpsycheShowFacetGraph>
-  <RimpsycheShowFacetGraphuTooltip>Show facet radar chart in Psyche tab.</RimpsycheShowFacetGraphuTooltip>
+  <RimpsycheShowFacetGraphTooltip>Show facet radar chart in Psyche tab.</RimpsycheShowFacetGraphTooltip>
 
 
   <!-- Title -->

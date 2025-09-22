@@ -11,7 +11,7 @@
   <RimpsycheShowFacetInMenu>Показывать черты в интерфейсе</RimpsycheShowFacetInMenu>
   <RimpsycheShowFacetInMenuTooltip>Отображать черты характера во вкладке "Психика".</RimpsycheShowFacetInMenuTooltip>
   <RimpsycheShowFacetGraph>Показать график черт личности</RimpsycheShowFacetGraph>
-  <RimpsycheShowFacetGraphuTooltip>Показывает радиальную диаграмму на вкладке личности.</RimpsycheShowFacetGraphuTooltip>
+  <RimpsycheShowFacetTooltip>Показывает радиальную диаграмму на вкладке личности.</RimpsycheShowFacetGraphTooltip>
   
   <!-- Заголовки -->
   <RPC_Personality>Личность</RPC_Personality>
