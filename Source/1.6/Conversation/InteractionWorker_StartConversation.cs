@@ -24,7 +24,7 @@ namespace Maux36.RimPsyche
                 float initTalkativeness = initiatorPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Talkativeness);
                 float initOpinion = (initiator.relations.OpinionOf(recipient)) * 0.01f; //-1~1
 
-                //TODO: fix logic
+                //TODO: elaborate the logic about initSpontaneity
                 if (initOpinion < 0f)
                 {
                     bool giveupConverse = initOpinion + initSociability + initSpontaneity + Rand.Value < 0f;

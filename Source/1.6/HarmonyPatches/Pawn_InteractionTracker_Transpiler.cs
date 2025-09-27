@@ -95,7 +95,7 @@ namespace Maux36.RimPsyche
                 }
                 if (!foundInjection)
                 {
-                    Log.Message("[RimPsyche] failed to patch Interaction.");
+                    Log.Error("[RimPsyche] failed to patch Interaction.");
                 }
             }
         }
