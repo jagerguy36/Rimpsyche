@@ -150,7 +150,7 @@ namespace Maux36.RimPsyche
             }
             else
             {
-                float calculatedValue = rimpsycheMultiplier.calculationFunction.Invoke(this.Personality);
+                float calculatedValue = rimpsycheMultiplier.calculationFunction(this.Personality);
                 EvaluationCache[rimpsycheMultiplier.formulaId] = calculatedValue;
                 //Log.Message($"calculating {pawn.Name}'s {rimpsycheMultiplier.formulaName} : {calculatedValue} || {nameof(rimpsycheMultiplier)}");
                 return calculatedValue;
