@@ -1,6 +1,5 @@
 ﻿using HarmonyLib;
 using RimWorld;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection.Emit;
@@ -79,6 +78,7 @@ namespace Maux36.RimPsyche
                         var instr2 = codes[i + 4];
                         if (instr.opcode == OpCodes.Ldarg_0 && instr2.opcode == OpCodes.Newobj && Equals(instr2.operand, logEntryCtor))
                         {
+                            //Ldarg_2 (intDef) is already loaded onto the stack
                             foundInjection = true;
                             yield return new CodeInstruction(OpCodes.Ldsfld, AccessTools.Field(typeof(DefOfRimpsyche), nameof(DefOfRimpsyche.Rimpsyche_StartConversation)));
                             yield return new CodeInstruction(OpCodes.Beq, skiplabel);
@@ -87,7 +87,7 @@ namespace Maux36.RimPsyche
                             yield return new CodeInstruction(OpCodes.Ldc_I4_1).WithLabels(skiplabel);
                             yield return new CodeInstruction(OpCodes.Ret);
                             yield return new CodeInstruction(OpCodes.Nop).WithLabels(normallabel);
-                            yield return new CodeInstruction(OpCodes.Ldarg_2);
+                            yield return new CodeInstruction(OpCodes.Ldarg_2);//restore the Ldarg_2 (intDef) used up to check equality
                         }
                         yield return instr;
                     }
