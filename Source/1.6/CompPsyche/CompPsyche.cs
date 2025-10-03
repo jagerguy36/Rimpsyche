@@ -15,17 +15,19 @@ namespace Maux36.RimPsyche
             base.Initialize(props);
             parentPawn = parent as Pawn;
         }
-        private bool? psycheEnabledInternal = null;
+        private bool psycheShouldCheckEnabled = true;
+        private bool psycheEnabledInternal = false;
         public bool Enabled
         {
             get
             {
-                psycheEnabledInternal ??= CheckEnabled();
-                if (psycheEnabledInternal == true)
+                if (psycheShouldCheckEnabled)
                 {
-                    return !parentPawn.IsSubhuman;
+                    psycheEnabledInternal = CheckEnabled();
+                    psycheShouldCheckEnabled = false;
                 }
-                return false;
+                if (!psycheEnabledInternal) return false;
+                return !parentPawn.IsSubhuman;
             }
         }
         public bool IsAdult => parentPawn.DevelopmentalStage == DevelopmentalStage.Adult;
@@ -132,7 +134,7 @@ namespace Maux36.RimPsyche
         }
         public void NullifyCheck()
         {
-            psycheEnabledInternal = null;
+            psycheShouldCheckEnabled = true;
         }
 
 
