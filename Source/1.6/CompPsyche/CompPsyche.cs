@@ -9,14 +9,11 @@ namespace Maux36.RimPsyche
     public class CompPsyche : ThingComp
     {
         //Internals
-        private Pawn parentPawnInt = null;
-        public Pawn parentPawn
+        public Pawn parentPawn;
+        public override void Initialize(CompProperties props)
         {
-            get
-            {
-                parentPawnInt ??= parent as Pawn;
-                return parentPawnInt;
-            }
+            base.Initialize(props);
+            parentPawn = parent as Pawn;
         }
         private bool? psycheEnabledInternal = null;
         public bool Enabled
