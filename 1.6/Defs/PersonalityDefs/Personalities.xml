@@ -1039,8 +1039,8 @@
         <weight>-0.2</weight>
       </li>
     </scoreWeight>
-    <scopes MayRequire="Ludeon.RimWorld.Anomaly">
-      <li>
+    <scopes>
+      <li MayRequire="Ludeon.RimWorld.Anomaly">
         <traitDefname>Joyous</traitDefname>
         <centerOffset>0.75</centerOffset>
         <range>0.25</range>
