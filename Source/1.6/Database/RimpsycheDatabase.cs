@@ -241,10 +241,6 @@ namespace Maux36.RimPsyche
             {
                 new(Facet.Industriousness, 25f, 25f)
             });
-            RegisterTraitGate(new Pair<string, int>("Recluse", 0), new List<FacetGate>
-            {
-                new(Facet.Sociability, -25f, 25f)
-            });
             RegisterTraitGate(new Pair<string, int>("Bloodlust", 0), new List<FacetGate>
             {
                 new(Facet.Compassion, -25f, 25f)
@@ -253,55 +249,62 @@ namespace Maux36.RimPsyche
             {
                 new(Facet.Compassion, 25f, 25f)
             });
-
-            //Genes
-            RegisterGeneGate("Learning_Slow", new List<FacetGate>
-            {
-                new(Facet.Intellect, -25f, 25f)
-            });
-            RegisterGeneGate("Learning_Fast", new List<FacetGate>
-            {
-                new(Facet.Intellect, 25f, 25f)
-            });
-            RegisterGeneGate("Mood_Depressive", new List<FacetGate>
-            {
-                new(Facet.Pessimism, 25f, 25f)
-            });
-            RegisterGeneGate("Mood_Pessimist", new List<FacetGate>
-            {
-                new(Facet.Pessimism, 25f, 25f)
-            });
-            RegisterGeneGate("Mood_Optimist", new List<FacetGate>
-            {
-                new(Facet.Pessimism, -25f, 25f)
-            });
-            RegisterGeneGate("Mood_Sanguine", new List<FacetGate>
-            {
-                new(Facet.Pessimism, -25f, 25f)
-            });
-            RegisterGeneGate("Aggression_DeadCalm", new List<FacetGate>
-            {
-                new(Facet.Assertiveness, -25f, 25f),
-                new(Facet.Volatility, -25f, 25f)
-            });
-            RegisterGeneGate("Aggression_Aggressive", new List<FacetGate>
-            {
-                new(Facet.Assertiveness, 25f, 25f),
-                new(Facet.Volatility, 25f, 25f)
-            });
-            RegisterGeneGate("Aggression_HyperAggressive", new List<FacetGate>
-            {
-                new(Facet.Assertiveness, 25f, 25f),
-                new(Facet.Volatility, 25f, 25f)
-            });
-            RegisterGeneGate("KillThirst", new List<FacetGate>
-            {
-                new(Facet.Compassion, -25f, 25f)
-            });
         }
 
         public static void ModCompat()
         {
+            if (ModsConfig.BiotechActive)
+            {
+                RegisterTraitGate(new Pair<string, int>("Recluse", 0), new List<FacetGate>
+                {
+                    new(Facet.Sociability, -25f, 25f)
+                });
+                //Genes
+                RegisterGeneGate("Learning_Slow", new List<FacetGate>
+                {
+                    new(Facet.Intellect, -25f, 25f)
+                });
+                RegisterGeneGate("Learning_Fast", new List<FacetGate>
+                {
+                    new(Facet.Intellect, 25f, 25f)
+                });
+                RegisterGeneGate("Mood_Depressive", new List<FacetGate>
+                {
+                    new(Facet.Pessimism, 25f, 25f)
+                });
+                RegisterGeneGate("Mood_Pessimist", new List<FacetGate>
+                {
+                    new(Facet.Pessimism, 25f, 25f)
+                });
+                RegisterGeneGate("Mood_Optimist", new List<FacetGate>
+                {
+                    new(Facet.Pessimism, -25f, 25f)
+                });
+                RegisterGeneGate("Mood_Sanguine", new List<FacetGate>
+                {
+                    new(Facet.Pessimism, -25f, 25f)
+                });
+                RegisterGeneGate("Aggression_DeadCalm", new List<FacetGate>
+                {
+                    new(Facet.Assertiveness, -25f, 25f),
+                    new(Facet.Volatility, -25f, 25f)
+                });
+                RegisterGeneGate("Aggression_Aggressive", new List<FacetGate>
+                {
+                    new(Facet.Assertiveness, 25f, 25f),
+                    new(Facet.Volatility, 25f, 25f)
+                });
+                RegisterGeneGate("Aggression_HyperAggressive", new List<FacetGate>
+                {
+                    new(Facet.Assertiveness, 25f, 25f),
+                    new(Facet.Volatility, 25f, 25f)
+                });
+                RegisterGeneGate("KillThirst", new List<FacetGate>
+                {
+                    new(Facet.Compassion, -25f, 25f)
+                });
+            }
+
             if (ModsConfig.IsActive("vanillaexpanded.vanillatraitsexpanded"))
             {
                 Log.Message("[Rimpsyche] VTE gate data added");
