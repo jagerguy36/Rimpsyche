@@ -9,7 +9,7 @@ namespace Maux36.RimPsyche
     {
         static void Postfix(Pawn_GeneTracker __instance, GeneDef addedOrRemovedGene, Pawn ___pawn)
         {
-            if (ModsConfig.BiotechActive && RimpsycheDatabase.GeneGateDatabase.ContainsKey(addedOrRemovedGene.defName))
+            if (ModsConfig.BiotechActive && RimpsycheDatabase.GeneGateDatabase.ContainsKey(addedOrRemovedGene.shortHash))
             {
                 var compPsyche = ___pawn.compPsyche();
                 if (compPsyche != null)

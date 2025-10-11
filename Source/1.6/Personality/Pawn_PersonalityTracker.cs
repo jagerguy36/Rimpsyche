@@ -234,7 +234,7 @@ namespace Maux36.RimPsyche
                 foreach (Trait trait in traits)
                 {
                     if (trait.Suppressed) continue;
-                    Pair<string, int> pair = new Pair<string, int>(trait.def.defName, trait.Degree);
+                    Pair<int, int> pair = new Pair<int, int>(trait.def.shortHash, trait.Degree);
                     if (RimpsycheDatabase.TraitGateDatabase.TryGetValue(pair, out var values))
                     {
                         foreach (var value in values)
@@ -334,8 +334,8 @@ namespace Maux36.RimPsyche
             foreach (Gene gene in genes)
             {
                 if (!gene.Active) continue;
-                var geneDefName = gene.def.defName;
-                if (RimpsycheDatabase.GeneGateDatabase.TryGetValue(geneDefName, out var values))
+                var geneHash = gene.def.shortHash;
+                if (RimpsycheDatabase.GeneGateDatabase.TryGetValue(geneHash, out var values))
                 {
                     foreach (var value in values)
                     {
@@ -405,7 +405,7 @@ namespace Maux36.RimPsyche
             foreach (Trait trait in traits)
             {
                 if (trait.Suppressed) continue;
-                Pair<string, int> pair = new Pair<string, int>(trait.def.defName, trait.Degree);
+                Pair<int, int> pair = new Pair<int, int>(trait.def.shortHash, trait.Degree);
                 if (RimpsycheDatabase.TraitScopeDatabase.TryGetValue(pair, out var values))
                 {
                     foreach(var value in values)

@@ -36,8 +36,9 @@
       <HintPath>packages\Lib.Harmony.2.4.1\lib\net48\0Harmony.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="0PrepatcherAPI">
-      <HintPath>..\..\..\Prepatcher\Assemblies\0PrepatcherAPI.dll</HintPath>
+    <Reference Include="0PrepatcherAPI, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\workshop\content\294100\3563469557\Assemblies\0PrepatcherAPI.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Assembly-CSharp">
