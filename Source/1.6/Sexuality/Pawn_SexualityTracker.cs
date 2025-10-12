@@ -14,6 +14,7 @@ namespace Maux36.RimPsyche
     public class Pawn_SexualityTracker : IExposable
     {
         private Pawn pawn;
+        private CompPsyche compPsyche;
         public SexualOrientation orientationCategory = SexualOrientation.None;
         //Heterosexual: 0~0.15
         //Bisexual: 0.15~0.85
@@ -25,6 +26,7 @@ namespace Maux36.RimPsyche
         public Pawn_SexualityTracker(Pawn p)
         {
             pawn = p;
+            compPsyche = p.compPsyche();
         }
         public void Initialize(Pawn pawn, int inputSeed = 0, bool rewrite = false)
         {
