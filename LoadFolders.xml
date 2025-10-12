@@ -8,6 +8,7 @@
 		<li IfModActive="ceteam.combatextended">Mods/CombatExtended/1.6</li>
 		<li IfModActive="consolidatedtraits.lc.rw">Mods/ConsolidatedTraits/1.6</li>
 		<li IfModActive="lovelydovey.sex.witheuterpe">Mods/Intimacy/1.6</li>
+		<li IfModActive="ghostData.lifelessons">Mods/LifeLessons/1.6</li>
 		<li IfModNotActive="maux36.rimpsyche.ru">Mods/RussianTranslation_CreeeesP</li>
 		<li IfModActive="mlie.syrindividuality">Mods/SYR_Individuality/1.6</li>
 		<li IfModActive="vanillaexpanded.vanomalyeinsanity">Mods/VAE_Insanity/1.6</li>

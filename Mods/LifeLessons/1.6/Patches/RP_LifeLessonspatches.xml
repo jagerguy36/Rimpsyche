@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<Patch>
+
+  <Operation Class="LifeLessons.PatchOperationAddProficiencyExtension">
+    <xpath>Defs/InteractionDef[defName="Rimpsyche_Smalltalk"]</xpath>
+    <value>
+      <li Class="LifeLessons.InteractionExtension">
+        <requirements>
+          <li>Speaking</li>
+        </requirements>
+        <initiatorUnqualifiedOverride>
+          <unqualifiedInteractionDef>ChatFromSpeechlessSuccess</unqualifiedInteractionDef>
+          <unqualifiedFailureInteractionDef>ChatFromSpeechlessFailed</unqualifiedFailureInteractionDef>
+          <failChance>0.33</failChance>
+        </initiatorUnqualifiedOverride>
+        <recipientUnqualifiedOverride>
+          <unqualifiedInteractionDef>ChatWithSpeechlessSuccess</unqualifiedInteractionDef>
+          <unqualifiedFailureInteractionDef>ChatWithSpeechlessFailed</unqualifiedFailureInteractionDef>
+          <failChance>0.33</failChance>
+        </recipientUnqualifiedOverride>
+        <bothUnqualifiedOverride>
+          <unqualifiedInteractionDef>UnintelligibleChat</unqualifiedInteractionDef>
+        </bothUnqualifiedOverride>
+      </li>
+    </value>
+    <success>Normal</success>
+  </Operation>
+
+  <Operation Class="LifeLessons.PatchOperationAddProficiencyExtension">
+    <xpath>Defs/InteractionDef[defName="Rimpsyche_StartConversation"]</xpath>
+    <value>
+      <li Class="LifeLessons.InteractionExtension">
+        <requirements>
+          <li>Speaking</li>
+        </requirements>
+        <initiatorUnqualifiedOverride>
+          <unqualifiedInteractionDef>ChatFromSpeechlessSuccess</unqualifiedInteractionDef>
+          <unqualifiedFailureInteractionDef>ChatFromSpeechlessFailed</unqualifiedFailureInteractionDef>
+          <failChance>0.33</failChance>
+        </initiatorUnqualifiedOverride>
+        <recipientUnqualifiedOverride>
+          <unqualifiedInteractionDef>ChatWithSpeechlessSuccess</unqualifiedInteractionDef>
+          <unqualifiedFailureInteractionDef>ChatWithSpeechlessFailed</unqualifiedFailureInteractionDef>
+          <failChance>0.33</failChance>
+        </recipientUnqualifiedOverride>
+        <bothUnqualifiedOverride>
+          <unqualifiedInteractionDef>UnintelligibleChat</unqualifiedInteractionDef>
+        </bothUnqualifiedOverride>
+      </li>
+    </value>
+    <success>Normal</success>
+  </Operation>
+
+</Patch>
