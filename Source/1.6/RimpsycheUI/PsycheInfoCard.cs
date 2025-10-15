@@ -700,7 +700,7 @@ namespace Maux36.RimPsyche
             y += lineHeight;
 
             Rect sexualityKinseyRect = new Rect(0f, y, sexualityRect.width, lineHeight);
-            Widgets.Label(sexualityKinseyRect, "RPC_Kinsey".Translate() + ": " + (compPsyche.Sexuality.kinsey).ToString("F0"));
+            Widgets.Label(sexualityKinseyRect, "RPC_Kinsey".Translate() + ": " + (compPsyche.Sexuality.GetKinseyReport()));
             y += lineHeight;
 
             Rect sexDriveRect = new Rect(0f, y, sexualityRect.width, lineHeight);

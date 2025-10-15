@@ -173,14 +173,14 @@ namespace Maux36.RimPsyche
                 interests.Initialize();
             }
         }
-        public void SexualitySetup()
+        public void SexualitySetup(bool genearte = false)
         {
             if (sexuality == null)
             {
                 sexuality = new Pawn_SexualityTracker(parentPawn);
             }
             //Initialize even when not null for save-game trait safety with Sexuality Module.
-            sexuality.Initialize(parentPawn);
+            sexuality.Initialize(parentPawn, genearte);
         }
         public void DirtyTraitCache()
         {
