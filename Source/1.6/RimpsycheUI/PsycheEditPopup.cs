@@ -327,7 +327,7 @@ namespace Maux36.RimPsyche
                 {
                     Widgets.DrawHighlight(rowRect);
                     string tooltipString = $"{def.label.CapitalizeFirst()}: {(currentValue * 100f).ToString("F1")}\n{def.description}";
-                    if (compPsyche.Personality.scopeInfoCache.TryGetValue(def.defName, out string explanation))
+                    if (compPsyche.Personality.scopeInfoCache.TryGetValue(def.shortHash, out string explanation))
                     {
                         tooltipString += $"\n\n{explanation}";
                     }
@@ -349,7 +349,7 @@ namespace Maux36.RimPsyche
                     float lowend = -1f;
                     if (!scope.NullOrEmpty())
                     {
-                        if (scope.TryGetValue(def.defName, out var range))
+                        if (scope.TryGetValue(def.shortHash, out var range))
                         {
                             (lowend, highend) = range;
                         }

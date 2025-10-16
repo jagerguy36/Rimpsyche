@@ -307,7 +307,7 @@ namespace Maux36.RimPsyche
                 }
                 cachedLabelColor = Color.Lerp(Color.yellow, Color.green, absValue);
                 var personalityDesc = $"{personality.label.CapitalizeFirst()}: {(value * 100f).ToString("F1")}\n{personality.description}";
-                if (compPsyche.Personality.scopeInfoCache.TryGetValue(personality.defName, out string explanation))
+                if (compPsyche.Personality.scopeInfoCache.TryGetValue(personality.shortHash, out string explanation))
                 {
                     personalityDesc += $"\n\n{explanation}";
                 }

@@ -63,9 +63,9 @@ namespace Maux36.RimPsyche
 
         //Personality Value is cached whenever FacetValueNorm is updated.
         private Dictionary<int, float> personalityCache = new Dictionary<int, float>();
-        public Dictionary<string, string> scopeInfoCache = [];
-        private Dictionary<string, (float, float)> scopeCacheInternal = null; //new Dictionary<string, Tuple<float, float>>();
-        public Dictionary<string, (float, float)> scopeCache
+        public Dictionary<int, string> scopeInfoCache = [];
+        private Dictionary<int, (float, float)> scopeCacheInternal = null; //new Dictionary<string, Tuple<float, float>>();
+        public Dictionary<int, (float, float)> scopeCache
         {
             get
             {
@@ -92,7 +92,7 @@ namespace Maux36.RimPsyche
             // Apply scope
             if (!scopeCache.NullOrEmpty())
             {
-                if (scopeCache.TryGetValue(personalityDefName, out var range))
+                if (scopeCache.TryGetValue(personalityDef.shortHash, out var range))
                 {
                     var (low, high) = range;
                     result = Rimpsyche_Utility.ApplyScope(result, low, high);
@@ -118,7 +118,7 @@ namespace Maux36.RimPsyche
             // Apply scope
             if (!scopeCache.NullOrEmpty())
             {
-                if (scopeCache.TryGetValue(personality.defName, out var range))
+                if (scopeCache.TryGetValue(personality.shortHash, out var range))
                 {
                     var (low, high) = range;
                     result = Rimpsyche_Utility.ApplyScope(result, low, high);
@@ -142,7 +142,7 @@ namespace Maux36.RimPsyche
             // Apply scope
             if (!scopeCache.NullOrEmpty())
             {
-                if (scopeCache.TryGetValue(personality.defName, out var range))
+                if (scopeCache.TryGetValue(personality.shortHash, out var range))
                 {
                     var (low, high) = range;
                     result = Rimpsyche_Utility.ApplyScope(result, low, high);
@@ -392,11 +392,11 @@ namespace Maux36.RimPsyche
         }
 
 
-        public Dictionary<string, (float, float)> GenerateScope()
+        public Dictionary<int, (float, float)> GenerateScope()
         {
             scopeInfoCache.Clear();
-            var scopeAccumulator = new Dictionary<string, (float negCenter, float posCenter, float minRange)>();
-            var newScope = new Dictionary<string, (float, float)>();
+            var scopeAccumulator = new Dictionary<int, (float negCenter, float posCenter, float minRange)>();
+            var newScope = new Dictionary<int, (float, float)>();
             List<Trait> traits = pawn.story?.traits?.allTraits;
             if (traits == null)
             {
@@ -413,10 +413,11 @@ namespace Maux36.RimPsyche
                         var personalityName = value.Item1;
                         float centerOffset = value.Item2;
                         float range = value.Item3;
+                        var personalityDef = RimpsycheDatabase.PersonalityDict[personalityName];
 
                         float existingPosCenter = 0f;
                         float existingNegCenter = 0f;
-                        if (scopeAccumulator.TryGetValue(personalityName, out var existingData))
+                        if (scopeAccumulator.TryGetValue(personalityDef.shortHash, out var existingData))
                         {
                             existingPosCenter = existingData.posCenter;
                             existingNegCenter = existingData.negCenter;
@@ -431,14 +432,14 @@ namespace Maux36.RimPsyche
                         {
                             existingNegCenter = Mathf.Min(centerOffset, existingPosCenter);
                         }
-                        scopeAccumulator[personalityName] = (existingNegCenter, existingPosCenter, range);
-                        if (scopeInfoCache.TryGetValue(personalityName, out string explanation))
+                        scopeAccumulator[personalityDef.shortHash] = (existingNegCenter, existingPosCenter, range);
+                        if (scopeInfoCache.TryGetValue(personalityDef.shortHash, out string explanation))
                         {
-                            scopeInfoCache[personalityName] = explanation + $", {trait.Label}";
+                            scopeInfoCache[personalityDef.shortHash] = explanation + $", {trait.Label}";
                         }
                         else
                         {
-                            scopeInfoCache.Add(personalityName, $"{"TraitAffected".Translate()} {trait.Label}");
+                            scopeInfoCache.Add(personalityDef.shortHash, $"{"TraitAffected".Translate()} {trait.Label}");
                         }
                     }
                 }
