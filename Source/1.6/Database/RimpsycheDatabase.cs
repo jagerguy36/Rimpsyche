@@ -56,9 +56,10 @@ namespace Maux36.RimPsyche
             //Interest and Topic
             foreach (var interestdomain in DefDatabase<InterestDomainDef>.AllDefs)
             {
-                InterestList.AddRange(interestdomain.interests);
                 foreach (var interest in interestdomain.interests)
                 {
+                    InterestList.Add(interest);
+                    interest.id = InterestList.Count;
                     maxInterestLabelWidth = Mathf.Max(maxInterestLabelWidth, 5f + Text.CalcSize(interest.label).x);
                     InterestDomainDict.Add(interest, interestdomain);
                     foreach (var topic in interest.topics)

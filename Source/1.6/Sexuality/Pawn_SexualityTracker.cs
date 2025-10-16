@@ -16,9 +16,9 @@ namespace Maux36.RimPsyche
         private Pawn pawn;
         private CompPsyche compPsyche;
         public SexualOrientation orientationCategory = SexualOrientation.None;
-        //Heterosexual: 0~0.15
-        //Bisexual: 0.15~0.85
-        //Homosexual: 0.85~1
+        //Heterosexual: 0~0.2
+        //Bisexual: 0.2~0.8
+        //Homosexual: 0.8~1
         public float kinsey = -1f;
         public float sexDrive = 0f;
         public float mAattraction = 0f;
@@ -57,6 +57,14 @@ namespace Maux36.RimPsyche
         public SexualOrientation GetOrientationCategory()
         {
             return orientationCategory;
+        }
+        public int GetMaleAttractionNorm()
+        {
+            return (int)(mAattraction * 100f);
+        }
+        public int GetFemaleAttractionNorm()
+        {
+            return (int)(fAattraction * 100f);
         }
 
         public void ExposeData()

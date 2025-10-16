@@ -62,7 +62,7 @@ namespace Maux36.RimPsyche
         }
 
         //Personality Value is cached whenever FacetValueNorm is updated.
-        private Dictionary<string, float> personalityCache = new Dictionary<string, float>();
+        private Dictionary<int, float> personalityCache = new Dictionary<int, float>();
         public Dictionary<string, string> scopeInfoCache = [];
         private Dictionary<string, (float, float)> scopeCacheInternal = null; //new Dictionary<string, Tuple<float, float>>();
         public Dictionary<string, (float, float)> scopeCache
@@ -76,14 +76,14 @@ namespace Maux36.RimPsyche
 
         public float GetPersonality(string personalityDefName) //-1~1
         {
-            if (personalityCache.TryGetValue(personalityDefName, out float cachedValue))
+            PersonalityDef personalityDef = RimpsycheDatabase.PersonalityDict[personalityDefName];
+            if (personalityCache.TryGetValue(personalityDef.shortHash, out float cachedValue))
             {
                 return cachedValue;
             }
 
             float sum = 0f;
-            var personality = RimpsycheDatabase.PersonalityDict[personalityDefName];
-            foreach (var w in personality.scoreWeight)
+            foreach (var w in personalityDef.scoreWeight)
             {
                 sum += GetFacetValueNorm(w.facet) * w.weight;
             }
@@ -98,12 +98,12 @@ namespace Maux36.RimPsyche
                     result = Rimpsyche_Utility.ApplyScope(result, low, high);
                 }
             }
-            personalityCache[personalityDefName] = result;
+            personalityCache[personalityDef.shortHash] = result;
             return result;
         }
         public float GetPersonality(PersonalityDef personality) //-1~1
         {
-            if (personalityCache.TryGetValue(personality.defName, out float cachedValue))
+            if (personalityCache.TryGetValue(personality.shortHash, out float cachedValue))
             {
                 return cachedValue;
             }
@@ -124,7 +124,7 @@ namespace Maux36.RimPsyche
                     result = Rimpsyche_Utility.ApplyScope(result, low, high);
                 }
             }
-            personalityCache[personality.defName] = result;
+            personalityCache[personality.shortHash] = result;
             return result;
         }
         public float GetPersonalityDirect(PersonalityDef personality) //Non-Normalized Version
