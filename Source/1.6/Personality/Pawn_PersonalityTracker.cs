@@ -50,7 +50,7 @@ namespace Maux36.RimPsyche
                 return geneGateAccumulatorInternal;
             }
         }
-        private Dictionary<Facet, (float, float)> gateCacheInternal = null; //new Dictionary<Facet, Tuple<float, float>>();
+        private Dictionary<Facet, (float, float)> gateCacheInternal = null;
         public Dictionary<Facet, string> gateInfoCache = [];
         public Dictionary<Facet, (float, float)> gateCache
         {
@@ -64,7 +64,7 @@ namespace Maux36.RimPsyche
         //Personality Value is cached whenever FacetValueNorm is updated.
         private Dictionary<int, float> personalityCache = new Dictionary<int, float>();
         public Dictionary<int, string> scopeInfoCache = [];
-        private Dictionary<int, (float, float)> scopeCacheInternal = null; //new Dictionary<string, Tuple<float, float>>();
+        private Dictionary<int, (float, float)> scopeCacheInternal = null;
         public Dictionary<int, (float, float)> scopeCache
         {
             get
