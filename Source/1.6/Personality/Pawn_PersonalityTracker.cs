@@ -410,14 +410,13 @@ namespace Maux36.RimPsyche
                 {
                     foreach(var value in values)
                     {
-                        var personalityName = value.Item1;
+                        int personalityHash = value.Item1;
                         float centerOffset = value.Item2;
                         float range = value.Item3;
-                        var personalityDef = RimpsycheDatabase.PersonalityDict[personalityName];
 
                         float existingPosCenter = 0f;
                         float existingNegCenter = 0f;
-                        if (scopeAccumulator.TryGetValue(personalityDef.shortHash, out var existingData))
+                        if (scopeAccumulator.TryGetValue(personalityHash, out var existingData))
                         {
                             existingPosCenter = existingData.posCenter;
                             existingNegCenter = existingData.negCenter;
@@ -432,14 +431,14 @@ namespace Maux36.RimPsyche
                         {
                             existingNegCenter = Mathf.Min(centerOffset, existingPosCenter);
                         }
-                        scopeAccumulator[personalityDef.shortHash] = (existingNegCenter, existingPosCenter, range);
-                        if (scopeInfoCache.TryGetValue(personalityDef.shortHash, out string explanation))
+                        scopeAccumulator[personalityHash] = (existingNegCenter, existingPosCenter, range);
+                        if (scopeInfoCache.TryGetValue(personalityHash, out string explanation))
                         {
-                            scopeInfoCache[personalityDef.shortHash] = explanation + $", {trait.Label}";
+                            scopeInfoCache[personalityHash] = explanation + $", {trait.Label}";
                         }
                         else
                         {
-                            scopeInfoCache.Add(personalityDef.shortHash, $"{"TraitAffected".Translate()} {trait.Label}");
+                            scopeInfoCache.Add(personalityHash, $"{"TraitAffected".Translate()} {trait.Label}");
                         }
                     }
                 }

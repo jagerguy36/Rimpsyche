@@ -12,7 +12,7 @@ namespace Maux36.RimPsyche
         public static HashSet<Interest> InterestList = new();
         public static Dictionary<Interest, InterestDomainDef> InterestDomainDict = new();
         public static Dictionary<string, PersonalityDef> PersonalityDict = new();
-        public static Dictionary<Pair<int, int>, List<(string, float, float)>> TraitScopeDatabase = new();
+        public static Dictionary<Pair<int, int>, List<(int, float, float)>> TraitScopeDatabase = new();
         public static Dictionary<Pair<int, int>, List<FacetGate>> TraitGateDatabase = new() { };
         public static Dictionary<int, List<FacetGate>> GeneGateDatabase = new() { };
         public static Facet[] AllFacets = (Facet[])Enum.GetValues(typeof(Facet));
@@ -115,9 +115,9 @@ namespace Maux36.RimPsyche
                         var key = new Pair<int, int>(traitDef.shortHash, scopeData.degree);
                         if (!TraitScopeDatabase.ContainsKey(key))
                         {
-                            TraitScopeDatabase[key] = new List<(string, float, float)>();
+                            TraitScopeDatabase[key] = new List<(int, float, float)>();
                         }
-                        TraitScopeDatabase[key].Add((personalityDef.defName, scopeData.centerOffset, scopeData.range));
+                        TraitScopeDatabase[key].Add((personalityDef.shortHash, scopeData.centerOffset, scopeData.range));
                     }
                 }
                 PersonalityDict[personalityDef.defName] = personalityDef;
