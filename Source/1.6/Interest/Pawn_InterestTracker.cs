@@ -8,7 +8,7 @@ namespace Maux36.RimPsyche
     {
         private Pawn pawn;
         public Dictionary<int, float> interestOffset = new Dictionary<int, float>(); // 35~65
-        public Dictionary<int, float> interestScore = new Dictionary<int, float>(); // -35~35
+        public Dictionary<string, float> interestScore = new Dictionary<string, float>(); // -35~35
 
         public Pawn_InterestTracker(Pawn p)
         {
@@ -47,14 +47,14 @@ namespace Maux36.RimPsyche
                 interestOffset[interest.id] = Mathf.Clamp(interestOffsetValue, 35f, 65f);
                 if (generateScore)
                 {
-                    GenerateInterestScore(interest.id);
+                    GenerateInterestScore(interest.name);
                 }
             }
         }
-        public void GenerateInterestScore(int interestId, int maxAttempts = 4)
+        public void GenerateInterestScore(string interestname, int maxAttempts = 4)
         {
             float result = Rand.Range(-35f, 35f);
-            interestScore[interestId] = result;
+            interestScore[interestname] = result;
         }
 
         public float GetOrCreateInterestScore(Interest key)
@@ -67,10 +67,10 @@ namespace Maux36.RimPsyche
                     offsetValue = 50;
                 }
             }
-            if (!interestScore.TryGetValue(key.id, out float score))
+            if (!interestScore.TryGetValue(key.name, out float score))
             {
-                GenerateInterestScore(key.id);
-                if (!interestScore.TryGetValue(key.id, out score))
+                GenerateInterestScore(key.name);
+                if (!interestScore.TryGetValue(key.name, out score))
                 {
                     score = 0;
                 }
@@ -81,10 +81,10 @@ namespace Maux36.RimPsyche
         public void SetInterestScore(Interest key, float score)
         {
             float delta = score - GetOrCreateInterestScore(key);
-            if (interestScore.TryGetValue(key.id, out float s))
+            if (interestScore.TryGetValue(key.name, out float s))
             {
                 if ((delta<0f && s == -35f) || (delta>0f && s == 35f)) return;
-                interestScore[key.id] = Mathf.Clamp(interestScore[key.id] + delta, -35f, 35f);
+                interestScore[key.name] = Mathf.Clamp(interestScore[key.name] + delta, -35f, 35f);
             }
         }
 
