@@ -1,0 +1,1869 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<Patch>
+<!-- Hauts' Added Traits (Core) -->
+
+
+  <Operation Class="PatchOperationConditional">
+    <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Bravery"]/scopes</xpath>
+    <match Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Bravery"]/scopes</xpath>
+      <value>
+        <li>
+          <traitDefname>HVT_Agrizoophobe</traitDefname>
+          <degree>0</degree>
+          <centerOffset>-0.5</centerOffset>
+          <range>0.5</range>
+        </li>
+      </value>
+    </match>
+    <nomatch Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Bravery"]</xpath>
+      <value>
+        <scopes>
+          <li>
+            <traitDefname>HVT_Agrizoophobe</traitDefname>
+            <degree>0</degree>
+            <centerOffset>-0.5</centerOffset>
+            <range>0.5</range>
+          </li>
+        </scopes>
+      </value>
+    </nomatch>
+  </Operation>
+  <Operation Class="PatchOperationConditional">
+    <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Loyalty"]/scopes</xpath>
+    <match Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Loyalty"]/scopes</xpath>
+      <value>
+        <li>
+          <traitDefname>HVT_Allegiant</traitDefname>
+          <degree>0</degree>
+          <centerOffset>0.75</centerOffset>
+          <range>0.25</range>
+        </li>
+      </value>
+    </match>
+    <nomatch Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Loyalty"]</xpath>
+      <value>
+        <scopes>
+          <li>
+            <traitDefname>HVT_Allegiant</traitDefname>
+            <degree>0</degree>
+            <centerOffset>0.75</centerOffset>
+            <range>0.25</range>
+          </li>
+        </scopes>
+      </value>
+    </nomatch>
+  </Operation>
+  <Operation Class="PatchOperationConditional">
+    <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Loyalty"]/scopes</xpath>
+    <match Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Loyalty"]/scopes</xpath>
+      <value>
+        <li>
+          <traitDefname>HVT_Champion</traitDefname>
+          <degree>0</degree>
+          <centerOffset>0.75</centerOffset>
+          <range>0.25</range>
+        </li>
+      </value>
+    </match>
+    <nomatch Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Loyalty"]</xpath>
+      <value>
+        <scopes>
+          <li>
+            <traitDefname>HVT_Champion</traitDefname>
+            <degree>0</degree>
+            <centerOffset>0.75</centerOffset>
+            <range>0.25</range>
+          </li>
+        </scopes>
+      </value>
+    </nomatch>
+  </Operation>
+  <Operation Class="PatchOperationConditional">
+    <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Loyalty"]/scopes</xpath>
+    <match Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Loyalty"]/scopes</xpath>
+      <value>
+        <li>
+          <traitDefname>HVT_Lovesick</traitDefname>
+          <degree>0</degree>
+          <centerOffset>0.5</centerOffset>
+          <range>0.5</range>
+        </li>
+      </value>
+    </match>
+    <nomatch Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Loyalty"]</xpath>
+      <value>
+        <scopes>
+          <li>
+            <traitDefname>HVT_Lovesick</traitDefname>
+            <degree>0</degree>
+            <centerOffset>0.5</centerOffset>
+            <range>0.5</range>
+          </li>
+        </scopes>
+      </value>
+    </nomatch>
+  </Operation>
+  <Operation Class="PatchOperationConditional">
+    <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Loyalty"]/scopes</xpath>
+    <match Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Loyalty"]/scopes</xpath>
+      <value>
+        <li>
+          <traitDefname>HVT_Vagabond</traitDefname>
+          <degree>0</degree>
+          <centerOffset>-0.5</centerOffset>
+          <range>0.5</range>
+        </li>
+      </value>
+    </match>
+    <nomatch Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Loyalty"]</xpath>
+      <value>
+        <scopes>
+          <li>
+            <traitDefname>HVT_Vagabond</traitDefname>
+            <degree>0</degree>
+            <centerOffset>-0.5</centerOffset>
+            <range>0.5</range>
+          </li>
+        </scopes>
+      </value>
+    </nomatch>
+  </Operation>
+  <Operation Class="PatchOperationConditional">
+    <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Sociability"]/scopes</xpath>
+    <match Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Sociability"]/scopes</xpath>
+      <value>
+        <li>
+          <traitDefname>HVT_Asocial</traitDefname>
+          <degree>0</degree>
+          <centerOffset>-0.9</centerOffset>
+          <range>0.1</range>
+        </li>
+      </value>
+    </match>
+    <nomatch Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Sociability"]</xpath>
+      <value>
+        <scopes>
+          <li>
+            <traitDefname>HVT_Asocial</traitDefname>
+            <degree>0</degree>
+            <centerOffset>-0.9</centerOffset>
+            <range>0.1</range>
+          </li>
+        </scopes>
+      </value>
+    </nomatch>
+  </Operation>
+  <Operation Class="PatchOperationConditional">
+    <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Sociability"]/scopes</xpath>
+    <match Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Sociability"]/scopes</xpath>
+      <value>
+        <li>
+          <traitDefname>HVT_Conversationalist</traitDefname>
+          <degree>0</degree>
+          <centerOffset>0.75</centerOffset>
+          <range>0.25</range>
+        </li>
+      </value>
+    </match>
+    <nomatch Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Sociability"]</xpath>
+      <value>
+        <scopes>
+          <li>
+            <traitDefname>HVT_Conversationalist</traitDefname>
+            <degree>0</degree>
+            <centerOffset>0.75</centerOffset>
+            <range>0.25</range>
+          </li>
+        </scopes>
+      </value>
+    </nomatch>
+  </Operation>
+  <Operation Class="PatchOperationConditional">
+    <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Sociability"]/scopes</xpath>
+    <match Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Sociability"]/scopes</xpath>
+      <value>
+        <li>
+          <traitDefname>HVT_PeoplePleaser</traitDefname>
+          <degree>0</degree>
+          <centerOffset>0.5</centerOffset>
+          <range>0.5</range>
+        </li>
+      </value>
+    </match>
+    <nomatch Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Sociability"]</xpath>
+      <value>
+        <scopes>
+          <li>
+            <traitDefname>HVT_PeoplePleaser</traitDefname>
+            <degree>0</degree>
+            <centerOffset>0.5</centerOffset>
+            <range>0.5</range>
+          </li>
+        </scopes>
+      </value>
+    </nomatch>
+  </Operation>
+  <Operation Class="PatchOperationConditional">
+    <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Sociability"]/scopes</xpath>
+    <match Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Sociability"]/scopes</xpath>
+      <value>
+        <li>
+          <traitDefname>HVT_Reveller</traitDefname>
+          <degree>0</degree>
+          <centerOffset>0.75</centerOffset>
+          <range>0.25</range>
+        </li>
+      </value>
+    </match>
+    <nomatch Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Sociability"]</xpath>
+      <value>
+        <scopes>
+          <li>
+            <traitDefname>HVT_Reveller</traitDefname>
+            <degree>0</degree>
+            <centerOffset>0.75</centerOffset>
+            <range>0.25</range>
+          </li>
+        </scopes>
+      </value>
+    </nomatch>
+  </Operation>
+  <Operation Class="PatchOperationConditional">
+    <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Talkativeness"]/scopes</xpath>
+    <match Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Talkativeness"]/scopes</xpath>
+      <value>
+        <li>
+          <traitDefname>HVT_Asocial</traitDefname>
+          <degree>0</degree>
+          <centerOffset>-0.75</centerOffset>
+          <range>0.25</range>
+        </li>
+      </value>
+    </match>
+    <nomatch Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Talkativeness"]</xpath>
+      <value>
+        <scopes>
+          <li>
+            <traitDefname>HVT_Asocial</traitDefname>
+            <degree>0</degree>
+            <centerOffset>-0.75</centerOffset>
+            <range>0.25</range>
+          </li>
+        </scopes>
+      </value>
+    </nomatch>
+  </Operation>
+  <Operation Class="PatchOperationConditional">
+    <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Talkativeness"]/scopes</xpath>
+    <match Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Talkativeness"]/scopes</xpath>
+      <value>
+        <li>
+          <traitDefname>HVT_Conversationalist</traitDefname>
+          <degree>0</degree>
+          <centerOffset>0.75</centerOffset>
+          <range>0.25</range>
+        </li>
+      </value>
+    </match>
+    <nomatch Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Talkativeness"]</xpath>
+      <value>
+        <scopes>
+          <li>
+            <traitDefname>HVT_Conversationalist</traitDefname>
+            <degree>0</degree>
+            <centerOffset>0.75</centerOffset>
+            <range>0.25</range>
+          </li>
+        </scopes>
+      </value>
+    </nomatch>
+  </Operation>
+  <Operation Class="PatchOperationConditional">
+    <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Imagination"]/scopes</xpath>
+    <match Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Imagination"]/scopes</xpath>
+      <value>
+        <li>
+          <traitDefname>HVT_Daydreamer</traitDefname>
+          <degree>0</degree>
+          <centerOffset>0.75</centerOffset>
+          <range>0.25</range>
+        </li>
+      </value>
+    </match>
+    <nomatch Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Imagination"]</xpath>
+      <value>
+        <scopes>
+          <li>
+            <traitDefname>HVT_Daydreamer</traitDefname>
+            <degree>0</degree>
+            <centerOffset>0.75</centerOffset>
+            <range>0.25</range>
+          </li>
+        </scopes>
+      </value>
+    </nomatch>
+  </Operation>
+  <Operation Class="PatchOperationConditional">
+    <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Reflectiveness"]/scopes</xpath>
+    <match Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Reflectiveness"]/scopes</xpath>
+      <value>
+        <li>
+          <traitDefname>HVT_Drudge</traitDefname>
+          <degree>0</degree>
+          <centerOffset>-0.5</centerOffset>
+          <range>0.5</range>
+        </li>
+      </value>
+    </match>
+    <nomatch Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Reflectiveness"]</xpath>
+      <value>
+        <scopes>
+          <li>
+            <traitDefname>HVT_Drudge</traitDefname>
+            <degree>0</degree>
+            <centerOffset>-0.5</centerOffset>
+            <range>0.5</range>
+          </li>
+        </scopes>
+      </value>
+    </nomatch>
+  </Operation>
+  <Operation Class="PatchOperationConditional">
+    <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Deliberation"]/scopes</xpath>
+    <match Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Deliberation"]/scopes</xpath>
+      <value>
+        <li>
+          <traitDefname>HVT_Drudge</traitDefname>
+          <degree>0</degree>
+          <centerOffset>-0.5</centerOffset>
+          <range>0.5</range>
+        </li>
+      </value>
+    </match>
+    <nomatch Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Deliberation"]</xpath>
+      <value>
+        <scopes>
+          <li>
+            <traitDefname>HVT_Drudge</traitDefname>
+            <degree>0</degree>
+            <centerOffset>-0.5</centerOffset>
+            <range>0.5</range>
+          </li>
+        </scopes>
+      </value>
+    </nomatch>
+  </Operation>
+  <Operation Class="PatchOperationConditional">
+    <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Compassion"]/scopes</xpath>
+    <match Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Compassion"]/scopes</xpath>
+      <value>
+        <li>
+          <traitDefname>HVT_Graver</traitDefname>
+          <degree>0</degree>
+          <centerOffset>-0.5</centerOffset>
+          <range>0.5</range>
+        </li>
+      </value>
+    </match>
+    <nomatch Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Compassion"]</xpath>
+      <value>
+        <scopes>
+          <li>
+            <traitDefname>HVT_Graver</traitDefname>
+            <degree>0</degree>
+            <centerOffset>-0.5</centerOffset>
+            <range>0.5</range>
+          </li>
+        </scopes>
+      </value>
+    </nomatch>
+  </Operation>
+  <Operation Class="PatchOperationConditional">
+    <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Compassion"]/scopes</xpath>
+    <match Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Compassion"]/scopes</xpath>
+      <value>
+        <li>
+          <traitDefname>HVT_Sadist</traitDefname>
+          <degree>0</degree>
+          <centerOffset>-0.75</centerOffset>
+          <range>0.25</range>
+        </li>
+      </value>
+    </match>
+    <nomatch Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Compassion"]</xpath>
+      <value>
+        <scopes>
+          <li>
+            <traitDefname>HVT_Sadist</traitDefname>
+            <degree>0</degree>
+            <centerOffset>-0.75</centerOffset>
+            <range>0.25</range>
+          </li>
+        </scopes>
+      </value>
+    </nomatch>
+  </Operation>
+  <Operation Class="PatchOperationConditional">
+    <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Playfulness"]/scopes</xpath>
+    <match Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Playfulness"]/scopes</xpath>
+      <value>
+        <li>
+          <traitDefname>HVT_Hedonist</traitDefname>
+          <degree>0</degree>
+          <centerOffset>0.75</centerOffset>
+          <range>0.25</range>
+        </li>
+      </value>
+    </match>
+    <nomatch Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Playfulness"]</xpath>
+      <value>
+        <scopes>
+          <li>
+            <traitDefname>HVT_Hedonist</traitDefname>
+            <degree>0</degree>
+            <centerOffset>0.75</centerOffset>
+            <range>0.25</range>
+          </li>
+        </scopes>
+      </value>
+    </nomatch>
+  </Operation>
+  <Operation Class="PatchOperationConditional">
+    <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Playfulness"]/scopes</xpath>
+    <match Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Playfulness"]/scopes</xpath>
+      <value>
+        <li>
+          <traitDefname>HVT_Reveller</traitDefname>
+          <degree>0</degree>
+          <centerOffset>0.75</centerOffset>
+          <range>0.25</range>
+        </li>
+      </value>
+    </match>
+    <nomatch Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Playfulness"]</xpath>
+      <value>
+        <scopes>
+          <li>
+            <traitDefname>HVT_Reveller</traitDefname>
+            <degree>0</degree>
+            <centerOffset>0.75</centerOffset>
+            <range>0.25</range>
+          </li>
+        </scopes>
+      </value>
+    </nomatch>
+  </Operation>
+  <Operation Class="PatchOperationConditional">
+    <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Playfulness"]/scopes</xpath>
+    <match Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Playfulness"]/scopes</xpath>
+      <value>
+        <li>
+          <traitDefname>HVT_Staid</traitDefname>
+          <degree>0</degree>
+          <centerOffset>-0.75</centerOffset>
+          <range>0.25</range>
+        </li>
+      </value>
+    </match>
+    <nomatch Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Playfulness"]</xpath>
+      <value>
+        <scopes>
+          <li>
+            <traitDefname>HVT_Staid</traitDefname>
+            <degree>0</degree>
+            <centerOffset>-0.75</centerOffset>
+            <range>0.25</range>
+          </li>
+        </scopes>
+      </value>
+    </nomatch>
+  </Operation>
+  <Operation Class="PatchOperationConditional">
+    <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Discipline"]/scopes</xpath>
+    <match Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Discipline"]/scopes</xpath>
+      <value>
+        <li>
+          <traitDefname>HVT_Hedonist</traitDefname>
+          <degree>0</degree>
+          <centerOffset>-0.5</centerOffset>
+          <range>0.5</range>
+        </li>
+      </value>
+    </match>
+    <nomatch Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Discipline"]</xpath>
+      <value>
+        <scopes>
+          <li>
+            <traitDefname>HVT_Hedonist</traitDefname>
+            <degree>0</degree>
+            <centerOffset>-0.5</centerOffset>
+            <range>0.5</range>
+          </li>
+        </scopes>
+      </value>
+    </nomatch>
+  </Operation>
+  <Operation Class="PatchOperationConditional">
+    <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Resilience"]/scopes</xpath>
+    <match Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Resilience"]/scopes</xpath>
+      <value>
+        <li>
+          <traitDefname>HVT_Hysteric</traitDefname>
+          <degree>0</degree>
+          <centerOffset>-0.75</centerOffset>
+          <range>0.25</range>
+        </li>
+      </value>
+    </match>
+    <nomatch Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Resilience"]</xpath>
+      <value>
+        <scopes>
+          <li>
+            <traitDefname>HVT_Hysteric</traitDefname>
+            <degree>0</degree>
+            <centerOffset>-0.75</centerOffset>
+            <range>0.25</range>
+          </li>
+        </scopes>
+      </value>
+    </nomatch>
+  </Operation>
+  <Operation Class="PatchOperationConditional">
+    <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Openness"]/scopes</xpath>
+    <match Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Openness"]/scopes</xpath>
+      <value>
+        <li>
+          <traitDefname>HVT_Judgemental</traitDefname>
+          <degree>0</degree>
+          <centerOffset>-0.5</centerOffset>
+          <range>0.5</range>
+        </li>
+      </value>
+    </match>
+    <nomatch Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Openness"]</xpath>
+      <value>
+        <scopes>
+          <li>
+            <traitDefname>HVT_Judgemental</traitDefname>
+            <degree>0</degree>
+            <centerOffset>-0.5</centerOffset>
+            <range>0.5</range>
+          </li>
+        </scopes>
+      </value>
+    </nomatch>
+  </Operation>
+  <Operation Class="PatchOperationConditional">
+    <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Trust"]/scopes</xpath>
+    <match Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Trust"]/scopes</xpath>
+      <value>
+        <li>
+          <traitDefname>HVT_Judgemental</traitDefname>
+          <degree>0</degree>
+          <centerOffset>-0.75</centerOffset>
+          <range>0.25</range>
+        </li>
+      </value>
+    </match>
+    <nomatch Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Trust"]</xpath>
+      <value>
+        <scopes>
+          <li>
+            <traitDefname>HVT_Judgemental</traitDefname>
+            <degree>0</degree>
+            <centerOffset>-0.75</centerOffset>
+            <range>0.25</range>
+          </li>
+        </scopes>
+      </value>
+    </nomatch>
+  </Operation>
+  <Operation Class="PatchOperationConditional">
+    <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Appropriateness"]/scopes</xpath>
+    <match Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Appropriateness"]/scopes</xpath>
+      <value>
+        <li>
+          <traitDefname>HVT_Lech</traitDefname>
+          <degree>0</degree>
+          <centerOffset>-0.5</centerOffset>
+          <range>0.5</range>
+        </li>
+      </value>
+    </match>
+    <nomatch Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Appropriateness"]</xpath>
+      <value>
+        <scopes>
+          <li>
+            <traitDefname>HVT_Lech</traitDefname>
+            <degree>0</degree>
+            <centerOffset>-0.5</centerOffset>
+            <range>0.5</range>
+          </li>
+        </scopes>
+      </value>
+    </nomatch>
+  </Operation>
+  <Operation Class="PatchOperationConditional">
+    <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Appropriateness"]/scopes</xpath>
+    <match Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Appropriateness"]/scopes</xpath>
+      <value>
+        <li>
+          <traitDefname>HVT_Textile</traitDefname>
+          <degree>0</degree>
+          <centerOffset>0.75</centerOffset>
+          <range>0.25</range>
+        </li>
+      </value>
+    </match>
+    <nomatch Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Appropriateness"]</xpath>
+      <value>
+        <scopes>
+          <li>
+            <traitDefname>HVT_Textile</traitDefname>
+            <degree>0</degree>
+            <centerOffset>0.75</centerOffset>
+            <range>0.25</range>
+          </li>
+        </scopes>
+      </value>
+    </nomatch>
+  </Operation>
+  <Operation Class="PatchOperationConditional">
+    <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Passion"]/scopes</xpath>
+    <match Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Passion"]/scopes</xpath>
+      <value>
+        <li>
+          <traitDefname>HVT_Lovesick</traitDefname>
+          <degree>0</degree>
+          <centerOffset>0.5</centerOffset>
+          <range>0.5</range>
+        </li>
+      </value>
+    </match>
+    <nomatch Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Passion"]</xpath>
+      <value>
+        <scopes>
+          <li>
+            <traitDefname>HVT_Lovesick</traitDefname>
+            <degree>0</degree>
+            <centerOffset>0.5</centerOffset>
+            <range>0.5</range>
+          </li>
+        </scopes>
+      </value>
+    </nomatch>
+  </Operation>
+  <Operation Class="PatchOperationConditional">
+    <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Confidence"]/scopes</xpath>
+    <match Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Confidence"]/scopes</xpath>
+      <value>
+        <li>
+          <traitDefname>HVT_PeoplePleaser</traitDefname>
+          <degree>0</degree>
+          <centerOffset>-0.5</centerOffset>
+          <range>0.5</range>
+        </li>
+      </value>
+    </match>
+    <nomatch Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Confidence"]</xpath>
+      <value>
+        <scopes>
+          <li>
+            <traitDefname>HVT_PeoplePleaser</traitDefname>
+            <degree>0</degree>
+            <centerOffset>-0.5</centerOffset>
+            <range>0.5</range>
+          </li>
+        </scopes>
+      </value>
+    </nomatch>
+  </Operation>
+  <Operation Class="PatchOperationConditional">
+    <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Aggressiveness"]/scopes</xpath>
+    <match Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Aggressiveness"]/scopes</xpath>
+      <value>
+        <li>
+          <traitDefname>HVT_RepressedRage</traitDefname>
+          <degree>0</degree>
+          <centerOffset>0.5</centerOffset>
+          <range>0.5</range>
+        </li>
+      </value>
+    </match>
+    <nomatch Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Aggressiveness"]</xpath>
+      <value>
+        <scopes>
+          <li>
+            <traitDefname>HVT_RepressedRage</traitDefname>
+            <degree>0</degree>
+            <centerOffset>0.5</centerOffset>
+            <range>0.5</range>
+          </li>
+        </scopes>
+      </value>
+    </nomatch>
+  </Operation>
+  <Operation Class="PatchOperationConditional">
+    <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Aggressiveness"]/scopes</xpath>
+    <match Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Aggressiveness"]/scopes</xpath>
+      <value>
+        <li>
+          <traitDefname>HVT_Tranquil</traitDefname>
+          <degree>0</degree>
+          <centerOffset>-0.75</centerOffset>
+          <range>0.25</range>
+        </li>
+      </value>
+    </match>
+    <nomatch Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Aggressiveness"]</xpath>
+      <value>
+        <scopes>
+          <li>
+            <traitDefname>HVT_Tranquil</traitDefname>
+            <degree>0</degree>
+            <centerOffset>-0.75</centerOffset>
+            <range>0.25</range>
+          </li>
+        </scopes>
+      </value>
+    </nomatch>
+  </Operation>
+  <Operation Class="PatchOperationConditional">
+    <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Aggressiveness"]/scopes</xpath>
+    <match Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Aggressiveness"]/scopes</xpath>
+      <value>
+        <li>
+          <traitDefname>HVT_Vicious</traitDefname>
+          <degree>0</degree>
+          <centerOffset>0.75</centerOffset>
+          <range>0.25</range>
+        </li>
+      </value>
+    </match>
+    <nomatch Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Aggressiveness"]</xpath>
+      <value>
+        <scopes>
+          <li>
+            <traitDefname>HVT_Vicious</traitDefname>
+            <degree>0</degree>
+            <centerOffset>0.75</centerOffset>
+            <range>0.25</range>
+          </li>
+        </scopes>
+      </value>
+    </nomatch>
+  </Operation>
+  <Operation Class="PatchOperationConditional">
+    <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Morality"]/scopes</xpath>
+    <match Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Morality"]/scopes</xpath>
+      <value>
+        <li>
+          <traitDefname>HVT_Sadist</traitDefname>
+          <degree>0</degree>
+          <centerOffset>-0.5</centerOffset>
+          <range>0.5</range>
+        </li>
+      </value>
+    </match>
+    <nomatch Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Morality"]</xpath>
+      <value>
+        <scopes>
+          <li>
+            <traitDefname>HVT_Sadist</traitDefname>
+            <degree>0</degree>
+            <centerOffset>-0.5</centerOffset>
+            <range>0.5</range>
+          </li>
+        </scopes>
+      </value>
+    </nomatch>
+  </Operation>
+  <Operation Class="PatchOperationConditional">
+    <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Expectation"]/scopes</xpath>
+    <match Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Expectation"]/scopes</xpath>
+      <value>
+        <li>
+          <traitDefname>HVT_Textile</traitDefname>
+          <degree>0</degree>
+          <centerOffset>0.5</centerOffset>
+          <range>0.5</range>
+        </li>
+      </value>
+    </match>
+    <nomatch Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Expectation"]</xpath>
+      <value>
+        <scopes>
+          <li>
+            <traitDefname>HVT_Textile</traitDefname>
+            <degree>0</degree>
+            <centerOffset>0.5</centerOffset>
+            <range>0.5</range>
+          </li>
+        </scopes>
+      </value>
+    </nomatch>
+  </Operation>
+  <Operation Class="PatchOperationConditional">
+    <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Expectation"]/scopes</xpath>
+    <match Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Expectation"]/scopes</xpath>
+      <value>
+        <li>
+          <traitDefname>HVT_Vain</traitDefname>
+          <degree>0</degree>
+          <centerOffset>0.75</centerOffset>
+          <range>0.25</range>
+        </li>
+      </value>
+    </match>
+    <nomatch Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Expectation"]</xpath>
+      <value>
+        <scopes>
+          <li>
+            <traitDefname>HVT_Vain</traitDefname>
+            <degree>0</degree>
+            <centerOffset>0.75</centerOffset>
+            <range>0.25</range>
+          </li>
+        </scopes>
+      </value>
+    </nomatch>
+  </Operation>
+  <Operation Class="PatchOperationConditional">
+    <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Expectation"]/scopes</xpath>
+    <match Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Expectation"]/scopes</xpath>
+      <value>
+        <li>
+          <traitDefname>HVT_Prideful</traitDefname>
+          <degree>1.0</degree>
+          <centerOffset>0.75</centerOffset>
+          <range>0.25</range>
+        </li>
+      </value>
+    </match>
+    <nomatch Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Expectation"]</xpath>
+      <value>
+        <scopes>
+          <li>
+            <traitDefname>HVT_Prideful</traitDefname>
+            <degree>1.0</degree>
+            <centerOffset>0.75</centerOffset>
+            <range>0.25</range>
+          </li>
+        </scopes>
+      </value>
+    </nomatch>
+  </Operation>
+  <Operation Class="PatchOperationConditional">
+    <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Expectation"]/scopes</xpath>
+    <match Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Expectation"]/scopes</xpath>
+      <value>
+        <li>
+          <traitDefname>HVT_Prideful</traitDefname>
+          <degree>2.0</degree>
+          <centerOffset>0.5</centerOffset>
+          <range>0.5</range>
+        </li>
+      </value>
+    </match>
+    <nomatch Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Expectation"]</xpath>
+      <value>
+        <scopes>
+          <li>
+            <traitDefname>HVT_Prideful</traitDefname>
+            <degree>2.0</degree>
+            <centerOffset>0.5</centerOffset>
+            <range>0.5</range>
+          </li>
+        </scopes>
+      </value>
+    </nomatch>
+  </Operation>
+  <Operation Class="PatchOperationConditional">
+    <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Expectation"]/scopes</xpath>
+    <match Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Expectation"]/scopes</xpath>
+      <value>
+        <li>
+          <traitDefname>HVT_Humble</traitDefname>
+          <degree>0</degree>
+          <centerOffset>-0.5</centerOffset>
+          <range>0.5</range>
+        </li>
+      </value>
+    </match>
+    <nomatch Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Expectation"]</xpath>
+      <value>
+        <scopes>
+          <li>
+            <traitDefname>HVT_Humble</traitDefname>
+            <degree>0</degree>
+            <centerOffset>-0.5</centerOffset>
+            <range>0.5</range>
+          </li>
+        </scopes>
+      </value>
+    </nomatch>
+  </Operation>
+  <Operation Class="PatchOperationConditional">
+    <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_SelfInterest"]/scopes</xpath>
+    <match Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_SelfInterest"]/scopes</xpath>
+      <value>
+        <li>
+          <traitDefname>HVT_Vagabond</traitDefname>
+          <degree>0</degree>
+          <centerOffset>0.5</centerOffset>
+          <range>0.5</range>
+        </li>
+      </value>
+    </match>
+    <nomatch Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_SelfInterest"]</xpath>
+      <value>
+        <scopes>
+          <li>
+            <traitDefname>HVT_Vagabond</traitDefname>
+            <degree>0</degree>
+            <centerOffset>0.5</centerOffset>
+            <range>0.5</range>
+          </li>
+        </scopes>
+      </value>
+    </nomatch>
+  </Operation>
+  <Operation Class="PatchOperationConditional">
+    <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Authenticity"]/scopes</xpath>
+    <match Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Authenticity"]/scopes</xpath>
+      <value>
+        <li>
+          <traitDefname>HVT_Vain</traitDefname>
+          <degree>0</degree>
+          <centerOffset>-0.75</centerOffset>
+          <range>0.25</range>
+        </li>
+      </value>
+    </match>
+    <nomatch Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Authenticity"]</xpath>
+      <value>
+        <scopes>
+          <li>
+            <traitDefname>HVT_Vain</traitDefname>
+            <degree>0</degree>
+            <centerOffset>-0.75</centerOffset>
+            <range>0.25</range>
+          </li>
+        </scopes>
+      </value>
+    </nomatch>
+  </Operation>
+  <Operation Class="PatchOperationConditional">
+    <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Tension"]/scopes</xpath>
+    <match Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Tension"]/scopes</xpath>
+      <value>
+        <li>
+          <traitDefname>HVT_Vicious</traitDefname>
+          <degree>0</degree>
+          <centerOffset>0.5</centerOffset>
+          <range>0.5</range>
+        </li>
+      </value>
+    </match>
+    <nomatch Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Tension"]</xpath>
+      <value>
+        <scopes>
+          <li>
+            <traitDefname>HVT_Vicious</traitDefname>
+            <degree>0</degree>
+            <centerOffset>0.5</centerOffset>
+            <range>0.5</range>
+          </li>
+        </scopes>
+      </value>
+    </nomatch>
+  </Operation>
+  <Operation Class="PatchOperationConditional">
+    <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Ambition"]/scopes</xpath>
+    <match Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Ambition"]/scopes</xpath>
+      <value>
+        <li>
+          <traitDefname>HVT_Prideful</traitDefname>
+          <degree>1.0</degree>
+          <centerOffset>-0.5</centerOffset>
+          <range>0.5</range>
+        </li>
+      </value>
+    </match>
+    <nomatch Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Ambition"]</xpath>
+      <value>
+        <scopes>
+          <li>
+            <traitDefname>HVT_Prideful</traitDefname>
+            <degree>1.0</degree>
+            <centerOffset>-0.5</centerOffset>
+            <range>0.5</range>
+          </li>
+        </scopes>
+      </value>
+    </nomatch>
+  </Operation>
+
+
+<!-- Hauts' Added Traits (Ideology) -->
+
+
+  <Operation Class="PatchOperationConditional" MayRequire="Ludeon.RimWorld.Ideology">
+    <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Morality"]/scopes</xpath>
+    <match Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Morality"]/scopes</xpath>
+      <value>
+        <li>
+          <traitDefname>HVT_Faithful</traitDefname>
+          <degree>-2.0</degree>
+          <centerOffset>0.75</centerOffset>
+          <range>0.25</range>
+        </li>
+      </value>
+    </match>
+    <nomatch Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Morality"]</xpath>
+      <value>
+        <scopes>
+          <li>
+            <traitDefname>HVT_Faithful</traitDefname>
+            <degree>-2.0</degree>
+            <centerOffset>0.75</centerOffset>
+            <range>0.25</range>
+          </li>
+        </scopes>
+      </value>
+    </nomatch>
+  </Operation>
+  <Operation Class="PatchOperationConditional" MayRequire="Ludeon.RimWorld.Ideology">
+    <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Morality"]/scopes</xpath>
+    <match Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Morality"]/scopes</xpath>
+      <value>
+        <li>
+          <traitDefname>HVT_Faithful</traitDefname>
+          <degree>-1.0</degree>
+          <centerOffset>0.5</centerOffset>
+          <range>0.5</range>
+        </li>
+      </value>
+    </match>
+    <nomatch Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Morality"]</xpath>
+      <value>
+        <scopes>
+          <li>
+            <traitDefname>HVT_Faithful</traitDefname>
+            <degree>-1.0</degree>
+            <centerOffset>0.5</centerOffset>
+            <range>0.5</range>
+          </li>
+        </scopes>
+      </value>
+    </nomatch>
+  </Operation>
+  <Operation Class="PatchOperationConditional" MayRequire="Ludeon.RimWorld.Ideology">
+    <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Morality"]/scopes</xpath>
+    <match Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Morality"]/scopes</xpath>
+      <value>
+        <li>
+          <traitDefname>HVT_Faithful</traitDefname>
+          <degree>1.0</degree>
+          <centerOffset>0.5</centerOffset>
+          <range>0.5</range>
+        </li>
+      </value>
+    </match>
+    <nomatch Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Morality"]</xpath>
+      <value>
+        <scopes>
+          <li>
+            <traitDefname>HVT_Faithful</traitDefname>
+            <degree>1.0</degree>
+            <centerOffset>0.5</centerOffset>
+            <range>0.5</range>
+          </li>
+        </scopes>
+      </value>
+    </nomatch>
+  </Operation>
+  <Operation Class="PatchOperationConditional" MayRequire="Ludeon.RimWorld.Ideology">
+    <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Morality"]/scopes</xpath>
+    <match Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Morality"]/scopes</xpath>
+      <value>
+        <li>
+          <traitDefname>HVT_Faithful</traitDefname>
+          <degree>2.0</degree>
+          <centerOffset>0.75</centerOffset>
+          <range>0.25</range>
+        </li>
+      </value>
+    </match>
+    <nomatch Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Morality"]</xpath>
+      <value>
+        <scopes>
+          <li>
+            <traitDefname>HVT_Faithful</traitDefname>
+            <degree>2.0</degree>
+            <centerOffset>0.75</centerOffset>
+            <range>0.25</range>
+          </li>
+        </scopes>
+      </value>
+    </nomatch>
+  </Operation>
+  <Operation Class="PatchOperationConditional" MayRequire="Ludeon.RimWorld.Ideology">
+    <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Morality"]/scopes</xpath>
+    <match Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Morality"]/scopes</xpath>
+      <value>
+        <li>
+          <traitDefname>HVT_Proclaimer</traitDefname>
+          <degree>0</degree>
+          <centerOffset>0.5</centerOffset>
+          <range>0.5</range>
+        </li>
+      </value>
+    </match>
+    <nomatch Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Morality"]</xpath>
+      <value>
+        <scopes>
+          <li>
+            <traitDefname>HVT_Proclaimer</traitDefname>
+            <degree>0</degree>
+            <centerOffset>0.5</centerOffset>
+            <range>0.5</range>
+          </li>
+        </scopes>
+      </value>
+    </nomatch>
+  </Operation>
+  <Operation Class="PatchOperationConditional" MayRequire="Ludeon.RimWorld.Ideology">
+    <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Trust"]/scopes</xpath>
+    <match Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Trust"]/scopes</xpath>
+      <value>
+        <li>
+          <traitDefname>HVT_Faithful</traitDefname>
+          <degree>-2.0</degree>
+          <centerOffset>0.75</centerOffset>
+          <range>0.25</range>
+        </li>
+      </value>
+    </match>
+    <nomatch Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Trust"]</xpath>
+      <value>
+        <scopes>
+          <li>
+            <traitDefname>HVT_Faithful</traitDefname>
+            <degree>-2.0</degree>
+            <centerOffset>0.75</centerOffset>
+            <range>0.25</range>
+          </li>
+        </scopes>
+      </value>
+    </nomatch>
+  </Operation>
+  <Operation Class="PatchOperationConditional" MayRequire="Ludeon.RimWorld.Ideology">
+    <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Trust"]/scopes</xpath>
+    <match Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Trust"]/scopes</xpath>
+      <value>
+        <li>
+          <traitDefname>HVT_Faithful</traitDefname>
+          <degree>-1.0</degree>
+          <centerOffset>0.5</centerOffset>
+          <range>0.5</range>
+        </li>
+      </value>
+    </match>
+    <nomatch Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Trust"]</xpath>
+      <value>
+        <scopes>
+          <li>
+            <traitDefname>HVT_Faithful</traitDefname>
+            <degree>-1.0</degree>
+            <centerOffset>0.5</centerOffset>
+            <range>0.5</range>
+          </li>
+        </scopes>
+      </value>
+    </nomatch>
+  </Operation>
+  <Operation Class="PatchOperationConditional" MayRequire="Ludeon.RimWorld.Ideology">
+    <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Openness"]/scopes</xpath>
+    <match Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Openness"]/scopes</xpath>
+      <value>
+        <li>
+          <traitDefname>HVT_Faithful</traitDefname>
+          <degree>1.0</degree>
+          <centerOffset>-0.5</centerOffset>
+          <range>0.5</range>
+        </li>
+      </value>
+    </match>
+    <nomatch Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Openness"]</xpath>
+      <value>
+        <scopes>
+          <li>
+            <traitDefname>HVT_Faithful</traitDefname>
+            <degree>1.0</degree>
+            <centerOffset>-0.5</centerOffset>
+            <range>0.5</range>
+          </li>
+        </scopes>
+      </value>
+    </nomatch>
+  </Operation>
+  <Operation Class="PatchOperationConditional" MayRequire="Ludeon.RimWorld.Ideology">
+    <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Openness"]/scopes</xpath>
+    <match Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Openness"]/scopes</xpath>
+      <value>
+        <li>
+          <traitDefname>HVT_Faithful</traitDefname>
+          <degree>2.0</degree>
+          <centerOffset>-0.75</centerOffset>
+          <range>0.25</range>
+        </li>
+      </value>
+    </match>
+    <nomatch Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Openness"]</xpath>
+      <value>
+        <scopes>
+          <li>
+            <traitDefname>HVT_Faithful</traitDefname>
+            <degree>2.0</degree>
+            <centerOffset>-0.75</centerOffset>
+            <range>0.25</range>
+          </li>
+        </scopes>
+      </value>
+    </nomatch>
+  </Operation>
+  <Operation Class="PatchOperationConditional" MayRequire="Ludeon.RimWorld.Ideology">
+    <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Openness"]/scopes</xpath>
+    <match Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Openness"]/scopes</xpath>
+      <value>
+        <li>
+          <traitDefname>HVT_Doubtful</traitDefname>
+          <degree>0</degree>
+          <centerOffset>0.5</centerOffset>
+          <range>0.5</range>
+        </li>
+      </value>
+    </match>
+    <nomatch Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Openness"]</xpath>
+      <value>
+        <scopes>
+          <li>
+            <traitDefname>HVT_Doubtful</traitDefname>
+            <degree>0</degree>
+            <centerOffset>0.5</centerOffset>
+            <range>0.5</range>
+          </li>
+        </scopes>
+      </value>
+    </nomatch>
+  </Operation>
+  <Operation Class="PatchOperationConditional" MayRequire="Ludeon.RimWorld.Ideology">
+    <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Openness"]/scopes</xpath>
+    <match Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Openness"]/scopes</xpath>
+      <value>
+        <li>
+          <traitDefname>HVT_Intolerant</traitDefname>
+          <degree>0</degree>
+          <centerOffset>-0.75</centerOffset>
+          <range>0.25</range>
+        </li>
+      </value>
+    </match>
+    <nomatch Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Openness"]</xpath>
+      <value>
+        <scopes>
+          <li>
+            <traitDefname>HVT_Intolerant</traitDefname>
+            <degree>0</degree>
+            <centerOffset>-0.75</centerOffset>
+            <range>0.25</range>
+          </li>
+        </scopes>
+      </value>
+    </nomatch>
+  </Operation>
+  <Operation Class="PatchOperationConditional" MayRequire="Ludeon.RimWorld.Ideology">
+    <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Openness"]/scopes</xpath>
+    <match Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Openness"]/scopes</xpath>
+      <value>
+        <li>
+          <traitDefname>HVT_Tolerant</traitDefname>
+          <degree>0</degree>
+          <centerOffset>0.75</centerOffset>
+          <range>0.25</range>
+        </li>
+      </value>
+    </match>
+    <nomatch Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Openness"]</xpath>
+      <value>
+        <scopes>
+          <li>
+            <traitDefname>HVT_Tolerant</traitDefname>
+            <degree>0</degree>
+            <centerOffset>0.75</centerOffset>
+            <range>0.25</range>
+          </li>
+        </scopes>
+      </value>
+    </nomatch>
+  </Operation>
+  <Operation Class="PatchOperationConditional" MayRequire="Ludeon.RimWorld.Ideology">
+    <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Openness"]/scopes</xpath>
+    <match Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Openness"]/scopes</xpath>
+      <value>
+        <li>
+          <traitDefname>HVT_Conformist</traitDefname>
+          <degree>0</degree>
+          <centerOffset>0.5</centerOffset>
+          <range>0.5</range>
+        </li>
+      </value>
+    </match>
+    <nomatch Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Openness"]</xpath>
+      <value>
+        <scopes>
+          <li>
+            <traitDefname>HVT_Conformist</traitDefname>
+            <degree>0</degree>
+            <centerOffset>0.5</centerOffset>
+            <range>0.5</range>
+          </li>
+        </scopes>
+      </value>
+    </nomatch>
+  </Operation>
+  <Operation Class="PatchOperationConditional" MayRequire="Ludeon.RimWorld.Ideology">
+    <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Competitiveness"]/scopes</xpath>
+    <match Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Competitiveness"]/scopes</xpath>
+      <value>
+        <li>
+          <traitDefname>HVT_Subjugator</traitDefname>
+          <degree>0</degree>
+          <centerOffset>0.75</centerOffset>
+          <range>0.25</range>
+        </li>
+      </value>
+    </match>
+    <nomatch Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Competitiveness"]</xpath>
+      <value>
+        <scopes>
+          <li>
+            <traitDefname>HVT_Subjugator</traitDefname>
+            <degree>0</degree>
+            <centerOffset>0.75</centerOffset>
+            <range>0.25</range>
+          </li>
+        </scopes>
+      </value>
+    </nomatch>
+  </Operation>
+  <Operation Class="PatchOperationConditional" MayRequire="Ludeon.RimWorld.Ideology">
+    <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Resilience"]/scopes</xpath>
+    <match Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Resilience"]/scopes</xpath>
+      <value>
+        <li>
+          <traitDefname>HVT_Liberator</traitDefname>
+          <degree>0</degree>
+          <centerOffset>0.5</centerOffset>
+          <range>0.5</range>
+        </li>
+      </value>
+    </match>
+    <nomatch Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Resilience"]</xpath>
+      <value>
+        <scopes>
+          <li>
+            <traitDefname>HVT_Liberator</traitDefname>
+            <degree>0</degree>
+            <centerOffset>0.5</centerOffset>
+            <range>0.5</range>
+          </li>
+        </scopes>
+      </value>
+    </nomatch>
+  </Operation>
+  <Operation Class="PatchOperationConditional" MayRequire="Ludeon.RimWorld.Ideology">
+    <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Tact"]/scopes</xpath>
+    <match Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Tact"]/scopes</xpath>
+      <value>
+        <li>
+          <traitDefname>HVT_Guru</traitDefname>
+          <degree>0</degree>
+          <centerOffset>0.5</centerOffset>
+          <range>0.5</range>
+        </li>
+      </value>
+    </match>
+    <nomatch Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Tact"]</xpath>
+      <value>
+        <scopes>
+          <li>
+            <traitDefname>HVT_Guru</traitDefname>
+            <degree>0</degree>
+            <centerOffset>0.5</centerOffset>
+            <range>0.5</range>
+          </li>
+        </scopes>
+      </value>
+    </nomatch>
+  </Operation>
+  <Operation Class="PatchOperationConditional" MayRequire="Ludeon.RimWorld.Ideology">
+    <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Passion"]/scopes</xpath>
+    <match Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Passion"]/scopes</xpath>
+      <value>
+        <li>
+          <traitDefname>HVT_Proclaimer</traitDefname>
+          <degree>0</degree>
+          <centerOffset>0.5</centerOffset>
+          <range>0.5</range>
+        </li>
+      </value>
+    </match>
+    <nomatch Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Passion"]</xpath>
+      <value>
+        <scopes>
+          <li>
+            <traitDefname>HVT_Proclaimer</traitDefname>
+            <degree>0</degree>
+            <centerOffset>0.5</centerOffset>
+            <range>0.5</range>
+          </li>
+        </scopes>
+      </value>
+    </nomatch>
+  </Operation>
+  <Operation Class="PatchOperationConditional" MayRequire="Ludeon.RimWorld.Ideology">
+    <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Passion"]/scopes</xpath>
+    <match Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Passion"]/scopes</xpath>
+      <value>
+        <li>
+          <traitDefname>HVT_RadicalThinker</traitDefname>
+          <degree>0</degree>
+          <centerOffset>0.5</centerOffset>
+          <range>0.5</range>
+        </li>
+      </value>
+    </match>
+    <nomatch Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Passion"]</xpath>
+      <value>
+        <scopes>
+          <li>
+            <traitDefname>HVT_RadicalThinker</traitDefname>
+            <degree>0</degree>
+            <centerOffset>0.5</centerOffset>
+            <range>0.5</range>
+          </li>
+        </scopes>
+      </value>
+    </nomatch>
+  </Operation>
+  <Operation Class="PatchOperationConditional" MayRequire="Ludeon.RimWorld.Ideology">
+    <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Reflectiveness"]/scopes</xpath>
+    <match Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Reflectiveness"]/scopes</xpath>
+      <value>
+        <li>
+          <traitDefname>HVT_RadicalThinker</traitDefname>
+          <degree>0</degree>
+          <centerOffset>0.75</centerOffset>
+          <range>0.25</range>
+        </li>
+      </value>
+    </match>
+    <nomatch Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Reflectiveness"]</xpath>
+      <value>
+        <scopes>
+          <li>
+            <traitDefname>HVT_RadicalThinker</traitDefname>
+            <degree>0</degree>
+            <centerOffset>0.75</centerOffset>
+            <range>0.25</range>
+          </li>
+        </scopes>
+      </value>
+    </nomatch>
+  </Operation>
+
+
+<!-- Hauts' Added Traits (Biotech) -->
+
+
+  <Operation Class="PatchOperationConditional" MayRequire="Ludeon.RimWorld.Biotech">
+    <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Competitiveness"]/scopes</xpath>
+    <match Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Competitiveness"]/scopes</xpath>
+      <value>
+        <li>
+          <traitDefname>HVT_Mentor</traitDefname>
+          <degree>0</degree>
+          <centerOffset>-0.5</centerOffset>
+          <range>0.5</range>
+        </li>
+      </value>
+    </match>
+    <nomatch Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Competitiveness"]</xpath>
+      <value>
+        <scopes>
+          <li>
+            <traitDefname>HVT_Mentor</traitDefname>
+            <degree>0</degree>
+            <centerOffset>-0.5</centerOffset>
+            <range>0.5</range>
+          </li>
+        </scopes>
+      </value>
+    </nomatch>
+  </Operation>
+  <Operation Class="PatchOperationConditional" MayRequire="Ludeon.RimWorld.Biotech">
+    <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Openness"]/scopes</xpath>
+    <match Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Openness"]/scopes</xpath>
+      <value>
+        <li>
+          <traitDefname>HVT_GenePurist</traitDefname>
+          <degree>0</degree>
+          <centerOffset>-0.5</centerOffset>
+          <range>0.5</range>
+        </li>
+      </value>
+    </match>
+    <nomatch Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Openness"]</xpath>
+      <value>
+        <scopes>
+          <li>
+            <traitDefname>HVT_GenePurist</traitDefname>
+            <degree>0</degree>
+            <centerOffset>-0.5</centerOffset>
+            <range>0.5</range>
+          </li>
+        </scopes>
+      </value>
+    </nomatch>
+  </Operation>
+
+
+<!-- Hauts' Added Traits (Royalty) -->
+
+
+  <Operation Class="PatchOperationConditional" MayRequire="Ludeon.RimWorld.Royalty">
+    <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Ambition"]/scopes</xpath>
+    <match Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Ambition"]/scopes</xpath>
+      <value>
+        <li>
+          <traitDefname>HVT_Servile</traitDefname>
+          <degree>0</degree>
+          <centerOffset>-0.75</centerOffset>
+          <range>0.25</range>
+        </li>
+      </value>
+    </match>
+    <nomatch Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Ambition"]</xpath>
+      <value>
+        <scopes>
+          <li>
+            <traitDefname>HVT_Servile</traitDefname>
+            <degree>0</degree>
+            <centerOffset>-0.75</centerOffset>
+            <range>0.25</range>
+          </li>
+        </scopes>
+      </value>
+    </nomatch>
+  </Operation>
+
+
+<!-- Hauts' Added Traits (Anomaly) -->
+
+
+  <Operation Class="PatchOperationConditional" MayRequire="Ludeon.RimWorld.Anomaly">
+    <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Compassion"]/scopes</xpath>
+    <match Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Compassion"]/scopes</xpath>
+      <value>
+        <li>
+          <traitDefname>HVT_Catastrophist</traitDefname>
+          <degree>0</degree>
+          <centerOffset>-0.5</centerOffset>
+          <range>0.5</range>
+        </li>
+      </value>
+    </match>
+    <nomatch Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Compassion"]</xpath>
+      <value>
+        <scopes>
+          <li>
+            <traitDefname>HVT_Catastrophist</traitDefname>
+            <degree>0</degree>
+            <centerOffset>-0.5</centerOffset>
+            <range>0.5</range>
+          </li>
+        </scopes>
+      </value>
+    </nomatch>
+  </Operation>
+  <Operation Class="PatchOperationConditional" MayRequire="Ludeon.RimWorld.Anomaly">
+    <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Compassion"]/scopes</xpath>
+    <match Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Compassion"]/scopes</xpath>
+      <value>
+        <li>
+          <traitDefname>HVT_MonsterLover</traitDefname>
+          <degree>0</degree>
+          <centerOffset>0.5</centerOffset>
+          <range>0.5</range>
+        </li>
+      </value>
+    </match>
+    <nomatch Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Compassion"]</xpath>
+      <value>
+        <scopes>
+          <li>
+            <traitDefname>HVT_MonsterLover</traitDefname>
+            <degree>0</degree>
+            <centerOffset>0.5</centerOffset>
+            <range>0.5</range>
+          </li>
+        </scopes>
+      </value>
+    </nomatch>
+  </Operation>
+  <Operation Class="PatchOperationConditional" MayRequire="Ludeon.RimWorld.Anomaly">
+    <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Compassion"]/scopes</xpath>
+    <match Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Compassion"]/scopes</xpath>
+      <value>
+        <li>
+          <traitDefname>HVT_Twisted</traitDefname>
+          <degree>0</degree>
+          <centerOffset>-0.5</centerOffset>
+          <range>0.5</range>
+        </li>
+      </value>
+    </match>
+    <nomatch Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Compassion"]</xpath>
+      <value>
+        <scopes>
+          <li>
+            <traitDefname>HVT_Twisted</traitDefname>
+            <degree>0</degree>
+            <centerOffset>-0.5</centerOffset>
+            <range>0.5</range>
+          </li>
+        </scopes>
+      </value>
+    </nomatch>
+  </Operation>
+  <Operation Class="PatchOperationConditional" MayRequire="Ludeon.RimWorld.Anomaly">
+    <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Bravery"]/scopes</xpath>
+    <match Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Bravery"]/scopes</xpath>
+      <value>
+        <li>
+          <traitDefname>HVT_MonsterHunter</traitDefname>
+          <degree>0</degree>
+          <centerOffset>0.5</centerOffset>
+          <range>0.5</range>
+        </li>
+      </value>
+    </match>
+    <nomatch Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Bravery"]</xpath>
+      <value>
+        <scopes>
+          <li>
+            <traitDefname>HVT_MonsterHunter</traitDefname>
+            <degree>0</degree>
+            <centerOffset>0.5</centerOffset>
+            <range>0.5</range>
+          </li>
+        </scopes>
+      </value>
+    </nomatch>
+  </Operation>
+  <Operation Class="PatchOperationConditional" MayRequire="Ludeon.RimWorld.Anomaly">
+    <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Inquisitiveness"]/scopes</xpath>
+    <match Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Inquisitiveness"]/scopes</xpath>
+      <value>
+        <li>
+          <traitDefname>HVT_MonsterLover</traitDefname>
+          <degree>0</degree>
+          <centerOffset>0.5</centerOffset>
+          <range>0.5</range>
+        </li>
+      </value>
+    </match>
+    <nomatch Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Inquisitiveness"]</xpath>
+      <value>
+        <scopes>
+          <li>
+            <traitDefname>HVT_MonsterLover</traitDefname>
+            <degree>0</degree>
+            <centerOffset>0.5</centerOffset>
+            <range>0.5</range>
+          </li>
+        </scopes>
+      </value>
+    </nomatch>
+  </Operation>
+
+
+<!-- Hauts' Added Traits (Odyssey) -->
+
+
+  <Operation Class="PatchOperationConditional" MayRequire="Ludeon.RimWorld.Odyssey">
+    <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Inquisitiveness"]/scopes</xpath>
+    <match Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Inquisitiveness"]/scopes</xpath>
+      <value>
+        <li>
+          <traitDefname>HVT_Globetrotter</traitDefname>
+          <degree>0</degree>
+          <centerOffset>0.5</centerOffset>
+          <range>0.5</range>
+        </li>
+      </value>
+    </match>
+    <nomatch Class="PatchOperationAdd">
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Inquisitiveness"]</xpath>
+      <value>
+        <scopes>
+          <li>
+            <traitDefname>HVT_Globetrotter</traitDefname>
+            <degree>0</degree>
+            <centerOffset>0.5</centerOffset>
+            <range>0.5</range>
+          </li>
+        </scopes>
+      </value>
+    </nomatch>
+  </Operation>
+
+</Patch>

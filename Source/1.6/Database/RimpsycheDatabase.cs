@@ -403,6 +403,98 @@ namespace Maux36.RimPsyche
                     new FacetGate(Facet.Integrity, -35f, 15f)
                 });
             }
+
+            if (ModsConfig.IsActive("hautarche.hautstraits"))
+            {
+                RegisterTraitGate(new Pair<string, int>("HVT_Aestheticist", 0), new List<FacetGate>
+                {
+                    new FacetGate(Facet.Imagination, 25, 25)
+                });
+                RegisterTraitGate(new Pair<string, int>("HVT_Drudge", 0), new List<FacetGate>
+                {
+                    new FacetGate(Facet.Intellect, -25, 25)
+                });
+                RegisterTraitGate(new Pair<string, int>("HVT_Sadist", 0), new List<FacetGate>
+                {
+                    new FacetGate(Facet.Compassion, -35, 15),
+                    new FacetGate(Facet.Integrity, -35, 15)
+                });
+                RegisterTraitGate(new Pair<string, int>("HVT_Staid", 0), new List<FacetGate>
+                {
+                    new FacetGate(Facet.Imagination, -35, 15)
+                });
+                RegisterTraitGate(new Pair<string, int>("HVT_Tempestophile", 0), new List<FacetGate>
+                {
+                    new FacetGate(Facet.Curiosity, 25, 25)
+                });
+                RegisterTraitGate(new Pair<string, int>("HVT_Tranquil", 0), new List<FacetGate>
+                {
+                    new FacetGate(Facet.Volatility, -35, 15)
+                });
+                RegisterTraitGate(new Pair<string, int>("HVT_Visionary", 0), new List<FacetGate>
+                {
+                    new FacetGate(Facet.Intellect, 25, 25)
+                });
+                RegisterTraitGate(new Pair<string, int>("HVT_Prideful", 1), new List<FacetGate>
+                {
+                    new FacetGate(Facet.Humbleness, -35, 15)
+                });
+                RegisterTraitGate(new Pair<string, int>("HVT_Prideful", 2), new List<FacetGate>
+                {
+                    new FacetGate(Facet.Humbleness, -35, 15)
+                });
+                RegisterTraitGate(new Pair<string, int>("HVT_Humble", 2), new List<FacetGate>
+                {
+                    new FacetGate(Facet.Humbleness, 35, 15)
+                });
+
+                //Royalty
+                if (ModsConfig.RoyaltyActive)
+                {
+                    RegisterTraitGate(new Pair<string, int>("HVT_Anarchist", 0), new List<FacetGate>
+                    {
+                        new FacetGate(Facet.Cooperation, -25, 25)
+                    });
+                        RegisterTraitGate(new Pair<string, int>("HVT_Servile", 0), new List<FacetGate>
+                    {
+                        new FacetGate(Facet.Assertiveness, -35, 15),
+                        new FacetGate(Facet.Humbleness, 25, 25)
+                    });
+                }
+
+                //Ideology
+                if (ModsConfig.IdeologyActive)
+                {
+                    RegisterTraitGate(new Pair<string, int>("HVT_Subjugator", 0), new List<FacetGate>
+                    {
+                        new FacetGate(Facet.Humbleness, -25, 25)
+                    });
+                        RegisterTraitGate(new Pair<string, int>("HVT_Conformist", 0), new List<FacetGate>
+                    {
+                        new FacetGate(Facet.Integrity, -25, 25)
+                    });
+                        RegisterTraitGate(new Pair<string, int>("HVT_Proclaimer", 0), new List<FacetGate>
+                    {
+                        new FacetGate(Facet.Assertiveness, 25, 25)
+                    });
+                        RegisterTraitGate(new Pair<string, int>("HVT_RadicalThinker", 0), new List<FacetGate>
+                    {
+                        new FacetGate(Facet.Intellect, 25, 25)
+                    });
+                }
+
+                //Anomaly
+                if (ModsConfig.AnomalyActive)
+                {
+                    RegisterTraitGate(new Pair<string, int>("HVT_Twisted", 0), new List<FacetGate>
+                    {
+                        new FacetGate(Facet.Sociability, -25, 25)
+                    });
+                }
+
+
+
+            }
         }
     }
 }
