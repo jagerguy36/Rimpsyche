@@ -128,7 +128,9 @@ namespace Maux36.RimPsyche
         }
         public bool CheckEnabled()
         {
-            //Core only checks for inhumanized. Other mods should postfix this method and add nullifyCheck method to add their own restrictions.
+            //Core only checks for inhumanized and shambler.
+            //Other mods should postfix this method and add nullifyCheck method to add their own restrictions.
+            if (parentPawn.IsMutant && parentPawn.mutant.Def == MutantDefOf.Shambler) return false;
             if (parentPawn.Inhumanized()) return false;
             return true;
         }
