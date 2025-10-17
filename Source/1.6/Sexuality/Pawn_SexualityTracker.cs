@@ -35,12 +35,11 @@ namespace Maux36.RimPsyche
         {
             if (kinsey == 0f) return 0;
             else if (kinsey < 0.2f) return 1;
-            else if (kinsey < 0.2f) return 2;
-            else if (kinsey < 0.4f) return 3;
-            else if (kinsey < 0.6f) return 4;
-            else if (kinsey < 0.8f) return 5;
-            else if (kinsey < 1f) return 6;
-            else if (kinsey == 1f) return 7;
+            else if (kinsey < 0.4f) return 2;
+            else if (kinsey < 0.6f) return 3;
+            else if (kinsey < 0.8f) return 4;
+            else if (kinsey < 1f) return 5;
+            else if (kinsey == 1f) return 6;
             else return -1;
         }
         public bool ShowOnUI()
