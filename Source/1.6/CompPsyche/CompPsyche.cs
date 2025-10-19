@@ -176,14 +176,14 @@ namespace Maux36.RimPsyche
                 interests.Initialize();
             }
         }
-        public void SexualitySetup()
+        public void SexualitySetup(bool generate = false, bool allowGay = true)
         {
             if (sexuality == null)
             {
                 sexuality = new Pawn_SexualityTracker(parentPawn);
             }
             //Initialize even when not null for save-game trait safety with Sexuality Module.
-            sexuality.Initialize(generate: false);
+            sexuality.Initialize(generate, allowGay);
         }
         public void DirtyTraitCache()
         {
@@ -252,7 +252,7 @@ namespace Maux36.RimPsyche
             {
                 PsycheValueSetup();
                 InterestScoreSetup();
-                SexualitySetup();
+                SexualitySetup(generate: false);
                 if (Rimpsyche.DispositionModuleLoaded)
                 {
                     if (progressTick < 0)
