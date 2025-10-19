@@ -120,8 +120,9 @@ namespace Maux36.RimPsyche
                 if (sexuality == null)
                 {
                     sexuality = new Pawn_SexualityTracker(parentPawn);
-                    sexuality.Initialize(parentPawn);
+                    sexuality.Initialize();
                 }
+                if (sexuality.shouldValidate) sexuality.Validate();
                 return sexuality;
             }
             set => sexuality = value;
@@ -175,21 +176,19 @@ namespace Maux36.RimPsyche
                 interests.Initialize();
             }
         }
-        public void SexualitySetup(bool genearte = false)
+        public void SexualitySetup()
         {
             if (sexuality == null)
             {
                 sexuality = new Pawn_SexualityTracker(parentPawn);
             }
             //Initialize even when not null for save-game trait safety with Sexuality Module.
-            sexuality.Initialize(parentPawn, genearte);
+            sexuality.Initialize(generate: false);
         }
         public void DirtyTraitCache()
         {
-            if(personality != null)
-            {
-                personality.DirtyTraitCache();
-            }
+            personality?.DirtyTraitCache();
+            if(Rimpsyche.SexualityModuleLoaded) sexuality?.DirtyTraitCache();
         }
         public bool AffectPawn(float resultOffset, float opinion, Topic topic, float direction = 1f)
         {

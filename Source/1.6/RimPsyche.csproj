@@ -101,6 +101,7 @@
     <Compile Include="RimpsycheUI\Rimpsyche_UI_Utility.cs" />
     <Compile Include="Rimpsyche_Utlity.cs" />
     <Compile Include="Sexuality\Pawn_SexualityTracker.cs" />
+    <Compile Include="Sexuality\SexualityHelper.cs" />
     <Compile Include="Thought\Thought_MemoryPostDefined.cs" />
     <Compile Include="RimpsycheUI\InterfaceComponents.cs" />
     <Compile Include="RimpsycheUI\ITab_Pawn_Psyche.cs" />
