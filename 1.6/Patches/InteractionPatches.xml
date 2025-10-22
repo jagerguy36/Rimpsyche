@@ -1,14 +1,14 @@
 <Patch>
 
 	<Operation Class="PatchOperationReplace">
-		<xpath>*/InteractionDef[defName="Chitchat"]/workerClass</xpath>
+		<xpath>/Defs/InteractionDef[defName="Chitchat"]/workerClass</xpath>
 		<value>
 			<workerClass>Maux36.RimPsyche.InteractionWroker_NeverRandom</workerClass>
 		</value>
 	</Operation>
 
 	<Operation Class="PatchOperationReplace">
-		<xpath>*/InteractionDef[defName="DeepTalk"]/workerClass</xpath>
+		<xpath>/Defs/InteractionDef[defName="DeepTalk"]/workerClass</xpath>
 		<value>
 			<workerClass>Maux36.RimPsyche.InteractionWroker_NeverRandom</workerClass>
 		</value>

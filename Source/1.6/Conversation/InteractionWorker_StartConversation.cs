@@ -228,6 +228,7 @@ namespace Maux36.RimPsyche
                 entry = new PlayLogEntry_InteractionConversation(DefOfRimpsyche.Rimpsyche_Conversation, initiator, recipient, convoTopic.name, convoTopic.label, extraSentencePacks);
                 Find.PlayLog.Add(entry);
                 InteractionHook(initiator, recipient, convoTopic, topicAlignment, initOpinionOffset, reciOpinionOffset);
+                convoTopic.result?.ApplyEffect(initiator, recipient, topicAlignment, initOpinionOffset, reciOpinionOffset);
             }
         }
 
