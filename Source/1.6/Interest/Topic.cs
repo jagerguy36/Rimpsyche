@@ -15,6 +15,7 @@ namespace Maux36.RimPsyche
         public bool allowChild = true;
         public bool NSFW = false;
         public List<PersonalityWeight> weights;
+        public ConvoResultBase result;
         public float GetScore(Pawn initiator, Pawn recipient, out float initDirection)
         {
             initDirection = 1f;
@@ -54,6 +55,11 @@ namespace Maux36.RimPsyche
             }
             return Mathf.Clamp(score, -1f, 1f);
         }
+    }
+
+    public abstract class ConvoResultBase
+    {
+        public abstract void ApplyEffect(Pawn initiator, Pawn recipient, float alignment, float initOpinionOffset, float reciOpinionOffset);
     }
 
 }
