@@ -10,7 +10,7 @@ namespace Maux36.RimPsyche
     public class RimpsycheDatabase
     {
         public static HashSet<Interest> InterestList = new();
-        public static Dictionary<Interest, InterestDomainDef> InterestDomainDict = new();
+        public static Dictionary<int, InterestDomainDef> InterestDomainDict = new();
         public static Dictionary<string, PersonalityDef> PersonalityDict = new();
         public static Dictionary<Pair<int, int>, List<(int, float, float)>> TraitScopeDatabase = new();
         public static Dictionary<Pair<int, int>, List<FacetGate>> TraitGateDatabase = new() { };
@@ -61,7 +61,7 @@ namespace Maux36.RimPsyche
                     InterestList.Add(interest);
                     interest.id = InterestList.Count;
                     maxInterestLabelWidth = Mathf.Max(maxInterestLabelWidth, 5f + Text.CalcSize(interest.label).x);
-                    InterestDomainDict.Add(interest, interestdomain);
+                    InterestDomainDict.Add(interest.id, interestdomain);
                     foreach (var topic in interest.topics)
                     {
                         //TopicNameList.Add(topic.name);
