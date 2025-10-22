@@ -116,7 +116,7 @@ namespace Maux36.RimPsyche
 
                 //GetResult
                 bool startFight = false;
-                bool startedByParentPawn = false;
+                bool startedByInitiator = false;
                 float pawnScore;
                 float partnerScore;
                 float talkRand = Rand.Value;
@@ -166,31 +166,33 @@ namespace Maux36.RimPsyche
                         pawnScore = negativeScoreBase * (1f - (0.2f * pawnReceiveScore)); // -3.2~[-1.5]~-0.4
                         partnerScore = negativeScoreBase * (1f - (0.2f * partnerReceiveScore)); //(-2~-1) * 0.4~1.6 = -3.2 ~[-1.5]~ -0.4
                         //Calcualte fight Chance
+                        // 0.002 * opScore * 0.24~[1]~1.68
                         float pawnStartCandBaseChance = -0.002f * pawnScore * lengthMult * initiatorPsyche.Evaluate(RimpsycheDatabase.SocialFightChanceMultiplier);
                         float partnerStartCandBaseChance = -0.002f * partnerScore * lengthMult * recipientPsyche.Evaluate(RimpsycheDatabase.SocialFightChanceMultiplier);
+                        //opScore to go over 0.005 ranges from -10.41 ~ [-2.5] ~ -1.488
+                        //Initiator has the first chance to start the fight
                         if (pawnStartCandBaseChance >= 0.005f)
                         {
-
                             float pawnStartFightChance = Rimpsyche_Utility.ConvoSocialFightChance(initiator, recipient, pawnStartCandBaseChance, initOpinion);
                             if (Rand.Chance(pawnStartFightChance))
                             {
                                 startFight = true;
+                                startedByInitiator = true;
                             }
                         }
-                        else if (partnerStartCandBaseChance >= 0.005f)
+                        //If initiator didn't start the fight, check the recipient for fight
+                        if (!startFight && partnerStartCandBaseChance >= 0.005f)
                         {
-
-                            float partnerStartFightChance = Rimpsyche_Utility.ConvoSocialFightChance(initiator, recipient, partnerStartCandBaseChance, reciOpinion);
+                            float partnerStartFightChance = Rimpsyche_Utility.ConvoSocialFightChance(recipient, initiator, partnerStartCandBaseChance, reciOpinion);
                             if (Rand.Chance(partnerStartFightChance))
                             {
                                 startFight = true;
-                                startedByParentPawn = true;
                             }
                         }
                         
                         if (startFight)
                         {
-                            if (startedByParentPawn)
+                            if (startedByInitiator)
                             {
                                 initiator.interactions.StartSocialFight(recipient);
                                 extraSentencePacks.Add(DefOfRimpsyche.Sentence_RimpsycheSocialFightConvoInitiatorStarted);
