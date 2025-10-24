@@ -63,21 +63,21 @@ namespace Maux36.RimPsyche
                 orientationCategory = SexualOrientation.Homosexual;
                 kinsey = SexualityHelper.GenerateKinseyFor(orientationCategory);
                 attraction = SexualityHelper.GenerateAttractionFor(orientationCategory);
-                Log.Warning($"interpreting sexuality for {pawn.Name} | {kinsey} -> {orientationCategory} | A: {attraction}");
+                //Log.Warning($"interpreting sexuality for {pawn.Name} | {kinsey} -> {orientationCategory} | A: {attraction}");
             }
             else if (traits.HasTrait(TraitDefOf.Bisexual))
             {
                 orientationCategory = SexualOrientation.Bisexual;
                 kinsey = SexualityHelper.GenerateKinseyFor(orientationCategory);
                 attraction = SexualityHelper.GenerateAttractionFor(orientationCategory);
-                Log.Warning($"interpreting sexuality for {pawn.Name} | {kinsey} -> {orientationCategory} | A: {attraction}");
+                //Log.Warning($"interpreting sexuality for {pawn.Name} | {kinsey} -> {orientationCategory} | A: {attraction}");
             }
             else if (traits.HasTrait(TraitDefOf.Asexual))
             {
                 orientationCategory = SexualOrientation.Asexual;
                 kinsey = SexualityHelper.GenerateKinseyFor(orientationCategory);
                 attraction = SexualityHelper.GenerateAttractionFor(orientationCategory);
-                Log.Warning($"interpreting sexuality for {pawn.Name} | {kinsey} -> {orientationCategory} | A: {attraction}");
+                //Log.Warning($"interpreting sexuality for {pawn.Name} | {kinsey} -> {orientationCategory} | A: {attraction}");
             }
             //Pawn without sexuality trait who is already generated == heterosexual pawns
             else if (!generate)
@@ -85,7 +85,7 @@ namespace Maux36.RimPsyche
                 orientationCategory = SexualOrientation.Heterosexual;
                 kinsey = SexualityHelper.GenerateKinseyFor(orientationCategory);
                 attraction = SexualityHelper.GenerateAttractionFor(orientationCategory);
-                Log.Warning($"interpreting sexuality for {pawn.Name} | {kinsey} -> {orientationCategory} | A: {attraction}");
+                //Log.Warning($"interpreting sexuality for {pawn.Name} | {kinsey} -> {orientationCategory} | A: {attraction}");
             }
             //Pawn without sexuality trait who is being generated == undecided 
             else
@@ -96,7 +96,7 @@ namespace Maux36.RimPsyche
                 else if (kinsey < 0.2f) { orientationCategory = SexualOrientation.Heterosexual; Log.Message("Het"); }
                 else if (kinsey < 0.8f) { orientationCategory = SexualOrientation.Bisexual; traits.allTraits.Add(new Trait(TraitDefOf.Bisexual, TraitDefOf.Bisexual.degreeDatas[0].degree)); Log.Message("Bi"); }
                 else { orientationCategory = SexualOrientation.Homosexual; traits.allTraits.Add(new Trait(TraitDefOf.Gay, TraitDefOf.Gay.degreeDatas[0].degree)); Log.Message("Gay"); }
-                Log.Message($"generating sexuality for {pawn.Name} | {kinsey} -> {orientationCategory} | A: {attraction}");
+                //Log.Message($"generating sexuality for {pawn.Name} | {kinsey} -> {orientationCategory} | A: {attraction}");
             }
 
             sexDrive = SexualityHelper.GetNormalDistribution();
@@ -120,18 +120,18 @@ namespace Maux36.RimPsyche
             shouldValidate = false;
             if (orientationCategory == SexualOrientation.Developing || orientationCategory == SexualOrientation.None)
             {
-                Log.Message($"Validate: {pawn.Name}'s sexuality {orientationCategory} skip trait check.");
+                //Log.Message($"Validate: {pawn.Name}'s sexuality {orientationCategory} skip trait check.");
                 return;
             }
             var traitCategory = SexualityHelper.EvaluateSexuality(pawn);
             if (traitCategory == orientationCategory)
             {
-                Log.Message($"Validate: {pawn.Name}'s sexuality {orientationCategory} unchanged.");
+                //Log.Message($"Validate: {pawn.Name}'s sexuality {orientationCategory} unchanged.");
                 return;
             }
             else
             {
-                Log.Warning($"Validate: {pawn.Name}'s sexuality {orientationCategory} changed to {traitCategory}.");
+                //Log.Warning($"Validate: {pawn.Name}'s sexuality {orientationCategory} changed to {traitCategory}.");
                 AssignSexuality(traitCategory);
                 return;
             }
@@ -162,7 +162,7 @@ namespace Maux36.RimPsyche
         }
         public void DirtyTraitCache()
         {
-            Log.Message($"{pawn.Name}'s Validation Dirtied.");
+            //Log.Message($"{pawn.Name}'s Validation Dirtied.");
             shouldValidate = true;
         }
         public int GetKinseyReport()
