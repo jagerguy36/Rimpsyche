@@ -162,9 +162,9 @@ namespace Maux36.RimPsyche
                     else
                     {
                         //Bad Talk
-                        float negativeScoreBase = (topicAlignment - 1f) * (1f - talkRand); // -2~[-1.5]~-1
-                        pawnScore = negativeScoreBase * (1f - (0.2f * pawnReceiveScore)); // -3.2~[-1.5]~-0.4
-                        partnerScore = negativeScoreBase * (1f - (0.2f * partnerReceiveScore)); //(-2~-1) * 0.4~1.6 = -3.2 ~[-1.5]~ -0.4
+                        float negativeScoreBase = (topicAlignment - 1f) * (1.5f - talkRand); // -3~[-1.5]~-0.5
+                        pawnScore = negativeScoreBase * (1f - (0.2f * pawnReceiveScore)); //( -3~[-1.5]~-0.5) * 0.4~1.6 = -4.8 ~[-1.5]~ -0.2
+                        partnerScore = negativeScoreBase * (1f - (0.2f * partnerReceiveScore)); //( -3~[-1.5]~-0.5) * 0.4~1.6 = -4.8 ~[-1.5]~ -0.2
                         //Calcualte fight Chance
                         // 0.002 * opScore * 0.24~[1]~1.68
                         float pawnStartCandBaseChance = -0.002f * pawnScore * lengthMult * initiatorPsyche.Evaluate(RimpsycheDatabase.SocialFightChanceMultiplier);
