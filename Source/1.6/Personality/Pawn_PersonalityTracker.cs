@@ -103,6 +103,9 @@ namespace Maux36.RimPsyche
         }
         public float GetPersonality(PersonalityDef personality) //-1~1
         {
+            if (personality == null)
+                return 0f;
+
             if (personalityCache.TryGetValue(personality.shortHash, out float cachedValue))
             {
                 return cachedValue;
@@ -129,7 +132,7 @@ namespace Maux36.RimPsyche
         }
         public float GetPersonalityDirect(PersonalityDef personality) //Non-Normalized Version
         {
-            if (personality == null || string.IsNullOrEmpty(personality.defName))
+            if (personality == null)
                 return 0f;
 
             float sum = 0f;
@@ -274,7 +277,7 @@ namespace Maux36.RimPsyche
                             }
                             else
                             {
-                                existingNegCenter = Mathf.Min(centerOffset, existingPosCenter);
+                                existingNegCenter = Mathf.Min(centerOffset, existingNegCenter);
                             }
                             gateAccumulator[facet] = (existingNegCenter, existingPosCenter, range, rank);
                             if (gateInfoCache.TryGetValue(facet, out string explanation))
@@ -306,7 +309,7 @@ namespace Maux36.RimPsyche
                 {
                     if (gateInfoCache.TryGetValue(facet, out string gateExplanation))
                     {
-                        gateInfoCache[facet] = $"{geneExplanation}\n{gateExplanation}";
+                        gateInfoCache[facet] = $"{gateExplanation}";
                     }
                 }
             }
@@ -317,8 +320,11 @@ namespace Maux36.RimPsyche
                 var totalCenter = kvp.Value.negCenter + kvp.Value.posCenter;
                 var minRange = kvp.Value.minRange;
 
+                var lowest = Mathf.Clamp(totalCenter - minRange, -50f, 50f)
+                var highest = Mathf.Clamp(totalCenter + minRange, -50f, 50f)
+
                 // Convert from the final (center, range) to (min, max)
-                newGate.Add(facet, (totalCenter - minRange, totalCenter + minRange));
+                newGate.Add(facet, (lowest, highest));
             }
             return newGate;
         }
@@ -374,7 +380,7 @@ namespace Maux36.RimPsyche
                         }
                         else
                         {
-                            existingNegCenter = Mathf.Min(centerOffset, existingPosCenter);
+                            existingNegCenter = Mathf.Min(centerOffset, existingNegCenter);
                         }
                         gateAccumulator[facet] = (existingNegCenter, existingPosCenter, range, rank);
                         if (geneGateInfoCache.TryGetValue(facet, out string explanation))
@@ -429,7 +435,7 @@ namespace Maux36.RimPsyche
                         }
                         else
                         {
-                            existingNegCenter = Mathf.Min(centerOffset, existingPosCenter);
+                            existingNegCenter = Mathf.Min(centerOffset, existingNegCenter);
                         }
                         scopeAccumulator[personalityHash] = (existingNegCenter, existingPosCenter, range);
                         if (scopeInfoCache.TryGetValue(personalityHash, out string explanation))
@@ -448,7 +454,9 @@ namespace Maux36.RimPsyche
                 var facet = kvp.Key;
                 var totalCenter = kvp.Value.negCenter + kvp.Value.posCenter;
                 var minRange = kvp.Value.minRange;
-                newScope.Add(facet, (totalCenter - minRange, totalCenter + minRange));
+                var lowest = Mathf.Clamp(totalCenter - minRange, -1f, 1f); //safety
+                var highest = Mathf.Clamp(totalCenter + minRange, -1f, 1f); //safety
+                newScope.Add(facet, (lowest, highest));
             }
             return newScope;
         }
