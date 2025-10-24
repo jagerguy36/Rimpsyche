@@ -319,11 +319,8 @@ namespace Maux36.RimPsyche
                 var facet = kvp.Key;
                 var totalCenter = kvp.Value.negCenter + kvp.Value.posCenter;
                 var minRange = kvp.Value.minRange;
-
-                var lowest = Mathf.Clamp(totalCenter - minRange, -50f, 50f)
-                var highest = Mathf.Clamp(totalCenter + minRange, -50f, 50f)
-
-                // Convert from the final (center, range) to (min, max)
+                var lowest = Mathf.Clamp(totalCenter - minRange, -50f, 50f);
+                var highest = Mathf.Clamp(totalCenter + minRange, -50f, 50f);
                 newGate.Add(facet, (lowest, highest));
             }
             return newGate;
