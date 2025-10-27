@@ -135,10 +135,10 @@
   <Rimpsyche_Bravery.low>겁이 많은</Rimpsyche_Bravery.low>
   <Rimpsyche_Bravery.description>두려움이나 위험, 어려운 상황에 직면하는 태도를 나타냅니다. 용감한 사람은 위험이나 역경 앞에서도 주저하지 않고 도전에 맞서려고 합니다. 반면, 겁이 많은 사람은 불안하거나 불편한 상황을 피하려 하며, 이를 직면하기 보다는 안전을 우선시하려는 경향이 있습니다.</Rimpsyche_Bravery.description>
 
-  <Rimpsyche_Resilience.label>강인함</Rimpsyche_Resilience.label>
-  <Rimpsyche_Resilience.high>강인한</Rimpsyche_Resilience.high>
-  <Rimpsyche_Resilience.low>유약한</Rimpsyche_Resilience.low>
-  <Rimpsyche_Resilience.description>어려움에 맞서 역경을 이겨내고 자제력을 유지하는 성향을 나타냅니다. 강인한 사람은 스트레스를 잘 견디며 어려움 속에서도 포기하지 않고 꾸준히 나아가려 합니다. 반대로 유약한 사람은 작은 문제에도 쉽게 압도되거나 초점을 잃고 좌절감을 느끼는 경향이 있습니다.</Rimpsyche_Resilience.description>
+  <Rimpsyche_Tenacity.label>강인함</Rimpsyche_Tenacity.label>
+  <Rimpsyche_Tenacity.high>강인한</Rimpsyche_Tenacity.high>
+  <Rimpsyche_Tenacity.low>유약한</Rimpsyche_Tenacity.low>
+  <Rimpsyche_Tenacity.description>어려움에 맞서 역경을 이겨내고 자제력을 유지하는 성향을 나타냅니다. 강인한 사람은 스트레스를 잘 견디며 어려움 속에서도 포기하지 않고 꾸준히 나아가려 합니다. 반대로 유약한 사람은 작은 문제에도 쉽게 압도되거나 초점을 잃고 좌절감을 느끼는 경향이 있습니다.</Rimpsyche_Tenacity.description>
 
   <Rimpsyche_Loyalty.label>충성심</Rimpsyche_Loyalty.label>
   <Rimpsyche_Loyalty.high>충직한</Rimpsyche_Loyalty.high>

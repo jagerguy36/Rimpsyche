@@ -136,10 +136,10 @@
   <Rimpsyche_Bravery.low>Робкий</Rimpsyche_Bravery.low>
   <Rimpsyche_Bravery.description>Храбрые встречают опасность. Робкие избегают риска.</Rimpsyche_Bravery.description>
 
-  <Rimpsyche_Resilience.label>Стойкость</Rimpsyche_Resilience.label>
-  <Rimpsyche_Resilience.high>Стойкий</Rimpsyche_Resilience.high>
-  <Rimpsyche_Resilience.low>Уязвимый</Rimpsyche_Resilience.low>
-  <Rimpsyche_Resilience.description>Стойкие выдерживают давление. Уязвимые легко теряют самообладание.</Rimpsyche_Resilience.description>
+  <Rimpsyche_Tenacity.label>Стойкость</Rimpsyche_Tenacity.label>
+  <Rimpsyche_Tenacity.high>Стойкий</Rimpsyche_Tenacity.high>
+  <Rimpsyche_Tenacity.low>Уязвимый</Rimpsyche_Tenacity.low>
+  <Rimpsyche_Tenacity.description>Стойкие выдерживают давление. Уязвимые легко теряют самообладание.</Rimpsyche_Tenacity.description>
 
   <Rimpsyche_Loyalty.label>Преданность</Rimpsyche_Loyalty.label>
   <Rimpsyche_Loyalty.high>Преданный</Rimpsyche_Loyalty.high>
