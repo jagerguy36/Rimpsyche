@@ -1086,11 +1086,11 @@
   </Maux36.RimPsyche.PersonalityDef>
 
   <Maux36.RimPsyche.PersonalityDef>
-    <defName>Rimpsyche_Tenacity</defName>
-    <label>tenacity</label>
-    <high>tenacious</high>
+    <defName>Rimpsyche_Resilience</defName>
+    <label>resilience</label>
+    <high>resilient</high>
     <low>fragile</low>
-    <description>Reflects a person's ability to endure hardship and maintain self-control under pressure. Tenacious individuals can weather stress better, persisting through challenges without losing composure. Fragile individuals may become easily overwhelmed, lose focus, or get frustrated by setbacks.</description>
+    <description>Reflects a person's ability to endure hardship and maintain self-control under pressure. Resilient individuals can weather stress better, persisting through challenges without losing composure. Fragile individuals may become easily overwhelmed, lose focus, or get frustrated by setbacks.</description>
     <scoreWeight>
       <li>
         <facet>Industriousness</facet>
