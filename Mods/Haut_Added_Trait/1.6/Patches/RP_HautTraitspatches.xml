@@ -545,9 +545,9 @@
     </nomatch>
   </Operation>
   <Operation Class="PatchOperationConditional">
-    <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Tenacity"]/scopes</xpath>
+    <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Resilience"]/scopes</xpath>
     <match Class="PatchOperationAdd">
-      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Tenacity"]/scopes</xpath>
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Resilience"]/scopes</xpath>
       <value>
         <li>
           <traitDefname>HVT_Hysteric</traitDefname>
@@ -558,7 +558,7 @@
       </value>
     </match>
     <nomatch Class="PatchOperationAdd">
-      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Tenacity"]</xpath>
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Resilience"]</xpath>
       <value>
         <scopes>
           <li>
@@ -1468,9 +1468,9 @@
     </nomatch>
   </Operation>
   <Operation Class="PatchOperationConditional" MayRequire="Ludeon.RimWorld.Ideology">
-    <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Tenacity"]/scopes</xpath>
+    <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Resilience"]/scopes</xpath>
     <match Class="PatchOperationAdd">
-      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Tenacity"]/scopes</xpath>
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Resilience"]/scopes</xpath>
       <value>
         <li>
           <traitDefname>HVT_Liberator</traitDefname>
@@ -1481,7 +1481,7 @@
       </value>
     </match>
     <nomatch Class="PatchOperationAdd">
-      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Tenacity"]</xpath>
+      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Resilience"]</xpath>
       <value>
         <scopes>
           <li>

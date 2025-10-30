@@ -60,7 +60,7 @@
             <controversiality>0</controversiality>
             <weights>
               <li>
-                <personalityDefName>Rimpsyche_Tenacity</personalityDefName>
+                <personalityDefName>Rimpsyche_Resilience</personalityDefName>
                 <weight>0.35</weight>
               </li>
               <li>
@@ -84,7 +84,7 @@
             <controversiality>0</controversiality>
             <weights>
               <li>
-                <personalityDefName>Rimpsyche_Tenacity</personalityDefName>
+                <personalityDefName>Rimpsyche_Resilience</personalityDefName>
                 <weight>0.25</weight>
               </li>
               <li>
@@ -148,7 +148,7 @@
                 <weight>-0.15</weight>
               </li>
               <li>
-                <personalityDefName>Rimpsyche_Tenacity</personalityDefName>
+                <personalityDefName>Rimpsyche_Resilience</personalityDefName>
                 <weight>-0.15</weight>
               </li>
             </weights>
@@ -192,7 +192,7 @@
             <controversiality>0</controversiality>
             <weights>
               <li>
-                <personalityDefName>Rimpsyche_Tenacity</personalityDefName>
+                <personalityDefName>Rimpsyche_Resilience</personalityDefName>
                 <weight>-0.1</weight>
               </li>
               <li>
@@ -372,7 +372,7 @@
                 <weight>0.2</weight>
               </li>
               <li>
-                <personalityDefName>Rimpsyche_Tenacity</personalityDefName>
+                <personalityDefName>Rimpsyche_Resilience</personalityDefName>
                 <weight>-0.1</weight>
               </li>
               <li>
@@ -408,7 +408,7 @@
                 <weight>0.15</weight>
               </li>
               <li>
-                <personalityDefName>Rimpsyche_Tenacity</personalityDefName>
+                <personalityDefName>Rimpsyche_Resilience</personalityDefName>
                 <weight>0.1</weight>
               </li>
               <li>
@@ -456,7 +456,7 @@
             <controversiality>0</controversiality>
             <weights>
               <li>
-                <personalityDefName>Rimpsyche_Tenacity</personalityDefName>
+                <personalityDefName>Rimpsyche_Resilience</personalityDefName>
                 <weight>0.3</weight>
               </li>
               <li>
@@ -544,7 +544,7 @@
                 <weight>0.45</weight>
               </li>
               <li>
-                <personalityDefName>Rimpsyche_Tenacity</personalityDefName>
+                <personalityDefName>Rimpsyche_Resilience</personalityDefName>
                 <weight>0.2</weight>
               </li>
               <li>
@@ -584,7 +584,7 @@
                 <weight>0.15</weight>
               </li>
               <li>
-                <personalityDefName>Rimpsyche_Tenacity</personalityDefName>
+                <personalityDefName>Rimpsyche_Resilience</personalityDefName>
                 <weight>0.1</weight>
               </li>
               <li>
@@ -850,7 +850,7 @@
                 <weight>-0.30</weight>
               </li>
               <li>
-                <personalityDefName>Rimpsyche_Tenacity</personalityDefName>
+                <personalityDefName>Rimpsyche_Resilience</personalityDefName>
                 <weight>0.15</weight>
               </li>
               <li>
@@ -1169,7 +1169,7 @@
             <controversiality>0.2</controversiality>
             <weights>
               <li>
-                <personalityDefName>Rimpsyche_Tenacity</personalityDefName>
+                <personalityDefName>Rimpsyche_Resilience</personalityDefName>
                 <weight>0.3</weight>
               </li>
               <li>
@@ -1209,7 +1209,7 @@
                 <weight>0.2</weight>
               </li>
               <li>
-                <personalityDefName>Rimpsyche_Tenacity</personalityDefName>
+                <personalityDefName>Rimpsyche_Resilience</personalityDefName>
                 <weight>0.25</weight>
               </li>
               <li>
@@ -1760,7 +1760,7 @@
                 <weight>0.15</weight>
               </li>
               <li>
-                <personalityDefName>Rimpsyche_Tenacity</personalityDefName>
+                <personalityDefName>Rimpsyche_Resilience</personalityDefName>
                 <weight>0.1</weight>
               </li>
               <li>
