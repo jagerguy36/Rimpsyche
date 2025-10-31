@@ -191,13 +191,27 @@ namespace Maux36.RimPsyche
         {
             return orientationCategory;
         }
-        public int GetMaleAttractionNorm()
+        public float GetMaleAttraction()
         {
-            return (int)(mAattraction * 100f);
+            return (float)((int)(mAattraction * 100f)) * 0.01f;
         }
-        public int GetFemaleAttractionNorm()
+        public float GetFemaleAttraction()
         {
-            return (int)(fAattraction * 100f);
+            return (float)((int)(fAattraction * 100f)) * 0.01f;
+        }
+
+
+        public float GetAdjustedAttraction(Gender gender)
+        {
+            switch (gender)
+            {
+                case Gender.Male:
+                    return SexualityHelper.AdjustAttraction(GetMaleAttraction());
+                case Gender.Female:
+                    return SexualityHelper.AdjustAttraction(GetFemaleAttraction());
+                default:
+                    return 1f;
+            }
         }
 
         public void ExposeData()

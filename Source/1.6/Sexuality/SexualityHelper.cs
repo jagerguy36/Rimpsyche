@@ -68,6 +68,11 @@ namespace Maux36.RimPsyche
             else return SexualOrientation.Heterosexual;
         }
 
+        public static float AdjustAttraction(float rawAttraction)
+        {
+            return 3f - 3f / (rawAttraction + 1f);
+        }
+
         //RNG
         public static float GenerateKinsey(bool allowGay)
         {
