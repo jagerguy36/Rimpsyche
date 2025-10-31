@@ -191,7 +191,7 @@
   </Maux36.RimPsyche.PersonalityDef>
 
   <Maux36.RimPsyche.PersonalityDef>
-    <defName>Rimpsyche_Appropriateness</defName>
+    <defName>Rimpsyche_Propriety</defName>
     <label>propriety</label>
     <high>modest</high>
     <low>uninhibited</low>
@@ -1086,7 +1086,7 @@
   </Maux36.RimPsyche.PersonalityDef>
 
   <Maux36.RimPsyche.PersonalityDef>
-    <defName>Rimpsyche_Resilience</defName>
+    <defName>Rimpsyche_Tenacity</defName>
     <label>tenacity</label>
     <high>tenacious</high>
     <low>fragile</low>

@@ -31,10 +31,10 @@
   <Rimpsyche_Inquisitiveness.low>Равнодушный</Rimpsyche_Inquisitiveness.low>
   <Rimpsyche_Inquisitiveness.description>Показывает, насколько человек любопытен к окружающему миру. Любознательные задают вопросы, ищут знания и обсуждают новые темы. Равнодушные интересуются только тем, что их непосредственно касается.</Rimpsyche_Inquisitiveness.description>
 
-  <Rimpsyche_Appropriateness.label>Брезгливость</Rimpsyche_Appropriateness.label>
-  <Rimpsyche_Appropriateness.high>Брезгливый</Rimpsyche_Appropriateness.high>
-  <Rimpsyche_Appropriateness.low>Раскрепощённый</Rimpsyche_Appropriateness.low>
-  <Rimpsyche_Appropriateness.description>Отражает реакцию человека на откровенный контент. Брезгливые чувствуют дискомфорт при наготе или провокационных темах. Раскрепощённые относятся к этому спокойно.</Rimpsyche_Appropriateness.description>
+  <Rimpsyche_Propriety.label>Брезгливость</Rimpsyche_Propriety.label>
+  <Rimpsyche_Propriety.high>Брезгливый</Rimpsyche_Propriety.high>
+  <Rimpsyche_Propriety.low>Раскрепощённый</Rimpsyche_Propriety.low>
+  <Rimpsyche_Propriety.description>Отражает реакцию человека на откровенный контент. Брезгливые чувствуют дискомфорт при наготе или провокационных темах. Раскрепощённые относятся к этому спокойно.</Rimpsyche_Propriety.description>
 
   <Rimpsyche_Aggressiveness.label>Агрессивность</Rimpsyche_Aggressiveness.label>
   <Rimpsyche_Aggressiveness.high>Агрессивный</Rimpsyche_Aggressiveness.high>
@@ -136,10 +136,10 @@
   <Rimpsyche_Bravery.low>Робкий</Rimpsyche_Bravery.low>
   <Rimpsyche_Bravery.description>Храбрые встречают опасность. Робкие избегают риска.</Rimpsyche_Bravery.description>
 
-  <Rimpsyche_Resilience.label>Стойкость</Rimpsyche_Resilience.label>
-  <Rimpsyche_Resilience.high>Стойкий</Rimpsyche_Resilience.high>
-  <Rimpsyche_Resilience.low>Уязвимый</Rimpsyche_Resilience.low>
-  <Rimpsyche_Resilience.description>Стойкие выдерживают давление. Уязвимые легко теряют самообладание.</Rimpsyche_Resilience.description>
+  <Rimpsyche_Tenacity.label>Стойкость</Rimpsyche_Tenacity.label>
+  <Rimpsyche_Tenacity.high>Стойкий</Rimpsyche_Tenacity.high>
+  <Rimpsyche_Tenacity.low>Уязвимый</Rimpsyche_Tenacity.low>
+  <Rimpsyche_Tenacity.description>Стойкие выдерживают давление. Уязвимые легко теряют самообладание.</Rimpsyche_Tenacity.description>
 
   <Rimpsyche_Loyalty.label>Преданность</Rimpsyche_Loyalty.label>
   <Rimpsyche_Loyalty.high>Преданный</Rimpsyche_Loyalty.high>

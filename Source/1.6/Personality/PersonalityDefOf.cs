@@ -11,7 +11,7 @@ namespace Maux36.RimPsyche
         public static PersonalityDef Rimpsyche_Openness;
         public static PersonalityDef Rimpsyche_Confidence;
         public static PersonalityDef Rimpsyche_Inquisitiveness;
-        public static PersonalityDef Rimpsyche_Appropriateness;
+        public static PersonalityDef Rimpsyche_Propriety;
         public static PersonalityDef Rimpsyche_Aggressiveness;
         public static PersonalityDef Rimpsyche_Experimentation;
         public static PersonalityDef Rimpsyche_Imagination;
@@ -32,7 +32,7 @@ namespace Maux36.RimPsyche
         public static PersonalityDef Rimpsyche_Deliberation;
         public static PersonalityDef Rimpsyche_Playfulness;
         public static PersonalityDef Rimpsyche_Bravery;
-        public static PersonalityDef Rimpsyche_Resilience;
+        public static PersonalityDef Rimpsyche_Tenacity;
         public static PersonalityDef Rimpsyche_Loyalty;
         public static PersonalityDef Rimpsyche_Expectation;
         public static PersonalityDef Rimpsyche_Competitiveness;
