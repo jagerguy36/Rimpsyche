@@ -167,8 +167,8 @@
 
   <Rimpsyche_Authenticity.label>진정성</Rimpsyche_Authenticity.label>
   <Rimpsyche_Authenticity.high>진솔한</Rimpsyche_Authenticity.high>
-  <Rimpsyche_Authenticity.low>연출된</Rimpsyche_Authenticity.low>
-  <Rimpsyche_Authenticity.description>개인이 자신을 얼마나 솔직하게 내비치는지를 나타냅니다. 진솔한 사람은 겉으로 드러난 모습보다 진심을 중시하여 스스로를 그대로 드러냅니다. 반면 연출된 사람은 타인의 시선에 비친 자신의 모습을 의도적으로 구성하는 경향이 있습니다.</Rimpsyche_Authenticity.description>
+  <Rimpsyche_Authenticity.low>피상적인</Rimpsyche_Authenticity.low>
+  <Rimpsyche_Authenticity.description>개인이 겉모습에 얼마나 비중을 두는지를 나타냅니다. 진솔한 사람은 내면을 중시하고 외형을 크게 신경쓰지 않는 경향이 있습니다. 반면, 피상적인 사람들은 겉모습에 더 민감하며, 외적 요소에 더 큰 영향을 받는 경향이 있습니다.</Rimpsyche_Authenticity.description>
 
   <!-- <Rimpsyche_Cognition.label>사고 방식</Rimpsyche_Cognition.label>
   <Rimpsyche_Cognition.high>이성적인</Rimpsyche_Cognition.high>
