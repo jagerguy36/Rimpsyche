@@ -13,17 +13,17 @@ namespace Maux36.RimPsyche
         Homosexual,
         Asexual
     }
-    public struct PsychePrefEntry
+    public struct PrefEntry
     {
-        public string defName;
-        public int shortHash;
+        public string stringKey;
+        public int intKey;
         public float target;
         public float importance;
 
-        public PsychePrefEntry(PersonalityDef myDef, float target, float importance)
+        public PrefEntry(string stringKey, int intKey, float target, float importance)
         {
-            this.defName = myDef.defName;
-            this.shortHash = myDef.shortHash;
+            this.stringKey = stringKey;
+            this.intKey = intKey;
             this.target = target;
             this.importance = importance;
         }
@@ -42,9 +42,8 @@ namespace Maux36.RimPsyche
         public float mAattraction = 0f;
         public float fAattraction = 0f;
 
-        public PsychePrefEntry[] psychePreference = null;
-        private Dictionary<string, float[]> _preference = new();
-        private Dictionary<int, float[]> Preference = new();
+        private Dictionary<string, PrefEntry[]> _preference = new();
+        private Dictionary<int, PrefEntry[]> Preference = new();
         public bool preferenceCacheDirty = true;
         private void RefreshPreferenceCache()
         {
@@ -54,8 +53,11 @@ namespace Maux36.RimPsyche
             List<string> invalidKeys = new();
             foreach (var kvp in _preference)
             {
-                Def def = DefDatabase<Def>.GetNamedSilentFail(kvp.Key);
-                if (def != null) Preference[def.shortHash] = kvp.Value;
+                PreferenceDef def = DefDatabase<PreferenceDef>.GetNamedSilentFail(kvp.Key);
+                if (def != null)
+                {
+                    Preference[def.shortHash] = kvp.Value;
+                }
                 else invalidKeys.Add(kvp.Key);
             }
             foreach (var k in invalidKeys)
@@ -64,14 +66,22 @@ namespace Maux36.RimPsyche
             }
         }
 
-        public bool TryGetPreference(Def def, out float[] value)
+        //Only prefDef that Generates pref should call this.
+        public PrefEntry[] GetPreference(PreferenceDef prefDef)
         {
             if (preferenceCacheDirty) RefreshPreferenceCache();
-            if (Preference.TryGetValue(def.shortHash, out value)) return true;
-            return false;
+            if (Preference.TryGetValue(prefDef.shortHash, out var value)) return value;
+            //Uninitialized Preference
+            if (prefDef.TryGenerate(parentPawn, out var prefEntries))
+            {
+                SetPreference(prefDef, prefEntries);
+                return prefEntries
+            }
+            Log.Error($"PreferenceDef {prefDef.defName} should not call GetPreference because it does not instantiate fixed preference.");
+            return null;
         }
 
-        public void SetPreference(Def def, float[] value)
+        public void SetPreference(PreferenceDef def, PrefEntry[] value)
         {
             _preference[def.defName] = value;
             if (preferenceCacheDirty) RefreshPreferenceCache();
@@ -273,20 +283,23 @@ namespace Maux36.RimPsyche
             Scribe_Values.Look(ref sexDrive, "sexDrive", 0f);
             Scribe_Values.Look(ref mAattraction, "mAattraction", 0f);
             Scribe_Values.Look(ref fAattraction, "fAattraction", 0f);
-            Scribe_Collections.Look(ref psychePreference, "psychePreference", LookMode.Value, LookMode.Value);
             Scribe_Collections.Look(ref _preference, "preference", LookMode.Value, LookMode.Value);
-            if (Scribe.mode == LoadSaveMode.PostLoadInit && psychePreference != null)
+            //When loading: check sexuality is loaded. Check if the _preference is not null. Check it has PsychePreference inside.
+            //If it does, iterate its content and fix intKey to become its short hash.
+            if (Scribe.mode == LoadSaveMode.PostLoadInit && Rimpsyche.SexualityModuleLoaded)
             {
-                for (int i = 0; i < psychePreference.Length; i++)
+                if (_preference?.TryGetValue("PsychePreference", out var psychePreference))
                 {
-                    PersonalityDef p = DefDatabase<PersonalityDef>.GetNamed(psychePreference[i].defName, false);
-                    if (p == null)
+                    for (int i = 0; i < psychePreference.Length; i++)
                     {
-                        Log.Warning($"Psyche Preference unable to load Personality def {p.defName}");
-                        //Logic to fix it.
+                        PersonalityDef p = DefDatabase<PersonalityDef>.GetNamed(psychePreference[i].stringKey, false);
+                        if (p == null)
+                        {
+                            Log.Warning($"Psyche Preference unable to load Personality def {psychePreference[i].stringKey}");
+                            //Logic to fix it.
+                        }
+                        else psychePreference[i].intKey = p.shortHash;
                     }
-                    else psychePreference[i].shortHash = p.shortHash;
-                    
                 }
             }
         }
