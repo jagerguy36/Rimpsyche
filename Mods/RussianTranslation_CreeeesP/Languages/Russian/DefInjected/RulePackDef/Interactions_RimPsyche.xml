@@ -1,7 +1,5 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <LanguageData>
-
-  <!-- Случайные социальные взаимодействия -->
 
   <Sentence_RimpsycheConversationPositiveGreat.rulePack.rulesStrings.0>sent->Благодаря очень схожим взглядам, они разговаривали, не замечая времени.</Sentence_RimpsycheConversationPositiveGreat.rulePack.rulesStrings.0>
   <Sentence_RimpsycheConversationPositiveGreat.rulePack.rulesStrings.1>sent->Благодаря общим мнениям, они провели действительно приятную беседу.</Sentence_RimpsycheConversationPositiveGreat.rulePack.rulesStrings.1>

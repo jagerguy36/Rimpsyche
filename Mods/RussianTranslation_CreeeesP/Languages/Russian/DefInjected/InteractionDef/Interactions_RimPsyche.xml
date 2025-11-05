@@ -1,7 +1,5 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <LanguageData>
-
-  <!-- Случайные социальные взаимодействия -->
 
   <Rimpsyche_Smalltalk.label>лёгкая беседа</Rimpsyche_Smalltalk.label>
   <Rimpsyche_Smalltalk.logRulesInitiator.rulesStrings.0>r_logentry->[INITIATOR_nameDef] [commentedabout] [subject] в разговоре с [RECIPIENT_nameDef].</Rimpsyche_Smalltalk.logRulesInitiator.rulesStrings.0>
