@@ -1,174 +1,174 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <LanguageData>
 
   <Rimpsyche_Talkativeness.label>Разговорчивость</Rimpsyche_Talkativeness.label>
-  <Rimpsyche_Talkativeness.high>Общительный</Rimpsyche_Talkativeness.high>
+  <Rimpsyche_Talkativeness.high>Разговорчивый</Rimpsyche_Talkativeness.high>
   <Rimpsyche_Talkativeness.low>Молчаливый</Rimpsyche_Talkativeness.low>
-  <Rimpsyche_Talkativeness.description>Определяет, насколько человек склонен говорить и начинать беседы. Общительные люди чаще инициируют диалоги и поддерживают их дольше. Молчаливые предпочитают краткие обмены репликами или держатся особняком.</Rimpsyche_Talkativeness.description>
+  <Rimpsyche_Talkativeness.description>Показывает, насколько много человек говорит и поддерживает беседу. Разговорчивые люди склонны первыми начинать разговор и стремятся поддерживать его долгое время. Напротив, молчаливые люди говорят кратко и не склонны раскрывать свои мысли.</Rimpsyche_Talkativeness.description>
 
-  <Rimpsyche_Sociability.label>Социальность</Rimpsyche_Sociability.label>
-  <Rimpsyche_Sociability.high>Дружелюбный</Rimpsyche_Sociability.high>
+  <Rimpsyche_Sociability.label>Коммуникабельность</Rimpsyche_Sociability.label>
+  <Rimpsyche_Sociability.high>Общительный</Rimpsyche_Sociability.high>
   <Rimpsyche_Sociability.low>Замкнутый</Rimpsyche_Sociability.low>
-  <Rimpsyche_Sociability.description>Отражает, насколько естественно человек стремится к социальному взаимодействию и получает от него удовольствие. Дружелюбные люди чаще и охотнее общаются с другими. Замкнутые предпочитают держаться на расстоянии или ограничивать контакты.</Rimpsyche_Sociability.description>
+  <Rimpsyche_Sociability.description>Показывает, насколько естественно и комфортно человек воспринимает социальное взаимодействие. Общительные люди часто общаются с другими и наслаждаются социальными ситуациями. Напротив, замкнутые люди склонны сохранять социальную дистанцию или избегать контактов с людьми.</Rimpsyche_Sociability.description>
 
   <Rimpsyche_Tact.label>Тактичность</Rimpsyche_Tact.label>
-  <Rimpsyche_Tact.high>Дипломатичный</Rimpsyche_Tact.high>
+  <Rimpsyche_Tact.high>Тактичный</Rimpsyche_Tact.high>
   <Rimpsyche_Tact.low>Бестактный</Rimpsyche_Tact.low>
-  <Rimpsyche_Tact.description>Показывает, насколько человек внимателен в социальных ситуациях. Дипломатичные люди тщательно подбирают слова и оставляют хорошее впечатление. Бестактные могут казаться грубыми или резкими.</Rimpsyche_Tact.description>
+  <Rimpsyche_Tact.description>Показывает, насколько тщательно человек подбирает слова и действия в социальных ситуациях. Тактичные люди осторожно подбирают слова, чтобы произвести хорошее впечатление. Напротив, бестактные люди часто говорят вещи, которые могут восприниматься как грубые или прямолинейные.</Rimpsyche_Tact.description>
 
   <Rimpsyche_Openness.label>Открытость</Rimpsyche_Openness.label>
   <Rimpsyche_Openness.high>Открытый</Rimpsyche_Openness.high>
   <Rimpsyche_Openness.low>Консервативный</Rimpsyche_Openness.low>
-  <Rimpsyche_Openness.description>Описывает, насколько человек готов рассматривать новые идеи, опыт или точки зрения. Открытые люди любознательны и восприимчивы к новому. Консервативные придерживаются привычных взглядов и могут отвергать альтернативные мнения.</Rimpsyche_Openness.description>
+  <Rimpsyche_Openness.description>Отражает отношение к принятию новых идей, опыта и точек зрения. Открытые люди любознательны и лучше воспринимают разнообразные взгляды. Напротив, консервативные люди склонны придерживаться знакомых убеждений и могут легко отвергать другие мысли.</Rimpsyche_Openness.description>
 
   <Rimpsyche_Confidence.label>Уверенность</Rimpsyche_Confidence.label>
   <Rimpsyche_Confidence.high>Уверенный</Rimpsyche_Confidence.high>
   <Rimpsyche_Confidence.low>Неуверенный</Rimpsyche_Confidence.low>
-  <Rimpsyche_Confidence.description>Отражает, насколько человек уверен в себе и своих действиях. Уверенные люди напористы и доверяют своим способностям. Неуверенные часто сомневаются и подвержены влиянию других.</Rimpsyche_Confidence.description>
+  <Rimpsyche_Confidence.description>Показывает, насколько человек уверен в себе и своих действиях. Уверенные люди верят в свои способности и мнения, демонстрируя убежденность. Напротив, неуверенные люди не имеют веры в себя и легко поддаются влиянию других.</Rimpsyche_Confidence.description>
 
   <Rimpsyche_Inquisitiveness.label>Любознательность</Rimpsyche_Inquisitiveness.label>
   <Rimpsyche_Inquisitiveness.high>Любознательный</Rimpsyche_Inquisitiveness.high>
-  <Rimpsyche_Inquisitiveness.low>Равнодушный</Rimpsyche_Inquisitiveness.low>
-  <Rimpsyche_Inquisitiveness.description>Показывает, насколько человек любопытен к окружающему миру. Любознательные задают вопросы, ищут знания и обсуждают новые темы. Равнодушные интересуются только тем, что их непосредственно касается.</Rimpsyche_Inquisitiveness.description>
+  <Rimpsyche_Inquisitiveness.low>Безразличный</Rimpsyche_Inquisitiveness.low>
+  <Rimpsyche_Inquisitiveness.description>Показывает, насколько человек проявляет любопытство к окружающему миру. Любознательные люди задают вопросы, стремятся получить новые знания и склонны поддерживать разговор даже на темы, выходящие за рамки их обычных интересов. Напротив, безразличные люди не проявляют особого интереса к чему-либо beyond their own interests.</Rimpsyche_Inquisitiveness.description>
 
-  <Rimpsyche_Propriety.label>Брезгливость</Rimpsyche_Propriety.label>
-  <Rimpsyche_Propriety.high>Брезгливый</Rimpsyche_Propriety.high>
-  <Rimpsyche_Propriety.low>Раскрепощённый</Rimpsyche_Propriety.low>
-  <Rimpsyche_Propriety.description>Отражает реакцию человека на откровенный контент. Брезгливые чувствуют дискомфорт при наготе или провокационных темах. Раскрепощённые относятся к этому спокойно.</Rimpsyche_Propriety.description>
+  <Rimpsyche_Propriety.label>Благовоспитанность</Rimpsyche_Propriety.label>
+  <Rimpsyche_Propriety.high>Скромный</Rimpsyche_Propriety.high>
+  <Rimpsyche_Propriety.low>Раскованный</Rimpsyche_Propriety.low>
+  <Rimpsyche_Propriety.description>Показывает, насколько человек ценит вежливость и социальные нормы приличия. Скромные люди, как правило, испытывают неловкость или избегают откровенной одежды, непристойных выражений или поведения, нарушающего нормы приличия. В то время как раскованные люди не придают значения подобным неуместным действиям или провокационному поведению.</Rimpsyche_Propriety.description>
 
   <Rimpsyche_Aggressiveness.label>Агрессивность</Rimpsyche_Aggressiveness.label>
   <Rimpsyche_Aggressiveness.high>Агрессивный</Rimpsyche_Aggressiveness.high>
   <Rimpsyche_Aggressiveness.low>Мягкий</Rimpsyche_Aggressiveness.low>
-  <Rimpsyche_Aggressiveness.description>Показывает, насколько человек склонен к конфронтации. Агрессивные быстро переходят к резким словам или действиям. Мягкие избегают конфликтов.</Rimpsyche_Aggressiveness.description>
+  <Rimpsyche_Aggressiveness.description>Показывает степень противостояния другим или проявления враждебного отношения. Агрессивные люди сильно отстаивают свою позицию и иногда допускают резкие высказывания или действия. В отличие от них, мягкие люди обычно спокойно принимают ситуацию и стараются избегать конфликтов.</Rimpsyche_Aggressiveness.description>
 
   <Rimpsyche_Experimentation.label>Экспериментаторство</Rimpsyche_Experimentation.label>
-  <Rimpsyche_Experimentation.high>Экспериментатор</Rimpsyche_Experimentation.high>
-  <Rimpsyche_Experimentation.low>Традиционалист</Rimpsyche_Experimentation.low>
-  <Rimpsyche_Experimentation.description>Отражает готовность пробовать новое. Экспериментаторы ищут инновации. Традиционалисты предпочитают проверенные методы.</Rimpsyche_Experimentation.description>
+  <Rimpsyche_Experimentation.high>Экспериментирующий</Rimpsyche_Experimentation.high>
+  <Rimpsyche_Experimentation.low>Консервативный</Rimpsyche_Experimentation.low>
+  <Rimpsyche_Experimentation.description>Показывает степень готовности пробовать новые методы или идеи. Экспериментирующие люди принимают изменения и активно ищут новый опыт. Напротив, консервативные люди предпочитают привычные способы и придерживаются проверенных методов.</Rimpsyche_Experimentation.description>
 
   <Rimpsyche_Imagination.label>Воображение</Rimpsyche_Imagination.label>
-  <Rimpsyche_Imagination.high>Мечтательный</Rimpsyche_Imagination.high>
-  <Rimpsyche_Imagination.low>Приземлённый</Rimpsyche_Imagination.low>
-  <Rimpsyche_Imagination.description>Мечтательные люди погружены в фантазии. Приземлённые сосредоточены на реальности.</Rimpsyche_Imagination.description>
+  <Rimpsyche_Imagination.high>Творческий</Rimpsyche_Imagination.high>
+  <Rimpsyche_Imagination.low>Реалист</Rimpsyche_Imagination.low>
+  <Rimpsyche_Imagination.description>Показывает, на какой из миров человек ставит больший акцент: реальный или воображаемый. Реалисты сосредоточены на практических и конкретных вещах. Напротив, творческие люди склонны погружаться в мечты, творческие мысли или исследовать абстрактные концепции.</Rimpsyche_Imagination.description>
 
-  <Rimpsyche_Diligence.label>Старательность</Rimpsyche_Diligence.label>
+  <Rimpsyche_Diligence.label>Усердие</Rimpsyche_Diligence.label>
   <Rimpsyche_Diligence.high>Старательный</Rimpsyche_Diligence.high>
   <Rimpsyche_Diligence.low>Ленивый</Rimpsyche_Diligence.low>
-  <Rimpsyche_Diligence.description>Старательные люди усердны и доводят дела до конца. Ленивые избегают усилий.</Rimpsyche_Diligence.description>
+  <Rimpsyche_Diligence.description>Показывает, насколько добросовестно человек подходит к задачам и обязанностям. Старательные люди имеют сильную волю доводить начатое до конца и проявляют настойчивость. Напротив, ленивые люди склонны избегать сложной работы, им не хватает ответственности, и они часто предпочитают комфорт продуктивности.</Rimpsyche_Diligence.description>
 
   <Rimpsyche_Organization.label>Организованность</Rimpsyche_Organization.label>
-  <Rimpsyche_Organization.high>Организованный</Rimpsyche_Organization.high>
-  <Rimpsyche_Organization.low>Беспорядочный</Rimpsyche_Organization.low>
-  <Rimpsyche_Organization.description>Организованные следуют системам. Беспорядочные комфортно чувствуют себя в хаосе.</Rimpsyche_Organization.description>
+  <Rimpsyche_Organization.high>Систематичный</Rimpsyche_Organization.high>
+  <Rimpsyche_Organization.low>Рассеянный</Rimpsyche_Organization.low>
+  <Rimpsyche_Organization.description>Показывает, насколько регулярный и систематичный характер имеет человек. Систематичные люди стремятся поддерживать порядок вокруг себя согласно четким правилам. Напротив, рассеянные люди не сильно связаны строгим порядком и склонны хорошо адаптироваться к несколько свободным или непредсказуемым ситуациям.</Rimpsyche_Organization.description>
 
   <Rimpsyche_Discipline.label>Дисциплина</Rimpsyche_Discipline.label>
   <Rimpsyche_Discipline.high>Дисциплинированный</Rimpsyche_Discipline.high>
   <Rimpsyche_Discipline.low>Недисциплинированный</Rimpsyche_Discipline.low>
-  <Rimpsyche_Discipline.description>Дисциплинированные контролируют себя и следуют планам. Недисциплинированные легко отвлекаются.</Rimpsyche_Discipline.description>
+  <Rimpsyche_Discipline.description>Показывает, насколько хорошо человек обладает концентрацией, самоконтролем и соблюдает правила или привычки. Дисциплинированыые люди склонны придерживаться планов, подавлять импульсы и неуклонно двигаться к цели. Напротив, Недисциплинированнные людям трудно сохранять последовательность, они легко отвлекаются и часто не доводят начатое до конца.</Rimpsyche_Discipline.description>
 
-  <Rimpsyche_Focus.label>Сосредоточенность</Rimpsyche_Focus.label>
-  <Rimpsyche_Focus.high>Сосредоточенный</Rimpsyche_Focus.high>
+  <Rimpsyche_Focus.label>Тип сосредоточенности</Rimpsyche_Focus.label>
+  <Rimpsyche_Focus.high>Углубленный</Rimpsyche_Focus.high>
   <Rimpsyche_Focus.low>Разносторонний</Rimpsyche_Focus.low>
-  <Rimpsyche_Focus.description>Сосредоточенные углубляются в одну тему. Разносторонние интересуются многим.</Rimpsyche_Focus.description>
+  <Rimpsyche_Focus.description>Отражает характер концентрации внимания. Люди с углубленным типом превосходно сосредотачиваются на одной задаче или теме и склонны глубоко изучать один интерес. Напротив, разносторонние люди предпочитают равномерно распределять внимание по разным темам и получают больше удовольствия от открытия нового, чем от глубокого погружения в одно.</Rimpsyche_Focus.description>
 
-  <Rimpsyche_Passion.label>Страстность</Rimpsyche_Passion.label>
+  <Rimpsyche_Passion.label>Темперамент</Rimpsyche_Passion.label>
   <Rimpsyche_Passion.high>Страстный</Rimpsyche_Passion.high>
-  <Rimpsyche_Passion.low>Апатичный</Rimpsyche_Passion.low>
-  <Rimpsyche_Passion.description>Страстные полностью отдаются интересам. Апатичные проявляют мало энтузиазма.</Rimpsyche_Passion.description>
+  <Rimpsyche_Passion.low>Безразличный</Rimpsyche_Passion.low>
+  <Rimpsyche_Passion.description>Показывает, с какой силой страсти и воли человек преследует свои интересы, цели и отношения. Страстные люди глубоко погружаются в то, что считают важным, и вкладывают много энергии и эмоций. Напротив, безразличные люди относятся ко всему более расслабленно и легко, их страсть и концентрация в pursuit их интересов или целей относительно меньше.</Rimpsyche_Passion.description>
 
   <Rimpsyche_Tension.label>Напряжённость</Rimpsyche_Tension.label>
-  <Rimpsyche_Tension.high>Напряжённый</Rimpsyche_Tension.high>
+  <Rimpsyche_Tension.high>Чувствительный</Rimpsyche_Tension.high>
   <Rimpsyche_Tension.low>Расслабленный</Rimpsyche_Tension.low>
-  <Rimpsyche_Tension.description>Напряжённые легко тревожатся. Расслабленные сохраняют спокойствие.</Rimpsyche_Tension.description>
+  <Rimpsyche_Tension.description>Отражает внутреннее чувство спокойствия или тревоги, которое человек обычно испытывает. Чувствительные люди легко тревожатся или нервничают и склонны сильно реагировать на стрессовые ситуации. Напротив, расслабленные люди сохраняют безмятежное отношение и воспринимают ситуации спокойно, без сильного волнения.</Rimpsyche_Tension.description>
 
   <Rimpsyche_Emotionality.label>Эмоциональность</Rimpsyche_Emotionality.label>
   <Rimpsyche_Emotionality.high>Эмоциональный</Rimpsyche_Emotionality.high>
-  <Rimpsyche_Emotionality.low>Флегматичный</Rimpsyche_Emotionality.low>
-  <Rimpsyche_Emotionality.description>Эмоциональные сильно переживают события. Флегматичные остаются хладнокровными.</Rimpsyche_Emotionality.description>
+  <Rimpsyche_Emotionality.low>Невозмутимый</Rimpsyche_Emotionality.low>
+  <Rimpsyche_Emotionality.description>Показывает, насколько глубоко и часто человек чувствует и выражает эмоции. Эмоциональные люди сильно чувствуют такие эмоции, как радость или печаль, и склонны сильно реагировать на события, будь они позитивными или негативными. Напротив, невозмутимые люди воспринимают эмоции относительно спокойно и сохраняют хладнокровное и спокойное отношение.</Rimpsyche_Emotionality.description>
 
-  <Rimpsyche_Stability.label>Устойчивость</Rimpsyche_Stability.label>
-  <Rimpsyche_Stability.high>Устойчивый</Rimpsyche_Stability.high>
-  <Rimpsyche_Stability.low>Неустойчивый</Rimpsyche_Stability.low>
-  <Rimpsyche_Stability.description>Устойчивые сохраняют ровное настроение. Неустойчивые подвержены перепадам.</Rimpsyche_Stability.description>
+  <Rimpsyche_Stability.label>Эмоциональная стабильность</Rimpsyche_Stability.label>
+  <Rimpsyche_Stability.high>Стабильный</Rimpsyche_Stability.high>
+  <Rimpsyche_Stability.low>Нестабильный</Rimpsyche_Stability.low>
+  <Rimpsyche_Stability.description>Показывает, насколько последовательным и стабильным является эмоциональное состояние. Стабильные люди имеют мало эмоциональных колебаний и поддерживают эмоционально спокойное состояние, склонны реагировать на ситуации последовательно. Напротив, нестабильные люди имеют частые и сильные перепады настроения и часто реагируют на все более драматично.</Rimpsyche_Stability.description>
 
   <Rimpsyche_Morality.label>Мораль</Rimpsyche_Morality.label>
   <Rimpsyche_Morality.high>Принципиальный</Rimpsyche_Morality.high>
-  <Rimpsyche_Morality.low>Аморральный</Rimpsyche_Morality.low>
-  <Rimpsyche_Morality.description>Принципиальные следуют этике. Аморральные руководствуются выгодой.</Rimpsyche_Morality.description>
+  <Rimpsyche_Morality.low>Аморальный</Rimpsyche_Morality.low>
+  <Rimpsyche_Morality.description>Отражает индивидуальное восприятие правильного и неправильного и степень следования этическим стандартам. Аморальные люди не сильно ограничены социальными или личными нормами и склонны ставить на первое место выгоду или собственные интересы. Напротив, принципиальные люди твердо придерживаются этических норм и стремятся действовать в соответствии со своими ценностями, даже если это приносит убытки.</Rimpsyche_Morality.description>
 
-  <Rimpsyche_Optimism.label>Оптимизм</Rimpsyche_Optimism.label>
-  <Rimpsyche_Optimism.high>Оптимист</Rimpsyche_Optimism.high>
-  <Rimpsyche_Optimism.low>Пессимист</Rimpsyche_Optimism.low>
-  <Rimpsyche_Optimism.description>Отражает взгляд человека на жизнь и ожидания от будущего. Оптимисты ждут положительных исходов и сохраняют надежду даже в трудностях. Пессимисты склонны ожидать худшего и замечать проблемы.</Rimpsyche_Optimism.description>
+  <Rimpsyche_Optimism.label>Взгляд на жизнь</Rimpsyche_Optimism.label>
+  <Rimpsyche_Optimism.high>Оптимистичный</Rimpsyche_Optimism.high>
+  <Rimpsyche_Optimism.low>Пессимистичный</Rimpsyche_Optimism.low>
+  <Rimpsyche_Optimism.description>Отражает общий взгляд на жизнь и ожидания от будущего. Оптимистичные люди ожидают позитивных результатов, сохраняют надежду даже в трудных ситуациях и склонны хорошо находить хорошие стороны ситуации. Напротив, пессимистичные люди легче предвидят негативные результаты и легко впадают в уныние, застревая в трудностях.</Rimpsyche_Optimism.description>
 
   <Rimpsyche_Ambition.label>Амбициозность</Rimpsyche_Ambition.label>
   <Rimpsyche_Ambition.high>Амбициозный</Rimpsyche_Ambition.high>
   <Rimpsyche_Ambition.low>Неамбициозный</Rimpsyche_Ambition.low>
-  <Rimpsyche_Ambition.description>Показывает стремление человека к достижениям. Амбициозные ставят высокие цели и стремятся к успеху. Неамбициозные довольны текущим положением.</Rimpsyche_Ambition.description>
+  <Rimpsyche_Ambition.description>Отражает движущую силу и желание человека к достижениям, успеху или развитию. Амбициозные люди ставят сложные цели и имеют сильную мотивацию для их достижения, склонны стремиться к продвижению, признанию или личностному росту. Напротив, неамбициозные люди в значительной степени удовлетворены текущей ситуацией и менее склонны стремиться к большим изменениям или прилагать усилия для более высоких достижений.</Rimpsyche_Ambition.description>
 
   <Rimpsyche_Compassion.label>Сочувствие</Rimpsyche_Compassion.label>
   <Rimpsyche_Compassion.high>Сочувствующий</Rimpsyche_Compassion.high>
   <Rimpsyche_Compassion.low>Равнодушный</Rimpsyche_Compassion.low>
-  <Rimpsyche_Compassion.description>Сочувствующие сопереживают чужим проблемам. Равнодушные редко заботятся о других.</Rimpsyche_Compassion.description>
+  <Rimpsyche_Compassion.description>Показывает, насколько человек сопереживает и проявляет интерес к страданиям других. Сочувствующие люди глубоко сопереживают страданиям других и не жалеют себя, помогая и проявляя доброту. Напротив, равнодушные люди безразличны к страданиям других и склонны больше сосредотачиваться на своих собственных потребностях или целях.</Rimpsyche_Compassion.description>
 
   <Rimpsyche_Spontaneity.label>Спонтанность</Rimpsyche_Spontaneity.label>
   <Rimpsyche_Spontaneity.high>Импульсивный</Rimpsyche_Spontaneity.high>
   <Rimpsyche_Spontaneity.low>Последовательный</Rimpsyche_Spontaneity.low>
-  <Rimpsyche_Spontaneity.description>Импульсивные действуют неожиданно. Последовательные предпочитают стабильность.</Rimpsyche_Spontaneity.description>
+  <Rimpsyche_Spontaneity.description>Показывает, насколько непредсказуемым является человек. Импульсивные люди склонны действовать согласно сиюминутному настроению, демонстрируя неожиданное или разнообразное поведение. Напротив, последовательные люди имеют более постоянный и неизменный характер.</Rimpsyche_Spontaneity.description>
 
   <Rimpsyche_Trust.label>Доверчивость</Rimpsyche_Trust.label>
   <Rimpsyche_Trust.high>Доверчивый</Rimpsyche_Trust.high>
   <Rimpsyche_Trust.low>Скептичный</Rimpsyche_Trust.low>
-  <Rimpsyche_Trust.description>Доверчивые легко верят другим. Скептики сомневаются в мотивах.</Rimpsyche_Trust.description>
+  <Rimpsyche_Trust.description>Показывает, насколько легко человек склонен доверять людям. Доверчивые люди склонны легко верить в добрые намерения других. Напротив, скептичные люди осторожно изучают мотивы других и часто нуждаются в доказательствах или долгосрочных позитивных отношениях, прежде чем довериться.</Rimpsyche_Trust.description>
 
   <Rimpsyche_Deliberation.label>Осмотрительность</Rimpsyche_Deliberation.label>
   <Rimpsyche_Deliberation.high>Осмотрительный</Rimpsyche_Deliberation.high>
-  <Rimpsyche_Deliberation.low>Поспешный</Rimpsyche_Deliberation.low>
-  <Rimpsyche_Deliberation.description>Осмотрительные всё обдумывают. Поспешные действуют быстро, но небрежно.</Rimpsyche_Deliberation.description>
+  <Rimpsyche_Deliberation.low>Торопливый</Rimpsyche_Deliberation.low>
+  <Rimpsyche_Deliberation.description>Показывает, насколько осторожно человек подходит к работе или решениям. Осмотрительные люди ценят точность выше скорости и всесторонне обдумывают все аспекты, прежде чем действовать. Напротив, торопливые люди prioritize скорость и склонны к немедленным действиям, жертвуя тщательностью.</Rimpsyche_Deliberation.description>
 
   <Rimpsyche_Playfulness.label>Игривость</Rimpsyche_Playfulness.label>
   <Rimpsyche_Playfulness.high>Игривый</Rimpsyche_Playfulness.high>
-  <Rimpsyche_Playfulness.low>Серьёзный</Rimpsyche_Playfulness.low>
-  <Rimpsyche_Playfulness.description>Игривые любят шутки. Серьёзные предпочитают строгость.</Rimpsyche_Playfulness.description>
+  <Rimpsyche_Playfulness.low>Серьезный</Rimpsyche_Playfulness.low>
+  <Rimpsyche_Playfulness.description>Показывает, насколько легко и весело человек воспринимает ситуации. Игривые люди наслаждаются шутками и остроумными замечаниями и склонны относиться к ситуациям с юмором и легким отношением. Напротив, серьезные люди предпочитают искреннее и честное отношение над шутками и обычно нелегко реагируют на них.</Rimpsyche_Playfulness.description>
 
   <Rimpsyche_Bravery.label>Храбрость</Rimpsyche_Bravery.label>
   <Rimpsyche_Bravery.high>Храбрый</Rimpsyche_Bravery.high>
-  <Rimpsyche_Bravery.low>Робкий</Rimpsyche_Bravery.low>
-  <Rimpsyche_Bravery.description>Храбрые встречают опасность. Робкие избегают риска.</Rimpsyche_Bravery.description>
+  <Rimpsyche_Bravery.low>Боязливый</Rimpsyche_Bravery.low>
+  <Rimpsyche_Bravery.description>Отражает отношение к столкновению со страхом, опасностью или трудными ситуациями. Храбрые люди без колебаний бросают вызов и противостоят опасностям или невзгодам. Напротив, боязливые люди стремятся избегать тревожных или неудобных ситуаций и склонны prioritize безопасность, а не сталкиваться с ними.</Rimpsyche_Bravery.description>
 
   <Rimpsyche_Tenacity.label>Стойкость</Rimpsyche_Tenacity.label>
   <Rimpsyche_Tenacity.high>Стойкий</Rimpsyche_Tenacity.high>
-  <Rimpsyche_Tenacity.low>Уязвимый</Rimpsyche_Tenacity.low>
-  <Rimpsyche_Tenacity.description>Стойкие выдерживают давление. Уязвимые легко теряют самообладание.</Rimpsyche_Tenacity.description>
+  <Rimpsyche_Tenacity.low>Податливый</Rimpsyche_Tenacity.low>
+  <Rimpsyche_Tenacity.description>Отражает склонность противостоять трудностям, преодолевать невзгоды и сохранять самоконтроль. Стойкие люди хорошо выдерживают стресс и, сталкиваясь с трудностями, не сдаются, а продолжают двигаться вперед. Напротив, податливые люди склонны легко поддаваться давлению даже из-за небольших проблем, терять концентрацию и чувствовать разочарование.</Rimpsyche_Tenacity.description>
 
   <Rimpsyche_Loyalty.label>Преданность</Rimpsyche_Loyalty.label>
   <Rimpsyche_Loyalty.high>Преданный</Rimpsyche_Loyalty.high>
   <Rimpsyche_Loyalty.low>Неверный</Rimpsyche_Loyalty.low>
-  <Rimpsyche_Loyalty.description>Преданные держат слово. Неверные меняют сторону.</Rimpsyche_Loyalty.description>
+  <Rimpsyche_Loyalty.description>Отражает степень верности и преданности. Преданные люди проявляют неизменную поддержку и преданность тем, кому доверяют и следуют, и склонны ставить их интересы на первое место. Напротив, неверные люди склонны ставить на первое место собственные интересы или менять принадлежность, легко нарушая доверие.</Rimpsyche_Loyalty.description>
 
-  <Rimpsyche_Expectation.label>Притязательность</Rimpsyche_Expectation.label>
+  <Rimpsyche_Expectation.label>Уровень притязаний</Rimpsyche_Expectation.label>
   <Rimpsyche_Expectation.high>Требовательный</Rimpsyche_Expectation.high>
-  <Rimpsyche_Expectation.low>Непритязательный</Rimpsyche_Expectation.low>
-  <Rimpsyche_Expectation.description>Требовательные хотят лучшего. Непритязательные довольствуются малым.</Rimpsyche_Expectation.description>
+  <Rimpsyche_Expectation.low>Скромный</Rimpsyche_Expectation.low>
+  <Rimpsyche_Expectation.description>Показывает, насколько большое значение человек придает своему комфорту, статусу или обращению. Требовательные люди считают, что заслуживают самого лучшего обращения, и более остро реагируют, когда их потребности не удовлетворяются. Напротив, скромные люди не сильно заинтересованы в роскоши или особом обращении и склонны довольствоваться basics.</Rimpsyche_Expectation.description>
 
   <Rimpsyche_Competitiveness.label>Соревновательность</Rimpsyche_Competitiveness.label>
   <Rimpsyche_Competitiveness.high>Конкурентный</Rimpsyche_Competitiveness.high>
   <Rimpsyche_Competitiveness.low>Кооперативный</Rimpsyche_Competitiveness.low>
-  <Rimpsyche_Competitiveness.description>Конкурентные стремятся победить. Кооперативные предпочитают сотрудничество.</Rimpsyche_Competitiveness.description>
+  <Rimpsyche_Competitiveness.description>Отражает желание превзойти других и склонность к конкуренции. Конкурентные люди мотивируются сравнением с другими, ценят достижения и победы и склонны стремиться превзойти других. Напротив, кооперативные люди ставят на первое место общие цели и взаимный успех, ценя командную работу и сотрудничество выше личной победы.</Rimpsyche_Competitiveness.description>
 
-  <Rimpsyche_SelfInterest.label>Эгоистичность</Rimpsyche_SelfInterest.label>
+  <Rimpsyche_SelfInterest.label>Эгоизм</Rimpsyche_SelfInterest.label>
   <Rimpsyche_SelfInterest.high>Эгоцентричный</Rimpsyche_SelfInterest.high>
   <Rimpsyche_SelfInterest.low>Альтруистичный</Rimpsyche_SelfInterest.low>
-  <Rimpsyche_SelfInterest.description>Эгоцентричные думают о себе. Альтруисты помогают другим.</Rimpsyche_SelfInterest.description>
+  <Rimpsyche_SelfInterest.description>Показывает, насколько человек ставит свои потребности выше благополучия других. Альтруистичные люди искренне стремятся помогать другим и ценят общее благо выше личной выгоды. Напротив, эгоцентричные люди склонны ставить на первое место свои собственные желания и интересы.</Rimpsyche_SelfInterest.description>
 
-  <Rimpsyche_Reflectiveness.label>Рефлексивность</Rimpsyche_Reflectiveness.label>
+  <Rimpsyche_Reflectiveness.label>Созерцательность</Rimpsyche_Reflectiveness.label>
   <Rimpsyche_Reflectiveness.high>Созерцательный</Rimpsyche_Reflectiveness.high>
-  <Rimpsyche_Reflectiveness.low>Реактивный</Rimpsyche_Reflectiveness.low>
-  <Rimpsyche_Reflectiveness.description>Отражает склонность к глубоким размышлениям и самоанализу. Созерцательные личности склонны анализировать и размышлять. Реактивные личности сосредоточены на конкретных и непосредственных вопросах.</Rimpsyche_Reflectiveness.description>
+  <Rimpsyche_Reflectiveness.low>Непосредственный</Rimpsyche_Reflectiveness.low>
+  <Rimpsyche_Reflectiveness.description>Показывает, насколько глубоко человек мыслит, размышляет и созерцает абстрактные концепции. Созерцательные люди склонны инвестировать время в анализ и глубокие размышления. Напротив, непосредственные люди реагируют на сиюмитуальные практические проблемы и ценят быстрые суждения и действия выше глубоких размышлений.</Rimpsyche_Reflectiveness.description>
 
   <Rimpsyche_Authenticity.label>Аутентичность</Rimpsyche_Authenticity.label>
   <Rimpsyche_Authenticity.high>Искренний</Rimpsyche_Authenticity.high>
-  <Rimpsyche_Authenticity.low>Утончённый</Rimpsyche_Authenticity.low>
-  <Rimpsyche_Authenticity.description>Отражает степень соответствия между внутренним миром человека и его внешним проявлением. Искренние личности выражают себя естественно, ценя подлинность выше внешнего впечатления. Утончённые личности более осознанно формируют своё публичное поведение.</Rimpsyche_Authenticity.description>
+  <Rimpsyche_Authenticity.low>Поверхностный</Rimpsyche_Authenticity.low>
+  <Rimpsyche_Authenticity.description>Показывает, насколько человек придает значение внешности. Искренние люди, как правило, ценят внутренний мир и не придают большого значения внешности. Напротив, поверхностные люди более чувствительны к внешнему виду и сильнее подвержены влиянию внешних факторов.</Rimpsyche_Authenticity.description>
   
 </LanguageData>
