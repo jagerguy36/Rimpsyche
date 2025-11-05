@@ -1327,9 +1327,9 @@
   <Maux36.RimPsyche.PersonalityDef>
     <defName>Rimpsyche_Authenticity</defName>
     <label>authenticity</label>
-    <high>genuine</high>
-    <low>polished</low>
-    <description>Reflects how true a person is to their inner self in their presentation. Genuine individuals express themselves with sincerity, valuing authenticity over appearances. Polished individuals, in contrast, are more deliberate in shaping how they are perceived.</description>
+    <high>authentic</high>
+    <low>superficial</low>
+    <description>Reflects how much a person prioritizes authenticity over appearances. Authentic individuals value sincerity and often downplay external polish. Superficial individuals, in contrast, are more attuned to external presentation and are more strongly influenced by it.</description>
     <scoreWeight>
       <li>
         <facet>Integrity</facet>

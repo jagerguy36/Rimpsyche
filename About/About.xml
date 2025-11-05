@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ModMetaData>
-    <name>Rimpsyche</name>
+    <name>Rimpsyche - Personality Core</name>
     <author>Maux</author>
     <supportedVersions>
         <li>1.6</li>
     </supportedVersions>
-    <modVersion>1.0.17</modVersion>
+    <modVersion>1.0.18</modVersion>
     <loadAfter>
         <li>brrainz.harmony</li>
     </loadAfter>

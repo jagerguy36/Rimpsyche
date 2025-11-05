@@ -1,7 +1,5 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <LanguageData>
-
-  <!-- Значение спорности по умолчанию 1. Рекомендуемый диапазон 0~[1]~2. -->
 
   <Rimpsyche_InterestDomainGeneral.label>общие</Rimpsyche_InterestDomainGeneral.label>
   <Rimpsyche_InterestDomainGeneral.interests.0.label>Повседневная жизнь</Rimpsyche_InterestDomainGeneral.interests.0.label>
