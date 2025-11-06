@@ -7,6 +7,7 @@ namespace Maux36.RimPsyche
 {
     public class PreferenceDef : Def
     {
+        public float baseStrength = 1f;
         public RimpsychePrefCategory category;
         public RimpsycheCacheType cacheType;
         public Type workerClass = typeof(PreferenceWorker);
