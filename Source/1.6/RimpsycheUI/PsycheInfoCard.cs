@@ -684,19 +684,6 @@ namespace Maux36.RimPsyche
             Text.Anchor = TextAnchor.MiddleCenter;
             Rect titleRect = new Rect(0f, 0f, headerRect.width, headerRect.height);
             Widgets.Label(titleRect, "RPC_Sexuality".Translate());
-            Vector2 titleTextSize = Text.CalcSize("RPC_Sexuality".Translate());
-
-            // Icon on the right
-            float iconSize = 24f;
-            float viewIconX = (headerRect.width / 2f) + (titleTextSize.x / 2f) + 8f;
-            Rect viewIconRect = new Rect(viewIconX, titleRect.y + (titleRect.height - iconSize) / 2f, iconSize, iconSize);
-
-            // Draw & handle click
-            if (Widgets.ButtonImage(viewIconRect, Rimpsyche_UI_Utility.ViewBarButton))
-            {
-                showPreference = !showPreference;
-            }
-            TooltipHandler.TipRegion(viewIconRect, "RimpsycheShowPreference".Translate());
 
             GUI.EndGroup();
 
@@ -753,8 +740,28 @@ namespace Maux36.RimPsyche
             Text.Font = GameFont.Medium;
             Text.Anchor = TextAnchor.MiddleCenter;
             Rect titleRect = new Rect(0f, 0f, headerRect.width, headerRect.height);
-            if (showPreference) Widgets.Label(titleRect, "RPC_Preference".Translate());
-            else Widgets.Label(titleRect, "RPC_Interest".Translate());
+            Vector2 titleTextSize;
+            if (showPreference)
+            {
+                Widgets.Label(titleRect, "RPC_Preference".Translate());
+                titleTextSize = Text.CalcSize("RPC_Preference".Translate());
+            }
+            else
+            {
+                Widgets.Label(titleRect, "RPC_Interest".Translate());
+                titleTextSize = Text.CalcSize("RPC_Interest".Translate());
+            }
+            // Icon on the right
+            float iconSize = 24f;
+            float viewIconX = (headerRect.width / 2f) + (titleTextSize.x / 2f) + 8f;
+            Rect viewIconRect = new Rect(viewIconX, titleRect.y + (titleRect.height - iconSize) / 2f, iconSize, iconSize);
+
+            // Draw & handle click
+            if (Widgets.ButtonImage(viewIconRect, Rimpsyche_UI_Utility.ViewBarButton))
+            {
+                showPreference = !showPreference;
+            }
+            TooltipHandler.TipRegion(viewIconRect, "RimpsycheShowPreference".Translate());
 
             GUI.EndGroup();
 
