@@ -58,8 +58,45 @@ namespace Maux36.RimPsyche
             listing_Standard.CheckboxLabeled("RimpsycheShowFacetGraph".Translate(), ref RimpsycheSettings.showFacetGraph, "RimpsycheShowFacetGraphTooltip".Translate());
             listing_Standard.Gap(6f);
 
+            if(SexualityModuleLoaded)
+            {
+                listing_Standard.Label("RimpsycheKinseyDistributionSettings".Translate());
+                Rect sliderArea = listing_Standard.GetRect(200f);
+                DrawKinseyDistributionSliders(sliderArea);
+            }
+
             listing_Standard.End();
             Widgets.EndScrollView();
+        }
+        private void DrawKinseyDistributionSliders(Rect rect)
+        {
+            float total = RimpsycheSettings.KinseyDistributionSetting.Sum();
+            const int numSliders = 7;
+            float spacing = 20f;
+            float sliderWidth = (rect.width - spacing * (numSliders - 1)) / numSliders;
+            float sliderHeight = rect.height - 40f; // Leave space for labels
+
+            Text.Anchor = TextAnchor.MiddleCenter;
+
+            for (int i = 0; i < numSliders; i++)
+            {
+                float x = rect.x + i * (sliderWidth + spacing);
+                Rect sliderRect = new Rect(x, rect.y + 20f, sliderWidth, sliderHeight);
+
+                Widgets.Label(new Rect(x, rect.y, sliderWidth, 20f), i.ToString());
+
+                RimpsycheSettings.KinseyDistributionSetting[i] = Mathf.Round(GUI.VerticalSlider(
+                    sliderRect,
+                    RimpsycheSettings.KinseyDistributionSetting[i],
+                    100f,
+                    0f
+                ), 1f);
+
+                string valueText = (RimpsycheSettings.KinseyDistributionSetting[i]/total).ToString("0.0");
+                Widgets.Label(new Rect(x, rect.y + sliderHeight + 25f, sliderWidth, 20f), valueText);
+            }
+
+            Text.Anchor = TextAnchor.UpperLeft;
         }
     }
 }

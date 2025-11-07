@@ -736,7 +736,7 @@ namespace Maux36.RimPsyche
             Rect headerRect = new Rect(interestRect.x, interestRect.y, interestRect.width, headerHeight);
             GUI.BeginGroup(headerRect);
 
-            // Title: "Interest"
+            // Title: "Interest" || "Preference
             Text.Font = GameFont.Medium;
             Text.Anchor = TextAnchor.MiddleCenter;
             Rect titleRect = new Rect(0f, 0f, headerRect.width, headerRect.height);
@@ -753,7 +753,8 @@ namespace Maux36.RimPsyche
             }
             // Icon on the right
             float iconSize = 24f;
-            float viewIconX = (headerRect.width / 2f) + (titleTextSize.x / 2f) + 8f;
+            // float viewIconX = (headerRect.width / 2f) + (titleTextSize.x / 2f) + 8f;
+            float viewIconX = (headerRect.width - innerPadding - iconsize);
             Rect viewIconRect = new Rect(viewIconX, titleRect.y + (titleRect.height - iconSize) / 2f, iconSize, iconSize);
 
             // Draw & handle click
@@ -785,7 +786,8 @@ namespace Maux36.RimPsyche
                     float textHeight = Text.CalcHeight(explanation, scrollRect.width);
                     Rect prefExplanationRect = new Rect(scrollRect.x, y, scrollRect.width, textHeight);
                     Widgets.Label(prefExplanationRect, explanation);
-                    y += textHeight;
+                    y += textHeight + 5f;
+                    // Widgets.DrawLineHorizontal(scrollRect.x, y, scrollRect.width);
                 }
                 Text.Font = oldFont;
             }

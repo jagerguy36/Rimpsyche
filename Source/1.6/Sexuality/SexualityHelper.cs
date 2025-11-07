@@ -8,7 +8,17 @@ namespace Maux36.RimPsyche
     public class SexualityHelper
     {
         //TODO: Look up distribution researches
-        public static List<float> Distribution = [0.6f, 0.1f, 0.1f, 0.05f, 0.05f, 0.05f, 0.05f]; //TODO expose to settings
+        public static List<float> Distribution = CalculateNormalizedDistribution();
+        private static List<float> CalculateNormalizedDistribution()
+        {
+            float total = RimpsycheSettings.KinseyDistributionSetting.Sum();
+            List<float> normalizedDistribution = new List<float>();
+            foreach (var value in RimpsycheSettings.KinseyDistributionSetting)
+            {
+                normalizedDistribution.Add(total > 0 ? value / total : 0);
+            }
+            return normalizedDistribution;
+        }
         public static readonly List<float> steps = [0f, 0.2f, 0.4f, 0.6f, 0.8f, 1f];
         public static readonly float StraightSum = Distribution[0] + Distribution[1];
         public static readonly float BiSum = Distribution[2] + Distribution[3] + Distribution[4];
