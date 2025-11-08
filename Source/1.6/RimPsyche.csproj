@@ -95,6 +95,8 @@
     <Compile Include="HarmonyPatches\Pawn_InteractionTracker_fixes.cs" />
     <Compile Include="Personality\PersonalityDef.cs" />
     <Compile Include="Personality\PersonalityDefOf.cs" />
+    <Compile Include="PsycheData\PsycheData.cs" />
+    <Compile Include="PsycheData\PsycheDataUtil.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Rimpsyche.cs" />
     <Compile Include="RimpsycheSettings.cs" />

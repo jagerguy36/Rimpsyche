@@ -751,18 +751,21 @@ namespace Maux36.RimPsyche
                 Widgets.Label(titleRect, "RPC_Interest".Translate());
                 titleTextSize = Text.CalcSize("RPC_Interest".Translate());
             }
-            // Icon on the right
-            float iconSize = 24f;
-            // float viewIconX = (headerRect.width / 2f) + (titleTextSize.x / 2f) + 8f;
-            float viewIconX = (headerRect.width - innerPadding - iconSize);
-            Rect viewIconRect = new Rect(viewIconX, titleRect.y + (titleRect.height - iconSize) / 2f, iconSize, iconSize);
-
-            // Draw & handle click
-            if (Widgets.ButtonImage(viewIconRect, Rimpsyche_UI_Utility.ViewBarButton))
+            if (Rimpsyche.SexualityModuleLoaded)
             {
-                showPreference = !showPreference;
+                // Icon on the right
+                float iconSize = 24f;
+                // float viewIconX = (headerRect.width / 2f) + (titleTextSize.x / 2f) + 8f;
+                float viewIconX = (headerRect.width - innerPadding - iconSize);
+                Rect viewIconRect = new Rect(viewIconX, titleRect.y + (titleRect.height - iconSize) / 2f, iconSize, iconSize);
+
+                // Draw & handle click
+                if (Widgets.ButtonImage(viewIconRect, showPreference?Rimpsyche_UI_Utility.InterestButton:Rimpsyche_UI_Utility.PreferenceButton))
+                {
+                    showPreference = !showPreference;
+                }
+                TooltipHandler.TipRegion(viewIconRect, showPreference?"RimpsycheShowInterest".Translate(): "RimpsycheShowPreference".Translate());
             }
-            TooltipHandler.TipRegion(viewIconRect, "RimpsycheShowPreference".Translate());
 
             GUI.EndGroup();
 

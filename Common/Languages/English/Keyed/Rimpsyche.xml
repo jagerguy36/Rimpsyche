@@ -18,6 +18,8 @@
   <RPC_Personality>Personality</RPC_Personality>
   <RPC_Interest>Interest</RPC_Interest>
   <RPC_Sexuality>Sexuality</RPC_Sexuality>
+  <RPC_Preference>Preference</RPC_Preference>
+  <PsycheDisabled>Psyche Disabled</PsycheDisabled>
 
   <!-- Tab -->
   <TabPsyche>Psyche</TabPsyche>
@@ -25,6 +27,8 @@
   <RimpsycheShowList>Show as List</RimpsycheShowList>
   <RimpsycheShowBar>Show as Bars</RimpsycheShowBar>
   <RimpsycheShowFacet>Show Facets</RimpsycheShowFacet>
+  <RimpsycheShowInterest>Show Interest</RimpsycheShowInterest>
+  <RimpsycheShowPreference>Show Preference</RimpsycheShowPreference>
   <RimpsycheEdit>Edit</RimpsycheEdit>
 
   <RPC_Orientation>Sexuality</RPC_Orientation>
