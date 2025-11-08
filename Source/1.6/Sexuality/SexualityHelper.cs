@@ -18,12 +18,12 @@ namespace Maux36.RimPsyche
             }
             if (total == 0)
             {
-                return [1f / 7f, 1f / 7f, 1f / 7f, 1f / 7f, 1f / 7f, 1f / 7f];
+                return [1f / 7f, 1f / 7f, 1f / 7f, 1f / 7f, 1f / 7f, 1f / 7f, 1f / 7f];
             }
             List<float> normalizedDistribution = new List<float>();
-            foreach (var value in RimpsycheSettings.KinseyDistributionSetting)
+            foreach (float value in RimpsycheSettings.KinseyDistributionSetting)
             {
-                normalizedDistribution.Add(total > 0 ? value / total : 0);
+                normalizedDistribution.Add(value / total);
             }
             return normalizedDistribution;
         }
@@ -44,30 +44,55 @@ namespace Maux36.RimPsyche
             }
             return new SimpleCurve(curvePoints.ToArray());
         }
-        public static readonly SimpleCurve StraightCurve = new SimpleCurve
+        public static readonly SimpleCurve StraightCurve = (StraightSum > 0f)
+        ? new SimpleCurve
         {
-            new CurvePoint(Distribution[0]/StraightSum, steps[0]),
+            new CurvePoint(Distribution[0] / StraightSum, steps[0]),
+            new CurvePoint(1f, steps[1])
+        }
+        : new SimpleCurve
+        {
+            new CurvePoint(0.5f, steps[0]),
             new CurvePoint(1f, steps[1])
         };
-        public static readonly SimpleCurve BiCurve = new SimpleCurve
+        public static readonly SimpleCurve BiCurve = (BiSum > 0f)
+        ? new SimpleCurve
         {
             new CurvePoint(0f, steps[1]),
-            new CurvePoint(Distribution[2]/BiSum, steps[2]),
-            new CurvePoint((Distribution[2]+Distribution[3])/BiSum, steps[3]),
+            new CurvePoint(Distribution[2] / BiSum, steps[2]),
+            new CurvePoint((Distribution[2] + Distribution[3]) / BiSum, steps[3]),
             new CurvePoint(1f, steps[4])
-        };
-        public static readonly SimpleCurve NonGayCurve = new SimpleCurve
+        }
+        : new SimpleCurve
         {
-            new CurvePoint(Distribution[0]/StraightBiSum, steps[0]),
-            new CurvePoint((Distribution[0]+Distribution[1])/StraightBiSum, steps[1]),
-            new CurvePoint((Distribution[0]+Distribution[1]+Distribution[2])/StraightBiSum, steps[2]),
-            new CurvePoint((Distribution[0]+Distribution[1]+Distribution[2]+Distribution[3])/StraightBiSum, steps[3]),
+            new CurvePoint(0f, steps[1]),
             new CurvePoint(1f, steps[4])
         };
-        public static readonly SimpleCurve GayCurve = new SimpleCurve
+        public static readonly SimpleCurve NonGayCurve = (StraightBiSum > 0f)
+        ? new SimpleCurve
+        {
+            new CurvePoint(Distribution[0] / StraightBiSum, steps[0]),
+            new CurvePoint((Distribution[0] + Distribution[1]) / StraightBiSum, steps[1]),
+            new CurvePoint((Distribution[0] + Distribution[1] + Distribution[2]) / StraightBiSum, steps[2]),
+            new CurvePoint((Distribution[0] + Distribution[1] + Distribution[2] + Distribution[3]) / StraightBiSum, steps[3]),
+            new CurvePoint(1f, steps[4])
+        }
+        : new SimpleCurve
+        {
+            //If everyone should be gay, but generation is forcing no gay, then give them kinsey(4)
+            new CurvePoint(0f, steps[3]),
+            new CurvePoint(1f, steps[4])
+        };
+        public static readonly SimpleCurve GayCurve = (GaySum > 0f)
+        ? new SimpleCurve
         {
             new CurvePoint(0f, steps[4]),
-            new CurvePoint(Distribution[5]/GaySum, steps[5])
+            new CurvePoint(Distribution[5] / GaySum, steps[5])
+        }
+        : new SimpleCurve
+        {
+            new CurvePoint(0f, steps[4]),
+            new CurvePoint(0.5f, steps[5])
         };
         public static SexualOrientation EvaluateSexuality(Pawn pawn)
         {
@@ -96,9 +121,9 @@ namespace Maux36.RimPsyche
         {
             if (allowGay)
             {
-                return NonGayCurve.Evaluate(Rand.Value);
+                return SexualityCurve.Evaluate(Rand.Value);
             }
-            return SexualityCurve.Evaluate(Rand.Value);
+            return NonGayCurve.Evaluate(Rand.Value);
         }
         public static float GenerateKinseyFor(SexualOrientation orientation)
         {
