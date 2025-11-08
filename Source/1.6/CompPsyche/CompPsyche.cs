@@ -160,7 +160,7 @@ namespace Maux36.RimPsyche
         }
 
 
-        public void PsycheValueSetup()
+        public void PersonalitySetup()
         {
             if (personality == null)
             {
@@ -168,7 +168,7 @@ namespace Maux36.RimPsyche
                 personality.Initialize();
             }
         }
-        public void InterestScoreSetup()
+        public void InterestSetup()
         {
             if (interests == null)
             {
@@ -178,13 +178,20 @@ namespace Maux36.RimPsyche
         }
         public void SexualitySetup(bool generate = false, bool allowGay = true)
         {
-            if (sexuality == null)
-            {
-                sexuality = new Pawn_SexualityTracker(parentPawn);
-            }
+            sexuality ??= new Pawn_SexualityTracker(parentPawn);
             //Initialize even when not null for save-game trait safety with Sexuality Module.
             sexuality.Initialize(generate, allowGay);
         }
+        public void InjectPsycheData(PsycheData psyche)
+        {
+            personality ??= new Pawn_PersonalityTracker(parentPawn);
+            personality.Initialize(psyche);
+            interests ??= new Pawn_InterestTracker(parentPawn);
+            interests.Initialize(psyche);
+            sexuality ??= new Pawn_SexualityTracker(parentPawn);
+            sexuality.Initialize(false, true); //Sexuality Import Not yet implemented due to lack of sexuality module
+        }
+
         public void DirtyTraitCache()
         {
             personality?.DirtyTraitCache();
@@ -250,8 +257,8 @@ namespace Maux36.RimPsyche
             Scribe_Deep.Look(ref sexuality, "sexuality", new object[] { parent as Pawn });
             if (Scribe.mode == LoadSaveMode.PostLoadInit)
             {
-                PsycheValueSetup();
-                InterestScoreSetup();
+                PersonalitySetup();
+                InterestSetup();
                 SexualitySetup(generate: false);
                 if (Rimpsyche.DispositionModuleLoaded)
                 {

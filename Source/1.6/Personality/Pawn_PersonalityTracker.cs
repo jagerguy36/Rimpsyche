@@ -176,8 +176,32 @@ namespace Maux36.RimPsyche
             pawn = p;
             compPsyche = p.compPsyche();
         }
-        public void Initialize(int inputSeed = 0)
+        public void Initialize(PsycheData psycheData = null)
         {
+            if (psycheData != null)
+            {
+                imagination = psycheData.imagination;
+                intellect = psycheData.intellect;
+                curiosity = psycheData.curiosity;
+
+                industriousness = psycheData.industriousness;
+                orderliness = psycheData.orderliness;
+                integrity = psycheData.integrity;
+
+                sociability = psycheData.sociability;
+                assertiveness = psycheData.assertiveness;
+                enthusiasm = psycheData.enthusiasm;
+
+                compassion = psycheData.compassion;
+                cooperation = psycheData.cooperation;
+                humbleness = psycheData.humbleness;
+
+                volatility = psycheData.volatility;
+                pessimism = psycheData.pessimism;
+                insecurity = psycheData.insecurity;
+                DirtyCache();
+                return;
+            }
             float minRange = -35f;
             float maxRange = 35f;
             float baseOCEANvalue = Rand.Range(minRange, maxRange);

@@ -14,8 +14,13 @@ namespace Maux36.RimPsyche
         {
             pawn = p;
         }
-        public void Initialize(int inputSeed = 0)
+        public void Initialize(PsycheData psycheData = null)
         {
+            if (psycheData != null)
+            {
+                interestScore = new Dictionary<string, float>(psycheData.interestScore);
+                return;
+            }
             foreach (InterestDomainDef interestdomainDef in DefDatabase<InterestDomainDef>.AllDefs)
             {
                 GenerateInterestOffsetsForDomain(interestdomainDef, true);
