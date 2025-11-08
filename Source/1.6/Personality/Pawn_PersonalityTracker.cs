@@ -17,8 +17,8 @@ namespace Maux36.RimPsyche
             ["Neuroticism"] = new[] { Facet.Volatility, Facet.Pessimism, Facet.Insecurity },
         };
 
-        private Pawn pawn;
-        private CompPsyche compPsyche;
+        private readonly Pawn pawn;
+        private readonly CompPsyche compPsyche;
         // Facets -50~50
         private float imagination = 0f;
         private float intellect = 0f;

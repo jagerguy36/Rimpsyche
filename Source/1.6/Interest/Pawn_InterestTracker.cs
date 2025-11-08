@@ -6,13 +6,15 @@ namespace Maux36.RimPsyche
 {
     public class Pawn_InterestTracker : IExposable
     {
-        private Pawn pawn;
+        private readonly Pawn pawn;
+        private readonly CompPsyche compPsyche;
         public Dictionary<int, float> interestOffset = new Dictionary<int, float>(); // 35~65
         public Dictionary<string, float> interestScore = new Dictionary<string, float>(); // -35~35
 
         public Pawn_InterestTracker(Pawn p)
         {
             pawn = p;
+            compPsyche = p.compPsyche();
         }
         public void Initialize(PsycheData psycheData = null)
         {
