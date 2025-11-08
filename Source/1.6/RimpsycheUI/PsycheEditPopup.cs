@@ -21,7 +21,7 @@ namespace Maux36.RimPsyche
                 float desiredWidth = screenWidth * 0.55f;
                 float desiredHeight = screenHeight * 0.5f;
 
-                float minWidth = 900f;
+                float minWidth = 930f;
                 float minHeight = 400f;
 
                 return new Vector2(Mathf.Max(desiredWidth, minWidth) + personalityWidthDiff + interestWidthDiff + facetWidthDiff, Mathf.Max(desiredHeight, minHeight));
@@ -63,7 +63,7 @@ namespace Maux36.RimPsyche
         public static readonly float interestRowHeight = 32f;
         public static readonly float interestViewHeight = interestList.Count() * interestRowHeight;
         public static readonly float interestLabelPadding = 2f;
-        public static readonly float interestBarWidth = 100f;
+        public static readonly float interestBarWidth = 80f;
         public static readonly float interestBarHeight = 4f;
 
         public static Vector2 FacetNodeScrollPosition = Vector2.zero;
@@ -72,7 +72,14 @@ namespace Maux36.RimPsyche
         public static bool editFacetOn = false;
         public static bool editPersonalityOn = false;
         public static bool editInterestOn = false;
-        
+
+        //Sexuality
+        public static readonly float sexualityContentHeight = 160f;
+        public static readonly float sexualityRowHeight = 30f;
+        // Labels
+        public static readonly string maleAttractionLabel = "RPS_mAttraction".Translate();
+        public static readonly string femaleAttractionLabel = "RPS_fAttraction".Translate();
+        public static readonly string sexDriveLabel = "RPS_sexDrive".Translate();
 
         public override void PreOpen()
         {
@@ -97,25 +104,22 @@ namespace Maux36.RimPsyche
             closeOnCancel = true;
 
             // Get pawn
-            Pawn pawn = Find.WindowStack.IsOpen(typeof(Dialog_Trade)) || Current.ProgramState != ProgramState.Playing
-                ? editFor
-                : Find.Selector.SingleSelectedThing as Pawn;
+            Pawn pawn = editFor;
 
             if (pawn == null) return;
             var compPsyche = pawn.compPsyche();
             if (compPsyche == null) return;
 
-            // Divide window into two horizontal parts: 2:3 ratio
-            float totalWidth = inRect.width - personalityWidthDiff;
+            float totalWidth = inRect.width - facetWidthDiff - personalityWidthDiff - interestWidthDiff;
 
-            float leftWidth = totalWidth * 340f / 930f;
+            float leftWidth = totalWidth * 340f / 930f + facetWidthDiff;
             float midWidth = totalWidth * 360f / 930f + personalityWidthDiff;
             float rightWidth = totalWidth * 230f / 930f + interestWidthDiff;
 
             Rect leftRect = new Rect(inRect.x, inRect.y, leftWidth, inRect.height);
             Rect middleRect = new Rect(leftRect.xMax, inRect.y, midWidth, inRect.height);
 
-            Rect rightTopRect = new Rect(middleRect.xMax, inRect.y, rightWidth, compPsyche.Sexuality.ShowOnUI() ? 100f : 0f);
+            Rect rightTopRect = new Rect(middleRect.xMax, inRect.y, rightWidth, compPsyche.Sexuality.ShowOnUI() ? sexualityContentHeight : 0f);
             Rect rightBottomRect = new Rect(middleRect.xMax, rightTopRect.yMax, rightWidth, inRect.height- rightTopRect.height);
             bool showSexuality = compPsyche.Sexuality.ShowOnUI();
 
@@ -148,16 +152,43 @@ namespace Maux36.RimPsyche
             TextAnchor oldAnchor = Text.Anchor;
             GameFont oldFont = Text.Font;
             Rect innerRect = rect.ContractedBy(innerPadding);
+            var sexuality = compPsyche.Sexuality;
             
             // Title
             Rect titleRect = new Rect(innerRect.x, innerRect.y, innerRect.width, titleHeight);
             Text.Anchor = TextAnchor.MiddleCenter;
             Text.Font = GameFont.Medium;
-            Widgets.Label(titleRect, "RPC_Sexuality".Translate());
+            string titleString = "RPC_Sexuality".Translate();
+            Widgets.Label(titleRect, titleString);
             Text.Anchor = TextAnchor.UpperLeft;
             Text.Font = GameFont.Small;
             Rect ContentRect = new Rect(innerRect.x, titleRect.yMax, innerRect.width, innerRect.height - titleHeight);
             Widgets.DrawBoxSolid(ContentRect, new Color(0.2f, 0.2f, 0.2f, 0.5f));
+            float maxSexualityLabelWidth = Math.Max(Text.CalcSize(maleAttractionLabel).x,Math.Max(Text.CalcSize(femaleAttractionLabel).x,Text.CalcSize(sexDriveLabel).x));
+            float sliderWidth = ContentRect.width - maxSexualityLabelWidth;
+
+            Rect KinseyLabelRect = new Rect(ContentRect.x, ContentRect.y, maxSexualityLabelWidth, sexualityRowHeight);
+            Widgets.Label(KinseyLabelRect, "RPC_Kinsey".Translate() + ": ");
+            Rect KinseyReportRect = new Rect(KinseyLabelRect.xMax, ContentRect.y, sliderWidth, sexualityRowHeight);
+            Widgets.Label(KinseyReportRect, (compPsyche.Sexuality.GetKinseyReport().ToString()));// + "(" + sexuality.kinsey.ToString("F2") + ")"
+
+            Rect labelRect1 = new Rect(ContentRect.x, KinseyLabelRect.yMax, maxSexualityLabelWidth, sexualityRowHeight);
+            Widgets.Label(labelRect1, maleAttractionLabel);
+            Rect sliderRect1 = new Rect(labelRect1.xMax, KinseyLabelRect.yMax, sliderWidth, sexualityRowHeight);
+            float newMValue = Widgets.HorizontalSlider(sliderRect1, sexuality.mAttraction, 0f, 1f, true, null, null, sexuality.mAttraction.ToString("F2"));
+            if (newMValue != sexuality.mAttraction) sexuality.SetMaleAttraction(newMValue);
+
+            Rect labelRect2 = new Rect(ContentRect.x, labelRect1.yMax, maxSexualityLabelWidth, sexualityRowHeight);
+            Widgets.Label(labelRect2, femaleAttractionLabel);
+            Rect sliderRect2 = new Rect(labelRect2.xMax, labelRect1.yMax, sliderWidth, sexualityRowHeight);
+            float newFValue = Widgets.HorizontalSlider(sliderRect2, sexuality.fAttraction, 0f, 1f, true, null, null, sexuality.fAttraction.ToString("F2"));
+            if (newFValue != sexuality.fAttraction) sexuality.SetFemaleAttraction(newFValue);
+
+            Rect labelRect3 = new Rect(ContentRect.x, labelRect2.yMax, maxSexualityLabelWidth, sexualityRowHeight);
+            Widgets.Label(labelRect3, sexDriveLabel);
+            Rect sliderRect3 = new Rect(labelRect3.xMax, labelRect2.yMax, sliderWidth, sexualityRowHeight);
+            sexuality.sexDrive = Widgets.HorizontalSlider(sliderRect3, sexuality.sexDrive, 0f, 1f, true, null, null, sexuality.sexDrive.ToString("F2"));
+
             Text.Anchor = oldAnchor;
             Text.Font = oldFont;
         }
@@ -176,8 +207,6 @@ namespace Maux36.RimPsyche
             string titleString = "RPC_Interest".Translate();
             Widgets.Label(titleRect, titleString);
             Vector2 titleTextSize = Text.CalcSize(titleString);
-            // Text.Anchor = oldAnchor;
-            // Text.Font = oldFont;
 
             // Icon on the right
             float iconSize = 24f;
@@ -206,7 +235,7 @@ namespace Maux36.RimPsyche
             foreach (var interest in RimpsycheDatabase.InterestList)
             {
                 float currentValue = compPsyche.Interests.GetOrCreateInterestScore(interest);
-                Rect rowRect = new Rect(0f, y, scrollRect.width, interestRowHeight);
+                Rect rowRect = new Rect(0f, y, viewRect.width, interestRowHeight);
 
                 // Hover highlight + tooltip
                 if (Mouse.IsOver(rowRect))
@@ -442,7 +471,7 @@ namespace Maux36.RimPsyche
             Text.Font = GameFont.Small;
 
             Rect resetButtonRect = new Rect(
-                titleRect.xMax - resetButtonSize - resetButtonMargin,
+                titleRect.xMax - resetButtonSize - resetButtonMargin - scrollBarWidth,
                 titleRect.y + (titleRect.height - resetButtonSize) / 2f,
                 resetButtonSize,
                 resetButtonSize

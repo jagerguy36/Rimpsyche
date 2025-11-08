@@ -44,8 +44,9 @@ namespace Maux36.RimPsyche
             psyche.orientationCategory = sexuality.orientationCategory;
             psyche.kinsey = sexuality.kinsey;
             psyche.sexDrive = sexuality.sexDrive;
-            psyche.mAattraction = sexuality.mAattraction;
-            psyche.fAattraction = sexuality.fAattraction;
+            psyche.mAttraction = sexuality.mAttraction;
+            psyche.fAttraction = sexuality.fAttraction;
+            psyche.preference = new Dictionary<string, List<PrefEntry>>(sexuality.GetPreferenceRaw());
 
             return psyche;
         }

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnityEngine;
+﻿using System.Collections.Generic;
 using Verse;
 
 namespace Maux36.RimPsyche
@@ -38,8 +33,9 @@ namespace Maux36.RimPsyche
         public SexualOrientation orientationCategory = SexualOrientation.None;
         public float kinsey = -1f;
         public float sexDrive = 0f;
-        public float mAattraction = 0f;
-        public float fAattraction = 0f;
+        public float mAttraction = 0f;
+        public float fAttraction = 0f;
+        public Dictionary<string, List<PrefEntry>> preference = new();
 
         public void ExposeData()
         {
@@ -68,8 +64,9 @@ namespace Maux36.RimPsyche
             Scribe_Values.Look(ref orientationCategory, "category", SexualOrientation.None);
             Scribe_Values.Look(ref kinsey, "kinsey", -1f);
             Scribe_Values.Look(ref sexDrive, "sexDrive", 0f);
-            Scribe_Values.Look(ref mAattraction, "mAattraction", 0f);
-            Scribe_Values.Look(ref fAattraction, "fAattraction", 0f);
+            Scribe_Values.Look(ref mAttraction, "mAttraction", 0f);
+            Scribe_Values.Look(ref fAttraction, "fAttraction", 0f);
+            Scribe_Collections.Look(ref preference, "preference", LookMode.Value, LookMode.Deep);
         }
     }
 }
