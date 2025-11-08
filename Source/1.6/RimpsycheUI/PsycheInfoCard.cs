@@ -754,7 +754,7 @@ namespace Maux36.RimPsyche
             // Icon on the right
             float iconSize = 24f;
             // float viewIconX = (headerRect.width / 2f) + (titleTextSize.x / 2f) + 8f;
-            float viewIconX = (headerRect.width - innerPadding - iconsize);
+            float viewIconX = (headerRect.width - innerPadding - iconSize);
             Rect viewIconRect = new Rect(viewIconX, titleRect.y + (titleRect.height - iconSize) / 2f, iconSize, iconSize);
 
             // Draw & handle click

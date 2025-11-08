@@ -11,7 +11,15 @@ namespace Maux36.RimPsyche
         public static List<float> Distribution = CalculateNormalizedDistribution();
         private static List<float> CalculateNormalizedDistribution()
         {
-            float total = RimpsycheSettings.KinseyDistributionSetting.Sum();
+            int total = 0;
+            foreach (var value in RimpsycheSettings.KinseyDistributionSetting)
+            {
+                total += value;
+            }
+            if (total == 0)
+            {
+                return [1f / 7f, 1f / 7f, 1f / 7f, 1f / 7f, 1f / 7f, 1f / 7f];
+            }
             List<float> normalizedDistribution = new List<float>();
             foreach (var value in RimpsycheSettings.KinseyDistributionSetting)
             {

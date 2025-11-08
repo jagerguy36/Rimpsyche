@@ -56,10 +56,10 @@ namespace Maux36.RimPsyche
             listing_Standard.CheckboxLabeled("RimpsycheShowFacetInMenu".Translate(), ref RimpsycheSettings.showFacetInMenu, "RimpsycheShowFacetInMenuTooltip".Translate());
             listing_Standard.Gap(6f);
             listing_Standard.CheckboxLabeled("RimpsycheShowFacetGraph".Translate(), ref RimpsycheSettings.showFacetGraph, "RimpsycheShowFacetGraphTooltip".Translate());
-            listing_Standard.Gap(6f);
 
             if(SexualityModuleLoaded)
             {
+                listing_Standard.Gap(12f);
                 listing_Standard.Label("RimpsycheKinseyDistributionSettings".Translate());
                 Rect sliderArea = listing_Standard.GetRect(200f);
                 DrawKinseyDistributionSliders(sliderArea);
@@ -70,33 +70,42 @@ namespace Maux36.RimPsyche
         }
         private void DrawKinseyDistributionSliders(Rect rect)
         {
-            float total = RimpsycheSettings.KinseyDistributionSetting.Sum();
+            float total = 0f;
+            foreach (var value in RimpsycheSettings.KinseyDistributionSetting)
+            {
+                total += value;
+            }
             const int numSliders = 7;
-            float spacing = 20f;
-            float sliderWidth = (rect.width - spacing * (numSliders - 1)) / numSliders;
-            float sliderHeight = rect.height - 40f; // Leave space for labels
-
-            Text.Anchor = TextAnchor.MiddleCenter;
+            float spacing = 5f;
+            float sliderWidth = 50f;
+            float sliderHeight = rect.height - 100f; // Leave space for labels
+            string pcText;
 
             for (int i = 0; i < numSliders; i++)
             {
                 float x = rect.x + i * (sliderWidth + spacing);
-                Rect sliderRect = new Rect(x, rect.y + 20f, sliderWidth, sliderHeight);
-
                 Widgets.Label(new Rect(x, rect.y, sliderWidth, 20f), i.ToString());
-
-                RimpsycheSettings.KinseyDistributionSetting[i] = Mathf.Round(GUI.VerticalSlider(
+                Rect sliderRect = new Rect(x, rect.y+20f, sliderWidth, sliderHeight);
+                RimpsycheSettings.KinseyDistributionSetting[i] = (int)(GUI.VerticalSlider(
                     sliderRect,
                     RimpsycheSettings.KinseyDistributionSetting[i],
                     100f,
                     0f
-                ), 1f);
+                ));
 
-                string valueText = (RimpsycheSettings.KinseyDistributionSetting[i]/total).ToString("0.0");
-                Widgets.Label(new Rect(x, rect.y + sliderHeight + 25f, sliderWidth, 20f), valueText);
+                Rect valLabelRect = new Rect(x, sliderRect.yMax, sliderWidth, 20f);
+                Widgets.Label(valLabelRect, RimpsycheSettings.KinseyDistributionSetting[i].ToString());
+                Rect pcLabelRect = new Rect(x, valLabelRect.yMax, sliderWidth, 20f);
+                if (total == 0f) pcText = "(" + (1f / 7f).ToStringPercent() + ")";
+                else pcText = "(" + (RimpsycheSettings.KinseyDistributionSetting[i] / total).ToStringPercent() + ")";
+                Widgets.Label(pcLabelRect, pcText);
             }
+            Rect buttonRect = new Rect(rect.x, rect.yMax-30f, 300f, 30f);
+            if(Widgets.ButtonText(buttonRect, "RimpsycheKinseyDefaultSetting".Translate()))
+            {
 
-            Text.Anchor = TextAnchor.UpperLeft;
+                RimpsycheSettings.KinseyDistributionSetting = [60, 10, 10, 5, 5, 5, 5];
+            }
         }
     }
 }
