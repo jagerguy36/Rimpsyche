@@ -12,6 +12,8 @@
   <RimpsycheShowFacetInMenuTooltip>Enable view facets option in Psyche tab.</RimpsycheShowFacetInMenuTooltip>
   <RimpsycheShowFacetGraph>Show Facets radar chart in UI</RimpsycheShowFacetGraph>
   <RimpsycheShowFacetGraphTooltip>Show facet radar chart in Psyche tab.</RimpsycheShowFacetGraphTooltip>
+  <RimpsycheKinseyDistributionSettings>Sexuality Distribution Settings (Requires restart)</RimpsycheKinseyDistributionSettings>
+  <RimpsycheKinseyDefaultSetting>Default Distribution</RimpsycheKinseyDefaultSetting>
 
 
   <!-- Title -->
