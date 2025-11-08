@@ -1,4 +1,5 @@
 ﻿using RimWorld;
+using System.Collections.Generic;
 using UnityEngine;
 using Verse;
 
@@ -13,6 +14,29 @@ namespace Maux36.RimPsyche
         Homosexual,
         Asexual
     }
+    public class PrefEntry : IExposable
+    {
+        public string stringKey;
+        public int intKey;
+        public float target;
+        public float importance;
+        public PrefEntry() { }
+        public PrefEntry(string stringKey, int intKey, float target, float importance)
+        {
+            this.stringKey = stringKey;
+            this.intKey = intKey;
+            this.target = target;
+            this.importance = importance;
+        }
+        public void ExposeData()
+        {
+            Scribe_Values.Look(ref stringKey, "stringKey");
+            Scribe_Values.Look(ref intKey, "intKey");
+            Scribe_Values.Look(ref target, "target");
+            Scribe_Values.Look(ref importance, "importance");
+        }
+    }
+
     public class Pawn_SexualityTracker : IExposable
     {
         private Pawn pawn;
@@ -26,6 +50,53 @@ namespace Maux36.RimPsyche
         public float sexDrive = 0f;
         public float mAattraction = 0f;
         public float fAattraction = 0f;
+
+        private Dictionary<string, List<PrefEntry>> _preference = new();
+        private Dictionary<int, List<PrefEntry>> Preference = new();
+        public bool preferenceCacheDirty = true;
+        private void RefreshPreferenceCache()
+        {
+            preferenceCacheDirty = false;
+            Preference.Clear();
+
+            List<string> invalidKeys = new();
+            foreach (var kvp in _preference)
+            {
+                PreferenceDef def = DefDatabase<PreferenceDef>.GetNamedSilentFail(kvp.Key);
+                if (def != null)
+                {
+                    Preference[def.shortHash] = kvp.Value;
+                }
+                else invalidKeys.Add(kvp.Key);
+            }
+            foreach (var k in invalidKeys)
+            {
+                _preference.Remove(k);
+            }
+        }
+
+        //Only prefDef that Generates pref should call this.
+        public List<PrefEntry> GetPreference(PreferenceDef prefDef)
+        {
+            if (preferenceCacheDirty) RefreshPreferenceCache();
+            if (Preference.TryGetValue(prefDef.shortHash, out var value)) return value;
+            //Uninitialized Preference
+            if (prefDef.worker.TryGenerate(pawn, out var prefEntries))
+            {
+                SetPreference(prefDef, prefEntries);
+                return prefEntries;
+            }
+            Log.Error($"PreferenceDef {prefDef.defName} should not call GetPreference because it does not instantiate fixed preference.");
+            return null;
+        }
+
+        public void SetPreference(PreferenceDef def, List<PrefEntry> value)
+        {
+            _preference[def.defName] = value;
+            if (preferenceCacheDirty) RefreshPreferenceCache();
+            else Preference[def.shortHash]= value;
+        }
+
         public Pawn_SexualityTracker(Pawn p)
         {
             pawn = p;
@@ -191,13 +262,27 @@ namespace Maux36.RimPsyche
         {
             return orientationCategory;
         }
-        public int GetMaleAttractionNorm()
+        public float GetMaleAttraction()
         {
-            return (int)(mAattraction * 100f);
+            return (float)((int)(mAattraction * 100f)) * 0.01f;
         }
-        public int GetFemaleAttractionNorm()
+        public float GetFemaleAttraction()
         {
-            return (int)(fAattraction * 100f);
+            return (float)((int)(fAattraction * 100f)) * 0.01f;
+        }
+
+
+        public float GetAdjustedAttraction(Gender gender)
+        {
+            switch (gender)
+            {
+                case Gender.Male:
+                    return SexualityHelper.AdjustAttraction(GetMaleAttraction());
+                case Gender.Female:
+                    return SexualityHelper.AdjustAttraction(GetFemaleAttraction());
+                default:
+                    return 1f;
+            }
         }
 
         public void ExposeData()
@@ -207,6 +292,25 @@ namespace Maux36.RimPsyche
             Scribe_Values.Look(ref sexDrive, "sexDrive", 0f);
             Scribe_Values.Look(ref mAattraction, "mAattraction", 0f);
             Scribe_Values.Look(ref fAattraction, "fAattraction", 0f);
+            Scribe_Collections.Look(ref _preference, "preference", LookMode.Value, LookMode.Deep);
+            //When loading: check sexuality is loaded. Check if the _preference is not null. Check it has PsychePreference inside.
+            //If it does, iterate its content and fix intKey to become its short hash.
+            if (Scribe.mode == LoadSaveMode.PostLoadInit && Rimpsyche.SexualityModuleLoaded)
+            {
+                if (_preference?.TryGetValue("Rimpsyche_PsychePreference", out var psychePreference) == true)
+                {
+                    for (int i = 0; i < psychePreference.Count; i++)
+                    {
+                        PersonalityDef p = DefDatabase<PersonalityDef>.GetNamed(psychePreference[i].stringKey, false);
+                        if (p == null)
+                        {
+                            Log.Warning($"Psyche Preference unable to load Personality def {psychePreference[i].stringKey}");
+                            //Logic to fix it.
+                        }
+                        else psychePreference[i].intKey = p.shortHash;
+                    }
+                }
+            }
         }
     }
 }
