@@ -81,6 +81,11 @@ namespace Maux36.RimPsyche
         public static readonly string femaleAttractionLabel = "RPS_fAttraction".Translate();
         public static readonly string sexDriveLabel = "RPS_sexDrive".Translate();
 
+
+        public static bool showPreference = false;
+        //TODO: Gather heights from defs on game start
+        public static float preferenceViewHeight = 500f;
+
         public override void PreOpen()
         {
             base.PreOpen();
@@ -131,7 +136,8 @@ namespace Maux36.RimPsyche
             {
                 DrawSexualityEditCard(rightTopRect, pawn, compPsyche);
             }
-            DrawInterestEditCard(rightBottomRect, pawn, compPsyche);
+            if (showPreference) DrawPreferenceEditCard(rightBottomRect, pawn, compPsyche);
+            else DrawInterestEditCard(rightBottomRect, pawn, compPsyche);
 
             if (compPsyche?.Enabled != true)
             {
@@ -192,6 +198,72 @@ namespace Maux36.RimPsyche
             Text.Anchor = oldAnchor;
             Text.Font = oldFont;
         }
+        public static void DrawPreferenceEditCard(Rect rect, Pawn pawn, CompPsyche compPsyche)
+        {
+            var psycheEnabled = compPsyche?.Enabled == true;
+            TextAnchor oldAnchor = Text.Anchor;
+            GameFont oldFont = Text.Font;
+            Rect innerRect = rect.ContractedBy(innerPadding);
+
+            // Title
+            Rect titleRect = new Rect(innerRect.x, innerRect.y, innerRect.width, titleHeight);
+            Text.Anchor = TextAnchor.MiddleCenter;
+            Text.Font = GameFont.Medium;
+            string titleString = "RPC_Preference".Translate();
+            Widgets.Label(titleRect, titleString);
+            Vector2 titleTextSize = Text.CalcSize(titleString);
+
+            // Icon on the right
+            float iconSize = 24f;
+            float editIconX = titleRect.x + (titleRect.width / 2f) + (titleTextSize.x / 2f) + 8f;
+            Rect editIconRect = new Rect(editIconX, titleRect.y + (titleHeight - iconSize) / 2f, iconSize, iconSize);
+
+            // Draw & handle click
+            if (psycheEnabled)
+            {
+                if (Widgets.ButtonImage(editIconRect, Rimpsyche_UI_Utility.EditButton))
+                {
+                    editInterestOn = !editInterestOn;
+                }
+                TooltipHandler.TipRegion(editIconRect, "RimpsycheEdit".Translate());
+            }
+
+            //Mode switcher
+            if (Rimpsyche.SexualityModuleLoaded)
+            {
+                float viewIconX = (titleRect.xMax - innerPadding - iconSize);
+                Rect viewIconRect = new Rect(viewIconX, titleRect.y + (titleRect.height - iconSize) / 2f, iconSize, iconSize);
+
+                // Draw & handle click
+                if (Widgets.ButtonImage(viewIconRect, showPreference ? Rimpsyche_UI_Utility.InterestButton : Rimpsyche_UI_Utility.PreferenceButton))
+                {
+                    showPreference = !showPreference;
+                }
+                TooltipHandler.TipRegion(viewIconRect, showPreference ? "RimpsycheShowInterest".Translate() : "RimpsycheShowPreference".Translate());
+            }
+
+            Text.Anchor = TextAnchor.UpperLeft;
+            Text.Font = GameFont.Small;
+
+            Rect scrollRect = new Rect(innerRect.x, titleRect.yMax + titleContentSpacing, innerRect.width, innerRect.height - (titleRect.height + titleContentSpacing));
+            Rect viewRect = new Rect(0f, 0f, scrollRect.width - scrollBarWidth, preferenceViewHeight);
+
+            Widgets.BeginScrollView(scrollRect, ref InterestNodeScrollPosition, viewRect);
+            float y = 0f;
+
+            foreach (var pref in DefDatabase<PreferenceDef>.AllDefs)
+            {
+                var worker = pref.worker;
+                var rectHeight = worker.EditorHeight;
+                Rect prefRect = new Rect(0f, y, viewRect.width, rectHeight);
+                worker.DrawEditor(prefRect, pawn, editInterestOn);
+                y += rectHeight;
+            }
+
+            Widgets.EndScrollView();
+            Text.Anchor = oldAnchor;
+            Text.Font = oldFont;
+        }
 
         public static void DrawInterestEditCard(Rect rect, Pawn pawn, CompPsyche compPsyche)
         {
@@ -223,6 +295,19 @@ namespace Maux36.RimPsyche
                 TooltipHandler.TipRegion(editIconRect, "RimpsycheEdit".Translate());
             }
 
+            //Mode switcher
+            if (Rimpsyche.SexualityModuleLoaded)
+            {
+                float viewIconX = (titleRect.xMax - innerPadding - iconSize);
+                Rect viewIconRect = new Rect(viewIconX, titleRect.y + (titleRect.height - iconSize) / 2f, iconSize, iconSize);
+
+                // Draw & handle click
+                if (Widgets.ButtonImage(viewIconRect, showPreference ? Rimpsyche_UI_Utility.InterestButton : Rimpsyche_UI_Utility.PreferenceButton))
+                {
+                    showPreference = !showPreference;
+                }
+                TooltipHandler.TipRegion(viewIconRect, showPreference ? "RimpsycheShowInterest".Translate() : "RimpsycheShowPreference".Translate());
+            }
 
             Text.Anchor = TextAnchor.UpperLeft;
             Text.Font = GameFont.Small;
@@ -257,7 +342,6 @@ namespace Maux36.RimPsyche
                     float maxValue = 100f;
                     Rect sliderRect = new Rect(leftRect.x + interestLabelWidth, centerY - interestBarHeight / 2f, interestBarWidth, interestRowHeight);
                     float newValue = Widgets.HorizontalSlider(sliderRect, currentValue, minValue, maxValue);
-                    //newValue = Mathf.Clamp(newValue, minValue, maxValue);
                     if (newValue != currentValue)
                     {
                         compPsyche.Interests.SetInterestScore(interest, newValue);
@@ -288,7 +372,6 @@ namespace Maux36.RimPsyche
         {
             var psycheEnabled = compPsyche?.Enabled == true;
             var scope = compPsyche.Personality.scopeCache;
-            // Define internal padding/margins if desired
             TextAnchor oldAnchor = Text.Anchor;
             GameFont oldFont = Text.Font;
             Rect innerRect = rect.ContractedBy(innerPadding);
@@ -300,8 +383,6 @@ namespace Maux36.RimPsyche
             string titleString = "RPC_Personality".Translate();
             Widgets.Label(titleRect, titleString);
             Vector2 titleTextSize = Text.CalcSize(titleString);
-            // Text.Anchor = oldAnchor;
-            // Text.Font = oldFont;
 
             // Icon on the right
             float iconSize = 24f;
@@ -349,7 +430,6 @@ namespace Maux36.RimPsyche
                 float currentValue = compPsyche.Personality.GetPersonalityDirect(def);
                 var (leftLabel, rightLabel, leftColor, rightColor) = (def.low.CapitalizeFirst(), def.high.CapitalizeFirst(), Color.red, Color.green);
 
-                // rowRect and its sub-rects are correctly relative to 'y' which is inside viewRect
                 Rect rowRect = new Rect(0f, y, viewRect.width, personalityRowHeight);
 
                 if (Mouse.IsOver(rowRect))
@@ -383,7 +463,6 @@ namespace Maux36.RimPsyche
                             (lowend, highend) = range;
                         }
                     }
-                    //Rect sliderRect = new Rect(barCenterX + barWidth / 2f * lowend , centerY - barHeight / 2f, barWidth*(highend-lowend)*0.5f, 24f);?
                     Rect sliderRect = new Rect(barCenterX - personalityBarWidth / 2f, centerY - personalityBarHeight / 2f, personalityBarWidth, personalityRowHeight);
                     float newValue = Widgets.HorizontalSlider(sliderRect, currentValue, lowend, highend);
                     //newValue = Mathf.Clamp(newValue, lowend, highend);
