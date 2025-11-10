@@ -52,6 +52,6 @@ namespace Maux36.RimPsyche
 
         public abstract float Evaluate(Pawn obesrver, Pawn target);
 
-        public abstract void DrawEditor(Rect rect, Pawn pawn, bool EditEnabled);
+        public abstract void DrawEditor(Rect rect, Pawn pawn, bool EditEnabled, bool cacheDirty);
     }
 }

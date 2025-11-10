@@ -84,6 +84,7 @@ namespace Maux36.RimPsyche
 
         public static bool showPreference = false;
         public static float preferenceViewHeight = RimpsycheDatabase.totalPreferenceEditorfHeight;
+        public static bool prefEditorCacheDirty = true;
 
         public override void PreOpen()
         {
@@ -94,6 +95,7 @@ namespace Maux36.RimPsyche
             FacetNodeScrollPosition = Vector2.zero;
             PersonalityNodeScrollPosition = Vector2.zero;
             InterestNodeScrollPosition = Vector2.zero;
+            prefEditorCacheDirty = true;
         }
 
         public override void DoWindowContents(Rect inRect)
@@ -255,10 +257,10 @@ namespace Maux36.RimPsyche
                 var worker = pref.worker;
                 var rectHeight = worker.EditorHeight;
                 Rect prefRect = new Rect(0f, y, viewRect.width, rectHeight);
-                worker.DrawEditor(prefRect, pawn, editInterestOn);
+                worker.DrawEditor(prefRect, pawn, editInterestOn, prefEditorCacheDirty);
                 y += rectHeight;
             }
-
+            prefEditorCacheDirty = false;
             Widgets.EndScrollView();
             Text.Anchor = oldAnchor;
             Text.Font = oldFont;
