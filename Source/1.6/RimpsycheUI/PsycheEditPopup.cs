@@ -664,6 +664,10 @@ namespace Maux36.RimPsyche
         {
             base.PostClose();
             PsycheInfoCard.CacheClean();
+            foreach (var pref in DefDatabase<PreferenceDef>.AllDefs)
+            {
+                pref.worker.ClearEditorCache();
+            }
         }
     }
 }
