@@ -19,6 +19,7 @@ namespace Maux36.RimPsyche
         public static float maxFacetLabelWidth = 130f;
         public static float maxInterestLabelWidth = 130f;
         public static float maxPersonalityLabelWidth = 130f;
+        public static float totalPreferenceEditorfHeight = 0f;
 
         public static Dictionary<string, string> IntensityKeysDefault = new Dictionary<string, string>()
         {
@@ -121,6 +122,12 @@ namespace Maux36.RimPsyche
                     }
                 }
                 PersonalityDict[personalityDef.defName] = personalityDef;
+            }
+
+            //Preference
+            foreach (var prefDef in DefDatabase<PreferenceDef>.AllDefs)
+            {
+                totalPreferenceEditorfHeight += prefDef.worker.EditorHeight;
             }
         }
 

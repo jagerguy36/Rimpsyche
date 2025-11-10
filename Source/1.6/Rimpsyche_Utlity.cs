@@ -195,6 +195,40 @@ namespace Maux36.RimPsyche
             return Mathf.Clamp01(socialFightBaseChance);
         }
 
+        //For General report
+        public static string GetPersonalityDesc(PersonalityDef personality, float value)
+        {
+            float absValue = Mathf.Abs(value);
+            string intensityKey = "RimPsycheIntensityNeutral";
+            if (absValue >= 0.75f)
+            {
+                intensityKey = "RimPsycheIntensityExtremely";
+            }
+            else if (absValue >= 0.5f)
+            {
+                intensityKey = "RimPsycheIntensityVery";
+            }
+            else if (absValue >= 0.25f)
+            {
+                intensityKey = "RimPsycheIntensitySomewhat";
+            }
+            else if (absValue > 0f)
+            {
+                intensityKey = "RimPsycheIntensityMarginally";
+            }
+
+            string personalityName = (value >= 0) ? personality.high : personality.low;
+
+            if (LanguageDatabase.activeLanguage.HaveTextForKey(intensityKey))
+            {
+                return intensityKey.Translate(personalityName);
+            }
+            else
+            {
+                return RimpsycheDatabase.IntensityKeysDefault[intensityKey];
+            }
+        }
+
         //For Use of LLM
         public static string GetPersonalityDescriptionNumber(Pawn pawn, int count = 0)
         {

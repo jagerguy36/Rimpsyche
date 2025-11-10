@@ -7,7 +7,6 @@ namespace Maux36.RimPsyche
 {
     public class SexualityHelper
     {
-        //TODO: Look up distribution researches
         public static List<float> Distribution = CalculateNormalizedDistribution();
         private static List<float> CalculateNormalizedDistribution()
         {

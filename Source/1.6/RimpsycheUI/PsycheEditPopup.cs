@@ -83,8 +83,7 @@ namespace Maux36.RimPsyche
 
 
         public static bool showPreference = false;
-        //TODO: Gather heights from defs on game start
-        public static float preferenceViewHeight = 500f;
+        public static float preferenceViewHeight = RimpsycheDatabase.totalPreferenceEditorfHeight;
 
         public override void PreOpen()
         {
