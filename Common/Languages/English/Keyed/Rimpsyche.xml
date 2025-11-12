@@ -54,6 +54,10 @@
   <ResetPsycheTooltip>Reset Personality</ResetPsycheTooltip>
   <RimpsycheFacetInfo>Facets are the core building blocks that shape a pawn's thoughts, feelings, and behavior. Each one represents a specific aspect of how they see the world and react to it.</RimpsycheFacetInfo>
   <RimpsychePersonalityInfo>A pawn’s personality is the result of their individual facets coming together. It influences their behavior, relationships, and decisions.</RimpsychePersonalityInfo>
+  <RPS_HypoAttraction>Not attracted</RPS_HypoAttraction>
+  <RPS_HyperAttraction>Hyper attracted</RPS_HyperAttraction>
+  <RPS_Hyposexual>Hyposexual</RPS_Hyposexual>
+  <RPS_Hypersexual>Hypersexual</RPS_Hypersexual>
 
   <!-- Facet Desc. -->
   <RPC_Imagination>Imagination</RPC_Imagination>
