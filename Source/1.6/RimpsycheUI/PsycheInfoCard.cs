@@ -705,7 +705,7 @@ namespace Maux36.RimPsyche
             y += lineHeight;
 
             Rect sexDriveRect = new Rect(0f, y, sexualityRect.width, lineHeight);
-            Widgets.Label(sexDriveRect, "RPC_SexDrive".Translate() + ": " + compPsyche.Sexuality.sexDrive.ToString("F2"));
+            Widgets.Label(sexDriveRect, "RPC_SexDrive".Translate() + ": " + (2f * compPsyche.Sexuality.sexDrive).ToString("F2"));
             y += lineHeight;
 
             //// Sexuality
