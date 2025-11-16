@@ -9,6 +9,7 @@ namespace Maux36.RimPsyche
         public string low;
         public List<FacetWeight> scoreWeight;
         public List<Scope> scopes = null;
+        public float preferenceBias = 0f;
     }
 
     public class Scope

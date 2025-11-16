@@ -147,12 +147,16 @@ namespace Maux36.RimPsyche
         }
         public static float GenerateAttraction()
         {
-            return GetNormalDistribution();
+            return GetNormalDistribution(lowBracket:0f, highBracket:1f);
+        }
+        public static float GenerateSexdrive()
+        {
+            return GetNormalDistribution(lowBracket: 0f, highBracket: 1f);
         }
         public static float GenerateAttractionFor(SexualOrientation orientation)
         {
             if (orientation == SexualOrientation.Asexual) return Rand.Range(0, 0.05f);
-            else return GetNormalDistribution(0.05f, 1f);
+            else return GetNormalDistribution(lowBracket: 0.05f, highBracket: 1f);
         }
         public static float ReEvaluateKinsey(float sameAttraction, float diffAttraction)
         {
@@ -164,12 +168,28 @@ namespace Maux36.RimPsyche
             int attempts = 0;
             do
             {
-                result = Rand.Gaussian(0.5f, 0.2f);
+                result = Rand.Gaussian(0.5f, 1f/6f);
                 attempts++;
             }
             while ((result < lowBracket || result > highBracket) && attempts < maxAttempts);
 
             if (result < lowBracket || result > highBracket) result = Mathf.Clamp(result, lowBracket, highBracket);
+            return result;
+        }
+        public static float GetSkewedPreference(float center = 0f, int maxAttempts = 4)
+        {
+            float result;
+            int attempts = 0;
+            float lowerWidthFactor = (center + 1f) / 3f;
+            float upperWidthFactor = (1f - center) / 3f;
+            do
+            {
+                result = Rand.GaussianAsymmetric(center, lowerWidthFactor, upperWidthFactor);
+                attempts++;
+            }
+            while ((result < -1f || result > 1f) && attempts < maxAttempts);
+
+            if (result < -1f || result > 1f) result = Mathf.Clamp(result, -1f, 1f);
             return result;
         }
     }

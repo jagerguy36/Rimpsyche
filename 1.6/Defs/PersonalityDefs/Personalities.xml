@@ -370,6 +370,7 @@
     <high>diligent</high>
     <low>lazy</low>
     <description>Reflects a person's general tendency to apply effort and thoroughness to tasks and responsibilities. Diligent individuals are hardworking, persistent, and committed to completing their duties effectively. In contrast, lazy individuals tend to avoid strenuous activity, show less commitment to tasks, and may prioritize ease or leisure over productivity.</description>
+    <preferenceBias>0.3</preferenceBias>
     <scoreWeight>
       <li>
         <facet>Industriousness</facet>
@@ -470,6 +471,7 @@
     <high>disciplined</high>
     <low>undisciplined</low>
     <description>Reflects a person's ability to maintain focus, self-control, and adherence to rules or routines. Disciplined individuals are good at sticking to plans, resisting impulses, and working consistently towards goals. Undisciplined individuals may struggle with consistency, be easily distracted, or have difficulty following through.</description>
+    <preferenceBias>0.3</preferenceBias>
     <scoreWeight>
       <li>
         <facet>Imagination</facet>
@@ -580,6 +582,7 @@
     <high>high-strung</high>
     <low>laid-back</low>
     <description>Reflects a person's typical level of inner calm or anxiety. High-strung individuals tend to be easily agitated, often feeling restless or prone to worry, and may react intensely to stress. In contrast, laid-back individuals maintain a relaxed demeanor, are less easily perturbed, and generally approach situations with a calm and easygoing attitude.</description>
+    <preferenceBias>-0.2</preferenceBias>
     <scoreWeight>
       <li>
         <facet>Orderliness</facet>
@@ -774,6 +777,7 @@
     <high>optimistic</high>
     <low>pessimistic</low>
     <description>Reflects a person's general outlook on life and expectations for the future. Optimistic individuals tend to anticipate positive outcomes, maintain a hopeful attitude even in challenging times, and readily see the good in situations. In contrast, pessimistic individuals are more inclined to expect negative results, focus on potential difficulties, and may feel discouraged more easily.</description>
+    <preferenceBias>0.3</preferenceBias>
     <scoreWeight>
       <li>
         <facet>Enthusiasm</facet>
@@ -856,6 +860,7 @@
     <high>compassionate</high>
     <low>coldhearted</low>
     <description>Reflects how empathetic and concerned a person is for the suffering of others. Compassionate individuals are deeply moved by the struggles of others, often going out of their way to offer support and show kindness. In contrast, coldhearted individuals tend to be indifferent to others' pain, often focusing on their own needs or goals without much concern for the well-being of others.</description>
+    <preferenceBias>0.3</preferenceBias>
     <scoreWeight>
       <li>
         <facet>Imagination</facet>
@@ -1054,6 +1059,7 @@
     <high>courageous</high>
     <low>fearful</low>
     <description>Reflects a person's willingness to face fear, danger, or difficult situations. Courageous individuals are inclined to confront challenges directly, even in the face of risk or adversity. In contrast, fearful individuals tend to avoid situations that evoke fear or discomfort, often prioritizing safety over confrontation.</description>
+    <preferenceBias>0.3</preferenceBias>
     <scoreWeight>
       <li>
         <facet>Integrity</facet>
@@ -1091,6 +1097,7 @@
     <high>tenacious</high>
     <low>fragile</low>
     <description>Reflects a person's ability to endure hardship and maintain self-control under pressure. Tenacious individuals can weather stress better, persisting through challenges without losing composure. Fragile individuals may become easily overwhelmed, lose focus, or get frustrated by setbacks.</description>
+    <preferenceBias>0.3</preferenceBias>
     <scoreWeight>
       <li>
         <facet>Industriousness</facet>
@@ -1143,6 +1150,7 @@
     <high>loyal</high>
     <low>disloyal</low>
     <description>Reflects a person's faithfulness and commitment. Loyal individuals demonstrate steadfast support and devotion, often prioritizing the well-being and interests of those they are committed to. In contrast, disloyal individuals may be more inclined to prioritize their own self-interest, shift allegiances, or betray trust.</description>
+    <preferenceBias>0.3</preferenceBias>
     <scoreWeight>
       <li>
         <facet>Integrity</facet>
