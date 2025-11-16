@@ -50,7 +50,7 @@ namespace Maux36.RimPsyche
 
         public abstract string Report(Pawn pawn);
 
-        public abstract float Evaluate(Pawn obesrver, Pawn target);
+        public abstract float Evaluate(Pawn observer, Pawn target);
 
         public abstract void DrawEditor(Rect rect, Pawn pawn, bool EditEnabled);
 
