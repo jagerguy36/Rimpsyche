@@ -60,6 +60,9 @@ namespace Maux36.RimPsyche
         public float sexDrive = 0f;
         public float mAttraction = 0f;
         public float fAttraction = 0f;
+        public HashSet<int> knownOrientation = new();
+        public Dictionary<int, float> acquaintanceship = new();
+        public Dictionary<int, float> relationship = new();
         private Dictionary<string, List<PrefEntry>> _preference = new();
         public bool preferenceCacheDirty = true;
 
@@ -141,7 +144,7 @@ namespace Maux36.RimPsyche
 
             //Assign Sexuality to adults
 
-            float attraction; //Sexual and Romantic attraction is not distinguished for performance and implementation issue.
+            float attraction; //Sexual and Romantic attraction are not distinguished for performance and implementation issue.
             //If the pawn already has sexuality trait, either from mid-save addition or generation restriction:
             if (traits.HasTrait(TraitDefOf.Gay))
             {
@@ -184,7 +187,7 @@ namespace Maux36.RimPsyche
                 //Log.Message($"generating sexuality for {pawn.Name} | {kinsey} -> {orientationCategory} | A: {attraction}");
             }
 
-            sexDrive = SexualityHelper.GetNormalDistribution();
+            sexDrive = SexualityHelper.GenerateSexdrive();
             float forSame = kinsey;
             float forDiff = 1f - kinsey;
             float multiplier = attraction / Mathf.Max(forSame, forDiff);
@@ -240,7 +243,10 @@ namespace Maux36.RimPsyche
             }
         }
 
-        public void Validate() //Validate if the current sexuality trait matches Psyche sexuality.
+        /// <summary>
+        /// Validate if the current sexuality trait matches Psyche sexuality. If not, then override the Psyche Sexuality to match the trait 
+        /// </summary>
+        public void Validate()
         {
             shouldValidate = false;
             if (orientationCategory == SexualOrientation.Developing || orientationCategory == SexualOrientation.None)
@@ -344,6 +350,11 @@ namespace Maux36.RimPsyche
             float attraction = Mathf.Max(mAttraction, fAttraction);
             AdjustSexualityTrait(attraction);
         }
+
+        /// <summary>
+        /// Adjust sexuality trait to match Psyche Sexuality
+        /// </summary>
+        /// <param name="attraction">max(mAttraction, fAttraction)</param>
         private void AdjustSexualityTrait(float attraction)
         {
             SexualOrientation orientationBasedOnAttraction;
@@ -409,6 +420,9 @@ namespace Maux36.RimPsyche
             Scribe_Values.Look(ref sexDrive, "sexDrive", 0f);
             Scribe_Values.Look(ref mAttraction, "mAttraction", 0f);
             Scribe_Values.Look(ref fAttraction, "fAttraction", 0f);
+            Scribe_Values.Look(ref knownOrientation, "knownOrientation", new());
+            Scribe_Values.Look(ref acquaintanceship, "acquaintanceship", new());
+            Scribe_Values.Look(ref relationship, "relationship", new());
             Scribe_Collections.Look(ref _preference, "preference", LookMode.Value, LookMode.Deep);
             //When loading: check sexuality is loaded. Check if the _preference is not null. Check it has PsychePreference inside.
             //If it does, iterate its content and fix intKey to become its short hash.
