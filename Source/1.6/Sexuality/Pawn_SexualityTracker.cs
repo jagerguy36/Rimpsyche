@@ -60,7 +60,7 @@ namespace Maux36.RimPsyche
         public float sexDrive = 0f;
         public float mAttraction = 0f;
         public float fAttraction = 0f;
-        //public HashSet<int> knownOrientation = new();
+        public HashSet<int> knownOrientation = new();
         //public Dictionary<int, float> acquaintanceship = new();
         //public Dictionary<int, float> relationship = new();
         private Dictionary<string, List<PrefEntry>> _preference = new();
@@ -211,7 +211,7 @@ namespace Maux36.RimPsyche
             sexDrive = psyche.sexDrive;
             mAttraction = psyche.mAttraction;
             fAttraction = psyche.fAttraction;
-            //knownOrientation = new HashSet<int>(psyche.knownOrientation);
+            knownOrientation = new HashSet<int>(psyche.knownOrientation);
             //acquaintanceship = new Dictionary<int, float>(psyche.acquaintanceship);
             //relationship = new Dictionary<int, float>(psyche.relationship);
             _preference = new Dictionary<string, List<PrefEntry>>(psyche.preference);
@@ -423,7 +423,7 @@ namespace Maux36.RimPsyche
             Scribe_Values.Look(ref sexDrive, "sexDrive", 0f);
             Scribe_Values.Look(ref mAttraction, "mAttraction", 0f);
             Scribe_Values.Look(ref fAttraction, "fAttraction", 0f);
-            //Scribe_Collections.Look(ref knownOrientation, "knownOrientation", LookMode.Value);
+            Scribe_Collections.Look(ref knownOrientation, "knownOrientation", LookMode.Value);
             //Scribe_Collections.Look(ref acquaintanceship, "acquaintanceship", LookMode.Value, LookMode.Value);
             //Scribe_Collections.Look(ref relationship, "relationship", LookMode.Value, LookMode.Value);
             Scribe_Collections.Look(ref _preference, "preference", LookMode.Value, LookMode.Deep);
