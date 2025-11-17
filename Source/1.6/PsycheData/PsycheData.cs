@@ -35,9 +35,9 @@ namespace Maux36.RimPsyche
         public float sexDrive = 0f;
         public float mAttraction = 0f;
         public float fAttraction = 0f;
-        public HashSet<int> knownOrientation = new();
-        public Dictionary<int, float> acquaintanceship = new();
-        public Dictionary<int, float> relationship = new();
+        //public HashSet<int> knownOrientation = new();
+        //public Dictionary<int, float> acquaintanceship = new();
+        //public Dictionary<int, float> relationship = new();
         public Dictionary<string, List<PrefEntry>> preference = new();
 
         public void ExposeData()
@@ -69,9 +69,9 @@ namespace Maux36.RimPsyche
             Scribe_Values.Look(ref sexDrive, "sexDrive", 0f);
             Scribe_Values.Look(ref mAttraction, "mAttraction", 0f);
             Scribe_Values.Look(ref fAttraction, "fAttraction", 0f);
-            Scribe_Values.Look(ref knownOrientation, "knownOrientation", new());
-            Scribe_Values.Look(ref acquaintanceship, "acquaintanceship", new());
-            Scribe_Values.Look(ref relationship, "relationship", new());
+            //Scribe_Collections.Look(ref knownOrientation, "knownOrientation", LookMode.Value);
+            //Scribe_Collections.Look(ref acquaintanceship, "acquaintanceship", LookMode.Value, LookMode.Value);
+            //Scribe_Collections.Look(ref relationship, "relationship", LookMode.Value, LookMode.Value);
             Scribe_Collections.Look(ref preference, "preference", LookMode.Value, LookMode.Deep);
         }
     }

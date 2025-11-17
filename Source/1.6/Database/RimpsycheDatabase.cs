@@ -498,9 +498,35 @@ namespace Maux36.RimPsyche
                         new FacetGate(Facet.Sociability, -25, 25)
                     });
                 }
+            }
 
 
-
+            if (ModsConfig.IsActive("goji.thesimstraits"))
+            {
+                Log.Message("[Rimpsyche] The Sims Traits gate data added");
+                RegisterTraitGate(new Pair<string, int>("ST_Shy", 0), new List<FacetGate>
+                {
+                    new FacetGate(Facet.Assertiveness, -35f, 15f)
+                });
+                RegisterTraitGate(new Pair<string, int>("ST_Zen", 0), new List<FacetGate>
+                {
+                    new FacetGate(Facet.Imagination, 25f, 25f)
+                });
+                if (ModsConfig.RoyaltyActive)
+                {
+                    RegisterTraitGate(new Pair<string, int>("ST_Virtuoso", 0), new List<FacetGate>
+                    {
+                        new FacetGate(Facet.Imagination, 25f, 25f)
+                    });
+                }
+                if (ModsConfig.IsActive("vanillaexpanded.vanillatraitsexpanded"))
+                {
+                    RegisterTraitGate(new Pair<string, int>("ST_Submissive", 0), new List<FacetGate>
+                    {
+                        new FacetGate(Facet.Assertiveness, -25f, 25f)
+                    });
+                }
+                // MayRequire="VanillaExpanded.VanillaTraitsExpanded"
             }
         }
     }
