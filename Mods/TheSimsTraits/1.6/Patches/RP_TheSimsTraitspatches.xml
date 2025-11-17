@@ -631,8 +631,8 @@
         <li>
           <traitDefname>ST_Chatterbox</traitDefname>
           <degree>0</degree>
-          <centerOffset>0.5</centerOffset>
-          <range>0.5</range>
+          <centerOffset>0.75</centerOffset>
+          <range>0.25</range>
         </li>
       </value>
     </match>
@@ -643,8 +643,8 @@
           <li>
             <traitDefname>ST_Chatterbox</traitDefname>
             <degree>0</degree>
-            <centerOffset>0.5</centerOffset>
-            <range>0.5</range>
+            <centerOffset>0.75</centerOffset>
+            <range>0.25</range>
           </li>
         </scopes>
       </value>

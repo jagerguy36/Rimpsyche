@@ -516,14 +516,14 @@ namespace Maux36.RimPsyche
                 {
                     RegisterTraitGate(new Pair<string, int>("ST_Virtuoso", 0), new List<FacetGate>
                     {
-                        new FacetGate(Facet.Imagination, 25f, 25f)
+                        new FacetGate(Facet.Imagination, 35f, 15f)
                     });
                 }
                 if (ModsConfig.IsActive("vanillaexpanded.vanillatraitsexpanded"))
                 {
                     RegisterTraitGate(new Pair<string, int>("ST_Submissive", 0), new List<FacetGate>
                     {
-                        new FacetGate(Facet.Assertiveness, -25f, 25f)
+                        new FacetGate(Facet.Assertiveness, -35f, 15f)
                     });
                 }
                 // MayRequire="VanillaExpanded.VanillaTraitsExpanded"
