@@ -19,6 +19,8 @@
     </modDependencies>
     <incompatibleWith>
         <li>Community.Psychology.UnofficialUpdate</li>
+        <li>hahkethomemah.simplepersonalities</li>
+        <li>side1iner.personalityplus</li>
     </incompatibleWith>
     <packageId>Maux36.Rimpsyche</packageId>
     <description># Rimpsyche
