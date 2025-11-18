@@ -54,6 +54,21 @@ namespace Maux36.RimPsyche
             return _loversCache.TryGetValue(target.thingIDNumber, out def);
         }
 
+        //TODO actually implement this.
+        public int GetLastRebuffTick(Pawn target)
+        {
+            var memories = pawn.needs.mood.thoughts.memories.Memories;
+            for (int i = 0; i < memories.Count; i++)
+            {
+                if (memories[i].def == ThoughtDefOf.RebuffedMyRomanceAttempt)
+                {
+                    return memories[i].age;
+                }
+            }
+
+            return -9999;
+        }
+
         //Preference
         private Dictionary<string, List<PrefEntry>> _preference = new();
         public bool preferenceCacheDirty = true;
