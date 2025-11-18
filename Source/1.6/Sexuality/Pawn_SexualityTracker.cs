@@ -5,38 +5,6 @@ using Verse;
 
 namespace Maux36.RimPsyche
 {
-    public enum SexualOrientation : byte
-    {
-        None,
-        Developing,
-        Heterosexual,
-        Bisexual,
-        Homosexual,
-        Asexual
-    }
-    public class PrefEntry : IExposable
-    {
-        public string stringKey;
-        public int intKey;
-        public float target;
-        public float importance;
-        public PrefEntry() { }
-        public PrefEntry(string stringKey, int intKey, float target, float importance)
-        {
-            this.stringKey = stringKey;
-            this.intKey = intKey;
-            this.target = target;
-            this.importance = importance;
-        }
-        public void ExposeData()
-        {
-            Scribe_Values.Look(ref stringKey, "stringKey");
-            Scribe_Values.Look(ref intKey, "intKey");
-            Scribe_Values.Look(ref target, "target");
-            Scribe_Values.Look(ref importance, "importance");
-        }
-    }
-
     public class Pawn_SexualityTracker : IExposable
     {
         //Static
@@ -63,6 +31,30 @@ namespace Maux36.RimPsyche
         public HashSet<int> knownOrientation = new();
         //public Dictionary<int, float> acquaintanceship = new();
         //public Dictionary<int, float> relationship = new();
+
+
+        //Cache
+        private Dictionary<int, PawnRelationDef> _loversCache = new();
+        private bool loversCacheDirty = true;
+        public bool TryGetRomanticRelationDef(Pawn target, out PawnRelationDef def)
+        {
+            if (loversCacheDirty)
+            {
+                _loversCache.Clear();
+                var relations = pawn.relations.DirectRelations;
+                for (int i = 0; i < relations.Count; i++)
+                {
+                    if(SexualityHelper.LoverDefHash.Contains(relations[i].def) && relations[i].otherPawn != null)
+                    {
+                        _loversCache[relations[i].otherPawn.thingIDNumber] = relations[i].def;
+                    }
+                }
+                loversCacheDirty = false;
+            }
+            return _loversCache.TryGetValue(target.thingIDNumber, out def);
+        }
+
+        //Preference
         private Dictionary<string, List<PrefEntry>> _preference = new();
         public bool preferenceCacheDirty = true;
 

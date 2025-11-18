@@ -5,9 +5,35 @@ using Verse;
 
 namespace Maux36.RimPsyche
 {
-    public class SexualityHelper
+    public enum SexualOrientation : byte
     {
-        public static List<float> Distribution = CalculateNormalizedDistribution();
+        None,
+        Developing,
+        Heterosexual,
+        Bisexual,
+        Homosexual,
+        Asexual
+    }
+
+    public static class SexualityHelper
+    {
+        static SexualityHelper()
+        {
+            LoverDefHash = GetLoverDefs();
+            Distribution = CalculateNormalizedDistribution();
+        }
+
+        public static HashSet<PawnRelationDef> LoverDefHash = new();
+        private static HashSet<PawnRelationDef> GetLoverDefs()
+        {
+            HashSet<PawnRelationDef> loverDefs = new();
+            loverDefs.Add(PawnRelationDefOf.Lover);
+            loverDefs.Add(PawnRelationDefOf.Fiance);
+            loverDefs.Add(PawnRelationDefOf.Spouse);
+            return loverDefs;
+        }
+
+        public static List<float> Distribution = [1f / 7f, 1f / 7f, 1f / 7f, 1f / 7f, 1f / 7f, 1f / 7f, 1f / 7f];
         private static List<float> CalculateNormalizedDistribution()
         {
             int total = 0;

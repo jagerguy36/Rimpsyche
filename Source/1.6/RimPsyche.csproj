@@ -104,6 +104,7 @@
     <Compile Include="Rimpsyche_Utlity.cs" />
     <Compile Include="Sexuality\Pawn_SexualityTracker.cs" />
     <Compile Include="Sexuality\Preference\PreferenceDef.cs" />
+    <Compile Include="Sexuality\Preference\PrefEntry.cs" />
     <Compile Include="Sexuality\SexualityHelper.cs" />
     <Compile Include="Thought\Thought_MemoryPostDefined.cs" />
     <Compile Include="RimpsycheUI\InterfaceComponents.cs" />
