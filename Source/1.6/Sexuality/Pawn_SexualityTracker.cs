@@ -56,14 +56,15 @@ namespace Maux36.RimPsyche
 
         public float GetLatestRebuffImpact(Pawn target)
         {
-            Thought_Memory latestThought = null;
+            Thought_MemorySocial latestThought = null;
             int num = 999999;
+            var memories = pawn.needs.mood.thoughts.memories.Memories;
             for (int i = 0; i < memories.Count; i++)
             {
                 Thought_Memory thought_Memory = memories[i];
-                if (thought_Memory.def == def && thought_Memory.otherPawn == target && thought_Memory.age < num)
+                if (thought_Memory.def == ThoughtDefOf.RebuffedMyRomanceAttempt && thought_Memory.otherPawn == target && thought_Memory.age < num)
                 {
-                    latestThought = thought_Memory;
+                    latestThought = thought_Memory as Thought_MemorySocial;
                     num = thought_Memory.age;
                 }
             }
