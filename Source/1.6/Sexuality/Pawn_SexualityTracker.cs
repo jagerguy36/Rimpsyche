@@ -54,19 +54,21 @@ namespace Maux36.RimPsyche
             return _loversCache.TryGetValue(target.thingIDNumber, out def);
         }
 
-        //TODO actually implement this.
-        public int GetLastRebuffTick(Pawn target)
+        public float GetLatestRebuffImpact(Pawn target)
         {
-            var memories = pawn.needs.mood.thoughts.memories.Memories;
+            Thought_Memory latestThought = null;
+            int num = 999999;
             for (int i = 0; i < memories.Count; i++)
             {
-                if (memories[i].def == ThoughtDefOf.RebuffedMyRomanceAttempt)
+                Thought_Memory thought_Memory = memories[i];
+                if (thought_Memory.def == def && thought_Memory.otherPawn == target && thought_Memory.age < num)
                 {
-                    return memories[i].age;
+                    latestThought = thought_Memory;
+                    num = thought_Memory.age;
                 }
             }
-
-            return -9999;
+            if (latestThought == null) return 0;
+            return latestThought.OpinionOffset();
         }
 
         //Preference
