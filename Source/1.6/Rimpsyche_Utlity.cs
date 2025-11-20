@@ -115,10 +115,14 @@ namespace Maux36.RimPsyche
             }
             newThought.pawn = parentPawn;
             newThought.otherPawn = otherPawn;
-            List<Thought_MemoryPostDefined> currentConvoMemories = parentPawn.needs.mood.thoughts.memories.Memories
-                .OfType<Thought_MemoryPostDefined>()
-                .Where(m => m.otherPawn == otherPawn)
-                .ToList();
+            var memories = parentPawn.needs.mood.thoughts.memories.Memories;
+            List<Thought_MemoryPostDefined> currentConvoMemories = new();
+            for (int i = 0; i < memories.Count; i++)
+            {
+                var mem = memories[i];
+                if (mem.otherPawn == otherPawn && mem is Thought_MemoryPostDefined mpd)
+                    currentConvoMemories.Add(mpd);
+            }
 
             if (currentConvoMemories.Count < maxConvoOpinions)
             {
