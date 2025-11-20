@@ -15,7 +15,6 @@ namespace Maux36.RimPsyche.Intimacy
             try
             {
                 harmony.PatchAll(Assembly.GetExecutingAssembly());
-                CommonChecks.TryAddInteraction("Rimpsyche_Smalltalk", CommonChecks.IntimateInteractions);
                 Log.Message($"[Rimpsyche] Intimacy patched");
             }
             catch (Exception e)

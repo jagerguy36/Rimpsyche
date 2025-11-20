@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<Patch>
+
+  <Operation Class="PatchOperationAddModExtension">
+    <xpath>Defs/InteractionDef[defName="Rimpsyche_Smalltalk"]</xpath>
+    <value>
+      <li Class="LoveyDoveySexWithEuterpe.IntimacyModExtension">
+        <isIntimateInteraction>true</isIntimateInteraction>
+      </li>
+    </value>
+  </Operation>
+
+</Patch>
