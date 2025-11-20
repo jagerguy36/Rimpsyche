@@ -10,35 +10,23 @@ namespace Maux36.RimPsyche
     {
         public override float RandomSelectionWeight(Pawn initiator, Pawn recipient)
         {
-            if (initiator.Inhumanized())
-			{
-				return 0f;
-			}
             var initiatorPsyche = initiator.compPsyche();
             var recipientPsyche = recipient.compPsyche();
-            if (initiatorPsyche?.Enabled == true && recipientPsyche?.Enabled == true)
-            {
+            if (initiatorPsyche?.Enabled != true || recipientPsyche?.Enabled != true) return 0;
 
-                float initSociability = initiatorPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Sociability);
-                float initSpontaneity = initiatorPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Spontaneity);
-                float initTalkativeness = initiatorPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Talkativeness);
-                float initOpinion = (initiator.relations.OpinionOf(recipient)) * 0.01f; //-1~1
+            float initSociability = initiatorPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Sociability);
+            float initSpontaneity = initiatorPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Spontaneity);
+            float initTalkativeness = initiatorPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Talkativeness);
+            float initOpinion = (initiator.relations.OpinionOf(recipient)) * 0.01f; //-1~1
 
-                //TODO: elaborate the logic about initSpontaneity
-                if (initOpinion < 0f)
-                {
-                    bool giveupConverse = initOpinion + initSociability + initSpontaneity + Rand.Value < 0f;
-                    if (giveupConverse) return 0f;
-                }
-                float convoChance = 1f + initTalkativeness; // 0~[1]~2
-                float relationshipOffset = 1f + initOpinion; // 0~[1]~2 
-                convoChance += relationshipOffset; //0~[2]~4
-                return 0.3f * convoChance; //0~[0.6]~1.2
-            }
-            else
+            if (initOpinion < 0f)
             {
-                return 0f;
+                bool giveupConverse = initOpinion + initSociability + (1f + initSpontaneity) * Rand.Value < 0f;
+                if (giveupConverse) return 0f;
             }
+            float convoChance = 1f + initTalkativeness; // 0~[1]~2
+            convoChance +=  1f + initOpinion; //0~[2]~4
+            return 0.3f * convoChance; //0~[0.6]~1.2
         }
 
 
