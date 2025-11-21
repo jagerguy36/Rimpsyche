@@ -63,6 +63,8 @@ namespace Maux36.RimPsyche
                 listing_Standard.Label("RimpsycheKinseyDistributionSettings".Translate());
                 Rect sliderArea = listing_Standard.GetRect(200f);
                 DrawKinseyDistributionSliders(sliderArea);
+                listing_Standard.Gap(12f);
+                listing_Standard.CheckboxLabeled("RimpsycheRomanceAttemptGenderDiff".Translate(), ref RimpsycheSettings.romanceAttemptGenderDiff, "RimpsycheRomanceAttemptGenderDiffTooltip".Translate());
             }
 
             listing_Standard.End();

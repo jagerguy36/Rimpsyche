@@ -10,6 +10,7 @@ namespace Maux36.RimPsyche
         public static bool showFacetInMenu = false;
         public static bool showFacetGraph = false;
         public static List<int> KinseyDistributionSetting = [60, 10, 10, 5, 5, 5, 5];
+        public static bool romanceAttemptGenderDiff = true;
 
         public override void ExposeData()
         {
@@ -23,6 +24,7 @@ namespace Maux36.RimPsyche
             {
                 KinseyDistributionSetting = [60, 10, 10, 5, 5, 5, 5];
             }
+            Scribe_Values.Look(ref romanceAttemptGenderDiff, "romanceAttemptGenderDiff", true);
 
         }
     }

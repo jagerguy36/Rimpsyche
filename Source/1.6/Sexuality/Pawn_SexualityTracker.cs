@@ -53,7 +53,7 @@ namespace Maux36.RimPsyche
             }
             return _loversCache.TryGetValue(target.thingIDNumber, out def);
         }
-
+        //See if checking the mood instead of opinion would be cheaper
         public float GetLatestRebuffImpact(Pawn target)
         {
             Thought_MemorySocial latestThought = null;

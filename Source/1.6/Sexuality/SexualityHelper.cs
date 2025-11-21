@@ -53,6 +53,7 @@ namespace Maux36.RimPsyche
             return normalizedDistribution;
         }
         public static readonly List<float> steps = [0f, 0.2f, 0.4f, 0.6f, 0.8f, 1f];
+        // public static readonly List<float> steps = [0f, 0.08f, 0.36f, 0.64f, 0.92f, 1f];
         public static readonly float StraightSum = Distribution[0] + Distribution[1];
         public static readonly float BiSum = Distribution[2] + Distribution[3] + Distribution[4];
         public static readonly float StraightBiSum = Distribution[0] + Distribution[1] + Distribution[2] + Distribution[3] + Distribution[4];
