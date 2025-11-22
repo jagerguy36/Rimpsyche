@@ -31,10 +31,10 @@ namespace Maux36.RimPsyche
 
         //Sexuality
         public SexualOrientation orientationCategory = SexualOrientation.None;
-        public float kinsey = -1f;
+        public float mKinsey = -1f;
+        public float attraction = 0f;
         public float sexDrive = 0f;
-        public float mAttraction = 0f;
-        public float fAttraction = 0f;
+
         public HashSet<int> knownOrientation = new();
         //public Dictionary<int, float> acquaintanceship = new();
         //public Dictionary<int, float> relationship = new();
@@ -65,10 +65,9 @@ namespace Maux36.RimPsyche
             Scribe_Collections.Look(ref interestScore, "interestScore", LookMode.Value, LookMode.Value);
 
             Scribe_Values.Look(ref orientationCategory, "category", SexualOrientation.None);
-            Scribe_Values.Look(ref kinsey, "kinsey", -1f);
+            Scribe_Values.Look(ref mKinsey, "mKinsey", -1f);
+            Scribe_Values.Look(ref attraction, "attraction", 0f);
             Scribe_Values.Look(ref sexDrive, "sexDrive", 0f);
-            Scribe_Values.Look(ref mAttraction, "mAttraction", 0f);
-            Scribe_Values.Look(ref fAttraction, "fAttraction", 0f);
             Scribe_Collections.Look(ref knownOrientation, "knownOrientation", LookMode.Value);
             //Scribe_Collections.Look(ref acquaintanceship, "acquaintanceship", LookMode.Value, LookMode.Value);
             //Scribe_Collections.Look(ref relationship, "relationship", LookMode.Value, LookMode.Value);

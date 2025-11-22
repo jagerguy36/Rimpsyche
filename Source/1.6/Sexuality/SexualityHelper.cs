@@ -21,6 +21,65 @@ namespace Maux36.RimPsyche
         {
             LoverDefHash = GetLoverDefs();
             Distribution = CalculateNormalizedDistribution();
+            StraightSum = Distribution[0] + Distribution[1];
+            BiSum = Distribution[2] + Distribution[3] + Distribution[4];
+            StraightBiSum = Distribution[0] + Distribution[1] + Distribution[2] + Distribution[3] + Distribution[4];
+            GaySum = Distribution[5] + Distribution[6];
+            SexualityCurve = CreateSexualityCurve();
+
+            StraightCurve = (StraightSum > 0f)
+            ? new SimpleCurve
+            {
+                new CurvePoint(Distribution[0] / StraightSum, steps[0]),
+                new CurvePoint(1f, steps[1])
+            }
+            : new SimpleCurve
+            {
+                new CurvePoint(0.5f, steps[0]),
+                new CurvePoint(1f, steps[1])
+            };
+
+            BiCurve = (BiSum > 0f)
+            ? new SimpleCurve
+            {
+                new CurvePoint(0f, steps[1]),
+                new CurvePoint(Distribution[2] / BiSum, steps[2]),
+                new CurvePoint((Distribution[2] + Distribution[3]) / BiSum, steps[3]),
+                new CurvePoint(1f, steps[4])
+            }
+            : new SimpleCurve
+            {
+                new CurvePoint(0f, steps[1]),
+                new CurvePoint(1f, steps[4])
+            };
+
+            NonGayCurve = (StraightBiSum > 0f)
+            ? new SimpleCurve
+            {
+                new CurvePoint(Distribution[0] / StraightBiSum, steps[0]),
+                new CurvePoint((Distribution[0] + Distribution[1]) / StraightBiSum, steps[1]),
+                new CurvePoint((Distribution[0] + Distribution[1] + Distribution[2]) / StraightBiSum, steps[2]),
+                new CurvePoint((Distribution[0] + Distribution[1] + Distribution[2] + Distribution[3]) / StraightBiSum, steps[3]),
+                new CurvePoint(1f, steps[4])
+            }
+            : new SimpleCurve
+            {
+                //If everyone should be gay, but generation is forcing no gay, then give them kinsey(4)
+                new CurvePoint(0f, steps[3]),
+                new CurvePoint(1f, steps[4])
+            };
+
+            GayCurve = (GaySum > 0f)
+            ? new SimpleCurve
+            {
+                new CurvePoint(0f, steps[4]),
+                new CurvePoint(Distribution[5] / GaySum, steps[5])
+            }
+            : new SimpleCurve
+            {
+                new CurvePoint(0f, steps[4]),
+                new CurvePoint(0.5f, steps[5])
+            };
         }
 
         public static HashSet<PawnRelationDef> LoverDefHash = new();
@@ -33,7 +92,7 @@ namespace Maux36.RimPsyche
             return loverDefs;
         }
 
-        public static List<float> Distribution = [1f / 7f, 1f / 7f, 1f / 7f, 1f / 7f, 1f / 7f, 1f / 7f, 1f / 7f];
+        public static List<float> Distribution;
         private static List<float> CalculateNormalizedDistribution()
         {
             int total = 0;
@@ -54,11 +113,11 @@ namespace Maux36.RimPsyche
         }
         public static readonly List<float> steps = [0f, 0.2f, 0.4f, 0.6f, 0.8f, 1f];
         // public static readonly List<float> steps = [0f, 0.08f, 0.36f, 0.64f, 0.92f, 1f];
-        public static readonly float StraightSum = Distribution[0] + Distribution[1];
-        public static readonly float BiSum = Distribution[2] + Distribution[3] + Distribution[4];
-        public static readonly float StraightBiSum = Distribution[0] + Distribution[1] + Distribution[2] + Distribution[3] + Distribution[4];
-        public static readonly float GaySum = Distribution[5] + Distribution[6];
-        public static readonly SimpleCurve SexualityCurve = CreateSexualityCurve();
+        public static readonly float StraightSum;
+        public static readonly float BiSum;
+        public static readonly float StraightBiSum;
+        public static readonly float GaySum;
+        public static readonly SimpleCurve SexualityCurve;
         private static SimpleCurve CreateSexualityCurve()
         {
             List<CurvePoint> curvePoints = new List<CurvePoint>();
@@ -70,56 +129,10 @@ namespace Maux36.RimPsyche
             }
             return new SimpleCurve(curvePoints.ToArray());
         }
-        public static readonly SimpleCurve StraightCurve = (StraightSum > 0f)
-        ? new SimpleCurve
-        {
-            new CurvePoint(Distribution[0] / StraightSum, steps[0]),
-            new CurvePoint(1f, steps[1])
-        }
-        : new SimpleCurve
-        {
-            new CurvePoint(0.5f, steps[0]),
-            new CurvePoint(1f, steps[1])
-        };
-        public static readonly SimpleCurve BiCurve = (BiSum > 0f)
-        ? new SimpleCurve
-        {
-            new CurvePoint(0f, steps[1]),
-            new CurvePoint(Distribution[2] / BiSum, steps[2]),
-            new CurvePoint((Distribution[2] + Distribution[3]) / BiSum, steps[3]),
-            new CurvePoint(1f, steps[4])
-        }
-        : new SimpleCurve
-        {
-            new CurvePoint(0f, steps[1]),
-            new CurvePoint(1f, steps[4])
-        };
-        public static readonly SimpleCurve NonGayCurve = (StraightBiSum > 0f)
-        ? new SimpleCurve
-        {
-            new CurvePoint(Distribution[0] / StraightBiSum, steps[0]),
-            new CurvePoint((Distribution[0] + Distribution[1]) / StraightBiSum, steps[1]),
-            new CurvePoint((Distribution[0] + Distribution[1] + Distribution[2]) / StraightBiSum, steps[2]),
-            new CurvePoint((Distribution[0] + Distribution[1] + Distribution[2] + Distribution[3]) / StraightBiSum, steps[3]),
-            new CurvePoint(1f, steps[4])
-        }
-        : new SimpleCurve
-        {
-            //If everyone should be gay, but generation is forcing no gay, then give them kinsey(4)
-            new CurvePoint(0f, steps[3]),
-            new CurvePoint(1f, steps[4])
-        };
-        public static readonly SimpleCurve GayCurve = (GaySum > 0f)
-        ? new SimpleCurve
-        {
-            new CurvePoint(0f, steps[4]),
-            new CurvePoint(Distribution[5] / GaySum, steps[5])
-        }
-        : new SimpleCurve
-        {
-            new CurvePoint(0f, steps[4]),
-            new CurvePoint(0.5f, steps[5])
-        };
+        public static readonly SimpleCurve StraightCurve;
+        public static readonly SimpleCurve BiCurve;
+        public static readonly SimpleCurve NonGayCurve;
+        public static readonly SimpleCurve GayCurve;
         public static SexualOrientation EvaluateSexuality(Pawn pawn)
         {
             var traits = pawn.story?.traits;

@@ -14,7 +14,7 @@ namespace Maux36.RimPsyche
             TraitDefOf.Asexual,
             TraitDefOf.Bisexual
         };
-        private static readonly float asexualCutoff = 0.05f;
+        private static readonly float asexualCutoff = 0.05f; //Adjusted = 0.142...
 
         private readonly Pawn pawn;
         private readonly CompPsyche compPsyche;
@@ -24,17 +24,23 @@ namespace Maux36.RimPsyche
         //Homosexual: 0.8~1
         public bool shouldValidate = true;
         public SexualOrientation orientationCategory = SexualOrientation.None;
-        public float kinsey = -1f;
-        public float sexDrive = 0f;
-        public float mAttraction = 0f;
-        public float fAttraction = 0f;
+        private float mKinsey = -1f;
+        public float MKinsey => mKinsey;
+        private float attraction = 0f;
+        public float Attraction => attraction;
+        private float sexDrive = 0f;
+        public float SexDrive => sexDrive;
+        private bool adjustmentDirty = true;
+        private float mAttraction = 0f;
+        private float fAttraction = 0f;
+
+        //Memory
         public HashSet<int> knownOrientation = new();
         //public Dictionary<int, float> acquaintanceship = new();
         //public Dictionary<int, float> relationship = new();
 
-
         //Cache
-        private Dictionary<int, PawnRelationDef> _loversCache = new();
+        private readonly Dictionary<int, PawnRelationDef> _loversCache = new();
         private bool loversCacheDirty = true;
         public bool TryGetRomanticRelationDef(Pawn target, out PawnRelationDef def)
         {
@@ -131,7 +137,9 @@ namespace Maux36.RimPsyche
         }
         public void Initialize(bool generate = false, bool allowGay = true)
         {
+            float kinsey;
             shouldValidate = false;
+            adjustmentDirty = true;
             //Sexuality Module not loaded
             if (!Rimpsyche.SexualityModuleLoaded) return;
             //Already initialized before
@@ -154,7 +162,6 @@ namespace Maux36.RimPsyche
 
             //Assign Sexuality to adults
 
-            float attraction; //Sexual and Romantic attraction are not distinguished for performance and implementation issue.
             //If the pawn already has sexuality trait, either from mid-save addition or generation restriction:
             if (traits.HasTrait(TraitDefOf.Gay))
             {
@@ -190,37 +197,26 @@ namespace Maux36.RimPsyche
             {
                 kinsey = SexualityHelper.GenerateKinsey(allowGay);
                 attraction = SexualityHelper.GenerateAttraction();
-                if (attraction < asexualCutoff) { orientationCategory = SexualOrientation.Asexual; traits.allTraits.Add(new Trait(TraitDefOf.Asexual, TraitDefOf.Asexual.degreeDatas[0].degree)); Log.Message("Ace"); }
-                else if (kinsey < 0.2f) { orientationCategory = SexualOrientation.Heterosexual; Log.Message("Het"); }
-                else if (kinsey < 0.8f) { orientationCategory = SexualOrientation.Bisexual; traits.allTraits.Add(new Trait(TraitDefOf.Bisexual, TraitDefOf.Bisexual.degreeDatas[0].degree)); Log.Message("Bi"); }
-                else { orientationCategory = SexualOrientation.Homosexual; traits.allTraits.Add(new Trait(TraitDefOf.Gay, TraitDefOf.Gay.degreeDatas[0].degree)); Log.Message("Gay"); }
+                if (attraction < asexualCutoff) { orientationCategory = SexualOrientation.Asexual; traits.allTraits.Add(new Trait(TraitDefOf.Asexual, TraitDefOf.Asexual.degreeDatas[0].degree)); }
+                else if (kinsey < 0.2f) { orientationCategory = SexualOrientation.Heterosexual;}
+                else if (kinsey < 0.8f) { orientationCategory = SexualOrientation.Bisexual; traits.allTraits.Add(new Trait(TraitDefOf.Bisexual, TraitDefOf.Bisexual.degreeDatas[0].degree));}
+                else { orientationCategory = SexualOrientation.Homosexual; traits.allTraits.Add(new Trait(TraitDefOf.Gay, TraitDefOf.Gay.degreeDatas[0].degree));}
                 //Log.Message($"generating sexuality for {pawn.Name} | {kinsey} -> {orientationCategory} | A: {attraction}");
             }
 
             sexDrive = SexualityHelper.GenerateSexdrive();
-            float forSame = kinsey;
-            float forDiff = 1f - kinsey;
-            float multiplier = attraction / Mathf.Max(forSame, forDiff);
-            if (gender == Gender.Male)
-            {
-                mAttraction = multiplier * forSame;
-                fAttraction = multiplier * forDiff;
-            }
-            else
-            {
-                mAttraction = multiplier * forDiff;
-                fAttraction = multiplier * forSame;
-            }
+            if (gender == Gender.Male) mKinsey = kinsey;
+            else mKinsey = 1 - kinsey;
             return;
         }
         public void InjectData(PsycheData psyche)
         {
             shouldValidate = false;
+            adjustmentDirty = true;
             orientationCategory = psyche.orientationCategory;
-            kinsey = psyche.kinsey;
+            mKinsey = psyche.mKinsey;
+            attraction = psyche.attraction;
             sexDrive = psyche.sexDrive;
-            mAttraction = psyche.mAttraction;
-            fAttraction = psyche.fAttraction;
             knownOrientation = new HashSet<int>(psyche.knownOrientation);
             //acquaintanceship = new Dictionary<int, float>(psyche.acquaintanceship);
             //relationship = new Dictionary<int, float>(psyche.relationship);
@@ -262,20 +258,11 @@ namespace Maux36.RimPsyche
         public void Validate()
         {
             shouldValidate = false;
-            if (orientationCategory == SexualOrientation.Developing || orientationCategory == SexualOrientation.None)
-            {
-                //Log.Message($"Validate: {pawn.Name}'s sexuality {orientationCategory} skip trait check.");
-                return;
-            }
+            if (orientationCategory == SexualOrientation.Developing || orientationCategory == SexualOrientation.None) return;
             var traitCategory = SexualityHelper.EvaluateSexuality(pawn);
-            if (traitCategory == orientationCategory)
-            {
-                //Log.Message($"Validate: {pawn.Name}'s sexuality {orientationCategory} unchanged.");
-                return;
-            }
+            if (traitCategory == orientationCategory) return;
             else
             {
-                //Log.Warning($"Validate: {pawn.Name}'s sexuality {orientationCategory} changed to {traitCategory}.");
                 AssignSexuality(traitCategory);
                 return;
             }
@@ -287,30 +274,29 @@ namespace Maux36.RimPsyche
             {
                 return;
             }
-            kinsey = SexualityHelper.GenerateKinseyFor(newCategory);
-            var attraction = SexualityHelper.GenerateAttractionFor(newCategory);
-            float forSame = kinsey;
-            float forDiff = 1f - forSame;
-            float multiplier = attraction / Mathf.Max(forSame, forDiff);
+            float kinsey = SexualityHelper.GenerateKinseyFor(newCategory);
+            attraction = SexualityHelper.GenerateAttractionFor(newCategory);
             if (pawn.gender == Gender.Male)
             {
-                mAttraction = multiplier * forSame;
-                fAttraction = multiplier * forDiff;
+                mKinsey = kinsey;
             }
             else
             {
-                mAttraction = multiplier * forDiff;
-                fAttraction = multiplier * forSame;
+                mKinsey = 1 - kinsey;
             }
+            adjustmentDirty = true;
             return;
         }
+        //When Trait is manipulated, Rimpsyche Sexuality will check the traits and follow it rather than enforcing RPS on Vanilla
         public void DirtyTraitCache()
         {
-            //Log.Message($"{pawn.Name}'s Validation Dirtied.");
             shouldValidate = true;
         }
         public int GetKinseyReport()
         {
+            float kinsey;
+            if (pawn.gender == Gender.Male) kinsey = mKinsey;
+            else kinsey = 1 - mKinsey;
             if (kinsey == 0f) return 0;
             else if (kinsey < 0.2f) return 1;
             else if (kinsey < 0.4f) return 2;
@@ -319,6 +305,23 @@ namespace Maux36.RimPsyche
             else if (kinsey < 1f) return 5;
             else if (kinsey == 1f) return 6;
             else return -1;
+        }
+        public string GetOrientationReport()
+        {
+            switch (orientationCategory)
+            {
+                case SexualOrientation.Heterosexual:
+                    return "RPC_Heterosexual".Translate();
+                case SexualOrientation.Bisexual:
+                    return "RPC_Bisexual".Translate();
+                case SexualOrientation.Homosexual:
+                    return "RPC_Homosexual".Translate();
+                case SexualOrientation.Asexual:
+                    return "RPC_Asexual".Translate();
+                default:
+                    return "RPC_SexualityUndefined".Translate();
+
+            }
         }
         public bool ShowOnUI()
         {
@@ -335,33 +338,21 @@ namespace Maux36.RimPsyche
         {
             return orientationCategory;
         }
-        public void SetMaleAttraction(float newValue)
+        public void SetmKinsey(float value)
         {
-            mAttraction = newValue;
-            if (fAttraction == 0f && mAttraction == 0f)
-            {
-                kinsey = Rand.Range(0, 1f);
-                AdjustSexualityTrait(0f);
-                return;
-            }
-            if (pawn.gender == Gender.Male) kinsey = mAttraction / (mAttraction + fAttraction);
-            else kinsey = fAttraction / (mAttraction + fAttraction);
-            float attraction = Mathf.Max(mAttraction, fAttraction);
+            mKinsey = value;
+            adjustmentDirty = true;
             AdjustSexualityTrait(attraction);
         }
-        public void SetFemaleAttraction(float newValue)
+        public void SetAttraction(float value)
         {
-            fAttraction = newValue;
-            if (fAttraction == 0f && mAttraction == 0f)
-            {
-                kinsey = Rand.Range(0, 1f);
-                AdjustSexualityTrait(0f);
-                return;
-            }
-            if (pawn.gender == Gender.Male) kinsey = mAttraction / (mAttraction + fAttraction);
-            else kinsey = fAttraction / (mAttraction + fAttraction);
-            float attraction = Mathf.Max(mAttraction, fAttraction);
+            attraction = value;
+            adjustmentDirty = true;
             AdjustSexualityTrait(attraction);
+        }
+        public void SetSexdrive(float value)
+        {
+            sexDrive = value;
         }
 
         /// <summary>
@@ -370,6 +361,9 @@ namespace Maux36.RimPsyche
         /// <param name="attraction">max(mAttraction, fAttraction)</param>
         private void AdjustSexualityTrait(float attraction)
         {
+            float kinsey;
+            if (pawn.gender == Gender.Male) kinsey = mKinsey;
+            else kinsey = 1 - mKinsey;
             SexualOrientation orientationBasedOnAttraction;
             if (attraction < asexualCutoff) { orientationBasedOnAttraction = SexualOrientation.Asexual;}
             else if (kinsey < 0.2f) { orientationBasedOnAttraction = SexualOrientation.Heterosexual;}
@@ -415,24 +409,32 @@ namespace Maux36.RimPsyche
 
         public float GetAdjustedAttraction(Gender gender)
         {
+            if (adjustmentDirty)
+            {
+                adjustmentDirty = false;
+                float multiplier = SexualityHelper.AdjustAttraction(attraction) / Mathf.Max(mKinsey, 1f - mKinsey);
+                mAttraction = multiplier * mKinsey;
+                fAttraction = multiplier * (1f - mKinsey);
+            }
             switch (gender)
             {
                 case Gender.Male:
-                    return SexualityHelper.AdjustAttraction(mAttraction);
+                    return mAttraction;
                 case Gender.Female:
-                    return SexualityHelper.AdjustAttraction(fAttraction);
+                    return fAttraction;
+                case Gender.None:
+                    return 0f;
                 default:
-                    return 1f;
+                    return 0f;
             }
         }
 
         public void ExposeData()
         {
             Scribe_Values.Look(ref orientationCategory, "category", SexualOrientation.None);
-            Scribe_Values.Look(ref kinsey, "kinsey", -1f);
+            Scribe_Values.Look(ref mKinsey, "mKinsey", -1f);
+            Scribe_Values.Look(ref attraction, "attraction", 0f);
             Scribe_Values.Look(ref sexDrive, "sexDrive", 0f);
-            Scribe_Values.Look(ref mAttraction, "mAttraction", 0f);
-            Scribe_Values.Look(ref fAttraction, "fAttraction", 0f);
             Scribe_Collections.Look(ref knownOrientation, "knownOrientation", LookMode.Value);
             //Scribe_Collections.Look(ref acquaintanceship, "acquaintanceship", LookMode.Value, LookMode.Value);
             //Scribe_Collections.Look(ref relationship, "relationship", LookMode.Value, LookMode.Value);

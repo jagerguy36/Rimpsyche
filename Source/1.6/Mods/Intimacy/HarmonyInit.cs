@@ -1,7 +1,6 @@
 ﻿using HarmonyLib;
 using System;
 using System.Reflection;
-using LoveyDoveySexWithEuterpe;
 using Verse;
 
 namespace Maux36.RimPsyche.Intimacy

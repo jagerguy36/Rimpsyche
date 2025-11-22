@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using Verse;
+using static RimWorld.ColonistBar;
 
 namespace Maux36.RimPsyche
 {
@@ -17,6 +18,7 @@ namespace Maux36.RimPsyche
         public static Vector2 PersonalityScrollPosition = Vector2.zero;
         public static Vector2 InterestScrollPosition = Vector2.zero;
         public static Color barBackgroundColor = new Color(0.2f, 0.2f, 0.2f, 0.5f);
+        public static Color barSurplusBackgroundColor = new Color(0.2f, 0.2f, 0.2f, 0.1f);
         public static Color radarFillColor = new Color(0.5f, 1f, 0.5f, 0.6f);
         public static Color radarHighlightColor = new Color(0.6f, 0.6f, 0.6f, 0.5f);
         public static Color radarEdgeColor = new Color(0.5f, 0.5f, 0.5f, 0.6f);
@@ -45,6 +47,13 @@ namespace Maux36.RimPsyche
         public static float interestWidthDiff => (interestLabelWidth - 130f);
         public static readonly float interestRowHeight = 28f;
         public static readonly float interestBarHeight = 4f;
+
+        public static readonly float sexualityHeaderHeight = 35f;
+        public static readonly float sexualityLineHeight = 25f;
+        public static readonly float sexualityLabelWidth = 70f;
+        public static readonly float sexualityBarMargin = 5f;
+        public static readonly float sexualityRightMargin = 20f;
+        public static readonly float sexualityBarHeight = 4f;
 
         //Options
         public static bool rightPanelVisible = false;
@@ -671,12 +680,10 @@ namespace Maux36.RimPsyche
             GameFont oldFont = Text.Font;
 
             // === Header Config ===
-            float headerHeight = 35f;
-            float lineHeight = 25f; // Standard height for each line of text
-            float contentStartY = sexualityRect.y + headerHeight; // Starting Y for content below header
+            float contentStartY = sexualityRect.y + sexualityHeaderHeight; // Starting Y for content below header
 
             // === Draw Header ===
-            Rect headerRect = new Rect(sexualityRect.x, sexualityRect.y, sexualityRect.width, headerHeight);
+            Rect headerRect = new Rect(sexualityRect.x, sexualityRect.y, sexualityRect.width, sexualityHeaderHeight);
             GUI.BeginGroup(headerRect);
 
             // Title: "Sexuality"
@@ -696,26 +703,49 @@ namespace Maux36.RimPsyche
             // Name
             float y = 0f;
             // Sexuality
-            Rect sexualityDetailRect = new Rect(0f, y, sexualityRect.width, lineHeight);
-            Widgets.Label(sexualityDetailRect, "RPC_Orientation".Translate() + ": " + compPsyche.Sexuality.GetOrientationCategory());
-            y += lineHeight;
+            Rect sexualityDetailRect = new Rect(0f, y, sexualityRect.width, sexualityLineHeight);
+            Widgets.Label(sexualityDetailRect, "RPC_Orientation".Translate() + ": " + compPsyche.Sexuality.GetOrientationReport() + $" ({compPsyche.Sexuality.GetKinseyReport()})");
+            y += sexualityLineHeight;
 
-            Rect sexualityKinseyRect = new Rect(0f, y, sexualityRect.width, lineHeight);
-            Widgets.Label(sexualityKinseyRect, "RPC_Kinsey".Translate() + ": " + (compPsyche.Sexuality.GetKinseyReport()));
-            y += lineHeight;
+            float barWidth = (sexualityRect.width - sexualityLabelWidth - sexualityBarMargin - sexualityRightMargin) * 2f / 3f;
 
-            Rect sexDriveRect = new Rect(0f, y, sexualityRect.width, lineHeight);
-            Widgets.Label(sexDriveRect, "RPC_SexDrive".Translate() + ": " + (2f * compPsyche.Sexuality.sexDrive).ToString("F2"));
-            y += lineHeight;
+            // Male Attraction
+            Rect maleLabelRect = new Rect(0f, y, sexualityLabelWidth, sexualityLineHeight);
+            Rect maleBarRect = new Rect(sexualityLabelWidth + sexualityBarMargin, y + (sexualityLineHeight - sexualityBarHeight) / 2f, barWidth, sexualityBarHeight); // Center bar vertically
+            Rect maleBarSurplusRect = new Rect(maleBarRect.xMax, maleBarRect.y, barWidth * 0.5f, sexualityBarHeight);
+            Widgets.Label(maleLabelRect, "RPC_AttractionMale".Translate() + ":");
+            Widgets.DrawBoxSolid(maleBarRect, barBackgroundColor);
+            Widgets.DrawBoxSolid(maleBarSurplusRect, barSurplusBackgroundColor);
+            float mAttraction = compPsyche.Sexuality.GetAdjustedAttraction(Gender.Male);
+            Rect mValueRect = new Rect(maleBarRect.x, maleBarRect.y, mAttraction * barWidth, sexualityBarHeight);
+            Color mColor;
+            if (mAttraction <= 1) mColor = Color.Lerp(Color.yellow, Color.green, mAttraction);
+            else mColor = Color.Lerp(Color.green, Color.cyan, -1.25f + 1.5f * mAttraction);
+            Widgets.DrawBoxSolid(mValueRect, mColor);
+            Widgets.DrawLineVertical(maleBarRect.xMax, maleBarRect.y - 1, maleBarRect.height + 2);
 
-            //// Sexuality
-            //Rect sexualityAttrMRect = new Rect(0f, y, sexualityRect.width, lineHeight);
-            //Widgets.Label(sexualityAttrMRect, "Male Attraction: " + compPsyche.Sexuality.attractionM);
-            //y += lineHeight;
+            y += sexualityLineHeight;
 
-            //Rect sexualityAttrFRect = new Rect(0f, y, sexualityRect.width, lineHeight);
-            //Widgets.Label(sexualityAttrFRect, "Female Attraction: " + compPsyche.Sexuality.attractionF);
-            //y += lineHeight;
+            // Female Attraction
+            Rect femaleLabelRect = new Rect(0f, y, sexualityLabelWidth, sexualityLineHeight);
+            Rect femaleBarRect = new Rect(sexualityLabelWidth + sexualityBarMargin, y + (sexualityLineHeight - sexualityBarHeight) / 2f, barWidth, sexualityBarHeight);
+            Rect femaleBarSurplusRect = new Rect(femaleBarRect.xMax, femaleBarRect.y, barWidth * 0.5f, sexualityBarHeight);
+            Widgets.Label(femaleLabelRect, "RPC_AttractionFemale".Translate() + ":");
+            Widgets.DrawBoxSolid(femaleBarRect, barBackgroundColor);
+            Widgets.DrawBoxSolid(femaleBarSurplusRect, barSurplusBackgroundColor);
+            float fAttraction = compPsyche.Sexuality.GetAdjustedAttraction(Gender.Female);
+            Rect fValueRect = new Rect(femaleBarRect.x, femaleBarRect.y, fAttraction * barWidth, sexualityBarHeight);
+            Color fColor;
+            if (fAttraction <= 1) fColor = Color.Lerp(Color.yellow, Color.green, fAttraction);
+            else fColor = Color.Lerp(Color.green, Color.cyan, -1.25f + 1.5f * fAttraction);
+            Widgets.DrawBoxSolid(fValueRect, fColor);
+            Widgets.DrawLineVertical(femaleBarRect.xMax, femaleBarRect.y - 1, femaleBarRect.height + 2);
+
+            y += sexualityLineHeight;
+
+            Rect sexDriveRect = new Rect(0f, y, sexualityRect.width, sexualityLineHeight);
+            Widgets.Label(sexDriveRect, "RPC_SexDrive".Translate() + ": " + (2f * compPsyche.Sexuality.SexDrive).ToString("F2"));
+            y += sexualityLineHeight;
 
             GUI.EndGroup();
 

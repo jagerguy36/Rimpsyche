@@ -14,6 +14,8 @@
   <RimpsycheShowFacetGraphTooltip>Show facet radar chart in Psyche tab.</RimpsycheShowFacetGraphTooltip>
   <RimpsycheKinseyDistributionSettings>Sexuality Distribution Settings (Requires restart)</RimpsycheKinseyDistributionSettings>
   <RimpsycheKinseyDefaultSetting>Default Distribution</RimpsycheKinseyDefaultSetting>
+  <RimpsycheRomanceAttemptGenderDiff>Gender Difference</RimpsycheRomanceAttemptGenderDiff>
+  <RimpsycheRomanceAttemptGenderDiffTooltip>Women are less likely to make a romance attempt at men. (Vanilla logic) </RimpsycheRomanceAttemptGenderDiffTooltip>
 
 
   <!-- Title -->
@@ -34,7 +36,15 @@
 
   <RPC_Orientation>Sexuality</RPC_Orientation>
   <RPC_Kinsey>Kinsey Rating</RPC_Kinsey>
+  <RPC_MaxAttraction>Max Attraction</RPC_MaxAttraction>
+  <RPC_AttractionMale>Male</RPC_AttractionMale>
+  <RPC_AttractionFemale>Female</RPC_AttractionFemale>
   <RPC_SexDrive>Sex Drive</RPC_SexDrive>
+  <RPC_Heterosexual>Heterosexual</RPC_Heterosexual>
+  <RPC_Bisexual>Bisexual</RPC_Bisexual>
+  <RPC_Homosexual>Homosexual</RPC_Homosexual>
+  <RPC_Asexual>Asexual</RPC_Asexual>
+  <RPC_SexualityUndefined>Undefined</RPC_SexualityUndefined>
 
   <TraitAffected>Affected by trait(s):</TraitAffected>
   <GeneAffected>Affected by gene(s):</GeneAffected>

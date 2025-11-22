@@ -77,10 +77,11 @@ namespace Maux36.RimPsyche
         public static readonly float sexualityContentHeight = 160f;
         public static readonly float sexualityRowHeight = 30f;
         // Labels
-        public static readonly string maleAttractionLabel = "RPS_mAttraction".Translate();
-        public static readonly string femaleAttractionLabel = "RPS_fAttraction".Translate();
-        public static readonly string sexDriveLabel = "RPS_sexDrive".Translate();
-
+        public static readonly string kinseyLabel = "RPC_Kinsey".Translate();
+        public static readonly string maleAttractionLabel = "RPC_AttractionMale".Translate();
+        public static readonly string femaleAttractionLabel = "RPC_AttractionFemale".Translate();
+        public static readonly string maxAttractionLabel = "RPC_MaxAttraction".Translate();
+        public static readonly string sexDriveLabel = "RPC_SexDrive".Translate();
 
         public static bool showPreference = false;
         public static float preferenceViewHeight = RimpsycheDatabase.totalPreferenceEditorfHeight;
@@ -169,54 +170,29 @@ namespace Maux36.RimPsyche
             Text.Font = GameFont.Small;
             Rect ContentRect = new Rect(innerRect.x, titleRect.yMax, innerRect.width, innerRect.height - titleHeight);
             Widgets.DrawBoxSolid(ContentRect, new Color(0.2f, 0.2f, 0.2f, 0.5f));
-            float maxSexualityLabelWidth = Math.Max(Text.CalcSize(maleAttractionLabel).x,Math.Max(Text.CalcSize(femaleAttractionLabel).x,Text.CalcSize(sexDriveLabel).x));
+            float maxSexualityLabelWidth = Math.Max(Text.CalcSize(kinseyLabel).x, Math.Max(Text.CalcSize(maxAttractionLabel).x, Text.CalcSize(sexDriveLabel).x)) + 5f;
             float sliderWidth = ContentRect.width - maxSexualityLabelWidth;
 
             Rect KinseyLabelRect = new Rect(ContentRect.x, ContentRect.y, maxSexualityLabelWidth, sexualityRowHeight);
-            Widgets.Label(KinseyLabelRect, "RPC_Kinsey".Translate() + ": ");
+            Widgets.Label(KinseyLabelRect, kinseyLabel + ": ");
             Rect KinseyReportRect = new Rect(KinseyLabelRect.xMax, ContentRect.y, sliderWidth, sexualityRowHeight);
-            Widgets.Label(KinseyReportRect, (compPsyche.Sexuality.GetKinseyReport().ToString()));// + "(" + sexuality.kinsey.ToString("F2") + ")"
+            Widgets.Label(KinseyReportRect, (compPsyche.Sexuality.GetOrientationReport() + $" ({compPsyche.Sexuality.GetKinseyReport()})"));// + "(" + sexuality.kinsey.ToString("F2") + ")"
 
-            Rect labelRect1 = new Rect(ContentRect.x, KinseyLabelRect.yMax, maxSexualityLabelWidth, sexualityRowHeight);
-            Widgets.Label(labelRect1, maleAttractionLabel);
-            Rect sliderRect1 = new Rect(labelRect1.xMax, KinseyLabelRect.yMax, sliderWidth, sexualityRowHeight);
-            //Text.Font = GameFont.Tiny;
-            //Rect sliderLabelRect1 = new Rect(sliderRect1.x, sliderRect1.y, sliderRect1.width, Text.LineHeight);// Draw left-aligned label
-            //Text.Anchor = TextAnchor.UpperLeft;
-            //Widgets.Label(sliderLabelRect1, "RPS_HypoAttraction".Translate());
-            //Text.Anchor = TextAnchor.UpperRight;
-            //Widgets.Label(sliderLabelRect1, "RPS_HyperAttraction".Translate());
-            //Text.Anchor = TextAnchor.UpperLeft;
-            //Text.Font = GameFont.Small;
-            float newMValue = Widgets.HorizontalSlider(sliderRect1, sexuality.mAttraction, 0f, 1f, true, null, null, (2f * sexuality.mAttraction).ToString("F2"));
-            if (newMValue != sexuality.mAttraction) sexuality.SetMaleAttraction(newMValue);
+            Rect sliderRect1 = new Rect(ContentRect.x, KinseyLabelRect.yMax, innerRect.width, sexualityRowHeight);
+            float newMValue = Widgets.HorizontalSlider(sliderRect1, sexuality.MKinsey, 0f, 1f, true, leftAlignedLabel: femaleAttractionLabel, rightAlignedLabel: maleAttractionLabel);
+            if (newMValue != sexuality.MKinsey) sexuality.SetmKinsey(newMValue);
 
-            Rect labelRect2 = new Rect(ContentRect.x, labelRect1.yMax, maxSexualityLabelWidth, sexualityRowHeight);
-            Widgets.Label(labelRect2, femaleAttractionLabel);
-            Rect sliderRect2 = new Rect(labelRect2.xMax, labelRect1.yMax, sliderWidth, sexualityRowHeight);
-            //Text.Font = GameFont.Tiny;
-            //Rect sliderLabelRect2 = new Rect(sliderRect2.x, sliderRect2.y, sliderRect2.width, Text.LineHeight);// Draw left-aligned label
-            //Text.Anchor = TextAnchor.UpperLeft;
-            //Widgets.Label(sliderLabelRect2, "RPS_HypoAttraction".Translate());
-            //Text.Anchor = TextAnchor.UpperRight;
-            //Widgets.Label(sliderLabelRect2, "RPS_HyperAttraction".Translate());
-            //Text.Anchor = TextAnchor.UpperLeft;
-            //Text.Font = GameFont.Small;
-            float newFValue = Widgets.HorizontalSlider(sliderRect2, sexuality.fAttraction, 0f, 1f, true, null, null, (2f * sexuality.fAttraction).ToString("F2"));
-            if (newFValue != sexuality.fAttraction) sexuality.SetFemaleAttraction(newFValue);
+            Rect labelRect2 = new Rect(ContentRect.x, sliderRect1.yMax, maxSexualityLabelWidth, sexualityRowHeight);
+            Widgets.Label(labelRect2, maxAttractionLabel);
+            Rect sliderRect2 = new Rect(labelRect2.xMax, sliderRect1.yMax, sliderWidth, sexualityRowHeight);
+            float newAttraction = Widgets.HorizontalSlider(sliderRect2, sexuality.Attraction, 0f, 1f, true, null, null, (2f * sexuality.Attraction).ToString("F2"));
+            if (newAttraction != sexuality.Attraction) sexuality.SetAttraction(newAttraction);
 
             Rect labelRect3 = new Rect(ContentRect.x, labelRect2.yMax, maxSexualityLabelWidth, sexualityRowHeight);
             Widgets.Label(labelRect3, sexDriveLabel);
             Rect sliderRect3 = new Rect(labelRect3.xMax, labelRect2.yMax, sliderWidth, sexualityRowHeight);
-            //Text.Font = GameFont.Tiny;
-            //Rect sliderLabelRect3 = new Rect(sliderRect3.x, sliderRect3.y, sliderRect3.width, Text.LineHeight);// Draw left-aligned label
-            //Text.Anchor = TextAnchor.UpperLeft;
-            //Widgets.Label(sliderLabelRect3, "RPS_Hyposexual".Translate());
-            //Text.Anchor = TextAnchor.UpperRight;
-            //Widgets.Label(sliderLabelRect3, "RPS_Hypersexual".Translate());
-            //Text.Anchor = TextAnchor.UpperLeft;
-            //Text.Font = GameFont.Small;
-            sexuality.sexDrive = Widgets.HorizontalSlider(sliderRect3, sexuality.sexDrive, 0f, 1f, true, null, null, (2f * sexuality.sexDrive).ToString("F2"));
+            float newDrive = Widgets.HorizontalSlider(sliderRect3, sexuality.SexDrive, 0f, 1f, true, null, null, (2f * sexuality.SexDrive).ToString("F2"));
+            if (newDrive != sexuality.SexDrive) sexuality.SetSexdrive(newDrive);
 
             Text.Anchor = oldAnchor;
             Text.Font = oldFont;

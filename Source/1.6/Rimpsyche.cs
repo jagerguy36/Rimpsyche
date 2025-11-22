@@ -105,8 +105,8 @@ namespace Maux36.RimPsyche
             Rect buttonRect = new Rect(rect.x, rect.yMax-30f, 300f, 30f);
             if(Widgets.ButtonText(buttonRect, "RimpsycheKinseyDefaultSetting".Translate()))
             {
-
-                RimpsycheSettings.KinseyDistributionSetting = [60, 10, 10, 5, 5, 5, 5];
+                //Slightly adjusted from https://yougov.co.uk/society/articles/12999-half-young-not-heterosexual
+                RimpsycheSettings.KinseyDistributionSetting = RimpsycheSettings.DefaultDistribution;
             }
         }
     }

@@ -42,10 +42,9 @@ namespace Maux36.RimPsyche
             //Sexuality
             var sexuality = compPsyche.Sexuality;
             psyche.orientationCategory = sexuality.orientationCategory;
-            psyche.kinsey = sexuality.kinsey;
-            psyche.sexDrive = sexuality.sexDrive;
-            psyche.mAttraction = sexuality.mAttraction;
-            psyche.fAttraction = sexuality.fAttraction;
+            psyche.mKinsey = sexuality.MKinsey;
+            psyche.attraction = sexuality.Attraction;
+            psyche.sexDrive = sexuality.SexDrive;
             psyche.knownOrientation = new HashSet<int>(sexuality.knownOrientation);
             //psyche.acquaintanceship = new Dictionary<int, float>(sexuality.acquaintanceship);
             //psyche.relationship = new Dictionary<int, float>(sexuality.relationship);
