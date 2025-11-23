@@ -9,7 +9,7 @@ namespace Maux36.RimPsyche.Intimacy
     {
         private static void TryGainIntimacy(Pawn pawn, float amount)
         {
-            (pawn.needs?.TryGetNeed<Need_Intimacy>())?.GainIntimacySocial(amount);
+            (pawn.needs?.TryGetNeed<Need_Intimacy>())?.GainSocialIntimacy(amount);
         }
 
         public static bool Prefix(Pawn initiator, Pawn recipient, float initOpinionOffset, float reciOpinionOffset)
