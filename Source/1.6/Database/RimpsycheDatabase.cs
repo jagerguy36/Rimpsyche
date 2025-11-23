@@ -1,6 +1,7 @@
 ﻿using RimWorld;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Verse;
 
@@ -15,6 +16,8 @@ namespace Maux36.RimPsyche
         public static Dictionary<Pair<int, int>, List<(int, float, float)>> TraitScopeDatabase = new();
         public static Dictionary<Pair<int, int>, List<FacetGate>> TraitGateDatabase = new() { };
         public static Dictionary<int, List<FacetGate>> GeneGateDatabase = new() { };
+        public static List<PreferenceDef> OrderedRomPreferenceDefs = new();
+        public static List<PreferenceDef> OrderedSexPreferenceDefs = new();
         public static Facet[] AllFacets = (Facet[])Enum.GetValues(typeof(Facet));
         public static float maxFacetLabelWidth = 130f;
         public static float maxInterestLabelWidth = 130f;
@@ -125,7 +128,10 @@ namespace Maux36.RimPsyche
             }
 
             //Preference
-            foreach (var prefDef in DefDatabase<PreferenceDef>.AllDefs)
+            var OrderedPreferenceDefs = DefDatabase<PreferenceDef>.AllDefs.OrderByDescending(prefDef => prefDef.priority).ToList();
+            OrderedRomPreferenceDefs = OrderedPreferenceDefs.Where(prefDef => prefDef.category == RimpsychePrefCategory.Romantic).ToList();
+            OrderedSexPreferenceDefs = OrderedPreferenceDefs.Where(prefDef => prefDef.category == RimpsychePrefCategory.Physical).ToList();
+            foreach (var prefDef in OrderedPreferenceDefs)
             {
                 totalPreferenceEditorfHeight += prefDef.worker.EditorHeight;
             }

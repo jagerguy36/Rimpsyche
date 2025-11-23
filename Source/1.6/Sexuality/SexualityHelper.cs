@@ -232,5 +232,26 @@ namespace Maux36.RimPsyche
             if (result < -1f || result > 1f) result = Mathf.Clamp(result, -1f, 1f);
             return result;
         }
+
+        public static float EvaluateRomPreference(Pawn pawn, Pawn otherPawn, float value)
+        {
+            var prefDefs = RimpsycheDatabase.OrderedRomPreferenceDefs;
+            for (int i = 0; i < prefDefs.Count; i++)
+            {
+                var def = prefDefs[i];
+                value = def.worker.Evaluate(pawn, otherPawn, value);
+            }
+            return value;
+        }
+        public static float EvaluateSexPreference(Pawn pawn, Pawn otherPawn, float value)
+        {
+            var prefDefs = RimpsycheDatabase.OrderedSexPreferenceDefs;
+            for (int i = 0; i < prefDefs.Count; i++)
+            {
+                var def = prefDefs[i];
+                value = def.worker.Evaluate(pawn, otherPawn, value);
+            }
+            return value;
+        }
     }
 }

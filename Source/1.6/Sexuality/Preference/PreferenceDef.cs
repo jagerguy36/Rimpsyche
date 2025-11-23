@@ -8,8 +8,8 @@ namespace Maux36.RimPsyche
     public class PreferenceDef : Def
     {
         public float baseStrength = 1f;
+        public int priority = 0;
         public RimpsychePrefCategory category;
-        public RimpsycheCacheType cacheType;
         public Type workerClass = typeof(PreferenceWorker);
 
         [Unsaved(false)]
@@ -30,16 +30,8 @@ namespace Maux36.RimPsyche
     }
     public enum RimpsychePrefCategory
     {
-        Physical,
-        Social,
-        Romantic,
-        Misc
-    }
-    public enum RimpsycheCacheType
-    {
-        Once,
-        Never,
-        Psyche
+        Physical, //Called when SecondaryLovinFactor is calculated
+        Romantic //Called when SecondaryRomanceFactor is calculated
     }
     public abstract class PreferenceWorker
     {
@@ -50,7 +42,7 @@ namespace Maux36.RimPsyche
 
         public abstract string Report(Pawn pawn);
 
-        public abstract float Evaluate(Pawn observer, Pawn target);
+        public abstract float Evaluate(Pawn observer, Pawn target, float value);
 
         public abstract void DrawEditor(Rect rect, Pawn pawn, bool EditEnabled);
 
