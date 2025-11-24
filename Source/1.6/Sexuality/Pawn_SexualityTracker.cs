@@ -19,9 +19,8 @@ namespace Maux36.RimPsyche
         private readonly Pawn pawn;
         private readonly CompPsyche compPsyche;
 
-        //Heterosexual: 0~0.2
-        //Bisexual: 0.2~0.8
-        //Homosexual: 0.8~1
+        //kinsey
+        //0 [0] 1 [0.2] 2 [0.4] 3 [0.6] 4 [0.8] 5 [1] 6
         public bool shouldValidate = true;
         public SexualOrientation orientationCategory = SexualOrientation.None;
         private float mKinsey = -1f;
@@ -58,6 +57,10 @@ namespace Maux36.RimPsyche
                 loversCacheDirty = false;
             }
             return _loversCache.TryGetValue(target.thingIDNumber, out def);
+        }
+        public void DirtyLoversCache()
+        {
+            loversCacheDirty = true;
         }
         //See if checking the mood instead of opinion would be cheaper
         public float GetLatestRebuffImpact(Pawn target)
@@ -140,6 +143,7 @@ namespace Maux36.RimPsyche
             float kinsey;
             shouldValidate = false;
             adjustmentDirty = true;
+            loversCacheDirty = true;
             //Sexuality Module not loaded
             if (!Rimpsyche.SexualityModuleLoaded) return;
             //Already initialized before
@@ -213,6 +217,7 @@ namespace Maux36.RimPsyche
         {
             shouldValidate = false;
             adjustmentDirty = true;
+            loversCacheDirty = true;
             orientationCategory = psyche.orientationCategory;
             mKinsey = psyche.mKinsey;
             attraction = psyche.attraction;
