@@ -50,12 +50,14 @@ namespace Maux36.RimPsyche
         //Shame
         public float shame = 0f;
         public int tickOverwhelmed = 0;
-        public Dictionary<ThoughtDef, int> activeShameThoughts = null;
+        private bool shamethoughtDirty = true;
+        private List<Thought> temp_allMoodThoughts = new();
+        private Dictionary<ThoughtDef, int> activeShameThoughts = new();
         public Dictionary<ThoughtDef, int> ShameThoughts
         {
             get
             {
-                if(activeShameThoughts == null)
+                if(shamethoughtDirty)
                 {
                     RefreshShameThoughts();
                 }
@@ -64,27 +66,23 @@ namespace Maux36.RimPsyche
         }
         public void RefreshShameThoughts()
         {
-            activeShameThoughts = new();
-            var allMoodThoughts = new List<Thought>();
-            parentPawn.needs.mood.thoughts.GetAllMoodThoughts(allMoodThoughts);
-            for (int i = 0; i < allMoodThoughts.Count; i++)
+            activeShameThoughts.Clear();
+            temp_allMoodThoughts.Clear();
+            parentPawn.needs.mood.thoughts.GetAllMoodThoughts(temp_allMoodThoughts);
+            for (int i = 0; i < temp_allMoodThoughts.Count; i++)
             {
-                if (allMoodThoughts[i] is Thought_Situational_Shame shamethought)
+                if (temp_allMoodThoughts[i] is Thought_Situational_Shame shamethought)
                 {
-                    if (activeShameThoughts.TryGetValue(shamethought.def, out int count))
-                    {
-                        activeShameThoughts[shamethought.def] = count + 1;
-                    }
-                    else
-                    {
-                        activeShameThoughts[shamethought.def] = 1;
-                    }
+                    activeShameThoughts.TryGetValue(shamethought.def, out int count);
+                    activeShameThoughts[shamethought.def] = count + 1;
                 }
             }
+            temp_allMoodThoughts.Clear();
+            shamethoughtDirty = false;
         }
         public void CleanShame()
         {
-            activeShameThoughts = null;
+            shamethoughtDirty = true;
         }
 
         public Pawn_PersonalityTracker Personality
