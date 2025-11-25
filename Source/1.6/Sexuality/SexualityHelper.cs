@@ -111,13 +111,13 @@ namespace Maux36.RimPsyche
             }
             return normalizedDistribution;
         }
-        public static readonly List<float> steps = [0f, 0.2f, 0.4f, 0.6f, 0.8f, 1f];
-        // public static readonly List<float> steps = [0f, 0.08f, 0.36f, 0.64f, 0.92f, 1f];
-        public static readonly float StraightSum;
-        public static readonly float BiSum;
-        public static readonly float StraightBiSum;
-        public static readonly float GaySum;
-        public static readonly SimpleCurve SexualityCurve;
+        private static readonly List<float> steps = [0f, 0.2f, 0.4f, 0.6f, 0.8f, 1f];
+        // private static readonly List<float> steps = [0f, 0.08f, 0.36f, 0.64f, 0.92f, 1f];
+        private static readonly float StraightSum;
+        private static readonly float BiSum;
+        private static readonly float StraightBiSum;
+        private static readonly float GaySum;
+        private static readonly SimpleCurve SexualityCurve;
         private static SimpleCurve CreateSexualityCurve()
         {
             List<CurvePoint> curvePoints = new List<CurvePoint>();
@@ -129,10 +129,10 @@ namespace Maux36.RimPsyche
             }
             return new SimpleCurve(curvePoints.ToArray());
         }
-        public static readonly SimpleCurve StraightCurve;
-        public static readonly SimpleCurve BiCurve;
-        public static readonly SimpleCurve NonGayCurve;
-        public static readonly SimpleCurve GayCurve;
+        private static readonly SimpleCurve StraightCurve;
+        private static readonly SimpleCurve BiCurve;
+        private static readonly SimpleCurve NonGayCurve;
+        private static readonly SimpleCurve GayCurve;
         public static SexualOrientation EvaluateSexuality(Pawn pawn)
         {
             var traits = pawn.story?.traits;
