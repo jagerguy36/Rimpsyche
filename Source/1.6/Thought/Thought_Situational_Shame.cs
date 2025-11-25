@@ -18,18 +18,7 @@ namespace Maux36.RimPsyche
                         compPsyche.CleanShame();
                         return;
                     }
-                    var shame = compPsyche.activeShameThoughts;
-                    if (shame != null)
-                    {
-                        if (shame.TryGetValue(def, out int count))
-                        {
-                            shame[def] = count + 1;
-                        }
-                        else
-                        {
-                            shame[def] = 1;
-                        }
-                    }
+                    compPsyche.Notify_ShameThoughtBecameActive(def);
                 }
             }
         }
@@ -47,25 +36,7 @@ namespace Maux36.RimPsyche
                         compPsyche.CleanShame();
                         return;
                     }
-                    var shame = compPsyche.activeShameThoughts;
-                    if (shame != null)
-                    {
-                        if (shame.TryGetValue(def, out int count))
-                        {
-                            if (count > 1)
-                            {
-                                shame[def] = count - 1;
-                            }
-                            else
-                            {
-                                shame.Remove(def);
-                            }
-                        }
-                        else
-                        {
-                            compPsyche.RefreshShameThoughts();
-                        }
-                    }
+                    compPsyche.Notify_ShameThoughtBecameInactive(def);
                 }
             }
         }
