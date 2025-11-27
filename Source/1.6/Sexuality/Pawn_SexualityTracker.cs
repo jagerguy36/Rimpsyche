@@ -138,6 +138,7 @@ namespace Maux36.RimPsyche
             pawn = p;
             compPsyche = p.compPsyche();
         }
+        //Growth moment sexuality generation counts as generate = true
         public void Initialize(bool generate = false, bool allowGay = true)
         {
             float kinsey;
@@ -420,7 +421,11 @@ namespace Maux36.RimPsyche
             if (adjustmentDirty)
             {
                 adjustmentDirty = false;
-                float multiplier = SexualityHelper.AdjustAttraction(attraction) / Mathf.Max(mKinsey, 1f - mKinsey);
+                float multiplier = 0f;
+                if (pawn.ageTracker.AgeBiologicalYears >= Rimpsyche_Utility.GetMinAdultAge(pawn))
+                {
+                    multiplier = SexualityHelper.AdjustAttraction(attraction) / Mathf.Max(mKinsey, 1f - mKinsey);
+                }
                 mAttraction = multiplier * mKinsey;
                 fAttraction = multiplier * (1f - mKinsey);
             }
