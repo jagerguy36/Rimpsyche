@@ -222,11 +222,14 @@ namespace Maux36.RimPsyche
             mKinsey = psyche.mKinsey;
             attraction = psyche.attraction;
             sexDrive = psyche.sexDrive;
-            knownOrientation = new HashSet<int>(psyche.knownOrientation);
             //acquaintanceship = new Dictionary<int, float>(psyche.acquaintanceship);
             //relationship = new Dictionary<int, float>(psyche.relationship);
             _preference = new Dictionary<string, List<PrefEntry>>(psyche.preference);
             preferenceCacheDirty = true;
+            if (psyche.preserveMemory)
+            {
+                knownOrientation = new HashSet<int>(psyche.knownOrientation);
+            }
 
             //Clean sexuality trait. Pawn's traits null check already done with ShowOnUI()
             var traits = pawn.story.traits;

@@ -53,11 +53,11 @@ namespace Maux36.RimPsyche
             return psyche;
         }
 
-        public static void InjectPsycheData(Pawn pawn, PsycheData psyche)
+        public static void InjectPsycheData(Pawn pawn, PsycheData psyche, bool preserveMemory)
         {
             var compPsyche = pawn?.compPsyche();
             if (compPsyche == null) return;
-            compPsyche.InjectPsycheData(psyche);
+            compPsyche.InjectPsycheData(psyche, preserveMemory);
         }
     }
 }

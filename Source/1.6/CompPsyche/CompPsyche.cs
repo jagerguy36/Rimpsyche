@@ -206,14 +206,15 @@ namespace Maux36.RimPsyche
             //Initialize even when not null for save-game trait safety with Sexuality Module.
             sexuality.Initialize(generate, allowGay);
         }
-        public void InjectPsycheData(PsycheData psyche)
+        public void InjectPsycheData(PsycheData psyche, bool preserveMemory)
         {
+            psyche.preserveMemory = preserveMemory;
             personality ??= new Pawn_PersonalityTracker(parentPawn);
             personality.Initialize(psyche);
             interests ??= new Pawn_InterestTracker(parentPawn);
             interests.Initialize(psyche);
             sexuality ??= new Pawn_SexualityTracker(parentPawn);
-            sexuality.Initialize(false, true); //Sexuality Import Not yet implemented due to lack of sexuality module
+            sexuality.InjectData(psyche);
         }
 
         public void DirtyTraitCache()
