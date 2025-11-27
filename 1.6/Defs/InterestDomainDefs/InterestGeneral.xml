@@ -1100,7 +1100,7 @@
           <li>
             <!-- + :  Cherishing past friendships | - : Disinterest in or discomfort with dwelling on past friendships -->
             <name>memory_friends</name>
-            <label>memories of firends</label>
+            <label>memories of friends</label>
             <controversiality>0</controversiality>
             <allowChild>false</allowChild>
             <weights>
