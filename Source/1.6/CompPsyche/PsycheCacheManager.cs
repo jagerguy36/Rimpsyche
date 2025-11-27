@@ -42,6 +42,7 @@ namespace Maux36.RimPsyche
 
     public class RimPsycheWorldComp : WorldComponent
     {
+        public static PsycheData tempData = null;
         public RimPsycheWorldComp(World world) : base(world)
         {
         }

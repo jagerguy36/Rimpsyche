@@ -148,7 +148,15 @@ namespace Maux36.RimPsyche
             //Sexuality Module not loaded
             if (!Rimpsyche.SexualityModuleLoaded) return;
             //Already initialized before
-            if (orientationCategory != SexualOrientation.None && orientationCategory != SexualOrientation.Developing) return;
+            if (mKinsey >= 0f)
+            {
+                //Growth moment for pawn who's already assigned their sexuality
+                if (generate)
+                {
+                    AdjustSexualityTrait(attraction);
+                }
+                return;
+            }
             //Only Develop sexuality via generation sexuality request, not via initialization
             if (orientationCategory == SexualOrientation.Developing && !generate) return;
             var traits = pawn.story?.traits;

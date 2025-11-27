@@ -357,6 +357,21 @@ namespace Maux36.RimPsyche
             }
         }
 
+        [DebugAction("Pawns", actionType = DebugActionType.ToolMapForPawns, allowedGameStates = AllowedGameStates.PlayingOnMap, displayPriority = 1000)]
+        public static void CopyPawnPsyche(Pawn pawn)
+        {
+            RimPsycheWorldComp.tempData = PsycheDataUtil.GetPsycheData(pawn);
+            Log.Message($"RimPsyche copied {pawn.Name}'s Psyche.");
+        }
+
+        [DebugAction("Pawns", actionType = DebugActionType.ToolMapForPawns, allowedGameStates = AllowedGameStates.PlayingOnMap, displayPriority = 1000)]
+        public static void PastePawnPsyche(Pawn pawn)
+        {
+            var newPsyche = RimPsycheWorldComp.tempData;
+            PsycheDataUtil.InjectPsycheData(pawn, newPsyche, true);
+            Log.Message($"RimPsyche injected copied psyche to {pawn.Name}");
+        }
+
         public static float GetMinAdultAge(Pawn pawn)
         {
             return Mathf.Max(1f, pawn.ageTracker.AdultMinAge);

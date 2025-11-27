@@ -55,6 +55,7 @@ namespace Maux36.RimPsyche
 
         public static void InjectPsycheData(Pawn pawn, PsycheData psyche, bool preserveMemory)
         {
+            if(psyche == null) return;
             var compPsyche = pawn?.compPsyche();
             if (compPsyche == null) return;
             compPsyche.InjectPsycheData(psyche, preserveMemory);

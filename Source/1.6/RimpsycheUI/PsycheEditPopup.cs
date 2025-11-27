@@ -137,7 +137,7 @@ namespace Maux36.RimPsyche
                 DrawSexualityEditCard(rightTopRect, pawn, compPsyche);
             }
             if (showPreference) DrawPreferenceEditCard(rightBottomRect, pawn, compPsyche);
-            else DrawInterestEditCard(rightBottomRect, pawn, compPsyche);
+            else DrawInterestEditCard(rightBottomRect, pawn, compPsyche, showSexuality);
 
             if (compPsyche?.Enabled != true)
             {
@@ -263,7 +263,7 @@ namespace Maux36.RimPsyche
             Text.Font = oldFont;
         }
 
-        public static void DrawInterestEditCard(Rect rect, Pawn pawn, CompPsyche compPsyche)
+        public static void DrawInterestEditCard(Rect rect, Pawn pawn, CompPsyche compPsyche, bool showSexuality)
         {
             var psycheEnabled = compPsyche?.Enabled == true;
             TextAnchor oldAnchor = Text.Anchor;
@@ -294,7 +294,7 @@ namespace Maux36.RimPsyche
             }
 
             //Mode switcher
-            if (Rimpsyche.SexualityModuleLoaded)
+            if (Rimpsyche.SexualityModuleLoaded && showSexuality)
             {
                 float viewIconX = (titleRect.xMax - innerPadding - iconSize);
                 Rect viewIconRect = new Rect(viewIconX, titleRect.y + (titleRect.height - iconSize) / 2f, iconSize, iconSize);

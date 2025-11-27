@@ -218,7 +218,7 @@ namespace Maux36.RimPsyche
                 {
                     DrawSexaulityBox(sexualityRect, compPsyche, pawn);
                 }
-                DrawInterestBox(interestRect, compPsyche, pawn);
+                DrawInterestBox(interestRect, compPsyche, pawn, showSexuality);
             }
 
             if (psycheEnabled != true)
@@ -756,7 +756,7 @@ namespace Maux36.RimPsyche
             Text.Font = oldFont;
         }
 
-        public static void DrawInterestBox(Rect interestRect, CompPsyche compPsyche, Pawn pawn)
+        public static void DrawInterestBox(Rect interestRect, CompPsyche compPsyche, Pawn pawn, bool showSexuality)
         {
             TextAnchor oldAnchor = Text.Anchor;
             GameFont oldFont = Text.Font;
@@ -780,12 +780,12 @@ namespace Maux36.RimPsyche
                 Widgets.Label(titleRect, "RPC_Interest".Translate());
                 titleTextSize = Text.CalcSize("RPC_Interest".Translate());
             }
-            if (Rimpsyche.SexualityModuleLoaded)
+            if (Rimpsyche.SexualityModuleLoaded && showSexuality)
             {
                 // Icon on the right
                 float iconSize = 24f;
                 // float viewIconX = (headerRect.width / 2f) + (titleTextSize.x / 2f) + 8f;
-                float viewIconX = (headerRect.width - innerPadding - iconSize);
+                float viewIconX = (headerRect.width - 2f * innerPadding - iconSize);
                 Rect viewIconRect = new Rect(viewIconX, titleRect.y + (titleRect.height - iconSize) / 2f, iconSize, iconSize);
 
                 // Draw & handle click
