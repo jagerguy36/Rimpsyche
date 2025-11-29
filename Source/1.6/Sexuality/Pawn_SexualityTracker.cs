@@ -19,6 +19,9 @@ namespace Maux36.RimPsyche
         private readonly Pawn pawn;
         private readonly CompPsyche compPsyche;
 
+        //Semi constant
+        public readonly float minRelAttraction = 0.5f;
+
         //kinsey
         //0 [0] 1 [0.2] 2 [0.4] 3 [0.6] 4 [0.8] 5 [1] 6
         public bool shouldValidate = true;
@@ -423,8 +426,17 @@ namespace Maux36.RimPsyche
             }
         }
 
+        public float GetAdjustedAttraction(Pawn target)
+        {
+            var genderAttraction = GetAdjustedAttractionToGender(target.gender);
+            if (genderAttraction < minRelAttraction)
+            {
+                if (relationship.ContainsKey(target.thingIDNumber)) return minRelAttraction;
+            }
+            return genderAttraction;
+        }
 
-        public float GetAdjustedAttraction(Gender gender)
+        public float GetAdjustedAttractionToGender(Gender gender)
         {
             if (adjustmentDirty)
             {
@@ -450,9 +462,9 @@ namespace Maux36.RimPsyche
             }
         }
 
-        public bool CanFeelAttractionToPawnGender(Pawn pawn)
+        public bool CanFeelAttractionToGender(Gender gender)
         {
-            if (GetAdjustedAttraction(pawn.gender) > 0f) return true;
+            if (GetAdjustedAttractionToGender(gender) > 0f) return true;
             return false;
         }
 

@@ -715,7 +715,7 @@ namespace Maux36.RimPsyche
             Widgets.Label(maleLabelRect, "RPC_AttractionMale".Translate() + ":");
             Widgets.DrawBoxSolid(maleBarRect, barBackgroundColor);
             Widgets.DrawBoxSolid(maleBarSurplusRect, barSurplusBackgroundColor);
-            float mAttraction = compPsyche.Sexuality.GetAdjustedAttraction(Gender.Male);
+            float mAttraction = compPsyche.Sexuality.GetAdjustedAttractionToGender(Gender.Male);
             Rect mValueRect = new Rect(maleBarRect.x, maleBarRect.y, mAttraction * barWidth, sexualityBarHeight);
             Color mColor;
             if (mAttraction <= 1) mColor = Color.Lerp(Color.yellow, Color.green, mAttraction);
@@ -732,7 +732,7 @@ namespace Maux36.RimPsyche
             Widgets.Label(femaleLabelRect, "RPC_AttractionFemale".Translate() + ":");
             Widgets.DrawBoxSolid(femaleBarRect, barBackgroundColor);
             Widgets.DrawBoxSolid(femaleBarSurplusRect, barSurplusBackgroundColor);
-            float fAttraction = compPsyche.Sexuality.GetAdjustedAttraction(Gender.Female);
+            float fAttraction = compPsyche.Sexuality.GetAdjustedAttractionToGender(Gender.Female);
             Rect fValueRect = new Rect(femaleBarRect.x, femaleBarRect.y, fAttraction * barWidth, sexualityBarHeight);
             Color fColor;
             if (fAttraction <= 1) fColor = Color.Lerp(Color.yellow, Color.green, fAttraction);
