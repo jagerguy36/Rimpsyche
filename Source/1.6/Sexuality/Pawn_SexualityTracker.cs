@@ -35,8 +35,8 @@ namespace Maux36.RimPsyche
 
         //Memory
         public HashSet<int> knownOrientation = new();
+        public Dictionary<int, float> relationship = new();
         //public Dictionary<int, float> acquaintanceship = new();
-        //public Dictionary<int, float> relationship = new();
 
         //Cache
         private readonly Dictionary<int, PawnRelationDef> _loversCache = new();
@@ -231,8 +231,8 @@ namespace Maux36.RimPsyche
             mKinsey = psyche.mKinsey;
             attraction = psyche.attraction;
             sexDrive = psyche.sexDrive;
+            relationship = new Dictionary<int, float>(psyche.relationship);
             //acquaintanceship = new Dictionary<int, float>(psyche.acquaintanceship);
-            //relationship = new Dictionary<int, float>(psyche.relationship);
             _preference = new Dictionary<string, List<PrefEntry>>(psyche.preference);
             preferenceCacheDirty = true;
             if (psyche.preserveMemory)
@@ -450,6 +450,12 @@ namespace Maux36.RimPsyche
             }
         }
 
+        public bool CanFeelAttractionToPawnGender(Pawn pawn)
+        {
+            if (GetAdjustedAttraction(pawn.gender) > 0f) return true;
+            return false;
+        }
+
         public void ExposeData()
         {
             Scribe_Values.Look(ref orientationCategory, "category", SexualOrientation.None);
@@ -457,8 +463,8 @@ namespace Maux36.RimPsyche
             Scribe_Values.Look(ref attraction, "attraction", 0f);
             Scribe_Values.Look(ref sexDrive, "sexDrive", 0f);
             Scribe_Collections.Look(ref knownOrientation, "knownOrientation", LookMode.Value);
+            Scribe_Collections.Look(ref relationship, "relationship", LookMode.Value, LookMode.Value);
             //Scribe_Collections.Look(ref acquaintanceship, "acquaintanceship", LookMode.Value, LookMode.Value);
-            //Scribe_Collections.Look(ref relationship, "relationship", LookMode.Value, LookMode.Value);
             Scribe_Collections.Look(ref _preference, "preference", LookMode.Value, LookMode.Deep);
             //When loading: check sexuality is loaded. Check if the _preference is not null. Check it has PsychePreference inside.
             //If it does, iterate its content and fix intKey to become its short hash.
