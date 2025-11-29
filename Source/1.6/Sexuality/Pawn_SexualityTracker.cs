@@ -38,6 +38,11 @@ namespace Maux36.RimPsyche
 
         //Memory
         public HashSet<int> knownOrientation = new();
+        /// <summary>
+        /// The romantic feeling this pawn has towards the other.
+        /// Increases everytime the pawns do something romantic.
+        /// The keys can be used to determine whether this pawn has ever found the other pawn attractive enough to consider for a relationship.
+        /// </summary>
         public Dictionary<int, float> relationship = new();
         //public Dictionary<int, float> acquaintanceship = new();
 
@@ -65,7 +70,6 @@ namespace Maux36.RimPsyche
         {
             loversCacheDirty = true;
         }
-        //See if checking the mood instead of opinion would be cheaper
         public float GetLatestRebuffImpact(Pawn target)
         {
             Thought_MemorySocial latestThought = null;
@@ -134,6 +138,26 @@ namespace Maux36.RimPsyche
             _preference[def.defName] = value;
             if (preferenceCacheDirty) RefreshPreferenceCache();
             else Preference[def.shortHash]= value;
+        }
+
+        public bool KnowsOrientationOf(Pawn target)
+        {
+            return knownOrientation.Contains(target.thingIDNumber);
+        }
+        public void LearnOrientationOf(Pawn target)
+        {
+            knownOrientation.Add(target.thingIDNumber);
+        }
+
+        public void IncrementRelationshipWith(Pawn target, float amount)
+        {
+            relationship.TryGetValue(target.thingIDNumber, out var current);
+            relationship[target.thingIDNumber] = current + amount;
+        }
+        public float GetRelationshipWith(Pawn target)
+        {
+            relationship.TryGetValue(target.thingIDNumber, out var current);
+            return current;
         }
 
         public Pawn_SexualityTracker(Pawn p)
@@ -425,7 +449,11 @@ namespace Maux36.RimPsyche
                     break;
             }
         }
-
+        /// <summary>
+        /// Get adjusted attraction that takes into account the target pawn gender and whether the observer has ever found the pawn attractive.
+        /// </summary>
+        /// <param name="target"></param>
+        /// <returns></returns>
         public float GetAdjustedAttraction(Pawn target)
         {
             var genderAttraction = GetAdjustedAttractionToGender(target.gender);
@@ -449,17 +477,13 @@ namespace Maux36.RimPsyche
                 mAttraction = multiplier * mKinsey;
                 fAttraction = multiplier * (1f - mKinsey);
             }
-            switch (gender)
+            return gender switch
             {
-                case Gender.Male:
-                    return mAttraction;
-                case Gender.Female:
-                    return fAttraction;
-                case Gender.None:
-                    return 0f;
-                default:
-                    return 0f;
-            }
+                Gender.Male => mAttraction,
+                Gender.Female => fAttraction,
+                Gender.None => 0f,
+                _ => 0f,
+            };
         }
 
         public bool CanFeelAttractionToGender(Gender gender)
