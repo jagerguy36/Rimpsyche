@@ -509,31 +509,36 @@ namespace Maux36.RimPsyche
             Scribe_Values.Look(ref sexDrive, "sexDrive", 0f);
             Scribe_Collections.Look(ref knownOrientation, "knownOrientation", LookMode.Value);
             Scribe_Collections.Look(ref relationship, "relationship", LookMode.Value, LookMode.Value);
-            //Scribe_Collections.Look(ref acquaintanceship, "acquaintanceship", LookMode.Value, LookMode.Value);
             Scribe_Collections.Look(ref _preference, "preference", LookMode.Value, LookMode.Deep);
-            //When loading: check sexuality is loaded. Check if the _preference is not null. Check it has PsychePreference inside.
-            //If it does, iterate its content and fix intKey to become its short hash.
-            if (Scribe.mode == LoadSaveMode.PostLoadInit && Rimpsyche.SexualityModuleLoaded)
+            //Scribe_Collections.Look(ref acquaintanceship, "acquaintanceship", LookMode.Value, LookMode.Value);
+
+            //Post load operations
+            if (Scribe.mode == LoadSaveMode.PostLoadInit)
             {
-                if (_preference?.TryGetValue("Rimpsyche_PsychePreference", out var psychePreference) == true)
+                //Reset intKey for psychePreference
+                if (Rimpsyche.SexualityModuleLoaded)
                 {
-                    for (int i = 0; i < psychePreference.Count; i++)
+                    if (_preference?.TryGetValue("Rimpsyche_PsychePreference", out var psychePreference) == true)
                     {
-                        PersonalityDef p = DefDatabase<PersonalityDef>.GetNamed(psychePreference[i].stringKey, false);
-                        if (p == null)
+                        for (int i = 0; i < psychePreference.Count; i++)
                         {
-                            Log.Warning($"Psyche Preference unable to load Personality def {psychePreference[i].stringKey}");
-                            //Logic to fix it.
+                            PersonalityDef p = DefDatabase<PersonalityDef>.GetNamed(psychePreference[i].stringKey, false);
+                            if (p == null)
+                            {
+                                Log.Warning($"Psyche Preference unable to load Personality def {psychePreference[i].stringKey}");
+                                //Logic to fix it.
+                            }
+                            else psychePreference[i].intKey = p.shortHash;
                         }
-                        else psychePreference[i].intKey = p.shortHash;
                     }
                 }
-            }
-            if(Scribe.mode == LoadSaveMode.PostLoadInit && VersionManager.shouldSetupSexualityVariable)
-            {
-                knownOrientation ??= new();
-                relationship ??= new();
-                _preference ??= new();
+                //Fix null memories
+                if (VersionManager.shouldSetupSexualityVariable)
+                {
+                    knownOrientation ??= new();
+                    relationship ??= new();
+                    _preference ??= new();
+                }
             }
         }
     }

@@ -82,13 +82,35 @@ namespace Maux36.RimPsyche
             Scribe_Values.Look(ref sexDrive, "sexDrive", 0f);
             Scribe_Collections.Look(ref knownOrientation, "knownOrientation", LookMode.Value);
             Scribe_Collections.Look(ref relationship, "relationship", LookMode.Value, LookMode.Value);
-            //Scribe_Collections.Look(ref acquaintanceship, "acquaintanceship", LookMode.Value, LookMode.Value);
             Scribe_Collections.Look(ref preference, "preference", LookMode.Value, LookMode.Deep);
-            if (Scribe.mode == LoadSaveMode.PostLoadInit && VersionManager.shouldSetupSexualityVariable)
+            //Scribe_Collections.Look(ref acquaintanceship, "acquaintanceship", LookMode.Value, LookMode.Value);
+
+            //Post load operation
+            if(Scribe.mode == LoadSaveMode.PostLoadInit)
             {
-                knownOrientation ??= new();
-                relationship ??= new();
-                preference ??= new();
+                //Reset intKey for psychePreference
+                if (Rimpsyche.SexualityModuleLoaded)
+                {
+                    if (preference?.TryGetValue("Rimpsyche_PsychePreference", out var psychePreference) == true)
+                    {
+                        for (int i = 0; i < psychePreference.Count; i++)
+                        {
+                            PersonalityDef p = DefDatabase<PersonalityDef>.GetNamed(psychePreference[i].stringKey, false);
+                            if (p == null)
+                            {
+                                Log.Warning($"Psyche Preference unable to load Personality def {psychePreference[i].stringKey}");
+                                //Logic to fix it.
+                            }
+                            else psychePreference[i].intKey = p.shortHash;
+                        }
+                    }
+                }
+                if (VersionManager.shouldSetupSexualityVariable)
+                {
+                    knownOrientation ??= new();
+                    relationship ??= new();
+                    preference ??= new();
+                }
             }
         }
     }
