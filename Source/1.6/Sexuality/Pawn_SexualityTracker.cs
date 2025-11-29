@@ -1,5 +1,6 @@
 ﻿using RimWorld;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Verse;
 
@@ -494,6 +495,14 @@ namespace Maux36.RimPsyche
 
         public void ExposeData()
         {
+            if (Scribe.mode == LoadSaveMode.Saving)
+            {
+                knownOrientation.RemoveWhere(id => VersionManager.DiscardedPawnThingIDnumber.Contains(id));
+                foreach (int id in relationship.Keys.ToList())
+                {
+                    if (VersionManager.DiscardedPawnThingIDnumber.Contains(id)) relationship.Remove(id);
+                }
+            }
             Scribe_Values.Look(ref orientationCategory, "category", SexualOrientation.None);
             Scribe_Values.Look(ref mKinsey, "mKinsey", -1f);
             Scribe_Values.Look(ref attraction, "attraction", 0f);
@@ -519,6 +528,12 @@ namespace Maux36.RimPsyche
                         else psychePreference[i].intKey = p.shortHash;
                     }
                 }
+            }
+            if(Scribe.mode == LoadSaveMode.PostLoadInit && VersionManager.shouldSetupSexualityVariable)
+            {
+                knownOrientation ??= new();
+                relationship ??= new();
+                _preference ??= new();
             }
         }
     }

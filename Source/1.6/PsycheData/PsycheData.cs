@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Verse;
 
 namespace Maux36.RimPsyche
@@ -44,6 +45,15 @@ namespace Maux36.RimPsyche
 
         public void ExposeData()
         {
+
+            if (Scribe.mode == LoadSaveMode.Saving)
+            {
+                knownOrientation.RemoveWhere(id => VersionManager.DiscardedPawnThingIDnumber.Contains(id));
+                foreach (int id in relationship.Keys.ToList())
+                {
+                    if (VersionManager.DiscardedPawnThingIDnumber.Contains(id)) relationship.Remove(id);
+                }
+            }
             Scribe_Values.Look(ref imagination, "imagination", 0, false);
             Scribe_Values.Look(ref intellect, "intellect", 0, false);
             Scribe_Values.Look(ref curiosity, "curiosity", 0, false);
@@ -74,6 +84,12 @@ namespace Maux36.RimPsyche
             Scribe_Collections.Look(ref relationship, "relationship", LookMode.Value, LookMode.Value);
             //Scribe_Collections.Look(ref acquaintanceship, "acquaintanceship", LookMode.Value, LookMode.Value);
             Scribe_Collections.Look(ref preference, "preference", LookMode.Value, LookMode.Deep);
+            if (Scribe.mode == LoadSaveMode.PostLoadInit && VersionManager.shouldSetupSexualityVariable)
+            {
+                knownOrientation ??= new();
+                relationship ??= new();
+                preference ??= new();
+            }
         }
     }
 }
