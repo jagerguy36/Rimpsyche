@@ -9,7 +9,7 @@ namespace Maux36.RimPsyche
     public static class PsycheCacheManager
     {
         public static readonly Dictionary<Pawn, CompPsyche> CompPsycheCache = new Dictionary<Pawn, CompPsyche>();
-        public static HashSet<string> TrackingDef = new HashSet<string> { };
+        public static HashSet<int> TrackingDefHash = new HashSet<int> { };
         public static CompPsyche GetCompPsycheCached(Pawn pawn)
         {
             if (pawn == null) return null;
@@ -17,7 +17,7 @@ namespace Maux36.RimPsyche
             {
                 return comp;
             }
-            if (!TrackingDef.Contains(pawn.def?.defName))
+            if (!TrackingDefHash.Contains(pawn.def.shortHash))
             {
                 return null;
             }
