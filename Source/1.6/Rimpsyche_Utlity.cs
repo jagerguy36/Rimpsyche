@@ -376,6 +376,37 @@ namespace Maux36.RimPsyche
         {
             return Mathf.Max(1f, pawn.ageTracker.AdultMinAge);
         }
-
+        [DebugAction("Pawns", null, false, false, false, false, false, 0, false, actionType = DebugActionType.ToolMapForPawns, allowedGameStates = AllowedGameStates.PlayingOnMap, displayPriority = 1000)]
+        private static void ShowAllInteractionChances(Pawn pawn)
+        {
+            DebugTools.curTool = new DebugTool("Select target...", delegate
+            {
+                Pawn target = PawnAt(UI.MouseCell());
+                if (target == null)
+                {
+                    Log.Message($"target is null");
+                    return;
+                }
+                List<InteractionDef> allDefsListForReading = DefDatabase<InteractionDef>.AllDefsListForReading;
+                Log.Message($"{pawn.Name} -> {target.Name}");
+                foreach (InteractionDef def in allDefsListForReading)
+                {
+                    var name = def.defName;
+                    var weight = def.Worker.RandomSelectionWeight(pawn, target);
+                    Log.Message($"{name} | {weight}");
+                }
+            });
+            static Pawn PawnAt(IntVec3 c)
+            {
+                foreach (Thing item in Find.CurrentMap.thingGrid.ThingsAt(c))
+                {
+                    if (item is Pawn result)
+                    {
+                        return result;
+                    }
+                }
+                return null;
+            }
+        }
     }
 }
