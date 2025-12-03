@@ -15,6 +15,7 @@ namespace Maux36.RimPsyche
                 if (compPsyche != null)
                 {
                     compPsyche.Personality.DirtyGeneCache();
+                    compPsyche.Sexuality.DirtyGeneCache();
                 }
             }
         }

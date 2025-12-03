@@ -17,8 +17,8 @@ namespace Maux36.RimPsyche
         };
         private static readonly float asexualCutoff = 0.05f; //Adjusted = 0.142...
 
-        private readonly Pawn pawn;
-        private readonly CompPsyche compPsyche;
+        public readonly Pawn pawn;
+        public readonly CompPsyche compPsyche;
 
         //Semi constant
         public readonly float minRelAttraction = 0.5f;
@@ -36,6 +36,9 @@ namespace Maux36.RimPsyche
         private bool adjustmentDirty = true;
         private float mAttraction = 0f;
         private float fAttraction = 0f;
+
+        //For Androids or Other non-sexual beings
+        public bool Suppressed = false;
 
         //Memory
         public HashSet<int> knownOrientation = new();
@@ -337,6 +340,9 @@ namespace Maux36.RimPsyche
         {
             shouldValidate = true;
         }
+        public void DirtyGeneCache()
+        {
+        }
         public int GetKinseyReport()
         {
             float kinsey;
@@ -365,7 +371,6 @@ namespace Maux36.RimPsyche
                     return "RPC_Asexual".Translate();
                 default:
                     return "RPC_SexualityUndefined".Translate();
-
             }
         }
         public bool ShowOnUI()
