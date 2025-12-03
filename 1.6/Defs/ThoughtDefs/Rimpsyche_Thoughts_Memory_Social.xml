@@ -33,6 +33,9 @@
     <stackedEffectMultiplier>1</stackedEffectMultiplier>
     <developmentalStageFilter>Baby, Child, Adult</developmentalStageFilter>
     <socialTargetDevelopmentalStageFilter>Baby, Child, Adult</socialTargetDevelopmentalStageFilter>
+    <nullifyingTraits>
+      <li>Psychopath</li>
+    </nullifyingTraits>
     <stages>
       <li>
         <label>conversed</label>
@@ -50,6 +53,9 @@
     <stackedEffectMultiplier>0.9</stackedEffectMultiplier>
     <developmentalStageFilter>Baby, Child, Adult</developmentalStageFilter>
     <socialTargetDevelopmentalStageFilter>Baby, Child, Adult</socialTargetDevelopmentalStageFilter>
+    <nullifyingTraits>
+      <li>Psychopath</li>
+    </nullifyingTraits>
     <stages>
       <li>
         <label>ignored</label>
