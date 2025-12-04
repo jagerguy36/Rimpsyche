@@ -150,9 +150,9 @@ namespace Maux36.RimPsyche
             else return SexualOrientation.Heterosexual;
         }
 
-        public static float AdjustAttraction(float rawAttraction)
+        public static float AdjustRawValues(float rawValue)
         {
-            return 3f - 3f / (rawAttraction + 1f);
+            return 3f - 3f / (rawValue + 1f);
         }
 
         //RNG

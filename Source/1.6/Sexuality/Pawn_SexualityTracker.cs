@@ -30,9 +30,29 @@ namespace Maux36.RimPsyche
         private float mKinsey = -1f;
         public float MKinsey => mKinsey;
         private float attraction = 0f;
-        public float Attraction => attraction;
+        public float Attraction
+        {
+            get
+            {
+                if (orientationCategory == SexualOrientation.None || orientationCategory == SexualOrientation.Developing)
+                {
+                    return 0f;
+                }
+                return attraction;
+            }
+        }
         private float sexDrive = 0f;
-        public float SexDrive => sexDrive;
+        public float SexDrive
+        {
+            get
+            {
+                if (orientationCategory == SexualOrientation.None || orientationCategory == SexualOrientation.Developing)
+                {
+                    return 0f;
+                }
+                return sexDrive;
+            }
+        }
         private bool adjustmentDirty = true;
         private float mAttraction = 0f;
         private float fAttraction = 0f;
@@ -478,7 +498,7 @@ namespace Maux36.RimPsyche
                 float multiplier = 0f;
                 if (pawn.ageTracker.AgeBiologicalYears >= Rimpsyche_Utility.GetMinAdultAge(pawn))
                 {
-                    multiplier = SexualityHelper.AdjustAttraction(attraction) / Mathf.Max(mKinsey, 1f - mKinsey);
+                    multiplier = SexualityHelper.AdjustRawValues(Attraction) / Mathf.Max(mKinsey, 1f - mKinsey);
                 }
                 mAttraction = multiplier * mKinsey;
                 fAttraction = multiplier * (1f - mKinsey);
@@ -496,6 +516,11 @@ namespace Maux36.RimPsyche
         {
             if (GetAdjustedAttractionToGender(gender) > 0f) return true;
             return false;
+        }
+
+        public float GetAdjustedSexdrive()
+        {
+            return SexualityHelper.AdjustRawValues(SexDrive);
         }
 
         public void ExposeData()

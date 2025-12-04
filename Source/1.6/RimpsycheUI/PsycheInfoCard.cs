@@ -741,9 +741,20 @@ namespace Maux36.RimPsyche
             Widgets.DrawLineVertical(femaleBarRect.xMax, femaleBarRect.y - 1, femaleBarRect.height + 2);
 
             y += sexualityLineHeight;
+            Rect sexDriveLabelRect = new Rect(0f, y, sexualityLabelWidth, sexualityLineHeight);
+            Rect sexDriveRect = new Rect(sexualityLabelWidth + sexualityBarMargin, y + (sexualityLineHeight - sexualityBarHeight) / 2f, barWidth, sexualityBarHeight);
+            Rect sexDriveBarSurplusRect = new Rect(sexDriveRect.xMax, sexDriveRect.y, barWidth * 0.5f, sexualityBarHeight);
+            Widgets.Label(sexDriveLabelRect, "RPC_SexDrive".Translate() + ":");
+            Widgets.DrawBoxSolid(sexDriveRect, barBackgroundColor);
+            Widgets.DrawBoxSolid(sexDriveBarSurplusRect, barSurplusBackgroundColor);
+            float sexDrive = compPsyche.Sexuality.GetAdjustedSexdrive();
+            Rect sdValueRect = new Rect(sexDriveRect.x, sexDriveRect.y, sexDrive * barWidth, sexualityBarHeight);
+            Color sdColor;
+            if (sexDrive <= 1) sdColor = Color.Lerp(Color.yellow, Color.green, sexDrive);
+            else sdColor = Color.Lerp(Color.green, Color.cyan, -1.25f + 1.5f * sexDrive);
+            Widgets.DrawBoxSolid(sdValueRect, sdColor);
+            Widgets.DrawLineVertical(sexDriveRect.xMax, sexDriveRect.y - 1, sexDriveRect.height + 2);
 
-            Rect sexDriveRect = new Rect(0f, y, sexualityRect.width, sexualityLineHeight);
-            Widgets.Label(sexDriveRect, "RPC_SexDrive".Translate() + ": " + (2f * compPsyche.Sexuality.SexDrive).ToString("F2"));
             y += sexualityLineHeight;
 
             GUI.EndGroup();
