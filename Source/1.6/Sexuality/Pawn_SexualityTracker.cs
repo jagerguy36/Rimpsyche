@@ -21,7 +21,7 @@ namespace Maux36.RimPsyche
         public readonly CompPsyche compPsyche;
 
         //Semi constant
-        public readonly float minRelAttraction = 0.5f;
+        public readonly float minRelAttraction = RimpsycheSettings.minRelAttraction;
 
         //kinsey
         //0 [0] 1 [0.2] 2 [0.4] 3 [0.6] 4 [0.8] 5 [1] 6

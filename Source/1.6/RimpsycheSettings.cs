@@ -12,6 +12,7 @@ namespace Maux36.RimPsyche
         public static readonly List<int> DefaultDistribution = [62, 11, 10, 6, 5, 3, 3];
         public static List<int> KinseyDistributionSetting = DefaultDistribution;
         public static bool romanceAttemptGenderDiff = true;
+        public static float minRelAttraction = 0.7f;
 
         public override void ExposeData()
         {
@@ -26,6 +27,7 @@ namespace Maux36.RimPsyche
                 KinseyDistributionSetting = DefaultDistribution;
             }
             Scribe_Values.Look(ref romanceAttemptGenderDiff, "romanceAttemptGenderDiff", true);
+            Scribe_Values.Look(ref minRelAttraction, "minRelAttraction", 0.7f);
 
         }
     }
