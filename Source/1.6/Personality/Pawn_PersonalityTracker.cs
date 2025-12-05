@@ -162,7 +162,7 @@ namespace Maux36.RimPsyche
             }
             else
             {
-                return (1f - (1/mult)) * p + 1f;
+                return (1f - (1f/mult)) * p + 1f;
             }
         }
         public float Evaluate(RimpsycheFormula rimpsycheMultiplier)
