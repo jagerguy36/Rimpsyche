@@ -416,12 +416,12 @@ namespace Maux36.RimPsyche
         {
             if (Rimpsyche.SexualityModuleLoaded)
             {
-                if (!Suppressed && orientationCategory != SexualOrientation.None && orientationCategory != SexualOrientation.Developing)
+                if (Suppressed || orientationCategory == SexualOrientation.None || orientationCategory == SexualOrientation.Developing)
                 {
-                    return true;
+                    return false;
                 }
             }
-            return false;
+            return true;
         }
         public SexualOrientation GetOrientationCategory()
         {
