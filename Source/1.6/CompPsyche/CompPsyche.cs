@@ -226,7 +226,7 @@ namespace Maux36.RimPsyche
         {
             float adultHoodAge = Rimpsyche_Utility.GetMinAdultAge(parentPawn);
             float pawnTrust = parentPawn.compPsyche().personality.GetPersonality(PersonalityDefOf.Rimpsyche_Trust); //-1~1
-            float pawnAge = (float)parentPawn.ageTracker.AgeBiologicalYears; //0~100
+            float pawnAge = Rimpsyche_Utility.GetPawnAge(parentPawn); //0~100
             float score = resultOffset; //0~20
             float ageFactor = 8f * adultHoodAge / (pawnAge + 0.6f * adultHoodAge) - 5f; //8.3333 ~ -5
             float scoreBase = Mathf.Max(0f, score - 5f + pawnTrust * 2f + ageFactor);

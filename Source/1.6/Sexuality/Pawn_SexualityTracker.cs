@@ -58,7 +58,25 @@ namespace Maux36.RimPsyche
         private float fAttraction = 0f;
 
         //For Androids or Other non-sexual beings
-        public bool Suppressed = false;
+        private bool shouldCheckSuppressed = true;
+        private bool SuppressedInternal = false;
+        public bool Suppressed
+        {
+            get
+            {
+                if (shouldCheckSuppressed)
+                {
+                    SuppressedInternal = CheckSexualitySuppressed();
+                    adjustmentDirty = true;
+                    shouldCheckSuppressed = false;
+                }
+                return SuppressedInternal;
+            }
+        }
+        private bool CheckSexualitySuppressed()
+        {
+            return false;
+        }
 
         //Memory
         public HashSet<int> knownOrientation = new();
@@ -190,7 +208,7 @@ namespace Maux36.RimPsyche
             compPsyche = p.compPsyche();
         }
         //Growth moment sexuality generation counts as generate = true
-        public void Initialize(bool generate = false, bool allowGay = true)
+        public void Initialize(bool generate = false, bool allowGay = true, bool forceAdult = false)
         {
             float kinsey;
             shouldValidate = false;
@@ -218,7 +236,7 @@ namespace Maux36.RimPsyche
             //From here on: SexualOrientation.None || Sexuality generation request
 
             //Assign Developing to non-adults
-            if (pawn.ageTracker.AgeBiologicalYears < Rimpsyche_Utility.GetMinAdultAge(pawn))
+            if (!forceAdult && Rimpsyche_Utility.GetPawnAge(pawn) < Rimpsyche_Utility.GetMinAdultAge(pawn))
             {
                 orientationCategory = SexualOrientation.Developing;
                 return;
@@ -360,8 +378,9 @@ namespace Maux36.RimPsyche
         {
             shouldValidate = true;
         }
-        public void DirtyGeneCache()
+        public void DirtySuppressedCheck()
         {
+            shouldCheckSuppressed = true;
         }
         public int GetKinseyReport()
         {
@@ -397,7 +416,7 @@ namespace Maux36.RimPsyche
         {
             if (Rimpsyche.SexualityModuleLoaded)
             {
-                if (orientationCategory != SexualOrientation.None && orientationCategory != SexualOrientation.Developing)
+                if (!Suppressed && orientationCategory != SexualOrientation.None && orientationCategory != SexualOrientation.Developing)
                 {
                     return true;
                 }
@@ -483,7 +502,7 @@ namespace Maux36.RimPsyche
         public float GetAdjustedAttraction(Pawn target)
         {
             var genderAttraction = GetAdjustedAttractionToGender(target.gender);
-            if (genderAttraction < minRelAttraction)
+            if (genderAttraction < minRelAttraction && !Suppressed)
             {
                 if (relationship.ContainsKey(target.thingIDNumber)) return minRelAttraction;
             }
@@ -495,13 +514,17 @@ namespace Maux36.RimPsyche
             if (adjustmentDirty)
             {
                 adjustmentDirty = false;
-                float multiplier = 0f;
-                if (pawn.ageTracker.AgeBiologicalYears >= Rimpsyche_Utility.GetMinAdultAge(pawn))
+                if (!Suppressed && Rimpsyche_Utility.GetPawnAge(pawn) >= Rimpsyche_Utility.GetMinAdultAge(pawn))
                 {
-                    multiplier = SexualityHelper.AdjustRawValues(Attraction) / Mathf.Max(mKinsey, 1f - mKinsey);
+                    float multiplier = SexualityHelper.AdjustRawValues(Attraction) / Mathf.Max(mKinsey, 1f - mKinsey);
+                    mAttraction = multiplier * mKinsey;
+                    fAttraction = multiplier * (1f - mKinsey);
                 }
-                mAttraction = multiplier * mKinsey;
-                fAttraction = multiplier * (1f - mKinsey);
+                else
+                {
+                    mAttraction = 0f;
+                    fAttraction = 0f;
+                }
             }
             return gender switch
             {
@@ -520,7 +543,8 @@ namespace Maux36.RimPsyche
 
         public float GetAdjustedSexdrive()
         {
-            return Mathf.Max(SexualityHelper.AdjustRawValues(SexDrive), 0.05f);
+            if (Suppressed) return 0f;
+            return SexualityHelper.AdjustRawValues(SexDrive);
         }
 
         public void ExposeData()

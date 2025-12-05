@@ -86,6 +86,15 @@ namespace Maux36.RimPsyche
             return Mathf.Lerp(-1, 1, Mathf.InverseLerp(sourceMin, sourceMax, value));
         }
 
+        public static float GetMinAdultAge(Pawn pawn)
+        {
+            return Mathf.Max(1f, pawn.ageTracker.AdultMinAge);
+        }
+        public static float GetPawnAge(Pawn pawn)
+        {
+            return pawn.ageTracker.AgeBiologicalYearsFloat;
+        }
+
         public static bool IsGoodPositionForInteraction(IntVec3 cell, IntVec3 recipientCell, Map map)
         {
             if (cell.InHorDistOf(recipientCell, 12f)) return GenSight.LineOfSight(cell, recipientCell, map, skipFirstCell: true);
@@ -174,7 +183,7 @@ namespace Maux36.RimPsyche
                     }
                 }
             }
-            int num2 = Mathf.Abs(startCand.ageTracker.AgeBiologicalYears - other.ageTracker.AgeBiologicalYears);
+            int num2 = Mathf.Abs((int)GetPawnAge(startCand) - (int)GetPawnAge(other));
             if (num2 > 10)
             {
                 if (num2 > 50)
@@ -372,12 +381,8 @@ namespace Maux36.RimPsyche
             Log.Message($"RimPsyche injected copied psyche to {pawn.Name}");
         }
 
-        public static float GetMinAdultAge(Pawn pawn)
-        {
-            return Mathf.Max(1f, pawn.ageTracker.AdultMinAge);
-        }
         [DebugAction("Pawns", null, false, false, false, false, false, 0, false, actionType = DebugActionType.ToolMapForPawns, allowedGameStates = AllowedGameStates.PlayingOnMap, displayPriority = 1000)]
-        private static void ShowAllInteractionChances(Pawn pawn)
+        public static void ShowAllInteractionChances(Pawn pawn)
         {
             DebugTools.curTool = new DebugTool("Select target...", delegate
             {

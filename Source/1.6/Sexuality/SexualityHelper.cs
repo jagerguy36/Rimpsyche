@@ -7,8 +7,8 @@ namespace Maux36.RimPsyche
 {
     public enum SexualOrientation : byte
     {
-        None,
-        Developing,
+        None, //Not initialized
+        Developing, //Pawn age less than adult age
         Heterosexual,
         Bisexual,
         Homosexual,
@@ -140,7 +140,7 @@ namespace Maux36.RimPsyche
             //Not Applicable
             if (traits == null || gender == Gender.None) return SexualOrientation.None;
             //Non-adults
-            if (pawn.ageTracker.AgeBiologicalYears < Rimpsyche_Utility.GetMinAdultAge(pawn))
+            if (Rimpsyche_Utility.GetPawnAge(pawn) < Rimpsyche_Utility.GetMinAdultAge(pawn))
             {
                 return SexualOrientation.Developing;
             }

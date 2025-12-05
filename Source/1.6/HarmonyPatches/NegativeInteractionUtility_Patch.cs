@@ -46,7 +46,7 @@ namespace Maux36.RimPsyche
                 num *= (1f + 0.2f * (initPlayfulness * initPlayfulness * reciPlayfulness * reciPlayfulness));
             }
             //Age from CompatFactor
-            float x = Mathf.Abs(initiator.ageTracker.AgeBiologicalYearsFloat - recipient.ageTracker.AgeBiologicalYearsFloat);
+            float x = Mathf.Abs(Rimpsyche_Utility.GetPawnAge(initiator) - Rimpsyche_Utility.GetPawnAge(recipient));
             float ageInfluence = 1f + Mathf.Clamp(GenMath.LerpDouble(0f, 20f, 0.25f, -0.25f, x), -0.25f, 0.25f);
             num *= ageInfluence;
             __result = num;
