@@ -520,7 +520,7 @@ namespace Maux36.RimPsyche
 
         public float GetAdjustedSexdrive()
         {
-            return SexualityHelper.AdjustRawValues(SexDrive);
+            return Mathf.Max(SexualityHelper.AdjustRawValues(SexDrive), 0.05f);
         }
 
         public void ExposeData()
