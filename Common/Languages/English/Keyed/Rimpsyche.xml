@@ -12,10 +12,6 @@
   <RimpsycheShowFacetInMenuTooltip>Enable view facets option in Psyche tab.</RimpsycheShowFacetInMenuTooltip>
   <RimpsycheShowFacetGraph>Show Facets radar chart in UI</RimpsycheShowFacetGraph>
   <RimpsycheShowFacetGraphTooltip>Show facet radar chart in Psyche tab.</RimpsycheShowFacetGraphTooltip>
-  <RimpsycheKinseyDistributionSettings>Sexuality Distribution Settings (Requires restart)</RimpsycheKinseyDistributionSettings>
-  <RimpsycheKinseyDefaultSetting>Default Distribution</RimpsycheKinseyDefaultSetting>
-  <RimpsycheRomanceAttemptGenderDiff>Gender Difference</RimpsycheRomanceAttemptGenderDiff>
-  <RimpsycheRomanceAttemptGenderDiffTooltip>Women are less likely to make a romance attempt at men. (Vanilla logic) </RimpsycheRomanceAttemptGenderDiffTooltip>
 
 
   <!-- Title -->
@@ -33,18 +29,6 @@
   <RimpsycheShowInterest>Show Interest</RimpsycheShowInterest>
   <RimpsycheShowPreference>Show Preference</RimpsycheShowPreference>
   <RimpsycheEdit>Edit</RimpsycheEdit>
-
-  <RPC_Orientation>Sexuality</RPC_Orientation>
-  <RPC_Kinsey>Kinsey Rating</RPC_Kinsey>
-  <RPC_MaxAttraction>Max Attraction</RPC_MaxAttraction>
-  <RPC_AttractionMale>Male</RPC_AttractionMale>
-  <RPC_AttractionFemale>Female</RPC_AttractionFemale>
-  <RPC_SexDrive>Sex Drive</RPC_SexDrive>
-  <RPC_Heterosexual>Heterosexual</RPC_Heterosexual>
-  <RPC_Bisexual>Bisexual</RPC_Bisexual>
-  <RPC_Homosexual>Homosexual</RPC_Homosexual>
-  <RPC_Asexual>Asexual</RPC_Asexual>
-  <RPC_SexualityUndefined>Undefined</RPC_SexualityUndefined>
 
   <TraitAffected>Affected by trait(s):</TraitAffected>
   <GeneAffected>Affected by gene(s):</GeneAffected>
@@ -64,10 +48,6 @@
   <ResetPsycheTooltip>Reset Personality</ResetPsycheTooltip>
   <RimpsycheFacetInfo>Facets are the core building blocks that shape a pawn's thoughts, feelings, and behavior. Each one represents a specific aspect of how they see the world and react to it.</RimpsycheFacetInfo>
   <RimpsychePersonalityInfo>A pawn’s personality is the result of their individual facets coming together. It influences their behavior, relationships, and decisions.</RimpsychePersonalityInfo>
-  <RPS_HypoAttraction>Not attracted</RPS_HypoAttraction>
-  <RPS_HyperAttraction>Hyper attracted</RPS_HyperAttraction>
-  <RPS_Hyposexual>Hyposexual</RPS_Hyposexual>
-  <RPS_Hypersexual>Hypersexual</RPS_Hypersexual>
 
   <!-- Facet Desc. -->
   <RPC_Imagination>Imagination</RPC_Imagination>
