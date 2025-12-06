@@ -21,7 +21,8 @@ namespace Maux36.RimPsyche
         public readonly CompPsyche compPsyche;
 
         //Semi constant
-        public readonly float minRelAttraction = RimpsycheSettings.minRelAttraction;
+        private static readonly bool usePreference = RimpsycheSettings.usePreferenceSystem;
+        private static readonly float minRelAttraction = RimpsycheSettings.minRelAttraction;
 
         //kinsey
         //0 [0] 1 [0.2] 2 [0.4] 3 [0.6] 4 [0.8] 5 [1] 6
@@ -163,6 +164,7 @@ namespace Maux36.RimPsyche
         //Only prefDef that Generates pref should call this.
         public List<PrefEntry> GetPreference(PreferenceDef prefDef)
         {
+            if (!usePreference) return null;
             if (preferenceCacheDirty) RefreshPreferenceCache();
             if (Preference.TryGetValue(prefDef.shortHash, out var value)) return value;
             //Uninitialized Preference
