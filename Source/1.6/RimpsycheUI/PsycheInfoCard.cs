@@ -10,6 +10,9 @@ namespace Maux36.RimPsyche
     [StaticConstructorOnStartup]
     public class PsycheInfoCard
     {
+        // Settings
+        private static readonly bool usePreference = RimpsycheSettings.usePreferenceSystem;
+
         // Constants and style settings
         // width: 380 | 220
         public static Rect PsycheRect = new Rect(0f, 0f, Mathf.Min(600f + personalityWidthDiff + interestWidthDiff,  UI.screenWidth * 0.8f), Mathf.Clamp(UI.screenHeight*0.5f,350f, 480f));
@@ -791,7 +794,7 @@ namespace Maux36.RimPsyche
                 Widgets.Label(titleRect, "RPC_Interest".Translate());
                 titleTextSize = Text.CalcSize("RPC_Interest".Translate());
             }
-            if (Rimpsyche.SexualityModuleLoaded && showSexuality)
+            if (Rimpsyche.SexualityModuleLoaded && usePreference && showSexuality)
             {
                 // Icon on the right
                 float iconSize = 24f;

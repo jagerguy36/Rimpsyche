@@ -9,6 +9,8 @@ namespace Maux36.RimPsyche
 {
     public class PsycheEditPopup(Pawn editFor) : Window
     {
+        // Settings
+        private static readonly bool usePreference = RimpsycheSettings.usePreferenceSystem;
         public override Vector2 InitialSize
         {
             get
@@ -169,7 +171,6 @@ namespace Maux36.RimPsyche
             Text.Anchor = TextAnchor.UpperLeft;
             Text.Font = GameFont.Small;
             Rect ContentRect = new Rect(innerRect.x, titleRect.yMax, innerRect.width, innerRect.height - titleHeight);
-            Widgets.DrawBoxSolid(ContentRect, new Color(0.2f, 0.2f, 0.2f, 0.5f));
             float maxSexualityLabelWidth = Math.Max(Text.CalcSize(kinseyLabel).x, Math.Max(Text.CalcSize(maxAttractionLabel).x, Text.CalcSize(sexDriveLabel).x)) + 5f;
             float sliderWidth = ContentRect.width - maxSexualityLabelWidth;
 
@@ -228,7 +229,7 @@ namespace Maux36.RimPsyche
             }
 
             //Mode switcher
-            if (Rimpsyche.SexualityModuleLoaded)
+            if (Rimpsyche.SexualityModuleLoaded && usePreference)
             {
                 float viewIconX = (titleRect.xMax - innerPadding - iconSize);
                 Rect viewIconRect = new Rect(viewIconX, titleRect.y + (titleRect.height - iconSize) / 2f, iconSize, iconSize);
@@ -294,7 +295,7 @@ namespace Maux36.RimPsyche
             }
 
             //Mode switcher
-            if (Rimpsyche.SexualityModuleLoaded && showSexuality)
+            if (Rimpsyche.SexualityModuleLoaded && usePreference && showSexuality)
             {
                 float viewIconX = (titleRect.xMax - innerPadding - iconSize);
                 Rect viewIconRect = new Rect(viewIconX, titleRect.y + (titleRect.height - iconSize) / 2f, iconSize, iconSize);
