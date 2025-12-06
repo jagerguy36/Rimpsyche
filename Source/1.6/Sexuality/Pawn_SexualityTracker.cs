@@ -130,6 +130,8 @@ namespace Maux36.RimPsyche
             if (latestThought == null) return 0;
             return latestThought.OpinionOffset();
         }
+        public int crushPawnIdNumber = -1;
+        public int crushEndTick = -1;
 
         //Preference
         private Dictionary<string, List<PrefEntry>> _preference = new();
