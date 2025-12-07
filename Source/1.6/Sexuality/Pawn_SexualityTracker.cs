@@ -424,8 +424,10 @@ namespace Maux36.RimPsyche
                 {
                     return false;
                 }
+                return true;
             }
-            return true;
+            return false;
+
         }
         public SexualOrientation GetOrientationCategory()
         {
