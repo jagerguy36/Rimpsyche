@@ -84,9 +84,16 @@ namespace Maux36.RimPsyche
             Scribe_Collections.Look(ref relationship, "relationship", LookMode.Value, LookMode.Value);
             Scribe_Collections.Look(ref preference, "preference", LookMode.Value, LookMode.Deep);
             //Scribe_Collections.Look(ref acquaintanceship, "acquaintanceship", LookMode.Value, LookMode.Value);
+            //Fix null memories
+            if (VersionManager.shouldSetupSexualityVariable)
+            {
+                knownOrientation ??= new();
+                relationship ??= new();
+                preference ??= new();
+            }
 
-            //Post load operation
-            if(Scribe.mode == LoadSaveMode.PostLoadInit)
+            //Post load operations
+            if (Scribe.mode == LoadSaveMode.PostLoadInit)
             {
                 //Reset intKey for psychePreference
                 if (Rimpsyche.SexualityModuleLoaded)
@@ -104,12 +111,6 @@ namespace Maux36.RimPsyche
                             else psychePreference[i].intKey = p.shortHash;
                         }
                     }
-                }
-                if (VersionManager.shouldSetupSexualityVariable)
-                {
-                    knownOrientation ??= new();
-                    relationship ??= new();
-                    preference ??= new();
                 }
             }
         }
