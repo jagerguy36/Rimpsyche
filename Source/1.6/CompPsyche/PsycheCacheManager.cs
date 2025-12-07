@@ -8,12 +8,12 @@ namespace Maux36.RimPsyche
 {
     public static class PsycheCacheManager
     {
-        public static readonly Dictionary<Pawn, CompPsyche> CompPsycheCache = new Dictionary<Pawn, CompPsyche>();
-        public static HashSet<int> TrackingDefHash = new HashSet<int> { };
+        public static readonly Dictionary<int, CompPsyche> CompPsycheCache = [];
+        public static HashSet<int> TrackingDefHash = [];
         public static CompPsyche GetCompPsycheCached(Pawn pawn)
         {
             if (pawn == null) return null;
-            if (CompPsycheCache.TryGetValue(pawn, out CompPsyche comp))
+            if (CompPsycheCache.TryGetValue(pawn.thingIDNumber, out CompPsyche comp))
             {
                 return comp;
             }
@@ -24,14 +24,14 @@ namespace Maux36.RimPsyche
             comp = pawn.GetComp<CompPsyche>();
             if (comp != null)
             {
-                CompPsycheCache.Add(pawn, comp);
+                CompPsycheCache.Add(pawn.thingIDNumber, comp);
             }
             return comp;
         }
 
         public static void ClearCacheForPawn(Pawn pawn)
         {
-            CompPsycheCache.Remove(pawn);
+            CompPsycheCache.Remove(pawn.thingIDNumber);
         }
 
         public static void ClearAllCache()
