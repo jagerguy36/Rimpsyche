@@ -73,6 +73,7 @@
     <Compile Include="Conversation\InteractionWroker_NeverRandom.cs" />
     <Compile Include="Conversation\PlayLogEntry_InteractionConversation.cs" />
     <Compile Include="Database\RimpsycheFormula.cs" />
+    <Compile Include="DebugActions.cs" />
     <Compile Include="GameComponent\VersionManager.cs" />
     <Compile Include="HarmonyPatches\EdB_PanelAppearance_Draw_Patch.cs" />
     <Compile Include="HarmonyPatches\GeneTracker_Notify_GeneChanged.cs" />
