@@ -1,5 +1,8 @@
 ﻿using HarmonyLib;
 using RimWorld;
+using System.Collections.Generic;
+using System.Reflection;
+using System.Reflection.Emit;
 using UnityEngine;
 using Verse;
 
@@ -11,19 +14,34 @@ namespace Maux36.RimPsyche
         public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
         {
             var codes = new List<CodeInstruction>(instructions);
+            bool CompatCurveFound = false;
+            bool skipping = false;
 
             FieldInfo compatibilityCurveField = AccessTools.Field(typeof(NegativeInteractionUtility), "CompatibilityFactorCurve");
             for (int i = 0; i < codes.Count; i++)
             {
                 var code = codes[i];
-                //TODO: remove num *= CompatibilityFactorCurve.Evaluate(initiator.relations.CompatibilityWith(recipient));
-                if (i > 1 && codes[i - 2].opcode == OpCodes.Ldsfld && codes[i - 2].operand == compatibilityCurveField)
+                if (!CompatCurveFound &&
+                    codes[i + 1].opcode == OpCodes.Ldsfld &&
+                    Equals(codes[i + 1].operand, compatibilityCurveField))
                 {
-                    yield return code;
+                    CompatCurveFound = true;
+                    skipping = true;
                     continue;
                 }
+                if (skipping)
+                {
+                    if (codes[i].opcode == OpCodes.Mul)
+                    {
+                        i += 1;
+                        skipping = false;
+                    }
+                    continue;
+                }
+
                 //Reduce influence of abrasiveness because tact is already influencing the outcome
-                if (code.opcode == OpCodes.Ldc_R4 && (float)code.operand == 2.3f)
+                if (CompatCurveFound &&
+                    code.opcode == OpCodes.Ldc_R4 && (float)code.operand == 2.3f)
                 {
                     yield return new CodeInstruction(OpCodes.Ldc_R4, 2f);
                     continue;
@@ -53,6 +71,7 @@ namespace Maux36.RimPsyche
             float ageInfluence = 1f + Mathf.Clamp(GenMath.LerpDouble(0f, 20f, 0.25f, -0.25f, x), -0.25f, 0.25f);
             __result *= ageInfluence;
         }
+
         public static RimpsycheFormula InitNegativeChanceMultiplier = new(
             "InitNegativeChanceMultiplier",
             (tracker) =>
