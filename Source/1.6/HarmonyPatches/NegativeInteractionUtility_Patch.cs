@@ -8,49 +8,50 @@ namespace Maux36.RimPsyche
     [HarmonyPatch(typeof(NegativeInteractionUtility), nameof(NegativeInteractionUtility.NegativeInteractionChanceFactor))]
     public static class NegativeInteractionUtility_Patch
     {
-        private static readonly SimpleCurve OpinionFactorCurve = new SimpleCurve
+        public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
         {
-            new CurvePoint(-100f, 6f),
-            new CurvePoint(-50f, 4f),
-            new CurvePoint(-25f, 2f),
-            new CurvePoint(0f, 1f),
-            new CurvePoint(50f, 0.1f),
-            new CurvePoint(100f, 0f)
-        };
-        private static bool Prefix(ref float __result, Pawn initiator, Pawn recipient)
+            var codes = new List<CodeInstruction>(instructions);
+
+            FieldInfo compatibilityCurveField = AccessTools.Field(typeof(NegativeInteractionUtility), "CompatibilityFactorCurve");
+            for (int i = 0; i < codes.Count; i++)
+            {
+                var code = codes[i];
+                //TODO: remove num *= CompatibilityFactorCurve.Evaluate(initiator.relations.CompatibilityWith(recipient));
+                if (i > 1 && codes[i - 2].opcode == OpCodes.Ldsfld && codes[i - 2].operand == compatibilityCurveField)
+                {
+                    yield return code;
+                    continue;
+                }
+                //Reduce influence of abrasiveness because tact is already influencing the outcome
+                if (code.opcode == OpCodes.Ldc_R4 && (float)code.operand == 2.3f)
+                {
+                    yield return new CodeInstruction(OpCodes.Ldc_R4, 2f);
+                    continue;
+                }
+                yield return code;
+            }
+        }
+        private static void Postfix(ref float __result, Pawn initiator, Pawn recipient)
         {
+            if (__result == 0f) return;
             var initPsyche = initiator.compPsyche(); 
             var reciPsyche = recipient.compPsyche();
             if (initPsyche?.Enabled != true || reciPsyche?.Enabled != true)
             {
-                return true;
+                return;
             }
-            if (initiator.story.traits.HasTrait(TraitDefOf.Kind))
-            {
-                __result = 0f;
-                return false;
-            }
-            float num = 1f;
-            num *= OpinionFactorCurve.Evaluate(initiator.relations.OpinionOf(recipient));
-            if (initiator.story.traits.HasTrait(TraitDefOf.Abrasive))
-            {
-                num *= 2f; //Reduce influence because tact is already influencing the outcome
-            }
-            //Vanilla curve range 4 ~ 0.4
-            num *= initPsyche.Evaluate(InitNegativeChanceMultiplier); //3.85~0.45
-            num *= reciPsyche.Evaluate(reciNegativeChanceMultiplier); //1.1~0.9
+            __result *= initPsyche.Evaluate(InitNegativeChanceMultiplier); //3.85~0.45
+            __result *= reciPsyche.Evaluate(reciNegativeChanceMultiplier); //1.1~0.9
             var initPlayfulness = initPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Playfulness);
             var reciPlayfulness = reciPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Playfulness);
             if(initPlayfulness > 0f && reciPlayfulness < 0f)
             {
-                num *= (1f + 0.2f * (initPlayfulness * initPlayfulness * reciPlayfulness * reciPlayfulness));
+                __result *= (1f + 0.2f * (initPlayfulness * initPlayfulness * reciPlayfulness * reciPlayfulness));
             }
             //Age from CompatFactor
             float x = Mathf.Abs(Rimpsyche_Utility.GetPawnAge(initiator) - Rimpsyche_Utility.GetPawnAge(recipient));
             float ageInfluence = 1f + Mathf.Clamp(GenMath.LerpDouble(0f, 20f, 0.25f, -0.25f, x), -0.25f, 0.25f);
-            num *= ageInfluence;
-            __result = num;
-            return false;
+            __result *= ageInfluence;
         }
         public static RimpsycheFormula InitNegativeChanceMultiplier = new(
             "InitNegativeChanceMultiplier",
