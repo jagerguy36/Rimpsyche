@@ -168,6 +168,7 @@ namespace Maux36.RimPsyche
         public readonly Dictionary<int, float> EvaluationCache = new();
         public readonly Dictionary<int, float> ThoughtEvaluationCache = new();
         public readonly Dictionary<int, float> OpinionEvaluationCache = new();
+        public readonly Dictionary<int, float> JoyChanceEvaluationCache = new();
         public float Evaluate(RimpsycheFormula rimpsycheMultiplier)
         {
             if (EvaluationCache.TryGetValue(rimpsycheMultiplier.formulaId, out float cachedValue))

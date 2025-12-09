@@ -749,6 +749,7 @@ namespace Maux36.RimPsyche
                 compPsyche.EvaluationCache.Clear();
                 compPsyche.ThoughtEvaluationCache.Clear();
                 compPsyche.OpinionEvaluationCache.Clear();
+                compPsyche.JoyChanceEvaluationCache.Clear();
                 compPsyche.Interests?.interestOffset.Clear();
             }
         }
