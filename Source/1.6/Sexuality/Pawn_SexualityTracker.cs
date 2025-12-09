@@ -195,10 +195,10 @@ namespace Maux36.RimPsyche
             knownOrientation.Add(target.thingIDNumber);
         }
 
-        public void IncrementRelationshipWith(Pawn target, float amount)
+        public void IncrementRelationshipWith(Pawn target, float amount, float max = 1f)
         {
             relationship.TryGetValue(target.thingIDNumber, out var current);
-            relationship[target.thingIDNumber] = current + amount;
+            relationship[target.thingIDNumber] = Mathf.Clamp01(Mathf.Min(current + amount, max));
         }
         public float GetRelationshipWith(Pawn target)
         {
