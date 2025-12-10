@@ -511,8 +511,8 @@ namespace Maux36.RimPsyche
             var genderAttraction = GetAdjustedAttractionToGender(target.gender);
             if (genderAttraction < maxAttraction)
             {
-                relationship.tryGetValue(target.thingIDNumber, out float rel);
-                return Mathf.Lerp(minRelAttraction, 1f, rel) * maxAttraction;
+                if(relationship.TryGetValue(target.thingIDNumber, out float rel))
+                    return Mathf.Max(genderAttraction, Mathf.Lerp(minRelAttraction, 1f, rel) * maxAttraction);
             }
             return genderAttraction;
         }
