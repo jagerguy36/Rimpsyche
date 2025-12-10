@@ -57,6 +57,7 @@ namespace Maux36.RimPsyche
         private bool adjustmentDirty = true;
         private float mAttraction = 0f;
         private float fAttraction = 0f;
+        private float maxAttraction = 0f;
 
         //For Androids or Other non-sexual beings
         private bool shouldCheckSuppressed = true;
@@ -508,9 +509,10 @@ namespace Maux36.RimPsyche
         public float GetAdjustedAttraction(Pawn target)
         {
             var genderAttraction = GetAdjustedAttractionToGender(target.gender);
-            if (genderAttraction < minRelAttraction && !Suppressed)
+            if (genderAttraction < maxAttraction)
             {
-                if (relationship.ContainsKey(target.thingIDNumber)) return minRelAttraction;
+                relationship.tryGetValue(target.thingIDNumber, out float rel);
+                return Mathf.Lerp(minRelAttraction, 1f, rel) * maxAttraction;
             }
             return genderAttraction;
         }
@@ -525,11 +527,13 @@ namespace Maux36.RimPsyche
                     float multiplier = SexualityHelper.AdjustRawValues(Attraction) / Mathf.Max(mKinsey, 1f - mKinsey);
                     mAttraction = multiplier * mKinsey;
                     fAttraction = multiplier * (1f - mKinsey);
+                    maxAttraction = Mathf.Max(mAttraction, fAttraction);
                 }
                 else
                 {
                     mAttraction = 0f;
                     fAttraction = 0f;
+                    maxAttraction = 0f;
                 }
             }
             return gender switch
