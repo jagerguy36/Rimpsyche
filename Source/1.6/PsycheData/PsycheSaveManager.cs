@@ -29,7 +29,7 @@ namespace Maux36.RimPsyche
     [StaticConstructorOnStartup]
     public static class PsycheSaveManager
     {
-        private const int numSlots = 10;
+        private const int numSlots = 15;
         public static List<PsycheSlot> Slots;
         private const string FileName = "Rimpsyche_PsycheDataSlots.xml";
         private static string FilePath =>  Path.Combine(GenFilePaths.ConfigFolderPath, FileName);
@@ -42,8 +42,19 @@ namespace Maux36.RimPsyche
             if (Slots == null)
             {
                 Slots = Enumerable.Repeat<PsycheSlot>(null, numSlots).ToList();
-                SaveSlots(Slots);
             }
+            else
+            {
+                if (Slots.Count > numSlots)
+                {
+                    Slots = [.. Slots.Take(numSlots)];
+                }
+                else if (Slots.Count < numSlots)
+                {
+                    Slots.AddRange(Enumerable.Repeat<PsycheSlot>(null, numSlots - Slots.Count));
+                }
+            }
+            SaveSlots(Slots);
         }
         public static void Save()
         {

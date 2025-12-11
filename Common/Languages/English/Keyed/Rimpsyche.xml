@@ -12,6 +12,8 @@
   <RimpsycheShowFacetInMenuTooltip>Enable view facets option in Psyche tab.</RimpsycheShowFacetInMenuTooltip>
   <RimpsycheShowFacetGraph>Show Facets radar chart in UI</RimpsycheShowFacetGraph>
   <RimpsycheShowFacetGraphTooltip>Show facet radar chart in Psyche tab.</RimpsycheShowFacetGraphTooltip>
+  <RimpsycheConfirmLoadSave>Confirm before load/saving Psyche</RimpsycheConfirmLoadSave>
+  <RimpsycheConfirmLoadSaveTooltip>Show confirmation pop-up before overwriting or loading pawn Psyche.</RimpsycheConfirmLoadSaveTooltip>
 
 
   <!-- Title -->
@@ -48,8 +50,11 @@
 
   <SavePsycheTooltip>Save/Load Psyche</SavePsycheTooltip>
   <SaveToSlot>Save</SaveToSlot>
+  <ConfirmSaveToSlot>Saving the Psyche here will overwrite the existing Psyche.\n\nAre you sure you want to overwrite?</ConfirmSaveToSlot>
   <LoadFromSlot>Load</LoadFromSlot>
+  <ConfirmLoadFromSlot>Loading the Psyche will overwrite the current Psyche of this pawn.\n\nAre you sure you want to overwrite?</ConfirmLoadFromSlot>
   <DeleteSlot>Delete</DeleteSlot>
+  <ConfirmDeleteSlot>Are you sure you want to delete the saved Psyche permanently?</ConfirmDeleteSlot>
 
   <!-- Facet Desc. -->
   <RPC_Imagination>Imagination</RPC_Imagination>

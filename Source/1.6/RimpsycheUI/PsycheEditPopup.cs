@@ -40,6 +40,7 @@ namespace Maux36.RimPsyche
         public static readonly Color barBackgroundColor = new Color(0.2f, 0.2f, 0.2f, 0.5f);
 
         //Facet
+        public static bool editFacetOn = false;
         public static float facetLabelWidth => RimpsycheDatabase.maxFacetLabelWidth;
         public static float facetWidthDiff => 2f * (facetLabelWidth - 130f);
         public static readonly float facetRowHeight = 28f;
@@ -49,6 +50,7 @@ namespace Maux36.RimPsyche
         public static readonly float facetBarHeight = 4f;
 
         //Personality
+        public static bool editPersonalityOn = false;
         public static float personalityLabelWidth => RimpsycheDatabase.maxPersonalityLabelWidth;
         public static float personalityWidthDiff => 2f * (personalityLabelWidth - 130f);
         public static readonly IEnumerable<PersonalityDef> personalityDefList = DefDatabase<PersonalityDef>.AllDefs;
@@ -59,6 +61,7 @@ namespace Maux36.RimPsyche
         public static readonly float personalityBarHeight = 4f;
 
         //Interest
+        public static bool editInterestOn = false;
         public static float interestLabelWidth => RimpsycheDatabase.maxInterestLabelWidth;
         public static float interestWidthDiff => (interestLabelWidth - 130f);
         public static readonly HashSet<Interest> interestList = RimpsycheDatabase.InterestList;
@@ -71,9 +74,6 @@ namespace Maux36.RimPsyche
         public static Vector2 FacetNodeScrollPosition = Vector2.zero;
         public static Vector2 PersonalityNodeScrollPosition = Vector2.zero;
         public static Vector2 InterestNodeScrollPosition = Vector2.zero;
-        public static bool editFacetOn = false;
-        public static bool editPersonalityOn = false;
-        public static bool editInterestOn = false;
 
         //Sexuality
         public static readonly float sexualityContentHeight = 160f;
@@ -155,6 +155,7 @@ namespace Maux36.RimPsyche
                 Text.Anchor = oldAnchor;
             }
         }
+        
         public static void DrawSexualityEditCard(Rect rect, Pawn pawn, CompPsyche compPsyche)
         {
             TextAnchor oldAnchor = Text.Anchor;
@@ -365,7 +366,6 @@ namespace Maux36.RimPsyche
             Text.Anchor = oldAnchor;
             Text.Font = oldFont;
         }
-
 
         public static void DrawPersonalityEditcard(Rect rect, Pawn pawn, CompPsyche compPsyche)
         {
@@ -697,33 +697,91 @@ namespace Maux36.RimPsyche
             List<FloatMenuOption> options = new();
 
             // Save
-            options.Add(new FloatMenuOption("SaveToSlot".Translate(), () =>
+            if (RimpsycheSettings.confirmLoadSave && PsycheSaveManager.Slots[index] != null)
             {
-                PsycheSaveManager.Slots[index] = new PsycheSlot(pawn.LabelShort, PsycheDataUtil.GetPsycheData(pawn, false));
-                PsycheSaveManager.Save();
-            }));
+                options.Add(new FloatMenuOption("SaveToSlot".Translate(), () =>
+                {
+                    Find.WindowStack.Add(
+                        new Dialog_ConfirmClosable(
+                            "ConfirmSaveToSlot".Translate(index),
+                            () =>
+                            {
+                                PsycheSaveManager.Slots[index] = new PsycheSlot(pawn.LabelShort, PsycheDataUtil.GetPsycheData(pawn, false));
+                                PsycheSaveManager.Save();
+                            },
+                            destructive: false
+                        )
+                    );
+                }));
+            }
+            else
+            {
+                options.Add(new FloatMenuOption("SaveToSlot".Translate(), () =>
+                {
+                    PsycheSaveManager.Slots[index] = new PsycheSlot(pawn.LabelShort, PsycheDataUtil.GetPsycheData(pawn, false));
+                    PsycheSaveManager.Save();
+                }));
+            }
 
             // Load
             if (PsycheSaveManager.Slots[index] != null)
             {
-                options.Add(new FloatMenuOption("LoadFromSlot".Translate(), () =>
+                if (RimpsycheSettings.confirmLoadSave)
                 {
-                    PsycheDataUtil.InjectPsycheData(pawn, PsycheSaveManager.Slots[index].data, false);
-                }));
+                    options.Add(new FloatMenuOption("LoadFromSlot".Translate(), () =>
+                    {
+                        Find.WindowStack.Add(
+                            new Dialog_ConfirmClosable(
+                                "ConfirmLoadFromSlot".Translate(index, PsycheSaveManager.Slots[index].name),
+                                () =>
+                                {
+                                    PsycheDataUtil.InjectPsycheData(pawn, PsycheSaveManager.Slots[index].data, false);
+                                },
+                                destructive: false
+                            )
+                        );
+                    }));
+                }
+                else
+                {
+                    options.Add(new FloatMenuOption("LoadFromSlot".Translate(), () =>
+                    {
+                        PsycheDataUtil.InjectPsycheData(pawn, PsycheSaveManager.Slots[index].data, false);
+                    }));
+                }
             }
 
             // Delete
             if (PsycheSaveManager.Slots[index] != null)
             {
-                options.Add(new FloatMenuOption("DeleteSlot".Translate(), () =>
+                if (RimpsycheSettings.confirmLoadSave)
                 {
-                    PsycheSaveManager.Slots[index] = null;
-                    PsycheSaveManager.Save();
-                }));
+                    options.Add(new FloatMenuOption("DeleteSlot".Translate(), () =>
+                    {
+                        Find.WindowStack.Add(
+                            new Dialog_ConfirmClosable(
+                                "ConfirmDeleteSlot".Translate(index),
+                                () =>
+                                {
+                                    PsycheSaveManager.Slots[index] = null;
+                                    PsycheSaveManager.Save();
+                                },
+                                destructive: true
+                            )
+                        );
+                    }));
+                }
+                else
+                {
+                    options.Add(new FloatMenuOption("DeleteSlot".Translate(), () =>
+                    {
+                        PsycheSaveManager.Slots[index] = null;
+                        PsycheSaveManager.Save();
+                    }));
+                }
             }
             Find.WindowStack.Add(new FloatMenu(options));
         }
-
 
         public override void PostClose()
         {
@@ -733,6 +791,16 @@ namespace Maux36.RimPsyche
             {
                 pref.worker.ClearEditorCache();
             }
+        }
+    }
+
+    public class Dialog_ConfirmClosable : Dialog_MessageBox
+    {
+        public Dialog_ConfirmClosable(TaggedString text, Action confirmedAction, bool destructive = false, string title = null, WindowLayer layer = WindowLayer.Dialog)
+            : base(text, "Confirm".Translate(), confirmedAction, "GoBack".Translate(), null, title, destructive, confirmedAction, null, layer)
+        {
+            closeOnClickedOutside = true;
+            absorbInputAroundWindow = false;
         }
     }
 }
