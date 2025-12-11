@@ -11,7 +11,7 @@ namespace Maux36.RimPsyche
     public class PsycheInfoCard
     {
         // Settings
-        private static readonly bool usePreference = RimpsycheSettings.usePreferenceSystem;
+        private static readonly bool usePreference = RimpsycheSexualitySettings.usePreferenceSystem;
 
         // Constants and style settings
         // width: 380 | 220

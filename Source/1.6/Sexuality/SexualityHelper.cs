@@ -96,7 +96,7 @@ namespace Maux36.RimPsyche
         private static List<float> CalculateNormalizedDistribution()
         {
             int total = 0;
-            foreach (var value in RimpsycheSettings.KinseyDistributionSetting)
+            foreach (var value in RimpsycheSexualitySettings.KinseyDistributionSetting)
             {
                 total += value;
             }
@@ -105,7 +105,7 @@ namespace Maux36.RimPsyche
                 return [1f / 7f, 1f / 7f, 1f / 7f, 1f / 7f, 1f / 7f, 1f / 7f, 1f / 7f];
             }
             List<float> normalizedDistribution = new List<float>();
-            foreach (float value in RimpsycheSettings.KinseyDistributionSetting)
+            foreach (float value in RimpsycheSexualitySettings.KinseyDistributionSetting)
             {
                 normalizedDistribution.Add(value / total);
             }

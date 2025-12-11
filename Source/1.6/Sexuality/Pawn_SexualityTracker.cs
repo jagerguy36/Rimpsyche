@@ -21,8 +21,8 @@ namespace Maux36.RimPsyche
         public readonly CompPsyche compPsyche;
 
         //Semi constant
-        private static readonly bool usePreference = RimpsycheSettings.usePreferenceSystem;
-        private static readonly float minRelAttraction = RimpsycheSettings.minRelAttraction;
+        private static readonly bool usePreference = RimpsycheSexualitySettings.usePreferenceSystem;
+        private static readonly float minRelAttraction = RimpsycheSexualitySettings.minRelAttraction;
 
         //kinsey
         //0 [0] 1 [0.2] 2 [0.4] 3 [0.6] 4 [0.8] 5 [1] 6
@@ -200,6 +200,7 @@ namespace Maux36.RimPsyche
         {
             relationship.TryGetValue(target.thingIDNumber, out var current);
             relationship[target.thingIDNumber] = Mathf.Clamp01(Mathf.Min(current + amount, max));
+            LearnOrientationOf(target);
         }
         public float GetRelationshipWith(Pawn target)
         {
@@ -509,10 +510,10 @@ namespace Maux36.RimPsyche
         public float GetAdjustedAttraction(Pawn target)
         {
             var genderAttraction = GetAdjustedAttractionToGender(target.gender);
-            if (genderAttraction < maxAttraction)
+            if (genderAttraction < maxAttraction && relationship.TryGetValue(target.thingIDNumber, out float rel))
             {
-                if(relationship.TryGetValue(target.thingIDNumber, out float rel))
-                    return Mathf.Max(genderAttraction, Mathf.Lerp(minRelAttraction, 1f, rel) * maxAttraction);
+                float minAtt = Mathf.Max(genderAttraction, maxAttraction * minRelAttraction);
+                return Mathf.Lerp(minAtt, maxAttraction, rel);
             }
             return genderAttraction;
         }

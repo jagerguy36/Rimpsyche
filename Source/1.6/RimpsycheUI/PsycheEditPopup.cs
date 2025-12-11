@@ -10,7 +10,7 @@ namespace Maux36.RimPsyche
     public class PsycheEditPopup(Pawn editFor) : Window
     {
         // Settings
-        private static readonly bool usePreference = RimpsycheSettings.usePreferenceSystem;
+        private static readonly bool usePreference = RimpsycheSexualitySettings.usePreferenceSystem;
         public override Vector2 InitialSize
         {
             get
