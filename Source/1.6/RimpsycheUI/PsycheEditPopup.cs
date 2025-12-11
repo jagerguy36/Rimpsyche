@@ -563,6 +563,20 @@ namespace Maux36.RimPsyche
                 TooltipHandler.TipRegion(resetButtonRect, "ResetPsycheTooltip".Translate());
             }
 
+
+            Rect saveButtonRect = new Rect(
+                resetButtonRect.x - resetButtonSize - resetButtonMargin,
+                resetButtonRect.y,
+                resetButtonSize,
+                resetButtonSize
+            );
+            if (Widgets.ButtonImage(saveButtonRect, Rimpsyche_UI_Utility.SaveLoadButton))
+            {
+                ShowSlotSelectMenu(pawn);
+            }
+            TooltipHandler.TipRegion(saveButtonRect, "SavePsycheTooltip".Translate());
+
+
             Rect viewRect = new Rect(0f, 0f, innerRect.width - scrollBarWidth, facetViewHeight);
             Rect scrollRect = new Rect(innerRect.x, titleRect.yMax + 5f, innerRect.width, innerRect.height - (titleRect.height + 5f));
             Widgets.BeginScrollView(scrollRect, ref FacetNodeScrollPosition, viewRect);
@@ -657,6 +671,59 @@ namespace Maux36.RimPsyche
             Widgets.EndScrollView();
             Text.Anchor = oldAnchor;
         }
+
+        private static void ShowSlotSelectMenu(Pawn pawn)
+        {
+            List<FloatMenuOption> options = new();
+
+            for (int i = 0; i < PsycheSaveManager.Slots.Count; i++)
+            {
+                int slotIndex = i;
+                string label = PsycheSaveManager.Slots[i] == null
+                    ? $"Slot {i} (empty)"
+                    : PsycheSaveManager.Slots[i].name;
+
+                options.Add(new FloatMenuOption(label, () =>
+                {
+                    ShowSlotActionMenu(pawn, slotIndex);
+                }));
+            }
+
+            Find.WindowStack.Add(new FloatMenu(options));
+        }
+
+        private static void ShowSlotActionMenu(Pawn pawn, int index)
+        {
+            List<FloatMenuOption> options = new();
+
+            // Save
+            options.Add(new FloatMenuOption("SaveToSlot".Translate(), () =>
+            {
+                PsycheSaveManager.Slots[index] = new PsycheSlot(pawn.LabelShort, PsycheDataUtil.GetPsycheData(pawn, false));
+                PsycheSaveManager.Save();
+            }));
+
+            // Load
+            if (PsycheSaveManager.Slots[index] != null)
+            {
+                options.Add(new FloatMenuOption("LoadFromSlot".Translate(), () =>
+                {
+                    PsycheDataUtil.InjectPsycheData(pawn, PsycheSaveManager.Slots[index].data, false);
+                }));
+            }
+
+            // Delete
+            if (PsycheSaveManager.Slots[index] != null)
+            {
+                options.Add(new FloatMenuOption("DeleteSlot".Translate(), () =>
+                {
+                    PsycheSaveManager.Slots[index] = null;
+                    PsycheSaveManager.Save();
+                }));
+            }
+            Find.WindowStack.Add(new FloatMenu(options));
+        }
+
 
         public override void PostClose()
         {

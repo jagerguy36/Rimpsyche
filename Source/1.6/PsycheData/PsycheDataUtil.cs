@@ -5,7 +5,7 @@ namespace Maux36.RimPsyche
 {
     public static class PsycheDataUtil
     {
-        public static PsycheData GetPsycheData(Pawn pawn)
+        public static PsycheData GetPsycheData(Pawn pawn, bool preserveMemory=false)
         {
             var compPsyche = pawn?.compPsyche();
             if (compPsyche == null) return null;
@@ -45,8 +45,16 @@ namespace Maux36.RimPsyche
             psyche.mKinsey = sexuality.MKinsey;
             psyche.attraction = sexuality.Attraction;
             psyche.sexDrive = sexuality.SexDrive;
-            psyche.knownOrientation = new HashSet<int>(sexuality.knownOrientation);
-            psyche.relationship = new Dictionary<int, float>(sexuality.relationship);
+            if (preserveMemory)
+            {
+                psyche.knownOrientation = [.. sexuality.knownOrientation];
+                psyche.relationship = new Dictionary<int, float>(sexuality.relationship);
+            }
+            else
+            {
+                psyche.knownOrientation = [];
+                psyche.relationship = [];
+            }
             //psyche.acquaintanceship = new Dictionary<int, float>(sexuality.acquaintanceship);
             psyche.preference = new Dictionary<string, List<PrefEntry>>(sexuality.GetPreferenceRaw());
 

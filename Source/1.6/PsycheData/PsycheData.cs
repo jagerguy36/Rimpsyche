@@ -6,8 +6,6 @@ namespace Maux36.RimPsyche
 {
     public class PsycheData : IExposable
     {
-        public bool preserveMemory = false;
-
         //Personality
         public float imagination = 0f;
         public float intellect = 0f;

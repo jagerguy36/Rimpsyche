@@ -196,11 +196,19 @@ namespace Maux36.RimPsyche
             knownOrientation.Add(target.thingIDNumber);
         }
 
-        public void IncrementRelationshipWith(Pawn target, float amount, float max = 1f)
+        public void IncrementRelationshipWith(Pawn target, float amount)
         {
+            float max = GetRelationshipCeliing(target);
             relationship.TryGetValue(target.thingIDNumber, out var current);
             relationship[target.thingIDNumber] = Mathf.Clamp01(Mathf.Min(current + amount, max));
             LearnOrientationOf(target);
+        }
+        public float GetRelationshipCeliing(Pawn target)
+        {
+            float max = 0.25f;
+            if (TryGetRomanticRelationDef(target, out _))
+                max = 1f;
+            return max;
         }
         public float GetRelationshipWith(Pawn target)
         {
@@ -297,7 +305,7 @@ namespace Maux36.RimPsyche
             else mKinsey = 1 - kinsey;
             return;
         }
-        public void InjectData(PsycheData psyche)
+        public void InjectData(PsycheData psyche, bool preserveMemory)
         {
             shouldValidate = false;
             adjustmentDirty = true;
@@ -306,13 +314,13 @@ namespace Maux36.RimPsyche
             mKinsey = psyche.mKinsey;
             attraction = psyche.attraction;
             sexDrive = psyche.sexDrive;
-            relationship = new Dictionary<int, float>(psyche.relationship);
-            //acquaintanceship = new Dictionary<int, float>(psyche.acquaintanceship);
             _preference = new Dictionary<string, List<PrefEntry>>(psyche.preference);
             preferenceCacheDirty = true;
-            if (psyche.preserveMemory)
+            if (preserveMemory)
             {
-                knownOrientation = new HashSet<int>(psyche.knownOrientation);
+                knownOrientation = [.. psyche.knownOrientation];
+                relationship = new Dictionary<int, float>(psyche.relationship);
+                //acquaintanceship = new Dictionary<int, float>(psyche.acquaintanceship);
             }
 
             //Clean sexuality trait. Pawn's traits null check already done with ShowOnUI()

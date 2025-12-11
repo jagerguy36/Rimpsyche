@@ -209,13 +209,12 @@ namespace Maux36.RimPsyche
         }
         public void InjectPsycheData(PsycheData psyche, bool preserveMemory)
         {
-            psyche.preserveMemory = preserveMemory;
             personality ??= new Pawn_PersonalityTracker(parentPawn);
             personality.Initialize(psyche);
             interests ??= new Pawn_InterestTracker(parentPawn);
             interests.Initialize(psyche);
             sexuality ??= new Pawn_SexualityTracker(parentPawn);
-            sexuality.InjectData(psyche);
+            sexuality.InjectData(psyche, preserveMemory);
         }
 
         public void DirtyTraitCache()

@@ -18,7 +18,6 @@
   <RPC_Personality>Personality</RPC_Personality>
   <RPC_Interest>Interest</RPC_Interest>
   <RPC_Sexuality>Sexuality</RPC_Sexuality>
-  <RPC_Preference>Preference</RPC_Preference>
 
   <!-- Tab -->
   <TabPsyche>Psyche</TabPsyche>
@@ -26,8 +25,6 @@
   <RimpsycheShowList>Show as List</RimpsycheShowList>
   <RimpsycheShowBar>Show as Bars</RimpsycheShowBar>
   <RimpsycheShowFacet>Show Facets</RimpsycheShowFacet>
-  <RimpsycheShowInterest>Show Interest</RimpsycheShowInterest>
-  <RimpsycheShowPreference>Show Preference</RimpsycheShowPreference>
   <RimpsycheEdit>Edit</RimpsycheEdit>
 
   <TraitAffected>Affected by trait(s):</TraitAffected>
@@ -48,6 +45,11 @@
   <ResetPsycheTooltip>Reset Personality</ResetPsycheTooltip>
   <RimpsycheFacetInfo>Facets are the core building blocks that shape a pawn's thoughts, feelings, and behavior. Each one represents a specific aspect of how they see the world and react to it.</RimpsycheFacetInfo>
   <RimpsychePersonalityInfo>A pawn’s personality is the result of their individual facets coming together. It influences their behavior, relationships, and decisions.</RimpsychePersonalityInfo>
+
+  <SavePsycheTooltip>Save/Load Psyche</SavePsycheTooltip>
+  <SaveToSlot>Save</SaveToSlot>
+  <LoadFromSlot>Load</LoadFromSlot>
+  <DeleteSlot>Delete</DeleteSlot>
 
   <!-- Facet Desc. -->
   <RPC_Imagination>Imagination</RPC_Imagination>
