@@ -215,6 +215,13 @@ namespace Maux36.RimPsyche
             relationship.TryGetValue(target.thingIDNumber, out var current);
             return current;
         }
+        public void ClampRelationshipWith(Pawn target, float ceiling)
+        {
+            if(relationship.TryGetValue(target.thingIDNumber, out var current))
+            {
+                relationship[target.thingIDNumber] = Mathf.Clamp01(Mathf.Min(current + ceiling));
+            }
+        }
 
         public Pawn_SexualityTracker(Pawn p)
         {
@@ -518,10 +525,10 @@ namespace Maux36.RimPsyche
         public float GetAdjustedAttraction(Pawn target)
         {
             var genderAttraction = GetAdjustedAttractionToGender(target.gender);
-            if (genderAttraction < maxAttraction && relationship.TryGetValue(target.thingIDNumber, out float rel))
+            if (relationship.TryGetValue(target.thingIDNumber, out float rel))
             {
-                float minAtt = Mathf.Max(genderAttraction, maxAttraction * minRelAttraction);
-                return Mathf.Lerp(minAtt, maxAttraction, rel);
+                float minAtt = Mathf.Max(genderAttraction, minRelAttraction);
+                return minAtt * (1f + 0.25f * rel);
             }
             return genderAttraction;
         }
