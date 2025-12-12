@@ -16,6 +16,7 @@ namespace Maux36.RimPsyche
             var codes = new List<CodeInstruction>(instructions);
             bool CompatCurveFound = false;
             bool skipping = false;
+            int patchCount = 0;
 
             FieldInfo compatibilityCurveField = AccessTools.Field(typeof(NegativeInteractionUtility), "CompatibilityFactorCurve");
             for (int i = 0; i < codes.Count; i++)
@@ -27,6 +28,7 @@ namespace Maux36.RimPsyche
                 {
                     CompatCurveFound = true;
                     skipping = true;
+                    patchCount += 1;
                     continue;
                 }
                 if (skipping)
@@ -35,6 +37,7 @@ namespace Maux36.RimPsyche
                     {
                         i += 1;
                         skipping = false;
+                        patchCount += 1;
                     }
                     continue;
                 }
@@ -44,10 +47,14 @@ namespace Maux36.RimPsyche
                     code.opcode == OpCodes.Ldc_R4 && (float)code.operand == 2.3f)
                 {
                     yield return new CodeInstruction(OpCodes.Ldc_R4, 2f);
+                    patchCount += 1;
                     continue;
                 }
                 yield return code;
             }
+            if (patchCount != 3)
+                Log.Error("[Rimpsyche] Failed to patch negative interaction chance factor");
+            
         }
         private static void Postfix(ref float __result, Pawn initiator, Pawn recipient)
         {
