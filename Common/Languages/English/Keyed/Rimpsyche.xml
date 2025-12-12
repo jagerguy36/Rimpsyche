@@ -53,6 +53,7 @@
   <ConfirmSaveToSlot>Saving the Psyche here will overwrite the existing Psyche.\n\nAre you sure you want to overwrite?</ConfirmSaveToSlot>
   <LoadFromSlot>Load</LoadFromSlot>
   <ConfirmLoadFromSlot>Loading the Psyche will overwrite the current Psyche of this pawn.\n\nAre you sure you want to overwrite?</ConfirmLoadFromSlot>
+  <ConfirmLoadFromSlot_RandomOrientation>Loading the Psyche will overwrite the current Psyche of this pawn.\n\nWARNING: The psyche you are trying to load has an undefined sexual orientation. Loading this psyche unto a pawn will randomize their sexuality.\n\nAre you sure you want to overwrite?</ConfirmLoadFromSlot_RandomOrientation>
   <DeleteSlot>Delete</DeleteSlot>
   <ConfirmDeleteSlot>Are you sure you want to delete the saved Psyche permanently?</ConfirmDeleteSlot>
 

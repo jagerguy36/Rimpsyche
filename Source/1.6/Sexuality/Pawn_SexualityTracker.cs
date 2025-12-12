@@ -324,13 +324,46 @@ namespace Maux36.RimPsyche
             var traits = pawn.story?.traits;
             var gender = pawn.gender;
             if (traits == null || gender == Gender.None) return;
+
             shouldValidate = false;
             adjustmentDirty = true;
             driveDirty = true;
             loversCacheDirty = true;
             shouldCheckSuppressed = true;
+            preferenceCacheDirty = true;
+
+            //Clean sexuality trait.
+            for (int i = traits.allTraits.Count - 1; i >= 0; i--)
+            {
+                Trait trait = traits.allTraits[i];
+                if (_sexualityTraits.Contains(trait.def)) traits.RemoveTrait(trait);
+            }
+
+            //Randomize Sexuality if loaded sexuality is undefined
+            if (psyche.orientationCategory == SexualOrientation.None || psyche.orientationCategory == SexualOrientation.Developing)
+            {
+                if (Rimpsyche_Utility.GetPawnAge(pawn) < Rimpsyche_Utility.GetMinAdultAge(pawn))
+                {
+                    orientationCategory = SexualOrientation.Developing;
+                    return;
+                }
+                float kinsey;
+                kinsey = SexualityHelper.GenerateKinsey(true);
+                attraction = SexualityHelper.GenerateAttraction();
+                if (attraction < asexualCutoff) { orientationCategory = SexualOrientation.Asexual; traits.allTraits.Add(new Trait(TraitDefOf.Asexual, TraitDefOf.Asexual.degreeDatas[0].degree)); }
+                else if (kinsey < 0.2f) { orientationCategory = SexualOrientation.Heterosexual; }
+                else if (kinsey < 0.8f) { orientationCategory = SexualOrientation.Bisexual; traits.allTraits.Add(new Trait(TraitDefOf.Bisexual, TraitDefOf.Bisexual.degreeDatas[0].degree)); }
+                else { orientationCategory = SexualOrientation.Homosexual; traits.allTraits.Add(new Trait(TraitDefOf.Gay, TraitDefOf.Gay.degreeDatas[0].degree)); }
+                sexDrive = SexualityHelper.GenerateSexdrive();
+                if (gender == Gender.Male) mKinsey = kinsey;
+                else mKinsey = 1 - kinsey;
+                _preference.Clear();
+                return;
+            }
+
+            //Inject Sexuality from the psyche
+            //If the injected pawns are too young, they are assigned Developing Orientation and will be reassigned their proper orientation based on the mKinsey when they reach the growth moment with Initialize()
             orientationCategory = psyche.orientationCategory;
-            //They will be reassigned their proper orientation based on the mKinsey when they reach the growth moment with Initialize
             if (Rimpsyche_Utility.GetPawnAge(pawn) < Rimpsyche_Utility.GetMinAdultAge(pawn))
             {
                 orientationCategory = SexualOrientation.Developing;
@@ -339,19 +372,11 @@ namespace Maux36.RimPsyche
             attraction = psyche.attraction;
             sexDrive = psyche.sexDrive;
             _preference = new Dictionary<string, List<PrefEntry>>(psyche.preference);
-            preferenceCacheDirty = true;
             if (preserveMemory)
             {
                 knownOrientation = [.. psyche.knownOrientation];
                 relationship = new Dictionary<int, float>(psyche.relationship);
                 //acquaintanceship = new Dictionary<int, float>(psyche.acquaintanceship);
-            }
-
-            //Clean sexuality trait. Pawn's traits null check already done with ShowOnUI()
-            for (int i = traits.allTraits.Count - 1; i >= 0; i--)
-            {
-                Trait trait = traits.allTraits[i];
-                if (_sexualityTraits.Contains(trait.def)) traits.RemoveTrait(trait);
             }
 
             //Assign correct sexuality trait

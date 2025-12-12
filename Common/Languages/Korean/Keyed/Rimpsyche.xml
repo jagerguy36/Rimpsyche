@@ -48,8 +48,12 @@
 
   <SavePsycheTooltip>저장/불러오기</SavePsycheTooltip>
   <SaveToSlot>저장</SaveToSlot>
+  <ConfirmSaveToSlot>여기에 저장하면 기존 정보를 덮어씁니다.\n\n덮어쓰시겠습니까?</ConfirmSaveToSlot>
   <LoadFromSlot>불러오기</LoadFromSlot>
+  <ConfirmLoadFromSlot>저장된 정보로 이 림의 정신을 덮어 씁니다.\n\n덮어쓰시겠습니까?</ConfirmLoadFromSlot>
+  <ConfirmLoadFromSlot_RandomOrientation>저장된 정보로 이 림의 정신을 덮어씁니다.\n\n경고: 저장된 정보에 성적 지향이 정의되지 않았습니다. 이 정보를 림에 덮어 씌우면 성적 취향이 무작위로 결정됩니다.\n\n덮어쓰시겠습니까?</ConfirmLoadFromSlot_RandomOrientation>
   <DeleteSlot>삭제</DeleteSlot>
+  <ConfirmDeleteSlot>저장된 정보를 영구적으로 삭제하시겠습니까?</ConfirmDeleteSlot>
 
   <!-- Facet Desc. -->
   <RPC_Imagination>감수성</RPC_Imagination>

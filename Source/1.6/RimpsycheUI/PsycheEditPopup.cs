@@ -730,9 +730,14 @@ namespace Maux36.RimPsyche
                 {
                     options.Add(new FloatMenuOption("LoadFromSlot".Translate(), () =>
                     {
+                        bool randomizeSexuality = false;
+                        var loadingOri = PsycheSaveManager.Slots[index].data.orientationCategory;
+                        var pawnOri = pawn.compPsyche().Sexuality.orientationCategory;
+                        if (Rimpsyche.SexualityModuleLoaded && (loadingOri == SexualOrientation.None || loadingOri == SexualOrientation.Developing) && (pawnOri != SexualOrientation.None && pawnOri != SexualOrientation.Developing))
+                            randomizeSexuality = true;
                         Find.WindowStack.Add(
                             new Dialog_ConfirmClosable(
-                                "ConfirmLoadFromSlot".Translate(index, PsycheSaveManager.Slots[index].name),
+                                (randomizeSexuality ? "ConfirmLoadFromSlot_RandomOrientation" : "ConfirmLoadFromSlot").Translate(index, PsycheSaveManager.Slots[index].name),
                                 () =>
                                 {
                                     PsycheDataUtil.InjectPsycheData(pawn, PsycheSaveManager.Slots[index].data, false);
