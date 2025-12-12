@@ -10,6 +10,7 @@ namespace Maux36.RimPsyche
     [StaticConstructorOnStartup]
     public class RimpsycheDatabase
     {
+        public static HashSet<int> MindlessDefShorthashSet = new();
         public static HashSet<Interest> InterestList = new();
         public static Dictionary<int, InterestDomainDef> InterestDomainDict = new();
         public static Dictionary<string, PersonalityDef> PersonalityDict = new();
@@ -383,7 +384,6 @@ namespace Maux36.RimPsyche
                 });
             }
 
-
             if (ModsConfig.IsActive("consolidatedtraits.lc.rw"))
             {
                 Log.Message("[Rimpsyche] ConsolidatedTraits gate data added");
@@ -400,7 +400,6 @@ namespace Maux36.RimPsyche
                     new FacetGate(Facet.Intellect, 40f, 10f)
                 });
             }
-
 
             if (ModsConfig.IsActive("avius.badpeople"))
             {
@@ -506,7 +505,6 @@ namespace Maux36.RimPsyche
                 }
             }
 
-
             if (ModsConfig.IsActive("goji.thesimstraits"))
             {
                 Log.Message("[Rimpsyche] The Sims Traits gate data added");
@@ -533,6 +531,20 @@ namespace Maux36.RimPsyche
                     });
                 }
                 // MayRequire="VanillaExpanded.VanillaTraitsExpanded"
+            }
+
+            if (ModsConfig.IsActive("chjees.androids14"))
+            {
+                var BattleDroiddef = DefDatabase<ThingDef>.GetNamed("ChjBattleDroid", false);
+                if (BattleDroiddef != null)
+                    MindlessDefShorthashSet.Add(BattleDroiddef.shortHash);
+                else
+                    Log.Warning("[Rimpsyche] chjees.androids14 is loaded but ChjBattleDroid Def is not found.");
+                var Droiddef = DefDatabase<ThingDef>.GetNamed("ChjDroid", false);
+                if (Droiddef != null)
+                    MindlessDefShorthashSet.Add(Droiddef.shortHash);
+                else
+                    Log.Warning("[Rimpsyche] chjees.androids14 is loaded but ChjDroid Def is not found.");
             }
         }
     }

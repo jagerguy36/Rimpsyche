@@ -16,6 +16,8 @@ namespace Maux36.RimPsyche
             {
                 if (allDef.race is { intelligence: Intelligence.Humanlike } && !allDef.IsCorpse)
                 {
+                    if (RimpsycheDatabase.MindlessDefShorthashSet.Contains(allDef.shortHash))
+                        continue;
                     allDef.comps.Add(new CompProperties_Psyche());
                     PsycheCacheManager.TrackingDefHash.Add(allDef.shortHash);
 

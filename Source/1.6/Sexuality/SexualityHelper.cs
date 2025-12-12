@@ -82,6 +82,7 @@ namespace Maux36.RimPsyche
             };
         }
 
+        public static HashSet<int> NonSexualDefShorthashSet = new();
         public static HashSet<PawnRelationDef> LoverDefHash = new();
         private static HashSet<PawnRelationDef> GetLoverDefs()
         {
