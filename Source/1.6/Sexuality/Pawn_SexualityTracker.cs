@@ -19,6 +19,7 @@ namespace Maux36.RimPsyche
 
         public readonly Pawn pawn;
         public readonly CompPsyche compPsyche;
+        private float minAdultAge;
 
         //Semi constant
         private static readonly bool usePreference = RimpsycheSexualitySettings.usePreferenceSystem;
@@ -229,7 +230,9 @@ namespace Maux36.RimPsyche
             pawn = p;
             compPsyche = p.compPsyche();
         }
-        //Growth moment sexuality generation counts as generate = true
+        //generate = false is coming from loading saves.
+        //Newly generate pawns initialize with generate = true
+        //Growth moment sexuality generation also counts as generate = true
         public void Initialize(bool generate = false, bool allowGay = true, bool forceAdult = false)
         {
             float kinsey;
@@ -237,6 +240,8 @@ namespace Maux36.RimPsyche
             adjustmentDirty = true;
             driveDirty = true;
             loversCacheDirty = true;
+            //Set up near-constant variable to be used frequently
+            minAdultAge = compPsyche.MinAdultAge;
             //Sexuality Module not loaded
             if (!Rimpsyche.SexualityModuleLoaded) return;
             //Already initialized before
@@ -261,7 +266,7 @@ namespace Maux36.RimPsyche
             //From here on: SexualOrientation.None || Sexuality generation request
 
             //Assign Developing to non-adults
-            if (!forceAdult && Rimpsyche_Utility.GetPawnAge(pawn) < Rimpsyche_Utility.GetMinAdultAge(pawn))
+            if (!forceAdult && Rimpsyche_Utility.GetPawnAge(pawn) < minAdultAge)
             {
                 orientationCategory = SexualOrientation.Developing;
                 return;
@@ -341,7 +346,7 @@ namespace Maux36.RimPsyche
             //Randomize Sexuality if loaded sexuality is undefined
             if (psyche.orientationCategory == SexualOrientation.None || psyche.orientationCategory == SexualOrientation.Developing)
             {
-                if (Rimpsyche_Utility.GetPawnAge(pawn) < Rimpsyche_Utility.GetMinAdultAge(pawn))
+                if (Rimpsyche_Utility.GetPawnAge(pawn) < minAdultAge)
                 {
                     orientationCategory = SexualOrientation.Developing;
                     return;
@@ -363,7 +368,7 @@ namespace Maux36.RimPsyche
             //Inject Sexuality from the psyche
             //If the injected pawns are too young, they are assigned Developing Orientation and will be reassigned their proper orientation based on the mKinsey when they reach the growth moment with Initialize()
             orientationCategory = psyche.orientationCategory;
-            if (Rimpsyche_Utility.GetPawnAge(pawn) < Rimpsyche_Utility.GetMinAdultAge(pawn))
+            if (Rimpsyche_Utility.GetPawnAge(pawn) < minAdultAge)
             {
                 orientationCategory = SexualOrientation.Developing;
             }
@@ -578,7 +583,7 @@ namespace Maux36.RimPsyche
             if (adjustmentDirty)
             {
                 adjustmentDirty = false;
-                if (!Suppressed && Rimpsyche_Utility.GetPawnAge(pawn) >= Rimpsyche_Utility.GetMinAdultAge(pawn))
+                if (!Suppressed && Rimpsyche_Utility.GetPawnAge(pawn) >= minAdultAge)
                 {
                     float multiplier = SexualityHelper.AdjustRawValues(Attraction) / Mathf.Max(mKinsey, 1f - mKinsey);
                     mAttraction = multiplier * mKinsey;
@@ -609,7 +614,7 @@ namespace Maux36.RimPsyche
         {
             if (driveDirty)
             {
-                if (!Suppressed && Rimpsyche_Utility.GetPawnAge(pawn) >= Rimpsyche_Utility.GetMinAdultAge(pawn))
+                if (!Suppressed && Rimpsyche_Utility.GetPawnAge(pawn) >= minAdultAge)
                 {
                     adjustedDrive = SexualityHelper.AdjustRawValues(SexDrive);
                 }
