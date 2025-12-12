@@ -90,7 +90,6 @@ namespace Maux36.RimPsyche
         /// The keys can be used to determine whether this pawn has ever found the other pawn attractive enough to consider for a relationship.
         /// </summary>
         public Dictionary<int, float> relationship = new();
-        //public Dictionary<int, float> acquaintanceship = new();
 
         //Cache
         private readonly Dictionary<int, PawnRelationDef> _loversCache = new();
@@ -376,7 +375,6 @@ namespace Maux36.RimPsyche
             {
                 knownOrientation = [.. psyche.knownOrientation];
                 relationship = new Dictionary<int, float>(psyche.relationship);
-                //acquaintanceship = new Dictionary<int, float>(psyche.acquaintanceship);
             }
 
             //Assign correct sexuality trait
@@ -640,7 +638,6 @@ namespace Maux36.RimPsyche
             Scribe_Collections.Look(ref knownOrientation, "knownOrientation", LookMode.Value);
             Scribe_Collections.Look(ref relationship, "relationship", LookMode.Value, LookMode.Value);
             Scribe_Collections.Look(ref _preference, "preference", LookMode.Value, LookMode.Deep);
-            //Scribe_Collections.Look(ref acquaintanceship, "acquaintanceship", LookMode.Value, LookMode.Value);
             //Fix null memories
             if (VersionManager.shouldSetupSexualityVariable)
             {

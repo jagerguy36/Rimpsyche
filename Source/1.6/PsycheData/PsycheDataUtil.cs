@@ -55,7 +55,6 @@ namespace Maux36.RimPsyche
                 psyche.knownOrientation = [];
                 psyche.relationship = [];
             }
-            //psyche.acquaintanceship = new Dictionary<int, float>(sexuality.acquaintanceship);
             psyche.preference = new Dictionary<string, List<PrefEntry>>(sexuality.GetPreferenceRaw());
 
             return psyche;

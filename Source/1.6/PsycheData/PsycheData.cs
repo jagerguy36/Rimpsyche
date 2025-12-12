@@ -38,7 +38,6 @@ namespace Maux36.RimPsyche
 
         public HashSet<int> knownOrientation = new();
         public Dictionary<int, float> relationship = new();
-        //public Dictionary<int, float> acquaintanceship = new();
         public Dictionary<string, List<PrefEntry>> preference = new();
 
         public void ExposeData()
@@ -81,7 +80,6 @@ namespace Maux36.RimPsyche
             Scribe_Collections.Look(ref knownOrientation, "knownOrientation", LookMode.Value);
             Scribe_Collections.Look(ref relationship, "relationship", LookMode.Value, LookMode.Value);
             Scribe_Collections.Look(ref preference, "preference", LookMode.Value, LookMode.Deep);
-            //Scribe_Collections.Look(ref acquaintanceship, "acquaintanceship", LookMode.Value, LookMode.Value);
             //Fix null memories
             if (VersionManager.shouldSetupSexualityVariable)
             {
@@ -89,7 +87,6 @@ namespace Maux36.RimPsyche
                 relationship ??= new();
                 preference ??= new();
             }
-
             //Post load operations
             if (Scribe.mode == LoadSaveMode.PostLoadInit)
             {
