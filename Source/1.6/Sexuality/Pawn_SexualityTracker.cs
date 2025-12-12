@@ -57,7 +57,8 @@ namespace Maux36.RimPsyche
         private bool adjustmentDirty = true;
         private float mAttraction = 0f;
         private float fAttraction = 0f;
-        private float maxAttraction = 0f;
+        public bool driveDirty = true;
+        private float adjustedDrive = 0f;
 
         //For Androids or Other non-sexual beings
         private bool shouldCheckSuppressed = true;
@@ -70,6 +71,7 @@ namespace Maux36.RimPsyche
                 {
                     SuppressedInternal = CheckSexualitySuppressed();
                     adjustmentDirty = true;
+                    driveDirty = true;
                     shouldCheckSuppressed = false;
                 }
                 return SuppressedInternal;
@@ -234,6 +236,7 @@ namespace Maux36.RimPsyche
             float kinsey;
             shouldValidate = false;
             adjustmentDirty = true;
+            driveDirty = true;
             loversCacheDirty = true;
             //Sexuality Module not loaded
             if (!Rimpsyche.SexualityModuleLoaded) return;
@@ -249,9 +252,11 @@ namespace Maux36.RimPsyche
             }
             //Only Develop sexuality via generation sexuality request, not via initialization
             if (orientationCategory == SexualOrientation.Developing && !generate) return;
+
+            //Not Applicable
+            if (SexualityHelper.NonSexualDefShorthashSet.Contains(pawn.def.shortHash)) return;
             var traits = pawn.story?.traits;
             var gender = pawn.gender;
-            //Not Applicable
             if (traits == null || gender == Gender.None) return;
 
             //From here on: SexualOrientation.None || Sexuality generation request
@@ -314,10 +319,22 @@ namespace Maux36.RimPsyche
         }
         public void InjectData(PsycheData psyche, bool preserveMemory)
         {
+            //Not Applicable
+            if (SexualityHelper.NonSexualDefShorthashSet.Contains(pawn.def.shortHash)) return;
+            var traits = pawn.story?.traits;
+            var gender = pawn.gender;
+            if (traits == null || gender == Gender.None) return;
             shouldValidate = false;
             adjustmentDirty = true;
+            driveDirty = true;
             loversCacheDirty = true;
+            shouldCheckSuppressed = true;
             orientationCategory = psyche.orientationCategory;
+            //They will be reassigned their proper orientation based on the mKinsey when they reach the growth moment with Initialize
+            if (Rimpsyche_Utility.GetPawnAge(pawn) < Rimpsyche_Utility.GetMinAdultAge(pawn))
+            {
+                orientationCategory = SexualOrientation.Developing;
+            }
             mKinsey = psyche.mKinsey;
             attraction = psyche.attraction;
             sexDrive = psyche.sexDrive;
@@ -331,7 +348,6 @@ namespace Maux36.RimPsyche
             }
 
             //Clean sexuality trait. Pawn's traits null check already done with ShowOnUI()
-            var traits = pawn.story.traits;
             for (int i = traits.allTraits.Count - 1; i >= 0; i--)
             {
                 Trait trait = traits.allTraits[i];
@@ -464,6 +480,7 @@ namespace Maux36.RimPsyche
         }
         public void SetSexdrive(float value)
         {
+            driveDirty = true;
             sexDrive = value;
         }
 
@@ -543,13 +560,11 @@ namespace Maux36.RimPsyche
                     float multiplier = SexualityHelper.AdjustRawValues(Attraction) / Mathf.Max(mKinsey, 1f - mKinsey);
                     mAttraction = multiplier * mKinsey;
                     fAttraction = multiplier * (1f - mKinsey);
-                    maxAttraction = Mathf.Max(mAttraction, fAttraction);
                 }
                 else
                 {
                     mAttraction = 0f;
                     fAttraction = 0f;
-                    maxAttraction = 0f;
                 }
             }
             return gender switch
@@ -569,8 +584,18 @@ namespace Maux36.RimPsyche
 
         public float GetAdjustedSexdrive()
         {
-            if (Suppressed) return 0f;
-            return SexualityHelper.AdjustRawValues(SexDrive);
+            if (driveDirty)
+            {
+                if (!Suppressed && Rimpsyche_Utility.GetPawnAge(pawn) >= Rimpsyche_Utility.GetMinAdultAge(pawn))
+                {
+                    adjustedDrive = SexualityHelper.AdjustRawValues(SexDrive);
+                }
+                else
+                {
+                    adjustedDrive = 0f;
+                }
+            }
+            return adjustedDrive;
         }
 
         public void ExposeData()
