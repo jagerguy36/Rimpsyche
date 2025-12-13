@@ -102,6 +102,7 @@ namespace Maux36.RimPsyche
                 var scopeList = personalityDef.scopes;
                 if (scopeList != null)
                 {
+                    var seenTraits = new HashSet<Pair<int, int>>();
                     foreach (var scopeData in scopeList)
                     {
                         var scopeCenter = scopeData.centerOffset;
@@ -118,6 +119,11 @@ namespace Maux36.RimPsyche
                             continue;
                         }
                         var key = new Pair<int, int>(traitDef.shortHash, scopeData.degree);
+                        if (seenTraits.Contains(key))
+                        {
+                            Log.Error($"[Rimpsyche] PersonalityDef {personalityDef.defName} is being double-scoped by {scopeData.traitDefname} ({scopeData.degree}). It is possible multiple mods are trying to scope this personality using the same trait. This will incur inconsistency and critical error during Personality evaluation.");
+                        }
+                        seenTraits.Add(key);
                         if (!TraitScopeDatabase.ContainsKey(key))
                         {
                             TraitScopeDatabase[key] = new List<(int, float, float)>();
