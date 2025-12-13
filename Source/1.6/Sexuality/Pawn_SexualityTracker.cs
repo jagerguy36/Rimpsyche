@@ -233,7 +233,7 @@ namespace Maux36.RimPsyche
         //generate = false is coming from loading saves.
         //Newly generate pawns initialize with generate = true
         //Growth moment sexuality generation also counts as generate = true
-        public void Initialize(bool generate = false, bool allowGay = true, bool forceAdult = false)
+        public void Initialize(bool generate = false, bool allowGay = true)
         {
             float kinsey;
             shouldValidate = false;
@@ -266,7 +266,7 @@ namespace Maux36.RimPsyche
             //From here on: SexualOrientation.None || Sexuality generation request
 
             //Assign Developing to non-adults
-            if (!forceAdult && Rimpsyche_Utility.GetPawnAge(pawn) < minAdultAge)
+            if (Rimpsyche_Utility.GetPawnAge(pawn) < minAdultAge)
             {
                 orientationCategory = SexualOrientation.Developing;
                 return;
