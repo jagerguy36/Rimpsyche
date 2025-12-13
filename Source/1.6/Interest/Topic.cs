@@ -38,7 +38,7 @@ namespace Maux36.RimPsyche
             }
             else
             {
-                //Log.Error($"Null weight on topic {name}");
+                Log.Error($"[Rimpsyche] Null weight value on topic {name}. Using default attitude to prevent critical failure.");
                 initiatorAttitude = initiatorPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Tact) + (0.1f * initiator.skills.GetSkill(SkillDefOf.Social).Level);
                 recipientAttitude = recipientPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Tact) + (0.1f * recipient.skills.GetSkill(SkillDefOf.Social).Level);
                 initiatorAttitude = Mathf.Clamp(initiatorAttitude, -1f, 1f);
