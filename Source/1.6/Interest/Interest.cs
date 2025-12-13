@@ -12,7 +12,7 @@ namespace Maux36.RimPsyche
     {
         [NoTranslate]
         public string name;
-        public int id = 0;
+        public int id = -1;
         public string label;
         public string description;
         public List<FacetWeight> scoreWeight;
