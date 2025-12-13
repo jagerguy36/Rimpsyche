@@ -250,7 +250,7 @@ namespace Maux36.RimPsyche
                 //Growth moment for pawn who's already assigned their sexuality
                 if (generate)
                 {
-                    AdjustSexualityTrait(attraction);
+                    AdjustSexualityCategory(attraction);
                 }
                 return;
             }
@@ -498,13 +498,13 @@ namespace Maux36.RimPsyche
         {
             mKinsey = value;
             adjustmentDirty = true;
-            AdjustSexualityTrait(attraction);
+            AdjustSexualityCategory(attraction);
         }
         public void SetAttraction(float value)
         {
             attraction = value;
             adjustmentDirty = true;
-            AdjustSexualityTrait(attraction);
+            AdjustSexualityCategory(attraction);
         }
         public void SetSexdrive(float value)
         {
@@ -513,10 +513,10 @@ namespace Maux36.RimPsyche
         }
 
         /// <summary>
-        /// Adjust sexuality trait to match Psyche Sexuality
+        /// Adjust sexuality trait and orienation category to match mKinsey and attraction
         /// </summary>
         /// <param name="attraction">max(mAttraction, fAttraction)</param>
-        private void AdjustSexualityTrait(float attraction)
+        private void AdjustSexualityCategory(float attraction)
         {
             float kinsey;
             if (pawn.gender == Gender.Male) kinsey = mKinsey;
@@ -530,36 +530,47 @@ namespace Maux36.RimPsyche
             //Adjustment not needed
             if (orientationBasedOnAttraction == orientationCategory) return;
 
-            //Clean sexuality trait. Pawn's traits null check already done with ShowOnUI()
-            var traits = pawn.story.traits;
-            for (int i = traits.allTraits.Count - 1; i >= 0; i--)
-            {
-                Trait trait = traits.allTraits[i];
-                if (_sexualityTraits.Contains(trait.def)) traits.RemoveTrait(trait);
-            }
-
             //Assign correct sexuality trait
-            Trait traitToGive;
             switch (orientationBasedOnAttraction)
             {
                 case (SexualOrientation.Asexual):
                     orientationCategory = SexualOrientation.Asexual;
-                    traitToGive = new Trait(TraitDefOf.Asexual, PawnGenerator.RandomTraitDegree(TraitDefOf.Asexual));
-                    pawn.story.traits.GainTrait(traitToGive);
+                    AdjustTraitTo(TraitDefOf.Asexual);
                     break;
                 case (SexualOrientation.Heterosexual):
                     orientationCategory = SexualOrientation.Heterosexual;
+                    AdjustTraitTo(null);
                     break;
                 case (SexualOrientation.Bisexual):
                     orientationCategory = SexualOrientation.Bisexual;
-                    traitToGive = new Trait(TraitDefOf.Bisexual, PawnGenerator.RandomTraitDegree(TraitDefOf.Bisexual));
-                    pawn.story.traits.GainTrait(traitToGive);
+                    AdjustTraitTo(TraitDefOf.Bisexual);
                     break;
                 case (SexualOrientation.Homosexual):
                     orientationCategory = SexualOrientation.Homosexual;
-                    traitToGive = new Trait(TraitDefOf.Gay, PawnGenerator.RandomTraitDegree(TraitDefOf.Gay));
-                    pawn.story.traits.GainTrait(traitToGive);
+                    AdjustTraitTo(TraitDefOf.Gay);
                     break;
+            }
+        }
+        private void AdjustTraitTo(TraitDef TargetDef)
+        {
+            var traits = pawn.story.traits;
+            bool shouldGiveTrait = true;
+            Trait traitToGive;
+            for (int i = traits.allTraits.Count - 1; i >= 0; i--)
+            {
+                Trait trait = traits.allTraits[i];
+                if (_sexualityTraits.Contains(trait.def))
+                {
+                    if (trait.def == TargetDef)
+                        shouldGiveTrait = false;
+                    else
+                        traits.RemoveTrait(trait);
+                }
+            }
+            if (TargetDef != null && shouldGiveTrait)
+            {
+                traitToGive = new Trait(TargetDef, PawnGenerator.RandomTraitDegree(TargetDef));
+                pawn.story.traits.GainTrait(traitToGive);
             }
         }
         /// <summary>
