@@ -134,14 +134,14 @@ namespace Maux36.RimPsyche
         private static readonly SimpleCurve BiCurve;
         private static readonly SimpleCurve NonGayCurve;
         private static readonly SimpleCurve GayCurve;
-        public static SexualOrientation EvaluateSexuality(Pawn pawn, bool ignoreAge = false)
+        public static SexualOrientation EvaluateSexuality(Pawn pawn)
         {
             var traits = pawn.story?.traits;
             var gender = pawn.gender;
             //Not Applicable
             if (traits == null || gender == Gender.None) return SexualOrientation.None;
             //Non-adults
-            if (!ignoreAge && Rimpsyche_Utility.GetPawnAge(pawn) < Rimpsyche_Utility.GetMinAdultAge(pawn))
+            if (Rimpsyche_Utility.GetPawnAge(pawn) < Rimpsyche_Utility.GetMinAdultAge(pawn))
             {
                 return SexualOrientation.Developing;
             }
