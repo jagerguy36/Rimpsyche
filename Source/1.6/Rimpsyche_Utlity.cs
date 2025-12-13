@@ -52,9 +52,9 @@ namespace Maux36.RimPsyche
             }
 
         }
-        public static float SaddleShapeFunction(float x, float y, float controversiality = 1)
+        public static float SaddleShapeFunction(float x, float y, float controversiality = 1f)
         {
-            float C = 2 * controversiality * controversiality;
+            float C = 2f * controversiality * controversiality;
             float diff = (x - y);
             float diff2 = diff * diff;
             float sum = (x + y);
