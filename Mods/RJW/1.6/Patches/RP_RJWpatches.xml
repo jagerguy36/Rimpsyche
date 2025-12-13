@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<Patch>
+
+  <Operation Class="PatchOperationConditional">
+    <xpath>Defs/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_SelfInterest"]/scopes</xpath>
+    <match Class="PatchOperationAdd">
+      <xpath>Defs/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_SelfInterest"]/scopes</xpath>
+      <value>
+        <li>
+          <traitDefname>Rapist</traitDefname>
+          <degree>0</degree>
+          <centerOffset>0.5</centerOffset>
+          <range>0.5</range>
+        </li>
+      </value>
+    </match>
+    <nomatch Class="PatchOperationAdd">
+      <xpath>Defs/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_SelfInterest"]</xpath>
+      <value>
+        <scopes>
+          <li>
+            <traitDefname>Rapist</traitDefname>
+            <degree>0</degree>
+            <centerOffset>0.5</centerOffset>
+            <range>0.5</range>
+          </li>
+        </scopes>
+      </value>
+    </nomatch>
+  </Operation>
+
+  <Operation Class="PatchOperationConditional">
+    <xpath>Defs/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Aggressiveness"]/scopes</xpath>
+    <match Class="PatchOperationAdd">
+      <xpath>Defs/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Aggressiveness"]/scopes</xpath>
+      <value>
+        <li>
+          <traitDefname>Rapist</traitDefname>
+          <degree>0</degree>
+          <centerOffset>0.5</centerOffset>
+          <range>0.5</range>
+        </li>
+      </value>
+    </match>
+    <nomatch Class="PatchOperationAdd">
+      <xpath>Defs/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Aggressiveness"]</xpath>
+      <value>
+        <scopes>
+          <li>
+            <traitDefname>Rapist</traitDefname>
+            <degree>0</degree>
+            <centerOffset>0.5</centerOffset>
+            <range>0.5</range>
+          </li>
+        </scopes>
+      </value>
+    </nomatch>
+  </Operation>
+
+  <Operation Class="PatchOperationConditional">
+    <xpath>Defs/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Compassion"]/scopes</xpath>
+    <match Class="PatchOperationAdd">
+      <xpath>Defs/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Compassion"]/scopes</xpath>
+      <value>
+        <li>
+          <traitDefname>Rapist</traitDefname>
+          <degree>0</degree>
+          <centerOffset>-0.75</centerOffset>
+          <range>0.25</range>
+        </li>
+      </value>
+    </match>
+    <nomatch Class="PatchOperationAdd">
+      <xpath>Defs/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Compassion"]</xpath>
+      <value>
+        <scopes>
+          <li>
+            <traitDefname>Rapist</traitDefname>
+            <degree>0</degree>
+            <centerOffset>-0.75</centerOffset>
+            <range>0.25</range>
+          </li>
+        </scopes>
+      </value>
+    </nomatch>
+  </Operation>
+
+  <Operation Class="PatchOperationConditional">
+    <xpath>Defs/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Morality"]/scopes</xpath>
+    <match Class="PatchOperationAdd">
+      <xpath>Defs/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Morality"]/scopes</xpath>
+      <value>
+        <li>
+          <traitDefname>Rapist</traitDefname>
+          <degree>0</degree>
+          <centerOffset>-0.75</centerOffset>
+          <range>0.25</range>
+        </li>
+      </value>
+    </match>
+    <nomatch Class="PatchOperationAdd">
+      <xpath>Defs/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Morality"]</xpath>
+      <value>
+        <scopes>
+          <li>
+            <traitDefname>Rapist</traitDefname>
+            <degree>0</degree>
+            <centerOffset>-0.75</centerOffset>
+            <range>0.25</range>
+          </li>
+        </scopes>
+      </value>
+    </nomatch>
+  </Operation>
+
+  <Operation Class="PatchOperationConditional">
+    <xpath>Defs/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Discipline"]/scopes</xpath>
+    <match Class="PatchOperationAdd">
+      <xpath>Defs/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Discipline"]/scopes</xpath>
+      <value>
+        <li>
+          <traitDefname>Nymphomaniac</traitDefname>
+          <degree>0</degree>
+          <centerOffset>-0.5</centerOffset>
+          <range>0.5</range>
+        </li>
+      </value>
+    </match>
+    <nomatch Class="PatchOperationAdd">
+      <xpath>Defs/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Discipline"]</xpath>
+      <value>
+        <scopes>
+          <li>
+            <traitDefname>Nymphomaniac</traitDefname>
+            <degree>0</degree>
+            <centerOffset>-0.5</centerOffset>
+            <range>0.5</range>
+          </li>
+        </scopes>
+      </value>
+    </nomatch>
+  </Operation>
+
+</Patch>
