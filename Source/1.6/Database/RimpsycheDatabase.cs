@@ -14,8 +14,8 @@ namespace Maux36.RimPsyche
         public static HashSet<Interest> InterestList = new();
         public static Dictionary<int, InterestDomainDef> InterestDomainDict = new();
         public static Dictionary<string, PersonalityDef> PersonalityDict = new();
-        public static Dictionary<Pair<int, int>, List<(int, float, float)>> TraitScopeDatabase = new();
-        public static Dictionary<Pair<int, int>, List<FacetGate>> TraitGateDatabase = new() { };
+        public static Dictionary<int, List<(int, float, float)>> TraitScopeDatabase = new();
+        public static Dictionary<int, List<FacetGate>> TraitGateDatabase = new() { };
         public static Dictionary<int, List<FacetGate>> GeneGateDatabase = new() { };
         public static List<PreferenceDef> OrderedRomPreferenceDefs = new();
         public static List<PreferenceDef> OrderedSexPreferenceDefs = new();
@@ -102,7 +102,7 @@ namespace Maux36.RimPsyche
                 var scopeList = personalityDef.scopes;
                 if (scopeList != null)
                 {
-                    var seenTraits = new HashSet<Pair<int, int>>();
+                    var seenTraits = new HashSet<int>();
                     foreach (var scopeData in scopeList)
                     {
                         var scopeCenter = scopeData.centerOffset;
@@ -118,7 +118,12 @@ namespace Maux36.RimPsyche
                             Log.Warning($"[Rimpsyche] Could not find TraitDef named '{scopeData.traitDefname}'.");
                             continue;
                         }
-                        var key = new Pair<int, int>(traitDef.shortHash, scopeData.degree);
+                        if (scopeData.degree < 256 || 256 < scopeData.degree)
+                        {
+                            Log.Error($"[Rimpsyche] A scope for {scopeData.traitDefname} has a degree of {scopeData.degree}. Rimpsyche only supports trait degree between -256 ~ 256. Report this to the mod author.");
+                            continue;
+                        }
+                        int key = (traitDef.shortHash << 16) | (scopeData.degree + 256);
                         if (seenTraits.Contains(key))
                         {
                             Log.Error($"[Rimpsyche] PersonalityDef {personalityDef.defName} is being double-scoped by {scopeData.traitDefname} ({scopeData.degree}). It is possible multiple mods are trying to scope this personality using the same trait. This will incur inconsistency and critical error during Personality evaluation.");
@@ -164,7 +169,13 @@ namespace Maux36.RimPsyche
             var traitDef = DefDatabase<TraitDef>.GetNamed(defName, false);
             if (traitDef != null)
             {
-                TraitGateDatabase[new Pair<int, int>(traitDef.shortHash, degree)] = gate;
+                if (degree < 256 || 256 < degree)
+                {
+                    Log.Error($"[Rimpsyche] A scope for {traitDef.defName} has a degree of {degree}. Rimpsyche only supports trait degree between -256 ~ 256. Report this to the mod author.");
+                    return;
+                }
+                int key = (traitDef.shortHash << 16) | (degree + 256);
+                TraitGateDatabase[key] = gate;
             }
             else
             {
