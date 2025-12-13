@@ -11,8 +11,9 @@ namespace Maux36.RimPsyche
     public class RimpsycheDatabase
     {
         public static HashSet<int> MindlessDefShorthashSet = new();
-        public static HashSet<Interest> InterestList = new();
         public static Dictionary<int, InterestDomainDef> InterestDomainDict = new();
+        public static HashSet<Interest> InterestList = new();
+        public static Dictionary<int, Topic> TopicDict = new();
         public static Dictionary<string, PersonalityDef> PersonalityDict = new();
         public static Dictionary<int, List<(int, float, float)>> TraitScopeDatabase = new();
         public static Dictionary<int, List<FacetGate>> TraitGateDatabase = new() { };
@@ -118,7 +119,7 @@ namespace Maux36.RimPsyche
                             Log.Warning($"[Rimpsyche] Could not find TraitDef named '{scopeData.traitDefname}'.");
                             continue;
                         }
-                        if (scopeData.degree < 256 || 256 < scopeData.degree)
+                        if (scopeData.degree < -256 || 256 < scopeData.degree)
                         {
                             Log.Error($"[Rimpsyche] A scope for {scopeData.traitDefname} has a degree of {scopeData.degree}. Rimpsyche only supports trait degree between -256 ~ 256. Report this to the mod author.");
                             continue;
@@ -169,7 +170,7 @@ namespace Maux36.RimPsyche
             var traitDef = DefDatabase<TraitDef>.GetNamed(defName, false);
             if (traitDef != null)
             {
-                if (degree < 256 || 256 < degree)
+                if (degree < -256 || 256 < degree)
                 {
                     Log.Error($"[Rimpsyche] A scope for {traitDef.defName} has a degree of {degree}. Rimpsyche only supports trait degree between -256 ~ 256. Report this to the mod author.");
                     return;
