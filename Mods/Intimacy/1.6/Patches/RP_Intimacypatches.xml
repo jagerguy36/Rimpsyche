@@ -14,52 +14,56 @@
   <Operation Class="PatchOperationConditional">
     <xpath>Defs/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Sociability"]/scopes</xpath>
     <match Class="PatchOperationAdd">
-      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Sociability"]/scopes</xpath>
-        <value>
-          <li>
-            <traitDefname>SEX_Solitary</traitDefname>
-            <centerOffset>-0.5</centerOffset>
-            <range>0.5</range>
-          </li>
-        </value>
+      <xpath>Defs/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Sociability"]/scopes</xpath>
+      <value>
+        <li>
+          <traitDefname>SEX_Solitary</traitDefname>
+          <degree>0</degree>
+          <centerOffset>-0.5</centerOffset>
+          <range>0.5</range>
+        </li>
+      </value>
     </match>
     <nomatch Class="PatchOperationAdd">
       <xpath>Defs/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Sociability"]</xpath>
-        <value>
-            <scopes>
-              <li>
-                <traitDefname>SEX_Solitary</traitDefname>
-                <centerOffset>-0.5</centerOffset>
-                <range>0.5</range>
-              </li>
-            </scopes>
-        </value>
+      <value>
+        <scopes>
+          <li>
+            <traitDefname>SEX_Solitary</traitDefname>
+            <degree>0</degree>
+            <centerOffset>-0.5</centerOffset>
+            <range>0.5</range>
+          </li>
+        </scopes>
+      </value>
     </nomatch>
   </Operation>
 
   <Operation Class="PatchOperationConditional">
     <xpath>Defs/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Sociability"]/scopes</xpath>
     <match Class="PatchOperationAdd">
-      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Sociability"]/scopes</xpath>
-        <value>
-          <li>
-            <traitDefname>SEX_Affectionate</traitDefname>
-            <centerOffset>0.5</centerOffset>
-            <range>0.5</range>
-          </li>
-        </value>
+      <xpath>Defs/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Sociability"]/scopes</xpath>
+      <value>
+        <li>
+          <traitDefname>SEX_Affectionate</traitDefname>
+          <degree>0</degree>
+          <centerOffset>0.5</centerOffset>
+          <range>0.5</range>
+        </li>
+      </value>
     </match>
     <nomatch Class="PatchOperationAdd">
       <xpath>Defs/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Sociability"]</xpath>
-        <value>
-            <scopes>
-              <li>
-                <traitDefname>SEX_Affectionate</traitDefname>
-                <centerOffset>0.5</centerOffset>
-                <range>0.5</range>
-              </li>
-            </scopes>
-        </value>
+      <value>
+        <scopes>
+          <li>
+            <traitDefname>SEX_Affectionate</traitDefname>
+            <degree>0</degree>
+            <centerOffset>0.5</centerOffset>
+            <range>0.5</range>
+          </li>
+        </scopes>
+      </value>
     </nomatch>
   </Operation>
 

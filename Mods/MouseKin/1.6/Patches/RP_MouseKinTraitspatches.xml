@@ -3,114 +3,114 @@
 <Patch>
 
   <Operation Class="PatchOperationConditional">
-    <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Openness"]/scopes</xpath>
+    <xpath>Defs/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Openness"]/scopes</xpath>
     <match Class="PatchOperationAdd">
-      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Openness"]/scopes</xpath>
-        <value>
+      <xpath>Defs/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Openness"]/scopes</xpath>
+      <value>
+        <li>
+          <traitDefname>Mousekin_TraitSpectrum_Faith</traitDefname>
+          <degree>1</degree>
+          <centerOffset>0.5</centerOffset>
+          <range>0.5</range>
+        </li>
+      </value>
+    </match>
+    <nomatch Class="PatchOperationAdd">
+      <xpath>Defs/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Openness"]</xpath>
+      <value>
+        <scopes>
           <li>
             <traitDefname>Mousekin_TraitSpectrum_Faith</traitDefname>
             <degree>1</degree>
             <centerOffset>0.5</centerOffset>
             <range>0.5</range>
           </li>
-        </value>
-    </match>
-    <nomatch Class="PatchOperationAdd">
-      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Openness"]</xpath>
-        <value>
-            <scopes>
-              <li>
-                <traitDefname>Mousekin_TraitSpectrum_Faith</traitDefname>
-                <degree>1</degree>
-                <centerOffset>0.5</centerOffset>
-                <range>0.5</range>
-              </li>
-            </scopes>
-        </value>
+        </scopes>
+      </value>
     </nomatch>
   </Operation>
 
   <Operation Class="PatchOperationConditional">
-    <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Openness"]/scopes</xpath>
+    <xpath>Defs/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Openness"]/scopes</xpath>
     <match Class="PatchOperationAdd">
-      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Openness"]/scopes</xpath>
-        <value>
+      <xpath>Defs/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Openness"]/scopes</xpath>
+      <value>
+        <li>
+          <traitDefname>Mousekin_TraitSpectrum_Faith</traitDefname>
+          <degree>3</degree>
+          <centerOffset>-0.5</centerOffset>
+          <range>0.5</range>
+        </li>
+      </value>
+    </match>
+    <nomatch Class="PatchOperationAdd">
+      <xpath>Defs/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Openness"]</xpath>
+      <value>
+        <scopes>
           <li>
             <traitDefname>Mousekin_TraitSpectrum_Faith</traitDefname>
             <degree>3</degree>
             <centerOffset>-0.5</centerOffset>
             <range>0.5</range>
           </li>
-        </value>
-    </match>
-    <nomatch Class="PatchOperationAdd">
-      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Openness"]</xpath>
-        <value>
-            <scopes>
-              <li>
-                <traitDefname>Mousekin_TraitSpectrum_Faith</traitDefname>
-                <degree>3</degree>
-                <centerOffset>-0.5</centerOffset>
-                <range>0.5</range>
-              </li>
-            </scopes>
-        </value>
+        </scopes>
+      </value>
     </nomatch>
   </Operation>
 
   <Operation Class="PatchOperationConditional">
-    <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Openness"]/scopes</xpath>
+    <xpath>Defs/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Openness"]/scopes</xpath>
     <match Class="PatchOperationAdd">
-      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Openness"]/scopes</xpath>
-        <value>
+      <xpath>Defs/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Openness"]/scopes</xpath>
+      <value>
+        <li>
+          <traitDefname>Mousekin_TraitSpectrum_Faith</traitDefname>
+          <degree>4</degree>
+          <centerOffset>-0.5</centerOffset>
+          <range>0.5</range>
+        </li>
+      </value>
+    </match>
+    <nomatch Class="PatchOperationAdd">
+      <xpath>Defs/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Openness"]</xpath>
+      <value>
+        <scopes>
           <li>
             <traitDefname>Mousekin_TraitSpectrum_Faith</traitDefname>
             <degree>4</degree>
             <centerOffset>-0.5</centerOffset>
             <range>0.5</range>
           </li>
-        </value>
-    </match>
-    <nomatch Class="PatchOperationAdd">
-      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Openness"]</xpath>
-        <value>
-            <scopes>
-              <li>
-                <traitDefname>Mousekin_TraitSpectrum_Faith</traitDefname>
-                <degree>4</degree>
-                <centerOffset>-0.5</centerOffset>
-                <range>0.5</range>
-              </li>
-            </scopes>
-        </value>
+        </scopes>
+      </value>
     </nomatch>
   </Operation>
 
   <Operation Class="PatchOperationConditional">
-    <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Morality"]/scopes</xpath>
+    <xpath>Defs/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Morality"]/scopes</xpath>
     <match Class="PatchOperationAdd">
-      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Morality"]/scopes</xpath>
-        <value>
+      <xpath>Defs/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Morality"]/scopes</xpath>
+      <value>
+        <li>
+          <traitDefname>Mousekin_TraitSpectrum_Faith</traitDefname>
+          <degree>4</degree>
+          <centerOffset>0.5</centerOffset>
+          <range>0.5</range>
+        </li>
+      </value>
+    </match>
+    <nomatch Class="PatchOperationAdd">
+      <xpath>Defs/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Morality"]</xpath>
+      <value>
+        <scopes>
           <li>
             <traitDefname>Mousekin_TraitSpectrum_Faith</traitDefname>
             <degree>4</degree>
             <centerOffset>0.5</centerOffset>
             <range>0.5</range>
           </li>
-        </value>
-    </match>
-    <nomatch Class="PatchOperationAdd">
-      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Morality"]</xpath>
-        <value>
-            <scopes>
-              <li>
-                <traitDefname>Mousekin_TraitSpectrum_Faith</traitDefname>
-                <degree>4</degree>
-                <centerOffset>0.5</centerOffset>
-                <range>0.5</range>
-              </li>
-            </scopes>
-        </value>
+        </scopes>
+      </value>
     </nomatch>
   </Operation>
 

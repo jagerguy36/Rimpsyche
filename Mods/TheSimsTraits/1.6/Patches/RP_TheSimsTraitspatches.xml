@@ -3,9 +3,9 @@
 <Patch>
 
   <Operation Class="PatchOperationConditional">
-    <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Trust"]/scopes</xpath>
+    <xpath>Defs/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Trust"]/scopes</xpath>
     <match Class="PatchOperationAdd">
-      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Trust"]/scopes</xpath>
+      <xpath>Defs/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Trust"]/scopes</xpath>
       <value>
         <li>
           <traitDefname>ST_Naive</traitDefname>
@@ -16,7 +16,7 @@
       </value>
     </match>
     <nomatch Class="PatchOperationAdd">
-      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Trust"]</xpath>
+      <xpath>Defs/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Trust"]</xpath>
       <value>
         <scopes>
           <li>
@@ -29,10 +29,11 @@
       </value>
     </nomatch>
   </Operation>
+
   <Operation Class="PatchOperationConditional">
-    <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_SelfInterest"]/scopes</xpath>
+    <xpath>Defs/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_SelfInterest"]/scopes</xpath>
     <match Class="PatchOperationAdd">
-      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_SelfInterest"]/scopes</xpath>
+      <xpath>Defs/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_SelfInterest"]/scopes</xpath>
       <value>
         <li>
           <traitDefname>ST_Narcissist</traitDefname>
@@ -43,7 +44,7 @@
       </value>
     </match>
     <nomatch Class="PatchOperationAdd">
-      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_SelfInterest"]</xpath>
+      <xpath>Defs/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_SelfInterest"]</xpath>
       <value>
         <scopes>
           <li>
@@ -56,10 +57,11 @@
       </value>
     </nomatch>
   </Operation>
+
   <Operation Class="PatchOperationConditional">
-    <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_SelfInterest"]/scopes</xpath>
+    <xpath>Defs/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_SelfInterest"]/scopes</xpath>
     <match Class="PatchOperationAdd">
-      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_SelfInterest"]/scopes</xpath>
+      <xpath>Defs/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_SelfInterest"]/scopes</xpath>
       <value>
         <li MayRequire="Ludeon.RimWorld.Royalty">
           <traitDefname>ST_HighMaintenance</traitDefname>
@@ -70,7 +72,7 @@
       </value>
     </match>
     <nomatch Class="PatchOperationAdd">
-      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_SelfInterest"]</xpath>
+      <xpath>Defs/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_SelfInterest"]</xpath>
       <value>
         <scopes>
           <li MayRequire="Ludeon.RimWorld.Royalty">
@@ -83,10 +85,11 @@
       </value>
     </nomatch>
   </Operation>
+
   <Operation Class="PatchOperationConditional">
-    <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Discipline"]/scopes</xpath>
+    <xpath>Defs/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Discipline"]/scopes</xpath>
     <match Class="PatchOperationAdd">
-      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Discipline"]/scopes</xpath>
+      <xpath>Defs/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Discipline"]/scopes</xpath>
       <value>
         <li>
           <traitDefname>ST_HealthNut</traitDefname>
@@ -97,7 +100,7 @@
       </value>
     </match>
     <nomatch Class="PatchOperationAdd">
-      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Discipline"]</xpath>
+      <xpath>Defs/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Discipline"]</xpath>
       <value>
         <scopes>
           <li>
@@ -110,10 +113,11 @@
       </value>
     </nomatch>
   </Operation>
+
   <Operation Class="PatchOperationConditional">
-    <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Discipline"]/scopes</xpath>
+    <xpath>Defs/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Discipline"]/scopes</xpath>
     <match Class="PatchOperationAdd">
-      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Discipline"]/scopes</xpath>
+      <xpath>Defs/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Discipline"]/scopes</xpath>
       <value>
         <li>
           <traitDefname>ST_Gambler</traitDefname>
@@ -124,7 +128,7 @@
       </value>
     </match>
     <nomatch Class="PatchOperationAdd">
-      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Discipline"]</xpath>
+      <xpath>Defs/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Discipline"]</xpath>
       <value>
         <scopes>
           <li>
@@ -137,10 +141,11 @@
       </value>
     </nomatch>
   </Operation>
+
   <Operation Class="PatchOperationConditional">
-    <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Emotionality"]/scopes</xpath>
+    <xpath>Defs/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Emotionality"]/scopes</xpath>
     <match Class="PatchOperationAdd">
-      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Emotionality"]/scopes</xpath>
+      <xpath>Defs/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Emotionality"]/scopes</xpath>
       <value>
         <li>
           <traitDefname>ST_Emotional</traitDefname>
@@ -151,7 +156,7 @@
       </value>
     </match>
     <nomatch Class="PatchOperationAdd">
-      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Emotionality"]</xpath>
+      <xpath>Defs/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Emotionality"]</xpath>
       <value>
         <scopes>
           <li>
@@ -164,10 +169,11 @@
       </value>
     </nomatch>
   </Operation>
+
   <Operation Class="PatchOperationConditional">
-    <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Optimism"]/scopes</xpath>
+    <xpath>Defs/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Optimism"]/scopes</xpath>
     <match Class="PatchOperationAdd">
-      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Optimism"]/scopes</xpath>
+      <xpath>Defs/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Optimism"]/scopes</xpath>
       <value>
         <li>
           <traitDefname>ST_Paranoid</traitDefname>
@@ -178,7 +184,7 @@
       </value>
     </match>
     <nomatch Class="PatchOperationAdd">
-      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Optimism"]</xpath>
+      <xpath>Defs/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Optimism"]</xpath>
       <value>
         <scopes>
           <li>
@@ -191,10 +197,11 @@
       </value>
     </nomatch>
   </Operation>
+
   <Operation Class="PatchOperationConditional">
-    <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Playfulness"]/scopes</xpath>
+    <xpath>Defs/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Playfulness"]/scopes</xpath>
     <match Class="PatchOperationAdd">
-      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Playfulness"]/scopes</xpath>
+      <xpath>Defs/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Playfulness"]/scopes</xpath>
       <value>
         <li MayRequire="Ludeon.RimWorld.Biotech">
           <traitDefname>ST_Goofball</traitDefname>
@@ -205,7 +212,7 @@
       </value>
     </match>
     <nomatch Class="PatchOperationAdd">
-      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Playfulness"]</xpath>
+      <xpath>Defs/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Playfulness"]</xpath>
       <value>
         <scopes>
           <li MayRequire="Ludeon.RimWorld.Biotech">
@@ -218,10 +225,11 @@
       </value>
     </nomatch>
   </Operation>
+
   <Operation Class="PatchOperationConditional">
-    <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Playfulness"]/scopes</xpath>
+    <xpath>Defs/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Playfulness"]/scopes</xpath>
     <match Class="PatchOperationAdd">
-      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Playfulness"]/scopes</xpath>
+      <xpath>Defs/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Playfulness"]/scopes</xpath>
       <value>
         <li MayRequire="Ludeon.RimWorld.Biotech">
           <traitDefname>ST_Childish</traitDefname>
@@ -232,7 +240,7 @@
       </value>
     </match>
     <nomatch Class="PatchOperationAdd">
-      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Playfulness"]</xpath>
+      <xpath>Defs/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Playfulness"]</xpath>
       <value>
         <scopes>
           <li MayRequire="Ludeon.RimWorld.Biotech">
@@ -245,10 +253,11 @@
       </value>
     </nomatch>
   </Operation>
+
   <Operation Class="PatchOperationConditional">
-    <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Loyalty"]/scopes</xpath>
+    <xpath>Defs/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Loyalty"]/scopes</xpath>
     <match Class="PatchOperationAdd">
-      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Loyalty"]/scopes</xpath>
+      <xpath>Defs/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Loyalty"]/scopes</xpath>
       <value>
         <li>
           <traitDefname>ST_Loyal</traitDefname>
@@ -259,7 +268,7 @@
       </value>
     </match>
     <nomatch Class="PatchOperationAdd">
-      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Loyalty"]</xpath>
+      <xpath>Defs/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Loyalty"]</xpath>
       <value>
         <scopes>
           <li>
@@ -272,10 +281,11 @@
       </value>
     </nomatch>
   </Operation>
+
   <Operation Class="PatchOperationConditional">
-    <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Loyalty"]/scopes</xpath>
+    <xpath>Defs/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Loyalty"]/scopes</xpath>
     <match Class="PatchOperationAdd">
-      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Loyalty"]/scopes</xpath>
+      <xpath>Defs/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Loyalty"]/scopes</xpath>
       <value>
         <li>
           <traitDefname>ST_NonCommital</traitDefname>
@@ -286,7 +296,7 @@
       </value>
     </match>
     <nomatch Class="PatchOperationAdd">
-      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Loyalty"]</xpath>
+      <xpath>Defs/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Loyalty"]</xpath>
       <value>
         <scopes>
           <li>
@@ -299,10 +309,11 @@
       </value>
     </nomatch>
   </Operation>
+
   <Operation Class="PatchOperationConditional">
-    <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Loyalty"]/scopes</xpath>
+    <xpath>Defs/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Loyalty"]/scopes</xpath>
     <match Class="PatchOperationAdd">
-      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Loyalty"]/scopes</xpath>
+      <xpath>Defs/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Loyalty"]/scopes</xpath>
       <value>
         <li>
           <traitDefname>ST_FamilyOriented</traitDefname>
@@ -313,7 +324,7 @@
       </value>
     </match>
     <nomatch Class="PatchOperationAdd">
-      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Loyalty"]</xpath>
+      <xpath>Defs/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Loyalty"]</xpath>
       <value>
         <scopes>
           <li>
@@ -326,10 +337,11 @@
       </value>
     </nomatch>
   </Operation>
+
   <Operation Class="PatchOperationConditional">
-    <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Sociability"]/scopes</xpath>
+    <xpath>Defs/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Sociability"]/scopes</xpath>
     <match Class="PatchOperationAdd">
-      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Sociability"]/scopes</xpath>
+      <xpath>Defs/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Sociability"]/scopes</xpath>
       <value>
         <li>
           <traitDefname>ST_PartyAnimal</traitDefname>
@@ -340,7 +352,7 @@
       </value>
     </match>
     <nomatch Class="PatchOperationAdd">
-      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Sociability"]</xpath>
+      <xpath>Defs/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Sociability"]</xpath>
       <value>
         <scopes>
           <li>
@@ -353,10 +365,11 @@
       </value>
     </nomatch>
   </Operation>
+
   <Operation Class="PatchOperationConditional">
-    <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Sociability"]/scopes</xpath>
+    <xpath>Defs/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Sociability"]/scopes</xpath>
     <match Class="PatchOperationAdd">
-      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Sociability"]/scopes</xpath>
+      <xpath>Defs/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Sociability"]/scopes</xpath>
       <value>
         <li>
           <traitDefname>ST_FamilyOriented</traitDefname>
@@ -367,7 +380,7 @@
       </value>
     </match>
     <nomatch Class="PatchOperationAdd">
-      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Sociability"]</xpath>
+      <xpath>Defs/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Sociability"]</xpath>
       <value>
         <scopes>
           <li>
@@ -380,10 +393,11 @@
       </value>
     </nomatch>
   </Operation>
+
   <Operation Class="PatchOperationConditional">
-    <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Stability"]/scopes</xpath>
+    <xpath>Defs/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Stability"]/scopes</xpath>
     <match Class="PatchOperationAdd">
-      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Stability"]/scopes</xpath>
+      <xpath>Defs/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Stability"]/scopes</xpath>
       <value>
         <li>
           <traitDefname>ST_Insane</traitDefname>
@@ -394,7 +408,7 @@
       </value>
     </match>
     <nomatch Class="PatchOperationAdd">
-      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Stability"]</xpath>
+      <xpath>Defs/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Stability"]</xpath>
       <value>
         <scopes>
           <li>
@@ -407,10 +421,11 @@
       </value>
     </nomatch>
   </Operation>
+
   <Operation Class="PatchOperationConditional">
-    <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Propriety"]/scopes</xpath>
+    <xpath>Defs/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Propriety"]/scopes</xpath>
     <match Class="PatchOperationAdd">
-      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Propriety"]/scopes</xpath>
+      <xpath>Defs/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Propriety"]/scopes</xpath>
       <value>
         <li>
           <traitDefname>ST_Proper</traitDefname>
@@ -421,7 +436,7 @@
       </value>
     </match>
     <nomatch Class="PatchOperationAdd">
-      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Propriety"]</xpath>
+      <xpath>Defs/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Propriety"]</xpath>
       <value>
         <scopes>
           <li>
@@ -434,10 +449,11 @@
       </value>
     </nomatch>
   </Operation>
+
   <Operation Class="PatchOperationConditional">
-    <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Aggressiveness"]/scopes</xpath>
+    <xpath>Defs/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Aggressiveness"]/scopes</xpath>
     <match Class="PatchOperationAdd">
-      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Aggressiveness"]/scopes</xpath>
+      <xpath>Defs/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Aggressiveness"]/scopes</xpath>
       <value>
         <li>
           <traitDefname>ST_Grumpy</traitDefname>
@@ -448,7 +464,7 @@
       </value>
     </match>
     <nomatch Class="PatchOperationAdd">
-      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Aggressiveness"]</xpath>
+      <xpath>Defs/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Aggressiveness"]</xpath>
       <value>
         <scopes>
           <li>
@@ -461,10 +477,11 @@
       </value>
     </nomatch>
   </Operation>
+
   <Operation Class="PatchOperationConditional">
-    <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Aggressiveness"]/scopes</xpath>
+    <xpath>Defs/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Aggressiveness"]/scopes</xpath>
     <match Class="PatchOperationAdd">
-      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Aggressiveness"]/scopes</xpath>
+      <xpath>Defs/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Aggressiveness"]/scopes</xpath>
       <value>
         <li>
           <traitDefname>ST_Zen</traitDefname>
@@ -475,7 +492,7 @@
       </value>
     </match>
     <nomatch Class="PatchOperationAdd">
-      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Aggressiveness"]</xpath>
+      <xpath>Defs/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Aggressiveness"]</xpath>
       <value>
         <scopes>
           <li>
@@ -488,10 +505,11 @@
       </value>
     </nomatch>
   </Operation>
+
   <Operation Class="PatchOperationConditional">
-    <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Passion"]/scopes</xpath>
+    <xpath>Defs/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Passion"]/scopes</xpath>
     <match Class="PatchOperationAdd">
-      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Passion"]/scopes</xpath>
+      <xpath>Defs/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Passion"]/scopes</xpath>
       <value>
         <li>
           <traitDefname>ST_Devout</traitDefname>
@@ -502,7 +520,7 @@
       </value>
     </match>
     <nomatch Class="PatchOperationAdd">
-      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Passion"]</xpath>
+      <xpath>Defs/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Passion"]</xpath>
       <value>
         <scopes>
           <li>
@@ -515,10 +533,11 @@
       </value>
     </nomatch>
   </Operation>
+
   <Operation Class="PatchOperationConditional">
-    <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Diligence"]/scopes</xpath>
+    <xpath>Defs/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Diligence"]/scopes</xpath>
     <match Class="PatchOperationAdd">
-      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Diligence"]/scopes</xpath>
+      <xpath>Defs/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Diligence"]/scopes</xpath>
       <value>
         <li>
           <traitDefname>ST_Procrastinator</traitDefname>
@@ -529,7 +548,7 @@
       </value>
     </match>
     <nomatch Class="PatchOperationAdd">
-      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Diligence"]</xpath>
+      <xpath>Defs/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Diligence"]</xpath>
       <value>
         <scopes>
           <li>
@@ -542,10 +561,11 @@
       </value>
     </nomatch>
   </Operation>
+
   <Operation Class="PatchOperationConditional">
-    <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Organization"]/scopes</xpath>
+    <xpath>Defs/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Organization"]/scopes</xpath>
     <match Class="PatchOperationAdd">
-      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Organization"]/scopes</xpath>
+      <xpath>Defs/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Organization"]/scopes</xpath>
       <value>
         <li>
           <traitDefname>ST_Procrastinator</traitDefname>
@@ -556,7 +576,7 @@
       </value>
     </match>
     <nomatch Class="PatchOperationAdd">
-      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Organization"]</xpath>
+      <xpath>Defs/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Organization"]</xpath>
       <value>
         <scopes>
           <li>
@@ -569,10 +589,11 @@
       </value>
     </nomatch>
   </Operation>
+
   <Operation Class="PatchOperationConditional">
-    <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Deliberation"]/scopes</xpath>
+    <xpath>Defs/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Deliberation"]/scopes</xpath>
     <match Class="PatchOperationAdd">
-      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Deliberation"]/scopes</xpath>
+      <xpath>Defs/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Deliberation"]/scopes</xpath>
       <value>
         <li>
           <traitDefname>ST_SteadyHands</traitDefname>
@@ -583,7 +604,7 @@
       </value>
     </match>
     <nomatch Class="PatchOperationAdd">
-      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Deliberation"]</xpath>
+      <xpath>Defs/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Deliberation"]</xpath>
       <value>
         <scopes>
           <li>
@@ -596,10 +617,11 @@
       </value>
     </nomatch>
   </Operation>
+
   <Operation Class="PatchOperationConditional">
-    <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Bravery"]/scopes</xpath>
+    <xpath>Defs/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Bravery"]/scopes</xpath>
     <match Class="PatchOperationAdd">
-      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Bravery"]/scopes</xpath>
+      <xpath>Defs/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Bravery"]/scopes</xpath>
       <value>
         <li>
           <traitDefname>ST_Daredevil</traitDefname>
@@ -610,7 +632,7 @@
       </value>
     </match>
     <nomatch Class="PatchOperationAdd">
-      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Bravery"]</xpath>
+      <xpath>Defs/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Bravery"]</xpath>
       <value>
         <scopes>
           <li>
@@ -623,10 +645,11 @@
       </value>
     </nomatch>
   </Operation>
+
   <Operation Class="PatchOperationConditional">
-    <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Talkativeness"]/scopes</xpath>
+    <xpath>Defs/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Talkativeness"]/scopes</xpath>
     <match Class="PatchOperationAdd">
-      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Talkativeness"]/scopes</xpath>
+      <xpath>Defs/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Talkativeness"]/scopes</xpath>
       <value>
         <li>
           <traitDefname>ST_Chatterbox</traitDefname>
@@ -637,7 +660,7 @@
       </value>
     </match>
     <nomatch Class="PatchOperationAdd">
-      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Talkativeness"]</xpath>
+      <xpath>Defs/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Talkativeness"]</xpath>
       <value>
         <scopes>
           <li>
@@ -650,10 +673,11 @@
       </value>
     </nomatch>
   </Operation>
+
   <Operation Class="PatchOperationConditional">
-    <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Inquisitiveness"]/scopes</xpath>
+    <xpath>Defs/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Inquisitiveness"]/scopes</xpath>
     <match Class="PatchOperationAdd">
-      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Inquisitiveness"]/scopes</xpath>
+      <xpath>Defs/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Inquisitiveness"]/scopes</xpath>
       <value>
         <li>
           <traitDefname>ST_Nosy</traitDefname>
@@ -664,7 +688,7 @@
       </value>
     </match>
     <nomatch Class="PatchOperationAdd">
-      <xpath>*/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Inquisitiveness"]</xpath>
+      <xpath>Defs/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Inquisitiveness"]</xpath>
       <value>
         <scopes>
           <li>
