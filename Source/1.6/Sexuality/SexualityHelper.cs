@@ -134,14 +134,14 @@ namespace Maux36.RimPsyche
         private static readonly SimpleCurve BiCurve;
         private static readonly SimpleCurve NonGayCurve;
         private static readonly SimpleCurve GayCurve;
-        public static SexualOrientation EvaluateSexuality(Pawn pawn)
+        public static SexualOrientation EvaluateSexuality(Pawn pawn, bool ignoreAge = false)
         {
             var traits = pawn.story?.traits;
             var gender = pawn.gender;
             //Not Applicable
             if (traits == null || gender == Gender.None) return SexualOrientation.None;
             //Non-adults
-            if (Rimpsyche_Utility.GetPawnAge(pawn) < Rimpsyche_Utility.GetMinAdultAge(pawn))
+            if (!ignoreAge && Rimpsyche_Utility.GetPawnAge(pawn) < Rimpsyche_Utility.GetMinAdultAge(pawn))
             {
                 return SexualOrientation.Developing;
             }
@@ -183,6 +183,9 @@ namespace Maux36.RimPsyche
                 case SexualOrientation.Asexual:
                     kinsey = SexualityCurve.Evaluate(flatRatio);
                     break;
+                default:
+                    kinsey = -1;
+                    break;
             }
             return kinsey;
         }
@@ -197,6 +200,8 @@ namespace Maux36.RimPsyche
         public static float GenerateAttractionFor(SexualOrientation orientation)
         {
             if (orientation == SexualOrientation.Asexual) return Rand.Range(0, 0.05f);
+            if (orientation == SexualOrientation.None) return 0f;
+            if (orientation == SexualOrientation.Developing) return 0f;
             else return GetNormalDistribution(lowBracket: 0.05f, highBracket: 1f);
         }
         public static float ReEvaluateKinsey(float sameAttraction, float diffAttraction)
