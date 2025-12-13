@@ -573,6 +573,11 @@ namespace Maux36.RimPsyche
                 pawn.story.traits.GainTrait(traitToGive);
             }
         }
+        public void Notify_Sexchange()
+        {
+            AdjustSexualityCategory(attraction);
+        }
+
         /// <summary>
         /// Get adjusted attraction that takes into account the target pawn gender and whether the observer has ever found the pawn attractive.
         /// </summary>
