@@ -250,7 +250,11 @@ namespace Maux36.RimPsyche
                 influenceChance *= direction;
                 if (parentPawn.DevelopmentalStage.Juvenile())
                 {
-                    influenceChance *= 1.5f;
+                    influenceChance *= 0.75f;
+                }
+                else
+                {
+                    influenceChance *= 0.5f;
                 }
                 //Log.Message($"Affect. magnitude: {influenceChance}");
                 var facetChanges = new Dictionary<Facet, float>();
