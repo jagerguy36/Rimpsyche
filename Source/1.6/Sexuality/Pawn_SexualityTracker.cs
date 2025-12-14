@@ -20,6 +20,7 @@ namespace Maux36.RimPsyche
         public readonly Pawn pawn;
         public readonly CompPsyche compPsyche;
         private float minAdultAge;
+        private float fullAdultAge;
 
         //Semi constant
         private static readonly bool usePreference = RimpsycheSexualitySettings.usePreferenceSystem;
@@ -242,6 +243,7 @@ namespace Maux36.RimPsyche
             loversCacheDirty = true;
             //Set up near-constant variable to be used frequently
             minAdultAge = compPsyche.MinAdultAge;
+            fullAdultAge = compPsyche.FullAdultAge;
             //Sexuality Module not loaded
             if (!Rimpsyche.SexualityModuleLoaded) return;
             //Already initialized before
