@@ -15,7 +15,7 @@ namespace Maux36.RimPsyche
 
         // Constants and style settings
         // width: 380 | 220
-        public static Rect PsycheRect = new Rect(0f, 0f, Mathf.Min(600f + personalityWidthDiff + interestWidthDiff,  UI.screenWidth * 0.8f), Mathf.Clamp(UI.screenHeight*0.5f,350f, 480f));
+        public static Rect PsycheRect = new Rect(0f, 0f, Mathf.Min(600f + personalityWidthDiff + rightsideWidthDiff,  UI.screenWidth * 0.8f), Mathf.Clamp(UI.screenHeight*0.5f,350f, 480f));
         public static GUIStyle style;
         public static Vector2 PersonalityScrollPosition = Vector2.zero;
         public static Vector2 InterestScrollPosition = Vector2.zero;
@@ -28,7 +28,7 @@ namespace Maux36.RimPsyche
 
         public static readonly float expandButtonSize = 8f;
         public static readonly float rightPanelWidthConstant = 220f;
-        public static float rightPanelWidthActual => rightPanelWidthConstant + interestWidthDiff;
+        public static float rightPanelWidthActual => rightPanelWidthConstant + rightsideWidthDiff;
         public static readonly Color LineColor = new Color(97f, 108f, 122f, 0.25f);
         public static readonly float headerHeight = 35f;
         public static readonly float labelPadding = 2f;
@@ -46,13 +46,13 @@ namespace Maux36.RimPsyche
         public static readonly float personalityBarHeight = 4f;
         
         public static float interestLabelWidth => RimpsycheDatabase.maxInterestLabelWidth;
-        public static float interestWidthDiff => (interestLabelWidth - 130f);
+        public static float rightsideWidthDiff => (RimpsycheDatabase.maxRightsideLabelWidth - 130f);
         public static readonly float interestRowHeight = 28f;
         public static readonly float interestBarHeight = 4f;
 
         public static readonly float sexualityHeaderHeight = 35f;
         public static readonly float sexualityLineHeight = 25f;
-        public static readonly float sexualityLabelWidth = 70f;
+        public static float sexualityLabelWidth => RimpsycheDatabase.maxSexualityLabelWidth;
         public static readonly float sexualityBarMargin = 5f;
         public static readonly float sexualityRightMargin = 20f;
         public static readonly float sexualityBarHeight = 4f;

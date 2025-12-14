@@ -1,4 +1,5 @@
-﻿using RimWorld;
+﻿using KTrie;
+using RimWorld;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,6 +24,8 @@ namespace Maux36.RimPsyche
         public static Facet[] AllFacets = (Facet[])Enum.GetValues(typeof(Facet));
         public static float maxFacetLabelWidth = 130f;
         public static float maxInterestLabelWidth = 130f;
+        public static float maxSexualityLabelWidth = 70f;
+        public static float maxRightsideLabelWidth = 130f;
         public static float maxPersonalityLabelWidth = 130f;
         public static float totalPreferenceEditorfHeight = 0f;
 
@@ -47,6 +50,17 @@ namespace Maux36.RimPsyche
         {
             InteractionDefOf.Chitchat = DefOfRimpsyche.Rimpsyche_Smalltalk;
             InteractionDefOf.DeepTalk = DefOfRimpsyche.Rimpsyche_StartConversation;
+
+            //Sexuality Label consideration
+            if (Rimpsyche.SexualityModuleLoaded)
+            {
+                var maleLabelWith = Text.CalcSize("RPC_AttractionMale".Translate()).x;
+                maxSexualityLabelWidth = Mathf.Max(maleLabelWith, maxSexualityLabelWidth);
+                var femaleLabelWith = Text.CalcSize("RPC_AttractionFemale".Translate()).x;
+                maxSexualityLabelWidth = Mathf.Max(femaleLabelWith, maxSexualityLabelWidth);
+                var driveLabelWith = Text.CalcSize("RPC_SexDrive".Translate()).x;
+                maxSexualityLabelWidth = Mathf.Max(driveLabelWith, maxSexualityLabelWidth);
+            }
             if (LanguageDatabase.activeLanguage.HaveTextForKey("MemoryReportString"))
             {
                 conversationMemoryString = "MemoryReportString".Translate();
@@ -142,6 +156,8 @@ namespace Maux36.RimPsyche
                 PersonalityDict[personalityDef.defName] = personalityDef;
             }
 
+            if (Rimpsyche.SexualityModuleLoaded)
+                maxRightsideLabelWidth = Mathf.Max(maxSexualityLabelWidth, maxInterestLabelWidth);
             //Preference
             var OrderedPreferenceDefs = DefDatabase<PreferenceDef>.AllDefs.OrderByDescending(prefDef => prefDef.priority).ToList();
             OrderedRomPreferenceDefs = OrderedPreferenceDefs.Where(prefDef => prefDef.category == RimpsychePrefCategory.Romantic).ToList();
