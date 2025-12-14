@@ -71,6 +71,8 @@ namespace Maux36.RimPsyche
                     foreach (var topic in interest.topics)
                     {
                         //TopicNameList.Add(topic.name);
+                        topic.id = TopicDict.Count();
+                        TopicDict[topic.id] = topic;
                         float absoluteWeightSum = 0f;
                         foreach (var fw in topic.weights)
                         {
