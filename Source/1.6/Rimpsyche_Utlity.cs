@@ -90,6 +90,10 @@ namespace Maux36.RimPsyche
         {
             return Mathf.Max(1f, pawn.ageTracker.AdultMinAge);
         }
+        public static float GetFullAdultAge(Pawn pawn)
+        {
+            return Mathf.Max(1f, pawn.RaceProps.lifeStageAges[pawn.RaceProps.lifeStageAges.Count - 1].minAge);
+        }
         public static float GetPawnAge(Pawn pawn)
         {
             return pawn.ageTracker.AgeBiologicalYearsFloat;

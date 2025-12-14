@@ -11,6 +11,7 @@ namespace Maux36.RimPsyche
         //Internals
         public Pawn parentPawn;
         private float? _minAdultAge = null;
+        private float? _fullAdultAge = null;
         public float MinAdultAge
         {
             get
@@ -20,6 +21,17 @@ namespace Maux36.RimPsyche
                     _minAdultAge = Rimpsyche_Utility.GetMinAdultAge(parentPawn);
                 }
                 return _minAdultAge.Value;
+            }
+        }
+        public float FullAdultAge
+        {
+            get
+            {
+                if (!_fullAdultAge.HasValue)
+                {
+                    _fullAdultAge = Rimpsyche_Utility.GetFullAdultAge(parentPawn);
+                }
+                return _fullAdultAge.Value;
             }
         }
         public override void Initialize(CompProperties props)
@@ -244,7 +256,8 @@ namespace Maux36.RimPsyche
             float score = resultOffset; //0~20
             float ageFactor = 8f * MinAdultAge / (pawnAge + 0.6f * MinAdultAge) - 5f; //8.3333 ~ -5
             float scoreBase = Mathf.Max(0f, score - 5f + pawnTrust * 2f + ageFactor);
-            float influenceChance = Mathf.Clamp01(scoreBase * scoreBase * (0.15f + opinion * 0.05f) / (pawnAge + 1f));
+            float influenceChance = 0.5f * Mathf.Clamp01(scoreBase * scoreBase * (0.15f + opinion * 0.05f) / (pawnAge + 1f));
+            //Log.Message($"{parentPawn.Name}| score: {score} | scoreBase: {scoreBase} | influenceChance: {influenceChance}");
             if (Rand.Chance(influenceChance))
             {
                 influenceChance *= direction;
