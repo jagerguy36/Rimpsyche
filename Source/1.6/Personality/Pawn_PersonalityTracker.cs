@@ -130,6 +130,12 @@ namespace Maux36.RimPsyche
             personalityCache[personality.shortHash] = result;
             return result;
         }
+        /// <summary>
+        /// Get Non-normalized version of personality. Should only be used for editing Personality
+        /// Otherwise, all reference to personality should use GetPersonality instead.
+        /// </summary>
+        /// <param name="personality"></param>
+        /// <returns></returns>
         public float GetPersonalityDirect(PersonalityDef personality) //Non-Normalized Version
         {
             if (personality == null)
