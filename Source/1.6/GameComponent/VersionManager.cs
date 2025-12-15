@@ -6,7 +6,7 @@ namespace Maux36.RimPsyche
 {
     public class VersionManager : GameComponent
     {
-        public static string lastKnownModVersion = "1.0.0";
+        public static string lastKnownModVersion = Rimpsyche.currentVersion;
         public static HashSet<int> DiscardedPawnThingIDnumber = [];
 
         //Backward compatibility 1.0.23
@@ -28,7 +28,11 @@ namespace Maux36.RimPsyche
                     Log.Message($"[Rimpsyche] Version updated {lastKnownModVersion} -> {Rimpsyche.currentVersion}");
                     var pre_updateVersion = new Version(lastKnownModVersion);
                     lastKnownModVersion = Rimpsyche.currentVersion;
-                    shouldSetupSexualityVariable = (pre_updateVersion < sexuality_variables_implemented);
+                    if (pre_updateVersion < sexuality_variables_implemented)
+                    {
+                        shouldSetupSexualityVariable = true;
+                        Log.Message($"should setup sexuality variables because {pre_updateVersion} < {sexuality_variables_implemented}");
+                    }
                 }
                 DiscardedPawnThingIDnumber.Clear();
             }
