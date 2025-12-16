@@ -211,6 +211,49 @@ namespace Maux36.RimPsyche
             //Log.Message($"{startCand.Name}'s startCandBaseChance: {startCandBaseChance} --> socialFightBaseChance: {socialFightBaseChance}");
             return Mathf.Clamp01(socialFightBaseChance);
         }
+        public static float GetCompatP(Pawn initiator, Pawn recipient)
+        {
+            var initiatorPsyche = initiator.compPsyche();
+            var recipientPsyche = recipient.compPsyche();
+            if (initiatorPsyche?.Enabled != true || recipientPsyche?.Enabled != true)
+                return 0f;
+            
+            float initTalkativeness = initiatorPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Talkativeness);
+            float initPassion = initiatorPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Passion);
+            float initInquisitiveness = initiatorPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Inquisitiveness);
+
+            float reciTalkativeness = recipientPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Talkativeness);
+            float reciPassion = recipientPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Passion);
+            float reciInquisitiveness = recipientPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Inquisitiveness);
+
+
+            //Select the convo interest area by initiator. See if the recipient is willing to talk to the initiator about that area.
+            Interest convoInterest = initiatorPsyche.Interests.ChooseInterest();
+            Topic convoTopic = convoInterest.GetRandomTopic((initiator.DevelopmentalStage.Juvenile() || recipient.DevelopmentalStage.Juvenile()), true); //TODO: NSFW check
+            // 0 ~ 1
+            float initInterestScore = recipientPsyche.Interests.GetOrCreateInterestScore(convoInterest) * 0.01f;
+            float reciInterestScore = recipientPsyche.Interests.GetOrCreateInterestScore(convoInterest) * 0.01f;
+
+            //Conversation.
+            float topicAlignment = convoTopic.GetScore(initiatorPsyche, recipientPsyche, out float initDirection); // -1~1 [0]
+            if (topicAlignment > 0)
+            {
+                float tAbs = Mathf.Abs(topicAlignment);
+                float initInterestF = (1.5f) + (initInterestScore * (1f + (0.5f * initPassion))) + 0.25f * ((1f - initInterestScore) * (1f + initInquisitiveness)); //1.5 + 0~1.5 => 1.5~3
+                float reciInterestF = (1.5f) + (reciInterestScore * (1f + (0.5f * reciPassion))) + 0.25f * ((1f - reciInterestScore) * (1f + reciInquisitiveness)); //1.5 + 0~1.5 => 1.5~3
+                float initTalkF = (1.75f + (0.75f * initTalkativeness)) * initInterestF; // 1.5~7.5 [2.625]
+                float reciTalkF = (1.75f + (0.75f * reciTalkativeness)) * reciInterestF; // 1.5~7.5 [2.625]
+                float aligntmentLengthFactor = -1f * tAbs * (tAbs - 2f) + 1f; //1~2
+                float lengthMult = 0.1f * (5f + initTalkF + reciTalkF) * aligntmentLengthFactor; // 0.8~2 * 1~2 || 0.8~4
+                float partnerScoreBase = 1.5f + (4f * topicAlignment); //1.5~5.5
+                float pawnScoreBase = 1.5f + (4f * topicAlignment); //1.5~5.5
+                float lengthOpinionMult = (6f * lengthMult) / (lengthMult + 2f); //1.71 ~ 4
+                float averageScore = 0.5f * (partnerScoreBase + pawnScoreBase) * lengthOpinionMult; //2.57~22
+                return 1f;
+            }
+            else
+                return 0f;
+        }
 
         //For General report
         public static string GetPersonalityDesc(PersonalityDef personality, float value)
