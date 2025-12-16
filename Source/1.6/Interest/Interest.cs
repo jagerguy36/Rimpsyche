@@ -50,5 +50,16 @@ namespace Maux36.RimPsyche
             }
             return null;
         }
+        public float GetAverageAlignment(CompPsyche pawnPsyche, CompPsyche otherPawnPsyche)
+        {
+            float result = 0f;
+            int topicCount = topics.Count;
+            for (int i = 0; i < topicCount; i++)
+            {
+                var t = topics[i];
+                result += t.GetScore(pawnPsyche, otherPawnPsyche, out _);
+            }
+            return result;
+        }
     }
 }

@@ -229,15 +229,12 @@ namespace Maux36.RimPsyche
 
             //Select the convo interest area by initiator. See if the recipient is willing to talk to the initiator about that area.
             Interest convoInterest = initiatorPsyche.Interests.ChooseInterest();
-            Topic convoTopic = convoInterest.GetRandomTopic((initiator.DevelopmentalStage.Juvenile() || recipient.DevelopmentalStage.Juvenile()), true); //TODO: NSFW check
-            // 0 ~ 1
-            float initInterestScore = recipientPsyche.Interests.GetOrCreateInterestScore(convoInterest) * 0.01f;
-            float reciInterestScore = recipientPsyche.Interests.GetOrCreateInterestScore(convoInterest) * 0.01f;
-
             //Conversation.
-            float topicAlignment = convoTopic.GetScore(initiatorPsyche, recipientPsyche, out float initDirection); // -1~1 [0]
+            float topicAlignment = convoInterest.GetAverageAlignment(initiatorPsyche, recipientPsyche); // -1~1
             if (topicAlignment > 0)
             {
+                float initInterestScore = recipientPsyche.Interests.GetOrCreateInterestScore(convoInterest) * 0.01f;
+                float reciInterestScore = recipientPsyche.Interests.GetOrCreateInterestScore(convoInterest) * 0.01f;
                 float tAbs = Mathf.Abs(topicAlignment);
                 float initInterestF = (1.5f) + (initInterestScore * (1f + (0.5f * initPassion))) + 0.25f * ((1f - initInterestScore) * (1f + initInquisitiveness)); //1.5 + 0~1.5 => 1.5~3
                 float reciInterestF = (1.5f) + (reciInterestScore * (1f + (0.5f * reciPassion))) + 0.25f * ((1f - reciInterestScore) * (1f + reciInquisitiveness)); //1.5 + 0~1.5 => 1.5~3
