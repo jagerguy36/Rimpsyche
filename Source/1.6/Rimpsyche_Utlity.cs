@@ -246,6 +246,7 @@ namespace Maux36.RimPsyche
                 float pawnScoreBase = 1.5f + (4f * topicAlignment); //1.5~5.5
                 float lengthOpinionMult = (6f * lengthMult) / (lengthMult + 2f); //1.71 ~ 4
                 float averageScore = 0.5f * (partnerScoreBase + pawnScoreBase) * lengthOpinionMult; //2.57~22
+                //TODO: translate this value to 0~1
                 return 1f;
             }
             else
