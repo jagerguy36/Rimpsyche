@@ -211,13 +211,8 @@ namespace Maux36.RimPsyche
             //Log.Message($"{startCand.Name}'s startCandBaseChance: {startCandBaseChance} --> socialFightBaseChance: {socialFightBaseChance}");
             return Mathf.Clamp01(socialFightBaseChance);
         }
-        public static float GetCompatP(Pawn initiator, Pawn recipient)
+        public static float GetRandomCompatibility(CompPsyche initiatorPsyche, CompPsyche recipientPsyche)
         {
-            var initiatorPsyche = initiator.compPsyche();
-            var recipientPsyche = recipient.compPsyche();
-            if (initiatorPsyche?.Enabled != true || recipientPsyche?.Enabled != true)
-                return 0f;
-            
             float initTalkativeness = initiatorPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Talkativeness);
             float initPassion = initiatorPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Passion);
             float initInquisitiveness = initiatorPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Inquisitiveness);
@@ -246,8 +241,7 @@ namespace Maux36.RimPsyche
                 float pawnScoreBase = 1.5f + (4f * topicAlignment); //1.5~5.5
                 float lengthOpinionMult = (6f * lengthMult) / (lengthMult + 2f); //1.71 ~ 4
                 float averageScore = 0.5f * (partnerScoreBase + pawnScoreBase) * lengthOpinionMult; //2.57~22
-                //TODO: translate this value to 0~1
-                return 1f;
+                return averageScore/22f; //0.23~2
             }
             else
                 return 0f;
