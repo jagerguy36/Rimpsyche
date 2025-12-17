@@ -76,6 +76,7 @@ namespace Maux36.RimPsyche
                         if (otherPsyche?.Enabled != true)
                             return;
                         var randAlignment = Rimpsyche_Utility.GetRandomCompatibility(compPsyche, otherPsyche);
+                        Log.Message($"======Random Alignment Between {p.Name} and {otherLocal.Name} is {randAlignment}");
                     }));
                 }
             }
