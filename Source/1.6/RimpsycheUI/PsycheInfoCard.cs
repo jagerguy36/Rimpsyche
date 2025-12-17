@@ -62,6 +62,9 @@ namespace Maux36.RimPsyche
         public static bool showPreference = false;
         public static byte showMode = 0;
 
+        //Cache Management
+        private static bool resetPreferenceReport = true;
+
         static PsycheInfoCard()
         {
             EnsureMaterial();
@@ -87,6 +90,7 @@ namespace Maux36.RimPsyche
         private static List<InterestDisplayData> cachedInterestData = null;
         private static List<Vector2> cachedValuePointData = null;
         private static List<Vector2> cachedMaxPointData = null;
+        private static List<(string, float)> cachedPreferenceReport = null;
         private static Pawn lastPawn;
         private struct PersonalityDisplayData
         {
@@ -112,10 +116,12 @@ namespace Maux36.RimPsyche
             cachedPersonalityData = null;
             cachedInterestData = null;
             cachedValuePointData = null;
+            resetPreferenceReport = true;
         }
 
         public static void GenerateCacheData(CompPsyche compPsyche, Pawn currentPawn)
         {
+            resetPreferenceReport = true;
             lastPawn = currentPawn;
             GenerateSortedPersonalityData(compPsyche, currentPawn);
             GenerateSortedInterestData(compPsyche, currentPawn);
@@ -259,6 +265,17 @@ namespace Maux36.RimPsyche
             return cachedInterestData;
         }
 
+        private static List<(string, float)> GetPreferenceReport(Pawn currentPawn, float width)
+        {
+            //List<(string, float)> cachedPreferenceReport
+            if (resetPreferenceReport==false && cachedPreferenceReport != null)
+            {
+                return cachedPreferenceReport;
+            }
+            GeneratePreferenceReport(currentPawn, width);
+            return cachedPreferenceReport;
+        }
+
         private static List<Vector2> GetValuePointData(Vector2 center, CompPsyche compPsyche, Pawn currentPawn)
         {
             if (currentPawn == lastPawn && cachedValuePointData != null)
@@ -360,6 +377,21 @@ namespace Maux36.RimPsyche
             sortedData = sortedData.OrderByDescending(p => p.AbsValue).ToList();
             cachedInterestData = sortedData;
         }
+        private static void GeneratePreferenceReport(Pawn currentPawn, float width)
+        {
+            GameFont oldFont = Text.Font;
+            Text.Font = GameFont.Small;
+            cachedPreferenceReport = new();
+            foreach (var prefDef in DefDatabase<PreferenceDef>.AllDefs)
+            {
+                string explanation = prefDef.worker.Report(currentPawn);
+                float textHeight = Text.CalcHeight(explanation, width);
+                cachedPreferenceReport.Add((explanation, textHeight));
+            }
+            Text.Font = oldFont;
+            resetPreferenceReport = false;
+        }
+
         private static void GenerateValuePointData(Vector2 center, CompPsyche compPsyche)
         {
             List<Vector2> valuePointData = new();
@@ -824,16 +856,15 @@ namespace Maux36.RimPsyche
 
             if (showPreference)
             {
-                Text.Font = GameFont.Tiny;
+                Text.Font = GameFont.Small;
                 float y = scrollRect.y;
-                foreach (var prefDef in DefDatabase<PreferenceDef>.AllDefs)
+                var prefReport = GetPreferenceReport(pawn, scrollRect.width);
+                foreach (var report in prefReport)
                 {
-                    var explanation = prefDef.worker.Report(pawn);
-                    float textHeight = Text.CalcHeight(explanation, scrollRect.width);
+                    float textHeight = report.Item2;
                     Rect prefExplanationRect = new Rect(scrollRect.x, y, scrollRect.width, textHeight);
-                    Widgets.Label(prefExplanationRect, explanation);
+                    Widgets.Label(prefExplanationRect, report.Item1);
                     y += textHeight + 5f;
-                    // Widgets.DrawLineHorizontal(scrollRect.x, y, scrollRect.width);
                 }
                 Text.Font = oldFont;
             }
