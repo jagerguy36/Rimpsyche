@@ -624,6 +624,7 @@ namespace Maux36.RimPsyche
 
         public bool CanFeelAttractionToGender(Gender gender)
         {
+            if (attraction < asexualCutoff) return false;
             if (GetAdjustedAttractionToGender(gender) > 0f) return true;
             return false;
         }
