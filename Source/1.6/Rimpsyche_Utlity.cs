@@ -236,10 +236,14 @@ namespace Maux36.RimPsyche
                 float scoreBase = 1.5f + (4f * topicAlignment); //1.5~5.5
                 float lengthOpinionMult = (6f * lengthMult) / (lengthMult + 2f); //1.71 ~ 4
                 float averageScore = scoreBase * lengthOpinionMult; //2.57~22
+                Log.Message($"======{convoInterest.name} Alignment Between {initiatorPsyche.parentPawn.Name} and {recipientPsyche.parentPawn.Name} is {averageScore / 8f}");
                 return averageScore/8f; //This should give 1 when 8, so that it can compare to SexDrive 1.
             }
             else
+            {
+                Log.Message($"======{convoInterest.name} Alignment Between {initiatorPsyche.parentPawn.Name} and {recipientPsyche.parentPawn.Name} is {0f}");
                 return 0f;
+            }
         }
 
         //For General report

@@ -1,4 +1,5 @@
 ﻿using RimWorld;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Verse;
@@ -19,18 +20,54 @@ namespace Maux36.RimPsyche
         public float GetScore(CompPsyche initPsyche, CompPsyche reciPsyche, out float initDirection)
         {
             initDirection = 1f;
-            float score = 0f;
-            float initiatorAttitude = 0f;
-            float recipientAttitude = 0f;
+            float score;
+            float initiatorAttitude;
+            float recipientAttitude;
             if (weights != null)
             {
-                foreach (PersonalityWeight weight in weights)
+                int indicator = 0;
+                if (initPsyche.TopicOpinionCache.TryGetValue(id, out initiatorAttitude))
+                    indicator += 2;
+                if (reciPsyche.TopicOpinionCache.TryGetValue(id, out recipientAttitude))
+                    indicator += 1;
+                switch (indicator) //0: need both | 1: need init | 2: need reci | 3: need none
                 {
-                    initiatorAttitude += initPsyche.Personality.GetPersonality(weight.personalityDefName) * weight.weight;
-                    recipientAttitude += reciPsyche.Personality.GetPersonality(weight.personalityDefName) * weight.weight;
+                    case 0: // need both
+                        foreach (PersonalityWeight weight in weights)
+                        {
+                            initiatorAttitude += initPsyche.Personality.GetPersonality(weight.personalityDefName) * weight.weight;
+                            recipientAttitude += reciPsyche.Personality.GetPersonality(weight.personalityDefName) * weight.weight;
+                        }
+                        //Log.Message($"Case 0 [{name}] {initPsyche.parentPawn.Name} ![{initiatorAttitude}], {reciPsyche.parentPawn.Name} ![{recipientAttitude}]");
+                        initiatorAttitude = Rimpsyche_Utility.Boost2(Mathf.Clamp(initiatorAttitude, -1f, 1f));
+                        recipientAttitude = Rimpsyche_Utility.Boost2(Mathf.Clamp(recipientAttitude, -1f, 1f));
+                        initPsyche.TopicOpinionCache[id] = initiatorAttitude;
+                        reciPsyche.TopicOpinionCache[id] = recipientAttitude;
+                        break;
+                    case 1: // need init
+                        foreach (PersonalityWeight weight in weights)
+                        {
+                            initiatorAttitude += initPsyche.Personality.GetPersonality(weight.personalityDefName) * weight.weight;
+                        }
+                        //Log.Message($"Case 1 [{name}] {initPsyche.parentPawn.Name} ![{initiatorAttitude}] | {reciPsyche.parentPawn.Name}({recipientAttitude})");
+                        initiatorAttitude = Rimpsyche_Utility.Boost2(Mathf.Clamp(initiatorAttitude, -1f, 1f));
+                        initPsyche.TopicOpinionCache[id] = initiatorAttitude;
+                        break;
+                    case 2: // need reci
+                        foreach (PersonalityWeight weight in weights)
+                        {
+                            recipientAttitude += reciPsyche.Personality.GetPersonality(weight.personalityDefName) * weight.weight;
+                        }
+                        //Log.Message($"Case 2 [{name}] {initPsyche.parentPawn.Name}({initiatorAttitude}) | {reciPsyche.parentPawn.Name} ![{recipientAttitude}]");
+                        recipientAttitude = Rimpsyche_Utility.Boost2(Mathf.Clamp(recipientAttitude, -1f, 1f));
+                        reciPsyche.TopicOpinionCache[id] = recipientAttitude;
+                        break;
+                    case 3: // need none
+                        //Log.Message($"Case 3 [{name}] {initPsyche.parentPawn.Name}({initiatorAttitude}) | {reciPsyche.parentPawn.Name}({recipientAttitude})");
+                        break;
+                    default:
+                        throw new InvalidOperationException("Unexpected outcome.");
                 }
-                initiatorAttitude = Rimpsyche_Utility.Boost2(Mathf.Clamp(initiatorAttitude, -1f, 1f));
-                recipientAttitude = Rimpsyche_Utility.Boost2(Mathf.Clamp(recipientAttitude, -1f, 1f));
                 score = Rimpsyche_Utility.SaddleShapeFunction(initiatorAttitude, recipientAttitude, controversiality);
                 //Log.Message($"initiatorAttitude: {initiatorAttitude}. recipientAttitude: {recipientAttitude} | score: {score}");
             }
