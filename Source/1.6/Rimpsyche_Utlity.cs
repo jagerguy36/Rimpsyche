@@ -233,15 +233,16 @@ namespace Maux36.RimPsyche
                 float tAbs = Mathf.Abs(topicAlignment);
                 float initInterestF = (1.5f) + (initInterestScore * (1f + (0.5f * initPassion))) + 0.25f * ((1f - initInterestScore) * (1f + initInquisitiveness)); //1.5 + 0~1.5 => 1.5~3
                 float reciInterestF = (1.5f) + (reciInterestScore * (1f + (0.5f * reciPassion))) + 0.25f * ((1f - reciInterestScore) * (1f + reciInquisitiveness)); //1.5 + 0~1.5 => 1.5~3
-                float initTalkF = (1.75f + (0.75f * initTalkativeness)) * initInterestF; // 1.5~7.5 [2.625]
-                float reciTalkF = (1.75f + (0.75f * reciTalkativeness)) * reciInterestF; // 1.5~7.5 [2.625]
+                float initGravity = Math.Min(0, initPlayfulness) * Math.Min(0f, initTalkativeness) * 0.75f; //0~0.75
+                float reciGravity = Math.Min(0, reciPlayfulness) * Math.Min(0f, reciTalkativeness) * 0.75f; //0~0.75
+                float initTalkF = (1.75f + (0.75f * initTalkativeness) + initGravity) * initInterestF; // 1.5~7.5 [2.625]
+                float reciTalkF = (1.75f + (0.75f * reciTalkativeness) + reciGravity) * reciInterestF; // 1.5~7.5 [2.625]
                 float aligntmentLengthFactor = -1f * tAbs * (tAbs - 2f) + 1f; //1~2
                 float lengthMult = 0.1f * (5f + initTalkF + reciTalkF) * aligntmentLengthFactor; // 0.8~2 * 1~2 || 0.8~4
-                float partnerScoreBase = 1.5f + (4f * topicAlignment); //1.5~5.5
-                float pawnScoreBase = 1.5f + (4f * topicAlignment); //1.5~5.5
+                float scoreBase = 1.5f + (4f * topicAlignment); //1.5~5.5
                 float lengthOpinionMult = (6f * lengthMult) / (lengthMult + 2f); //1.71 ~ 4
-                float averageScore = 0.5f * (partnerScoreBase + pawnScoreBase) * lengthOpinionMult; //2.57~22
-                return averageScore/22f; //0.23~2
+                float averageScore = scoreBase * lengthOpinionMult; //2.57~22
+                return averageScore/8f; //This should give 1 when 8, so that it can compare to SexDrive 1.
             }
             else
                 return 0f;
