@@ -48,34 +48,24 @@ namespace Maux36.RimPsyche
                 var initPersonality = initiatorPsyche.Personality;
                 float initTact = initPersonality.GetPersonality(PersonalityDefOf.Rimpsyche_Tact);
                 initTact = Mathf.Clamp(initTact + (0.1f * initiator.skills.GetSkill(SkillDefOf.Social).Level), -1f, 1f);
-                float initTalkativeness = initPersonality.GetPersonality(PersonalityDefOf.Rimpsyche_Talkativeness);
                 float initPassion = initPersonality.GetPersonality(PersonalityDefOf.Rimpsyche_Passion);
                 float initInquisitiveness = initPersonality.GetPersonality(PersonalityDefOf.Rimpsyche_Inquisitiveness);
-                float initPlayfulness = initPersonality.GetPersonality(PesonalityDefOf.Rimpsyche_Playfulness)
                 float initSpontaneity = initPersonality.GetPersonality(PersonalityDefOf.Rimpsyche_Spontaneity);
-                float initOpenness = initPersonality.GetPersonality(PersonalityDefOf.Rimpsyche_Openness);
-                float initTrust = initPersonality.GetPersonality(PersonalityDefOf.Rimpsyche_Trust);
-                float initAggressiveness = initPersonality.GetPersonality(PersonalityDefOf.Rimpsyche_Aggressiveness);
 
-                float reciOpinion = recipient.relations.OpinionOf(recipient) * 0.01f;
+                float reciOpinion = recipient.relations.OpinionOf(initiator) * 0.01f;
                 var reciPersonality = recipientPsyche.Personality;
                 float reciTact = reciPersonality.GetPersonality(PersonalityDefOf.Rimpsyche_Tact);
                 reciTact = Mathf.Clamp(reciTact + (0.1f * recipient.skills.GetSkill(SkillDefOf.Social).Level), -1f, 1f);
                 float reciSociability = reciPersonality.GetPersonality(PersonalityDefOf.Rimpsyche_Sociability);
-                float reciTalkativeness = reciPersonality.GetPersonality(PersonalityDefOf.Rimpsyche_Talkativeness);
                 float reciPassion = reciPersonality.GetPersonality(PersonalityDefOf.Rimpsyche_Passion);
                 float reciInquisitiveness = reciPersonality.GetPersonality(PersonalityDefOf.Rimpsyche_Inquisitiveness);
                 float reciSpontaneity = reciPersonality.GetPersonality(PersonalityDefOf.Rimpsyche_Spontaneity);
-                float reciOpenness = reciPersonality.GetPersonality(PersonalityDefOf.Rimpsyche_Openness);
-                float reciTrust = reciPersonality.GetPersonality(PersonalityDefOf.Rimpsyche_Trust);
-                float reciAggressiveness = reciPersonality.GetPersonality(PersonalityDefOf.Rimpsyche_Aggressiveness);
-
 
                 //Select the convo interest area by initiator. See if the recipient is willing to talk to the initiator about that area.
                 Interest convoInterest = initiatorPsyche.Interests.ChooseInterest();
                 Topic convoTopic = convoInterest.GetRandomTopic((initiator.DevelopmentalStage.Juvenile() || recipient.DevelopmentalStage.Juvenile()), true); //TODO: NSFW check
                 // 0 ~ 1
-                float initInterestScore = recipientPsyche.Interests.GetOrCreateInterestScore(convoInterest) * 0.01f;
+                float initInterestScore = initiatorPsyche.Interests.GetOrCreateInterestScore(convoInterest) * 0.01f;
                 float reciInterestScore = recipientPsyche.Interests.GetOrCreateInterestScore(convoInterest) * 0.01f;
 
                 //If the opinion is negative, there is a chance for the pawn to brush off the conversation.
@@ -84,9 +74,7 @@ namespace Maux36.RimPsyche
                     float participateFactor = (reciInterestScore + reciSociability + reciOpinion + 2f) * 0.2f; // 0 ~ 1
                     if (Rand.Chance(1 - participateFactor))
                     {
-                        
                         initiator.needs?.mood?.thoughts?.memories?.TryGainMemory(DefOfRimpsyche.Rimpsyche_ConvoIgnored, recipient);
-
                         extraSentencePacks.Add(DefOfRimpsyche.Sentence_RimpsycheConversationFail);
                         entry = new PlayLogEntry_InteractionConversation(DefOfRimpsyche.Rimpsyche_ConversationAttempt, initiator, recipient, convoTopic.name, convoTopic.label, extraSentencePacks);
                         Find.PlayLog.Add(entry);
@@ -99,10 +87,8 @@ namespace Maux36.RimPsyche
                 float tAbs = Mathf.Abs(topicAlignment);
                 float initInterestF = (1f + (0.5f * initOpinion)) + (initInterestScore * (1f + (0.5f * initPassion))) + 0.25f * ((1f - initInterestScore) * (1f + initInquisitiveness)); //0.5~1.5+ 0~1.5 => 0.5~3 [1.5]
                 float reciInterestF = (1f + (0.5f * reciOpinion)) + (reciInterestScore * (1f + (0.5f * reciPassion))) + 0.25f * ((1f - reciInterestScore) * (1f + reciInquisitiveness)); //0.5~1.5+ 0~1.5 => 0.5~3 [1.5]
-                float initGravity = Math.Min(0, initPlayfulness) * Math.Min(0f, initTalkativeness) * 0.75f; //0~0.75
-                float reciGravity = Math.Min(0, reciPlayfulness) * Math.Min(0f, reciTalkativeness) * 0.75f; //0~0.75
-                float initTalkF = (1.75f + (0.75f * initTalkativeness) + initGravity) * initInterestF; // 0.5~7.5 [2.625]
-                float reciTalkF = (1.75f + (0.75f * reciTalkativeness) + reciGravity) * reciInterestF; // 0.5~7.5 [2.625]
+                float initTalkF = initiatorPsyche.Evaluate(RimpsycheDatabase.TalkFactor) * initInterestF; // 0.5~7.5 [2.625]
+                float reciTalkF = recipientPsyche.Evaluate(RimpsycheDatabase.TalkFactor) * reciInterestF; // 0.5~7.5 [2.625]
                 float spontaneousF = (initSpontaneity + reciSpontaneity + 2f) * 0.05f; // 0~0.2 [0.1]
                 float aligntmentLengthFactor = -1f * tAbs * (tAbs - 2f) + 1f;
                 float lengthMult = 0.1f * (5f + initTalkF + reciTalkF) * aligntmentLengthFactor * Rand.Range(1f - spontaneousF, 1f + spontaneousF); // 0.1f * (6~[10.25]~20) * ([1]~2) || 0.6~[1.025]~4
@@ -116,15 +102,15 @@ namespace Maux36.RimPsyche
 
                 if (topicAlignment > 0)
                 {
-                    float partnerScoreBase = 1f + (0.5f * reciOpinion) + (4f * topicAlignment); //0.5[2.5]5.5
-                    float partnerScoreModifier = (0.2f * initTact) + (0.1f * (initPassion - initAggressiveness)); //-0.4~[0]~0.4
-                    partnerScoreModifier = (1f + talkRand) * partnerScoreModifier; // -0.8~[0]~0.8
-                    partnerScore = (partnerScoreBase + partnerScoreModifier); // -0.3[2.5]6.3
+                    float initAcceptance = 1f + (0.5f * initOpinion) + (4f * topicAlignment); //0.5[2.5]5.5
+                    float recipientEloquence = (0.2f * reciTact) + recipientPsyche.Evaluate(RimpsycheDatabase.Fervor);  //-0.4~[0]~0.4
+                    recipientEloquence = (1f + talkRand) * recipientEloquence; // -0.8~[0]~0.8
+                    pawnScore = (initAcceptance + recipientEloquence); // -0.3[2.5]6.3
 
-                    float pawnScoreBase = 1f + (0.5f * initOpinion) + (4f * topicAlignment); //0.5[2.5]5.5
-                    float pawnScoreModifier = (0.2f * reciTact) + (0.1f * (reciPassion - reciAggressiveness)); //-0.4~[0]~0.4
-                    pawnScoreModifier = (1f + talkRand) * pawnScoreModifier; // -0.8~[0]~0.8
-                    pawnScore = (pawnScoreBase + pawnScoreModifier); // -0.3[2.5]6.3
+                    float reciAcceptance = 1f + (0.5f * reciOpinion) + (4f * topicAlignment); //0.5[2.5]5.5
+                    float initiatorEloquence = (0.2f * initTact) + initiatorPsyche.Evaluate(RimpsycheDatabase.Fervor); //-0.4~[0]~0.4
+                    initiatorEloquence = (1f + talkRand) * initiatorEloquence; // -0.8~[0]~0.8
+                    partnerScore = (reciAcceptance + initiatorEloquence); // -0.3[2.5]6.3
 
                     if (partnerScore < 0f || pawnScore < 0f)
                     {
@@ -142,10 +128,10 @@ namespace Maux36.RimPsyche
                 else
                 {
                     //Negative Alignment
-                    float pawnReceiveScore = (reciTact * (reciTalkativeness + 1) * 0.5f) + (initOpenness * (initTrust + 1) * 0.5f) + initOpinion; // -3~[0]~3
-                    float partnerReceiveScore = (initTact * (initTalkativeness + 1) * 0.5f) + (reciOpenness * (reciTrust + 1) * 0.5f) + initOpinion; // -3~[0]~3
+                    float pawnReceiveScore = recipientPsyche.Evaluate(RimpsycheDatabase.AssertBase) + initiatorPsyche.Evaluate(RimpsycheDatabase.ReceiveBase) + initOpinion; // -3~[0]~3
+                    float partnerReceiveScore = initiatorPsyche.Evaluate(RimpsycheDatabase.AssertBase) + recipientPsyche.Evaluate(RimpsycheDatabase.ReceiveBase) + reciOpinion; // -3~[0]~3
 
-                    float goodTalkChance = (3f + pawnReceiveScore + partnerReceiveScore) * (0.10f + (0.05f * topicAlignment)); // (3 ~ 9)  * (0.05 ~ 0.1) = 0.15 ~ 0.9
+                    float goodTalkChance = (3f + pawnReceiveScore + partnerReceiveScore) * (0.10f + (0.05f * topicAlignment)); // (3 ~ 9)  * (0.05 ~ 0.1) = 0.15 ~ 0.9 (when both score>0)
                     if (pawnReceiveScore > 0f && partnerReceiveScore > 0f && talkRand > 1f - goodTalkChance)
                     {
                         partnerScore = partnerReceiveScore * talkRand; // 0~3

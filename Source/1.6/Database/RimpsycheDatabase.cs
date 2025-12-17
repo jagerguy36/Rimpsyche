@@ -181,6 +181,51 @@ namespace Maux36.RimPsyche
             RimpsycheFormulaManager.FormulaIdDict
         );
 
+        public static RimpsycheFormula TalkFactor = new(
+            "TalkFactor",
+            (tracker) =>
+            {
+                float talkativeness = tracker.GetPersonality(PersonalityDefOf.Rimpsyche_Talkativeness);
+                float playfulness = tracker.GetPersonality(PersonalityDefOf.Rimpsyche_Playfulness);
+                float gravity = Mathf.Min(0, playfulness) * Mathf.Min(0f, talkativeness) * 0.75f;
+                return 1.75f + (0.75f * talkativeness) + gravity;
+            },
+            RimpsycheFormulaManager.FormulaIdDict
+        );
+
+        public static RimpsycheFormula AssertBase = new(
+            "AssertBase",
+            (tracker) =>
+            {
+                float tact = tracker.GetPersonality(PersonalityDefOf.Rimpsyche_Tact);
+                float talkativeness = tracker.GetPersonality(PersonalityDefOf.Rimpsyche_Talkativeness);
+                return tact * (talkativeness + 1) * 0.5f;
+            },
+            RimpsycheFormulaManager.FormulaIdDict
+        );
+
+        public static RimpsycheFormula ReceiveBase = new(
+            "ReceiveBase",
+            (tracker) =>
+            {
+                float openness = tracker.GetPersonality(PersonalityDefOf.Rimpsyche_Openness);
+                float trust = tracker.GetPersonality(PersonalityDefOf.Rimpsyche_Trust);
+                return openness * (trust + 1) * 0.5f;
+            },
+            RimpsycheFormulaManager.FormulaIdDict
+        );
+
+        public static RimpsycheFormula Fervor = new(
+            "Fervor",
+            (tracker) =>
+            {
+                float passion = tracker.GetPersonality(PersonalityDefOf.Rimpsyche_Passion);
+                float aggressiveness = tracker.GetPersonality(PersonalityDefOf.Rimpsyche_Aggressiveness);
+                return 0.1f * (passion - aggressiveness);
+            },
+            RimpsycheFormulaManager.FormulaIdDict
+        );
+
         public static void RegisterTraitGate(Pair<string, int> traitPair, List<FacetGate> gate)
         {
             string defName = traitPair.First;

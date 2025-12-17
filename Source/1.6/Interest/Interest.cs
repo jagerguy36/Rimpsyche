@@ -64,7 +64,7 @@ namespace Maux36.RimPsyche
                 }
                 result += tScore;
             }
-            result - outlier;
+            result -= outlier;
             if (weedOutlier)
                 return result / (topicCount - 1);
             return result / topicCount;

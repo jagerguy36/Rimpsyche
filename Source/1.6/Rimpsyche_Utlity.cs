@@ -213,30 +213,24 @@ namespace Maux36.RimPsyche
         }
         public static float GetRandomCompatibility(CompPsyche initiatorPsyche, CompPsyche recipientPsyche)
         {
-            float initTalkativeness = initiatorPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Talkativeness);
             float initPassion = initiatorPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Passion);
             float initInquisitiveness = initiatorPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Inquisitiveness);
 
-            float reciTalkativeness = recipientPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Talkativeness);
             float reciPassion = recipientPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Passion);
             float reciInquisitiveness = recipientPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Inquisitiveness);
 
-
-            //Select the convo interest area by initiator. See if the recipient is willing to talk to the initiator about that area.
             Interest convoInterest = initiatorPsyche.Interests.ChooseInterest();
-            //Conversation.
             float topicAlignment = convoInterest.GetAverageAlignment(initiatorPsyche, recipientPsyche); // -1~1
             if (topicAlignment > 0)
             {
                 float initInterestScore = recipientPsyche.Interests.GetOrCreateInterestScore(convoInterest) * 0.01f;
                 float reciInterestScore = recipientPsyche.Interests.GetOrCreateInterestScore(convoInterest) * 0.01f;
                 float tAbs = Mathf.Abs(topicAlignment);
-                float initInterestF = (1.5f) + (initInterestScore * (1f + (0.5f * initPassion))) + 0.25f * ((1f - initInterestScore) * (1f + initInquisitiveness)); //1.5 + 0~1.5 => 1.5~3
-                float reciInterestF = (1.5f) + (reciInterestScore * (1f + (0.5f * reciPassion))) + 0.25f * ((1f - reciInterestScore) * (1f + reciInquisitiveness)); //1.5 + 0~1.5 => 1.5~3
-                float initGravity = Math.Min(0, initPlayfulness) * Math.Min(0f, initTalkativeness) * 0.75f; //0~0.75
-                float reciGravity = Math.Min(0, reciPlayfulness) * Math.Min(0f, reciTalkativeness) * 0.75f; //0~0.75
-                float initTalkF = (1.75f + (0.75f * initTalkativeness) + initGravity) * initInterestF; // 1.5~7.5 [2.625]
-                float reciTalkF = (1.75f + (0.75f * reciTalkativeness) + reciGravity) * reciInterestF; // 1.5~7.5 [2.625]
+                //Assume mutual opinion of 1f
+                float initInterestF = 1.5f + (initInterestScore * (1f + (0.5f * initPassion))) + 0.25f * ((1f - initInterestScore) * (1f + initInquisitiveness)); //1.5 + 0~1.5 => 1.5~3
+                float reciInterestF = 1.5f + (reciInterestScore * (1f + (0.5f * reciPassion))) + 0.25f * ((1f - reciInterestScore) * (1f + reciInquisitiveness)); //1.5 + 0~1.5 => 1.5~3
+                float initTalkF = initiatorPsyche.Evaluate(RimpsycheDatabase.TalkFactor) * initInterestF; // 0.5~7.5 [2.625]
+                float reciTalkF = recipientPsyche.Evaluate(RimpsycheDatabase.TalkFactor) * reciInterestF; // 0.5~7.5 [2.625]
                 float aligntmentLengthFactor = -1f * tAbs * (tAbs - 2f) + 1f; //1~2
                 float lengthMult = 0.1f * (5f + initTalkF + reciTalkF) * aligntmentLengthFactor; // 0.8~2 * 1~2 || 0.8~4
                 float scoreBase = 1.5f + (4f * topicAlignment); //1.5~5.5
