@@ -747,6 +747,7 @@ namespace Maux36.RimPsyche
             Rect maleLabelRect = new Rect(0f, y, sexualityLabelWidth, sexualityLineHeight);
             Rect maleBarRect = new Rect(sexualityLabelWidth + sexualityBarMargin, y + (sexualityLineHeight - sexualityBarHeight) / 2f, barWidth, sexualityBarHeight); // Center bar vertically
             Rect maleBarSurplusRect = new Rect(maleBarRect.xMax, maleBarRect.y, barWidth * 0.5f, sexualityBarHeight);
+            Rect maleAllRect = new Rect(0f, y, sexualityRect.width, sexualityLineHeight);
             Widgets.Label(maleLabelRect, "RPC_AttractionMale".Translate() + ":");
             Widgets.DrawBoxSolid(maleBarRect, barBackgroundColor);
             Widgets.DrawBoxSolid(maleBarSurplusRect, barSurplusBackgroundColor);
@@ -757,6 +758,11 @@ namespace Maux36.RimPsyche
             else mColor = Color.Lerp(Color.green, Color.cyan, -1.25f + 1.5f * mAttraction);
             Widgets.DrawBoxSolid(mValueRect, mColor);
             Widgets.DrawLineVertical(maleBarRect.xMax, maleBarRect.y - 1, maleBarRect.height + 2);
+            if (Mouse.IsOver(maleAllRect))
+            {
+                Widgets.DrawHighlight(maleAllRect);
+                TooltipHandler.TipRegion(maleAllRect, "RPS_AttractionMaleTooltip".Translate() + ": " + mAttraction.ToStringPercent());
+            }
 
             y += sexualityLineHeight;
 
@@ -764,6 +770,7 @@ namespace Maux36.RimPsyche
             Rect femaleLabelRect = new Rect(0f, y, sexualityLabelWidth, sexualityLineHeight);
             Rect femaleBarRect = new Rect(sexualityLabelWidth + sexualityBarMargin, y + (sexualityLineHeight - sexualityBarHeight) / 2f, barWidth, sexualityBarHeight);
             Rect femaleBarSurplusRect = new Rect(femaleBarRect.xMax, femaleBarRect.y, barWidth * 0.5f, sexualityBarHeight);
+            Rect femaleAllRect = new Rect(0f, y, sexualityRect.width, sexualityLineHeight);
             Widgets.Label(femaleLabelRect, "RPC_AttractionFemale".Translate() + ":");
             Widgets.DrawBoxSolid(femaleBarRect, barBackgroundColor);
             Widgets.DrawBoxSolid(femaleBarSurplusRect, barSurplusBackgroundColor);
@@ -774,11 +781,17 @@ namespace Maux36.RimPsyche
             else fColor = Color.Lerp(Color.green, Color.cyan, -1.25f + 1.5f * fAttraction);
             Widgets.DrawBoxSolid(fValueRect, fColor);
             Widgets.DrawLineVertical(femaleBarRect.xMax, femaleBarRect.y - 1, femaleBarRect.height + 2);
+            if (Mouse.IsOver(femaleAllRect))
+            {
+                Widgets.DrawHighlight(femaleAllRect);
+                TooltipHandler.TipRegion(femaleAllRect, "RPS_AttractionFemaleTooltip".Translate()+": "+fAttraction.ToStringPercent());
+            }
 
             y += sexualityLineHeight;
             Rect sexDriveLabelRect = new Rect(0f, y, sexualityLabelWidth, sexualityLineHeight);
             Rect sexDriveRect = new Rect(sexualityLabelWidth + sexualityBarMargin, y + (sexualityLineHeight - sexualityBarHeight) / 2f, barWidth, sexualityBarHeight);
             Rect sexDriveBarSurplusRect = new Rect(sexDriveRect.xMax, sexDriveRect.y, barWidth * 0.5f, sexualityBarHeight);
+            Rect sexDriveAllRect = new Rect(0f, y, sexualityRect.width, sexualityLineHeight);
             Widgets.Label(sexDriveLabelRect, "RPC_SexDrive".Translate() + ":");
             Widgets.DrawBoxSolid(sexDriveRect, barBackgroundColor);
             Widgets.DrawBoxSolid(sexDriveBarSurplusRect, barSurplusBackgroundColor);
@@ -789,6 +802,11 @@ namespace Maux36.RimPsyche
             else sdColor = Color.Lerp(Color.green, Color.cyan, -1.25f + 1.5f * sexDrive);
             Widgets.DrawBoxSolid(sdValueRect, sdColor);
             Widgets.DrawLineVertical(sexDriveRect.xMax, sexDriveRect.y - 1, sexDriveRect.height + 2);
+            if (Mouse.IsOver(sexDriveAllRect))
+            {
+                Widgets.DrawHighlight(sexDriveAllRect);
+                TooltipHandler.TipRegion(sexDriveAllRect, "RPS_SexdriveTooltip".Translate() + ": " + sexDrive.ToStringPercent());
+            }
 
             y += sexualityLineHeight;
 
@@ -885,7 +903,7 @@ namespace Maux36.RimPsyche
                 foreach (var interestData in interestsToDisplay)
                 {
                     var value = interestData.Value;
-                    Rect rowRect = new Rect(5f, y, scrollContentRect.width, interestRowHeight);
+                    Rect rowRect = new Rect(0f, y, scrollContentRect.width, interestRowHeight);
 
                     // Hover highlight + tooltip
                     if (Mouse.IsOver(rowRect))
