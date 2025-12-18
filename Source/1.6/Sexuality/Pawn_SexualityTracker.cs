@@ -211,6 +211,7 @@ namespace Maux36.RimPsyche
             float max = 0.25f;
             if (TryGetRomanticRelationDef(target, out _))
                 max = 1f;
+            //0.25 [No/LB] | 0.5 [SH] | 0.75 [D] | 1 [LF+]
             return max;
         }
         public float GetRelationshipWith(Pawn target)
