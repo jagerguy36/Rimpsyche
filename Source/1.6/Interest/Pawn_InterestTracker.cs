@@ -68,7 +68,7 @@ namespace Maux36.RimPsyche
         {
             if (!interestOffset.TryGetValue(key.id, out float offsetValue))
             {
-                GenerateInterestOffsetsForDomain(RimpsycheDatabase.InterestDomainDict[key.id]);
+                GenerateInterestOffsetsForDomain(RimpsycheDatabase.InterestDomainIdDict[key.id]);
                 if (!interestOffset.TryGetValue(key.id, out offsetValue))
                 {
                     offsetValue = 50;

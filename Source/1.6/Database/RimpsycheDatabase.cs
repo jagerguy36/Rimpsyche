@@ -12,9 +12,11 @@ namespace Maux36.RimPsyche
     public class RimpsycheDatabase
     {
         public static HashSet<int> MindlessDefShorthashSet = new();
-        public static Dictionary<int, InterestDomainDef> InterestDomainDict = new();
+        public static Dictionary<string, InterestDomainDef> InterestDomainDict = new();
+        public static Dictionary<int, InterestDomainDef> InterestDomainIdDict = new();
         public static HashSet<Interest> InterestList = new();
-        public static Dictionary<int, Topic> TopicDict = new();
+        public static Dictionary<string, Topic> TopicDict = new();
+        public static Dictionary<int, Topic> TopicIdDict = new();
         public static Dictionary<string, PersonalityDef> PersonalityDict = new();
         public static Dictionary<int, List<(int, float, float)>> TraitScopeDatabase = new();
         public static Dictionary<int, List<FacetGate>> TraitGateDatabase = new() { };
@@ -81,12 +83,14 @@ namespace Maux36.RimPsyche
                     InterestList.Add(interest);
                     interest.id = InterestList.Count;
                     maxInterestLabelWidth = Mathf.Max(maxInterestLabelWidth, 5f + Text.CalcSize(interest.label).x);
-                    InterestDomainDict.Add(interest.id, interestdomain);
+                    InterestDomainDict.Add(interest.name, interestdomain);
+                    InterestDomainIdDict.Add(interest.id, interestdomain);
                     foreach (var topic in interest.topics)
                     {
                         //TopicNameList.Add(topic.name);
-                        topic.id = TopicDict.Count();
-                        TopicDict[topic.id] = topic;
+                        topic.id = TopicIdDict.Count();
+                        TopicDict[topic.name] = topic;
+                        TopicIdDict[topic.id] = topic;
                         float absoluteWeightSum = 0f;
                         foreach (var fw in topic.weights)
                         {
