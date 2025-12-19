@@ -35,7 +35,7 @@
     <defName>Rimpsyche_StartConversation</defName>
     <label>conversation</label>
     <workerClass>Maux36.RimPsyche.InteractionWorker_StartConversation</workerClass>
-    <symbol>Things/Mote/SpeechSymbols/Conversation</symbol>
+    <symbol>Things/Mote/SpeechSymbols/ConversationStart</symbol>
     <initiatorXpGainSkill>Social</initiatorXpGainSkill>
     <initiatorXpGainAmount>10</initiatorXpGainAmount>
     <logRulesInitiator>
