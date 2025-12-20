@@ -245,10 +245,10 @@ namespace Maux36.RimPsyche
             }
         }
 
-        public void DirtyTraitCache()
+        public void DirtyTraitCache(TraitDef def)
         {
             personality?.DirtyTraitCache();
-            if(Rimpsyche.SexualityModuleLoaded) sexuality?.DirtyTraitCache();
+            if(Rimpsyche.SexualityModuleLoaded) sexuality?.DirtyTraitCache(def);
         }
         public bool AffectPawn(float resultOffset, float opinion, Topic topic, float direction = 1f)
         {

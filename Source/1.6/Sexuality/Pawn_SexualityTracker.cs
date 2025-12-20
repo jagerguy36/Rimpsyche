@@ -448,9 +448,14 @@ namespace Maux36.RimPsyche
             return;
         }
         //When Trait is manipulated, Rimpsyche Sexuality will check the traits and follow it rather than enforcing RPS on Vanilla
-        public void DirtyTraitCache()
+        public bool DirtyTraitCache(TraitDef def)
         {
-            shouldValidate = true;
+            if (SexualityHelper.SexualityTraitHashSet.Contains(def.shortHash))
+            {
+                shouldValidate = true;
+                return true;
+            }
+            return false;
         }
         public void DirtySuppressedCheck()
         {

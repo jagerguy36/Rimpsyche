@@ -20,6 +20,7 @@ namespace Maux36.RimPsyche
         static SexualityHelper()
         {
             LoverDefHash = GetLoverDefs();
+            SexualityTraitHashSet = GetSexualityTraitHashSet();
             Distribution = CalculateNormalizedDistribution();
             StraightSum = Distribution[0] + Distribution[1];
             BiSum = Distribution[2] + Distribution[3] + Distribution[4];
@@ -84,12 +85,21 @@ namespace Maux36.RimPsyche
 
         public static HashSet<int> NonSexualDefShorthashSet = new();
         public static HashSet<PawnRelationDef> LoverDefHash = new();
+        public static HashSet<int> SexualityTraitHashSet = new();
         private static HashSet<PawnRelationDef> GetLoverDefs()
         {
             HashSet<PawnRelationDef> loverDefs = new();
             loverDefs.Add(PawnRelationDefOf.Lover);
             loverDefs.Add(PawnRelationDefOf.Fiance);
             loverDefs.Add(PawnRelationDefOf.Spouse);
+            return loverDefs;
+        }
+        private static HashSet<int> GetSexualityTraitHashSet()
+        {
+            HashSet<int> loverDefs = new();
+            loverDefs.Add(TraitDefOf.Gay.shortHash);
+            loverDefs.Add(TraitDefOf.Bisexual.shortHash);
+            loverDefs.Add(TraitDefOf.Asexual.shortHash);
             return loverDefs;
         }
 
