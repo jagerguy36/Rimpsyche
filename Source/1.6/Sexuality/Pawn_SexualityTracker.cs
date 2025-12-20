@@ -491,6 +491,23 @@ namespace Maux36.RimPsyche
                     return "RPC_SexualityUndefined".Translate();
             }
         }
+        public string GetOrientationDescription()
+        {
+            var pawnName = pawn.Name?.ToStringShort ?? "";
+            switch (orientationCategory)
+            {
+                case SexualOrientation.Heterosexual:
+                    return "RPC_HeterosexualDescription".Translate(pawnName);
+                case SexualOrientation.Bisexual:
+                    return "RPC_BisexualDescription".Translate(pawnName);
+                case SexualOrientation.Homosexual:
+                    return "RPC_HomosexualDescription".Translate(pawnName);
+                case SexualOrientation.Asexual:
+                    return "RPC_AsexualDescription".Translate(pawnName);
+                default:
+                    return "RPC_SexualityUndefinedDescription".Translate(pawnName);
+            }
+        }
         public bool ShowOnUI()
         {
             if (Rimpsyche.SexualityModuleLoaded)
