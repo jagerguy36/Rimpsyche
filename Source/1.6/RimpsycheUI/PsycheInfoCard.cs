@@ -771,7 +771,7 @@ namespace Maux36.RimPsyche
             Rect maleBarRect = new Rect(sexualityLabelWidth + sexualityBarMargin, y + (sexualityLineHeight - sexualityBarHeight) / 2f, barWidth, sexualityBarHeight); // Center bar vertically
             Rect maleBarSurplusRect = new Rect(maleBarRect.xMax, maleBarRect.y, barWidth * 0.5f, sexualityBarHeight);
             Rect maleAllRect = new Rect(0f, y, sexualityRect.width, sexualityLineHeight);
-            Widgets.Label(maleLabelRect, "RPC_AttractionMale".Translate() + ":");
+            Widgets.Label(maleLabelRect, "RPC_AttractionMale".Translate());
             Widgets.DrawBoxSolid(maleBarRect, barBackgroundColor);
             Widgets.DrawBoxSolid(maleBarSurplusRect, barSurplusBackgroundColor);
             float mAttraction = compPsyche.Sexuality.GetAdjustedAttractionToGender(Gender.Male);
@@ -794,7 +794,7 @@ namespace Maux36.RimPsyche
             Rect femaleBarRect = new Rect(sexualityLabelWidth + sexualityBarMargin, y + (sexualityLineHeight - sexualityBarHeight) / 2f, barWidth, sexualityBarHeight);
             Rect femaleBarSurplusRect = new Rect(femaleBarRect.xMax, femaleBarRect.y, barWidth * 0.5f, sexualityBarHeight);
             Rect femaleAllRect = new Rect(0f, y, sexualityRect.width, sexualityLineHeight);
-            Widgets.Label(femaleLabelRect, "RPC_AttractionFemale".Translate() + ":");
+            Widgets.Label(femaleLabelRect, "RPC_AttractionFemale".Translate());
             Widgets.DrawBoxSolid(femaleBarRect, barBackgroundColor);
             Widgets.DrawBoxSolid(femaleBarSurplusRect, barSurplusBackgroundColor);
             float fAttraction = compPsyche.Sexuality.GetAdjustedAttractionToGender(Gender.Female);
@@ -815,7 +815,7 @@ namespace Maux36.RimPsyche
             Rect sexDriveRect = new Rect(sexualityLabelWidth + sexualityBarMargin, y + (sexualityLineHeight - sexualityBarHeight) / 2f, barWidth, sexualityBarHeight);
             Rect sexDriveBarSurplusRect = new Rect(sexDriveRect.xMax, sexDriveRect.y, barWidth * 0.5f, sexualityBarHeight);
             Rect sexDriveAllRect = new Rect(0f, y, sexualityRect.width, sexualityLineHeight);
-            Widgets.Label(sexDriveLabelRect, "RPC_SexDrive".Translate() + ":");
+            Widgets.Label(sexDriveLabelRect, "RPC_SexDrive".Translate());
             Widgets.DrawBoxSolid(sexDriveRect, barBackgroundColor);
             Widgets.DrawBoxSolid(sexDriveBarSurplusRect, barSurplusBackgroundColor);
             float sexDrive = compPsyche.Sexuality.GetAdjustedSexdrive();
