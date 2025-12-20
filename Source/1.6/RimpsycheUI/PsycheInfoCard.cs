@@ -371,8 +371,7 @@ namespace Maux36.RimPsyche
                     AbsValue = absValue,
                     CachedLabelText = cachedLabelText,
                     CachedLabelColor = cachedLabelColor,
-                    CachedDescription = $"{interest.label}: {Math.Round(value, 1)}\n{interest.description}"
-                });
+                    CachedDescription = $"{interest.label}: {Math.Round(value, 1)}\n{interest.description}\n\n{"RimpsycheTopicHeader".Translate()}\n{RimpsycheDatabase.InterstTopicStringDict[interest.id]}"});
             }
             sortedData = sortedData.OrderByDescending(p => p.AbsValue).ToList();
             cachedInterestData = sortedData;

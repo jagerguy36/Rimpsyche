@@ -1,6 +1,7 @@
 ﻿using KTrie;
 using RimWorld;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -14,6 +15,7 @@ namespace Maux36.RimPsyche
         public static HashSet<int> MindlessDefShorthashSet = new();
         public static Dictionary<string, InterestDomainDef> InterestDomainDict = new();
         public static Dictionary<int, InterestDomainDef> InterestDomainIdDict = new();
+        public static Dictionary<int, string> InterstTopicStringDict = new();
         public static HashSet<Interest> InterestList = new();
         public static Dictionary<string, Topic> TopicDict = new();
         public static Dictionary<int, Topic> TopicIdDict = new();
@@ -80,6 +82,7 @@ namespace Maux36.RimPsyche
             {
                 foreach (var interest in interestdomain.interests)
                 {
+                    List<string> topicStrings = [];
                     InterestList.Add(interest);
                     interest.id = InterestList.Count;
                     maxInterestLabelWidth = Mathf.Max(maxInterestLabelWidth, 5f + Text.CalcSize(interest.label).x);
@@ -87,7 +90,7 @@ namespace Maux36.RimPsyche
                     InterestDomainIdDict.Add(interest.id, interestdomain);
                     foreach (var topic in interest.topics)
                     {
-                        //TopicNameList.Add(topic.name);
+                        topicStrings.Add("  - " + topic.label.CapitalizeFirst());
                         topic.id = TopicIdDict.Count();
                         TopicDict[topic.name] = topic;
                         TopicIdDict[topic.id] = topic;
@@ -101,6 +104,7 @@ namespace Maux36.RimPsyche
                             Log.Error($"Personality weight absolute sum for topic {topic.name} is not 1. It is {absoluteWeightSum}");
                         }
                     }
+                    InterstTopicStringDict[interest.id] = string.Join("\n", topicStrings);
                 }
             }
 

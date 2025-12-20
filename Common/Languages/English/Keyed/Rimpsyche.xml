@@ -28,6 +28,7 @@
   <RimpsycheShowBar>Show as Bars</RimpsycheShowBar>
   <RimpsycheShowFacet>Show Facets</RimpsycheShowFacet>
   <RimpsycheEdit>Edit</RimpsycheEdit>
+  <RimpsycheTopicHeader>Topics</RimpsycheTopicHeader>
 
   <TraitAffected>Affected by trait(s):</TraitAffected>
   <GeneAffected>Affected by gene(s):</GeneAffected>
