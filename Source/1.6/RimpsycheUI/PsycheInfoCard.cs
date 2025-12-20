@@ -226,7 +226,7 @@ namespace Maux36.RimPsyche
             {
                 if (showSexuality)
                 {
-                    DrawSexaulityBox(sexualityRect, compPsyche, pawn);
+                    DrawSexualityBox(sexualityRect, compPsyche, pawn);
                 }
                 DrawInterestBox(interestRect, compPsyche, pawn, showSexuality);
             }
@@ -708,7 +708,7 @@ namespace Maux36.RimPsyche
             Text.Font = oldFont;
         }
 
-        public static void DrawSexaulityBox(Rect sexualityRect, CompPsyche compPsyche, Pawn pawn)
+        public static void DrawSexualityBox(Rect sexualityRect, CompPsyche compPsyche, Pawn pawn)
         {
             TextAnchor oldAnchor = Text.Anchor;
             GameFont oldFont = Text.Font;
