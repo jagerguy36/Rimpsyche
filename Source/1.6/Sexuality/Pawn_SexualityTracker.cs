@@ -237,6 +237,7 @@ namespace Maux36.RimPsyche
         //Growth moment sexuality generation also counts as generate = true
         public void Initialize(bool generate = false, bool allowGay = true)
         {
+            //Log.Message($" {pawn.LabelShort} |initialize called");
             float kinsey;
             shouldValidate = false;
             adjustmentDirty = true;
@@ -316,7 +317,7 @@ namespace Maux36.RimPsyche
                 else if (kinsey < 0.2f) { orientationCategory = SexualOrientation.Heterosexual;}
                 else if (kinsey < 0.8f) { orientationCategory = SexualOrientation.Bisexual; traits.allTraits.Add(new Trait(TraitDefOf.Bisexual, TraitDefOf.Bisexual.degreeDatas[0].degree));}
                 else { orientationCategory = SexualOrientation.Homosexual; traits.allTraits.Add(new Trait(TraitDefOf.Gay, TraitDefOf.Gay.degreeDatas[0].degree));}
-                //Log.Message($"generating sexuality for {pawn.Name} | {kinsey} -> {orientationCategory} | A: {attraction}");
+                //Log.Message($" {pawn.LabelShort} | generating sexuality | {kinsey} -> {orientationCategory} | A: {attraction}");
             }
 
             sexDrive = SexualityHelper.GenerateSexdrive();
@@ -421,6 +422,11 @@ namespace Maux36.RimPsyche
                 return;
             }
         }
+        /// <summary>
+        /// Force new Psyche sexuality onto the pawn.
+        /// This is only called when Validate checked after dirtied validateion (trait changed) and new traits is mismatched with Psyche sexuality.
+        /// </summary>
+        /// <param name="newCategory"></param>
         private void AssignSexuality(SexualOrientation newCategory)
         {
             orientationCategory = newCategory;
