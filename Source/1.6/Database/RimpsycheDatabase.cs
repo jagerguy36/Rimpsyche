@@ -29,6 +29,7 @@ namespace Maux36.RimPsyche
         public static float maxFacetLabelWidth = 130f;
         public static float maxInterestLabelWidth = 130f;
         public static float maxSexualityLabelWidth = 70f;
+        public static float orientationLabelWidth = 0f;
         public static float maxRightsideLabelWidth = 130f;
         public static float maxPersonalityLabelWidth = 130f;
         public static float totalPreferenceEditorfHeight = 0f;
@@ -64,6 +65,10 @@ namespace Maux36.RimPsyche
                 maxSexualityLabelWidth = Mathf.Max(femaleLabelWith, maxSexualityLabelWidth);
                 var driveLabelWith = Text.CalcSize("RPC_SexDrive".Translate()).x;
                 maxSexualityLabelWidth = Mathf.Max(driveLabelWith, maxSexualityLabelWidth);
+                orientationLabelWidth = Mathf.Max(orientationLabelWidth, Text.CalcSize("RPC_Heterosexual".Translate()).x);
+                orientationLabelWidth = Mathf.Max(orientationLabelWidth, Text.CalcSize("RPC_Bisexual".Translate()).x);
+                orientationLabelWidth = Mathf.Max(orientationLabelWidth, Text.CalcSize("RPC_Homosexual".Translate()).x);
+                orientationLabelWidth = orientationLabelWidth + 35f; //: (#) length around 35
             }
             if (LanguageDatabase.activeLanguage.HaveTextForKey("MemoryReportString"))
             {
