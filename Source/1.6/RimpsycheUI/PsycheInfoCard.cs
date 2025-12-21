@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using UnityEngine;
 using Verse;
 
@@ -225,7 +226,7 @@ namespace Maux36.RimPsyche
             {
                 if (showSexuality)
                 {
-                    DrawSexaulityBox(sexualityRect, compPsyche, pawn);
+                    DrawSexualityBox(sexualityRect, compPsyche, pawn);
                 }
                 DrawInterestBox(interestRect, compPsyche, pawn, showSexuality);
             }
@@ -707,7 +708,7 @@ namespace Maux36.RimPsyche
             Text.Font = oldFont;
         }
 
-        public static void DrawSexaulityBox(Rect sexualityRect, CompPsyche compPsyche, Pawn pawn)
+        public static void DrawSexualityBox(Rect sexualityRect, CompPsyche compPsyche, Pawn pawn)
         {
             TextAnchor oldAnchor = Text.Anchor;
             GameFont oldFont = Text.Font;
@@ -737,7 +738,30 @@ namespace Maux36.RimPsyche
             float y = 0f;
             // Sexuality
             Rect sexualityDetailRect = new Rect(0f, y, sexualityRect.width, sexualityLineHeight);
-            Widgets.Label(sexualityDetailRect, "RPC_Orientation".Translate() + ": " + compPsyche.Sexuality.GetOrientationReport() + $" ({compPsyche.Sexuality.GetKinseyReport()})");
+            sexualityDetailRect.SplitVertically(sexualityLabelWidth + sexualityBarMargin, out Rect sexualityDetailLeftRect, out Rect sexualityDetailRightRect);
+            Widgets.Label(sexualityDetailLeftRect, "RPC_Orientation".Translate());
+            sexualityDetailRightRect.SplitVertically(sexualityDetailRightRect.width / 1.5f, out Rect sexualityDetailNameRect, out Rect sexualityDetailKinseyRect);
+            Widgets.Label(sexualityDetailNameRect, compPsyche.Sexuality.GetOrientationReport());
+            if (Mouse.IsOver(sexualityDetailNameRect))
+            {
+                Widgets.DrawHighlight(sexualityDetailNameRect);
+                TooltipHandler.TipRegion(sexualityDetailNameRect, compPsyche.Sexuality.GetOrientationDescription());
+            }
+
+            // Kinsey Rating
+            Text.Anchor = TextAnchor.MiddleCenter;
+            Widgets.Label(sexualityDetailKinseyRect, $"({compPsyche.Sexuality.GetKinseyReport()})");
+            Text.Anchor = TextAnchor.MiddleLeft;
+            if (Mouse.IsOver(sexualityDetailKinseyRect))
+            {
+                Widgets.DrawHighlight(sexualityDetailKinseyRect);
+                var tooltipString = new StringBuilder()
+                    .AppendTagged("RPS_KinseyTitleTooltip".Translate().Colorize(Color.yellow))
+                    .Append("\n\n").Append("RPS_KinseyTooltip".Translate())
+                    .ToString();
+                TooltipHandler.TipRegion(sexualityDetailKinseyRect, tooltipString);
+            }
+
             y += sexualityLineHeight;
 
             float barWidth = (sexualityRect.width - sexualityLabelWidth - sexualityBarMargin - sexualityRightMargin) * 2f / 3f;
@@ -747,7 +771,7 @@ namespace Maux36.RimPsyche
             Rect maleBarRect = new Rect(sexualityLabelWidth + sexualityBarMargin, y + (sexualityLineHeight - sexualityBarHeight) / 2f, barWidth, sexualityBarHeight); // Center bar vertically
             Rect maleBarSurplusRect = new Rect(maleBarRect.xMax, maleBarRect.y, barWidth * 0.5f, sexualityBarHeight);
             Rect maleAllRect = new Rect(0f, y, sexualityRect.width, sexualityLineHeight);
-            Widgets.Label(maleLabelRect, "RPC_AttractionMale".Translate() + ":");
+            Widgets.Label(maleLabelRect, "RPC_AttractionMale".Translate());
             Widgets.DrawBoxSolid(maleBarRect, barBackgroundColor);
             Widgets.DrawBoxSolid(maleBarSurplusRect, barSurplusBackgroundColor);
             float mAttraction = compPsyche.Sexuality.GetAdjustedAttractionToGender(Gender.Male);
@@ -770,7 +794,7 @@ namespace Maux36.RimPsyche
             Rect femaleBarRect = new Rect(sexualityLabelWidth + sexualityBarMargin, y + (sexualityLineHeight - sexualityBarHeight) / 2f, barWidth, sexualityBarHeight);
             Rect femaleBarSurplusRect = new Rect(femaleBarRect.xMax, femaleBarRect.y, barWidth * 0.5f, sexualityBarHeight);
             Rect femaleAllRect = new Rect(0f, y, sexualityRect.width, sexualityLineHeight);
-            Widgets.Label(femaleLabelRect, "RPC_AttractionFemale".Translate() + ":");
+            Widgets.Label(femaleLabelRect, "RPC_AttractionFemale".Translate());
             Widgets.DrawBoxSolid(femaleBarRect, barBackgroundColor);
             Widgets.DrawBoxSolid(femaleBarSurplusRect, barSurplusBackgroundColor);
             float fAttraction = compPsyche.Sexuality.GetAdjustedAttractionToGender(Gender.Female);
@@ -791,7 +815,7 @@ namespace Maux36.RimPsyche
             Rect sexDriveRect = new Rect(sexualityLabelWidth + sexualityBarMargin, y + (sexualityLineHeight - sexualityBarHeight) / 2f, barWidth, sexualityBarHeight);
             Rect sexDriveBarSurplusRect = new Rect(sexDriveRect.xMax, sexDriveRect.y, barWidth * 0.5f, sexualityBarHeight);
             Rect sexDriveAllRect = new Rect(0f, y, sexualityRect.width, sexualityLineHeight);
-            Widgets.Label(sexDriveLabelRect, "RPC_SexDrive".Translate() + ":");
+            Widgets.Label(sexDriveLabelRect, "RPC_SexDrive".Translate());
             Widgets.DrawBoxSolid(sexDriveRect, barBackgroundColor);
             Widgets.DrawBoxSolid(sexDriveBarSurplusRect, barSurplusBackgroundColor);
             float sexDrive = compPsyche.Sexuality.GetAdjustedSexdrive();
