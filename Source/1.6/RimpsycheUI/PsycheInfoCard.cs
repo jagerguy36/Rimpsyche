@@ -91,6 +91,7 @@ namespace Maux36.RimPsyche
         private static List<InterestDisplayData> cachedInterestData = null;
         private static List<Vector2> cachedValuePointData = null;
         private static List<Vector2> cachedMaxPointData = null;
+        private static string cachedSexualityDescription = string.Empty;
         private static List<(string, float)> cachedPreferenceReport = null;
         private static Pawn lastPawn;
         private struct PersonalityDisplayData
@@ -117,6 +118,7 @@ namespace Maux36.RimPsyche
             cachedPersonalityData = null;
             cachedInterestData = null;
             cachedValuePointData = null;
+            cachedSexualityDescription = string.Empty;
             resetPreferenceReport = true;
         }
 
@@ -255,7 +257,6 @@ namespace Maux36.RimPsyche
             GenerateCacheData(compPsyche, currentPawn);
             return cachedPersonalityData;
         }
-
         private static List<InterestDisplayData> GetSortedInterestData(CompPsyche compPsyche, Pawn currentPawn)
         {
             if (currentPawn == lastPawn && cachedInterestData != null)
@@ -265,7 +266,6 @@ namespace Maux36.RimPsyche
             GenerateCacheData(compPsyche, currentPawn);
             return cachedInterestData;
         }
-
         private static List<(string, float)> GetPreferenceReport(Pawn currentPawn, float width)
         {
             //List<(string, float)> cachedPreferenceReport
@@ -276,7 +276,14 @@ namespace Maux36.RimPsyche
             GeneratePreferenceReport(currentPawn, width);
             return cachedPreferenceReport;
         }
-
+        private static string GetSexualityTooltip(CompPsyche compPsyche)
+        {
+            if (cachedSexualityDescription == string.Empty)
+            {
+                cachedSexualityDescription = compPsyche.Sexuality.GetOrientationDescription();
+            }
+            return cachedSexualityDescription;
+        }
         private static List<Vector2> GetValuePointData(Vector2 center, CompPsyche compPsyche, Pawn currentPawn)
         {
             if (currentPawn == lastPawn && cachedValuePointData != null)
@@ -294,6 +301,7 @@ namespace Maux36.RimPsyche
             }
             return cachedMaxPointData;
         }
+        
         private static void GenerateSortedPersonalityData(CompPsyche compPsyche, Pawn currentPawn)
         {
             var personalityDefList = DefDatabase<PersonalityDef>.AllDefs;
@@ -391,7 +399,6 @@ namespace Maux36.RimPsyche
             Text.Font = oldFont;
             resetPreferenceReport = false;
         }
-
         private static void GenerateValuePointData(Vector2 center, CompPsyche compPsyche)
         {
             List<Vector2> valuePointData = new();
@@ -745,7 +752,7 @@ namespace Maux36.RimPsyche
             if (Mouse.IsOver(sexualityAllRect))
             {
                 Widgets.DrawHighlight(sexualityAllRect);
-                TooltipHandler.TipRegion(sexualityAllRect, compPsyche.Sexuality.GetOrientationDescription());
+                TooltipHandler.TipRegion(sexualityAllRect, GetSexualityTooltip(compPsyche));
             }
             y += sexualityLineHeight;
 
