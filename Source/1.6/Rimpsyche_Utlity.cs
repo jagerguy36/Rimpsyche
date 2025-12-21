@@ -245,6 +245,26 @@ namespace Maux36.RimPsyche
                 return 0f;
             }
         }
+        public static float GetAverageConvoOpinion(Pawn pawn, Pawn otherPawn)
+        {
+            var memories = pawn.needs.mood.thoughts.memories.Memories;
+            int memoryCount = memories.Count;
+            int convoCount = 0;
+            float opinionSum = 0f;
+            for (int i = 0; i < memoryCount; i++)
+            {
+                var mem = memories[i];
+                if (mem.otherPawn == otherPawn && mem is Thought_MemoryPostDefined mpd)
+                {
+                    opinionSum += mpd.opinionOffset;
+                    convoCount++;
+                }
+            }
+            if (convoCount == 0)
+                return 0f;
+            return opinionSum / convoCount;
+        }
+
 
         //For General report
         public static string GetPersonalityDesc(PersonalityDef personality, float value)
