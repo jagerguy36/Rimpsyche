@@ -85,6 +85,14 @@ namespace Maux36.RimPsyche
             return false;
         }
 
+        //General check
+        public bool SexualityExpressed()
+        {
+            if (!Suppressed && Rimpsyche_Utility.GetPawnAge(pawn) >= minAdultAge)
+                return true;
+            return false;
+        }
+
         //Memory
         public HashSet<int> knownOrientation = new();
         /// <summary>
