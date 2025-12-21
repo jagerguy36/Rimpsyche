@@ -1,6 +1,7 @@
 ﻿using RimWorld;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using UnityEngine;
 using Verse;
 
@@ -494,19 +495,32 @@ namespace Maux36.RimPsyche
         public string GetOrientationDescription()
         {
             var pawnName = pawn.Name?.ToStringShort ?? "";
+            var descriptionString = new StringBuilder();
             switch (orientationCategory)
             {
                 case SexualOrientation.Heterosexual:
-                    return "RPC_HeterosexualDescription".Translate(pawnName);
+                    descriptionString.Append("RPC_HeterosexualDescription".Translate(pawnName));
+                    break;
                 case SexualOrientation.Bisexual:
-                    return "RPC_BisexualDescription".Translate(pawnName);
+                    descriptionString.Append("RPC_BisexualDescription".Translate(pawnName));
+                    break;
                 case SexualOrientation.Homosexual:
-                    return "RPC_HomosexualDescription".Translate(pawnName);
+                    descriptionString.Append("RPC_HomosexualDescription".Translate(pawnName));
+                    break;
                 case SexualOrientation.Asexual:
-                    return "RPC_AsexualDescription".Translate(pawnName);
+                    descriptionString.Append("RPC_AsexualDescription".Translate(pawnName));
+                    break;
                 default:
-                    return "RPC_SexualityUndefinedDescription".Translate(pawnName);
+                    descriptionString.Append("RPC_SexualityUndefinedDescription".Translate(pawnName));
+                    break;
             }
+
+            descriptionString
+                .Append("\n\n")
+                .AppendTagged("RPS_KinseyTitleTooltip".Translate().Colorize(Color.yellow))
+                .Append("\n\n")
+                .Append("RPS_KinseyTooltip".Translate());
+            return descriptionString.ToString();
         }
         public bool ShowOnUI()
         {

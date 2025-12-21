@@ -737,31 +737,16 @@ namespace Maux36.RimPsyche
             // Name
             float y = 0f;
             // Sexuality
-            Rect sexualityDetailRect = new Rect(0f, y, sexualityRect.width, sexualityLineHeight);
-            sexualityDetailRect.SplitVertically(sexualityLabelWidth + sexualityBarMargin, out Rect sexualityDetailLeftRect, out Rect sexualityDetailRightRect);
-            Widgets.Label(sexualityDetailLeftRect, "RPC_Orientation".Translate());
-            sexualityDetailRightRect.SplitVertically(sexualityDetailRightRect.width / 1.5f, out Rect sexualityDetailNameRect, out Rect sexualityDetailKinseyRect);
-            Widgets.Label(sexualityDetailNameRect, compPsyche.Sexuality.GetOrientationReport());
-            if (Mouse.IsOver(sexualityDetailNameRect))
+            Rect sexualityLabelRect = new Rect(0f, y, sexualityLabelWidth, sexualityLineHeight);
+            Rect sexualityDescRect = new Rect(sexualityLabelWidth + sexualityBarMargin, y, sexualityRect.width - (sexualityLabelWidth + sexualityBarMargin), sexualityLineHeight);
+            Rect sexualityAllRect = new Rect(0f, y, sexualityRect.width, sexualityLineHeight);
+            Widgets.Label(sexualityLabelRect, "RPC_Orientation".Translate());
+            Widgets.Label(sexualityDescRect, compPsyche.Sexuality.GetOrientationReport() + $" ({compPsyche.Sexuality.GetKinseyReport()})");
+            if (Mouse.IsOver(sexualityAllRect))
             {
-                Widgets.DrawHighlight(sexualityDetailNameRect);
-                TooltipHandler.TipRegion(sexualityDetailNameRect, compPsyche.Sexuality.GetOrientationDescription());
+                Widgets.DrawHighlight(sexualityAllRect);
+                TooltipHandler.TipRegion(sexualityAllRect, compPsyche.Sexuality.GetOrientationDescription());
             }
-
-            // Kinsey Rating
-            Text.Anchor = TextAnchor.MiddleCenter;
-            Widgets.Label(sexualityDetailKinseyRect, $"({compPsyche.Sexuality.GetKinseyReport()})");
-            Text.Anchor = TextAnchor.MiddleLeft;
-            if (Mouse.IsOver(sexualityDetailKinseyRect))
-            {
-                Widgets.DrawHighlight(sexualityDetailKinseyRect);
-                var tooltipString = new StringBuilder()
-                    .AppendTagged("RPS_KinseyTitleTooltip".Translate().Colorize(Color.yellow))
-                    .Append("\n\n").Append("RPS_KinseyTooltip".Translate())
-                    .ToString();
-                TooltipHandler.TipRegion(sexualityDetailKinseyRect, tooltipString);
-            }
-
             y += sexualityLineHeight;
 
             float barWidth = (sexualityRect.width - sexualityLabelWidth - sexualityBarMargin - sexualityRightMargin) * 2f / 3f;
