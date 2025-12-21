@@ -125,6 +125,7 @@ namespace Maux36.RimPsyche
         public static void GenerateCacheData(CompPsyche compPsyche, Pawn currentPawn)
         {
             resetPreferenceReport = true;
+            cachedSexualityDescription = string.Empty;
             lastPawn = currentPawn;
             GenerateSortedPersonalityData(compPsyche, currentPawn);
             GenerateSortedInterestData(compPsyche, currentPawn);
