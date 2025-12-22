@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using Verse;
+using Verse.AI;
 
 namespace Maux36.RimPsyche
 {
@@ -10,6 +11,12 @@ namespace Maux36.RimPsyche
         private readonly CompPsyche compPsyche;
         public Dictionary<int, float> interestOffset = new Dictionary<int, float>(); // 35~65
         public Dictionary<string, float> interestScore = new Dictionary<string, float>(); // -35~35
+
+        //Sampler
+        public bool samplerDirty = true;
+        public int TopicCount = 0;
+        public float[] probArr;
+        public int[] aliasArr;
 
         public Pawn_InterestTracker(Pawn p)
         {
@@ -21,11 +28,12 @@ namespace Maux36.RimPsyche
             if (psycheData != null)
             {
                 interestScore = new Dictionary<string, float>(psycheData.interestScore);
+                samplerDirty = true;
                 return;
             }
             foreach (InterestDomainDef interestdomainDef in DefDatabase<InterestDomainDef>.AllDefs)
             {
-                GenerateInterestOffsetsForDomain(interestdomainDef, true);
+                GenerateInterestOffsetsForDomain(interestdomainDef, psycheData == null);
             }
         }
 
@@ -82,7 +90,7 @@ namespace Maux36.RimPsyche
                     score = 0;
                 }
             }
-            return Mathf.Clamp(offsetValue + score, 0f, 100f);
+            return Mathf.Clamp(offsetValue + score, 0.1f, 100f);
         }
 
         public void SetInterestScore(Interest key, float score)
@@ -92,12 +100,80 @@ namespace Maux36.RimPsyche
             {
                 if ((delta<0f && s == -35f) || (delta>0f && s == 35f)) return;
                 interestScore[key.name] = Mathf.Clamp(interestScore[key.name] + delta, -35f, 35f);
+                samplerDirty = true;
             }
+        }
+        public void EnsureInterestSampler()
+        {
+            if (!samplerDirty && probArr != null && aliasArr != null)
+                return;
+            BuildSampler();
+            samplerDirty = false;
+        }
+
+        private void BuildSampler()
+        {
+            var interestList = RimpsycheDatabase.InterestList;
+            TopicCount = RimpsycheDatabase.TopicList.Count;
+            probArr = new float[TopicCount];
+            aliasArr = new int[TopicCount];
+
+            float[] weights = new float[TopicCount];
+            float sum = 0f;
+            for (int i = 0; i < interestList.Count; i++)
+            {
+                float w = GetOrCreateInterestScore(interestList[i]);
+                foreach (Topic topic in interestList[i].topics)
+                {
+                    weights[topic.id] = w;
+                    sum += w;
+                }
+            }
+            float scale = TopicCount / sum;
+            Stack<int> small = new Stack<int>();
+            Stack<int> large = new Stack<int>();
+
+            for (int i = 0; i < TopicCount; i++)
+            {
+                weights[i] *= scale;
+                if (weights[i] < 1f)
+                    small.Push(i);
+                else
+                    large.Push(i);
+            }
+
+            while (small.Count > 0 && large.Count > 0)
+            {
+                int s = small.Pop();
+                int l = large.Pop();
+
+                probArr[s] = weights[s];
+                aliasArr[s] = l;
+
+                weights[l] = (weights[l] + weights[s]) - 1f;
+                if (weights[l] < 1f)
+                    small.Push(l);
+                else
+                    large.Push(l);
+            }
+
+            while (large.Count > 0)
+                probArr[large.Pop()] = 1f;
+
+            while (small.Count > 0)
+                probArr[small.Pop()] = 1f;
         }
 
         public Interest ChooseInterest()
         {
             return GenCollection.RandomElementByWeight(RimpsycheDatabase.InterestList, GetOrCreateInterestScore);
+        }
+
+        public Topic ChoseTopic()
+        {
+            EnsureInterestSampler();
+            int i = Rand.Range(0, TopicCount);
+            return Rand.Value < probArr[i] ? RimpsycheDatabase.TopicList[i] : RimpsycheDatabase.TopicList[aliasArr[i]];
         }
 
         // Save

@@ -11,6 +11,7 @@ namespace Maux36.RimPsyche
         [NoTranslate]
         public string name;
         public int id = -1;
+        public int interestId = -1;
         public string label;
         public float controversiality = 1;
         public bool allowChild = true;

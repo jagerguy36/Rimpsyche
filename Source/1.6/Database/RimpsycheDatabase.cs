@@ -16,9 +16,9 @@ namespace Maux36.RimPsyche
         public static Dictionary<string, InterestDomainDef> InterestDomainDict = new();
         public static Dictionary<int, InterestDomainDef> InterestDomainIdDict = new();
         public static Dictionary<int, string> InterstTopicStringDict = new();
-        public static HashSet<Interest> InterestList = new();
+        public static List<Interest> InterestList = new();
         public static Dictionary<string, Topic> TopicDict = new();
-        public static Dictionary<int, Topic> TopicIdDict = new();
+        public static List<Topic> TopicList = new();
         public static Dictionary<string, PersonalityDef> PersonalityDict = new();
         public static Dictionary<int, List<(int, float, float)>> TraitScopeDatabase = new();
         public static Dictionary<int, List<FacetGate>> TraitGateDatabase = new() { };
@@ -88,17 +88,18 @@ namespace Maux36.RimPsyche
                 foreach (var interest in interestdomain.interests)
                 {
                     List<string> topicStrings = [];
-                    InterestList.Add(interest);
                     interest.id = InterestList.Count;
+                    InterestList.Add(interest);
                     maxInterestLabelWidth = Mathf.Max(maxInterestLabelWidth, 5f + Text.CalcSize(interest.label).x);
                     InterestDomainDict.Add(interest.name, interestdomain);
                     InterestDomainIdDict.Add(interest.id, interestdomain);
                     foreach (var topic in interest.topics)
                     {
                         topicStrings.Add("  - " + topic.label.CapitalizeFirst());
-                        topic.id = TopicIdDict.Count();
+                        topic.id = TopicList.Count();
+                        topic.interestId = interest.id;
                         TopicDict[topic.name] = topic;
-                        TopicIdDict[topic.id] = topic;
+                        TopicList.Add(topic);
                         float absoluteWeightSum = 0f;
                         foreach (var fw in topic.weights)
                         {

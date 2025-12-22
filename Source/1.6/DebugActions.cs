@@ -82,6 +82,36 @@ namespace Maux36.RimPsyche
             Find.WindowStack.Add(new Dialog_DebugOptionListLister(list));
         }
 
+        [DebugAction("Pawns", "Get Simulated Alignment", false, false, false, false, false, 0, false, actionType = DebugActionType.ToolMapForPawns, allowedGameStates = AllowedGameStates.PlayingOnMap)]
+        public static void GetSimulatedAlignment(Pawn p)
+        {
+            var compPsyche = p.compPsyche();
+            if (compPsyche?.Enabled != true)
+            {
+                return;
+            }
+            List<DebugMenuOption> list = new List<DebugMenuOption>();
+            foreach (Pawn item in from x in PawnsFinder.AllMapsWorldAndTemporary_Alive
+                                  where x.RaceProps.Humanlike && x.Faction == Faction.OfPlayer
+                                  orderby x.def == p.def descending, x.IsWorldPawn()
+                                  select x)
+            {
+                if (p != item)
+                {
+                    Pawn otherLocal = item;
+                    list.Add(new DebugMenuOption(otherLocal.LabelShort + " (" + otherLocal.KindLabel + ")", DebugMenuOptionMode.Action, delegate
+                    {
+                        var otherPsyche = otherLocal.compPsyche();
+                        if (otherPsyche?.Enabled != true)
+                            return;
+                        var randAlignment = Rimpsyche_Utility.GetSimulatedCompatibility(compPsyche, otherPsyche);
+                        Log.Message($"======{p.Name} <-> {otherLocal.Name} | {randAlignment}");
+                    }));
+                }
+            }
+            Find.WindowStack.Add(new Dialog_DebugOptionListLister(list));
+        }
+
         [DebugAction("Pawns", "Get Average Opinion Score", false, false, false, false, false, 0, false, actionType = DebugActionType.ToolMapForPawns, allowedGameStates = AllowedGameStates.PlayingOnMap)]
         public static void GetAvgOpinionScore(Pawn p)
         {
@@ -111,6 +141,27 @@ namespace Maux36.RimPsyche
             }
             Find.WindowStack.Add(new Dialog_DebugOptionListLister(list));
         }
+        [DebugAction("Pawns", actionType = DebugActionType.ToolMapForPawns, allowedGameStates = AllowedGameStates.PlayingOnMap, displayPriority = 1000)]
+        public static void RandomTopicSelect(Pawn pawn)
+        {
+            var compPsyche = pawn.compPsyche();
+            if (compPsyche != null)
+            {
+                Topic t = compPsyche.Interests.ChoseTopic();
+                Log.Message($"{pawn.LabelShort} | {t.label} from {RimpsycheDatabase.InterestList[t.interestId].label}");
+            }
+        }
+        //[DebugAction("Pawns", actionType = DebugActionType.ToolMapForPawns, allowedGameStates = AllowedGameStates.PlayingOnMap, displayPriority = 1000)]
+        //public static void ShowSampler(Pawn pawn)
+        //{
+        //    var compPsyche = pawn.compPsyche();
+        //    if (compPsyche != null)
+        //    {
+        //        compPsyche.Interests.EnsureInterestSampler();
+        //        string message = string.Join("\n", compPsyche.Interests.probArr.Select((value, index) => $"{RimpsycheDatabase.TopicIdDict[index].name}: {value} || alias index : {compPsyche.Interests.aliasArr[index]}"));
+        //        Log.Message($"Prob Topic info for pawn {pawn.Name}\n\n{message}");
+        //    }
+        //}
 
         //[DebugAction("Pawns", actionType = DebugActionType.ToolMapForPawns, allowedGameStates = AllowedGameStates.PlayingOnMap, displayPriority = 1000)]
         //public static void LogPawnPsyche(Pawn pawn)
