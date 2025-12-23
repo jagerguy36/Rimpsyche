@@ -5,7 +5,7 @@
     <supportedVersions>
         <li>1.6</li>
     </supportedVersions>
-    <modVersion>1.0.29</modVersion>
+    <modVersion>1.0.30</modVersion>
     <loadAfter>
         <li>brrainz.harmony</li>
     </loadAfter>
