@@ -15,6 +15,7 @@ namespace Maux36.RimPsyche
         public Rimpsyche(ModContentPack content) : base(content)
         {
             currentVersion = content.ModMetaData.ModVersion;
+            Log.Message($"[Rimpsyche] Personality Core running with version {currentVersion}");
             settings = GetSettings<RimpsycheSettings>();
 
             if (ModsConfig.IsActive("maux36.rimpsyche.disposition"))
