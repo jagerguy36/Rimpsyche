@@ -786,7 +786,8 @@
             <name>work_schedule</name>
             <label>work schedule</label>
             <controversiality>0</controversiality>
-            <allowChild>false</allowChild>
+            <disallowedInit>Child</disallowedInit>
+            <disallowedReci>Child</disallowedReci>
             <weights>
               <li>
                 <personalityDefName>Rimpsyche_Organization</personalityDefName>
@@ -839,7 +840,8 @@
             <name>routine_annoyances</name>
             <label>daily routines</label>
             <controversiality>0.2</controversiality>
-            <allowChild>false</allowChild>
+            <disallowedInit>Child</disallowedInit>
+            <disallowedReci>Child</disallowedReci>
             <weights>
               <li>
                 <personalityDefName>Rimpsyche_Stability</personalityDefName>
@@ -869,7 +871,8 @@
             <name>favorite_task</name>
             <label>favorite tasks</label>
             <controversiality>0.05</controversiality>
-            <allowChild>false</allowChild>
+            <disallowedInit>Child</disallowedInit>
+            <disallowedReci>Child</disallowedReci>
             <weights>
               <li>
                 <personalityDefName>Rimpsyche_Passion</personalityDefName>
@@ -1102,7 +1105,7 @@
             <name>memory_friends</name>
             <label>memories of friends</label>
             <controversiality>0</controversiality>
-            <allowChild>false</allowChild>
+            <disallowedInit>Child</disallowedInit>
             <weights>
               <li>
                 <personalityDefName>Rimpsyche_Loyalty</personalityDefName>

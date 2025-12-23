@@ -6,6 +6,13 @@ using Verse;
 
 namespace Maux36.RimPsyche
 {
+    [Flags]
+    public enum Demographic : byte
+    {
+        None = 0,  // 0
+        Adult = 1 << 0,  // 1 
+        Child = 1 << 1,  // 2
+    }
     public class Topic
     {
         [NoTranslate]
@@ -14,7 +21,8 @@ namespace Maux36.RimPsyche
         public int interestId = -1;
         public string label;
         public float controversiality = 1;
-        public bool allowChild = true;
+        public Demographic disallowedInit = Demographic.None;
+        public Demographic disallowedReci = Demographic.None;
         public bool NSFW = false;
         public List<PersonalityWeight> weights;
         public ConvoResultBase result;

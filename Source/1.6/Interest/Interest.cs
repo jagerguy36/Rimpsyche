@@ -18,23 +18,16 @@ namespace Maux36.RimPsyche
         public List<FacetWeight> scoreWeight;
         public List<Topic> topics;
 
-        public Topic GetRandomTopic(bool childInvolved = false, bool allowNSWF = false)
+        public Topic GetRandomTopic(bool isInitiatorAdult, bool isRecipientAdult, bool allowNSWF = false)
         {
             int topicCount = topics.Count;
             int eligibleCount = 0;
-            if (!childInvolved && allowNSWF)
-            {
-                if (topicCount == 0)
-                    return null;
-
-                return topics[Rand.Range(0, topicCount)];
-            }
+            bool childInvolved = !isInitiatorAdult | !isRecipientAdult;
 
             for (int i = 0; i < topicCount; i++)
             {
                 var t = topics[i];
-                if (childInvolved && (!t.allowChild || t.NSFW)) continue;
-                if (!allowNSWF && t.NSFW) continue;
+                if (!IsValid(isInitiatorAdult, isRecipientAdult, allowNSWF, t.disallowedInit, t.disallowedReci, t.isNSFW)) continue;
                 eligibleCount++;
             }
 
@@ -48,8 +41,7 @@ namespace Maux36.RimPsyche
             for (int i = 0; i < topicCount; i++)
             {
                 var t = topics[i];
-                if (childInvolved && (!t.allowChild || t.NSFW)) continue;
-                if (!allowNSWF && t.NSFW) continue;
+                if (!IsValid(isInitiatorAdult, isRecipientAdult, allowNSWF, t.disallowedInit, t.disallowedReci, t.isNSFW)) continue;
 
                 if (currentEligibleIndex == randomIndex)
                     return t;
@@ -57,6 +49,18 @@ namespace Maux36.RimPsyche
                 currentEligibleIndex++;
             }
             return null;
+        }
+        public static bool IsValid(bool isInitiatorAdult, bool isRecipientAdult, bool allowNSFW, Demographic initException, Demographic reciException, bool isNSFW)
+        {
+            if (isNSFW && !allowNSFW) return false;
+
+            int nsfwMask = isNSFW ? (int)Exception.Child : 0;
+            
+            int iBit = (int)(isInitiatorAdult ? Exception.Adult : Exception.Child);
+            int rBit = (int)(isRecipientAdult ? Exception.Adult : Exception.Child);
+
+            return ((iBit & ((int)initException | nsfwMask)) | 
+                    (rBit & ((int)reciException | nsfwMask))) == 0;
         }
         public float GetAverageAlignment(CompPsyche pawnPsyche, CompPsyche otherPawnPsyche, bool tamperNeg = true)
         {
