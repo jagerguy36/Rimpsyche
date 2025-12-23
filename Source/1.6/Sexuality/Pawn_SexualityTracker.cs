@@ -350,11 +350,9 @@ namespace Maux36.RimPsyche
             preferenceCacheDirty = true;
 
             //Clean sexuality trait.
-            for (int i = traits.allTraits.Count - 1; i >= 0; i--)
-            {
-                Trait trait = traits.allTraits[i];
-                if (_sexualityTraits.Contains(trait.def)) traits.allTraits.Remove(trait);
-            }
+            traits.allTraits = traits.allTraits
+                .Where(trait => !_sexualityTraits.Contains(trait.def))
+                .ToList();
 
             //Randomize Sexuality if loaded sexuality is undefined
             if (psyche.orientationCategory == SexualOrientation.None || psyche.orientationCategory == SexualOrientation.Developing)
@@ -364,27 +362,22 @@ namespace Maux36.RimPsyche
                     orientationCategory = SexualOrientation.Developing;
                     return;
                 }
-                float kinsey;
-                kinsey = SexualityHelper.GenerateKinsey(true);
+                float genkinsey;
+                genkinsey = SexualityHelper.GenerateKinsey(true);
                 attraction = SexualityHelper.GenerateAttraction();
                 if (attraction < asexualCutoff) { orientationCategory = SexualOrientation.Asexual; traits.allTraits.Add(new Trait(TraitDefOf.Asexual, TraitDefOf.Asexual.degreeDatas[0].degree)); }
-                else if (kinsey < 0.2f) { orientationCategory = SexualOrientation.Heterosexual; }
-                else if (kinsey < 0.8f) { orientationCategory = SexualOrientation.Bisexual; traits.allTraits.Add(new Trait(TraitDefOf.Bisexual, TraitDefOf.Bisexual.degreeDatas[0].degree)); }
+                else if (genkinsey < 0.2f) { orientationCategory = SexualOrientation.Heterosexual; }
+                else if (genkinsey < 0.8f) { orientationCategory = SexualOrientation.Bisexual; traits.allTraits.Add(new Trait(TraitDefOf.Bisexual, TraitDefOf.Bisexual.degreeDatas[0].degree)); }
                 else { orientationCategory = SexualOrientation.Homosexual; traits.allTraits.Add(new Trait(TraitDefOf.Gay, TraitDefOf.Gay.degreeDatas[0].degree)); }
                 sexDrive = SexualityHelper.GenerateSexdrive();
-                if (gender == Gender.Male) mKinsey = kinsey;
-                else mKinsey = 1 - kinsey;
+                if (gender == Gender.Male) mKinsey = genkinsey;
+                else mKinsey = 1 - genkinsey;
                 _preference.Clear();
                 return;
             }
 
             //Inject Sexuality from the psyche
             //If the injected pawns are too young, they are assigned Developing Orientation and will be reassigned their proper orientation based on the mKinsey when they reach the growth moment with Initialize()
-            orientationCategory = psyche.orientationCategory;
-            if (Rimpsyche_Utility.GetPawnAge(pawn) < minAdultAge)
-            {
-                orientationCategory = SexualOrientation.Developing;
-            }
             mKinsey = psyche.mKinsey;
             attraction = psyche.attraction;
             sexDrive = psyche.sexDrive;
@@ -395,25 +388,18 @@ namespace Maux36.RimPsyche
                 relationship = new Dictionary<int, float>(psyche.relationship);
             }
 
-            //Assign correct sexuality trait
-            Trait traitToGive;
-            switch (orientationCategory)
+            if (Rimpsyche_Utility.GetPawnAge(pawn) < minAdultAge)
             {
-                case (SexualOrientation.Asexual):
-                    traitToGive = new Trait(TraitDefOf.Asexual, PawnGenerator.RandomTraitDegree(TraitDefOf.Asexual));
-                    traits.allTraits.Add(traitToGive);
-                    break;
-                case (SexualOrientation.Heterosexual):
-                    break;
-                case (SexualOrientation.Bisexual):
-                    traitToGive = new Trait(TraitDefOf.Bisexual, PawnGenerator.RandomTraitDegree(TraitDefOf.Bisexual));
-                    traits.allTraits.Add(traitToGive);
-                    break;
-                case (SexualOrientation.Homosexual):
-                    traitToGive = new Trait(TraitDefOf.Gay, PawnGenerator.RandomTraitDegree(TraitDefOf.Gay));
-                    traits.allTraits.Add(traitToGive);
-                    break;
+                orientationCategory = SexualOrientation.Developing;
+                return;
             }
+            float kinsey;
+            if (pawn.gender == Gender.Male) kinsey = mKinsey;
+            else kinsey = 1 - mKinsey;
+            if (attraction < asexualCutoff) { orientationCategory = SexualOrientation.Asexual; traits.allTraits.Add(new Trait(TraitDefOf.Asexual, TraitDefOf.Asexual.degreeDatas[0].degree)); }
+            else if (kinsey < 0.2f) { orientationCategory = SexualOrientation.Heterosexual; }
+            else if (kinsey < 0.8f) { orientationCategory = SexualOrientation.Bisexual; traits.allTraits.Add(new Trait(TraitDefOf.Bisexual, TraitDefOf.Bisexual.degreeDatas[0].degree)); }
+            else { orientationCategory = SexualOrientation.Homosexual; traits.allTraits.Add(new Trait(TraitDefOf.Gay, TraitDefOf.Gay.degreeDatas[0].degree)); }
         }
 
         /// <summary>
