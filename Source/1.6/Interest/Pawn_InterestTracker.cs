@@ -14,7 +14,7 @@ namespace Maux36.RimPsyche
 
         //Sampler
         public bool samplerDirty = true;
-        public int TopicCount = 0;
+        public int InterestCount = 0;
         public float[] probArr;
         public int[] aliasArr;
 
@@ -105,7 +105,7 @@ namespace Maux36.RimPsyche
         }
         public void EnsureInterestSampler()
         {
-            if (!samplerDirty && probArr != null && aliasArr != null)
+            if (!samplerDirty)// && probArr != null && aliasArr != null // riskier but faster. should not happen anyway since array is only null on init and the sampler dirty is set to true on init.
                 return;
             BuildSampler();
             samplerDirty = false;
@@ -114,26 +114,23 @@ namespace Maux36.RimPsyche
         private void BuildSampler()
         {
             var interestList = RimpsycheDatabase.InterestList;
-            TopicCount = RimpsycheDatabase.TopicList.Count;
-            probArr = new float[TopicCount];
-            aliasArr = new int[TopicCount];
+            InterestCount = RimpsycheDatabase.InterestList.Count;
+            probArr = new float[InterestCount];
+            aliasArr = new int[InterestCount];
 
-            float[] weights = new float[TopicCount];
+            float[] weights = new float[InterestCount];
             float sum = 0f;
             for (int i = 0; i < interestList.Count; i++)
             {
                 float w = GetOrCreateInterestScore(interestList[i]);
-                foreach (Topic topic in interestList[i].topics)
-                {
-                    weights[topic.id] = w;
-                    sum += w;
-                }
+                weights[i] = w;
+                sum += w;
             }
-            float scale = TopicCount / sum;
+            float scale = InterestCount / sum;
             Stack<int> small = new Stack<int>();
             Stack<int> large = new Stack<int>();
 
-            for (int i = 0; i < TopicCount; i++)
+            for (int i = 0; i < InterestCount; i++)
             {
                 weights[i] *= scale;
                 if (weights[i] < 1f)
@@ -169,11 +166,11 @@ namespace Maux36.RimPsyche
             return GenCollection.RandomElementByWeight(RimpsycheDatabase.InterestList, GetOrCreateInterestScore);
         }
 
-        public Topic ChoseTopic()
+        public Topic SampleInterest()
         {
             EnsureInterestSampler();
-            int i = Rand.Range(0, TopicCount);
-            return Rand.Value < probArr[i] ? RimpsycheDatabase.TopicList[i] : RimpsycheDatabase.TopicList[aliasArr[i]];
+            int i = Rand.Range(0, InterestCount);
+            return Rand.Value < probArr[i] ? RimpsycheDatabase.InterestList[i] : RimpsycheDatabase.InterestList[aliasArr[i]];
         }
 
         // Save
