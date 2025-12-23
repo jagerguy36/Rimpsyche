@@ -353,7 +353,7 @@ namespace Maux36.RimPsyche
             for (int i = traits.allTraits.Count - 1; i >= 0; i--)
             {
                 Trait trait = traits.allTraits[i];
-                if (_sexualityTraits.Contains(trait.def)) traits.RemoveTrait(trait);
+                if (_sexualityTraits.Contains(trait.def)) traits.allTraits.Remove(trait);
             }
 
             //Randomize Sexuality if loaded sexuality is undefined
@@ -401,17 +401,17 @@ namespace Maux36.RimPsyche
             {
                 case (SexualOrientation.Asexual):
                     traitToGive = new Trait(TraitDefOf.Asexual, PawnGenerator.RandomTraitDegree(TraitDefOf.Asexual));
-                    pawn.story.traits.GainTrait(traitToGive);
+                    traits.allTraits.Add(traitToGive);
                     break;
                 case (SexualOrientation.Heterosexual):
                     break;
                 case (SexualOrientation.Bisexual):
                     traitToGive = new Trait(TraitDefOf.Bisexual, PawnGenerator.RandomTraitDegree(TraitDefOf.Bisexual));
-                    pawn.story.traits.GainTrait(traitToGive);
+                    traits.allTraits.Add(traitToGive);
                     break;
                 case (SexualOrientation.Homosexual):
                     traitToGive = new Trait(TraitDefOf.Gay, PawnGenerator.RandomTraitDegree(TraitDefOf.Gay));
-                    pawn.story.traits.GainTrait(traitToGive);
+                    traits.allTraits.Add(traitToGive);
                     break;
             }
         }
