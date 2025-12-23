@@ -7,8 +7,14 @@ using Verse;
 
 namespace Maux36.RimPsyche
 {
-    public class PsycheEditPopup(Pawn editFor) : Window
+    public class PsycheEditPopup : Window
     {
+        private Pawn editFor;
+        public PsycheEditPopup(Pawn editFor)
+        {
+            this.editFor = editFor;
+        }
+
         // Settings
         private static readonly bool usePreference = RimpsycheSexualitySettings.usePreferenceSystem;
         public override Vector2 InitialSize

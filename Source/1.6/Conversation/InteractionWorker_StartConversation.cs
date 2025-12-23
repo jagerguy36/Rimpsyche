@@ -45,7 +45,7 @@ namespace Maux36.RimPsyche
 
                 // -1 ~ 1
                 float initOpinion = initiator.relations.OpinionOf(recipient) * 0.01f;
-                float initRelationship = initiator.Sexuality.GetRelationshipWith(recipient);
+                float initRelationship = initiatorPsyche.Sexuality.GetRelationshipWith(recipient);
                 var initPersonality = initiatorPsyche.Personality;
                 float initTact = initPersonality.GetPersonality(PersonalityDefOf.Rimpsyche_Tact);
                 initTact = Mathf.Clamp(initTact + (0.1f * initiator.skills.GetSkill(SkillDefOf.Social).Level), -1f, 1f);
@@ -54,7 +54,7 @@ namespace Maux36.RimPsyche
                 float initSpontaneity = initPersonality.GetPersonality(PersonalityDefOf.Rimpsyche_Spontaneity);
 
                 float reciOpinion = recipient.relations.OpinionOf(initiator) * 0.01f;
-                float reciRelationship = recipient.Sexuality.GetRelationshipWith(initiator);
+                float reciRelationship = recipientPsyche.Sexuality.GetRelationshipWith(initiator);
                 var reciPersonality = recipientPsyche.Personality;
                 float reciTact = reciPersonality.GetPersonality(PersonalityDefOf.Rimpsyche_Tact);
                 reciTact = Mathf.Clamp(reciTact + (0.1f * recipient.skills.GetSkill(SkillDefOf.Social).Level), -1f, 1f);
