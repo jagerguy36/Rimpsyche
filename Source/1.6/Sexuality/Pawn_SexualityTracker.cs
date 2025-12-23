@@ -598,18 +598,15 @@ namespace Maux36.RimPsyche
             for (int i = traits.allTraits.Count - 1; i >= 0; i--)
             {
                 Trait trait = traits.allTraits[i];
-                if (_sexualityTraits.Contains(trait.def))
-                {
-                    if (trait.def == TargetDef)
-                        shouldGiveTrait = false;
-                    else
-                        traits.RemoveTrait(trait);
-                }
+                if (trait.def == TargetDef) shouldGiveTrait = false;
             }
+            traits.allTraits = traits.allTraits
+                .Where(trait => !_sexualityTraits.Contains(trait.def) || trait.def == TargetDef)
+                .ToList();
             if (TargetDef != null && shouldGiveTrait)
             {
                 traitToGive = new Trait(TargetDef, PawnGenerator.RandomTraitDegree(TargetDef));
-                pawn.story.traits.GainTrait(traitToGive);
+                pawn.story.traits.allTraits.Add(traitToGive);
             }
         }
         public void Notify_Sexchange()
