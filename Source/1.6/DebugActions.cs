@@ -147,7 +147,7 @@ namespace Maux36.RimPsyche
             var compPsyche = pawn.compPsyche();
             if (compPsyche != null)
             {
-                Topic t = compPsyche.Interests.ChoseTopic();
+                Topic t = compPsyche.Interests.SampleInterest().GetRandomTopic();
                 Log.Message($"{pawn.LabelShort} | {t.label} from {RimpsycheDatabase.InterestList[t.interestId].label}");
             }
         }

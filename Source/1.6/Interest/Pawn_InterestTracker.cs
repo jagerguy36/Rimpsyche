@@ -166,7 +166,7 @@ namespace Maux36.RimPsyche
             return GenCollection.RandomElementByWeight(RimpsycheDatabase.InterestList, GetOrCreateInterestScore);
         }
 
-        public Topic SampleInterest()
+        public Interest SampleInterest()
         {
             EnsureInterestSampler();
             int i = Rand.Range(0, InterestCount);

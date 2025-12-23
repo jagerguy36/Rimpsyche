@@ -257,7 +257,7 @@ namespace Maux36.RimPsyche
             float topicAlignment = 0f;
             for (int i = 0; i < 10; i++)
             {
-                var tScore = initiatorPsyche.Interests.ChoseTopic().GetScore(initiatorPsyche, recipientPsyche, out _);
+                var tScore = initiatorPsyche.Interests.SampleInterest().GetRandomTopic().GetScore(initiatorPsyche, recipientPsyche, out _);
                 if (tScore < 0f)
                     tScore *= 0.25f;
                 topicAlignment += tScore;

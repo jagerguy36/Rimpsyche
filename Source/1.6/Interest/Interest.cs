@@ -22,6 +22,14 @@ namespace Maux36.RimPsyche
         {
             int topicCount = topics.Count;
             int eligibleCount = 0;
+            if (!childInvolved && allowNSWF)
+            {
+                if (topicCount == 0)
+                    return null;
+
+                return topics[Rand.Range(0, topicCount)];
+            }
+
             for (int i = 0; i < topicCount; i++)
             {
                 var t = topics[i];
