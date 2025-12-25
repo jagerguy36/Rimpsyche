@@ -7,8 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RimPsyche", "RimPsyche.cspr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Intimacy", "Mods\Intimacy\Intimacy.csproj", "{E8372D50-BEF9-4E09-964D-157525BB24B0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CharacterEditor", "Mods\CharacterEditor\CharacterEditor\CharacterEditor.csproj", "{B3F99312-8E93-45B1-819D-A44B8CE4D72B}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,10 +21,6 @@ Global
 		{E8372D50-BEF9-4E09-964D-157525BB24B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E8372D50-BEF9-4E09-964D-157525BB24B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E8372D50-BEF9-4E09-964D-157525BB24B0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B3F99312-8E93-45B1-819D-A44B8CE4D72B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B3F99312-8E93-45B1-819D-A44B8CE4D72B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B3F99312-8E93-45B1-819D-A44B8CE4D72B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B3F99312-8E93-45B1-819D-A44B8CE4D72B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
