@@ -382,10 +382,13 @@ namespace Maux36.RimPsyche
             attraction = psyche.attraction;
             sexDrive = psyche.sexDrive;
             _preference = new Dictionary<string, List<PrefEntry>>(psyche.preference);
+            _preference ??= new();
             if (preserveMemory)
             {
                 knownOrientation = [.. psyche.knownOrientation];
                 relationship = new Dictionary<int, float>(psyche.relationship);
+                knownOrientation ??= new();
+                relationship ??= new();
             }
 
             if (Rimpsyche_Utility.GetPawnAge(pawn) < minAdultAge)
@@ -696,17 +699,13 @@ namespace Maux36.RimPsyche
             Scribe_Collections.Look(ref knownOrientation, "knownOrientation", LookMode.Value);
             Scribe_Collections.Look(ref relationship, "relationship", LookMode.Value, LookMode.Value);
             Scribe_Collections.Look(ref _preference, "preference", LookMode.Value, LookMode.Deep);
-            //Fix null memories
-            if (VersionManager.shouldSetupSexualityVariable)
-            {
-                knownOrientation ??= new();
-                relationship ??= new();
-                _preference ??= new();
-            }
-
             //Post load operations
             if (Scribe.mode == LoadSaveMode.PostLoadInit)
             {
+                //Fix null memories
+                knownOrientation ??= new();
+                relationship ??= new();
+                _preference ??= new();
                 //Reset intKey for psychePreference
                 if (Rimpsyche.SexualityModuleLoaded)
                 {

@@ -45,17 +45,20 @@ namespace Maux36.RimPsyche
             psyche.mKinsey = sexuality.MKinsey;
             psyche.attraction = sexuality.Attraction;
             psyche.sexDrive = sexuality.SexDrive;
+            psyche.preference = new Dictionary<string, List<PrefEntry>>(sexuality.GetPreferenceRaw());
+            psyche.preference ??= new();
             if (preserveMemory)
             {
                 psyche.knownOrientation = [.. sexuality.knownOrientation];
                 psyche.relationship = new Dictionary<int, float>(sexuality.relationship);
+                psyche.knownOrientation ??= new();
+                psyche.relationship ??= new();
             }
             else
             {
                 psyche.knownOrientation = [];
                 psyche.relationship = [];
             }
-            psyche.preference = new Dictionary<string, List<PrefEntry>>(sexuality.GetPreferenceRaw());
 
             return psyche;
         }

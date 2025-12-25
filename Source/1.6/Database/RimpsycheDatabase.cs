@@ -59,6 +59,8 @@ namespace Maux36.RimPsyche
             //Sexuality Label consideration
             if (Rimpsyche.SexualityModuleLoaded)
             {
+                var sexualityLabelWith = Text.CalcSize("RPC_Orientation".Translate()).x;
+                maxSexualityLabelWidth = Mathf.Max(sexualityLabelWith, maxSexualityLabelWidth);
                 var maleLabelWith = Text.CalcSize("RPC_AttractionMale".Translate()).x;
                 maxSexualityLabelWidth = Mathf.Max(maleLabelWith, maxSexualityLabelWidth);
                 var femaleLabelWith = Text.CalcSize("RPC_AttractionFemale".Translate()).x;
