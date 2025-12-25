@@ -80,16 +80,14 @@ namespace Maux36.RimPsyche
             Scribe_Collections.Look(ref knownOrientation, "knownOrientation", LookMode.Value);
             Scribe_Collections.Look(ref relationship, "relationship", LookMode.Value, LookMode.Value);
             Scribe_Collections.Look(ref preference, "preference", LookMode.Value, LookMode.Deep);
-            //Fix null memories
-            if (VersionManager.shouldSetupSexualityVariable)
-            {
-                knownOrientation ??= new();
-                relationship ??= new();
-                preference ??= new();
-            }
+
             //Post load operations
             if (Scribe.mode == LoadSaveMode.PostLoadInit)
             {
+                //Fix null memories
+                knownOrientation ??= new();
+                relationship ??= new();
+                preference ??= new();
                 //Reset intKey for psychePreference
                 if (Rimpsyche.SexualityModuleLoaded)
                 {
