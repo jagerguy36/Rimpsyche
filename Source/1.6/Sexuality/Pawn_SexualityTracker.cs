@@ -382,10 +382,13 @@ namespace Maux36.RimPsyche
             attraction = psyche.attraction;
             sexDrive = psyche.sexDrive;
             _preference = new Dictionary<string, List<PrefEntry>>(psyche.preference);
+            _preference ??= new();
             if (preserveMemory)
             {
                 knownOrientation = [.. psyche.knownOrientation];
                 relationship = new Dictionary<int, float>(psyche.relationship);
+                knownOrientation ??= new();
+                relationship ??= new();
             }
 
             if (Rimpsyche_Utility.GetPawnAge(pawn) < minAdultAge)
