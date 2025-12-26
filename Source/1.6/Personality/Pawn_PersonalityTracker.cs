@@ -166,7 +166,7 @@ namespace Maux36.RimPsyche
             {
                 if (mult < 1f)
                     return 1f / (1f + ((1f / mult) - 1f) * p);
-                return (mult - 1f) * p + 1f;
+                return 1f + (mult - 1f) * p;
             }
             else
             {
