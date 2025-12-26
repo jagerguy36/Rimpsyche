@@ -164,11 +164,15 @@ namespace Maux36.RimPsyche
             var p = GetPersonality(personality);
             if (p >= 0f)
             {
+                if (mult < 1f)
+                    return 1f / (1f + ((1f / mult) - 1f) * p);
                 return (mult - 1f) * p + 1f;
             }
             else
             {
-                return (1f - (1f/mult)) * p + 1f;
+                if (mult < 1f)
+                    return 1f - ((1f / mult) - 1f) * p;
+                return 1f / (1f - (mult - 1f) * p);
             }
         }
         public float Evaluate(RimpsycheFormula rimpsycheMultiplier)
