@@ -9,42 +9,42 @@ namespace Maux36.RimPsyche
 {
     public static class DebugActions
     {
-        [DebugAction("Pawns", actionType = DebugActionType.ToolMapForPawns, allowedGameStates = AllowedGameStates.PlayingOnMap, displayPriority = 1000)]
+        [DebugAction("Rimpsyche", actionType = DebugActionType.ToolMapForPawns, allowedGameStates = AllowedGameStates.PlayingOnMap, displayPriority = 1000)]
         public static void PersonalityFull_LLM(Pawn pawn)
         {
             var message = Rimpsyche_Utility.GetPersonalityDescriptionNumber(pawn, 0) + " (Range: -1 ~ 1)";
             Log.Message($"RimPsyche info for pawn {pawn.Name}\n\n{message}\n\n");
         }
 
-        [DebugAction("Pawns", actionType = DebugActionType.ToolMapForPawns, allowedGameStates = AllowedGameStates.PlayingOnMap, displayPriority = 1000)]
+        [DebugAction("Rimpsyche", actionType = DebugActionType.ToolMapForPawns, allowedGameStates = AllowedGameStates.PlayingOnMap, displayPriority = 1000)]
         public static void PersonalityShort_LLM(Pawn pawn)
         {
             var message = Rimpsyche_Utility.GetPersonalityDescriptionNumber(pawn, 5) + " (Range: -1 ~ 1)";
             Log.Message($"RimPsyche info for pawn {pawn.Name}\n\n{message}\n\n");
         }
 
-        [DebugAction("Pawns", actionType = DebugActionType.ToolMapForPawns, allowedGameStates = AllowedGameStates.PlayingOnMap, displayPriority = 1000)]
+        [DebugAction("Rimpsyche", actionType = DebugActionType.ToolMapForPawns, allowedGameStates = AllowedGameStates.PlayingOnMap, displayPriority = 1000)]
         public static void PersonalityWordsFull_LLM(Pawn pawn)
         {
             var message = Rimpsyche_Utility.GetPersonalityDescriptionWord(pawn);
             Log.Message($"RimPsyche info for pawn {pawn.Name}\n\n{message}\n\n");
         }
 
-        [DebugAction("Pawns", actionType = DebugActionType.ToolMapForPawns, allowedGameStates = AllowedGameStates.PlayingOnMap, displayPriority = 1000)]
+        [DebugAction("Rimpsyche", actionType = DebugActionType.ToolMapForPawns, allowedGameStates = AllowedGameStates.PlayingOnMap, displayPriority = 1000)]
         public static void PersonalityWordsShort_LLM(Pawn pawn)
         {
             var message = Rimpsyche_Utility.GetPersonalityDescriptionWord(pawn, 5);
             Log.Message($"RimPsyche info for pawn {pawn.Name}\n\n{message}\n\n");
         }
 
-        [DebugAction("Pawns", actionType = DebugActionType.ToolMapForPawns, allowedGameStates = AllowedGameStates.PlayingOnMap, displayPriority = 1000)]
+        [DebugAction("Rimpsyche", actionType = DebugActionType.ToolMapForPawns, allowedGameStates = AllowedGameStates.PlayingOnMap, displayPriority = 1000)]
         public static void CopyPawnPsyche(Pawn pawn)
         {
             RimPsycheWorldComp.tempData = PsycheDataUtil.GetPsycheData(pawn);
             Log.Message($"RimPsyche copied {pawn.Name}'s Psyche.");
         }
 
-        [DebugAction("Pawns", actionType = DebugActionType.ToolMapForPawns, allowedGameStates = AllowedGameStates.PlayingOnMap, displayPriority = 1000)]
+        [DebugAction("Rimpsyche", actionType = DebugActionType.ToolMapForPawns, allowedGameStates = AllowedGameStates.PlayingOnMap, displayPriority = 1000)]
         public static void PastePawnPsyche(Pawn pawn)
         {
             var newPsyche = RimPsycheWorldComp.tempData;
@@ -53,7 +53,7 @@ namespace Maux36.RimPsyche
         }
 
 
-        [DebugAction("Pawns", "Get Random Alignment", false, false, false, false, false, 0, false, actionType = DebugActionType.ToolMapForPawns, allowedGameStates = AllowedGameStates.PlayingOnMap)]
+        [DebugAction("Rimpsyche", "Get Random Alignment", false, false, false, false, false, 0, false, actionType = DebugActionType.ToolMapForPawns, allowedGameStates = AllowedGameStates.PlayingOnMap)]
         public static void GetRandomAlignment(Pawn p)
         {
             var compPsyche = p.compPsyche();
@@ -83,7 +83,7 @@ namespace Maux36.RimPsyche
             Find.WindowStack.Add(new Dialog_DebugOptionListLister(list));
         }
 
-        //[DebugAction("Pawns", actionType = DebugActionType.ToolMapForPawns, allowedGameStates = AllowedGameStates.PlayingOnMap, displayPriority = 1000)]
+        //[DebugAction("Rimpsyche", actionType = DebugActionType.ToolMapForPawns, allowedGameStates = AllowedGameStates.PlayingOnMap, displayPriority = 1000)]
         //public static void LogPawnPsyche(Pawn pawn)
         //{
         //    var compPsyche = pawn.compPsyche();
@@ -94,7 +94,7 @@ namespace Maux36.RimPsyche
         //    }
         //}
 
-        //[DebugAction("Pawns", actionType = DebugActionType.ToolMapForPawns, allowedGameStates = AllowedGameStates.PlayingOnMap, displayPriority = 1000)]
+        //[DebugAction("Rimpsyche", actionType = DebugActionType.ToolMapForPawns, allowedGameStates = AllowedGameStates.PlayingOnMap, displayPriority = 1000)]
         //public static void LogPawnPersonality(Pawn pawn)
         //{
         //    var compPsyche = pawn.compPsyche();
@@ -105,7 +105,7 @@ namespace Maux36.RimPsyche
         //    }
         //}
 
-        //[DebugAction("Pawns", actionType = DebugActionType.ToolMapForPawns, allowedGameStates = AllowedGameStates.PlayingOnMap, displayPriority = 1000)]
+        //[DebugAction("Rimpsyche", actionType = DebugActionType.ToolMapForPawns, allowedGameStates = AllowedGameStates.PlayingOnMap, displayPriority = 1000)]
         //public static void LogPawnInterest(Pawn pawn)
         //{
         //    var compPsyche = pawn.compPsyche();
@@ -117,7 +117,7 @@ namespace Maux36.RimPsyche
         //    }
         //}
 
-        //[DebugAction("Pawns", null, false, false, false, false, false, 0, false, actionType = DebugActionType.ToolMapForPawns, allowedGameStates = AllowedGameStates.PlayingOnMap, displayPriority = 1000)]
+        //[DebugAction("Rimpsyche", null, false, false, false, false, false, 0, false, actionType = DebugActionType.ToolMapForPawns, allowedGameStates = AllowedGameStates.PlayingOnMap, displayPriority = 1000)]
         //public static void ShowAllInteractionChances(Pawn pawn)
         //{
         //    DebugTools.curTool = new DebugTool("Select target...", delegate
@@ -150,7 +150,7 @@ namespace Maux36.RimPsyche
         //    }
         //}
 
-        //[DebugAction("Pawns", actionType = DebugActionType.ToolMapForPawns, allowedGameStates = AllowedGameStates.PlayingOnMap, displayPriority = 1000)]
+        //[DebugAction("Rimpsyche", actionType = DebugActionType.ToolMapForPawns, allowedGameStates = AllowedGameStates.PlayingOnMap, displayPriority = 1000)]
         //public static void ReportSexualityMemory(Pawn pawn)
         //{
         //    var compPsyche = pawn.compPsyche();
