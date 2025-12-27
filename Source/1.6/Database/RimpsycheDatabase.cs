@@ -175,21 +175,30 @@ namespace Maux36.RimPsyche
             }
 
             if (Rimpsyche.SexualityModuleLoaded)
+            {
                 maxRightsideLabelWidth = Mathf.Max(maxSexualityLabelWidth, maxInterestLabelWidth);
-            //Preference
-            var allPreference = DefDatabase<PreferenceDef>.AllDefsListForReading;
-            foreach (var pref in allPreference)
-            {
-                bool isActive = RimpsycheSexualitySettings.activePreferences.Contains(pref.defName);
-                pref.isActive = isActive;
-                activePreferenceHashSet.Add(pref.shortHash);
-            }
-            var OrderedPreferenceDefs = DefDatabase<PreferenceDef>.AllDefs.OrderByDescending(prefDef => prefDef.priority).ToList();
-            OrderedRomPreferenceDefs = OrderedPreferenceDefs.Where(prefDef => prefDef.isActive && (prefDef.category == RimpsychePrefCategory.Romantic || prefDef.category == RimpsychePrefCategory.Mix)).ToList();
-            OrderedSexPreferenceDefs = OrderedPreferenceDefs.Where(prefDef => prefDef.isActive && (prefDef.category == RimpsychePrefCategory.Physical || prefDef.category == RimpsychePrefCategory.Mix)).ToList();
-            foreach (var prefDef in OrderedPreferenceDefs)
-            {
-                totalPreferenceEditorfHeight += prefDef.worker.EditorHeight;
+                //Preference
+                var allPreference = DefDatabase<PreferenceDef>.AllDefsListForReading;
+                foreach (var pref in allPreference)
+                {
+                    bool isActive = RimpsycheSexualitySettings.activePreferences.Contains(pref.defName);
+                    pref.isActive = isActive;
+                    activePreferenceHashSet.Add(pref.shortHash);
+                }
+                var OrderedPreferenceDefs = DefDatabase<PreferenceDef>.AllDefs.OrderByDescending(prefDef => prefDef.priority).ToList();
+                try
+                {
+                    foreach (var prefDef in OrderedPreferenceDefs)
+                    {
+                        totalPreferenceEditorfHeight += prefDef.worker.EditorHeight;
+                    }
+                    OrderedRomPreferenceDefs = OrderedPreferenceDefs.Where(prefDef => prefDef.isActive && (prefDef.category == RimpsychePrefCategory.Romantic || prefDef.category == RimpsychePrefCategory.Mix)).ToList();
+                    OrderedSexPreferenceDefs = OrderedPreferenceDefs.Where(prefDef => prefDef.isActive && (prefDef.category == RimpsychePrefCategory.Physical || prefDef.category == RimpsychePrefCategory.Mix)).ToList();
+                }
+                catch (Exception ex)
+                {
+                    Log.Error(ex.Message);
+                }
             }
         }
 

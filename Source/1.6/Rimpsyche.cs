@@ -1,4 +1,5 @@
 ﻿using RimWorld;
+using System;
 using UnityEngine;
 using Verse;
 
@@ -8,6 +9,7 @@ namespace Maux36.RimPsyche
     public class Rimpsyche : Mod
     {
         public static RimpsycheSettings settings;
+        public const string requiredSexualityVersion_string = "1.0.4";
         public static string currentVersion;
         public static bool DispositionModuleLoaded = false;
         public static bool SexualityModuleLoaded = false;
@@ -21,11 +23,20 @@ namespace Maux36.RimPsyche
             if (ModsConfig.IsActive("maux36.rimpsyche.disposition"))
             {
                 DispositionModuleLoaded = true;
+                Log.Message($"[Rimpsyche] Disposition Active");
             }
 
             if (ModsConfig.IsActive("maux36.rimpsyche.sexuality"))
             {
                 SexualityModuleLoaded = true;
+                Log.Message($"[Rimpsyche] Sexuality Active");
+
+                var sexualityVersion_string = ModLister.GetModWithIdentifier("maux36.rimpsyche.sexuality").ModVersion;
+                if (new Version(sexualityVersion_string) < new Version(requiredSexualityVersion_string))
+                {
+                    Log.Error($"[Rimpsyche] Rimpsyche Core version {currentVersion} requires Rimpsyche - Sexuality version {requiredSexualityVersion_string} or above. Sexuality Module ({sexualityVersion_string}) needs to be updated or you will experience errors. If Steam does not automatically update your mod, you can try un-subbing and re-subbing to force the update.");
+                    DelayedErrorWindowRequest.Add($"Rimpsyche Core version {currentVersion} requires Rimpsyche - Sexuality version {requiredSexualityVersion_string} or above.\n\nYour Sexuality Module ({sexualityVersion_string}) needs to be updated or you will experience errors.\n\nIf Steam does not automatically update your mod, you can try un-subbing and re-subbing to force the update.", "[Rimpsyche] Outdated Sexuality Module Version");
+                }
             }
 
             if (ModsConfig.IsActive("maux36.rimpsyche.relationship"))
