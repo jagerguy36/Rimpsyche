@@ -251,21 +251,23 @@ namespace Maux36.RimPsyche
 
         public static float EvaluateRomPreference(Pawn pawn, Pawn otherPawn, float value)
         {
+            //Only active preferences are stored in OrderedPrefDefs
             var prefDefs = RimpsycheDatabase.OrderedRomPreferenceDefs;
             for (int i = 0; i < prefDefs.Count; i++)
             {
                 var def = prefDefs[i];
-                value = def.worker.Evaluate(pawn, otherPawn, value);
+                value = def.worker.Evaluate(pawn, otherPawn, value, true);
             }
             return value;
         }
         public static float EvaluateSexPreference(Pawn pawn, Pawn otherPawn, float value)
         {
+            //Only active preferences are stored in OrderedPrefDefs
             var prefDefs = RimpsycheDatabase.OrderedSexPreferenceDefs;
             for (int i = 0; i < prefDefs.Count; i++)
             {
                 var def = prefDefs[i];
-                value = def.worker.Evaluate(pawn, otherPawn, value);
+                value = def.worker.Evaluate(pawn, otherPawn, value, false);
             }
             return value;
         }

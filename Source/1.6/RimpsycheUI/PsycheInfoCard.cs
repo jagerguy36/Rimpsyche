@@ -12,7 +12,7 @@ namespace Maux36.RimPsyche
     public class PsycheInfoCard
     {
         // Settings
-        private static readonly bool usePreference = RimpsycheSexualitySettings.usePreferenceSystem;
+        private static readonly bool usePreference = RimpsycheSexualitySettings.usePreferenceSystem && RimpsycheSexualitySettings.activePreferences.Count > 0;
 
         // Constants and style settings
         // width: 380 | 220
@@ -393,6 +393,8 @@ namespace Maux36.RimPsyche
             cachedPreferenceReport = new();
             foreach (var prefDef in DefDatabase<PreferenceDef>.AllDefs)
             {
+                if (!prefDef.isActive)
+                    continue;
                 string explanation = prefDef.worker.Report(currentPawn);
                 float textHeight = Text.CalcHeight(explanation, width);
                 cachedPreferenceReport.Add((explanation, textHeight));

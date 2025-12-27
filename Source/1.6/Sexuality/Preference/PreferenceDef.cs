@@ -7,6 +7,7 @@ namespace Maux36.RimPsyche
 {
     public class PreferenceDef : Def
     {
+        public bool isActive = false;
         public float baseStrength = 1f;
         public int priority = 0;
         public RimpsychePrefCategory category;
@@ -31,7 +32,8 @@ namespace Maux36.RimPsyche
     public enum RimpsychePrefCategory
     {
         Physical, //Called when SecondaryLovinFactor is calculated
-        Romantic //Called when SecondaryRomanceFactor is calculated
+        Romantic, //Called when SecondaryRomanceFactor is calculated
+        Mix //Called on both
     }
     public abstract class PreferenceWorker
     {
@@ -42,7 +44,7 @@ namespace Maux36.RimPsyche
 
         public abstract string Report(Pawn pawn);
 
-        public abstract float Evaluate(Pawn observer, Pawn target, float value);
+        public abstract float Evaluate(Pawn observer, Pawn target, float value, bool isRomantic);
 
         public abstract void DrawEditor(Rect rect, Pawn pawn, bool EditEnabled);
 

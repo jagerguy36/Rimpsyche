@@ -23,8 +23,11 @@ namespace Maux36.RimPsyche
         public static Dictionary<int, List<(int, float, float)>> TraitScopeDatabase = new();
         public static Dictionary<int, List<FacetGate>> TraitGateDatabase = new() { };
         public static Dictionary<int, List<FacetGate>> GeneGateDatabase = new() { };
+
+        public static HashSet<int> activePreferenceHashSet = [];
         public static List<PreferenceDef> OrderedRomPreferenceDefs = new();
         public static List<PreferenceDef> OrderedSexPreferenceDefs = new();
+
         public static Facet[] AllFacets = (Facet[])Enum.GetValues(typeof(Facet));
         public static float maxFacetLabelWidth = 130f;
         public static float maxInterestLabelWidth = 130f;
@@ -174,9 +177,16 @@ namespace Maux36.RimPsyche
             if (Rimpsyche.SexualityModuleLoaded)
                 maxRightsideLabelWidth = Mathf.Max(maxSexualityLabelWidth, maxInterestLabelWidth);
             //Preference
+            var allPreference = DefDatabase<PreferenceDef>.AllDefsListForReading;
+            foreach (var pref in allPreference)
+            {
+                bool isActive = RimpsycheSexualitySettings.activePreferences.Contains(pref.defName);
+                pref.isActive = isActive;
+                activePreferenceHashSet.Add(pref.shortHash);
+            }
             var OrderedPreferenceDefs = DefDatabase<PreferenceDef>.AllDefs.OrderByDescending(prefDef => prefDef.priority).ToList();
-            OrderedRomPreferenceDefs = OrderedPreferenceDefs.Where(prefDef => prefDef.category == RimpsychePrefCategory.Romantic).ToList();
-            OrderedSexPreferenceDefs = OrderedPreferenceDefs.Where(prefDef => prefDef.category == RimpsychePrefCategory.Physical).ToList();
+            OrderedRomPreferenceDefs = OrderedPreferenceDefs.Where(prefDef => prefDef.isActive && (prefDef.category == RimpsychePrefCategory.Romantic || prefDef.category == RimpsychePrefCategory.Mix)).ToList();
+            OrderedSexPreferenceDefs = OrderedPreferenceDefs.Where(prefDef => prefDef.isActive && (prefDef.category == RimpsychePrefCategory.Physical || prefDef.category == RimpsychePrefCategory.Mix)).ToList();
             foreach (var prefDef in OrderedPreferenceDefs)
             {
                 totalPreferenceEditorfHeight += prefDef.worker.EditorHeight;
