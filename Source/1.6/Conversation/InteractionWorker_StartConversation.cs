@@ -98,6 +98,7 @@ namespace Maux36.RimPsyche
                 //GetResult
                 bool startFight = false;
                 bool startedByInitiator = false;
+                float scoreBoost = 1f;
                 float pawnScore;
                 float partnerScore;
                 float talkRand = Rand.Value;
@@ -136,6 +137,7 @@ namespace Maux36.RimPsyche
                     float goodTalkChance = (3f + pawnReceiveScore + partnerReceiveScore) * (0.10f + (0.05f * topicAlignment)); // (3 ~ 10)  * (0.05 ~ 0.1) = 0.15 ~ 1 (when both score>0)
                     if (pawnReceiveScore > 0f && partnerReceiveScore > 0f && talkRand > 1f - goodTalkChance)
                     {
+                        scoreBoost = 4f;
                         pawnScore = pawnReceiveScore * talkRand;// 0~3.5
                         partnerScore = partnerReceiveScore * talkRand; // 0~3.5
                         extraSentencePacks.Add(DefOfRimpsyche.Sentence_RimpsycheConversationNegativeGood);
@@ -198,12 +200,12 @@ namespace Maux36.RimPsyche
                 if (initOpinionOffset != 0)
                 {
                     Rimpsyche_Utility.GainCoversationMemoryFast(convoTopic.name, convoTopic.label, initOpinionOffset, initiator, recipient);
-                    if (initOpinionOffset > 0) initiatorPsyche.AffectPawn(initOpinionOffset, initOpinion, convoTopic, initDirection);
+                    if (initOpinionOffset > 0) initiatorPsyche.AffectPawn(initOpinionOffset, initOpinion, convoTopic, initDirection, scoreBoost);
                 }
                 if (reciOpinionOffset != 0)
                 {
                     Rimpsyche_Utility.GainCoversationMemoryFast(convoTopic.name, convoTopic.label, reciOpinionOffset, recipient, initiator);
-                    if (reciOpinionOffset > 0) recipientPsyche.AffectPawn(reciOpinionOffset, reciOpinion, convoTopic, -initDirection);
+                    if (reciOpinionOffset > 0) recipientPsyche.AffectPawn(reciOpinionOffset, reciOpinion, convoTopic, -initDirection, scoreBoost);
                 }
 
                 entry = new PlayLogEntry_InteractionConversation(DefOfRimpsyche.Rimpsyche_Conversation, initiator, recipient, convoTopic.name, convoTopic.label, extraSentencePacks);
