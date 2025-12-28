@@ -105,7 +105,7 @@ namespace Maux36.RimPsyche
             return false;
         }
         private static int maxConvoOpinions = 10;
-        public static void GainCoversationMemoryFast(string topicName, string topicLabel, float opinionOffset, Pawn parentPawn, Pawn otherPawn)
+        public static void GainCoversationMemoryFast_Old(string topicName, string topicLabel, float opinionOffset, Pawn parentPawn, Pawn otherPawn)
         {
             Thought_MemoryPostDefined newThought = (Thought_MemoryPostDefined)Activator.CreateInstance(DefOfRimpsyche.Rimpsyche_ConversationOpinion.ThoughtClass);
             newThought.def = DefOfRimpsyche.Rimpsyche_ConversationOpinion;
@@ -156,6 +156,56 @@ namespace Maux36.RimPsyche
                 }
                 parentPawn.needs?.mood?.thoughts?.memories?.Memories.Add(newThought);
             }
+        }
+        public static void GainCoversationMemoryFast(string topicName, string topicLabel, float opinionOffset, Pawn parentPawn, Pawn otherPawn)
+        {
+            //Log.Message($"adding thought about {topicLabel} with opinionOffset {opinionOffset}");
+            if (!DefOfRimpsyche.Rimpsyche_ConversationOpinion.socialTargetDevelopmentalStageFilter.Has(otherPawn.DevelopmentalStage))
+                return;
+
+            bool shouldAdd = false;
+            var memories = parentPawn.needs.mood.thoughts.memories.Memories;
+            List<Thought_MemoryPostDefined> currentConvoMemories = new();
+            for (int i = 0; i < memories.Count; i++)
+            {
+                var mem = memories[i];
+                if (mem.otherPawn == otherPawn && mem is Thought_MemoryPostDefined mpd)
+                    currentConvoMemories.Add(mpd);
+            }
+            if (currentConvoMemories.Count < maxConvoOpinions)
+            {
+                shouldAdd = true;
+            }
+            else
+            {
+                currentConvoMemories.Sort((m1, m2) => Mathf.Abs(m2.OpinionOffset()).CompareTo(Mathf.Abs(m1.OpinionOffset())));
+                Thought_MemoryPostDefined memoryToCompareWith = currentConvoMemories[maxConvoOpinions - 1];
+                if (Mathf.Abs(opinionOffset) < Mathf.Abs(memoryToCompareWith.OpinionOffset()))
+                {
+                    return;
+                }
+                for (int i = maxConvoOpinions - 1; i < currentConvoMemories.Count; i++)
+                {
+                    Thought_MemoryPostDefined m = currentConvoMemories[i];
+                    m.age = m.DurationTicks + 300;
+                }
+                shouldAdd = true;
+            }
+            if (!shouldAdd)
+                return;
+
+            Thought_MemoryPostDefined newThought = (Thought_MemoryPostDefined)Activator.CreateInstance(DefOfRimpsyche.Rimpsyche_ConversationOpinion.ThoughtClass);
+            newThought.def = DefOfRimpsyche.Rimpsyche_ConversationOpinion;
+            newThought.sourcePrecept = null;
+            newThought.Init();
+            newThought.topicName = topicName;
+            newThought.topicLabel = topicLabel;
+            newThought.opinionOffset = opinionOffset;
+            newThought.durationTicksOverride = (int)((40f + Mathf.Abs(opinionOffset)) * 60000f);
+            newThought.pawn = parentPawn;
+            newThought.otherPawn = otherPawn;
+
+            parentPawn.needs?.mood?.thoughts?.memories?.Memories.Add(newThought);
         }
         public static float ConvoSocialFightChance(Pawn startCand, Pawn other, float startCandBaseChance, float startCandOpinio) //Same as vanilla, just using this to avoid calculating opinion again for performance.
         {
@@ -276,7 +326,7 @@ namespace Maux36.RimPsyche
             }
             else
             {
-                return RimpsycheDatabase.IntensityKeysDefault[intensityKey];
+                return RimpsycheDatabase.IntensityKeysDefault[intensityKey] + " " + personalityName;
             }
         }
 

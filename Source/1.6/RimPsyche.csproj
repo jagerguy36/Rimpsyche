@@ -75,6 +75,7 @@
     <Compile Include="Database\RimpsycheFormula.cs" />
     <Compile Include="DebugActions.cs" />
     <Compile Include="GameComponent\VersionManager.cs" />
+    <Compile Include="HarmonyPatches\CharacterEditor_Patches.cs" />
     <Compile Include="HarmonyPatches\EdB_PanelAppearance_Draw_Patch.cs" />
     <Compile Include="HarmonyPatches\GeneTracker_Notify_GeneChanged.cs" />
     <Compile Include="HarmonyPatches\Hediff_Shambler_fixes.cs" />
