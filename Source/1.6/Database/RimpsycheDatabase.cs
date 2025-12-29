@@ -103,13 +103,13 @@ namespace Maux36.RimPsyche
 
                     for (int i = 0; i < interest.topics.Count; i++)
                     {
-                        var topic = interest.topics[i]
+                        var topic = interest.topics[i];
                         topicStrings.Add("  - " + topic.label.CapitalizeFirst());
                         topic.id = TopicIdDict.Count();
                         TopicDict[topic.name] = topic;
                         TopicIdDict[topic.id] = topic;
                         float absoluteWeightSum = 0f;
-                        var mask = topics[i].GetValidParticipants();
+                        var mask = interest.topics[i].GetValidParticipants();
                         
                         // Check bits and add the topic index 'i' to the relevant pools
                         if ((mask & ParticipantMask.AA)  != 0) interest.topicPool[0].Add(i);

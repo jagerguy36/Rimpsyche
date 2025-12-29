@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System;
 using Verse;
 
 namespace Maux36.RimPsyche
@@ -38,7 +39,7 @@ namespace Maux36.RimPsyche
             for (int i = 0; i < topicCount; i++)
             {
                 var t = topics[i];
-                if (childInvolved && (!t.allowChild || t.NSFW)) continue;
+                //if (childInvolved && (!t.allowChild || t.NSFW)) continue;
                 if (!allowNSWF && t.NSFW) continue;
                 eligibleCount++;
             }
@@ -53,7 +54,7 @@ namespace Maux36.RimPsyche
             for (int i = 0; i < topicCount; i++)
             {
                 var t = topics[i];
-                if (childInvolved && (!t.allowChild || t.NSFW)) continue;
+                //if (childInvolved && (!t.allowChild || t.NSFW)) continue;
                 if (!allowNSWF && t.NSFW) continue;
 
                 if (currentEligibleIndex == randomIndex)
