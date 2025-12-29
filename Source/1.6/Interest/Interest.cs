@@ -3,6 +3,17 @@ using Verse;
 
 namespace Maux36.RimPsyche
 {
+    [Flags]
+    public enum ParticipantMask : byte
+    {
+        None = 0,
+        AA   = 1 << 0,
+        AAs  = 1 << 1,
+        AC   = 1 << 2,
+        CA   = 1 << 3,
+        CC   = 1 << 4,
+        All  = AA | AAs | AC | CA | CC
+    }
     public class InterestDomainDef : Def
     {
         public List<FacetWeight> scoreWeight;
@@ -17,6 +28,7 @@ namespace Maux36.RimPsyche
         public string description;
         public List<FacetWeight> scoreWeight;
         public List<Topic> topics;
+        public Dictionary<Participant, List<Int>> topicPool;
 
         public Topic GetRandomTopic(bool childInvolved = false, bool allowNSWF = false)
         {
