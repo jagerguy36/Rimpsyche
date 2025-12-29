@@ -102,7 +102,7 @@ namespace Maux36.RimPsyche
 
         public ParticipantMask GetValidParticipants()
         {
-            if (isNSFW) return ParticipantMask.AA;
+            if (NSFW) return ParticipantMask.AA;
             int key = ((int)disallowedInit << 2) | (int)disallowedReci;
             return key switch
             {

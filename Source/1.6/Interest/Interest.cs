@@ -28,7 +28,8 @@ namespace Maux36.RimPsyche
         public string description;
         public List<FacetWeight> scoreWeight;
         public List<Topic> topics;
-        public Dictionary<Participant, List<Int>> topicPool;
+        // Index 0=AA, 1=AAs, 2=AC, 3=CA, 4=CCI
+        public List<int>[] topicPool;
 
         public Topic GetRandomTopic(bool childInvolved = false, bool allowNSWF = false)
         {
