@@ -275,7 +275,7 @@ namespace Maux36.RimPsyche
             //Log.Message($"{startCand.Name}'s startCandBaseChance: {startCandBaseChance} --> socialFightBaseChance: {socialFightBaseChance}");
             return Mathf.Clamp01(socialFightBaseChance);
         }
-        public static float GetRandomCompatibility(CompPsyche initiatorPsyche, CompPsyche recipientPsyche)
+        public static float GetRandomCompatibility(CompPsyche initiatorPsyche, CompPsyche recipientPsyche, int trial = 10)
         {
             float initPassion = initiatorPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Passion);
             float initInquisitiveness = initiatorPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Inquisitiveness);
@@ -283,8 +283,15 @@ namespace Maux36.RimPsyche
             float reciPassion = recipientPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Passion);
             float reciInquisitiveness = recipientPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Inquisitiveness);
 
-            Interest convoInterest = initiatorPsyche.Interests.ChooseInterest();
-            float topicAlignment = convoInterest.GetAverageAlignment(initiatorPsyche, recipientPsyche); // -1~1
+            float topicAlignment = 0f;
+            for (int i = 0; i < trial; i++)
+            {
+                var tScore = initiatorPsyche.Interests.SampleInterest().GetRandomTopic().GetScore(initiatorPsyche, recipientPsyche, out _);
+                if (tScore < 0f)
+                    tScore = 0.1f * tScoref + 0.05f;
+                topicAlignment += tScore;
+            }
+            topicAlignment = topicAlignment / (float)trial;
             if (topicAlignment > 0)
             {
                 float initInterestScore = initiatorPsyche.Interests.GetOrCreateInterestScore(convoInterest) * 0.01f;
@@ -301,7 +308,7 @@ namespace Maux36.RimPsyche
                 float lengthOpinionMult = (6f * lengthMult) / (lengthMult + 2f); //1.71 ~ 4
                 float averageScore = scoreBase * lengthOpinionMult; //2.57~22
                 //Log.Message($"======{convoInterest.name} Alignment Between {initiatorPsyche.parentPawn.Name} and {recipientPsyche.parentPawn.Name} is {averageScore / 8f}");
-                return averageScore/8f; //This should give 1 when 8, so that it can compare to SexDrive 1.
+                return averageScore/8f; //This should give 1 when 8
             }
             else
             {

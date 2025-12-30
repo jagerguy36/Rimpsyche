@@ -84,7 +84,7 @@ namespace Maux36.RimPsyche
                     score = 0;
                 }
             }
-            return Mathf.Clamp(offsetValue + score, 0f, 100f);
+            return Mathf.Clamp(offsetValue + score, 0.01f, 100f);
         }
 
         public void SetInterestScore(Interest key, float score)
