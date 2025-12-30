@@ -628,6 +628,15 @@ namespace Maux36.RimPsyche
                 }
                 // MayRequire="VanillaExpanded.VanillaTraitsExpanded"
             }
+            
+            if (ModsConfig.IsActive("redmattis.bigsmall.core"))
+            {
+                Log.Message("[Rimpsyche] Big and Small gate data added");
+                RegisterTraitGate(new Pair<string, int>("BS_Gentle", 0), new List<FacetGate>
+                            {
+                                new FacetGate(Facet.Compassion, 25f, 25f)
+                            });
+            }
 
             if (ModsConfig.IsActive("chjees.androids14"))
             {
