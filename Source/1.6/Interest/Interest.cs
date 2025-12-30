@@ -32,19 +32,17 @@ namespace Maux36.RimPsyche
         // Index 0=AA, 1=AAs, 2=AC, 3=CA, 4=CCI
         public List<int>[] topicPool;
 
-        public Topic GetRandomTopic(bool initAdult, bool reciAdult, bool limitNSFW = false)
+        public Topic GetRandomTopic()
         {
-            int bits = (initAdult ? 2 : 0) | (reciAdult ? 1 : 0);
-            int poolIndex = bits switch
-            {
-                0b11 => limitNSFW ? 1 : 0, // 1 = AAs, 0 = AA
-                0b10 => 2, // 2 = AC
-                0b01 => 3, // 3 = CA
-                0b00 => 4, // 4 = CC
-                _ => -1
-            };
-            if (topicPool[poolIndex].Count == 0) return null;
+            if (topics.Count == 0) return null;
+            int randomIndex = Rand.Range(0, topics.Count);
+            return topics[randomIndex];
+        }
+
+        public Topic GetRandomTopic(int poolIndex)
+        {
             var pool = topicPool[poolIndex];
+            if (pool.Count == 0) return null;
             int randomIndex = Rand.Range(0, pool.Count);
             return topics[pool[randomIndex]];
         }

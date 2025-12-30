@@ -99,6 +99,20 @@ namespace Maux36.RimPsyche
             return pawn.ageTracker.AgeBiologicalYearsFloat;
         }
 
+        public static int GetParticipantIndex(bool isInitAdult, bool isReciAdult, bool limitNSFW)
+        {
+            int bits = (isInitAdult? 2 : 0) | (isReciAdult ? 1 : 0);
+            int participantIndex = bits switch
+            {
+                0b11 => limitNSFW ? 1 : 0, // 1 = AAs, 0 = AA
+                0b10 => 2, // 2 = AC
+                0b01 => 3, // 3 = CA
+                0b00 => 4, // 4 = CC
+                _ => -1
+            };
+            return participantIndex;
+        }
+
         public static bool IsGoodPositionForInteraction(IntVec3 cell, IntVec3 recipientCell, Map map)
         {
             if (cell.InHorDistOf(recipientCell, 12f)) return GenSight.LineOfSight(cell, recipientCell, map, skipFirstCell: true);

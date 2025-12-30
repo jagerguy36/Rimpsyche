@@ -100,6 +100,11 @@ namespace Maux36.RimPsyche
             return GenCollection.RandomElementByWeight(RimpsycheDatabase.InterestList, GetOrCreateInterestScore);
         }
 
+        public Interest ChooseInterest(int poolIndex)
+        {
+            return RimpsycheDatabase.InterestList.RandomElementByWeight((Interest interest) => (interest.topicPool[poolIndex].Count > 0) ? GetOrCreateInterestScore(interest) : 0f);
+        }
+
         // Save
         public void ExposeData()
         {

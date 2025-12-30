@@ -64,8 +64,12 @@ namespace Maux36.RimPsyche
                 float reciSpontaneity = reciPersonality.GetPersonality(PersonalityDefOf.Rimpsyche_Spontaneity);
 
                 //Select the convo interest area by initiator. See if the recipient is willing to talk to the initiator about that area.
-                Interest convoInterest = initiatorPsyche.Interests.ChooseInterest();
-                Topic convoTopic = convoInterest.GetRandomTopic(initiator.DevelopmentalStage.Adult(), recipient.DevelopmentalStage.Adult()); //TODO: NSFW check
+                bool limitNSFW = false //TODO: NSFW check with proriety
+                int participantIndex = GetParticipantIndex(initiator.DevelopmentalStage.Adult(), recipient.DevelopmentalStage.Adult(), limitNSFW);
+                Interest convoInterest = initiatorPsyche.Interests.ChooseInterest(participantIndex);
+                Topic convoTopic = convoInterest.GetRandomTopic(participantIndex);
+                //Topic null case (Should not happen): Add log no available topic
+
                 // 0 ~ 1
                 float initInterestScore = initiatorPsyche.Interests.GetOrCreateInterestScore(convoInterest) * 0.01f;
                 float reciInterestScore = recipientPsyche.Interests.GetOrCreateInterestScore(convoInterest) * 0.01f;
