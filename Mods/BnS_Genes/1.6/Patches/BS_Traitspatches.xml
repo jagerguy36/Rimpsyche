@@ -1,0 +1,109 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+
+  <Operation Class="PatchOperationConditional">
+    <xpath>Defs/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Aggressiveness"]/scopes</xpath>
+    <match Class="PatchOperationAdd">
+      <xpath>Defs/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Aggressiveness"]/scopes</xpath>
+      <value>
+        <li>
+          <traitDefname>BS_Gentle</traitDefname>
+          <centerOffset>-0.5</centerOffset>
+          <range>0.5</range>
+        </li>
+      </value>
+    </match>
+    <nomatch Class="PatchOperationAdd">
+      <xpath>Defs/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Aggressiveness"]</xpath>
+      <value>
+        <scopes>
+          <li>
+            <traitDefname>BS_Gentle</traitDefname>
+            <degree>0</degree>
+            <centerOffset>-0.5</centerOffset>
+            <range>0.5</range>
+          </li>
+        </scopes>
+      </value>
+    </nomatch>
+  </Operation>
+
+  <Operation Class="PatchOperationConditional">
+    <xpath>Defs/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Stability"]/scopes</xpath>
+    <match Class="PatchOperationAdd">
+      <xpath>Defs/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Stability"]/scopes</xpath>
+      <value>
+        <li>
+          <traitDefname>BS_InsultProof</traitDefname>
+          <centerOffset>0.5</centerOffset>
+          <range>0.5</range>
+        </li>
+      </value>
+    </match>
+    <nomatch Class="PatchOperationAdd">
+      <xpath>Defs/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Stability"]</xpath>
+      <value>
+        <scopes>
+          <li>
+            <traitDefname>BS_InsultProof</traitDefname>
+            <centerOffset>0.5</centerOffset>
+            <range>0.5</range>
+          </li>
+        </scopes>
+      </value>
+    </nomatch>
+  </Operation>
+
+  <Operation Class="PatchOperationConditional">
+    <xpath>Defs/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Expectation"]/scopes</xpath>
+    <match Class="PatchOperationAdd">
+      <xpath>Defs/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Expectation"]/scopes</xpath>
+      <value>
+        <li>
+          <traitDefname>BS_Unpretentious</traitDefname>
+          <centerOffset>-0.5</centerOffset>
+          <range>0.5</range>
+        </li>
+      </value>
+    </match>
+    <nomatch Class="PatchOperationAdd">
+      <xpath>Defs/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Expectation"]</xpath>
+      <value>
+        <scopes>
+          <li>
+            <traitDefname>BS_Unpretentious</traitDefname>
+            <centerOffset>-0.5</centerOffset>
+            <range>0.5</range>
+          </li>
+        </scopes>
+      </value>
+    </nomatch>
+  </Operation>
+
+  <Operation Class="PatchOperationConditional">
+    <xpath>Defs/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Discipline"]/scopes</xpath>
+    <match Class="PatchOperationAdd">
+      <xpath>Defs/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Discipline"]/scopes</xpath>
+      <value>
+        <li>
+          <traitDefname>BS_AlcoholAddict</traitDefname>
+          <centerOffset>-0.5</centerOffset>
+          <range>0.25</range>
+        </li>
+      </value>
+    </match>
+    <nomatch Class="PatchOperationAdd">
+      <xpath>Defs/Maux36.RimPsyche.PersonalityDef[defName = "Rimpsyche_Discipline"]</xpath>
+      <value>
+        <scopes>
+          <li>
+            <traitDefname>BS_AlcoholAddict</traitDefname>
+            <centerOffset>-0.5</centerOffset>
+            <range>0.25</range>
+          </li>
+        </scopes>
+      </value>
+    </nomatch>
+  </Operation>
+
+</Patch>
