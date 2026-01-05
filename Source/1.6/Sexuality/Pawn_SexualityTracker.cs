@@ -633,7 +633,7 @@ namespace Maux36.RimPsyche
             {
                 if (orientationCategory == SexualOrientation.Developing)
                 {
-                    initialize(generate = true);
+                    Initialize(generate: true);
                 }
             }
         }
