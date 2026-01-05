@@ -16,7 +16,7 @@ namespace Maux36.RimPsyche
         public static Dictionary<string, InterestDomainDef> InterestDomainDict = new();
         public static Dictionary<int, InterestDomainDef> InterestDomainIdDict = new();
         public static Dictionary<int, string> InterstTopicStringDict = new();
-        public static HashSet<Interest> InterestList = new();
+        public static List<Interest> InterestList = new();
         public static Dictionary<string, Topic> TopicDict = new();
         public static Dictionary<int, Topic> TopicIdDict = new();
         public static Dictionary<string, PersonalityDef> PersonalityDict = new();
@@ -92,16 +92,31 @@ namespace Maux36.RimPsyche
                     List<string> topicStrings = [];
                     InterestList.Add(interest);
                     interest.id = InterestList.Count;
+                    interest.topicPool = new List<int>[5];
+                    for (int i = 0; i < 5; i++)
+                    {
+                        interest.topicPool[i] = new List<int>();
+                    }
                     maxInterestLabelWidth = Mathf.Max(maxInterestLabelWidth, 5f + Text.CalcSize(interest.label).x);
                     InterestDomainDict.Add(interest.name, interestdomain);
                     InterestDomainIdDict.Add(interest.id, interestdomain);
-                    foreach (var topic in interest.topics)
+
+                    for (int i = 0; i < interest.topics.Count; i++)
                     {
+                        var topic = interest.topics[i];
                         topicStrings.Add("  - " + topic.label.CapitalizeFirst());
                         topic.id = TopicIdDict.Count();
                         TopicDict[topic.name] = topic;
                         TopicIdDict[topic.id] = topic;
                         float absoluteWeightSum = 0f;
+                        var mask = interest.topics[i].GetValidParticipants();
+                        
+                        // Check bits and add the topic index 'i' to the relevant pools
+                        if ((mask & ParticipantMask.AA)  != 0) interest.topicPool[0].Add(i);
+                        if ((mask & ParticipantMask.AAs) != 0) interest.topicPool[1].Add(i);
+                        if ((mask & ParticipantMask.AC)  != 0) interest.topicPool[2].Add(i);
+                        if ((mask & ParticipantMask.CA)  != 0) interest.topicPool[3].Add(i);
+                        if ((mask & ParticipantMask.CC)  != 0) interest.topicPool[4].Add(i);
                         foreach (var fw in topic.weights)
                         {
                             absoluteWeightSum += Mathf.Abs(fw.weight);

@@ -99,6 +99,20 @@ namespace Maux36.RimPsyche
             return pawn.ageTracker.AgeBiologicalYearsFloat;
         }
 
+        public static int GetParticipantIndex(bool isInitAdult, bool isReciAdult, bool limitNSFW)
+        {
+            int bits = (isInitAdult? 2 : 0) | (isReciAdult ? 1 : 0);
+            int participantIndex = bits switch
+            {
+                0b11 => limitNSFW ? 1 : 0, // 1 = AAs, 0 = AA
+                0b10 => 2, // 2 = AC
+                0b01 => 3, // 3 = CA
+                0b00 => 4, // 4 = CC
+                _ => -1
+            };
+            return participantIndex;
+        }
+
         public static bool IsGoodPositionForInteraction(IntVec3 cell, IntVec3 recipientCell, Map map)
         {
             if (cell.InHorDistOf(recipientCell, 12f)) return GenSight.LineOfSight(cell, recipientCell, map, skipFirstCell: true);
@@ -261,7 +275,7 @@ namespace Maux36.RimPsyche
             //Log.Message($"{startCand.Name}'s startCandBaseChance: {startCandBaseChance} --> socialFightBaseChance: {socialFightBaseChance}");
             return Mathf.Clamp01(socialFightBaseChance);
         }
-        public static float GetRandomCompatibility(CompPsyche initiatorPsyche, CompPsyche recipientPsyche)
+        public static float GetRandomCompatibility(CompPsyche initiatorPsyche, CompPsyche recipientPsyche, int trial = 10)
         {
             float initPassion = initiatorPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Passion);
             float initInquisitiveness = initiatorPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Inquisitiveness);
@@ -271,6 +285,15 @@ namespace Maux36.RimPsyche
 
             Interest convoInterest = initiatorPsyche.Interests.ChooseInterest();
             float topicAlignment = convoInterest.GetAverageAlignment(initiatorPsyche, recipientPsyche); // -1~1
+            //float topicAlignment = 0f;
+            //for (int i = 0; i < trial; i++)
+            //{
+            //    var tScore = initiatorPsyche.Interests.SampleInterest().GetRandomTopic().GetScore(initiatorPsyche, recipientPsyche, out _);
+            //    if (tScore < 0f)
+            //        tScore = 0.1f * tScore + 0.05f;
+            //    topicAlignment += tScore;
+            //}
+            topicAlignment = topicAlignment / (float)trial;
             if (topicAlignment > 0)
             {
                 float initInterestScore = initiatorPsyche.Interests.GetOrCreateInterestScore(convoInterest) * 0.01f;
@@ -287,7 +310,7 @@ namespace Maux36.RimPsyche
                 float lengthOpinionMult = (6f * lengthMult) / (lengthMult + 2f); //1.71 ~ 4
                 float averageScore = scoreBase * lengthOpinionMult; //2.57~22
                 //Log.Message($"======{convoInterest.name} Alignment Between {initiatorPsyche.parentPawn.Name} and {recipientPsyche.parentPawn.Name} is {averageScore / 8f}");
-                return averageScore/8f; //This should give 1 when 8, so that it can compare to SexDrive 1.
+                return averageScore/8f; //This should give 1 when 8
             }
             else
             {
