@@ -283,14 +283,16 @@ namespace Maux36.RimPsyche
             float reciPassion = recipientPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Passion);
             float reciInquisitiveness = recipientPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Inquisitiveness);
 
-            float topicAlignment = 0f;
-            for (int i = 0; i < trial; i++)
-            {
-                var tScore = initiatorPsyche.Interests.SampleInterest().GetRandomTopic().GetScore(initiatorPsyche, recipientPsyche, out _);
-                if (tScore < 0f)
-                    tScore = 0.1f * tScoref + 0.05f;
-                topicAlignment += tScore;
-            }
+            Interest convoInterest = initiatorPsyche.Interests.ChooseInterest();
+            float topicAlignment = convoInterest.GetAverageAlignment(initiatorPsyche, recipientPsyche); // -1~1
+            //float topicAlignment = 0f;
+            //for (int i = 0; i < trial; i++)
+            //{
+            //    var tScore = initiatorPsyche.Interests.SampleInterest().GetRandomTopic().GetScore(initiatorPsyche, recipientPsyche, out _);
+            //    if (tScore < 0f)
+            //        tScore = 0.1f * tScore + 0.05f;
+            //    topicAlignment += tScore;
+            //}
             topicAlignment = topicAlignment / (float)trial;
             if (topicAlignment > 0)
             {

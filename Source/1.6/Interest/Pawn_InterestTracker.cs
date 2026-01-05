@@ -105,7 +105,7 @@ namespace Maux36.RimPsyche
 
         public Interest SampleInterest()
         {
-            cachedSampler ??= new InterestSampler(RimpsycheDatabase.InterestList);
+            cachedSampler ??= new InterestSampler(RimpsycheDatabase.InterestList, this);
             return cachedSampler?.SampleInterest();
         }
 
@@ -133,7 +133,7 @@ namespace Maux36.RimPsyche
         public float[] probArr;
         public int[] aliasArr;
 
-        public InterestSampler(List<Interest> interestList)
+        public InterestSampler(List<Interest> interestList, Pawn_InterestTracker tracker)
         {
             interestCount = interestList.Count;
             probArr = new float[interestCount];
@@ -143,7 +143,7 @@ namespace Maux36.RimPsyche
             float sum = 0f;
             for (int i = 0; i < interestList.Count; i++)
             {
-                float w = GetOrCreateInterestScore(interestList[i]);
+                float w = tracker.GetOrCreateInterestScore(interestList[i]);
                 weights[i] = w;
                 sum += w;
             }

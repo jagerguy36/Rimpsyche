@@ -16,7 +16,7 @@ namespace Maux36.RimPsyche
         public static Dictionary<string, InterestDomainDef> InterestDomainDict = new();
         public static Dictionary<int, InterestDomainDef> InterestDomainIdDict = new();
         public static Dictionary<int, string> InterstTopicStringDict = new();
-        public static HashSet<Interest> InterestList = new();
+        public static List<Interest> InterestList = new();
         public static Dictionary<string, Topic> TopicDict = new();
         public static Dictionary<int, Topic> TopicIdDict = new();
         public static Dictionary<string, PersonalityDef> PersonalityDict = new();
