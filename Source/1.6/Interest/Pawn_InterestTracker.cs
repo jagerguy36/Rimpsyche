@@ -8,7 +8,10 @@ namespace Maux36.RimPsyche
     {
         private readonly Pawn pawn;
         private readonly CompPsyche compPsyche;
-        public Dictionary<int, float> interestOffset = new Dictionary<int, float>(); // 35~65
+        //Domain offset range should be within -10~10
+        //Interest offset range should be within -10~10
+        //50 + DomainOffset + InterestOffset range is clamped to 35~65
+        public Dictionary<int, float> adjustedInterestScore = new Dictionary<int, float>(); // (35~65) + (-35~35)
         public Dictionary<string, float> interestScore = new Dictionary<string, float>(); // -35~35
         private InterestSampler cachedSampler;
 
@@ -27,11 +30,11 @@ namespace Maux36.RimPsyche
             }
             foreach (InterestDomainDef interestdomainDef in DefDatabase<InterestDomainDef>.AllDefs)
             {
-                GenerateInterestOffsetsForDomain(interestdomainDef, true);
+                GenerateAdjustedInterestScoreForDomain(interestdomainDef, true);
             }
         }
 
-        public void GenerateInterestOffsetsForDomain(InterestDomainDef interestdomainDef, bool generateScore = false) // 0~100
+        public void GenerateAdjustedInterestScoreForDomain(InterestDomainDef interestdomainDef, bool generateScore = false) // 0~100
         {
             var compPsyche = pawn.compPsyche();
             float domainOffsetValue = 50;
@@ -53,29 +56,18 @@ namespace Maux36.RimPsyche
                         interestOffsetValue += compPsyche.Personality.GetFacetValueNorm(sw.facet) * sw.weight;
                     }
                 }
-                interestOffset[interest.id] = Mathf.Clamp(interestOffsetValue, 35f, 65f);
-                if (generateScore)
-                {
-                    GenerateInterestScore(interest.name);
-                }
+                interestOffsetValue = Mathf.Clamp(interestOffsetValue, 35f, 65f);
+                var interestScore = GetOrGenerateInterestScore(interest.name);
+                adjustedInterestScore[interest.id] = Mathf.Clamp(interestOffsetValue + interestScore, 0.01f, 100f);
             }
         }
-        public void GenerateInterestScore(string interestname, int maxAttempts = 4)
+        private void GenerateInterestScore(string interestname, int maxAttempts = 4)
         {
             float result = Rand.Range(-35f, 35f);
             interestScore[interestname] = result;
         }
-
-        public float GetOrCreateInterestScore(Interest key)
+        public float GetOrGenerateInterestScore(Interest key)
         {
-            if (!interestOffset.TryGetValue(key.id, out float offsetValue))
-            {
-                GenerateInterestOffsetsForDomain(RimpsycheDatabase.InterestDomainIdDict[key.id]);
-                if (!interestOffset.TryGetValue(key.id, out offsetValue))
-                {
-                    offsetValue = 50;
-                }
-            }
             if (!interestScore.TryGetValue(key.name, out float score))
             {
                 GenerateInterestScore(key.name);
@@ -84,12 +76,25 @@ namespace Maux36.RimPsyche
                     score = 0;
                 }
             }
-            return Mathf.Clamp(offsetValue + score, 0.01f, 100f);
+            return score;
+        }
+
+        public float GetOrGenerateAdjustedInterestScore(Interest key)
+        {
+            if (!adjustedInterestScore.TryGetValue(key.id, out float adjustedValue))
+            {
+                GenerateAdjustedInterestScoreForDomain(RimpsycheDatabase.InterestDomainIdDict[key.id]);
+                if (!adjustedInterestScore.TryGetValue(key.id, out adjustedValue))
+                {
+                    adjustedValue = 50;
+                }
+            }
+            return adjustedValue;
         }
 
         public void SetInterestScore(Interest key, float score)
         {
-            float delta = score - GetOrCreateInterestScore(key);
+            float delta = score - GetOrGenerateAdjustedInterestScore(key);
             if (interestScore.TryGetValue(key.name, out float s))
             {
                 if ((delta<0f && s == -35f) || (delta>0f && s == 35f)) return;
@@ -100,7 +105,7 @@ namespace Maux36.RimPsyche
 
         public Interest ChooseInterest()
         {
-            return GenCollection.RandomElementByWeight(RimpsycheDatabase.InterestList, GetOrCreateInterestScore);
+            return GenCollection.RandomElementByWeight(RimpsycheDatabase.InterestList, GetOrGenerateAdjustedInterestScore);
         }
 
         public Interest SampleInterest()
@@ -111,12 +116,12 @@ namespace Maux36.RimPsyche
 
         public Interest ChooseInterest(int poolIndex)
         {
-            return RimpsycheDatabase.InterestList.RandomElementByWeight((Interest interest) => (interest.topicPool[poolIndex].Count > 0) ? GetOrCreateInterestScore(interest) : 0f);
+            return RimpsycheDatabase.InterestList.RandomElementByWeight((Interest interest) => (interest.topicPool[poolIndex].Count > 0) ? GetOrGenerateAdjustedInterestScore(interest) : 0f);
         }
 
         public void NotifyPersonalityDirtied()
         {
-            interestOffset.Clear();
+            adjustedInterestScore.Clear();
             cachedSampler = null;
         }
 
@@ -143,7 +148,7 @@ namespace Maux36.RimPsyche
             float sum = 0f;
             for (int i = 0; i < interestList.Count; i++)
             {
-                float w = tracker.GetOrCreateInterestScore(interestList[i]);
+                float w = tracker.GetOrGenerateAdjustedInterestScore(interestList[i]);
                 weights[i] = w;
                 sum += w;
             }

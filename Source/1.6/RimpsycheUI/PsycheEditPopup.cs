@@ -325,7 +325,7 @@ namespace Maux36.RimPsyche
             float y = 0f;
             foreach (var interest in RimpsycheDatabase.InterestList)
             {
-                float currentValue = compPsyche.Interests.GetOrCreateInterestScore(interest);
+                float currentValue = compPsyche.Interests.GetOrGenerateAdjustedInterestScore(interest);
                 Rect rowRect = new Rect(0f, y, viewRect.width, interestRowHeight);
 
                 // Hover highlight + tooltip
