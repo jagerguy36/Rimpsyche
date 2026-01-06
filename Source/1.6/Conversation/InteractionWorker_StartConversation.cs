@@ -96,7 +96,7 @@ namespace Maux36.RimPsyche
                 float initTalkF = initiatorPsyche.Evaluate(RimpsycheDatabase.TalkFactor) * initInterestF; //1~2.5 [1.75] * 0.5~3 [1.5] ||  0.5~7.5 [2.625]
                 float reciTalkF = recipientPsyche.Evaluate(RimpsycheDatabase.TalkFactor) * reciInterestF; //1~2.5 [1.75] * 0.5~3 [1.5] ||  0.5~7.5 [2.625]
                 float spontaneousF = (initSpontaneity + reciSpontaneity + 2f) * 0.05f; // 0~0.2 [0.1]
-                float aligntmentLengthFactor = -1f * tAbs * (tAbs - 2f) + 1f; //1~2
+                float aligntmentLengthFactor = tAbs * (2f - tAbs) + 1f; //1~2
                 float lengthMult = 0.1f * (5f + initTalkF + reciTalkF) * aligntmentLengthFactor * Rand.Range(1f - spontaneousF, 1f + spontaneousF); // 0.1f * (6~[10.25]~20) * ([1]~2) || 0.6~[1.025]~4
 
                 //GetResult
