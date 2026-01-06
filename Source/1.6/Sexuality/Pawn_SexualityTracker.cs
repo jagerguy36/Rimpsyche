@@ -620,6 +620,8 @@ namespace Maux36.RimPsyche
         }
         public void Notify_LifestageChanged()
         {
+            if (orientationCategory == SexualOrientation.None)
+                return;
             if (Rimpsyche_Utility.GetPawnAge(pawn) < minAdultAge)
             {
                 if (orientationCategory != SexualOrientation.Developing)
