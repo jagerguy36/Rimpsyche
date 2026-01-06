@@ -58,7 +58,7 @@ namespace Maux36.RimPsyche
                 }
                 interestOffsetValue = Mathf.Clamp(interestOffsetValue, 35f, 65f);
                 var interestScore = GetOrGenerateInterestScore(interest.name);
-                adjustedInterestScore[interest.id] = Mathf.Clamp(interestOffsetValue + interestScore, 0.01f, 100f);
+                adjustedInterestScore[interest.id] = interestOffsetValue + interestScore;
             }
         }
         private void GenerateInterestScore(string interestname, int maxAttempts = 4)
@@ -79,7 +79,7 @@ namespace Maux36.RimPsyche
             return score;
         }
 
-        public float GetOrGenerateAdjustedInterestScore(Interest key)
+        public float GetOrGenerateAdjustedInterestScoreRaw(Interest key)
         {
             if (!adjustedInterestScore.TryGetValue(key.id, out float adjustedValue))
             {
@@ -91,21 +91,22 @@ namespace Maux36.RimPsyche
             }
             return adjustedValue;
         }
-
-        public void SetInterestScore(Interest key, float score)
+        public float GetOrGenerateAdjustedInterestScore(Interest key)
         {
-            float delta = score - GetOrGenerateAdjustedInterestScore(key);
-            if (interestScore.TryGetValue(key.name, out float s))
-            {
-                if ((delta<0f && s == -35f) || (delta>0f && s == 35f)) return;
-                interestScore[key.name] = Mathf.Clamp(interestScore[key.name] + delta, -35f, 35f);
-                cachedSampler = null;
-            }
+            return Mathf.Clamp(GetOrGenerateAdjustedInterestScoreRaw(key), 0.01f, 100f);
         }
 
-        public Interest ChooseInterest()
+        public void SetInterestScore(Interest interest, float score)
         {
-            return GenCollection.RandomElementByWeight(RimpsycheDatabase.InterestList, GetOrGenerateAdjustedInterestScore);
+            float delta = score - GetOrGenerateAdjustedInterestScoreRaw(interest);
+            if (interestScore.TryGetValue(interest.name, out float originalScore))
+            {
+                if ((delta<0f && originalScore == -35f) || (delta>0f && originalScore == 35f)) return;
+                float scoreAfter = Mathf.Clamp(interestScore[interest.name] + delta, -35f, 35f);
+                interestScore[interest.name] = scoreAfter;
+                adjustedInterestScore[interest.id] += scoreAfter - originalScore;
+                cachedSampler = null;
+            }
         }
 
         public Interest SampleInterest()
