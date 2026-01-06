@@ -352,7 +352,7 @@ namespace Maux36.RimPsyche
                 if (topicAlignment < 0)
                     tScore = 0.1f * topicAlignment + 0.05f;
                 float scoreBase = 1.5f + (4f * tScore); //1.5~5.5
-                float scoreSum += scoreBase * lengthOpinionMult;
+                scoreSum += scoreBase * lengthOpinionMult;
             }
             return scoreSum / trial;
         }

@@ -57,7 +57,7 @@ namespace Maux36.RimPsyche
                     }
                 }
                 interestOffsetValue = Mathf.Clamp(interestOffsetValue, 35f, 65f);
-                var interestScore = GetOrGenerateInterestScore(interest.name);
+                var interestScore = GetOrGenerateInterestScore(interest);
                 adjustedInterestScore[interest.id] = interestOffsetValue + interestScore;
             }
         }
