@@ -1,8 +1,20 @@
 ﻿using System.Collections.Generic;
+using System;
 using Verse;
 
 namespace Maux36.RimPsyche
 {
+    [Flags]
+    public enum ParticipantMask : byte
+    {
+        None = 0,
+        AA   = 1 << 0,
+        AAs  = 1 << 1,
+        AC   = 1 << 2,
+        CA   = 1 << 3,
+        CC   = 1 << 4,
+        All  = AA | AAs | AC | CA | CC
+    }
     public class InterestDomainDef : Def
     {
         public List<FacetWeight> scoreWeight;
@@ -17,38 +29,22 @@ namespace Maux36.RimPsyche
         public string description;
         public List<FacetWeight> scoreWeight;
         public List<Topic> topics;
+        // Index 0=AA, 1=AAs, 2=AC, 3=CA, 4=CCI
+        public List<int>[] topicPool;
 
-        public Topic GetRandomTopic(bool childInvolved = false, bool allowNSWF = false)
+        public Topic GetRandomTopic()
         {
-            int topicCount = topics.Count;
-            int eligibleCount = 0;
-            for (int i = 0; i < topicCount; i++)
-            {
-                var t = topics[i];
-                if (childInvolved && (!t.allowChild || t.NSFW)) continue;
-                if (!allowNSWF && t.NSFW) continue;
-                eligibleCount++;
-            }
+            if (topics.Count == 0) return null;
+            int randomIndex = Rand.Range(0, topics.Count);
+            return topics[randomIndex];
+        }
 
-            if (eligibleCount == 0)
-            {
-                return null;
-            }
-            int randomIndex = Rand.Range(0, eligibleCount);
-
-            int currentEligibleIndex = 0;
-            for (int i = 0; i < topicCount; i++)
-            {
-                var t = topics[i];
-                if (childInvolved && (!t.allowChild || t.NSFW)) continue;
-                if (!allowNSWF && t.NSFW) continue;
-
-                if (currentEligibleIndex == randomIndex)
-                    return t;
-
-                currentEligibleIndex++;
-            }
-            return null;
+        public Topic GetRandomTopic(int poolIndex)
+        {
+            var pool = topicPool[poolIndex];
+            if (pool.Count == 0) return null;
+            int randomIndex = Rand.Range(0, pool.Count);
+            return topics[pool[randomIndex]];
         }
         public float GetAverageAlignment(CompPsyche pawnPsyche, CompPsyche otherPawnPsyche, bool weedOutlier = true)
         {

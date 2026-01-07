@@ -70,7 +70,7 @@ namespace Maux36.RimPsyche
         public static bool editInterestOn = false;
         public static float interestLabelWidth => RimpsycheDatabase.maxInterestLabelWidth;
         public static float interestWidthDiff => (interestLabelWidth - 130f);
-        public static readonly HashSet<Interest> interestList = RimpsycheDatabase.InterestList;
+        public static readonly List<Interest> interestList = RimpsycheDatabase.InterestList;
         public static readonly float interestRowHeight = 32f;
         public static readonly float interestViewHeight = interestList.Count() * interestRowHeight;
         public static readonly float interestLabelPadding = 2f;
@@ -325,7 +325,7 @@ namespace Maux36.RimPsyche
             float y = 0f;
             foreach (var interest in RimpsycheDatabase.InterestList)
             {
-                float currentValue = compPsyche.Interests.GetOrCreateInterestScore(interest);
+                float currentValue = compPsyche.Interests.GetOrGenerateAdjustedInterestScoreRaw(interest);
                 Rect rowRect = new Rect(0f, y, viewRect.width, interestRowHeight);
 
                 // Hover highlight + tooltip

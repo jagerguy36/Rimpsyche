@@ -64,11 +64,15 @@ namespace Maux36.RimPsyche
                 float reciSpontaneity = reciPersonality.GetPersonality(PersonalityDefOf.Rimpsyche_Spontaneity);
 
                 //Select the convo interest area by initiator. See if the recipient is willing to talk to the initiator about that area.
-                Interest convoInterest = initiatorPsyche.Interests.ChooseInterest();
-                Topic convoTopic = convoInterest.GetRandomTopic((initiator.DevelopmentalStage.Juvenile() || recipient.DevelopmentalStage.Juvenile()), true); //TODO: NSFW check
+                bool limitNSFW = false; //TODO: NSFW check with proriety
+                int participantIndex = Rimpsyche_Utility.GetParticipantIndex(initiator.DevelopmentalStage.Adult(), recipient.DevelopmentalStage.Adult(), limitNSFW);
+                Interest convoInterest = initiatorPsyche.Interests.ChooseInterest(participantIndex);
+                Topic convoTopic = convoInterest.GetRandomTopic(participantIndex);
+                //Topic null case (Should not happen): Add log no available topic
+
                 // 0 ~ 1
-                float initInterestScore = initiatorPsyche.Interests.GetOrCreateInterestScore(convoInterest) * 0.01f;
-                float reciInterestScore = recipientPsyche.Interests.GetOrCreateInterestScore(convoInterest) * 0.01f;
+                float initInterestScore = initiatorPsyche.Interests.GetOrGenerateAdjustedInterestScore(convoInterest) * 0.01f;
+                float reciInterestScore = recipientPsyche.Interests.GetOrGenerateAdjustedInterestScore(convoInterest) * 0.01f;
 
                 //If the opinion is negative, there is a chance for the pawn to brush off the conversation.
                 if (reciOpinion < 0)
@@ -92,7 +96,7 @@ namespace Maux36.RimPsyche
                 float initTalkF = initiatorPsyche.Evaluate(RimpsycheDatabase.TalkFactor) * initInterestF; //1~2.5 [1.75] * 0.5~3 [1.5] ||  0.5~7.5 [2.625]
                 float reciTalkF = recipientPsyche.Evaluate(RimpsycheDatabase.TalkFactor) * reciInterestF; //1~2.5 [1.75] * 0.5~3 [1.5] ||  0.5~7.5 [2.625]
                 float spontaneousF = (initSpontaneity + reciSpontaneity + 2f) * 0.05f; // 0~0.2 [0.1]
-                float aligntmentLengthFactor = -1f * tAbs * (tAbs - 2f) + 1f; //1~2
+                float aligntmentLengthFactor = tAbs * (2f - tAbs) + 1f; //1~2
                 float lengthMult = 0.1f * (5f + initTalkF + reciTalkF) * aligntmentLengthFactor * Rand.Range(1f - spontaneousF, 1f + spontaneousF); // 0.1f * (6~[10.25]~20) * ([1]~2) || 0.6~[1.025]~4
 
                 //GetResult
