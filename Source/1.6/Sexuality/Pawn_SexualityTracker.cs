@@ -254,7 +254,8 @@ namespace Maux36.RimPsyche
         }
         //generate = false is coming from loading saves.
         //Newly generate pawns initialize with generate = true
-        //Growth moment sexuality generation also counts as generate = true
+        //Growth moment sexuality generation calls with generate = true
+        //Pawn lifestage change from child to adult also calls with generate = true
         public void Initialize(bool generate = false, bool allowGay = true)
         {
             //Log.Message($" {pawn.LabelShort} |initialize called");
@@ -272,6 +273,7 @@ namespace Maux36.RimPsyche
             if (mKinsey >= 0f)
             {
                 //Growth moment for pawn who's already assigned their sexuality
+                //Since lifestageChange assigns sexuality, growth moment calls shuld end up here.
                 if (generate)
                 {
                     AdjustSexualityCategory(attraction);
@@ -626,6 +628,27 @@ namespace Maux36.RimPsyche
         public void Notify_Sexchange()
         {
             AdjustSexualityCategory(attraction);
+        }
+        public void Notify_LifestageChanged()
+        {
+            if (orientationCategory == SexualOrientation.None)
+                return;
+            if (Rimpsyche_Utility.GetPawnAge(pawn) < minAdultAge)
+            {
+                if (orientationCategory != SexualOrientation.Developing)
+                {
+                    orientationCategory = SexualOrientation.Developing;
+                    adjustmentDirty = true;
+                    driveDirty = true;
+                }
+            }
+            else
+            {
+                if (orientationCategory == SexualOrientation.Developing)
+                {
+                    Initialize(generate: true);
+                }
+            }
         }
 
         /// <summary>

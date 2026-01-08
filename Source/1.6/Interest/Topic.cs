@@ -6,6 +6,14 @@ using Verse;
 
 namespace Maux36.RimPsyche
 {
+    [Flags]
+    public enum Demographic : byte
+    {
+        None = 0,  // 0
+        Adult = 1 << 0,  // 1 
+        Child = 1 << 1,  // 2
+    }
+
     public class Topic
     {
         [NoTranslate]
@@ -13,7 +21,8 @@ namespace Maux36.RimPsyche
         public int id = -1;
         public string label;
         public float controversiality = 1;
-        public bool allowChild = true;
+        public Demographic disallowedInit = Demographic.None;
+        public Demographic disallowedReci = Demographic.None;
         public bool NSFW = false;
         public List<PersonalityWeight> weights;
         public ConvoResultBase result;
@@ -89,6 +98,24 @@ namespace Maux36.RimPsyche
                 initDirection = 0f;
             }
             return Mathf.Clamp(score, -1f, 1f);
+        }
+
+        public ParticipantMask GetValidParticipants()
+        {
+            if (NSFW) return ParticipantMask.AA;
+            int key = ((int)disallowedInit << 2) | (int)disallowedReci;
+            return key switch
+            {
+                0b_0101 => ParticipantMask.CC, // (Adult, Adult) => 01 01 = 5
+                0b_0110 => ParticipantMask.CA, // (Adult, Child) => 01 10 = 6
+                0b_0100 => ParticipantMask.CA | ParticipantMask.CC, // (Adult, None)  => 01 00 = 4
+                0b_1001 => ParticipantMask.AC, // (Child, Adult) => 10 01 = 9
+                0b_1010 => ParticipantMask.AA | ParticipantMask.AAs, // (Child, Child) => 10 10 = 10
+                0b_1000 => ParticipantMask.AA | ParticipantMask.AAs | ParticipantMask.AC, // (Child, None)  => 10 00 = 8
+                0b_0001 => ParticipantMask.AC | ParticipantMask.CC, // (None, Adult)  => 00 01 = 1
+                0b_0010 => ParticipantMask.AA | ParticipantMask.AAs | ParticipantMask.CA, // (None, Child)  => 00 10 = 2
+                _ => ParticipantMask.All // (None, None)   => 00 00 = 0
+            };
         }
     }
 

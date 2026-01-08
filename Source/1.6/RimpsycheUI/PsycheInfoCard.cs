@@ -370,7 +370,7 @@ namespace Maux36.RimPsyche
 
             foreach (var interest in interestList)
             {
-                float value = compPsyche.Interests.GetOrCreateInterestScore(interest);
+                float value = compPsyche.Interests.GetOrGenerateAdjustedInterestScore(interest);
                 float absValue = Mathf.Abs(value);
                 string cachedLabelText = interest.label;
                 Color cachedLabelColor = Color.Lerp(Color.yellow, Color.green, absValue);

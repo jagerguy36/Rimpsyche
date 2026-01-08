@@ -4,6 +4,7 @@
             <li>Maux36.RimPsyche.InteractionWorker_StartConversation</li>
             <li>Maux36.RimPsyche.CompPsyche</li>
             <li>Maux36.RimPsyche.Pawn_PersonalityTracker</li>
+            <li>Maux36.RimPsyche.Rimpsyche_Utility</li>
         </Types>
     </RimPsyche>
 </Analyzer>

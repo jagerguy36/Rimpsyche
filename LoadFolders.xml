@@ -5,6 +5,7 @@
 		<li>1.6</li>
 		<li>Common</li>
 		<li IfModActive="avius.badpeople">Mods/BadPeople/1.6</li>
+		<li IfModActive="redmattis.bigsmall.core">Mods/BnS_Genes/1.6</li>
 		<li IfModActive="ceteam.combatextended">Mods/CombatExtended/1.6</li>
 		<li IfModActive="consolidatedtraits.lc.rw">Mods/ConsolidatedTraits/1.6</li>
 		<li IfModActive="hautarche.hautstraits">Mods/Haut_Added_Trait/1.6</li>

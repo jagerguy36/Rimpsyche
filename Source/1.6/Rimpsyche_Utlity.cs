@@ -99,6 +99,20 @@ namespace Maux36.RimPsyche
             return pawn.ageTracker.AgeBiologicalYearsFloat;
         }
 
+        public static int GetParticipantIndex(bool isInitAdult, bool isReciAdult, bool limitNSFW)
+        {
+            int bits = (isInitAdult? 2 : 0) | (isReciAdult ? 1 : 0);
+            int participantIndex = bits switch
+            {
+                0b11 => limitNSFW ? 1 : 0, // 1 = AAs, 0 = AA
+                0b10 => 2, // 2 = AC
+                0b01 => 3, // 3 = CA
+                0b00 => 4, // 4 = CC
+                _ => -1
+            };
+            return participantIndex;
+        }
+
         public static bool IsGoodPositionForInteraction(IntVec3 cell, IntVec3 recipientCell, Map map)
         {
             if (cell.InHorDistOf(recipientCell, 12f)) return GenSight.LineOfSight(cell, recipientCell, map, skipFirstCell: true);
@@ -261,7 +275,7 @@ namespace Maux36.RimPsyche
             //Log.Message($"{startCand.Name}'s startCandBaseChance: {startCandBaseChance} --> socialFightBaseChance: {socialFightBaseChance}");
             return Mathf.Clamp01(socialFightBaseChance);
         }
-        public static float GetRandomCompatibility(CompPsyche initiatorPsyche, CompPsyche recipientPsyche)
+        public static float GetRandomCompatibility(CompPsyche initiatorPsyche, CompPsyche recipientPsyche, int trial = 10)
         {
             float initPassion = initiatorPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Passion);
             float initInquisitiveness = initiatorPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Inquisitiveness);
@@ -269,31 +283,78 @@ namespace Maux36.RimPsyche
             float reciPassion = recipientPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Passion);
             float reciInquisitiveness = recipientPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Inquisitiveness);
 
-            Interest convoInterest = initiatorPsyche.Interests.ChooseInterest();
+            Interest convoInterest = initiatorPsyche.Interests.SampleInterest();
             float topicAlignment = convoInterest.GetAverageAlignment(initiatorPsyche, recipientPsyche); // -1~1
+            //float topicAlignment = 0f;
+            //for (int i = 0; i < trial; i++)
+            //{
+            //    var tScore = initiatorPsyche.Interests.SampleInterest().GetRandomTopic().GetScore(initiatorPsyche, recipientPsyche, out _);
+            //    if (tScore < 0f)
+            //        tScore = 0.1f * tScore + 0.05f;
+            //    topicAlignment += tScore;
+            //}
+            // topicAlignment = topicAlignment / (float)trial;
             if (topicAlignment > 0)
             {
-                float initInterestScore = initiatorPsyche.Interests.GetOrCreateInterestScore(convoInterest) * 0.01f;
-                float reciInterestScore = recipientPsyche.Interests.GetOrCreateInterestScore(convoInterest) * 0.01f;
+                float initInterestScore = initiatorPsyche.Interests.GetOrGenerateAdjustedInterestScore(convoInterest) * 0.01f;
+                float reciInterestScore = recipientPsyche.Interests.GetOrGenerateAdjustedInterestScore(convoInterest) * 0.01f;
                 float tAbs = Mathf.Abs(topicAlignment);
                 //Assume mutual opinion of 1f
                 float initInterestF = 1.5f + (initInterestScore * (1f + (0.5f * initPassion))) + 0.25f * ((1f - initInterestScore) * (1f + initInquisitiveness)); //1.5 + 0~1.5 => 1.5~3
                 float reciInterestF = 1.5f + (reciInterestScore * (1f + (0.5f * reciPassion))) + 0.25f * ((1f - reciInterestScore) * (1f + reciInquisitiveness)); //1.5 + 0~1.5 => 1.5~3
                 float initTalkF = initiatorPsyche.Evaluate(RimpsycheDatabase.TalkFactor) * initInterestF; // 0.5~7.5 [2.625]
                 float reciTalkF = recipientPsyche.Evaluate(RimpsycheDatabase.TalkFactor) * reciInterestF; // 0.5~7.5 [2.625]
-                float aligntmentLengthFactor = -1f * tAbs * (tAbs - 2f) + 1f; //1~2
+                float aligntmentLengthFactor = tAbs * (2f - tAbs) + 1f; //1~2
                 float lengthMult = 0.1f * (5f + initTalkF + reciTalkF) * aligntmentLengthFactor; // 0.8~2 * 1~2 || 0.8~4
                 float scoreBase = 1.5f + (4f * topicAlignment); //1.5~5.5
                 float lengthOpinionMult = (6f * lengthMult) / (lengthMult + 2f); //1.71 ~ 4
                 float averageScore = scoreBase * lengthOpinionMult; //2.57~22
                 //Log.Message($"======{convoInterest.name} Alignment Between {initiatorPsyche.parentPawn.Name} and {recipientPsyche.parentPawn.Name} is {averageScore / 8f}");
-                return averageScore/8f; //This should give 1 when 8, so that it can compare to SexDrive 1.
+                return averageScore/8f; //This should give 1 when 8
             }
             else
             {
                 //Log.Message($"======{convoInterest.name} Alignment Between {initiatorPsyche.parentPawn.Name} and {recipientPsyche.parentPawn.Name} is {0f}");
                 return 0f;
             }
+        }
+        public static float GetSimulatedInteractionOpinion(CompPsyche initiatorPsyche, CompPsyche recipientPsyche, int trial = 10)
+        {
+            float initPassion = initiatorPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Passion);
+            float initInquisitiveness = initiatorPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Inquisitiveness);
+            float initTalkFactor = initiatorPsyche.Evaluate(RimpsycheDatabase.TalkFactor);
+
+            float reciPassion = recipientPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Passion);
+            float reciInquisitiveness = recipientPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Inquisitiveness);
+            float reciTalkFactor = recipientPsyche.Evaluate(RimpsycheDatabase.TalkFactor);
+
+            float scoreSum = 0f;
+
+            for (int i = 0; i < trial; i++)
+            {
+                Interest convoInterest = initiatorPsyche.Interests.SampleInterest();
+                float topicAlignment = convoInterest.GetRandomTopic().GetScore(initiatorPsyche, recipientPsyche, out _); // -1~1 [0]
+
+                //Length Factor. Assume mutual opinion of 1f
+                float initInterestScore = initiatorPsyche.Interests.GetOrGenerateAdjustedInterestScore(convoInterest) * 0.01f;
+                float reciInterestScore = recipientPsyche.Interests.GetOrGenerateAdjustedInterestScore(convoInterest) * 0.01f;
+                float initInterestF = 1.5f + (initInterestScore * (1f + (0.5f * initPassion))) + 0.25f * ((1f - initInterestScore) * (1f + initInquisitiveness)); //1.5 + 0~1.5 => 1.5~3
+                float reciInterestF = 1.5f + (reciInterestScore * (1f + (0.5f * reciPassion))) + 0.25f * ((1f - reciInterestScore) * (1f + reciInquisitiveness)); //1.5 + 0~1.5 => 1.5~3
+                float initTalkF = initTalkFactor * initInterestF; // 0.5~7.5 [2.625]
+                float reciTalkF = reciTalkFactor * reciInterestF; // 0.5~7.5 [2.625]
+                float tAbs = Mathf.Abs(topicAlignment);
+                float aligntmentLengthFactor = tAbs * (2f - tAbs) + 1f; //1~2
+                float lengthMult = 0.1f * (5f + initTalkF + reciTalkF) * aligntmentLengthFactor; // 0.8~2 * 1~2 || 0.8~4
+                float lengthOpinionMult = (6f * lengthMult) / (lengthMult + 2f); //1.71 ~ 4
+
+                //Score base
+                float tScore = topicAlignment;
+                if (topicAlignment < 0)
+                    tScore = 0.1f * topicAlignment + 0.05f;
+                float scoreBase = 1.5f + (4f * tScore); //1.5~5.5
+                scoreSum += scoreBase * lengthOpinionMult;
+            }
+            return scoreSum / trial;
         }
 
         //For General report

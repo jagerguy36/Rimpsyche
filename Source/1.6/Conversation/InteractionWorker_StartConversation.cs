@@ -64,11 +64,15 @@ namespace Maux36.RimPsyche
                 float reciSpontaneity = reciPersonality.GetPersonality(PersonalityDefOf.Rimpsyche_Spontaneity);
 
                 //Select the convo interest area by initiator. See if the recipient is willing to talk to the initiator about that area.
-                Interest convoInterest = initiatorPsyche.Interests.ChooseInterest();
-                Topic convoTopic = convoInterest.GetRandomTopic((initiator.DevelopmentalStage.Juvenile() || recipient.DevelopmentalStage.Juvenile()), true); //TODO: NSFW check
+                bool limitNSFW = false; //TODO: NSFW check with proriety
+                int participantIndex = Rimpsyche_Utility.GetParticipantIndex(initiator.DevelopmentalStage.Adult(), recipient.DevelopmentalStage.Adult(), limitNSFW);
+                Interest convoInterest = initiatorPsyche.Interests.ChooseInterest(participantIndex);
+                Topic convoTopic = convoInterest.GetRandomTopic(participantIndex);
+                //Topic null case (Should not happen): Add log no available topic
+
                 // 0 ~ 1
-                float initInterestScore = initiatorPsyche.Interests.GetOrCreateInterestScore(convoInterest) * 0.01f;
-                float reciInterestScore = recipientPsyche.Interests.GetOrCreateInterestScore(convoInterest) * 0.01f;
+                float initInterestScore = initiatorPsyche.Interests.GetOrGenerateAdjustedInterestScore(convoInterest) * 0.01f;
+                float reciInterestScore = recipientPsyche.Interests.GetOrGenerateAdjustedInterestScore(convoInterest) * 0.01f;
 
                 //If the opinion is negative, there is a chance for the pawn to brush off the conversation.
                 if (reciOpinion < 0)
@@ -92,12 +96,13 @@ namespace Maux36.RimPsyche
                 float initTalkF = initiatorPsyche.Evaluate(RimpsycheDatabase.TalkFactor) * initInterestF; //1~2.5 [1.75] * 0.5~3 [1.5] ||  0.5~7.5 [2.625]
                 float reciTalkF = recipientPsyche.Evaluate(RimpsycheDatabase.TalkFactor) * reciInterestF; //1~2.5 [1.75] * 0.5~3 [1.5] ||  0.5~7.5 [2.625]
                 float spontaneousF = (initSpontaneity + reciSpontaneity + 2f) * 0.05f; // 0~0.2 [0.1]
-                float aligntmentLengthFactor = -1f * tAbs * (tAbs - 2f) + 1f; //1~2
+                float aligntmentLengthFactor = tAbs * (2f - tAbs) + 1f; //1~2
                 float lengthMult = 0.1f * (5f + initTalkF + reciTalkF) * aligntmentLengthFactor * Rand.Range(1f - spontaneousF, 1f + spontaneousF); // 0.1f * (6~[10.25]~20) * ([1]~2) || 0.6~[1.025]~4
 
                 //GetResult
                 bool startFight = false;
                 bool startedByInitiator = false;
+                float scoreBoost = 1f;
                 float pawnScore;
                 float partnerScore;
                 float talkRand = Rand.Value;
@@ -136,6 +141,7 @@ namespace Maux36.RimPsyche
                     float goodTalkChance = (3f + pawnReceiveScore + partnerReceiveScore) * (0.10f + (0.05f * topicAlignment)); // (3 ~ 10)  * (0.05 ~ 0.1) = 0.15 ~ 1 (when both score>0)
                     if (pawnReceiveScore > 0f && partnerReceiveScore > 0f && talkRand > 1f - goodTalkChance)
                     {
+                        scoreBoost = 4f;
                         pawnScore = pawnReceiveScore * talkRand;// 0~3.5
                         partnerScore = partnerReceiveScore * talkRand; // 0~3.5
                         extraSentencePacks.Add(DefOfRimpsyche.Sentence_RimpsycheConversationNegativeGood);
@@ -198,12 +204,12 @@ namespace Maux36.RimPsyche
                 if (initOpinionOffset != 0)
                 {
                     Rimpsyche_Utility.GainCoversationMemoryFast(convoTopic.name, convoTopic.label, initOpinionOffset, initiator, recipient);
-                    if (initOpinionOffset > 0) initiatorPsyche.AffectPawn(initOpinionOffset, initOpinion, convoTopic, initDirection);
+                    if (initOpinionOffset > 0) initiatorPsyche.AffectPawn(initOpinionOffset, initOpinion, convoTopic, initDirection, scoreBoost);
                 }
                 if (reciOpinionOffset != 0)
                 {
                     Rimpsyche_Utility.GainCoversationMemoryFast(convoTopic.name, convoTopic.label, reciOpinionOffset, recipient, initiator);
-                    if (reciOpinionOffset > 0) recipientPsyche.AffectPawn(reciOpinionOffset, reciOpinion, convoTopic, -initDirection);
+                    if (reciOpinionOffset > 0) recipientPsyche.AffectPawn(reciOpinionOffset, reciOpinion, convoTopic, -initDirection, scoreBoost);
                 }
 
                 entry = new PlayLogEntry_InteractionConversation(DefOfRimpsyche.Rimpsyche_Conversation, initiator, recipient, convoTopic.name, convoTopic.label, extraSentencePacks);

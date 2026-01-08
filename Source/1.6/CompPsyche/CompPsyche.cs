@@ -250,15 +250,17 @@ namespace Maux36.RimPsyche
             personality?.DirtyTraitCache();
             if(Rimpsyche.SexualityModuleLoaded) sexuality?.DirtyTraitCache(def);
         }
-        public bool AffectPawn(float resultOffset, float opinion, Topic topic, float direction = 1f)
+        public bool AffectPawn(float resultOffset, float opinion, Topic topic, float direction = 1f, float scoreBoost = 1f)
         {
             float pawnTrust = parentPawn.compPsyche().personality.GetPersonality(PersonalityDefOf.Rimpsyche_Trust); //-1~1
             float pawnAge = Rimpsyche_Utility.GetPawnAge(parentPawn); //0~100
-            float score = resultOffset; //0~20
+            //score boost is for negative good talk.
+            //multiplying resultOffset by 4 will negative good talk value 3.5(max for negGood) act similar to 14 positive good talk
+            float score = resultOffset * scoreBoost; //0~20
             float ageFactor = 8f * MinAdultAge / (pawnAge + 0.6f * MinAdultAge) - 5f; //8.3333 ~ -5
             float scoreBase = Mathf.Max(0f, score - 5f + pawnTrust * 2f + ageFactor);
             float influenceChance = 0.5f * Mathf.Clamp01(scoreBase * scoreBase * (0.15f + opinion * 0.05f) / (pawnAge + 1f));
-            //Log.Message($"{parentPawn.Name}| score: {score} | scoreBase: {scoreBase} | influenceChance: {influenceChance}");
+            //Log.Message($"{parentPawn.Name}| score: {score} (boost: {scoreBoost}) | scoreBase: {scoreBase} | influenceChance: {influenceChance} || opinion: {opinion} | direction: {direction}");
             if (Rand.Chance(influenceChance))
             {
                 influenceChance *= direction;
@@ -272,6 +274,8 @@ namespace Maux36.RimPsyche
                 }
                 //Log.Message($"Affect. magnitude: {influenceChance}");
                 var facetChanges = new Dictionary<Facet, float>();
+                //If direction is bigger than 0, then the facetChange should move towards the direction that will make the attitude about the topic more positive
+                //If direction is smaller than 0, then the facetChange should move towards the direction that will make the attitude about the topic more negative
                 foreach (var personalityWeight in topic.weights)
                 {
                     float contribution = influenceChance * personalityWeight.weight;

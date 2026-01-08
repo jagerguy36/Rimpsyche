@@ -83,6 +83,37 @@ namespace Maux36.RimPsyche
             Find.WindowStack.Add(new Dialog_DebugOptionListLister(list));
         }
 
+
+        [DebugAction("Rimpsyche", "Simulate Conversation", false, false, false, false, false, 0, false, actionType = DebugActionType.ToolMapForPawns, allowedGameStates = AllowedGameStates.PlayingOnMap)]
+        public static void SimulateConversation(Pawn p)
+        {
+            var compPsyche = p.compPsyche();
+            if (compPsyche?.Enabled != true)
+            {
+                return;
+            }
+            List<DebugMenuOption> list = new List<DebugMenuOption>();
+            foreach (Pawn item in from x in PawnsFinder.AllMapsWorldAndTemporary_Alive
+                                  where x.RaceProps.Humanlike && x.Faction == Faction.OfPlayer
+                                  orderby x.def == p.def descending, x.IsWorldPawn()
+                                  select x)
+            {
+                if (p != item)
+                {
+                    Pawn otherLocal = item;
+                    list.Add(new DebugMenuOption(otherLocal.LabelShort + " (" + otherLocal.KindLabel + ")", DebugMenuOptionMode.Action, delegate
+                    {
+                        var otherPsyche = otherLocal.compPsyche();
+                        if (otherPsyche?.Enabled != true)
+                            return;
+                        var randAlignment = Rimpsyche_Utility.GetSimulatedInteractionOpinion(compPsyche, otherPsyche);
+                        Log.Message($"======{p.Name} <-> {otherLocal.Name} | {randAlignment}");
+                    }));
+                }
+            }
+            Find.WindowStack.Add(new Dialog_DebugOptionListLister(list));
+        }
+
         //[DebugAction("Rimpsyche", actionType = DebugActionType.ToolMapForPawns, allowedGameStates = AllowedGameStates.PlayingOnMap, displayPriority = 1000)]
         //public static void LogPawnPsyche(Pawn pawn)
         //{
