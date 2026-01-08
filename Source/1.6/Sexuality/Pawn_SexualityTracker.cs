@@ -717,20 +717,14 @@ namespace Maux36.RimPsyche
                 knownOrientation ??= new();
                 relationship ??= new();
                 _preference ??= new();
-                //Reset intKey for psychePreference
                 if (Rimpsyche.SexualityModuleLoaded)
                 {
-                    if (_preference.TryGetValue("Rimpsyche_PsychePreference", out var psychePreference))
+                    var allPreference = DefDatabase<PreferenceDef>.AllDefsListForReading;
+                    foreach(var prefDef in allPreference)
                     {
-                        for (int i = 0; i < psychePreference.Count; i++)
+                        if (prefDef.isActive)
                         {
-                            PersonalityDef p = DefDatabase<PersonalityDef>.GetNamed(psychePreference[i].stringKey, false);
-                            if (p == null)
-                            {
-                                Log.Warning($"Psyche Preference unable to load Personality def {psychePreference[i].stringKey}");
-                                //Logic to fix it.
-                            }
-                            else psychePreference[i].intKey = p.shortHash;
+                            prefDef.worker.PostLoadAdjustment(_preference);
                         }
                     }
                 }

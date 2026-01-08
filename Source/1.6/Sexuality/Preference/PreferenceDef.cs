@@ -48,6 +48,8 @@ namespace Maux36.RimPsyche
 
         public abstract void DrawEditor(Rect rect, Pawn pawn, bool EditEnabled);
 
+        public abstract void PostLoadAdjustment(Dictionary<string, List<PrefEntry>> _preference);
+
         public abstract void ClearEditorCache();
     }
 }
