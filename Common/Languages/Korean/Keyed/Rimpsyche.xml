@@ -25,6 +25,11 @@
   <RimpsycheShowList>리스트로 보기</RimpsycheShowList>
   <RimpsycheShowBar>그래프로 보기</RimpsycheShowBar>
   <RimpsycheShowFacet>성격측면 보기</RimpsycheShowFacet>
+
+  <RimpsycheSortValue>값으로 정렬</RimpsycheSortValue>
+  <RimpsycheSortAlphabet>이름으로 정렬</RimpsycheSortAlphabet>
+  <RimpsycheSortDef>정의 순서로 정렬</RimpsycheSortDef>
+
   <RimpsycheEdit>수정</RimpsycheEdit>
   <RimpsycheTopicHeader>대화 주제</RimpsycheTopicHeader>
 
