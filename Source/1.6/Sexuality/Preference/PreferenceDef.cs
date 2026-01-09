@@ -24,6 +24,7 @@ namespace Maux36.RimPsyche
                 {
                     workerInt = (PreferenceWorker)Activator.CreateInstance(workerClass);
                     workerInt.def = this;
+                    workerInt.PostInit();
                 }
                 return workerInt;
             }
@@ -40,15 +41,20 @@ namespace Maux36.RimPsyche
         public float EditorHeight;
         public PreferenceDef def;
 
+        public abstract void PostInit();
         public abstract bool TryGenerate(Pawn pawn, out List<PrefEntry> pref);
 
-        public abstract string Report(Pawn pawn);
-
         public abstract float Evaluate(Pawn observer, Pawn target, float value, bool isRomantic);
+
+        public abstract float GetViewerHeight(Pawn pawn);
+
+        public abstract void DrawViewer(Rect rect, Pawn pawn);
 
         public abstract void DrawEditor(Rect rect, Pawn pawn, bool EditEnabled);
 
         public abstract void PostLoadAdjustment(Dictionary<string, List<PrefEntry>> _preference);
+
+        public abstract void ClearViewerCache();
 
         public abstract void ClearEditorCache();
     }

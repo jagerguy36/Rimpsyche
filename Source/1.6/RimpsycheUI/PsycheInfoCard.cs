@@ -1,8 +1,8 @@
 ﻿using RimWorld;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
-using System.Text;
 using UnityEngine;
 using Verse;
 
@@ -64,7 +64,7 @@ namespace Maux36.RimPsyche
         public static byte showMode = 0;
 
         //Cache Management
-        private static bool resetPreferenceReport = true;
+        private static bool resetPreferenceHeights = true;
 
         static PsycheInfoCard()
         {
@@ -92,7 +92,7 @@ namespace Maux36.RimPsyche
         private static List<Vector2> cachedValuePointData = null;
         private static List<Vector2> cachedMaxPointData = null;
         private static string cachedSexualityDescription = string.Empty;
-        private static List<(string, float)> cachedPreferenceReport = null;
+        private static List<float> cachedViewerHeights = null;
         private static Pawn lastPawn;
         private struct PersonalityDisplayData
         {
@@ -119,16 +119,26 @@ namespace Maux36.RimPsyche
             cachedInterestData = null;
             cachedValuePointData = null;
             cachedSexualityDescription = string.Empty;
-            resetPreferenceReport = true;
+            resetPreferenceHeights = true;
+            foreach (var pref in DefDatabase<PreferenceDef>.AllDefs)
+            {
+                if(pref.isActive)
+                    pref.worker.ClearViewerCache();
+            }
         }
 
         public static void GenerateCacheData(CompPsyche compPsyche, Pawn currentPawn)
         {
-            resetPreferenceReport = true;
+            resetPreferenceHeights = true;
             cachedSexualityDescription = string.Empty;
             lastPawn = currentPawn;
             GenerateSortedPersonalityData(compPsyche, currentPawn);
             GenerateSortedInterestData(compPsyche, currentPawn);
+            foreach (var pref in DefDatabase<PreferenceDef>.AllDefs)
+            {
+                if (pref.isActive)
+                    pref.worker.ClearViewerCache();
+            }
         }
 
         public static void DrawPsycheCard(Rect totalRect, Pawn pawn, CompPsyche compPsyche)
@@ -267,15 +277,15 @@ namespace Maux36.RimPsyche
             GenerateCacheData(compPsyche, currentPawn);
             return cachedInterestData;
         }
-        private static List<(string, float)> GetPreferenceReport(Pawn currentPawn, float width)
+        private static List<float> GetViewerHeights(Pawn currentPawn)
         {
             //List<(string, float)> cachedPreferenceReport
-            if (resetPreferenceReport==false && cachedPreferenceReport != null)
+            if (resetPreferenceHeights == false && cachedViewerHeights != null)
             {
-                return cachedPreferenceReport;
+                return cachedViewerHeights;
             }
-            GeneratePreferenceReport(currentPawn, width);
-            return cachedPreferenceReport;
+            GenerateViewerHeights(currentPawn);
+            return cachedViewerHeights;
         }
         private static string GetSexualityTooltip(CompPsyche compPsyche)
         {
@@ -386,21 +396,17 @@ namespace Maux36.RimPsyche
             sortedData = sortedData.OrderByDescending(p => p.AbsValue).ToList();
             cachedInterestData = sortedData;
         }
-        private static void GeneratePreferenceReport(Pawn currentPawn, float width)
+        private static void GenerateViewerHeights(Pawn currentPawn)
         {
-            GameFont oldFont = Text.Font;
-            Text.Font = GameFont.Small;
-            cachedPreferenceReport = new();
+            cachedViewerHeights = new();
             foreach (var prefDef in DefDatabase<PreferenceDef>.AllDefs)
             {
                 if (!prefDef.isActive)
                     continue;
-                string explanation = prefDef.worker.Report(currentPawn);
-                float textHeight = Text.CalcHeight(explanation, width);
-                cachedPreferenceReport.Add((explanation, textHeight));
+                float viewerHeight = prefDef.worker.GetViewerHeight(currentPawn);
+                cachedViewerHeights.Add(viewerHeight);
             }
-            Text.Font = oldFont;
-            resetPreferenceReport = false;
+            resetPreferenceHeights = false;
         }
         private static void GenerateValuePointData(Vector2 center, CompPsyche compPsyche)
         {
@@ -893,15 +899,29 @@ namespace Maux36.RimPsyche
             if (showPreference)
             {
                 Text.Font = GameFont.Small;
-                float y = scrollRect.y;
-                var prefReport = GetPreferenceReport(pawn, scrollRect.width);
-                foreach (var report in prefReport)
+                //var prefReport = GetPreferenceReport(pawn, scrollRect.width - scrollWidth);
+                float totalContentHeight = 0f;
+                var viewerHeights = GetViewerHeights(pawn);
+                foreach (var height in viewerHeights)
                 {
-                    float textHeight = report.Item2;
-                    Rect prefExplanationRect = new Rect(scrollRect.x, y, scrollRect.width, textHeight);
-                    Widgets.Label(prefExplanationRect, report.Item1);
-                    y += textHeight + 5f;
+                    totalContentHeight += height + 5f;
                 }
+                Rect scrollContentRect = new Rect(0f, 0f, scrollRect.width - scrollWidth, totalContentHeight);
+                Widgets.BeginScrollView(scrollRect, ref InterestScrollPosition, scrollContentRect);
+
+                float y = 0f;
+                var allPrefDefs = DefDatabase<PreferenceDef>.AllDefsListForReading;
+                for(int i = 0; i < allPrefDefs.Count; i++)
+                {
+                    if (!allPrefDefs[i].isActive)
+                        continue;
+                    var worker = allPrefDefs[i].worker;
+                    float viewerHeight = viewerHeights[i];
+                    Rect prefExplanationRect = new Rect(0f, y, scrollRect.width, viewerHeight);
+                    worker.DrawViewer(prefExplanationRect, pawn);
+                    y += viewerHeight + 5f;
+                }
+                Widgets.EndScrollView();
                 Text.Font = oldFont;
             }
             else

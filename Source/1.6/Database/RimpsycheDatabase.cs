@@ -1,7 +1,5 @@
-﻿using KTrie;
-using RimWorld;
+﻿using RimWorld;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -28,6 +26,7 @@ namespace Maux36.RimPsyche
         public static List<PreferenceDef> OrderedRomPreferenceDefs = new();
         public static List<PreferenceDef> OrderedSexPreferenceDefs = new();
 
+        public static float preferenceGap = 10f;
         public static Facet[] AllFacets = (Facet[])Enum.GetValues(typeof(Facet));
         public static float maxFacetLabelWidth = 130f;
         public static float maxInterestLabelWidth = 130f;
@@ -207,6 +206,7 @@ namespace Maux36.RimPsyche
                     {
                         totalPreferenceEditorfHeight += prefDef.worker.EditorHeight;
                     }
+                    totalPreferenceEditorfHeight += (OrderedPreferenceDefs.Count - 1) * preferenceGap;
                     OrderedRomPreferenceDefs = OrderedPreferenceDefs.Where(prefDef => prefDef.isActive && (prefDef.category == RimpsychePrefCategory.Romantic || prefDef.category == RimpsychePrefCategory.Mix)).ToList();
                     OrderedSexPreferenceDefs = OrderedPreferenceDefs.Where(prefDef => prefDef.isActive && (prefDef.category == RimpsychePrefCategory.Physical || prefDef.category == RimpsychePrefCategory.Mix)).ToList();
                 }
