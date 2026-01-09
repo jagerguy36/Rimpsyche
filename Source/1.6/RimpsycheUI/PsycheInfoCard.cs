@@ -579,7 +579,7 @@ namespace Maux36.RimPsyche
             Rect sortIconRect = new Rect(viewIconRect.xMax + spacing, viewIconRect.y, iconSize, iconSize);
             if (sortOption == 0)
             {
-                if (Widgets.ButtonImage(sortIconRect, Rimpsyche_UI_Utility.ViewBarButton))
+                if (Widgets.ButtonImage(sortIconRect, Rimpsyche_UI_Utility.SortButton))
                 {
                     sortOption = 1;
                     shouldSort = true;
@@ -588,7 +588,7 @@ namespace Maux36.RimPsyche
             }
             if (sortOption == 1)
             {
-                if (Widgets.ButtonImage(sortIconRect, Rimpsyche_UI_Utility.ViewBarButton))
+                if (Widgets.ButtonImage(sortIconRect, Rimpsyche_UI_Utility.SortButton))
                 {
                     sortOption = 2;
                     shouldSort = true;
@@ -597,7 +597,7 @@ namespace Maux36.RimPsyche
             }
             if (sortOption == 2)
             {
-                if (Widgets.ButtonImage(sortIconRect, Rimpsyche_UI_Utility.ViewBarButton))
+                if (Widgets.ButtonImage(sortIconRect, Rimpsyche_UI_Utility.SortButton))
                 {
                     sortOption = 0;
                     shouldSort = true;
