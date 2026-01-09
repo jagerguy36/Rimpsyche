@@ -23,15 +23,16 @@ namespace Maux36.RimPsyche
             if (ModsConfig.IsActive("maux36.rimpsyche.disposition"))
             {
                 DispositionModuleLoaded = true;
-                Log.Message($"[Rimpsyche] Disposition Active");
+                var dispositionVersion_string = ModLister.GetModWithIdentifier("maux36.rimpsyche.disposition").ModVersion;
+                Log.Message($"[Rimpsyche] Disposition module loaded with version {dispositionVersion_string}");
             }
 
             if (ModsConfig.IsActive("maux36.rimpsyche.sexuality"))
             {
                 SexualityModuleLoaded = true;
-                Log.Message($"[Rimpsyche] Sexuality Active");
 
                 var sexualityVersion_string = ModLister.GetModWithIdentifier("maux36.rimpsyche.sexuality").ModVersion;
+                Log.Message($"[Rimpsyche] Sexuality module loaded with version {sexualityVersion_string}");
                 if (new Version(sexualityVersion_string) < new Version(minCompatibleSexualityVersion_string))
                 {
                     Log.Error($"[Rimpsyche - Sexuality] Rimpsyche - Sexuality version {sexualityVersion_string} is outdated. Sexuality Module version {minCompatibleSexualityVersion_string} or above is required to run with Rimpsyche Core version {currentVersion}, else you will experience errors. If Steam does not automatically update your mod, you can try un-subbing and re-subbing to force the update.");
