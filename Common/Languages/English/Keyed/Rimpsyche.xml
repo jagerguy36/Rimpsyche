@@ -27,6 +27,11 @@
   <RimpsycheShowList>Show as List</RimpsycheShowList>
   <RimpsycheShowBar>Show as Bars</RimpsycheShowBar>
   <RimpsycheShowFacet>Show Facets</RimpsycheShowFacet>
+
+  <RimpsycheSortValue>Sort by Value</RimpsycheSortValue>
+  <RimpsycheSortAlphabet>Sort by Label</RimpsycheSortAlphabet>
+  <RimpsycheSortDef>Sort by Def Order</RimpsycheSortDef>
+
   <RimpsycheEdit>Edit</RimpsycheEdit>
   <RimpsycheTopicHeader>Topics</RimpsycheTopicHeader>
 

@@ -16,6 +16,7 @@ namespace Maux36.RimPsyche
         public static Texture2D ViewFacetButton = ContentFinder<Texture2D>.Get("Buttons/FacetViewButton", true);
         public static Texture2D ViewListButton = ContentFinder<Texture2D>.Get("Buttons/RimpsycheViewList", true);
         public static Texture2D ViewBarButton = ContentFinder<Texture2D>.Get("Buttons/RimpsycheViewBar", true);
+        public static Texture2D SortButton = ContentFinder<Texture2D>.Get("Buttons/RimpsycheSort", true);
         public static Texture2D EditButton = ContentFinder<Texture2D>.Get("Buttons/RimpsycheEdit", true);
         public static Texture2D InfoButton = ContentFinder<Texture2D>.Get("Buttons/RimpsycheInfo", true);
         public static Texture2D InfoHLButton = ContentFinder<Texture2D>.Get("Buttons/RimpsycheInfoHL", true);

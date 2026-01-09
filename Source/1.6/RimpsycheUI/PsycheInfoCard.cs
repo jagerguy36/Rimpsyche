@@ -62,6 +62,8 @@ namespace Maux36.RimPsyche
         public static bool rightPanelVisible = false;
         public static bool showPreference = false;
         public static byte showMode = 0;
+        public static bool shouldSort = false;
+        public static byte sortOption = 0; //0: value(high->low), 1: alphabet(a->z) 3: def
 
         //Cache Management
         private static bool resetPreferenceReport = true;
@@ -251,11 +253,27 @@ namespace Maux36.RimPsyche
 
         private static List<PersonalityDisplayData> GetSortedPersonalityData(CompPsyche compPsyche, Pawn currentPawn)
         {
-            if (currentPawn == lastPawn && cachedPersonalityData != null)
+            if (currentPawn != lastPawn || cachedPersonalityData == null)
             {
+                GenerateCacheData(compPsyche, currentPawn);
                 return cachedPersonalityData;
             }
-            GenerateCacheData(compPsyche, currentPawn);
+            if (shouldSort)
+            {
+                if (sortOption == 0)
+                {
+                    cachedPersonalityData = cachedPersonalityData.OrderByDescending(p => p.AbsValue).ToList();
+                }
+                else if (sortOption == 1)
+                {
+                    cachedPersonalityData = cachedPersonalityData.OrderBy(p => p.Personality.label).ToList();
+                }
+                else if (sortOption == 2)
+                {
+                    cachedPersonalityData = cachedPersonalityData.OrderBy(p => RimpsycheDatabase.PersonalityOrder[p.Personality.shortHash]).ToList();
+                }
+                shouldSort = false;
+            }
             return cachedPersonalityData;
         }
         private static List<InterestDisplayData> GetSortedInterestData(CompPsyche compPsyche, Pawn currentPawn)
@@ -305,7 +323,7 @@ namespace Maux36.RimPsyche
         
         private static void GenerateSortedPersonalityData(CompPsyche compPsyche, Pawn currentPawn)
         {
-            var personalityDefList = DefDatabase<PersonalityDef>.AllDefs;
+            var personalityDefList = DefDatabase<PersonalityDef>.AllDefsListForReading;
             var sortedData = new List<PersonalityDisplayData>();
 
             foreach (var personality in personalityDefList)
@@ -360,7 +378,15 @@ namespace Maux36.RimPsyche
                     CachedDescription = personalityDesc
                 });
             }
-            sortedData = sortedData.OrderByDescending(p => p.AbsValue).ToList();
+            if (sortOption == 0)
+            {
+                sortedData = sortedData.OrderByDescending(p => p.AbsValue).ToList();
+            }
+            else if (sortOption == 1)
+            {
+                sortedData = sortedData.OrderBy(p => p.Personality.label).ToList();
+            }
+            shouldSort = false;
             cachedPersonalityData = sortedData;
         }
         private static void GenerateSortedInterestData(CompPsyche compPsyche, Pawn currentPawn)
@@ -391,7 +417,7 @@ namespace Maux36.RimPsyche
             GameFont oldFont = Text.Font;
             Text.Font = GameFont.Small;
             cachedPreferenceReport = new();
-            foreach (var prefDef in DefDatabase<PreferenceDef>.AllDefs)
+            foreach (var prefDef in DefDatabase<PreferenceDef>.AllDefsListForReading)
             {
                 string explanation = prefDef.worker.Report(currentPawn);
                 float textHeight = Text.CalcHeight(explanation, width);
@@ -549,8 +575,37 @@ namespace Maux36.RimPsyche
             {
                 showMode = 0;
             }
+
+            Rect sortIconRect = new Rect(viewIconRect.xMax + spacing, viewIconRect.y, iconSize, iconSize);
+            if (sortOption == 0)
+            {
+                if (Widgets.ButtonImage(sortIconRect, Rimpsyche_UI_Utility.SortButton))
+                {
+                    sortOption = 1;
+                    shouldSort = true;
+                }
+                TooltipHandler.TipRegion(sortIconRect, "RimpsycheSortAlphabet".Translate());
+            }
+            if (sortOption == 1)
+            {
+                if (Widgets.ButtonImage(sortIconRect, Rimpsyche_UI_Utility.SortButton))
+                {
+                    sortOption = 2;
+                    shouldSort = true;
+                }
+                TooltipHandler.TipRegion(sortIconRect, "RimpsycheSortDef".Translate());
+            }
+            if (sortOption == 2)
+            {
+                if (Widgets.ButtonImage(sortIconRect, Rimpsyche_UI_Utility.SortButton))
+                {
+                    sortOption = 0;
+                    shouldSort = true;
+                }
+                TooltipHandler.TipRegion(sortIconRect, "RimpsycheSortValue".Translate());
+            }
             
-            Rect editIconRect = new Rect(viewIconRect.xMax + spacing, viewIconRect.y, iconSize, iconSize);
+            Rect editIconRect = new Rect(sortIconRect.xMax + spacing, sortIconRect.y, iconSize, iconSize);
             if (Prefs.DevMode)
             {
                 if (Widgets.ButtonImage(editIconRect, Rimpsyche_UI_Utility.EditButton))
