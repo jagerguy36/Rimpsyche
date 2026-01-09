@@ -155,6 +155,11 @@ namespace Maux36.RimPsyche
             return _preference;
         }
         private Dictionary<int, List<PrefEntry>> Preference = new();
+        /// <summary>
+        /// Translate string-based _preference to int-based Preference for fast access.
+        /// _preference is used to save data.
+        /// Preference is used for fast runtime retrieval.
+        /// </summary>
         private void RefreshPreferenceCache()
         {
             preferenceCacheDirty = false;
@@ -176,10 +181,16 @@ namespace Maux36.RimPsyche
             }
         }
 
-        //Only prefDef that Generates pref should call this.
+        /// <summary>
+        /// Retrieve preference data from a pawn
+        /// Only prefDef that Generates and saves preference data should call this.
+        /// </summary>
+        /// <param name="prefDef"></param>
+        /// <returns></returns>
         public List<PrefEntry> GetPreference(PreferenceDef prefDef)
         {
             if (!usePreference) return null;
+            if (!prefDef.isActive) return null;
             if (preferenceCacheDirty) RefreshPreferenceCache();
             if (Preference.TryGetValue(prefDef.shortHash, out var value)) return value;
             //Uninitialized Preference
@@ -729,20 +740,14 @@ namespace Maux36.RimPsyche
                 knownOrientation ??= new();
                 relationship ??= new();
                 _preference ??= new();
-                //Reset intKey for psychePreference
                 if (Rimpsyche.SexualityModuleLoaded)
                 {
-                    if (_preference?.TryGetValue("Rimpsyche_PsychePreference", out var psychePreference) == true)
+                    var allPreference = DefDatabase<PreferenceDef>.AllDefsListForReading;
+                    foreach(var prefDef in allPreference)
                     {
-                        for (int i = 0; i < psychePreference.Count; i++)
+                        if (prefDef.isActive)
                         {
-                            PersonalityDef p = DefDatabase<PersonalityDef>.GetNamed(psychePreference[i].stringKey, false);
-                            if (p == null)
-                            {
-                                Log.Warning($"Psyche Preference unable to load Personality def {psychePreference[i].stringKey}");
-                                //Logic to fix it.
-                            }
-                            else psychePreference[i].intKey = p.shortHash;
+                            prefDef.worker.PostLoadAdjustment(_preference);
                         }
                     }
                 }

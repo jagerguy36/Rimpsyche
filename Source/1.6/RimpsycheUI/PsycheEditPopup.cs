@@ -263,11 +263,13 @@ namespace Maux36.RimPsyche
 
             foreach (var pref in DefDatabase<PreferenceDef>.AllDefs)
             {
+                if (!pref.isActive)
+                    continue;
                 var worker = pref.worker;
                 var rectHeight = worker.EditorHeight;
                 Rect prefRect = new Rect(0f, y, viewRect.width, rectHeight);
                 worker.DrawEditor(prefRect, pawn, editInterestOn);
-                y += rectHeight;
+                y += rectHeight + RimpsycheDatabase.preferenceGap;
             }
             Widgets.EndScrollView();
             Text.Anchor = oldAnchor;
