@@ -189,12 +189,15 @@ namespace Maux36.RimPsyche
             Rect sliderRect1 = new Rect(ContentRect.x, KinseyLabelRect.yMax, innerRect.width, sexualityRowHeight);
             float newMValue = Widgets.HorizontalSlider(sliderRect1, sexuality.MKinsey, 0f, 1f, true, leftAlignedLabel: femaleAttractionLabel, rightAlignedLabel: maleAttractionLabel);
             if (newMValue != sexuality.MKinsey) sexuality.SetmKinsey(newMValue);
+            TooltipHandler.TipRegion(sliderRect1, "RPS_KinseySliderTooltip".Translate());
 
             Rect labelRect2 = new Rect(ContentRect.x, sliderRect1.yMax, maxSexualityLabelWidth, sexualityRowHeight);
             Widgets.Label(labelRect2, maxAttractionLabel);
-            Rect sliderRect2 = new Rect(labelRect2.xMax, sliderRect1.yMax, sliderWidth, sexualityRowHeight);
+            Rect sliderRect2 = new Rect(labelRect2.xMax, labelRect2.y, sliderWidth, sexualityRowHeight);
             float newAttraction = Widgets.HorizontalSlider(sliderRect2, sexuality.Attraction, 0f, 1f, true, null, null, (2f * sexuality.Attraction).ToString("F2"));
             if (newAttraction != sexuality.Attraction) sexuality.SetAttraction(newAttraction);
+            Rect attractionRect = new Rect(ContentRect.x, labelRect2.y, ContentRect.width, sexualityRowHeight);
+            TooltipHandler.TipRegion(attractionRect, "RPS_AttractionTooltip".Translate());
 
             Rect labelRect3 = new Rect(ContentRect.x, labelRect2.yMax, maxSexualityLabelWidth, sexualityRowHeight);
             Widgets.Label(labelRect3, sexDriveLabel);
@@ -260,11 +263,13 @@ namespace Maux36.RimPsyche
 
             foreach (var pref in DefDatabase<PreferenceDef>.AllDefs)
             {
+                if (!pref.isActive)
+                    continue;
                 var worker = pref.worker;
                 var rectHeight = worker.EditorHeight;
                 Rect prefRect = new Rect(0f, y, viewRect.width, rectHeight);
                 worker.DrawEditor(prefRect, pawn, editInterestOn);
-                y += rectHeight;
+                y += rectHeight + RimpsycheDatabase.preferenceGap;
             }
             Widgets.EndScrollView();
             Text.Anchor = oldAnchor;

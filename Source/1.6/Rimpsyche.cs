@@ -1,4 +1,5 @@
 ﻿using RimWorld;
+using System;
 using UnityEngine;
 using Verse;
 
@@ -8,6 +9,7 @@ namespace Maux36.RimPsyche
     public class Rimpsyche : Mod
     {
         public static RimpsycheSettings settings;
+        public const string minCompatibleSexualityVersion_string = "1.0.5";
         public static string currentVersion;
         public static bool DispositionModuleLoaded = false;
         public static bool SexualityModuleLoaded = false;
@@ -21,11 +23,21 @@ namespace Maux36.RimPsyche
             if (ModsConfig.IsActive("maux36.rimpsyche.disposition"))
             {
                 DispositionModuleLoaded = true;
+                var dispositionVersion_string = ModLister.GetModWithIdentifier("maux36.rimpsyche.disposition").ModVersion;
+                Log.Message($"[Rimpsyche] Disposition module loaded with version {dispositionVersion_string}");
             }
 
             if (ModsConfig.IsActive("maux36.rimpsyche.sexuality"))
             {
                 SexualityModuleLoaded = true;
+
+                var sexualityVersion_string = ModLister.GetModWithIdentifier("maux36.rimpsyche.sexuality").ModVersion;
+                Log.Message($"[Rimpsyche] Sexuality module loaded with version {sexualityVersion_string}");
+                if (new Version(sexualityVersion_string) < new Version(minCompatibleSexualityVersion_string))
+                {
+                    Log.Error($"[Rimpsyche - Sexuality] Rimpsyche - Sexuality version {sexualityVersion_string} is outdated. Sexuality Module version {minCompatibleSexualityVersion_string} or above is required to run with Rimpsyche Core version {currentVersion}, else you will experience errors. If Steam does not automatically update your mod, you can try un-subbing and re-subbing to force the update.");
+                    DelayedErrorWindowRequest.Add($"Rimpsyche - Sexuality version {sexualityVersion_string} is outdated.\n\nSexuality Module version {minCompatibleSexualityVersion_string} or above is required to run with Rimpsyche Core version {currentVersion}, else you will experience errors.\n\nIf Steam does not automatically update your mod, you can try un-subbing and re-subbing to force the update.", "[Rimpsyche - Sexuality] Outdated Module Version");
+                }
             }
 
             if (ModsConfig.IsActive("maux36.rimpsyche.relationship"))
