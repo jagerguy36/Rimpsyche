@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<Defs>
+  
+  <TalkingIsntEverything.InteractionSwapDef>
+    <defName>RP_Smalltalk_Initiator</defName>
+    <setting>allowCasual</setting>
+    <role>Initiator</role>
+    <original>Rimpsyche_Smalltalk</original>
+    <replacement>CYB_Mute_Chitchat_Initiator</replacement>
+  </TalkingIsntEverything.InteractionSwapDef>
+
+  <TalkingIsntEverything.InteractionSwapDef>
+    <defName>RP_Smalltalk_Recipient</defName>
+    <role>Recipient</role>
+    <original>Rimpsyche_Smalltalk</original>
+    <replacement>CYB_Mute_Chitchat_Recipient</replacement>
+  </TalkingIsntEverything.InteractionSwapDef>
+
+</Defs>
