@@ -61,7 +61,7 @@ namespace Maux36.RimPsyche
         [HarmonyPatch(typeof(Pawn_InteractionsTracker), nameof(Pawn_InteractionsTracker.TryInteractWith))]
         public static class Patch_TryInteractWith
         {
-            [HarmonyBefore(["VFEEmpire.Mod"])]
+            [HarmonyPriority(2000)]
             static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
             {
                 List<CodeInstruction> codes = instructions.ToList();
