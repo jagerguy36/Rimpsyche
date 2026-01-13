@@ -89,7 +89,7 @@ namespace Maux36.RimPsyche
             }
 
             //Interest and Topic
-            foreach (var interestdomain in DefDatabase<InterestDomainDef>.AllDefs)
+            foreach (var interestdomain in DefDatabase<InterestDomainDef>.AllDefsListForReading)
             {
                 foreach (var interest in interestdomain.interests)
                 {
@@ -121,9 +121,11 @@ namespace Maux36.RimPsyche
                         if ((mask & ParticipantMask.AC)  != 0) interest.topicPool[2].Add(i);
                         if ((mask & ParticipantMask.CA)  != 0) interest.topicPool[3].Add(i);
                         if ((mask & ParticipantMask.CC)  != 0) interest.topicPool[4].Add(i);
-                        foreach (var fw in topic.weights)
+                        var ws = topic.weights;
+                        for (int j = 0; j < ws.Count; j++)
                         {
-                            absoluteWeightSum += Mathf.Abs(fw.weight);
+                            var w = ws[j];
+                            absoluteWeightSum += Mathf.Abs(w.weight);
                         }
                         if (Math.Abs(absoluteWeightSum - 1) > 0.001f) // Use a small tolerance due to floating-point precision
                         {
@@ -135,27 +137,34 @@ namespace Maux36.RimPsyche
             }
 
             //Scope
-            foreach (var personalityDef in DefDatabase<PersonalityDef>.AllDefs)
+            foreach (var personalityDef in DefDatabase<PersonalityDef>.AllDefsListForReading)
             {
                 maxPersonalityLabelWidth = Mathf.Max(maxPersonalityLabelWidth, 5f + Text.CalcSize(personalityDef.low.CapitalizeFirst()).x);
                 maxPersonalityLabelWidth = Mathf.Max(maxPersonalityLabelWidth, 5f + Text.CalcSize(personalityDef.high.CapitalizeFirst()).x);
                 //Check Personality weight sum
                 float absoluteWeightSum = 0f;
-                foreach (var fw in personalityDef.scoreWeight)
+                var score = personalityDef.scoreWeight;
+                if (score == null || score.Count == 0)
                 {
-                    absoluteWeightSum += Mathf.Abs(fw.weight);
+                    Log.Error($"PersonalityDef {personalityDef.defName} has null or empty scoreWeights. This will cause critical NRE and needs to be fixed in the xml file.");
+                    continue;
                 }
-                if (Math.Abs(absoluteWeightSum - 1) > 0.0001f) // Use a small tolerance due to floating-point precision
+                for (int i = 0; i < score.Count; i++)
                 {
-                    Log.Error($"Facet weight absolute sum for topic {personalityDef.label} is not 1. It is {absoluteWeightSum}");
+                    absoluteWeightSum += Mathf.Abs(score[i].weight);
+                }
+                if (Mathf.Abs(absoluteWeightSum - 1f) > 0.0001f) // Use a small tolerance due to floating-point precision
+                {
+                    Log.Error($"Facet weight absolute sum for topic {personalityDef.defName} is not 1. It is {absoluteWeightSum}");
                 }
 
                 var scopeList = personalityDef.scopes;
                 if (scopeList != null)
                 {
                     var seenTraits = new HashSet<int>();
-                    foreach (var scopeData in scopeList)
+                    for (int i = 0; i < scopeList.Count; i++)
                     {
+                        var scopeData = scopeList[i];
                         var scopeCenter = scopeData.centerOffset;
                         var scopeRange = scopeData.range;
                         if (scopeRange <= 0 || scopeCenter - scopeRange < -1 || scopeCenter + scopeRange > 1)
@@ -201,7 +210,7 @@ namespace Maux36.RimPsyche
                     pref.isActive = isActive;
                     activePreferenceHashSet.Add(pref.shortHash);
                 }
-                var OrderedPreferenceDefs = DefDatabase<PreferenceDef>.AllDefs.Where(prefDef => prefDef.isActive).OrderByDescending(prefDef => prefDef.priority).ToList();
+                var OrderedPreferenceDefs = DefDatabase<PreferenceDef>.AllDefsListForReading.Where(prefDef => prefDef.isActive).OrderByDescending(prefDef => prefDef.priority).ToList();
                 try
                 {
                     foreach (var prefDef in OrderedPreferenceDefs)

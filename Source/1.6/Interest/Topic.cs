@@ -44,8 +44,8 @@ namespace Maux36.RimPsyche
                     case 0: // need both
                         foreach (PersonalityWeight weight in weights)
                         {
-                            initiatorAttitude += initPsyche.Personality.GetPersonality(weight.personalityDefName) * weight.weight;
-                            recipientAttitude += reciPsyche.Personality.GetPersonality(weight.personalityDefName) * weight.weight;
+                            initiatorAttitude += initPsyche.Personality.GetPersonality(weight.personalityDef) * weight.weight;
+                            recipientAttitude += reciPsyche.Personality.GetPersonality(weight.personalityDef) * weight.weight;
                         }
                         //Log.Message($"Case 0 [{name}] {initPsyche.parentPawn.Name} ![{initiatorAttitude}], {reciPsyche.parentPawn.Name} ![{recipientAttitude}]");
                         initiatorAttitude = Rimpsyche_Utility.Boost2(Mathf.Clamp(initiatorAttitude, -1f, 1f));
@@ -56,7 +56,7 @@ namespace Maux36.RimPsyche
                     case 1: // need init
                         foreach (PersonalityWeight weight in weights)
                         {
-                            initiatorAttitude += initPsyche.Personality.GetPersonality(weight.personalityDefName) * weight.weight;
+                            initiatorAttitude += initPsyche.Personality.GetPersonality(weight.personalityDef) * weight.weight;
                         }
                         //Log.Message($"Case 1 [{name}] {initPsyche.parentPawn.Name} ![{initiatorAttitude}] | {reciPsyche.parentPawn.Name}({recipientAttitude})");
                         initiatorAttitude = Rimpsyche_Utility.Boost2(Mathf.Clamp(initiatorAttitude, -1f, 1f));
@@ -65,7 +65,7 @@ namespace Maux36.RimPsyche
                     case 2: // need reci
                         foreach (PersonalityWeight weight in weights)
                         {
-                            recipientAttitude += reciPsyche.Personality.GetPersonality(weight.personalityDefName) * weight.weight;
+                            recipientAttitude += reciPsyche.Personality.GetPersonality(weight.personalityDef) * weight.weight;
                         }
                         //Log.Message($"Case 2 [{name}] {initPsyche.parentPawn.Name}({initiatorAttitude}) | {reciPsyche.parentPawn.Name} ![{recipientAttitude}]");
                         recipientAttitude = Rimpsyche_Utility.Boost2(Mathf.Clamp(recipientAttitude, -1f, 1f));

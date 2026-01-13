@@ -10,6 +10,20 @@ namespace Maux36.RimPsyche
     public class PsycheEditPopup : Window
     {
         private Pawn editFor;
+        static PsycheEditPopup()
+        {
+
+            facetLabelWidth = RimpsycheDatabase.maxFacetLabelWidth;
+            facetWidthDiff = 2f * (facetLabelWidth - 130f);
+
+            personalityLabelWidth = RimpsycheDatabase.maxPersonalityLabelWidth;
+            personalityWidthDiff = 2f * (personalityLabelWidth - 130f);
+            personalityViewHeight = DefDatabase<PersonalityDef>.AllDefsListForReading.Count * personalityRowHeight;
+
+            interestLabelWidth = RimpsycheDatabase.maxInterestLabelWidth;
+            interestWidthDiff = (interestLabelWidth - 130f);
+            interestViewHeight = RimpsycheDatabase.InterestList.Count * interestRowHeight;
+        }
         public PsycheEditPopup(Pawn editFor)
         {
             this.editFor = editFor;
@@ -47,8 +61,8 @@ namespace Maux36.RimPsyche
 
         //Facet
         public static bool editFacetOn = false;
-        public static float facetLabelWidth => RimpsycheDatabase.maxFacetLabelWidth;
-        public static float facetWidthDiff => 2f * (facetLabelWidth - 130f);
+        public static readonly float facetLabelWidth;
+        public static readonly float facetWidthDiff;
         public static readonly float facetRowHeight = 28f;
         public static readonly float facetViewHeight = 15f * facetRowHeight;
         public static readonly float facetLabelPadding = 2f;
@@ -57,22 +71,20 @@ namespace Maux36.RimPsyche
 
         //Personality
         public static bool editPersonalityOn = false;
-        public static float personalityLabelWidth => RimpsycheDatabase.maxPersonalityLabelWidth;
-        public static float personalityWidthDiff => 2f * (personalityLabelWidth - 130f);
-        public static readonly IEnumerable<PersonalityDef> personalityDefList = DefDatabase<PersonalityDef>.AllDefs;
+        public static readonly float personalityLabelWidth;
+        public static readonly float personalityWidthDiff;
         public static readonly float personalityRowHeight = 32f;
-        public static readonly float personalityViewHeight = personalityDefList.Count() * personalityRowHeight;
+        public static readonly float personalityViewHeight;
         public static readonly float personalityLabelPadding = 2f;
         public static readonly float personalityBarWidth = 100f;
         public static readonly float personalityBarHeight = 4f;
 
         //Interest
         public static bool editInterestOn = false;
-        public static float interestLabelWidth => RimpsycheDatabase.maxInterestLabelWidth;
-        public static float interestWidthDiff => (interestLabelWidth - 130f);
-        public static readonly List<Interest> interestList = RimpsycheDatabase.InterestList;
+        public static readonly float interestLabelWidth;
+        public static readonly float interestWidthDiff;
         public static readonly float interestRowHeight = 32f;
-        public static readonly float interestViewHeight = interestList.Count() * interestRowHeight;
+        public static readonly float interestViewHeight;
         public static readonly float interestLabelPadding = 2f;
         public static readonly float interestBarWidth = 80f;
         public static readonly float interestBarHeight = 4f;
@@ -261,8 +273,10 @@ namespace Maux36.RimPsyche
             Widgets.BeginScrollView(scrollRect, ref InterestNodeScrollPosition, viewRect);
             float y = 0f;
 
-            foreach (var pref in DefDatabase<PreferenceDef>.AllDefs)
+            var allPrefDefs = DefDatabase<PreferenceDef>.AllDefsListForReading;
+            for (int i = 0; i < allPrefDefs.Count; i++)
             {
+                var pref = allPrefDefs[i];
                 if (!pref.isActive)
                     continue;
                 var worker = pref.worker;
@@ -434,9 +448,10 @@ namespace Maux36.RimPsyche
 
             float y = 0f;
             float barCenterX = viewRect.width*0.5f;
-
-            foreach (var def in personalityDefList)
+            var personalityDefList = DefDatabase<PersonalityDef>.AllDefsListForReading;
+            for (int i = 0; i < personalityDefList.Count; i++)
             {
+                var def = personalityDefList[i];
                 float currentValue = compPsyche.Personality.GetPersonalityDirect(def);
                 var (leftLabel, rightLabel, leftColor, rightColor) = (def.low.CapitalizeFirst(), def.high.CapitalizeFirst(), Color.red, Color.green);
 
@@ -803,7 +818,7 @@ namespace Maux36.RimPsyche
         {
             base.PostClose();
             PsycheInfoCard.CacheClean();
-            foreach (var pref in DefDatabase<PreferenceDef>.AllDefs)
+            foreach (var pref in DefDatabase<PreferenceDef>.AllDefsListForReading)
             {
                 pref.worker.ClearEditorCache();
             }

@@ -1,6 +1,7 @@
 ﻿using RimWorld;
 using System;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using UnityEngine;
 using Verse;
 
@@ -83,8 +84,10 @@ namespace Maux36.RimPsyche
             }
 
             float sum = 0f;
-            foreach (var w in personalityDef.scoreWeight)
+            var weights = personalityDef.scoreWeight;
+            for (int i = 0; i < weights.Count; i++)
             {
+                var w = weights[i];
                 sum += GetFacetValueNorm(w.facet) * w.weight;
             }
             float result = Mathf.Clamp(sum * 0.02f, -1f, 1f);
@@ -101,18 +104,18 @@ namespace Maux36.RimPsyche
             personalityCache[personalityDef.shortHash] = result;
             return result;
         }
-        public float GetPersonality(PersonalityDef personality) //-1~1
+        public float GetPersonality(PersonalityDef personalityDef) //-1~1
         {
-            if (personality == null)
+            if (personalityDef == null)
                 return 0f;
 
-            if (personalityCache.TryGetValue(personality.shortHash, out float cachedValue))
+            if (personalityCache.TryGetValue(personalityDef.shortHash, out float cachedValue))
             {
                 return cachedValue;
             }
 
             float sum = 0f;
-            foreach(var w in personality.scoreWeight)
+            foreach(var w in personalityDef.scoreWeight)
             {
                 sum += GetFacetValueNorm(w.facet) * w.weight;
             }
@@ -121,13 +124,13 @@ namespace Maux36.RimPsyche
             // Apply scope
             if (!scopeCache.NullOrEmpty())
             {
-                if (scopeCache.TryGetValue(personality.shortHash, out var range))
+                if (scopeCache.TryGetValue(personalityDef.shortHash, out var range))
                 {
                     var (low, high) = range;
                     result = Rimpsyche_Utility.ApplyScope(result, low, high);
                 }
             }
-            personalityCache[personality.shortHash] = result;
+            personalityCache[personalityDef.shortHash] = result;
             return result;
         }
         /// <summary>
@@ -136,14 +139,16 @@ namespace Maux36.RimPsyche
         /// </summary>
         /// <param name="personality"></param>
         /// <returns></returns>
-        public float GetPersonalityDirect(PersonalityDef personality) //Non-Normalized Version
+        public float GetPersonalityDirect(PersonalityDef personalityDef) //Non-Normalized Version
         {
-            if (personality == null)
+            if (personalityDef == null)
                 return 0f;
 
             float sum = 0f;
-            foreach (var w in personality.scoreWeight)
+            var weights = personalityDef.scoreWeight;
+            for (int i = 0; i < weights.Count; i++)
             {
+                var w = weights[i];
                 sum += GetFacetValue(w.facet) * w.weight;
             }
             float result = Mathf.Clamp(sum * 0.02f, -1f, 1f);
@@ -151,7 +156,7 @@ namespace Maux36.RimPsyche
             // Apply scope
             if (!scopeCache.NullOrEmpty())
             {
-                if (scopeCache.TryGetValue(personality.shortHash, out var range))
+                if (scopeCache.TryGetValue(personalityDef.shortHash, out var range))
                 {
                     var (low, high) = range;
                     result = Rimpsyche_Utility.ApplyScope(result, low, high);
