@@ -7,11 +7,12 @@
     <ProjectGuid>{09AE5F10-C8E8-4EFB-B483-FBF137D060C9}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Maux36.RimPsyche.Intimacy.TIE</RootNamespace>
+    <RootNamespace>Maux36.RimPsyche.TIE</RootNamespace>
     <AssemblyName>Rimpsyche_TIE</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
+    <LangVersion>12.0</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>false</DebugSymbols>
@@ -55,14 +56,21 @@
       <HintPath>..\..\..\..\..\..\..\..\workshop\content\294100\3265662295\1.6\Assemblies\TalkingIsntEverything.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="UnityEngine.CoreModule">
+      <HintPath>..\..\..\..\..\..\RimWorldWin64_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="HarmonyInit.cs" />
-    <Compile Include="HarmonyPatches\InteractionWorker_StartConversation_Interacted_Patch.cs" />
+    <Compile Include="HarmonyPatches\InteractionWorker_StartConversation_Patchs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RPC_TIE_DefOf.cs" />
+    <Compile Include="RPC_TIE_Utility.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

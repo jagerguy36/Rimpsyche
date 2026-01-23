@@ -16,5 +16,13 @@
     <original>Rimpsyche_Smalltalk</original>
     <replacement>CYB_Mute_Chitchat_Recipient</replacement>
   </TalkingIsntEverything.InteractionSwapDef>
+  
+  <TalkingIsntEverything.InteractionSwapDef>
+    <defName>RP_StartConversation_Initiator</defName>
+    <setting>allowCasual</setting>
+    <role>Initiator</role>
+    <original>Rimpsyche_StartConversation</original>
+    <replacement>Rimpsyche_ConversationMuted</replacement>
+  </TalkingIsntEverything.InteractionSwapDef>
 
 </Defs>

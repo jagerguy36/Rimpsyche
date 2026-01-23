@@ -3,7 +3,7 @@ using System;
 using System.Reflection;
 using Verse;
 
-namespace Maux36.RimPsyche.Intimacy.TIE
+namespace Maux36.RimPsyche.TIE
 {
     [StaticConstructorOnStartup]
     public static class HarmonyInit
@@ -14,6 +14,7 @@ namespace Maux36.RimPsyche.Intimacy.TIE
             try
             {
                 harmony.PatchAll(Assembly.GetExecutingAssembly());
+                RPC_TIE_Utility.Init();
                 Log.Message($"[Rimpsyche] Talking Isn't Everything patched");
             }
             catch (Exception e)
