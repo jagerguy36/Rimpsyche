@@ -19,7 +19,7 @@ namespace Maux36.RimPsyche
             float initTalkativeness = initPersonality.GetPersonality(PersonalityDefOf.Rimpsyche_Talkativeness);
             float initOpinion = (initiator.relations.OpinionOf(recipient)) * 0.01f; //-1~1
 
-            if (initOpinion < -0.25f)
+            if (initOpinion < 0f)
             {
                 bool giveupConverse = initOpinion + initSociability + (1f + initSpontaneity) * Rand.ValueSeeded(Find.TickManager.TicksGame) < 0f;
                 if (giveupConverse) return 0f;
@@ -75,10 +75,10 @@ namespace Maux36.RimPsyche
                 float reciInterestScore = recipientPsyche.Interests.GetOrGenerateAdjustedInterestScore(convoInterest) * 0.01f;
 
                 //If the opinion is negative, there is a chance for the pawn to brush off the conversation.
-                if (reciOpinion < -0.25f)
+                if (reciOpinion < 0)
                 {
                     float participateFactor = (reciInterestScore + reciSociability + reciOpinion + 2f) * 0.2f; // 0 ~ 1
-                    if (Rand.Chance(0.75f - 0.75f * participateFactor))
+                    if (Rand.Chance(1 - participateFactor))
                     {
                         initiator.needs?.mood?.thoughts?.memories?.TryGainMemory(DefOfRimpsyche.Rimpsyche_ConvoIgnored, recipient);
                         extraSentencePacks.Add(DefOfRimpsyche.Sentence_RimpsycheConversationFail);
@@ -149,14 +149,11 @@ namespace Maux36.RimPsyche
                     else
                     {
                         //Bad Talk
-                        float negativeScoreBase = (topicAlignment - 0.5f) * (1f - 0.5f * talkRand); // -1.5~[-0.75]~-0.25
-                        pawnScore = negativeScoreBase * (1f - (0.2f * pawnReceiveScore)); //(-1.5~[-0.75]~-0.25) * 0.3~1.6 = -2.4 ~[-0.75]~ -0.075
-                        partnerScore = negativeScoreBase * (1f - (0.2f * partnerReceiveScore)); //(-1.5~[-0.75]~-0.25) * 0.3~1.6 = -2.4 ~[-0.75]~ -0.075
-                        //Log.Message($"Bad Talk logging. Align: {topicAlignment} -> {negativeScoreBase} | {initiator.LabelShort} score: {pawnScore} ({pawnReceiveScore}: *{(1f - (0.2f * pawnReceiveScore))}) | {recipient.LabelShort} score: {partnerScore} ({partnerReceiveScore}: *{(1f - (0.2f * partnerReceiveScore))}) | lengthMult: {lengthMult}");
-                        //Score * LengthMult = -9.6~[-1.3453125]~-0.045 ||| Length mult at 0.5 avg: 1.79375
-
-                        //Calcualte fight Chance | Slight: 0.005, Insult: 0.04 | Avg: 0.0025, Worst: 0.04
-                        // -0.002 * opScore * 0.24~[1]~1.68 | 0.0000216~[0.002690625]~0.032256
+                        float negativeScoreBase = (topicAlignment - 1f) * (1.5f - talkRand); // -3~[-1.5]~-0.5
+                        pawnScore = negativeScoreBase * (1f - (0.2f * pawnReceiveScore)); //( -3~[-1.5]~-0.5) * 0.3~1.6 = -4.8 ~[-1.5]~ -0.15
+                        partnerScore = negativeScoreBase * (1f - (0.2f * partnerReceiveScore)); //( -3~[-1.5]~-0.5) * 0.3~1.6 = -4.8 ~[-1.5]~ -0.15
+                        //Calcualte fight Chance
+                        // 0.002 * opScore * 0.24~[1]~1.68
                         float pawnStartCandBaseChance = -0.002f * pawnScore * lengthMult * initiatorPsyche.Evaluate(RimpsycheDatabase.SocialFightChanceMultiplier);
                         float partnerStartCandBaseChance = -0.002f * partnerScore * lengthMult * recipientPsyche.Evaluate(RimpsycheDatabase.SocialFightChanceMultiplier);
                         //opScore to go over 0.005 ranges from -10.41 ~ [-2.5] ~ -1.488
