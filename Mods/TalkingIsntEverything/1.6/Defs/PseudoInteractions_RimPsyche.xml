@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <!-- Random social interactions -->
+  <InteractionDef>
+    <defName>Rimpsyche_ConversationMuted</defName>
+    <label>conversation</label>
+    <workerClass>Maux36.RimPsyche.InteractionWroker_NeverRandom</workerClass>
+    <symbol>Things/Mote/SpeechSymbols/Conversation</symbol>
+    <initiatorXpGainSkill>Social</initiatorXpGainSkill>
+    <initiatorXpGainAmount>10</initiatorXpGainAmount>
+    <logRulesInitiator>
+      <rulesStrings>
+        <li>r_logentry->[INITIATOR_nameDef] expressed [INITIATOR_possessive] opinion on {0} to [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] conveyed [INITIATOR_possessive] perspective on {0} to [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] communicated about {0} with [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] engaged [RECIPIENT_nameDef] in an exchange about {0}.</li>
+      </rulesStrings>
+    </logRulesInitiator>
+  </InteractionDef>
+
+  <InteractionDef>
+    <defName>Rimpsyche_ConversationAttemptMuted</defName>
+    <label>conversation</label>
+    <workerClass>Maux36.RimPsyche.InteractionWroker_NeverRandom</workerClass>
+    <symbol>Things/Mote/SpeechSymbols/Hail</symbol>
+    <logRulesInitiator>
+      <rulesStrings>
+        <li>r_logentry->[INITIATOR_nameDef] gestured to [RECIPIENT_nameDef], attempting to communicate about {0}.</li>
+        <li>r_logentry->[INITIATOR_nameDef] attempted to share ideas about {0} with [RECIPIENT_nameDef].</li>
+        <li>r_logentry->[INITIATOR_nameDef] sought to open an exchange with [RECIPIENT_nameDef] regarding {0}.</li>
+        <li>r_logentry->[INITIATOR_nameDef] tried to initiate interaction with [RECIPIENT_nameDef] about {0}.</li>
+      </rulesStrings>
+    </logRulesInitiator>
+  </InteractionDef>
+
+</Defs>
