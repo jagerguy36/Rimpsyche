@@ -19,7 +19,7 @@ namespace Maux36.RimPsyche
             float initTalkativeness = initPersonality.GetPersonality(PersonalityDefOf.Rimpsyche_Talkativeness);
             float initOpinion = (initiator.relations.OpinionOf(recipient)) * 0.01f; //-1~1
 
-            if (initOpinion < 0f)
+            if (initOpinion < -0.25f)
             {
                 bool giveupConverse = initOpinion + initSociability + (1f + initSpontaneity) * Rand.ValueSeeded(Find.TickManager.TicksGame) < 0f;
                 if (giveupConverse) return 0f;
@@ -75,10 +75,10 @@ namespace Maux36.RimPsyche
                 float reciInterestScore = recipientPsyche.Interests.GetOrGenerateAdjustedInterestScore(convoInterest) * 0.01f;
 
                 //If the opinion is negative, there is a chance for the pawn to brush off the conversation.
-                if (reciOpinion < 0)
+                if (reciOpinion < -0.25f)
                 {
                     float participateFactor = (reciInterestScore + reciSociability + reciOpinion + 2f) * 0.2f; // 0 ~ 1
-                    if (Rand.Chance(1 - participateFactor))
+                    if (Rand.Chance(0.75f - 0.75f * participateFactor))
                     {
                         initiator.needs?.mood?.thoughts?.memories?.TryGainMemory(DefOfRimpsyche.Rimpsyche_ConvoIgnored, recipient);
                         extraSentencePacks.Add(DefOfRimpsyche.Sentence_RimpsycheConversationFail);
