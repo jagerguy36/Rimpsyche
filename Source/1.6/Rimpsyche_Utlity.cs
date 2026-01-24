@@ -118,7 +118,7 @@ namespace Maux36.RimPsyche
             if (cell.InHorDistOf(recipientCell, 12f)) return GenSight.LineOfSight(cell, recipientCell, map, skipFirstCell: true);
             return false;
         }
-        private static int maxConvoOpinions = 10;
+        public static int maxConvoOpinions = 10;
         public static void GainCoversationMemoryFast_Old(string topicName, string topicLabel, float opinionOffset, Pawn parentPawn, Pawn otherPawn)
         {
             Thought_MemoryPostDefined newThought = (Thought_MemoryPostDefined)Activator.CreateInstance(DefOfRimpsyche.Rimpsyche_ConversationOpinion.ThoughtClass);
