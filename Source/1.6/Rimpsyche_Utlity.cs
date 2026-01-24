@@ -397,7 +397,7 @@ namespace Maux36.RimPsyche
             var compPsyche = pawn.compPsyche();
             if (compPsyche?.Enabled == true)
             {
-                var sortedPersonality = DefDatabase<PersonalityDef>.AllDefs.OrderByDescending(f => Math.Abs(compPsyche.Personality.GetPersonality(f))).Select(f => $"{f.label.CapitalizeFirst()}: {compPsyche.Personality.GetPersonality(f).ToString("F2")}"); // Format each trait
+                var sortedPersonality = DefDatabase<PersonalityDef>.AllDefsListForReading.OrderByDescending(f => Math.Abs(compPsyche.Personality.GetPersonality(f))).Select(f => $"{f.label.CapitalizeFirst()}: {compPsyche.Personality.GetPersonality(f).ToString("F2")}"); // Format each trait
                 count = Mathf.Min(count, sortedPersonality.Count());
                 if (count == 0) count = sortedPersonality.Count();
                 return string.Join(", ", [.. sortedPersonality.Take(count)]);
@@ -442,7 +442,7 @@ namespace Maux36.RimPsyche
             var compPsyche = pawn.compPsyche();
             if (compPsyche?.Enabled == true)
             {
-                var sortedPersonality = DefDatabase<PersonalityDef>.AllDefs.OrderByDescending(p => Math.Abs(compPsyche.Personality.GetPersonality(p))).Select(p => PersonalityInWords(compPsyche.Personality.GetPersonality(p), p.low, p.high)); // Format each trait
+                var sortedPersonality = DefDatabase<PersonalityDef>.AllDefsListForReading.OrderByDescending(p => Math.Abs(compPsyche.Personality.GetPersonality(p))).Select(p => PersonalityInWords(compPsyche.Personality.GetPersonality(p), p.low, p.high)); // Format each trait
                 count = Mathf.Min(count, sortedPersonality.Count());
                 if (count == 0) count = sortedPersonality.Count();
                 return string.Join(", ", [.. sortedPersonality.Take(count)]);

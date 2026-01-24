@@ -250,6 +250,7 @@ namespace Maux36.RimPsyche
             personality?.DirtyTraitCache();
             if(Rimpsyche.SexualityModuleLoaded) sexuality?.DirtyTraitCache(def);
         }
+        private static readonly Dictionary<Facet, float> facetChanges = new Dictionary<Facet, float>();
         public bool AffectPawn(float resultOffset, float opinion, Topic topic, float direction = 1f, float scoreBoost = 1f)
         {
             float pawnTrust = parentPawn.compPsyche().personality.GetPersonality(PersonalityDefOf.Rimpsyche_Trust); //-1~1
@@ -273,25 +274,25 @@ namespace Maux36.RimPsyche
                     influenceChance *= 0.5f;
                 }
                 //Log.Message($"Affect. magnitude: {influenceChance}");
-                var facetChanges = new Dictionary<Facet, float>();
+                facetChanges.Clear();
                 //If direction is bigger than 0, then the facetChange should move towards the direction that will make the attitude about the topic more positive
                 //If direction is smaller than 0, then the facetChange should move towards the direction that will make the attitude about the topic more negative
-                foreach (var personalityWeight in topic.weights)
+                var topicWeights = topic.weights;
+                for (int i = 0; i < topicWeights.Count; i++)
                 {
+                    var personalityWeight = topicWeights[i];
                     float contribution = influenceChance * personalityWeight.weight;
                     if (contribution != 0f)
                     {
-                        var personality = RimpsycheDatabase.PersonalityDict[personalityWeight.personalityDefName];
-                        foreach (var weight in personality.scoreWeight)
+                        var scores = personalityWeight.personalityDef.scoreWeight;
+                        for (int j = 0; j < scores.Count; j++)
                         {
-                            if (facetChanges.ContainsKey(weight.facet))
-                            {
-                                facetChanges[weight.facet] += weight.weight * contribution;
-                            }
+                            var scoreW = scores[j];
+                            float totalWeight = scoreW.weight * contribution;
+                            if (facetChanges.TryGetValue(scoreW.facet, out float current))
+                                facetChanges[scoreW.facet] = current + totalWeight;
                             else
-                            {
-                                facetChanges[weight.facet] = weight.weight * contribution;
-                            }
+                                facetChanges[scoreW.facet] = totalWeight;
                         }
                     }
                 }

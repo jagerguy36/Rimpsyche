@@ -28,8 +28,10 @@ namespace Maux36.RimPsyche
                 cachedSampler = null;
                 return;
             }
-            foreach (InterestDomainDef interestdomainDef in DefDatabase<InterestDomainDef>.AllDefs)
+            var allInterestDomainDefs = DefDatabase<InterestDomainDef>.AllDefsListForReading;
+            for (int i = 0; i < allInterestDomainDefs.Count; i++)
             {
+                var interestdomainDef = allInterestDomainDefs[i];
                 GenerateAdjustedInterestScoreForDomain(interestdomainDef, true);
             }
         }
@@ -38,21 +40,28 @@ namespace Maux36.RimPsyche
         {
             var compPsyche = pawn.compPsyche();
             float domainOffsetValue = 50;
-            if (interestdomainDef.scoreWeight != null) //Add domain offset
+            var domainWeights = interestdomainDef.scoreWeight;
+            if (domainWeights != null) //Add domain offset
             {
-                foreach (var sw in interestdomainDef.scoreWeight)
+                for (int i = 0; i < domainWeights.Count; i++)
                 {
+                    var sw = domainWeights[i];
                     domainOffsetValue += compPsyche.Personality.GetFacetValueNorm(sw.facet) * sw.weight;
                 }
             }
-            foreach (var interest in interestdomainDef.interests)
+            var interests = interestdomainDef.interests;
+            if (interests == null)
+                return;
+            for (int j = 0; j < interests.Count; j++)
             {
+                var interest = interests[j];
                 float interestOffsetValue = domainOffsetValue;
-                if (interest.scoreWeight != null)
+                var iWeights = interest.scoreWeight;
+                if (iWeights != null)
                 {
-                    foreach (var sw in interest.scoreWeight)
+                    for (int k = 0; k < iWeights.Count; k++)
                     {
-
+                        var sw = iWeights[k];
                         interestOffsetValue += compPsyche.Personality.GetFacetValueNorm(sw.facet) * sw.weight;
                     }
                 }
