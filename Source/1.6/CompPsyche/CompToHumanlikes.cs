@@ -12,8 +12,10 @@ namespace Maux36.RimPsyche
 
         public static void AddCompToHumanlikes()
         {
-            foreach (var allDef in DefDatabase<ThingDef>.AllDefs)
+            var allThingDefs = DefDatabase<ThingDef>.AllDefsListForReading;
+            for (int i = 0; i < allThingDefs.Count; i++)
             {
+                var allDef = allThingDefs[i];
                 if (allDef.race is { intelligence: Intelligence.Humanlike } && !allDef.IsCorpse)
                 {
                     if (RimpsycheDatabase.MindlessDefShorthashSet.Contains(allDef.shortHash))
