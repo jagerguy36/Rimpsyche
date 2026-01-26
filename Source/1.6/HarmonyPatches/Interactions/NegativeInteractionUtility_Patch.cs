@@ -54,39 +54,49 @@ namespace Maux36.RimPsyche
             }
             if (patchCount != 3)
                 Log.Error("[Rimpsyche] Failed to patch negative interaction chance factor");
-            
+
         }
         private static void Postfix(ref float __result, Pawn initiator, Pawn recipient)
         {
             if (__result == 0f) return;
-            var initPsyche = initiator.compPsyche(); 
+            var initPsyche = initiator.compPsyche();
             var reciPsyche = recipient.compPsyche();
             if (initPsyche?.Enabled != true || reciPsyche?.Enabled != true)
             {
                 return;
             }
-            __result *= initPsyche.Evaluate(InitNegativeChanceMultiplier); //3.85~0.45
-            __result *= reciPsyche.Evaluate(reciNegativeChanceMultiplier); //1.1~0.9
-            var initPlayfulness = initPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Playfulness);
-            var reciPlayfulness = reciPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Playfulness);
-            if(initPlayfulness > 0f && reciPlayfulness < 0f)
-            {
-                __result *= (1f + 0.2f * (initPlayfulness * initPlayfulness * reciPlayfulness * reciPlayfulness));
-            }
+            //Replace compatibility factor
+            //Curve dictates 0.4f ~ 4f for -2.5f ~ 3f
+            var rawIntentFactor = initPsyche.Evaluate(InitIntentFactor); // -4~3.5
             //Age from CompatFactor
             float x = Mathf.Abs(Rimpsyche_Utility.GetPawnAge(initiator) - Rimpsyche_Utility.GetPawnAge(recipient));
-            float ageInfluence = 1f + Mathf.Clamp(GenMath.LerpDouble(0f, 20f, 0.25f, -0.25f, x), -0.25f, 0.25f);
-            __result *= ageInfluence;
+            float ageInfluence = 1f + Mathf.Clamp(GenMath.LerpDouble(0f, 20f, -0.2f, 0.2f, x), -0.2f, 0.2f);
+            float intentFactor = rawIntentFactor * ageInfluence; // -4.8~4.2
+            intentFactor = intentFactor > 0f ? 1f + (intentFactor / 2f) : 1f + (intentFactor / 10f); //0.52~3.1
+            __result *= intentFactor;
+            float deliveryFactor = 1f - initPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Tact) * 0.1f; // 0.9~1.1
+            __result *= deliveryFactor;
+            __result *= reciPsyche.Evaluate(reciNegativeChanceMultiplier); //0.9~1.1
+            var initPlayfulness = initPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Playfulness);
+            var reciPlayfulness = reciPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Playfulness);
+            if (initPlayfulness > 0f && reciPlayfulness < 0f)
+            {
+                __result *= (1f + 0.1f * (initPlayfulness * initPlayfulness * reciPlayfulness * reciPlayfulness)); // 0.9~1.1
+            }
+            //Range: 0.37908 ~ 4.1261
         }
 
-        public static RimpsycheFormula InitNegativeChanceMultiplier = new(
-            "InitNegativeChanceMultiplier",
+        public static RimpsycheFormula InitIntentFactor = new(
+            "InitIntentFactor",
             (tracker) =>
             {
-                float intentFactor = (2f * tracker.GetPersonality(PersonalityDefOf.Rimpsyche_Aggressiveness) - 1.5f* tracker.GetPersonality(PersonalityDefOf.Rimpsyche_Compassion) - 0.6f * tracker.GetPersonality(PersonalityDefOf.Rimpsyche_Sociability) + 0.4f * tracker.GetPersonality(PersonalityDefOf.Rimpsyche_Tension) + 0.5f * tracker.GetPersonality(PersonalityDefOf.Rimpsyche_Competitiveness)); // -5~5
-                intentFactor = intentFactor > 0f ? 1f + (intentFactor / 2f) : 1f + (intentFactor / 10f); // 0.5~3.5
-                float deliveryFactor = 1f - tracker.GetPersonality(PersonalityDefOf.Rimpsyche_Tact)*0.1f; // 0.9~1.1
-                return intentFactor * deliveryFactor;
+                var aggressiveness = 1.7f * tracker.GetPersonality(PersonalityDefOf.Rimpsyche_Aggressiveness);
+                var coldheartedness = -1.3f * tracker.GetPersonality(PersonalityDefOf.Rimpsyche_Compassion);
+                var tension = 0.5f * tracker.GetPersonality(PersonalityDefOf.Rimpsyche_Tension);
+                var cooperationM = -0.6f * Mathf.Min(0f, tracker.GetPersonality(PersonalityDefOf.Rimpsyche_Competitiveness));
+                var sociabilityM = 0.4f * Mathf.Max(0f, tracker.GetPersonality(PersonalityDefOf.Rimpsyche_Sociability));
+                float intentFactor = (aggressiveness + coldheartedness + tension - cooperationM - sociabilityM); // -4~3.5
+                return intentFactor;
             },
             RimpsycheFormulaManager.FormulaIdDict
         );
@@ -95,7 +105,7 @@ namespace Maux36.RimPsyche
             "reciNegativeChanceMultiplier",
             (tracker) =>
             {
-                float securityFactor = ( tracker.GetPersonality(PersonalityDefOf.Rimpsyche_Tension) - tracker.GetPersonality(PersonalityDefOf.Rimpsyche_Stability) - tracker.GetPersonality(PersonalityDefOf.Rimpsyche_Confidence)); // -3~3
+                float securityFactor = (tracker.GetPersonality(PersonalityDefOf.Rimpsyche_Tension) - tracker.GetPersonality(PersonalityDefOf.Rimpsyche_Stability) - tracker.GetPersonality(PersonalityDefOf.Rimpsyche_Confidence)); // -3~3
                 //securityFactor = securityFactor > 0f ? 1f + (securityFactor / 30f) : 1f + (securityFactor / 10f); // 0.9~1.1
                 securityFactor = 1f + securityFactor / 30f;
                 return securityFactor;
