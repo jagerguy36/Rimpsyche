@@ -926,6 +926,7 @@ namespace Maux36.RimPsyche
         {
             TextAnchor oldAnchor = Text.Anchor;
             GameFont oldFont = Text.Font;
+            bool preferenceView = showPreference && showSexuality;
 
             // === Draw Header ===
             Rect headerRect = new Rect(interestRect.x, interestRect.y, interestRect.width, headerHeight);
@@ -936,7 +937,7 @@ namespace Maux36.RimPsyche
             Text.Anchor = TextAnchor.MiddleCenter;
             Rect titleRect = new Rect(0f, 0f, headerRect.width, headerRect.height);
             Vector2 titleTextSize;
-            if (showPreference)
+            if (preferenceView)
             {
                 Widgets.Label(titleRect, "RPC_Preference".Translate());
                 titleTextSize = Text.CalcSize("RPC_Preference".Translate());
@@ -974,7 +975,7 @@ namespace Maux36.RimPsyche
                 interestRect.height - headerHeight
             );
 
-            if (showPreference)
+            if (preferenceView)
             {
                 Text.Font = GameFont.Small;
                 //var prefReport = GetPreferenceReport(pawn, scrollRect.width - scrollWidth);
