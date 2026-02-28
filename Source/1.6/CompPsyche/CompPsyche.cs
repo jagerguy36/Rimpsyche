@@ -132,7 +132,6 @@ namespace Maux36.RimPsyche
         public void CleanShame()
         {
             shamethoughtDirty = true;
-            activeShameThoughts.Clear();
         }
 
         public Pawn_PersonalityTracker Personality
