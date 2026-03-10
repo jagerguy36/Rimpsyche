@@ -145,6 +145,15 @@ namespace Maux36.RimPsyche
         }
         public int crushPawnIdNumber = -1;
         public int crushEndTick = -1;
+        private Dictionary<int, int> lastRomanceInteractionTickCache = new();
+        public void RegisterRomanceInteraction(Pawn otherPawn)
+        {
+            lastRomanceInteractionTickCache[otherPawn.thingIDNumber] = Find.TickManager.TicksGame;
+        }
+        public float GetRomInteractionIntervalFactor(Pawn otherPawn)
+        {
+            return 1f;
+        }
 
         //Preference
         private Dictionary<string, List<PrefEntry>> _preference = new();
