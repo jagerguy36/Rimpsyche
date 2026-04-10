@@ -32,7 +32,9 @@ namespace Maux36.RimPsyche
         private const int numSlots = 15;
         public static List<PsycheSlot> Slots;
         private const string FileName = "Rimpsyche_PsycheDataSlots.xml";
+        private const string BackupFileName = "Rimpsyche_PsycheDataSlots_backup.xml";
         private static string FilePath =>  Path.Combine(GenFilePaths.ConfigFolderPath, FileName);
+        private static string BackupPath =>  Path.Combine(GenFilePaths.ConfigFolderPath, BackupFileName);
 
 
         static PsycheSaveManager()
@@ -75,12 +77,30 @@ namespace Maux36.RimPsyche
 
             if (!File.Exists(FilePath))
                 return null;
-
-
-            Scribe.loader.InitLoading(FilePath);
-            Scribe_Collections.Look(ref slots, "Slots", LookMode.Deep);
-            Scribe.loader.FinalizeLoading();
-            return slots;
+            try
+            {
+                Scribe.loader.InitLoading(FilePath);
+                Scribe_Collections.Look(ref slots, "Slots", LookMode.Deep);
+                Scribe.loader.FinalizeLoading();
+                return slots;
+            }
+            catch (Exception ex)
+            {
+                Log.Error($"[RimPsyche] Failed to load psyche data. Backing up corrupt file and starting fresh. Exception: {ex}");
+                Scribe.loader.ForceStop();
+                try
+                {
+                    if (File.Exists(BackupPath))
+                        File.Delete(BackupPath);
+                    File.Move(FilePath, BackupPath);
+                    Log.Warning("RimPsyche: Corrupt Psyche data file detected and backed up to Config folder as Rimpsyche_PsycheDataSlots_backup.xml.");
+                }
+                catch (Exception backupEx)
+                {
+                    Log.Warning($"[RimPsyche] Failed to create backup file of the corrupted Psyche data: {backupEx}");
+                }
+                return null;
+            }
         }
     }
 }
