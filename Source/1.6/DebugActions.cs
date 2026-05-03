@@ -113,7 +113,25 @@ namespace Maux36.RimPsyche
             }
             Find.WindowStack.Add(new Dialog_DebugOptionListLister(list));
         }
-
+        [DebugAction("Rimpsyche", null, false, false, false, false, false, 0, false, actionType = DebugActionType.ToolMapForPawns, allowedGameStates = AllowedGameStates.PlayingOnMap, displayPriority = 1000)]
+        public static void DisplayNegativeFactors(Pawn pawn)
+        {
+            var pawnPsyche = pawn.compPsyche();
+            if (pawnPsyche?.Enabled != true)
+                return;
+            List<TableDataGetter<Pawn>> list = new List<TableDataGetter<Pawn>>
+            {
+                new TableDataGetter<Pawn>("name", (Pawn p) => p.LabelCap),
+                new TableDataGetter<Pawn>("kind label", (Pawn p) => p.KindLabel),
+                new TableDataGetter<Pawn>("gender", (Pawn p) => p.gender.GetLabel()),
+                new TableDataGetter<Pawn>("age", (Pawn p) => p.ageTracker.AgeBiologicalYears),
+                new TableDataGetter<Pawn>("myNegFactor", (Pawn p) => NegativeInteractionUtility.NegativeInteractionChanceFactor(pawn, p).ToString("F2")),
+                new TableDataGetter<Pawn>("theirNegFactor", (Pawn p) => NegativeInteractionUtility.NegativeInteractionChanceFactor(p, pawn).ToString("F2"))
+            };
+            DebugTables.MakeTablesDialog(from x in pawn.Map.mapPawns.AllHumanlikeSpawned
+                                         where x != pawn && x.compPsyche()?.Enabled == true
+                                         select x, list.ToArray());
+        }
         //[DebugAction("Rimpsyche", actionType = DebugActionType.ToolMapForPawns, allowedGameStates = AllowedGameStates.PlayingOnMap, displayPriority = 1000)]
         //public static void LogPawnPsyche(Pawn pawn)
         //{
