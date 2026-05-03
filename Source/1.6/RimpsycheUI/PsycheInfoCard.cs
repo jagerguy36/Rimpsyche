@@ -27,6 +27,8 @@ namespace Maux36.RimPsyche
         public static Color radarEdgeColor = new Color(0.5f, 0.5f, 0.5f, 0.6f);
         public static Color radarSpokeColor = new Color(0.5f, 0.5f, 0.5f, 0.3f);
 
+
+        public static readonly float iconSize = 15f;
         public static readonly float expandButtonSize = 8f;
         public static readonly float rightPanelWidthConstant = 220f;
         public static readonly float rightPanelWidthActual;
@@ -551,8 +553,7 @@ namespace Maux36.RimPsyche
             }
 
             // Icon on the right
-            float iconSize = 24f;
-            float spacing = 2;
+            float spacing = 6;
             float viewIconX = (headerRect.width / 2f) + (titleTextSize.x / 2f) + 8f;
             Rect viewIconRect = new Rect(viewIconX, titleRect.y + (titleRect.height - iconSize) / 2f, iconSize, iconSize);
 
@@ -949,8 +950,6 @@ namespace Maux36.RimPsyche
             }
             if (Rimpsyche.SexualityModuleLoaded && usePreference && showSexuality)
             {
-                // Icon on the right
-                float iconSize = 24f;
                 // float viewIconX = (headerRect.width / 2f) + (titleTextSize.x / 2f) + 8f;
                 float viewIconX = (headerRect.width - 2f * innerPadding - iconSize);
                 Rect viewIconRect = new Rect(viewIconX, titleRect.y + (titleRect.height - iconSize) / 2f, iconSize, iconSize);

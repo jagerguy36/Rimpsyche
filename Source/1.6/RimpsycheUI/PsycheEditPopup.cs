@@ -54,8 +54,9 @@ namespace Maux36.RimPsyche
         public static readonly float titleHeight = 35f;
         public static readonly float scrollBarWidth = 20f;
         public static readonly float titleContentSpacing = 5f;
-        public static readonly float iconSpacing = 2f;
-        public static readonly float resetButtonSize = 24f;
+        public static readonly float iconSize = 15f;
+        public static readonly float iconSpacing = 6f;
+        public static readonly float resetButtonSize = 20f;
         public static readonly float resetButtonMargin = 5f;
         public static readonly Color barBackgroundColor = new Color(0.2f, 0.2f, 0.2f, 0.5f);
 
@@ -236,7 +237,6 @@ namespace Maux36.RimPsyche
             Vector2 titleTextSize = Text.CalcSize(titleString);
 
             // Icon on the right
-            float iconSize = 24f;
             float editIconX = titleRect.x + (titleRect.width / 2f) + (titleTextSize.x / 2f) + 8f;
             Rect editIconRect = new Rect(editIconX, titleRect.y + (titleHeight - iconSize) / 2f, iconSize, iconSize);
 
@@ -306,7 +306,6 @@ namespace Maux36.RimPsyche
             Vector2 titleTextSize = Text.CalcSize(titleString);
 
             // Icon on the right
-            float iconSize = 24f;
             float editIconX = titleRect.x + (titleRect.width / 2f) + (titleTextSize.x / 2f) + 8f;
             Rect editIconRect = new Rect(editIconX, titleRect.y + (titleHeight - iconSize) / 2f, iconSize, iconSize);
 
@@ -409,7 +408,6 @@ namespace Maux36.RimPsyche
             Vector2 titleTextSize = Text.CalcSize(titleString);
 
             // Icon on the right
-            float iconSize = 24f;
             float infoIconX = titleRect.x + (titleRect.width / 2f) + (titleTextSize.x / 2f) + 8f;
             Rect infoIconRect = new Rect(infoIconX, titleRect.y + (titleHeight - iconSize) / 2f, iconSize, iconSize);
 
@@ -541,9 +539,23 @@ namespace Maux36.RimPsyche
             Text.Anchor = TextAnchor.UpperLeft;
             Text.Font = GameFont.Small;
 
+            // Left Rest button
+            Rect resetButtonRect = new Rect(
+                innerRect.x + resetButtonMargin,
+                titleRect.y + (titleRect.height - resetButtonSize) / 2f,
+                resetButtonSize,
+                resetButtonSize
+            );
+            if (psycheEnabled)
+            {
+                if (Widgets.ButtonImage(resetButtonRect, Rimpsyche_UI_Utility.resetIcon))
+                {
+                    compPsyche.Personality.Initialize();
+                }
+                TooltipHandler.TipRegion(resetButtonRect, "ResetPsycheTooltip".Translate());
+            }
 
             // Icon on the right
-            float iconSize = 24f;
             float infoIconX = titleRect.x + (titleRect.width / 2f) + (titleTextSize.x / 2f) + 8f;
             Rect infoIconRect = new Rect(infoIconX, titleRect.y + (titleHeight - iconSize) / 2f, iconSize, iconSize);
 
@@ -574,25 +586,9 @@ namespace Maux36.RimPsyche
             Text.Anchor = TextAnchor.UpperLeft;
             Text.Font = GameFont.Small;
 
-            Rect resetButtonRect = new Rect(
+            Rect saveButtonRect = new Rect(
                 titleRect.xMax - resetButtonSize - resetButtonMargin - scrollBarWidth,
                 titleRect.y + (titleRect.height - resetButtonSize) / 2f,
-                resetButtonSize,
-                resetButtonSize
-            );
-            if (psycheEnabled)
-            {
-                if (Widgets.ButtonImage(resetButtonRect, Rimpsyche_UI_Utility.resetIcon))
-                {
-                    compPsyche.Personality.Initialize();
-                }
-                TooltipHandler.TipRegion(resetButtonRect, "ResetPsycheTooltip".Translate());
-            }
-
-
-            Rect saveButtonRect = new Rect(
-                resetButtonRect.x - resetButtonSize - resetButtonMargin,
-                resetButtonRect.y,
                 resetButtonSize,
                 resetButtonSize
             );
