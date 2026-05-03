@@ -26,7 +26,7 @@ namespace Maux36.RimPsyche
             }
             float convoChance = 1f + initTalkativeness; // 0~[1]~2
             convoChance += 1f + initOpinion; //0~[2]~4
-            return 0.175f * convoChance; //0~[0.35]~0.7
+            return 0.3f * convoChance; //0~[0.6]~1.2
         }
 
 
