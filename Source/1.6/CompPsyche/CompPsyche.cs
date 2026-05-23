@@ -71,6 +71,20 @@ namespace Maux36.RimPsyche
         //Resilience
         public int lastResilientSpiritTick = -3600000;
 
+        //Experiment
+        public float insight = 0f;
+        public void NotifyExperimentFailedAtQuality(int lvl, SkillDef skill)
+        {
+            float insightGain = 0.03f * lvl;
+            insight = Mathf.Clamp(insight + insightGain, 0f, 0.5f);
+            parentPawn.skills?.Learn(skill, 2000f * lvl, direct: true);
+        }
+        public void NotifyExperimentSuccessAtQuality(int lvl)
+        {
+            float insightSpent = 0.03f * lvl;
+            insight = Mathf.Clamp(insight - insightSpent, 0f, 0.5f);
+        }
+
         //Shame
         public float shame = 0f;
         public int tickOverwhelmed = 0;
@@ -251,7 +265,7 @@ namespace Maux36.RimPsyche
         private static readonly Dictionary<Facet, float> facetChanges = new Dictionary<Facet, float>();
         public bool AffectPawn(float resultOffset, float opinion, Topic topic, float direction = 1f, float scoreBoost = 1f)
         {
-            float pawnTrust = parentPawn.compPsyche().personality.GetPersonality(PersonalityDefOf.Rimpsyche_Trust); //-1~1
+            float pawnTrust = personality.GetPersonality(PersonalityDefOf.Rimpsyche_Trust); //-1~1
             float pawnAge = Rimpsyche_Utility.GetPawnAge(parentPawn); //0~100
             //score boost is for negative good talk.
             //multiplying resultOffset by 4 will negative good talk value 3.5(max for negGood) act similar to 14 positive good talk
@@ -309,6 +323,7 @@ namespace Maux36.RimPsyche
             Scribe_Values.Look(ref roomRoleFactor, "roomRoleFactor", 1f);
             Scribe_Values.Look(ref organizedMood, "organizedMood", -1);
             Scribe_Values.Look(ref lastResilientSpiritTick, "lastResilientSpiritTick", -3600000);
+            Scribe_Values.Look(ref insight, "insight", 0f);
             Scribe_Values.Look(ref shame, "shame", 0f);
             Scribe_Values.Look(ref tickOverwhelmed, "tickOverwhelmed", 0);
 
