@@ -20,14 +20,14 @@ namespace Maux36.RimPsyche
             Log.Message($"[Rimpsyche] Personality Core running with version {currentVersion}");
             settings = GetSettings<RimpsycheSettings>();
 
-            if (ModsConfig.IsActive("maux36.rimpsyche.disposition"))
+            if (Rimpsyche_Utility.IsModActive("maux36.rimpsyche.disposition"))
             {
                 DispositionModuleLoaded = true;
                 var dispositionVersion_string = ModLister.GetModWithIdentifier("maux36.rimpsyche.disposition").ModVersion;
                 Log.Message($"[Rimpsyche] Disposition module loaded with version {dispositionVersion_string}");
             }
 
-            if (ModsConfig.IsActive("maux36.rimpsyche.sexuality"))
+            if (Rimpsyche_Utility.IsModActive("maux36.rimpsyche.sexuality"))
             {
                 SexualityModuleLoaded = true;
 
@@ -40,12 +40,12 @@ namespace Maux36.RimPsyche
                 }
             }
 
-            if (ModsConfig.IsActive("maux36.rimpsyche.relationship"))
+            if (Rimpsyche_Utility.IsModActive("maux36.rimpsyche.relationship"))
             {
                 RelationshipModuleLoaded = true;
             }
 
-            //if (!ModsConfig.IsActive("zetrith.prepatcher"))
+            //if (!Rimpsyche_Utility.IsModActive("zetrith.prepatcher"))
             //{
             //    Log.Warning("[Rimpsyche] Prepatcher not detected. For optimal performance, Prepatcher is highly recommended.");
             //}

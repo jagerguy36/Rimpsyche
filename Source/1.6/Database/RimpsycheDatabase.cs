@@ -461,7 +461,7 @@ namespace Maux36.RimPsyche
                 });
             }
 
-            if (ModsConfig.IsActive("vanillaexpanded.vanillatraitsexpanded"))
+            if (Rimpsyche_Utility.IsModActive("vanillaexpanded.vanillatraitsexpanded"))
             {
                 Log.Message("[Rimpsyche] VTE gate data added");
                 RegisterTraitGate(new Pair<string, int>("VTE_Eccentric", 0), new List<FacetGate>
@@ -502,7 +502,7 @@ namespace Maux36.RimPsyche
                 });
             }
 
-            if (ModsConfig.IsActive("vanillaracesexpanded.android"))
+            if (Rimpsyche_Utility.IsModActive("vanillaracesexpanded.android"))
             {
                 Log.Message("[Rimpsyche] VRE Android gate data added");
                 RegisterGeneGate("VREA_PsychologyDisabled", new List<FacetGate>
@@ -525,7 +525,7 @@ namespace Maux36.RimPsyche
                 });
             }
 
-            if (ModsConfig.IsActive("consolidatedtraits.lc.rw"))
+            if (Rimpsyche_Utility.IsModActive("consolidatedtraits.lc.rw"))
             {
                 Log.Message("[Rimpsyche] ConsolidatedTraits gate data added");
                 RegisterTraitGate(new Pair<string, int>("RCT_Aesthete", 0), new List<FacetGate>
@@ -542,7 +542,7 @@ namespace Maux36.RimPsyche
                 });
             }
 
-            if (ModsConfig.IsActive("avius.badpeople"))
+            if (Rimpsyche_Utility.IsModActive("avius.badpeople"))
             {
                 Log.Message("[Rimpsyche] BadPeople gate data added");
                 RegisterTraitGate(new Pair<string, int>("BadPeople_Evil", 0), new List<FacetGate>
@@ -557,7 +557,7 @@ namespace Maux36.RimPsyche
                 });
             }
 
-            if (ModsConfig.IsActive("hautarche.hautstraits"))
+            if (Rimpsyche_Utility.IsModActive("hautarche.hautstraits"))
             {
                 RegisterTraitGate(new Pair<string, int>("HVT_Aestheticist", 0), new List<FacetGate>
                 {
@@ -646,7 +646,7 @@ namespace Maux36.RimPsyche
                 }
             }
 
-            if (ModsConfig.IsActive("goji.thesimstraits"))
+            if (Rimpsyche_Utility.IsModActive("goji.thesimstraits"))
             {
                 Log.Message("[Rimpsyche] The Sims Traits gate data added");
                 RegisterTraitGate(new Pair<string, int>("ST_Shy", 0), new List<FacetGate>
@@ -664,7 +664,7 @@ namespace Maux36.RimPsyche
                         new FacetGate(Facet.Imagination, 35f, 15f)
                     });
                 }
-                if (ModsConfig.IsActive("vanillaexpanded.vanillatraitsexpanded"))
+                if (Rimpsyche_Utility.IsModActive("vanillaexpanded.vanillatraitsexpanded"))
                 {
                     RegisterTraitGate(new Pair<string, int>("ST_Submissive", 0), new List<FacetGate>
                     {
@@ -674,7 +674,7 @@ namespace Maux36.RimPsyche
                 // MayRequire="VanillaExpanded.VanillaTraitsExpanded"
             }
             
-            if (ModsConfig.IsActive("redmattis.bigsmall.core"))
+            if (Rimpsyche_Utility.IsModActive("redmattis.bigsmall.core"))
             {
                 Log.Message("[Rimpsyche] Big and Small gate data added");
                 RegisterTraitGate(new Pair<string, int>("BS_Gentle", 0), new List<FacetGate>
@@ -683,7 +683,7 @@ namespace Maux36.RimPsyche
                 });
             }
 
-            if (ModsConfig.IsActive("chjees.androids14"))
+            if (Rimpsyche_Utility.IsModActive("chjees.androids14"))
             {
                 var BattleDroiddef = DefDatabase<ThingDef>.GetNamed("ChjBattleDroid", false);
                 if (BattleDroiddef != null)

@@ -12,7 +12,7 @@ namespace Maux36.RimPsyche
         {
             public static bool Prepare()
             {
-                if (ModsConfig.IsActive("void.charactereditor"))
+                if (Rimpsyche_Utility.IsModActive("void.charactereditor"))
                     return true;
                 return false;
             }
@@ -34,7 +34,7 @@ namespace Maux36.RimPsyche
         {
             public static bool Prepare()
             {
-                if (ModsConfig.IsActive("void.charactereditor"))
+                if (Rimpsyche_Utility.IsModActive("void.charactereditor"))
                     return true;
                 return false;
             }
