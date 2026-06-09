@@ -12,7 +12,7 @@ namespace Maux36.RimPsyche
     {
         public static bool IsModActive(string modId)
         {
-            if (GetActiveModWithIdentifier(modId, ignorePostfix: true) != null)
+            if (ModLister.GetActiveModWithIdentifier(modId, ignorePostfix: true) != null)
                 return true;
             return false;
         }
