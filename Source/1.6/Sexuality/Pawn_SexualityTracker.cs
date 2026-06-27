@@ -88,9 +88,9 @@ namespace Maux36.RimPsyche
         //General check
         public bool SexualityExpressed()
         {
-            if (!Suppressed && Rimpsyche_Utility.GetPawnAge(pawn) >= minAdultAge)
-                return true;
-            return false;
+            if (Suppressed || orientationCategory == SexualOrientation.None || orientationCategory == SexualOrientation.Developing)
+                return false;
+            return true;
         }
 
         //Memory
@@ -534,12 +534,8 @@ namespace Maux36.RimPsyche
         }
         public bool ShowOnUI()
         {
-            if (Rimpsyche.SexualityModuleLoaded)
+            if (Rimpsyche.SexualityModuleLoaded && SexualityExpressed())
             {
-                if (Suppressed || orientationCategory == SexualOrientation.None || orientationCategory == SexualOrientation.Developing)
-                {
-                    return false;
-                }
                 return true;
             }
             return false;
