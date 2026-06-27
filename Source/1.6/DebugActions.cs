@@ -52,6 +52,21 @@ namespace Maux36.RimPsyche
             Log.Message($"RimPsyche injected copied psyche to {pawn.Name}");
         }
 
+        [DebugAction("Rimpsyche", actionType = DebugActionType.ToolMapForPawns, allowedGameStates = AllowedGameStates.PlayingOnMap, displayPriority = 1000)]
+        public static void GetStringPawnPsyche(Pawn pawn)
+        {
+            var serialized = PsycheDataUtil.GetSerializedStringPsycheData(pawn);
+            RimPsycheWorldComp.serializedTemp = serialized;
+            Log.Message($"Serialized {pawn.Name}'s Psyche: {serialized}");
+        }
+
+        [DebugAction("Rimpsyche", actionType = DebugActionType.ToolMapForPawns, allowedGameStates = AllowedGameStates.PlayingOnMap, displayPriority = 1000)]
+        public static void PasteStringPawnPsyche(Pawn pawn)
+        {
+            var serialized = RimPsycheWorldComp.serializedTemp;
+            PsycheDataUtil.InjectSerializedStringPsycheData(pawn, serialized, true);
+            Log.Message($"Injected to {pawn.Name} serialized Psyche: {serialized}");
+        }
 
         [DebugAction("Rimpsyche", "Get Random Alignment", false, false, false, false, false, 0, false, actionType = DebugActionType.ToolMapForPawns, allowedGameStates = AllowedGameStates.PlayingOnMap)]
         public static void GetRandomAlignment(Pawn p)
