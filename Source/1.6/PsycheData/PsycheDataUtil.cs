@@ -145,7 +145,7 @@ namespace Maux36.RimPsyche
         public static PsycheData DeserializeStringPsycheData(string dataString)
         {
             PsycheData data = new PsycheData();
-            if (string.IsNullOrEmpty(dataString)) return data;
+            if (string.IsNullOrEmpty(dataString)) return null;
 
             try
             {
