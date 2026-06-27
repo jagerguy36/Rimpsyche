@@ -148,6 +148,7 @@ namespace Maux36.RimPsyche
             Rect rightTopRect = new Rect(middleRect.xMax, inRect.y, rightWidth, compPsyche.Sexuality.ShowOnUI() ? sexualityContentHeight : 0f);
             Rect rightBottomRect = new Rect(middleRect.xMax, rightTopRect.yMax, rightWidth, inRect.height- rightTopRect.height);
             bool showSexuality = compPsyche.Sexuality.ShowOnUI();
+            bool showPref = showPreference && showSexuality;
 
 
             DrawFacetCard(leftRect, pawn, compPsyche);
@@ -157,7 +158,7 @@ namespace Maux36.RimPsyche
             {
                 DrawSexualityEditCard(rightTopRect, pawn, compPsyche);
             }
-            if (showPreference) DrawPreferenceEditCard(rightBottomRect, pawn, compPsyche);
+            if (showPref) DrawPreferenceEditCard(rightBottomRect, pawn, compPsyche);
             else DrawInterestEditCard(rightBottomRect, pawn, compPsyche, showSexuality);
 
             if (compPsyche?.Enabled != true)
@@ -753,9 +754,9 @@ namespace Maux36.RimPsyche
                     options.Add(new FloatMenuOption("LoadFromSlot".Translate(), () =>
                     {
                         bool randomizeSexuality = false;
-                        var loadingOri = PsycheSaveManager.Slots[index].data.orientationCategory;
+                        var loadingKinsey = PsycheSaveManager.Slots[index].data.mKinsey;
                         var pawnOri = pawn.compPsyche().Sexuality.orientationCategory;
-                        if (Rimpsyche.SexualityModuleLoaded && (loadingOri == SexualOrientation.None || loadingOri == SexualOrientation.Developing) && (pawnOri != SexualOrientation.None && pawnOri != SexualOrientation.Developing))
+                        if (Rimpsyche.SexualityModuleLoaded && (loadingKinsey < 0f) && (pawnOri >= 0f))
                             randomizeSexuality = true;
                         Find.WindowStack.Add(
                             new Dialog_ConfirmClosable(

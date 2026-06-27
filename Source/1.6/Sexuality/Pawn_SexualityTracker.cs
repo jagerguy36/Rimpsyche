@@ -34,6 +34,7 @@ namespace Maux36.RimPsyche
         private float mKinsey = -1f;
         public float MKinsey => mKinsey;
         private float attraction = 0f;
+        public float RawAttraction => attraction;
         public float Attraction
         {
             get
@@ -46,6 +47,7 @@ namespace Maux36.RimPsyche
             }
         }
         private float sexDrive = 0f;
+        public float RawSexdrive => sexDrive;
         public float SexDrive
         {
             get
@@ -194,6 +196,7 @@ namespace Maux36.RimPsyche
             if (preferenceCacheDirty) RefreshPreferenceCache();
             if (Preference.TryGetValue(prefDef.shortHash, out var value)) return value;
             //Uninitialized Preference
+            if (!SexualityExpressed()) return null;
             if (prefDef.worker.TryGenerate(pawn, out var prefEntries))
             {
                 SetPreference(prefDef, prefEntries);
@@ -368,7 +371,7 @@ namespace Maux36.RimPsyche
                 .ToList();
 
             //Randomize Sexuality if loaded sexuality is undefined
-            if (psyche.orientationCategory == SexualOrientation.None || psyche.orientationCategory == SexualOrientation.Developing)
+            if (psyche.mKinsey < 0f)
             {
                 if (Rimpsyche_Utility.GetPawnAge(pawn) < minAdultAge)
                 {
