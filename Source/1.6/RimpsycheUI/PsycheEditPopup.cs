@@ -755,8 +755,8 @@ namespace Maux36.RimPsyche
                     {
                         bool randomizeSexuality = false;
                         var loadingKinsey = PsycheSaveManager.Slots[index].data.mKinsey;
-                        var pawnOri = pawn.compPsyche().Sexuality.orientationCategory;
-                        if (Rimpsyche.SexualityModuleLoaded && (loadingKinsey < 0f) && (pawnOri >= 0f))
+                        var pawnKinsey = pawn.compPsyche().Sexuality.MKinsey;
+                        if (Rimpsyche.SexualityModuleLoaded && (loadingKinsey < 0f) && (pawnKinsey >= 0f))
                             randomizeSexuality = true;
                         Find.WindowStack.Add(
                             new Dialog_ConfirmClosable(
