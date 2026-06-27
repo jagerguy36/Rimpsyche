@@ -43,6 +43,7 @@ namespace Maux36.RimPsyche
     public class RimPsycheWorldComp : WorldComponent
     {
         public static PsycheData tempData = null;
+        public static string serializedTemp = string.Empty;
         public RimPsycheWorldComp(World world) : base(world)
         {
         }

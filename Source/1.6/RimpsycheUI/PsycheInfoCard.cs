@@ -177,7 +177,7 @@ namespace Maux36.RimPsyche
             totalRect.position = Vector2.zero;
 
             // Layout constants
-            float rightPanelWidth = rightPanelVisible ? rightPanelWidthActual : 0f;
+            float rightPanelWidth = (psycheEnabled && rightPanelVisible) ? rightPanelWidthActual : 0f;
             float rightTopPanelHeight = 0f;
             if (showSexuality)
             {

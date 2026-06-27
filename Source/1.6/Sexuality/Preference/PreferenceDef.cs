@@ -12,6 +12,7 @@ namespace Maux36.RimPsyche
         public int priority = 0;
         public RimpsychePrefCategory category;
         public Type workerClass = typeof(PreferenceWorker);
+        public List<string> disableWhenActive;
 
         [Unsaved(false)]
         private PreferenceWorker workerInt;

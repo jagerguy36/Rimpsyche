@@ -10,6 +10,12 @@ namespace Maux36.RimPsyche
 {
     public static class Rimpsyche_Utility
     {
+        public static bool IsModActive(string modId)
+        {
+            if (ModLister.GetActiveModWithIdentifier(modId, ignorePostfix: true) != null)
+                return true;
+            return false;
+        }
         public static float Boost(float A, float boostFactor = 0.5f) //Unused
         {
             float res = A * (1f + boostFactor * (1f - A * A));
