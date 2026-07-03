@@ -45,10 +45,10 @@ namespace Maux36.RimPsyche
             var sexuality = compPsyche.Sexuality;
             psyche.orientationCategory = sexuality.orientationCategory;
             psyche.mKinsey = sexuality.MKinsey;
-            psyche.attraction = sexuality.Attraction;
-            psyche.sexDrive = sexuality.SexDrive;
+            psyche.attraction = sexuality.RawAttraction;
+            psyche.sexDrive = sexuality.RawSexdrive;
             //Initialize all preferences if not yet initialized.
-            if (Rimpsyche.SexualityModuleLoaded && sexuality.SexualityExpressed())
+            if (Rimpsyche.SexualityModuleLoaded)
             {
                 var allPreference = DefDatabase<PreferenceDef>.AllDefsListForReading;
                 foreach (var prefDef in allPreference)
