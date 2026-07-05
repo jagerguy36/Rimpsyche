@@ -350,7 +350,7 @@ namespace Maux36.RimPsyche
             else mKinsey = 1 - kinsey;
             return;
         }
-        public void InjectData(PsycheData psyche, bool preserveMemory)
+        public void InjectData(PsycheData psyche, bool preserveMemory, bool randomizeIfUndefined = true)
         {
             //Not Applicable
             if (SexualityHelper.NonSexualDefShorthashSet.Contains(pawn.def.shortHash)) return;
@@ -365,34 +365,61 @@ namespace Maux36.RimPsyche
             shouldCheckSuppressed = true;
             preferenceCacheDirty = true;
 
+            //Sexuality is undefined in the data
+            if (psyche.mKinsey < 0f)
+            {
+                if (randomizeIfUndefined)
+                {
+                    //Clean sexuality.
+                    traits.allTraits = traits.allTraits
+                        .Where(trait => !_sexualityTraits.Contains(trait.def))
+                        .ToList();
+                }
+                //Young pawn is given a clean slate. Wipe out any latent sexuality if previously injected.
+                //They will develop random sexuality when they come of age via Initialize().
+                if (Rimpsyche_Utility.GetPawnAge(pawn) < minAdultAge)
+                {
+                    mKinsey = -1f;
+                    attraction = 0f;
+                    sexDrive = 0f;
+                    orientationCategory = SexualOrientation.Developing;
+                }
+                else
+                {
+                    //Adult Pawns
+                    float genkinsey;
+                    if (randomizeIfUndefined) //Randomize Sexuality
+                    {
+                        //Adult pawn is given a random sexuality.
+                        genkinsey = SexualityHelper.GenerateKinsey(true);
+                        attraction = SexualityHelper.GenerateAttraction();
+                        if (attraction < asexualCutoff) { orientationCategory = SexualOrientation.Asexual; traits.allTraits.Add(new Trait(TraitDefOf.Asexual, TraitDefOf.Asexual.degreeDatas[0].degree)); }
+                        else if (genkinsey < 0.2f) { orientationCategory = SexualOrientation.Heterosexual; }
+                        else if (genkinsey < 0.8f) { orientationCategory = SexualOrientation.Bisexual; traits.allTraits.Add(new Trait(TraitDefOf.Bisexual, TraitDefOf.Bisexual.degreeDatas[0].degree)); }
+                        else { orientationCategory = SexualOrientation.Homosexual; traits.allTraits.Add(new Trait(TraitDefOf.Gay, TraitDefOf.Gay.degreeDatas[0].degree)); }
+                    }
+                    else //Follow trait. Used for cases where empty data should not meddle with sexuality traits, like CharacterEditor save/load.
+                    {
+                        //Follow sexuality trait
+                        orientationCategory = SexualityHelper.EvaluateSexuality(pawn);
+                        genkinsey = SexualityHelper.GenerateKinseyFor(orientationCategory);
+                        attraction = SexualityHelper.GenerateAttractionFor(orientationCategory);
+                    }
+                    sexDrive = SexualityHelper.GenerateSexdrive();
+                    if (gender == Gender.Male) mKinsey = genkinsey;
+                    else mKinsey = 1f - genkinsey;
+                    _preference.Clear();
+                    return;
+                }
+                return;
+            }
+
+            //Inject Sexuality from the psyche
             //Clean sexuality trait.
             traits.allTraits = traits.allTraits
                 .Where(trait => !_sexualityTraits.Contains(trait.def))
                 .ToList();
 
-            //Randomize Sexuality if loaded sexuality is undefined
-            if (psyche.mKinsey < 0f)
-            {
-                if (Rimpsyche_Utility.GetPawnAge(pawn) < minAdultAge)
-                {
-                    orientationCategory = SexualOrientation.Developing;
-                    return;
-                }
-                float genkinsey;
-                genkinsey = SexualityHelper.GenerateKinsey(true);
-                attraction = SexualityHelper.GenerateAttraction();
-                if (attraction < asexualCutoff) { orientationCategory = SexualOrientation.Asexual; traits.allTraits.Add(new Trait(TraitDefOf.Asexual, TraitDefOf.Asexual.degreeDatas[0].degree)); }
-                else if (genkinsey < 0.2f) { orientationCategory = SexualOrientation.Heterosexual; }
-                else if (genkinsey < 0.8f) { orientationCategory = SexualOrientation.Bisexual; traits.allTraits.Add(new Trait(TraitDefOf.Bisexual, TraitDefOf.Bisexual.degreeDatas[0].degree)); }
-                else { orientationCategory = SexualOrientation.Homosexual; traits.allTraits.Add(new Trait(TraitDefOf.Gay, TraitDefOf.Gay.degreeDatas[0].degree)); }
-                sexDrive = SexualityHelper.GenerateSexdrive();
-                if (gender == Gender.Male) mKinsey = genkinsey;
-                else mKinsey = 1 - genkinsey;
-                _preference.Clear();
-                return;
-            }
-
-            //Inject Sexuality from the psyche
             //If the injected pawns are too young, they are assigned Developing Orientation and will be reassigned their proper orientation based on the mKinsey when they reach the growth moment with Initialize()
             mKinsey = psyche.mKinsey;
             attraction = psyche.attraction;

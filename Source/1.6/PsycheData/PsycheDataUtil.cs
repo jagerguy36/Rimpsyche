@@ -77,12 +77,12 @@ namespace Maux36.RimPsyche
             return psyche;
         }
 
-        public static void InjectPsycheData(Pawn pawn, PsycheData psyche, bool preserveMemory)
+        public static void InjectPsycheData(Pawn pawn, PsycheData psyche, bool preserveMemory, bool randomizeSexualityIfUndefined = true)
         {
             if(psyche == null) return;
             var compPsyche = pawn?.compPsyche();
             if (compPsyche == null) return;
-            compPsyche.InjectPsycheData(psyche, preserveMemory);
+            compPsyche.InjectPsycheData(psyche, preserveMemory, randomizeSexualityIfUndefined);
         }
 
         // Used delims: | : = , ;
@@ -261,13 +261,13 @@ namespace Maux36.RimPsyche
         }
 
 
-        public static void InjectSerializedStringPsycheData(Pawn pawn, string dataString, bool preserveMemory)
+        public static void InjectSerializedStringPsycheData(Pawn pawn, string dataString, bool preserveMemory, bool randomizeSexualityIfUndefined = true)
         {
             var psycheData = DeserializeStringPsycheData(dataString);
             if (psycheData == null) return;
             var compPsyche = pawn?.compPsyche();
             if (compPsyche == null) return;
-            compPsyche.InjectPsycheData(psycheData, preserveMemory);
+            compPsyche.InjectPsycheData(psycheData, preserveMemory, randomizeSexualityIfUndefined);
         }
     }
 }
