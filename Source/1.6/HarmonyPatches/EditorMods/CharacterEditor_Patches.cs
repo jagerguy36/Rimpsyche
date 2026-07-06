@@ -80,7 +80,7 @@ namespace Maux36.RimPsyche
                 {
                     Log.Message("getting psyche of " + pawn.LabelShort + " =" + text);
                 }
-                __result = AsBase64(text, Encoding.UTF8);
+                __result = ToBase64(text);
                 return false;
             }
         }
@@ -107,7 +107,7 @@ namespace Maux36.RimPsyche
                     return false;
                 try
                 {
-                    string text = Base64ToString(data, Encoding.UTF8);
+                    string text = FromBase64(data);
                     if (Prefs.DevMode)
                     {
                         Log.Message("getting psyche of " + pawn.LabelShort + " =" + text);
@@ -125,51 +125,19 @@ namespace Maux36.RimPsyche
             }
         }
 
-
-        internal static byte[] AsBytes(string text, Encoding enc)
+        internal static string ToBase64(string text)
         {
-            if (text == null)
-            {
+            if (text is null)
                 return null;
-            }
-            if (enc == null)
-            {
-                return Encoding.Default.GetBytes(text);
-            }
-            return enc.GetBytes(text);
+            return Convert.ToBase64String(Encoding.UTF8.GetBytes(text));
         }
 
-        internal static string AsBase64(string text, Encoding enc)
+        internal static string FromBase64(string base64)
         {
-            byte[] inArray = AsBytes(text, enc);
-            return Convert.ToBase64String(inArray);
-        }
-        internal static byte[] Base64ToBytes(string base64)
-        {
-            byte[] result = new byte[0];
-            if (!string.IsNullOrEmpty(base64))
-            {
-                try
-                {
-                    result = Convert.FromBase64String(base64);
-                }
-                catch
-                {
-                }
-            }
-            return result;
-        }
-        internal static string Base64ToString(string base64, Encoding enc)
-        {
-            if (base64 == null)
-            {
+            if (base64 is null)
                 return null;
-            }
-            if (enc == null)
-            {
-                return Encoding.Default.GetString(Base64ToBytes(base64));
-            }
-            return enc.GetString(Base64ToBytes(base64));
+
+            return Encoding.UTF8.GetString(Convert.FromBase64String(base64));
         }
     }
 }
