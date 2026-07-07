@@ -40,7 +40,7 @@ namespace Maux36.RimPsyche
             return Mathf.Abs(Score(compPsyche));
         }
 
-        private int GetIntensity(float strength)
+        public int GetIntensity(float strength)
         {
             if (strength >= extremeThreshold)
                 return 3;
@@ -50,12 +50,21 @@ namespace Maux36.RimPsyche
 
             return 1;
         }
+        public static string GetIntensityString(int intensity)
+        {
+            return intensity switch
+            {
+                1 => "●○○",
+                2 => "●●○",
+                3 => "●●●",
+                _ => "○○○",
+            };
+        }
 
         public DescriptorResult Evaluate(CompPsyche compPsyche)
         {
             float score = Score(compPsyche);
             float strength = Mathf.Abs(score);
-
             int intensity = GetIntensity(strength);
 
             return new DescriptorResult(

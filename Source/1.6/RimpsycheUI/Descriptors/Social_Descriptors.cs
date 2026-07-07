@@ -18,7 +18,6 @@ namespace Maux36.RimPsyche
 
         public override float Score(CompPsyche compPsyche)
         {
-            // Assuming Sociality ranges from -1 to +1
             return compPsyche.Personality.Sociality;
         }
     }
