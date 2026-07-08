@@ -244,19 +244,14 @@ namespace Maux36.RimPsyche
             );
             if (psycheEnabled)
             {
-                if (rightPanelVisible)
+                var sideButton = rightPanelVisible switch
                 {
-                    if (Widgets.ButtonImage(openButtonRect, Rimpsyche_UI_Utility.HideButton))
-                    {
-                        rightPanelVisible = !rightPanelVisible;
-                    }
-                }
-                else
+                    true  => Rimpsyche_UI_Utility.HideButton,
+                    false => Rimpsyche_UI_Utility.RevealButton
+                };
+                if (Widgets.ButtonImage(openButtonRect, sideButton))
                 {
-                    if (Widgets.ButtonImage(openButtonRect, Rimpsyche_UI_Utility.RevealButton))
-                    {
-                        rightPanelVisible = !rightPanelVisible;
-                    }
+                    rightPanelVisible = !rightPanelVisible;
                 }
             }
 
@@ -303,18 +298,13 @@ namespace Maux36.RimPsyche
             }
             if (shouldSort)
             {
-                if (sortOption == 0)
+                cachedPersonalityData = (sortOption switch
                 {
-                    cachedPersonalityData = cachedPersonalityData.OrderByDescending(p => p.AbsValue).ToList();
-                }
-                else if (sortOption == 1)
-                {
-                    cachedPersonalityData = cachedPersonalityData.OrderBy(p => p.Personality.label).ToList();
-                }
-                else if (sortOption == 2)
-                {
-                    cachedPersonalityData = cachedPersonalityData.OrderBy(p => RimpsycheDatabase.PersonalityOrder[p.Personality.shortHash]).ToList();
-                }
+                    0 => cachedPersonalityData.OrderByDescending(p => p.AbsValue),
+                    1 => cachedPersonalityData.OrderBy(p => p.Personality.label),
+                    2 => cachedPersonalityData.OrderBy(p => RimpsycheDatabase.PersonalityOrder[p.Personality.shortHash]),
+                    _ => cachedPersonalityData // Default fallback if sortOption is invalid
+                }).ToList();
                 shouldSort = false;
             }
             return cachedPersonalityData;
@@ -382,39 +372,8 @@ namespace Maux36.RimPsyche
             {
                 float value = compPsyche.Personality.GetPersonality(personality);
                 float absValue = Mathf.Abs(value);
-
-                string cachedLabelText = "";
-                Color cachedLabelColor = Color.white;
-
-                string intensityKey = "RimPsycheIntensityNeutral";
-                if (absValue >= 0.75f)
-                {
-                    intensityKey = "RimPsycheIntensityExtremely";
-                }
-                else if (absValue >= 0.5f)
-                {
-                    intensityKey = "RimPsycheIntensityVery";
-                }
-                else if (absValue >= 0.25f)
-                {
-                    intensityKey = "RimPsycheIntensitySomewhat";
-                }
-                else if (absValue > 0f)
-                {
-                    intensityKey = "RimPsycheIntensityMarginally";
-                }
-
-                string personalityName = (value >= 0) ? personality.high : personality.low;
-
-                if (LanguageDatabase.activeLanguage.HaveTextForKey(intensityKey))
-                {
-                    cachedLabelText = intensityKey.Translate(personalityName);
-                }
-                else
-                {
-                    cachedLabelText = RimpsycheDatabase.IntensityKeysDefault[intensityKey] + " " + personalityName;
-                }
-                cachedLabelColor = Color.Lerp(LowValueColor, HighValueColor, absValue);
+                string cachedLabelText = Rimpsyche_Utility.GetPersonalityDesc(personality, value);
+                Color cachedLabelColor = Color.Lerp(LowValueColor, HighValueColor, absValue);
                 var personalityDesc = $"{personality.label.CapitalizeFirst()}: {(value * 100f).ToString("F1")}\n{personality.description}";
                 if (compPsyche.Personality.scopeInfoCache.TryGetValue(personality.shortHash, out string explanation))
                 {
@@ -609,88 +568,45 @@ namespace Maux36.RimPsyche
 
             // Icon on the right
             float spacing = 6;
+
+            // View Mode Toggle
             float viewIconX = (headerRect.width / 2f) + (titleTextSize.x / 2f) + 8f;
             Rect viewIconRect = new Rect(viewIconX, titleRect.y + (titleRect.height - iconSize) / 2f, iconSize, iconSize);
+            var (icon, tooltipKey, nextMode, resetScroll) = showMode switch
+            {
+                0 => (Rimpsyche_UI_Utility.ViewListButton, "RimpsycheShowList", 1, false), //Summary -> List
+                1 => (Rimpsyche_UI_Utility.ViewBarButton, "RimpsycheShowBar", 2, false), //List -> Bar
+                2 => RimpsycheSettings.showFacetInMenu 
+                    ? (Rimpsyche_UI_Utility.ViewFacetButton, "RimpsycheShowFacet", 3, true) //Bar -> Facet
+                    : (Rimpsyche_UI_Utility.ViewListButton, "RimpsycheShowSummary", 0, false), //Bar -> Summary
+                _ => (Rimpsyche_UI_Utility.ViewListButton, "RimpsycheShowSummary", 0, true) // Any -> Summary
+            };
+            if (Widgets.ButtonImage(viewIconRect, icon))
+            {
+                showMode = nextMode;
+                if (resetScroll) PersonalityScrollPosition = Vector2.zero;
+            }
+            TooltipHandler.TipRegion(viewIconRect, tooltipKey.Translate());
 
-            // Draw & handle click (Default is now SummaryMode = 3)
-            if (showMode == 0) // Summary Mode
-            {
-                if (Widgets.ButtonImage(viewIconRect, Rimpsyche_UI_Utility.ViewListButton)) // Or a summary icon if you have one
-                {
-                    showMode = 1;
-                }
-                TooltipHandler.TipRegion(viewIconRect, "RimpsycheShowList".Translate());
-            }
-            if (showMode == 1)
-            {
-                if (Widgets.ButtonImage(viewIconRect, Rimpsyche_UI_Utility.ViewBarButton))
-                {
-                    showMode = 2;
-                }
-                TooltipHandler.TipRegion(viewIconRect, "RimpsycheShowBar".Translate());
-            }
-            else if (showMode == 2)
-            {
-                if (RimpsycheSettings.showFacetInMenu)
-                {
-                    if (Widgets.ButtonImage(viewIconRect, Rimpsyche_UI_Utility.ViewFacetButton))
-                    {
-                        showMode = 3;
-                        PersonalityScrollPosition = Vector2.zero;
-                    }
-                    TooltipHandler.TipRegion(viewIconRect, "RimpsycheShowFacet".Translate());
-                }
-                else
-                {
-                    if (Widgets.ButtonImage(viewIconRect, Rimpsyche_UI_Utility.ViewListButton))
-                    {
-                        showMode = 0;
-                    }
-                    TooltipHandler.TipRegion(viewIconRect, "RimpsycheShowSummary".Translate());
-                }
-            }
-            else// (showMode == 3) //Facet
-            {
-                if (Widgets.ButtonImage(viewIconRect, Rimpsyche_UI_Utility.ViewListButton))
-                {
-                    showMode = 0;
-                    PersonalityScrollPosition = Vector2.zero;
-                }
-                TooltipHandler.TipRegion(viewIconRect, "RimpsycheShowSummary".Translate());
-            }
-
+            // Sort Mode Toggle
             Rect sortIconRect = new Rect(viewIconRect.xMax + spacing, viewIconRect.y, iconSize, iconSize);
             bool isSortDisabled = (showMode == 0 || showMode == 3);
-
             if (isSortDisabled)
             {
                 Widgets.ButtonImage(sortIconRect, Rimpsyche_UI_Utility.SortButton, barBackgroundColor, barBackgroundColor, false, "RimpsycheSortDisabled".Translate());
             }
             else
             {
-                if (sortOption == 0)
+                var (tooltipKey, nextOption) = sortOption switch
                 {
-                    if (Widgets.ButtonImage(sortIconRect, Rimpsyche_UI_Utility.SortButton, true, "RimpsycheSortAlphabet".Translate()))
-                    {
-                        sortOption = 1;
-                        shouldSort = true;
-                    }
-                }
-                if (sortOption == 1)
+                    0 => ("RimpsycheSortAlphabet", 1),
+                    1 => ("RimpsycheSortDef", 2),
+                    _ => ("RimpsycheSortValue", 0) // Handles 2 and fallback
+                };
+                if (Widgets.ButtonImage(sortIconRect, Rimpsyche_UI_Utility.SortButton, true, tooltipKey.Translate()))
                 {
-                    if (Widgets.ButtonImage(sortIconRect, Rimpsyche_UI_Utility.SortButton, true, "RimpsycheSortDef".Translate()))
-                    {
-                        sortOption = 2;
-                        shouldSort = true;
-                    }
-                }
-                if (sortOption == 2)
-                {
-                    if (Widgets.ButtonImage(sortIconRect, Rimpsyche_UI_Utility.SortButton, true, "RimpsycheSortValue".Translate()))
-                    {
-                        sortOption = 0;
-                        shouldSort = true;
-                    }
+                    sortOption = nextOption;
+                    shouldSort = true;
                 }
             }
             

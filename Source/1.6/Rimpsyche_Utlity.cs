@@ -367,34 +367,21 @@ namespace Maux36.RimPsyche
         public static string GetPersonalityDesc(PersonalityDef personality, float value)
         {
             float absValue = Mathf.Abs(value);
-            string intensityKey = "RimPsycheIntensityNeutral";
-            if (absValue >= 0.75f)
+            string intensityKey = absValue switch
             {
-                intensityKey = "RimPsycheIntensityExtremely";
-            }
-            else if (absValue >= 0.5f)
-            {
-                intensityKey = "RimPsycheIntensityVery";
-            }
-            else if (absValue >= 0.25f)
-            {
-                intensityKey = "RimPsycheIntensitySomewhat";
-            }
-            else if (absValue > 0f)
-            {
-                intensityKey = "RimPsycheIntensityMarginally";
-            }
+                >= 0.75f => "RimPsycheIntensityExtremely",
+                >= 0.50f => "RimPsycheIntensityVery",
+                >= 0.25f => "RimPsycheIntensitySomewhat",
+                >  0.00f => "RimPsycheIntensityMarginally",
+                _        => "RimPsycheIntensityNeutral"
+            };
 
             string personalityName = (value >= 0) ? personality.high : personality.low;
 
             if (LanguageDatabase.activeLanguage.HaveTextForKey(intensityKey))
-            {
                 return intensityKey.Translate(personalityName);
-            }
             else
-            {
                 return RimpsycheDatabase.IntensityKeysDefault[intensityKey] + " " + personalityName;
-            }
         }
 
         //For Use of LLM
