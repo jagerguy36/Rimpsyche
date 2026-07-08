@@ -115,7 +115,7 @@
     <Compile Include="RimpsycheUI\PsycheEditPopup.cs" />
     <Compile Include="RimpsycheUI\Descriptors\PsycheDescriptorDef.cs" />
     <Compile Include="RimpsycheUI\Descriptors\PsycheDescriptorWorker.cs" />
-    <Compile Include="RimpsycheUI\Descriptors\Social_Descriptors.cs" />
+    <Compile Include="RimpsycheUI\Descriptors\CoreDescriptorWorkers.cs" />
     <Compile Include="Thought\Thought_Situational_Shame.cs" />
   </ItemGroup>
   <ItemGroup>

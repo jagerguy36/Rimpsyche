@@ -1,23 +1,9 @@
 using System;
 using System.Collections.Generic;
-using UnityEngine;
 using Verse;
 
 namespace Maux36.RimPsyche
 {
-    public readonly struct DescriptorResult
-    {
-        public readonly float strength;
-        public readonly string key;
-        public readonly int intensity;
-        public DescriptorResult(float strength, string key, int intensity)
-        {
-            this.strength = strength;
-            this.key = key;
-            this.intensity = intensity;
-        }
-    }
-
     public class PsycheDescriptorDef: Def
     {
         public string positiveKey;
@@ -27,5 +13,20 @@ namespace Maux36.RimPsyche
         public float extremeThreshold;
         public List<PersonalityDef> contributors;
         public Type workerClass = typeof(PsycheDescriptorWorker);
+        [Unsaved(false)]
+        private PsycheDescriptorWorker workerInt;
+
+        public PsycheDescriptorWorker Worker
+        {
+            get
+            {
+                if (workerInt == null)
+                {
+                    workerInt = (PsycheDescriptorWorker)Activator.CreateInstance(workerClass);
+                    workerInt.descriptorDef = this;
+                }
+                return workerInt;
+            }
+        }
     }
 }

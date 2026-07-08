@@ -13,7 +13,6 @@ namespace Maux36.RimPsyche
         }
     }
 
-
     public class EloquenceDescriptorWorker : PsycheDescriptorWorker
     {
         public override float Score(CompPsyche compPsyche)

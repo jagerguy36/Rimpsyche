@@ -1,5 +1,5 @@
-using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 using Verse;
 
@@ -7,11 +7,12 @@ namespace Maux36.RimPsyche
 {
     public abstract class PsycheDescriptorWorker
     {
+        public PsycheDescriptorDef descriptorDef;
         public abstract float Score(CompPsyche compPsyche);
 
         public string GetKey(CompPsyche compPsyche)
         {
-            return Score(compPsyche) >= 0 ? positiveKey : negativeKey;
+            return Score(compPsyche) >= 0 ? descriptorDef.positiveKey : descriptorDef.negativeKey;
         }
 
         public float GetStrength(CompPsyche compPsyche)
@@ -21,26 +22,13 @@ namespace Maux36.RimPsyche
 
         public int GetIntensity(float strength)
         {
-            if (strength >= extremeThreshold)
+            if (strength >= descriptorDef.extremeThreshold)
                 return 3;
 
-            if (strength >= strongThreshold)
+            if (strength >= descriptorDef.strongThreshold)
                 return 2;
 
             return 1;
-        }
-
-        public DescriptorResult Evaluate(CompPsyche compPsyche)
-        {
-            float score = Score(compPsyche);
-            float strength = Mathf.Abs(score);
-            int intensity = GetIntensity(strength);
-
-            return new DescriptorResult(
-                strength,
-                score >= 0 ? positiveKey : negativeKey,
-                intensity
-            );
         }
 
         public static string GetIntensityString(int intensity)

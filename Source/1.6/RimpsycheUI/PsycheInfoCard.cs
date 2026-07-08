@@ -26,6 +26,12 @@ namespace Maux36.RimPsyche
         public static Color radarHighlightColor = new Color(0.6f, 0.6f, 0.6f, 0.5f);
         public static Color radarEdgeColor = new Color(0.5f, 0.5f, 0.5f, 0.6f);
         public static Color radarSpokeColor = new Color(0.5f, 0.5f, 0.5f, 0.3f);
+        public static Color LowValueColor = Color.grey;
+        public static Color HighValueColor = Color.green;
+
+        public static Color LowSexualityBarColor = Color.green;
+        public static Color HighSexualityBarColor = Color.grey;
+        public static Color HyperSexualityBarColor = Color.cyan;
 
 
         public static readonly float iconSize = 15f;
@@ -101,12 +107,22 @@ namespace Maux36.RimPsyche
 
         //Cache
         private static List<PersonalityDisplayData> cachedPersonalityData = null;
+        private static List<BehaviorData> cachedBehaviorData = null;
         private static List<InterestDisplayData> cachedInterestData = null;
         private static List<Vector2> cachedValuePointData = null;
         private static List<Vector2> cachedMaxPointData = null;
         private static string cachedSexualityDescription = string.Empty;
         private static List<float> cachedViewerHeights = null;
         private static Pawn lastPawn;
+        public struct BehaviorData
+        {
+            public float Value;
+            public float AbsValue;
+            public string CachedDescription;
+            public string CachedTooltip;
+            public int intensity;
+            public Color CachedIntensityColor;
+        }
         private struct PersonalityDisplayData
         {
             public PersonalityDef Personality;
@@ -129,6 +145,7 @@ namespace Maux36.RimPsyche
         public static void CacheClean()
         {
             cachedPersonalityData = null;
+            cachedBehaviorData = null;
             cachedInterestData = null;
             cachedValuePointData = null;
             cachedSexualityDescription = string.Empty;
@@ -148,6 +165,7 @@ namespace Maux36.RimPsyche
             cachedSexualityDescription = string.Empty;
             lastPawn = currentPawn;
             GenerateSortedPersonalityData(compPsyche, currentPawn);
+            GenerateBehaviorData(compPsyche, currentPawn);
             GenerateSortedInterestData(compPsyche, currentPawn);
             var allPrefDefs = DefDatabase<PreferenceDef>.AllDefsListForReading;
             for (int i = 0; i < allPrefDefs.Count; i++)
@@ -301,6 +319,15 @@ namespace Maux36.RimPsyche
             }
             return cachedPersonalityData;
         }
+        private static List<BehaviorData> GetBehaviorData(CompPsyche compPsyche, Pawn currentPawn)
+        {
+            if (currentPawn != lastPawn || cachedBehaviorData == null)
+            {
+                return cachedBehaviorData;
+            }
+            GenerateBehaviorData(compPsyche, currentPawn);
+            return cachedBehaviorData;
+        }
         private static List<InterestDisplayData> GetSortedInterestData(CompPsyche compPsyche, Pawn currentPawn)
         {
             if (currentPawn == lastPawn && cachedInterestData != null)
@@ -387,7 +414,7 @@ namespace Maux36.RimPsyche
                 {
                     cachedLabelText = RimpsycheDatabase.IntensityKeysDefault[intensityKey] + " " + personalityName;
                 }
-                cachedLabelColor = Color.Lerp(Color.yellow, Color.green, absValue);
+                cachedLabelColor = Color.Lerp(LowValueColor, HighValueColor, absValue);
                 var personalityDesc = $"{personality.label.CapitalizeFirst()}: {(value * 100f).ToString("F1")}\n{personality.description}";
                 if (compPsyche.Personality.scopeInfoCache.TryGetValue(personality.shortHash, out string explanation))
                 {
@@ -414,6 +441,34 @@ namespace Maux36.RimPsyche
             shouldSort = false;
             cachedPersonalityData = sortedData;
         }
+        private static void GenerateBehaviorData(CompPsyche compPsyche, Pawn currentPawn)
+        {
+            var sortedData = new List<BehaviorData>();
+
+            foreach (PsycheDescriptorDef descDef in DefDatabase<PsycheDescriptorDef>.AllDefs)
+            {
+                float currentScore = descDef.Worker.Score(compPsyche);
+                // Filter: Must meet minimum threshold to be considered an active descriptor
+                if (Mathf.Abs(currentScore) >= descDef.threshold)
+                {
+                    var absValue = Mathf.Abs(currentScore);
+                    var result = new BehaviorData
+                    {
+                        Value = currentScore,
+                        AbsValue = absValue,
+                        CachedDescription = "description",
+                        CachedTooltip = "tooltip",
+                        intensity = 0,
+                        CachedIntensityColor = Color.Lerp(LowValueColor, HighValueColor, absValue)
+                    };
+                    sortedData.Add(result);
+                }
+            }
+
+            // Sort descending by strength
+            sortedData.Sort((a, b) => b.AbsValue.CompareTo(a.AbsValue));
+            cachedBehaviorData = sortedData;
+        }
         private static void GenerateSortedInterestData(CompPsyche compPsyche, Pawn currentPawn)
         {
             var interestList = RimpsycheDatabase.InterestList;
@@ -424,7 +479,7 @@ namespace Maux36.RimPsyche
                 float value = compPsyche.Interests.GetOrGenerateAdjustedInterestScore(interest);
                 float absValue = Mathf.Abs(value);
                 string cachedLabelText = interest.label;
-                Color cachedLabelColor = Color.Lerp(Color.yellow, Color.green, absValue);
+                Color cachedLabelColor = Color.Lerp(LowValueColor, HighValueColor, absValue);
                 sortedData.Add(new InterestDisplayData
                 {
                     Interest = interest,
@@ -433,7 +488,7 @@ namespace Maux36.RimPsyche
                     CachedLabelText = cachedLabelText,
                     CachedLabelColor = cachedLabelColor,
                     CachedDescription = $"{interest.label}: {Math.Round(value, 1)}\n{interest.description}\n\n{"RimpsycheTopicHeader".Translate()}\n{RimpsycheDatabase.InterstTopicStringDict[interest.id]}"});
-            }
+                }
             sortedData = sortedData.OrderByDescending(p => p.AbsValue).ToList();
             cachedInterestData = sortedData;
         }
@@ -557,22 +612,30 @@ namespace Maux36.RimPsyche
             float viewIconX = (headerRect.width / 2f) + (titleTextSize.x / 2f) + 8f;
             Rect viewIconRect = new Rect(viewIconX, titleRect.y + (titleRect.height - iconSize) / 2f, iconSize, iconSize);
 
-            // Draw & handle click
-            if (showMode == 0)
+            // Draw & handle click (Default is now SummaryMode = 3)
+            if (showMode == 0) // Summary Mode
             {
-                if (Widgets.ButtonImage(viewIconRect, Rimpsyche_UI_Utility.ViewBarButton))
+                if (Widgets.ButtonImage(viewIconRect, Rimpsyche_UI_Utility.ViewListButton)) // Or a summary icon if you have one
                 {
                     showMode = 1;
                 }
+                TooltipHandler.TipRegion(viewIconRect, "RimpsycheShowList".Translate());
+            }
+            if (showMode == 1)
+            {
+                if (Widgets.ButtonImage(viewIconRect, Rimpsyche_UI_Utility.ViewBarButton))
+                {
+                    showMode = 2;
+                }
                 TooltipHandler.TipRegion(viewIconRect, "RimpsycheShowBar".Translate());
             }
-            else if (showMode == 1)
+            else if (showMode == 2)
             {
                 if (RimpsycheSettings.showFacetInMenu)
                 {
                     if (Widgets.ButtonImage(viewIconRect, Rimpsyche_UI_Utility.ViewFacetButton))
                     {
-                        showMode = 2;
+                        showMode = 3;
                         PersonalityScrollPosition = Vector2.zero;
                     }
                     TooltipHandler.TipRegion(viewIconRect, "RimpsycheShowFacet".Translate());
@@ -583,50 +646,52 @@ namespace Maux36.RimPsyche
                     {
                         showMode = 0;
                     }
-                    TooltipHandler.TipRegion(viewIconRect, "RimpsycheShowList".Translate());
+                    TooltipHandler.TipRegion(viewIconRect, "RimpsycheShowSummary".Translate());
                 }
             }
-            else if (showMode == 2)
+            else// (showMode == 3) //Facet
             {
                 if (Widgets.ButtonImage(viewIconRect, Rimpsyche_UI_Utility.ViewListButton))
                 {
                     showMode = 0;
                     PersonalityScrollPosition = Vector2.zero;
                 }
-                TooltipHandler.TipRegion(viewIconRect, "RimpsycheShowList".Translate());
-            }
-            else
-            {
-                showMode = 0;
+                TooltipHandler.TipRegion(viewIconRect, "RimpsycheShowSummary".Translate());
             }
 
             Rect sortIconRect = new Rect(viewIconRect.xMax + spacing, viewIconRect.y, iconSize, iconSize);
-            if (sortOption == 0)
+            bool isSortDisabled = (showMode == 0 || showMode == 3);
+
+            if (isSortDisabled)
             {
-                if (Widgets.ButtonImage(sortIconRect, Rimpsyche_UI_Utility.SortButton))
-                {
-                    sortOption = 1;
-                    shouldSort = true;
-                }
-                TooltipHandler.TipRegion(sortIconRect, "RimpsycheSortAlphabet".Translate());
+                Widgets.ButtonImage(sortIconRect, Rimpsyche_UI_Utility.SortButton, barBackgroundColor, barBackgroundColor, false, "RimpsycheSortDisabled".Translate());
             }
-            if (sortOption == 1)
+            else
             {
-                if (Widgets.ButtonImage(sortIconRect, Rimpsyche_UI_Utility.SortButton))
+                if (sortOption == 0)
                 {
-                    sortOption = 2;
-                    shouldSort = true;
+                    if (Widgets.ButtonImage(sortIconRect, Rimpsyche_UI_Utility.SortButton, true, "RimpsycheSortAlphabet".Translate()))
+                    {
+                        sortOption = 1;
+                        shouldSort = true;
+                    }
                 }
-                TooltipHandler.TipRegion(sortIconRect, "RimpsycheSortDef".Translate());
-            }
-            if (sortOption == 2)
-            {
-                if (Widgets.ButtonImage(sortIconRect, Rimpsyche_UI_Utility.SortButton))
+                if (sortOption == 1)
                 {
-                    sortOption = 0;
-                    shouldSort = true;
+                    if (Widgets.ButtonImage(sortIconRect, Rimpsyche_UI_Utility.SortButton, true, "RimpsycheSortDef".Translate()))
+                    {
+                        sortOption = 2;
+                        shouldSort = true;
+                    }
                 }
-                TooltipHandler.TipRegion(sortIconRect, "RimpsycheSortValue".Translate());
+                if (sortOption == 2)
+                {
+                    if (Widgets.ButtonImage(sortIconRect, Rimpsyche_UI_Utility.SortButton, true, "RimpsycheSortValue".Translate()))
+                    {
+                        sortOption = 0;
+                        shouldSort = true;
+                    }
+                }
             }
             
             Rect editIconRect = new Rect(sortIconRect.xMax + spacing, sortIconRect.y, iconSize, iconSize);
@@ -643,8 +708,14 @@ namespace Maux36.RimPsyche
             // Scroll View Setup
             Text.Font = GameFont.Small;
             var personalitiesToDisplay = GetSortedPersonalityData(compPsyche, pawn);
-
-            float viewHeight = (showMode == 2)? 15 * personalityRowHeight + 3f : personalitiesToDisplay.Count() * personalityRowHeight + 3f;
+            var behaviorsToDisplay = GetBehaviorData(compPsyche, pawn);
+            var viewHeight = showMode switch
+            {
+                0 => 15 * personalityRowHeight + 3f,
+                1 => personalitiesToDisplay.Count() * personalityRowHeight + 3f,
+                2 => personalitiesToDisplay.Count() * personalityRowHeight + 3f,
+                _ => 15 * personalityRowHeight + 3f,
+            };
             Rect scrollContentRect = new Rect(0f, 0f, personalityRect.width - scrollWidth, viewHeight);
 
             Rect scrollRect = new Rect(
@@ -657,7 +728,169 @@ namespace Maux36.RimPsyche
             Widgets.BeginScrollView(scrollRect, ref PersonalityScrollPosition, scrollContentRect);
 
             float y = 0f;
-            if (showMode == 2)
+            if (showMode == 0) // Summary Mode
+            {
+                // ================= PERSONALITY PROFILE =================
+                Rect profileHeaderRect = new Rect(0f, y, scrollContentRect.width, headerHeight);
+                Widgets.Label(profileHeaderRect, "RimPsyche_PersonalityProfile".Translate()); // "Personality Profile"
+                y += profileHeaderRect.yMax + innerPadding;
+
+                Text.Anchor = TextAnchor.MiddleLeft;
+                for (int i = 0; i <= 5; i++)
+                {
+                    var pData = personalitiesToDisplay[i];
+                    Rect rowRect = new Rect(0f, y, scrollContentRect.width, personalityRowHeight);
+
+                    // Hover highlight + tooltip
+                    if (Mouse.IsOver(rowRect))
+                    {
+                        Widgets.DrawHighlight(rowRect);
+                        TooltipHandler.TipRegion(rowRect, pData.CachedDescription);
+                    }
+
+                    // Draw label
+                    GUI.color = pData.CachedLabelColor;
+                    Rect labelRect = new Rect(rowRect.x + labelPadding, rowRect.y, scrollContentRect.width - (2 * labelPadding), personalityRowHeight);
+                    Widgets.Label(labelRect, pData.CachedLabelText);
+                    GUI.color = Color.white; // Reset color
+                    y += personalityRowHeight;
+                }
+
+                y += 10f;
+                // Divider Line
+                GUI.color = new Color(1f, 1f, 1f, 0.2f);
+                Widgets.DrawLineHorizontal(0f, y, scrollContentRect.width);
+                GUI.color = Color.white;
+                y += 15f;
+
+                // ================= BEHAVIOR HIGHLIGHT =================
+                Text.Anchor = TextAnchor.MiddleCenter;
+                Rect behaviorHeaderRect = new Rect(0f, y, scrollContentRect.width, headerHeight);
+                Widgets.Label(behaviorHeaderRect, "RimPsyche_BehaviorHighlight".Translate()); // "Behavior Highlight"
+                y += behaviorHeaderRect.yMax + innerPadding;
+                Text.Anchor = TextAnchor.MiddleLeft;
+
+                // Find and sort active descriptors by their strength score
+                int behaviorCount = 0;
+                foreach (var entry in behaviorsToDisplay)
+                {
+                    if (behaviorCount >= 3) break;
+
+                    Rect rowRect = new Rect(10f, y, scrollContentRect.width - 10f, personalityRowHeight);
+                    Widgets.DrawHighlightIfMouseover(rowRect);
+
+                    // Split space for translation key and intensity dots
+                    string translatedKey = entry.CachedDescription;
+                    string intensityDots = PsycheDescriptorWorker.GetIntensityString(entry.intensity);
+
+                    // Render descriptor label
+                    Text.Anchor = TextAnchor.MiddleLeft;
+                    Widgets.Label(new Rect(rowRect.x, rowRect.y, rowRect.width - 60f, rowRect.height), translatedKey);
+
+                    // Render intensity string right-aligned
+                    Text.Anchor = TextAnchor.MiddleRight;
+                    GUI.color = Color.cyan; // Distinct color highlighting for the active dots
+                    Widgets.Label(new Rect(rowRect.xMax - 65f, rowRect.y, 60f, rowRect.height), intensityDots);
+                    GUI.color = Color.white;
+                    Text.Anchor = TextAnchor.MiddleLeft; // Reset
+
+                    // Dynamic breakdown tooltip containing what personality properties formed this descriptor
+                    TooltipHandler.TipRegion(rowRect, entry.CachedTooltip);
+
+                    y += personalityRowHeight;
+                    behaviorCount++;
+                }
+
+                if (behaviorCount == 0)
+                {
+                    Rect emptyRect = new Rect(10f, y, scrollContentRect.width - 10f, personalityRowHeight);
+                    GUI.color = Color.gray;
+                    Widgets.Label(emptyRect, "None".Translate());
+                    GUI.color = Color.white;
+                    y += personalityRowHeight;
+                }
+            }
+            else if (showMode == 1)
+            {
+                int firstIndex = Mathf.FloorToInt(PersonalityScrollPosition.y / personalityRowHeight);
+                int lastIndex = Mathf.FloorToInt((PersonalityScrollPosition.y + scrollRect.height) / personalityRowHeight);
+                firstIndex = Mathf.Clamp(firstIndex, 0, personalitiesToDisplay.Count - 1);
+                lastIndex = Mathf.Clamp(lastIndex, 0, personalitiesToDisplay.Count - 1);
+                for (int i = firstIndex; i <= lastIndex; i++)
+                {
+                    var pData = personalitiesToDisplay[i];
+                    y = i * personalityRowHeight;
+                    Rect rowRect = new Rect(0f, y, scrollContentRect.width, personalityRowHeight);
+
+                    // Hover highlight + tooltip
+                    if (Mouse.IsOver(rowRect))
+                    {
+                        Widgets.DrawHighlight(rowRect);
+                        TooltipHandler.TipRegion(rowRect, pData.CachedDescription);
+                    }
+
+                    // Draw label
+                    Text.Anchor = TextAnchor.MiddleLeft;
+                    GUI.color = pData.CachedLabelColor;
+                    Rect labelRect = new Rect(rowRect.x + labelPadding, rowRect.y, scrollContentRect.width - (2 * labelPadding), personalityRowHeight);
+                    Widgets.Label(labelRect, pData.CachedLabelText);
+                    GUI.color = Color.white; // Reset color
+                }
+            }
+            else if (showMode == 2)
+            {
+                int firstIndex = Mathf.FloorToInt(PersonalityScrollPosition.y / personalityRowHeight);
+                int lastIndex = Mathf.FloorToInt((PersonalityScrollPosition.y + scrollRect.height) / personalityRowHeight);
+                firstIndex = Mathf.Clamp(firstIndex, 0, personalitiesToDisplay.Count - 1);
+                lastIndex = Mathf.Clamp(lastIndex, 0, personalitiesToDisplay.Count - 1);
+
+                for (int i = firstIndex; i <= lastIndex; i++)
+                {
+                    var pData = personalitiesToDisplay[i];
+                    var personality = pData.Personality;
+                    var value = pData.Value;
+                    var (leftLabel, rightLabel, leftColor, rightColor) = (personality.low.CapitalizeFirst(), personality.high.CapitalizeFirst(), Color.red, Color.green);
+
+                    y = i * personalityRowHeight;
+                    Rect rowRect = new Rect(0f, y, scrollContentRect.width, personalityRowHeight);
+
+                    // Hover highlight + tooltip
+                    if (Mouse.IsOver(rowRect))
+                    {
+                        Widgets.DrawHighlight(rowRect);
+                        TooltipHandler.TipRegion(rowRect, pData.CachedDescription);
+                    }
+
+                    float barCenterX = rowRect.x + rowRect.width / 2f;
+                    float centerY = rowRect.y + rowRect.height / 2f;
+                    float textY = centerY - Text.LineHeight / 2f;
+                    float barY = centerY - personalityBarHeight / 2f;
+
+                    // Left label
+                    Rect leftRect = new Rect(rowRect.x + labelPadding, textY, personalityLabelWidth, Text.LineHeight);
+                    Text.Anchor = TextAnchor.MiddleLeft;
+                    Widgets.Label(leftRect, leftLabel);
+
+                    // Right label
+                    Rect rightRect = new Rect(rowRect.xMax - personalityLabelWidth - labelPadding, textY, personalityLabelWidth, Text.LineHeight);
+                    Text.Anchor = TextAnchor.MiddleRight;
+                    Widgets.Label(rightRect, rightLabel);
+
+                    // Bar background
+                    Rect barRect = new Rect(barCenterX - personalityBarWidth / 2f, barY, personalityBarWidth, personalityBarHeight);
+                    Widgets.DrawBoxSolid(barRect, barBackgroundColor);
+
+                    // Value bar
+                    float halfBar = pData.AbsValue * (personalityBarWidth) / 2f;
+                    Rect valueRect = value >= 0
+                        ? new Rect(barCenterX, barRect.y, halfBar, personalityBarHeight)
+                        : new Rect(barCenterX - halfBar, barRect.y, halfBar, personalityBarHeight);
+
+                    // Color based on intensity (small = yellow, strong = green)
+                    Widgets.DrawBoxSolid(valueRect, pData.CachedLabelColor);
+                }
+            }
+            else if (showMode == 3)
             {
                 foreach (Facet facet in RimpsycheDatabase.AllFacets)
                 {
@@ -712,87 +945,6 @@ namespace Maux36.RimPsyche
                     Widgets.DrawBoxSolid(valueRect, barColor);
 
                     y += personalityRowHeight;
-                }
-            }
-
-            else if (showMode == 1)
-            {
-                int firstIndex = Mathf.FloorToInt(PersonalityScrollPosition.y / personalityRowHeight);
-                int lastIndex = Mathf.FloorToInt((PersonalityScrollPosition.y + scrollRect.height) / personalityRowHeight);
-                firstIndex = Mathf.Clamp(firstIndex, 0, personalitiesToDisplay.Count - 1);
-                lastIndex = Mathf.Clamp(lastIndex, 0, personalitiesToDisplay.Count - 1);
-
-                for (int i = firstIndex; i <= lastIndex; i++)
-                {
-                    var pData = personalitiesToDisplay[i];
-                    var personality = pData.Personality;
-                    var value = pData.Value;
-                    var (leftLabel, rightLabel, leftColor, rightColor) = (personality.low.CapitalizeFirst(), personality.high.CapitalizeFirst(), Color.red, Color.green);
-
-                    y = i * personalityRowHeight;
-                    Rect rowRect = new Rect(0f, y, scrollContentRect.width, personalityRowHeight);
-
-                    // Hover highlight + tooltip
-                    if (Mouse.IsOver(rowRect))
-                    {
-                        Widgets.DrawHighlight(rowRect);
-                        TooltipHandler.TipRegion(rowRect, pData.CachedDescription);
-                    }
-
-                    float barCenterX = rowRect.x + rowRect.width / 2f;
-                    float centerY = rowRect.y + rowRect.height / 2f;
-                    float textY = centerY - Text.LineHeight / 2f;
-                    float barY = centerY - personalityBarHeight / 2f;
-
-                    // Left label
-                    Rect leftRect = new Rect(rowRect.x + labelPadding, textY, personalityLabelWidth, Text.LineHeight);
-                    Text.Anchor = TextAnchor.MiddleLeft;
-                    Widgets.Label(leftRect, leftLabel);
-
-                    // Right label
-                    Rect rightRect = new Rect(rowRect.xMax - personalityLabelWidth - labelPadding, textY, personalityLabelWidth, Text.LineHeight);
-                    Text.Anchor = TextAnchor.MiddleRight;
-                    Widgets.Label(rightRect, rightLabel);
-
-                    // Bar background
-                    Rect barRect = new Rect(barCenterX - personalityBarWidth / 2f, barY, personalityBarWidth, personalityBarHeight);
-                    Widgets.DrawBoxSolid(barRect, barBackgroundColor);
-
-                    // Value bar
-                    float halfBar = pData.AbsValue * (personalityBarWidth) / 2f;
-                    Rect valueRect = value >= 0
-                        ? new Rect(barCenterX, barRect.y, halfBar, personalityBarHeight)
-                        : new Rect(barCenterX - halfBar, barRect.y, halfBar, personalityBarHeight);
-
-                    // Color based on intensity (small = yellow, strong = green)
-                    Widgets.DrawBoxSolid(valueRect, pData.CachedLabelColor);
-                }
-            }
-            else
-            {
-                int firstIndex = Mathf.FloorToInt(PersonalityScrollPosition.y / personalityRowHeight);
-                int lastIndex = Mathf.FloorToInt((PersonalityScrollPosition.y + scrollRect.height) / personalityRowHeight);
-                firstIndex = Mathf.Clamp(firstIndex, 0, personalitiesToDisplay.Count - 1);
-                lastIndex = Mathf.Clamp(lastIndex, 0, personalitiesToDisplay.Count - 1);
-                for (int i = firstIndex; i <= lastIndex; i++)
-                {
-                    var pData = personalitiesToDisplay[i];
-                    y = i * personalityRowHeight;
-                    Rect rowRect = new Rect(0f, y, scrollContentRect.width, personalityRowHeight);
-
-                    // Hover highlight + tooltip
-                    if (Mouse.IsOver(rowRect))
-                    {
-                        Widgets.DrawHighlight(rowRect);
-                        TooltipHandler.TipRegion(rowRect, pData.CachedDescription);
-                    }
-
-                    // Draw label
-                    Text.Anchor = TextAnchor.MiddleLeft;
-                    GUI.color = pData.CachedLabelColor;
-                    Rect labelRect = new Rect(rowRect.x + labelPadding, rowRect.y, scrollContentRect.width - (2 * labelPadding), personalityRowHeight);
-                    Widgets.Label(labelRect, pData.CachedLabelText);
-                    GUI.color = Color.white; // Reset color
                 }
             }
 
@@ -857,8 +1009,8 @@ namespace Maux36.RimPsyche
             float mAttraction = compPsyche.Sexuality.GetAdjustedAttractionToGender(Gender.Male);
             Rect mValueRect = new Rect(maleBarRect.x, maleBarRect.y, mAttraction * barWidth, sexualityBarHeight);
             Color mColor;
-            if (mAttraction <= 1) mColor = Color.Lerp(Color.yellow, Color.green, mAttraction);
-            else mColor = Color.Lerp(Color.green, Color.cyan, -1.25f + 1.5f * mAttraction);
+            if (mAttraction <= 1) mColor = Color.Lerp(LowSexualityBarColor, HighSexualityBarColor, mAttraction);
+            else mColor = Color.Lerp(HighSexualityBarColor, HyperSexualityBarColor, -1.25f + 1.5f * mAttraction);
             Widgets.DrawBoxSolid(mValueRect, mColor);
             Widgets.DrawLineVertical(maleBarRect.xMax, maleBarRect.y - 1, maleBarRect.height + 2);
             if (Mouse.IsOver(maleAllRect))
@@ -880,8 +1032,8 @@ namespace Maux36.RimPsyche
             float fAttraction = compPsyche.Sexuality.GetAdjustedAttractionToGender(Gender.Female);
             Rect fValueRect = new Rect(femaleBarRect.x, femaleBarRect.y, fAttraction * barWidth, sexualityBarHeight);
             Color fColor;
-            if (fAttraction <= 1) fColor = Color.Lerp(Color.yellow, Color.green, fAttraction);
-            else fColor = Color.Lerp(Color.green, Color.cyan, -1.25f + 1.5f * fAttraction);
+            if (fAttraction <= 1) fColor = Color.Lerp(LowSexualityBarColor, HighSexualityBarColor, fAttraction);
+            else fColor = Color.Lerp(HighSexualityBarColor, HyperSexualityBarColor, -1.25f + 1.5f * fAttraction);
             Widgets.DrawBoxSolid(fValueRect, fColor);
             Widgets.DrawLineVertical(femaleBarRect.xMax, femaleBarRect.y - 1, femaleBarRect.height + 2);
             if (Mouse.IsOver(femaleAllRect))
@@ -901,8 +1053,8 @@ namespace Maux36.RimPsyche
             float sexDrive = compPsyche.Sexuality.GetAdjustedSexdrive();
             Rect sdValueRect = new Rect(sexDriveRect.x, sexDriveRect.y, sexDrive * barWidth, sexualityBarHeight);
             Color sdColor;
-            if (sexDrive <= 1) sdColor = Color.Lerp(Color.yellow, Color.green, sexDrive);
-            else sdColor = Color.Lerp(Color.green, Color.cyan, -1.25f + 1.5f * sexDrive);
+            if (sexDrive <= 1) sdColor = Color.Lerp(LowSexualityBarColor, HighSexualityBarColor, sexDrive);
+            else sdColor = Color.Lerp(HighSexualityBarColor, HyperSexualityBarColor, -1.25f + 1.5f * sexDrive);
             Widgets.DrawBoxSolid(sdValueRect, sdColor);
             Widgets.DrawLineVertical(sexDriveRect.xMax, sexDriveRect.y - 1, sexDriveRect.height + 2);
             if (Mouse.IsOver(sexDriveAllRect))
