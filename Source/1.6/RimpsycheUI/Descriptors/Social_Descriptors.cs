@@ -5,7 +5,7 @@ using Verse;
 
 namespace Maux36.RimPsyche
 {
-    public class SocialDescriptor : DescriptorBase
+    public class SocialDescriptor : PsycheDescriptorWorker
     {
         public SocialDescriptor()
         {
