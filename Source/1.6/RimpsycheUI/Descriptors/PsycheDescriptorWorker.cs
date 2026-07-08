@@ -7,13 +7,6 @@ namespace Maux36.RimPsyche
 {
     public abstract class PsycheDescriptorWorker
     {
-        public string positiveKey;
-        public string negativeKey;
-        public float threshold;
-        public float strongThreshold;
-        public float extremeThreshold;
-        public List<PersonalityDef> contributors;
-
         public abstract float Score(CompPsyche compPsyche);
 
         public string GetKey(CompPsyche compPsyche)
