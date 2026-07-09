@@ -8,7 +8,15 @@ namespace Maux36.RimPsyche
     public abstract class PsycheDescriptorWorker
     {
         public PsycheDescriptorDef descriptorDef;
+        public static negBlameColor = new Color(0.8f, 0.2f, 0.2f);
+        public static posBlameColor = new Color(0.2f, 0.8f, 0.2f);
         public abstract float Score(CompPsyche compPsyche);
+        public virtual string GetDescription(CompPsyche compPsyche)
+        {
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.AppendLine(GetKey(compPsyche));
+            return stringBuilder.ToString();
+        }
 
         public string GetKey(CompPsyche compPsyche)
         {
@@ -41,42 +49,13 @@ namespace Maux36.RimPsyche
                 _ => "○○○",
             };
         }
-        public static string GetPersonalityDescription(CompPsyche compPsyche, PersonalityDef personality)
+        public static string GetBlame(CompPsyche compPsyche, PersonalityDef personality, bool positive = true)
         {
             float value = compPsyche.Personality.GetPersonality(personality);
-            float absValue = Mathf.Abs(value);
-
-            string intensityKey = absValue switch
-            {
-                >= 0.75f => "RimPsycheIntensityExtremely",
-                >= 0.50f => "RimPsycheIntensityVery",
-                >= 0.25f => "RimPsycheIntensitySomewhat",
-                > 0f     => "RimPsycheIntensityMarginally",
-                _         => "RimPsycheIntensityNeutral"
-            };
-
-            string personalityName = value >= 0 ? personality.high : personality.low;
-
-            string label = LanguageDatabase.activeLanguage.HaveTextForKey(intensityKey)
-                ? intensityKey.Translate(personalityName)
-                : RimpsycheDatabase.IntensityKeysDefault[intensityKey] + " " + personalityName;
-
-            return $"{label} ({Mathf.RoundToInt(absValue * 100f)}%)";
-        }
-        public static string BuildContributorsTooltip(CompPsyche compPsyche, List<PersonalityDef> contributors)
-        {
-            if (contributors == null || contributors.Count == 0)
-                return "Influenced by\nNone";
-
-            StringBuilder sb = new StringBuilder("Influenced by\n");
-
-            foreach (PersonalityDef personality in contributors)
-            {
-                sb.Append("• ")
-                .AppendLine(GetPersonalityDescription(compPsyche, personality));
-            }
-
-            return sb.ToString().TrimEnd();
+            var desc = Rimpsyche_Utility.GetPersonalityDesc(personality, value);
+            Color targetColor = ((value >= 0f) == positive) ? posBlameColor : negBlameColor;
+            Color blendedColor = Color.Lerp(Color.gray, targetColor, Mathf.Abs(value));
+            return $"<color=#{ColorUtility.ToHtmlStringRGBA(blendedColor)}>{desc}</color>";
         }
     }
 }
