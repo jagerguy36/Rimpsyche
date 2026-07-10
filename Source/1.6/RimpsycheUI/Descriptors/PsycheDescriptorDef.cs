@@ -1,17 +1,17 @@
 using System;
-using System.Collections.Generic;
 using Verse;
 
 namespace Maux36.RimPsyche
 {
     public class PsycheDescriptorDef: Def
     {
-        public string positiveKey;
-        public string negativeKey;
+        public string positiveLabel;
+        public string negativeLabel = string.Empty;
+        public string positiveDescription;
+        public string negativeDescription = string.Empty;
         public float threshold;
         public float strongThreshold;
         public float extremeThreshold;
-        public List<PersonalityDef> contributors;
         public Type workerClass = typeof(PsycheDescriptorWorker);
         [Unsaved(false)]
         private PsycheDescriptorWorker workerInt;
@@ -24,6 +24,7 @@ namespace Maux36.RimPsyche
                 {
                     workerInt = (PsycheDescriptorWorker)Activator.CreateInstance(workerClass);
                     workerInt.descriptorDef = this;
+                    if (negativeLabel == string.Empty) workerInt.positiveOnly = true;
                 }
                 return workerInt;
             }

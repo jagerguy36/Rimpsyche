@@ -1,6 +1,5 @@
-using System;
-using System.Collections.Generic;
-using UnityEngine;
+using RimWorld;
+using System.Text;
 using Verse;
 
 namespace Maux36.RimPsyche
@@ -9,29 +8,30 @@ namespace Maux36.RimPsyche
     {
         public override float Score(CompPsyche compPsyche)
         {
-            return 0.5f * (1f + compPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Sociability));
+            return compPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Sociability);
         }
-        public override string GetDescription(CompPsyche compPsyche)
+        public override string GetTooltip(CompPsyche compPsyche)
         {
+            bool direction = Score(compPsyche) > 0f;
             StringBuilder sb = new StringBuilder();
-            sb.AppendLine(GetKey(compPsyche));
+            sb.AppendLine(GetDescription(compPsyche));
             sb.AppendLine("  " + "PsycheDescriptorBlame".Translate()); //From personalities:
-            sb.AppendLine($"    - {GetBlame(compPsyche, PersonalityDefOf.Rimpsyche_Selfishness)}");
+            sb.AppendLine($"    - {GetBlame(compPsyche, PersonalityDefOf.Rimpsyche_Sociability, direction)}");
             return sb.ToString();
         }
     }
 
-    public class EloquenceDescriptorWorker : PsycheDescriptorWorker
+    public class AgreeableDescriptorWorker : PsycheDescriptorWorker
     {
         public override float Score(CompPsyche compPsyche)
         {
             var fervor = (0.2f * compPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Tact)) + compPsyche.Evaluate(RimpsycheDatabase.Fervor);  //-0.4~[0]~0.4
-            return 1f + 2.5f * fervor;
+            return 2.5f * fervor;
         }
-        public override string GetDescription(CompPsyche compPsyche)
+        public override string GetTooltip(CompPsyche compPsyche)
         {
             StringBuilder sb = new StringBuilder();
-            sb.AppendLine(GetKey(compPsyche));
+            sb.AppendLine(GetDescription(compPsyche));
             sb.AppendLine("  " + "PsycheDescriptorBlame".Translate()); //From personalities:
             sb.AppendLine($"    - {GetBlame(compPsyche, PersonalityDefOf.Rimpsyche_Tact)}");
             sb.AppendLine($"    - {GetBlame(compPsyche, PersonalityDefOf.Rimpsyche_Passion)}");
@@ -39,7 +39,75 @@ namespace Maux36.RimPsyche
             return sb.ToString();
         }
     }
-    //InitIntentFactor: How likely someone is to insult or slight others.
-    //AssertBase + ReceiveBase: How likely are they to still have good convo when different opinion.
-    //reciNegativeChanceMultiplier: How likely they are to take offense (slighted or insulted).
+
+    public class BelligerentDescriptorWorker : PsycheDescriptorWorker
+    {
+        public override float Score(CompPsyche compPsyche)
+        {
+            var intentFactor = compPsyche.Evaluate(RimpsycheDatabase.InitIntentFactor); // -4.5~3.5
+            return intentFactor > 0f ? (intentFactor / 3.5f) : (intentFactor / 4.5f); // -1 ~ 1
+        }
+        public override string GetTooltip(CompPsyche compPsyche)
+        {
+            bool direction = Score(compPsyche) > 0f;
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine(GetDescription(compPsyche));
+            sb.AppendLine("  " + "PsycheDescriptorBlame".Translate()); //From personalities:
+            sb.AppendLine($"    - {GetBlame(compPsyche, PersonalityDefOf.Rimpsyche_Aggressiveness, direction)}");
+            sb.AppendLine($"    - {GetBlame(compPsyche, PersonalityDefOf.Rimpsyche_Compassion, !direction)}");
+            sb.AppendLine($"    - {GetBlame(compPsyche, PersonalityDefOf.Rimpsyche_Tension, direction)}");
+            if (compPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Competitiveness) < 0f)
+                sb.AppendLine($"    - {GetBlame(compPsyche, PersonalityDefOf.Rimpsyche_Competitiveness, direction)}");
+            if (compPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Sociability) > 0f)
+                sb.AppendLine($"    - {GetBlame(compPsyche, PersonalityDefOf.Rimpsyche_Sociability, !direction)}");
+            return sb.ToString();
+        }
+    }
+
+    public class TouchyDescriptorWorker : PsycheDescriptorWorker
+    {
+        public override float Score(CompPsyche compPsyche)
+        {
+            var reciNegFactor = compPsyche.Evaluate(RimpsycheDatabase.reciNegativeChanceMultiplier); // -4.5~3.5
+            return 10f * (reciNegFactor -1f);
+        }
+        public override string GetTooltip(CompPsyche compPsyche)
+        {
+            bool direction = Score(compPsyche) > 0f;
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine(GetDescription(compPsyche));
+            sb.AppendLine("  " + "PsycheDescriptorBlame".Translate()); //From personalities:
+            sb.AppendLine($"    - {GetBlame(compPsyche, PersonalityDefOf.Rimpsyche_Tension, direction)}");
+            sb.AppendLine($"    - {GetBlame(compPsyche, PersonalityDefOf.Rimpsyche_Stability, !direction)}");
+            sb.AppendLine($"    - {GetBlame(compPsyche, PersonalityDefOf.Rimpsyche_Confidence, !direction)}");
+            return sb.ToString();
+        }
+    }
+    public class ReceptiveDescriptorWorker : PsycheDescriptorWorker
+    {
+        public override float Score(CompPsyche compPsyche)
+        {
+            var receiveBase = compPsyche.Evaluate(RimpsycheDatabase.ReceiveBase);
+            var assertBase = compPsyche.Evaluate(RimpsycheDatabase.AssertBase);
+            return 0.5f * (receiveBase + assertBase);
+        }
+        public override string GetTooltip(CompPsyche compPsyche)
+        {
+            bool direction = Score(compPsyche) > 0f;
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine(GetDescription(compPsyche));
+            sb.AppendLine("  " + "PsycheDescriptorBlame".Translate()); //From personalities:
+            sb.AppendLine($"    - {GetBlame(compPsyche, PersonalityDefOf.Rimpsyche_Openness, direction)}");
+            if (compPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Openness) > 0f)
+                sb.AppendLine($"    - {GetBlame(compPsyche, PersonalityDefOf.Rimpsyche_Trust, direction)}");
+            else
+                sb.AppendLine($"    - {GetBlame(compPsyche, PersonalityDefOf.Rimpsyche_Trust, !direction)}");
+            sb.AppendLine($"    - {GetBlame(compPsyche, PersonalityDefOf.Rimpsyche_Tact, direction)}");
+            if (compPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Tact) > 0f)
+                sb.AppendLine($"    - {GetBlame(compPsyche, PersonalityDefOf.Rimpsyche_Talkativeness, direction)}");
+            else
+                sb.AppendLine($"    - {GetBlame(compPsyche, PersonalityDefOf.Rimpsyche_Talkativeness, !direction)}");
+            return sb.ToString();
+        }
+    }
 }

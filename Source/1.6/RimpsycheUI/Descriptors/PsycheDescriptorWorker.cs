@@ -8,46 +8,37 @@ namespace Maux36.RimPsyche
     public abstract class PsycheDescriptorWorker
     {
         public PsycheDescriptorDef descriptorDef;
-        public static negBlameColor = new Color(0.8f, 0.2f, 0.2f);
-        public static posBlameColor = new Color(0.2f, 0.8f, 0.2f);
+        public bool positiveOnly = false;
+        public static Color negBlameColor = new Color(0.8f, 0.2f, 0.2f);
+        public static Color posBlameColor = new Color(0.2f, 0.8f, 0.2f);
         public abstract float Score(CompPsyche compPsyche);
-        public virtual string GetDescription(CompPsyche compPsyche)
+        public virtual string GetTooltip(CompPsyche compPsyche)
         {
             StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.AppendLine(GetKey(compPsyche));
+            stringBuilder.AppendLine(GetDescription(compPsyche));
             return stringBuilder.ToString();
         }
-
-        public string GetKey(CompPsyche compPsyche)
+        public string GetLabel(CompPsyche compPsyche)
         {
-            return Score(compPsyche) >= 0 ? descriptorDef.positiveKey : descriptorDef.negativeKey;
+            return Score(compPsyche) >= 0 ? descriptorDef.positiveLabel : descriptorDef.negativeLabel;
         }
 
-        public float GetStrength(CompPsyche compPsyche)
+        public string GetDescription(CompPsyche compPsyche)
         {
-            return Mathf.Abs(Score(compPsyche));
+            return Score(compPsyche) >= 0 ? descriptorDef.positiveDescription : descriptorDef.negativeDescription;
         }
 
-        public int GetIntensity(float strength)
+        public string GetIntensityString(CompPsyche compPsyche)
         {
+            var strength = Mathf.Abs(Score(compPsyche));
+
             if (strength >= descriptorDef.extremeThreshold)
-                return 3;
+                return "●●●";
 
             if (strength >= descriptorDef.strongThreshold)
-                return 2;
+                return "●●○";
 
-            return 1;
-        }
-
-        public static string GetIntensityString(int intensity)
-        {
-            return intensity switch
-            {
-                1 => "●○○",
-                2 => "●●○",
-                3 => "●●●",
-                _ => "○○○",
-            };
+            return "●○○";
         }
         public static string GetBlame(CompPsyche compPsyche, PersonalityDef personality, bool positive = true)
         {

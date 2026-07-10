@@ -116,12 +116,12 @@ namespace Maux36.RimPsyche
         private static Pawn lastPawn;
         public struct BehaviorData
         {
-            public float Value;
+            public string Label;
+            public string Intensity;
+            public string Description;
+            public string Tooltip;
             public float AbsValue;
-            public string CachedDescription;
-            public string CachedTooltip;
-            public int intensity;
-            public Color CachedIntensityColor;
+            public bool Significant;
         }
         private struct PersonalityDisplayData
         {
@@ -303,7 +303,7 @@ namespace Maux36.RimPsyche
                     0 => cachedPersonalityData.OrderByDescending(p => p.AbsValue),
                     1 => cachedPersonalityData.OrderBy(p => p.Personality.label),
                     2 => cachedPersonalityData.OrderBy(p => RimpsycheDatabase.PersonalityOrder[p.Personality.shortHash]),
-                    _ => cachedPersonalityData // Default fallback if sortOption is invalid
+                    _ => cachedPersonalityData.OrderByDescending(p => p.AbsValue)
                 }).ToList();
                 shouldSort = false;
             }
@@ -313,9 +313,9 @@ namespace Maux36.RimPsyche
         {
             if (currentPawn != lastPawn || cachedBehaviorData == null)
             {
+                GenerateBehaviorData(compPsyche, currentPawn);
                 return cachedBehaviorData;
             }
-            GenerateBehaviorData(compPsyche, currentPawn);
             return cachedBehaviorData;
         }
         private static List<InterestDisplayData> GetSortedInterestData(CompPsyche compPsyche, Pawn currentPawn)
@@ -406,22 +406,21 @@ namespace Maux36.RimPsyche
 
             foreach (PsycheDescriptorDef descDef in DefDatabase<PsycheDescriptorDef>.AllDefs)
             {
-                float currentScore = descDef.Worker.Score(compPsyche);
-                // Filter: Must meet minimum threshold to be considered an active descriptor
-                if (Mathf.Abs(currentScore) >= descDef.threshold)
+                var dWorker = descDef.Worker;
+                var score = dWorker.Score(compPsyche);
+                if (dWorker.positiveOnly && score <= 0f)
+                    continue;
+                var absValue = Mathf.Abs(score);
+                var result = new BehaviorData
                 {
-                    var absValue = Mathf.Abs(currentScore);
-                    var result = new BehaviorData
-                    {
-                        Value = currentScore,
-                        AbsValue = absValue,
-                        CachedDescription = "description",
-                        CachedTooltip = "tooltip",
-                        intensity = 0,
-                        CachedIntensityColor = Color.Lerp(LowValueColor, HighValueColor, absValue)
-                    };
-                    sortedData.Add(result);
-                }
+                    Label = dWorker.GetLabel(compPsyche),
+                    Intensity = dWorker.GetIntensityString(compPsyche),
+                    Description = dWorker.GetDescription(compPsyche),
+                    Tooltip = dWorker.GetTooltip(compPsyche),
+                    AbsValue = absValue,
+                    Significant = Mathf.Abs(dWorker.Score(compPsyche)) > descDef.threshold
+                };
+                sortedData.Add(result);
             }
 
             // Sort descending by strength
@@ -572,21 +571,21 @@ namespace Maux36.RimPsyche
             // View Mode Toggle
             float viewIconX = (headerRect.width / 2f) + (titleTextSize.x / 2f) + 8f;
             Rect viewIconRect = new Rect(viewIconX, titleRect.y + (titleRect.height - iconSize) / 2f, iconSize, iconSize);
-            var (icon, tooltipKey, nextMode, resetScroll) = showMode switch
+            var (icon, modeTooltipKey, nextMode, resetScroll) = showMode switch
             {
-                0 => (Rimpsyche_UI_Utility.ViewListButton, "RimpsycheShowList", 1, false), //Summary -> List
-                1 => (Rimpsyche_UI_Utility.ViewBarButton, "RimpsycheShowBar", 2, false), //List -> Bar
-                2 => RimpsycheSettings.showFacetInMenu 
-                    ? (Rimpsyche_UI_Utility.ViewFacetButton, "RimpsycheShowFacet", 3, true) //Bar -> Facet
-                    : (Rimpsyche_UI_Utility.ViewListButton, "RimpsycheShowSummary", 0, false), //Bar -> Summary
-                _ => (Rimpsyche_UI_Utility.ViewListButton, "RimpsycheShowSummary", 0, true) // Any -> Summary
+                0 => (Rimpsyche_UI_Utility.ViewListButton, "RimpsycheShowList", (byte)1, false),
+                1 => (Rimpsyche_UI_Utility.ViewBarButton, "RimpsycheShowBar", (byte)2, false),
+                2 => RimpsycheSettings.showFacetInMenu
+                    ? (Rimpsyche_UI_Utility.ViewFacetButton, "RimpsycheShowFacet", (byte)3, true)
+                    : (Rimpsyche_UI_Utility.ViewListButton, "RimpsycheShowSummary", (byte)0, false),
+                _ => (Rimpsyche_UI_Utility.ViewListButton, "RimpsycheShowSummary", (byte)0, true)
             };
             if (Widgets.ButtonImage(viewIconRect, icon))
             {
                 showMode = nextMode;
                 if (resetScroll) PersonalityScrollPosition = Vector2.zero;
             }
-            TooltipHandler.TipRegion(viewIconRect, tooltipKey.Translate());
+            TooltipHandler.TipRegion(viewIconRect, modeTooltipKey.Translate());
 
             // Sort Mode Toggle
             Rect sortIconRect = new Rect(viewIconRect.xMax + spacing, viewIconRect.y, iconSize, iconSize);
@@ -597,13 +596,13 @@ namespace Maux36.RimPsyche
             }
             else
             {
-                var (tooltipKey, nextOption) = sortOption switch
+                var (optionTooltipKey, nextOption) = sortOption switch
                 {
-                    0 => ("RimpsycheSortAlphabet", 1),
-                    1 => ("RimpsycheSortDef", 2),
-                    _ => ("RimpsycheSortValue", 0) // Handles 2 and fallback
+                    0 => ("RimpsycheSortAlphabet", (byte)1),
+                    1 => ("RimpsycheSortDef", (byte)2),
+                    _ => ("RimpsycheSortValue", (byte)0) // Handles 2 and fallback
                 };
-                if (Widgets.ButtonImage(sortIconRect, Rimpsyche_UI_Utility.SortButton, true, tooltipKey.Translate()))
+                if (Widgets.ButtonImage(sortIconRect, Rimpsyche_UI_Utility.SortButton, true, optionTooltipKey.Translate()))
                 {
                     sortOption = nextOption;
                     shouldSort = true;
@@ -652,7 +651,7 @@ namespace Maux36.RimPsyche
                 y += profileHeaderRect.yMax + innerPadding;
 
                 Text.Anchor = TextAnchor.MiddleLeft;
-                for (int i = 0; i <= 5; i++)
+                for (int i = 0; i <= 4; i++)
                 {
                     var pData = personalitiesToDisplay[i];
                     Rect rowRect = new Rect(0f, y, scrollContentRect.width, personalityRowHeight);
@@ -683,38 +682,41 @@ namespace Maux36.RimPsyche
                 Text.Anchor = TextAnchor.MiddleCenter;
                 Rect behaviorHeaderRect = new Rect(0f, y, scrollContentRect.width, headerHeight);
                 Widgets.Label(behaviorHeaderRect, "RimPsyche_BehaviorHighlight".Translate()); // "Behavior Highlight"
-                y += behaviorHeaderRect.yMax + innerPadding;
+                y += behaviorHeaderRect.height + innerPadding;
                 Text.Anchor = TextAnchor.MiddleLeft;
 
                 // Find and sort active descriptors by their strength score
                 int behaviorCount = 0;
                 foreach (var entry in behaviorsToDisplay)
                 {
-                    if (behaviorCount >= 3) break;
+                    if (behaviorCount > 4)
+                        break;
+                    if (entry.Significant)
+                    {
+                        Rect rowRect = new Rect(10f, y, scrollContentRect.width - 10f, personalityRowHeight);
+                        Widgets.DrawHighlightIfMouseover(rowRect);
 
-                    Rect rowRect = new Rect(10f, y, scrollContentRect.width - 10f, personalityRowHeight);
-                    Widgets.DrawHighlightIfMouseover(rowRect);
+                        // Split space for translation key and intensity dots
+                        string translatedKey = entry.Label;
+                        string intensityDots = entry.Intensity;
 
-                    // Split space for translation key and intensity dots
-                    string translatedKey = entry.CachedDescription;
-                    string intensityDots = PsycheDescriptorWorker.GetIntensityString(entry.intensity);
+                        // Render descriptor label
+                        Text.Anchor = TextAnchor.MiddleLeft;
+                        Widgets.Label(new Rect(rowRect.x, rowRect.y, rowRect.width - 60f, rowRect.height), translatedKey);
 
-                    // Render descriptor label
-                    Text.Anchor = TextAnchor.MiddleLeft;
-                    Widgets.Label(new Rect(rowRect.x, rowRect.y, rowRect.width - 60f, rowRect.height), translatedKey);
+                        // Render intensity string right-aligned
+                        Text.Anchor = TextAnchor.MiddleRight;
+                        GUI.color = Color.cyan; // Distinct color highlighting for the active dots
+                        Widgets.Label(new Rect(rowRect.xMax - 65f, rowRect.y, 60f, rowRect.height), intensityDots);
+                        GUI.color = Color.white;
+                        Text.Anchor = TextAnchor.MiddleLeft; // Reset
 
-                    // Render intensity string right-aligned
-                    Text.Anchor = TextAnchor.MiddleRight;
-                    GUI.color = Color.cyan; // Distinct color highlighting for the active dots
-                    Widgets.Label(new Rect(rowRect.xMax - 65f, rowRect.y, 60f, rowRect.height), intensityDots);
-                    GUI.color = Color.white;
-                    Text.Anchor = TextAnchor.MiddleLeft; // Reset
+                        // Dynamic breakdown tooltip containing what personality properties formed this descriptor
+                        TooltipHandler.TipRegion(rowRect, entry.Tooltip);
 
-                    // Dynamic breakdown tooltip containing what personality properties formed this descriptor
-                    TooltipHandler.TipRegion(rowRect, entry.CachedTooltip);
-
-                    y += personalityRowHeight;
-                    behaviorCount++;
+                        y += personalityRowHeight;
+                        behaviorCount++;
+                    }
                 }
 
                 if (behaviorCount == 0)

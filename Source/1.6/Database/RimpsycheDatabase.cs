@@ -285,7 +285,32 @@ namespace Maux36.RimPsyche
             },
             RimpsycheFormulaManager.FormulaIdDict
         );
+        public static RimpsycheFormula InitIntentFactor = new(
+            "InitIntentFactor",
+            (tracker) =>
+            {
+                var aggressiveness = 1.7f * tracker.GetPersonality(PersonalityDefOf.Rimpsyche_Aggressiveness);
+                var coldheartedness = -1.3f * tracker.GetPersonality(PersonalityDefOf.Rimpsyche_Compassion);
+                var tension = 0.5f * tracker.GetPersonality(PersonalityDefOf.Rimpsyche_Tension);
+                var cooperationM = -0.6f * Mathf.Min(0f, tracker.GetPersonality(PersonalityDefOf.Rimpsyche_Competitiveness));
+                var sociabilityM = 0.4f * Mathf.Max(0f, tracker.GetPersonality(PersonalityDefOf.Rimpsyche_Sociability));
+                float intentFactor = (aggressiveness + coldheartedness + tension - cooperationM - sociabilityM); // -4.5~3.5
+                return intentFactor;
+            },
+            RimpsycheFormulaManager.FormulaIdDict
+        );
 
+        public static RimpsycheFormula reciNegativeChanceMultiplier = new(
+            "reciNegativeChanceMultiplier",
+            (tracker) =>
+            {
+                float securityFactor = (tracker.GetPersonality(PersonalityDefOf.Rimpsyche_Tension) - tracker.GetPersonality(PersonalityDefOf.Rimpsyche_Stability) - tracker.GetPersonality(PersonalityDefOf.Rimpsyche_Confidence)); // -3~3
+                //securityFactor = securityFactor > 0f ? 1f + (securityFactor / 30f) : 1f + (securityFactor / 10f); // 0.9~1.1
+                securityFactor = 1f + securityFactor / 30f;
+                return securityFactor;
+            },
+            RimpsycheFormulaManager.FormulaIdDict
+        );
         public static void RegisterTraitGate(Pair<string, int> traitPair, List<FacetGate> gate)
         {
             string defName = traitPair.First;
