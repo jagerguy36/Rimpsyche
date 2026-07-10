@@ -9,8 +9,8 @@ namespace Maux36.RimPsyche
     {
         public PsycheDescriptorDef descriptorDef;
         public bool positiveOnly = false;
-        public static Color negBlameColor = new Color(0.8f, 0.2f, 0.2f);
-        public static Color posBlameColor = new Color(0.2f, 0.8f, 0.2f);
+        public static Color negBlameColor = new Color(0.8f, 0.2f, 0.4f);
+        public static Color posBlameColor = new Color(0.2f, 0.8f, 0.6f);
         public abstract float Score(CompPsyche compPsyche);
         public virtual string GetTooltip(CompPsyche compPsyche)
         {
@@ -20,7 +20,7 @@ namespace Maux36.RimPsyche
         }
         public string GetLabel(CompPsyche compPsyche)
         {
-            return Score(compPsyche) >= 0 ? descriptorDef.positiveLabel : descriptorDef.negativeLabel;
+            return (Score(compPsyche) >= 0 ? descriptorDef.positiveLabel : descriptorDef.negativeLabel).CapitalizeFirst();
         }
 
         public string GetDescription(CompPsyche compPsyche)
@@ -38,15 +38,19 @@ namespace Maux36.RimPsyche
             if (strength >= descriptorDef.strongThreshold)
                 return "●●○";
 
-            return "●○○";
+            if (strength >= descriptorDef.threshold)
+                return "●○○";
+
+            return "○○○";
         }
         public static string GetBlame(CompPsyche compPsyche, PersonalityDef personality, bool positive = true)
         {
             float value = compPsyche.Personality.GetPersonality(personality);
             var desc = Rimpsyche_Utility.GetPersonalityDesc(personality, value);
+            string sign = ((value >= 0f) == positive) ? "+" : "-";
             Color targetColor = ((value >= 0f) == positive) ? posBlameColor : negBlameColor;
             Color blendedColor = Color.Lerp(Color.gray, targetColor, Mathf.Abs(value));
-            return $"<color=#{ColorUtility.ToHtmlStringRGBA(blendedColor)}>{desc}</color>";
+            return $"<color=#{ColorUtility.ToHtmlStringRGBA(blendedColor)}>{sign} {desc}</color>";
         }
     }
 }

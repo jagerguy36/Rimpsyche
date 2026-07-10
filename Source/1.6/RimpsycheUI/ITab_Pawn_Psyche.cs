@@ -59,7 +59,7 @@ namespace Maux36.RimPsyche
         public override void OnOpen()
         {
             base.OnOpen();
-            PsycheInfoCard.CacheClean();
+            //PsycheInfoCard.CacheClean();
             PsycheInfoCard.PersonalityScrollPosition = Vector2.zero;
             PsycheInfoCard.InterestScrollPosition = Vector2.zero;
         }

@@ -6,6 +6,8 @@
 
   <!-- Settings -->
   <RimpsycheGeneralSetting>RimPsyche General Settings</RimpsycheGeneralSetting>
+  <RimpsycheShowSummaryInBio>Show Summary in Bio tab</RimpsycheShowSummaryInBio>
+  <RimpsychePersonalityAsBars>Show Personality Values as Bars</RimpsychePersonalityAsBars>
   <RimpsycheAllowFacetEdit>Enable Facet Edit</RimpsycheAllowFacetEdit>
   <RimpsycheAllowFacetEditTooltip>Enable directly editing facets.</RimpsycheAllowFacetEditTooltip>
   <RimpsycheShowFacetInMenu>Show Facets in UI</RimpsycheShowFacetInMenu>
@@ -18,14 +20,20 @@
 
   <!-- Title -->
   <RPC_Personality>Personality</RPC_Personality>
+  <RPC_Behavior>Behavior</RPC_Behavior>
+  <RPC_Facet>Facets</RPC_Facet>
   <RPC_Interest>Interest</RPC_Interest>
   <RPC_Sexuality>Sexuality</RPC_Sexuality>
+
+  <!-- Bio Tab -->
+  <RPC_PersonalitySnapshot>Personality Snapshot</RPC_PersonalitySnapshot>
+  <RPC_BehaviorSnapshot>Notable Behaviors</RPC_BehaviorSnapshot>
 
   <!-- Tab -->
   <TabPsyche>Psyche</TabPsyche>
 
-  <RimpsycheShowList>Show as List</RimpsycheShowList>
-  <RimpsycheShowBar>Show as Bars</RimpsycheShowBar>
+  <RimpsycheShowPersonality>Show Personality</RimpsycheShowPersonality>
+  <RimpsycheShowBehavior>Show Behavior</RimpsycheShowBehavior>
   <RimpsycheShowFacet>Show Facets</RimpsycheShowFacet>
 
   <RimpsycheSortValue>Sort by Value</RimpsycheSortValue>
@@ -39,6 +47,10 @@
   <GeneAffected>Affected by gene(s):</GeneAffected>
 
   <PsycheDisabled>Psyche Disabled</PsycheDisabled>
+
+  <!-- Behavior -->
+  <RPC_DescriptorBlame>From personalities:</RPC_DescriptorBlame>
+  <RPC_NoBehavior>No notable behaviors</RPC_NoBehavior>
 
   <!-- Interaction -->
   <MemoryReportString>Conversation about {0}</MemoryReportString>

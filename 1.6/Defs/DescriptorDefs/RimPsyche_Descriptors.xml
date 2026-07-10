@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <Maux36.RimPsyche.PsycheDescriptorDef>
+    <defName>RP_Desc_Sociable</defName>
+    <positiveLabel>sociable</positiveLabel>
+    <negativeLabel>reserved</negativeLabel>
+    <positiveDescription>The pawn enjoys interacting with others.</positiveDescription>
+    <negativeDescription>The pawn prefers to keep to themselves.</negativeDescription>
+    <threshold>0.3</threshold>
+    <strongThreshold>0.5</strongThreshold>
+    <extremeThreshold>0.7</extremeThreshold>
+    <workerClass>Maux36.RimPsyche.SociabilityDescriptorWorker</workerClass>
+  </Maux36.RimPsyche.PsycheDescriptorDef>
+
+  <Maux36.RimPsyche.PsycheDescriptorDef>
+    <defName>RP_Desc_Agreeable</defName>
+    <positiveLabel>agreeable</positiveLabel>
+    <positiveDescription>The pawn has pleasant conversations with like-minded people.</positiveDescription>
+    <threshold>0.3</threshold>
+    <strongThreshold>0.5</strongThreshold>
+    <extremeThreshold>0.7</extremeThreshold>
+    <workerClass>Maux36.RimPsyche.AgreeableDescriptorWorker</workerClass>
+  </Maux36.RimPsyche.PsycheDescriptorDef>
+
+  <Maux36.RimPsyche.PsycheDescriptorDef>
+    <defName>RP_Desc_Belligerent</defName>
+    <positiveLabel>belligerent</positiveLabel>
+    <negativeLabel>amicable</negativeLabel>
+    <positiveDescription>The pawn is more likely to insult or provoke others.</positiveDescription>
+    <negativeDescription>The pawn is less likely to insult or provoke others.</negativeDescription>
+    <threshold>0.3</threshold>
+    <strongThreshold>0.5</strongThreshold>
+    <extremeThreshold>0.7</extremeThreshold>
+    <workerClass>Maux36.RimPsyche.BelligerentDescriptorWorker</workerClass>
+  </Maux36.RimPsyche.PsycheDescriptorDef>
+
+  <Maux36.RimPsyche.PsycheDescriptorDef>
+    <defName>RP_Desc_Touchy</defName>
+    <positiveLabel>touchy</positiveLabel>
+    <negativeLabel>unflappable</negativeLabel>
+    <positiveDescription>The pawn is easily offended.</positiveDescription>
+    <negativeDescription>The pawn rarely takes offense.</negativeDescription>
+    <threshold>0.3</threshold>
+    <strongThreshold>0.5</strongThreshold>
+    <extremeThreshold>0.7</extremeThreshold>
+    <workerClass>Maux36.RimPsyche.TouchyDescriptorWorker</workerClass>
+  </Maux36.RimPsyche.PsycheDescriptorDef>
+
+  <Maux36.RimPsyche.PsycheDescriptorDef>
+    <defName>RP_Desc_Receptive</defName>
+    <positiveLabel>receptive</positiveLabel>
+    <negativeLabel>dogmatic</negativeLabel>
+    <positiveDescription>The pawn remains friendly during disagreements.</positiveDescription>
+    <negativeDescription>The pawn dislikes opinions that differ from their own.</negativeDescription>
+    <threshold>0.3</threshold>
+    <strongThreshold>0.5</strongThreshold>
+    <extremeThreshold>0.7</extremeThreshold>
+    <workerClass>Maux36.RimPsyche.ReceptiveDescriptorWorker</workerClass>
+  </Maux36.RimPsyche.PsycheDescriptorDef>
+</Defs>

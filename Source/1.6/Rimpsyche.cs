@@ -70,7 +70,9 @@ namespace Maux36.RimPsyche
 
             listing_Standard.Label("RimpsycheGeneralSetting".Translate());
             listing_Standard.Gap(12f);
-            listing_Standard.CheckboxLabeled("RimpsychePersonalityAsBars".Translate(), ref RimpsycheSettings.personalityAsBar, "RimpsychePersonalityAsBars".Translate());
+            listing_Standard.CheckboxLabeled("RimpsycheShowSummaryInBio".Translate(), ref RimpsycheSettings.showSummaryInBio, "RimpsycheShowSummaryInBioTooltip".Translate());
+            listing_Standard.Gap(6f);
+            listing_Standard.CheckboxLabeled("RimpsychePersonalityAsBars".Translate(), ref RimpsycheSettings.personalityAsBar, "RimpsychePersonalityAsBarsTooltip".Translate());
             listing_Standard.Gap(6f);
             listing_Standard.CheckboxLabeled("RimpsycheAllowFacetEdit".Translate(), ref RimpsycheSettings.allowFacetEdit, "RimpsycheAllowFacetEditTooltip".Translate());
             listing_Standard.Gap(6f);

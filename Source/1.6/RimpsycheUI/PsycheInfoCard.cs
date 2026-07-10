@@ -34,6 +34,8 @@ namespace Maux36.RimPsyche
         public static Color HighSexualityBarColor = Color.grey;
         public static Color HyperSexualityBarColor = Color.cyan;
 
+        private const int SummaryCount = 4;
+
 
         public static readonly string personalityTitle;
         public static readonly string behaviorTitle;
@@ -83,7 +85,13 @@ namespace Maux36.RimPsyche
         }
 
         public static bool shouldSort = false;
-        public static byte sortOption = 0; //0: value(high->low), 1: alphabet(a->z) 3: def
+        public static SortMode sortOption = SortMode.Value; //0: value(high->low), 1: alphabet(a->z) 3: def
+        public enum SortMode : byte
+        {
+            Value,
+            Alphabet,
+            Def
+        }
 
         //Cache Management
         private static bool resetPreferenceHeights = true;
@@ -131,13 +139,14 @@ namespace Maux36.RimPsyche
 
         //Cache
         private static List<PersonalityDisplayData> cachedPersonalityData = null;
+        private static List<PersonalityDisplayData> cachedPersonalitySummaryData = null;
         private static List<BehaviorData> cachedBehaviorData = null;
         private static List<InterestDisplayData> cachedInterestData = null;
         private static List<Vector2> cachedValuePointData = null;
         private static List<Vector2> cachedMaxPointData = null;
         private static string cachedSexualityDescription = string.Empty;
         private static List<float> cachedViewerHeights = null;
-        private static Pawn lastPawn;
+        private static int lastPawnId = -1;
         public struct BehaviorData
         {
             public string Label;
@@ -145,6 +154,7 @@ namespace Maux36.RimPsyche
             public string Description;
             public string Tooltip;
             public float AbsValue;
+            public bool IsSignificant;
         }
         private struct PersonalityDisplayData
         {
@@ -152,6 +162,7 @@ namespace Maux36.RimPsyche
             public float Value;
             public float AbsValue;
             public string CachedLabelText;
+            public string CachedIntensityLabelText;
             public string CachedDescription;
             public Color CachedLabelColor;
         }
@@ -167,7 +178,9 @@ namespace Maux36.RimPsyche
 
         public static void CacheClean()
         {
+            lastPawnId = -1;
             cachedPersonalityData = null;
+            cachedPersonalitySummaryData = null;
             cachedBehaviorData = null;
             cachedInterestData = null;
             cachedValuePointData = null;
@@ -186,7 +199,7 @@ namespace Maux36.RimPsyche
         {
             resetPreferenceHeights = true;
             cachedSexualityDescription = string.Empty;
-            lastPawn = currentPawn;
+            lastPawnId = currentPawn.thingIDNumber;
             GenerateSortedPersonalityData(compPsyche, currentPawn);
             GenerateBehaviorData(compPsyche, currentPawn);
             GenerateSortedInterestData(compPsyche, currentPawn);
@@ -314,7 +327,7 @@ namespace Maux36.RimPsyche
 
         private static List<PersonalityDisplayData> GetSortedPersonalityData(CompPsyche compPsyche, Pawn currentPawn)
         {
-            if (currentPawn != lastPawn || cachedPersonalityData == null)
+            if (currentPawn.thingIDNumber != lastPawnId || cachedPersonalityData == null)
             {
                 GenerateCacheData(compPsyche, currentPawn);
                 return cachedPersonalityData;
@@ -323,27 +336,36 @@ namespace Maux36.RimPsyche
             {
                 cachedPersonalityData = (sortOption switch
                 {
-                    0 => cachedPersonalityData.OrderByDescending(p => p.AbsValue),
-                    1 => cachedPersonalityData.OrderBy(p => p.Personality.label),
-                    2 => cachedPersonalityData.OrderBy(p => RimpsycheDatabase.PersonalityOrder[p.Personality.shortHash]),
+                    SortMode.Value => cachedPersonalityData.OrderByDescending(p => p.AbsValue),
+                    SortMode.Alphabet => cachedPersonalityData.OrderBy(p => p.Personality.label),
+                    SortMode.Def => cachedPersonalityData.OrderBy(p => RimpsycheDatabase.PersonalityOrder[p.Personality.shortHash]),
                     _ => cachedPersonalityData.OrderByDescending(p => p.AbsValue)
                 }).ToList();
                 shouldSort = false;
             }
             return cachedPersonalityData;
         }
+        private static List<PersonalityDisplayData> GetSortedPersonalitySummaryData(CompPsyche compPsyche, Pawn currentPawn)
+        {
+            if (currentPawn.thingIDNumber != lastPawnId || cachedPersonalitySummaryData == null)
+            {
+                GenerateCacheData(compPsyche, currentPawn);
+                return cachedPersonalitySummaryData;
+            }
+            return cachedPersonalitySummaryData;
+        }
         private static List<BehaviorData> GetBehaviorData(CompPsyche compPsyche, Pawn currentPawn)
         {
-            if (currentPawn != lastPawn || cachedBehaviorData == null)
+            if (currentPawn.thingIDNumber != lastPawnId || cachedBehaviorData == null)
             {
-                GenerateBehaviorData(compPsyche, currentPawn);
+                GenerateCacheData(compPsyche, currentPawn);
                 return cachedBehaviorData;
             }
             return cachedBehaviorData;
         }
         private static List<InterestDisplayData> GetSortedInterestData(CompPsyche compPsyche, Pawn currentPawn)
         {
-            if (currentPawn == lastPawn && cachedInterestData != null)
+            if (currentPawn.thingIDNumber != lastPawnId && cachedInterestData != null)
             {
                 return cachedInterestData;
             }
@@ -370,7 +392,7 @@ namespace Maux36.RimPsyche
         }
         private static List<Vector2> GetValuePointData(Vector2 center, CompPsyche compPsyche, Pawn currentPawn)
         {
-            if (currentPawn == lastPawn && cachedValuePointData != null)
+            if (currentPawn.thingIDNumber != lastPawnId && cachedValuePointData != null)
             {
                 return cachedValuePointData;
             }
@@ -389,39 +411,46 @@ namespace Maux36.RimPsyche
         private static void GenerateSortedPersonalityData(CompPsyche compPsyche, Pawn currentPawn)
         {
             var personalityDefList = DefDatabase<PersonalityDef>.AllDefsListForReading;
-            var sortedData = new List<PersonalityDisplayData>();
+            var rawData = new List<PersonalityDisplayData>();
 
             foreach (var personality in personalityDefList)
             {
                 float value = compPsyche.Personality.GetPersonality(personality);
                 float absValue = Mathf.Abs(value);
-                string cachedLabelText = Rimpsyche_Utility.GetPersonalityDesc(personality, value);
+                string cachedLabelText = ((value >= 0) ? personality.high : personality.low).CapitalizeFirst();
+                string cachedIntensityLabelText = Rimpsyche_Utility.GetPersonalityDesc(personality, value);
                 Color cachedLabelColor = Color.Lerp(LowValueColor, HighValueColor, absValue);
                 var personalityDesc = $"{personality.label.CapitalizeFirst()}: {(value * 100f).ToString("F1")}\n{personality.description}";
                 if (compPsyche.Personality.scopeInfoCache.TryGetValue(personality.shortHash, out string explanation))
                 {
                     personalityDesc += $"\n\n{explanation}";
                 }
-                sortedData.Add(new PersonalityDisplayData
+                rawData.Add(new PersonalityDisplayData
                 {
                     Personality = personality,
                     Value = value,
                     AbsValue = absValue,
                     CachedLabelText = cachedLabelText,
+                    CachedIntensityLabelText = cachedIntensityLabelText,
                     CachedLabelColor = cachedLabelColor,
                     CachedDescription = personalityDesc
                 });
             }
-            if (sortOption == 0)
+            var orderedData = rawData.OrderByDescending(p => p.AbsValue);
+            cachedPersonalitySummaryData = orderedData.Take(SummaryCount).ToList();
+            if (sortOption == SortMode.Value)
             {
-                sortedData = sortedData.OrderByDescending(p => p.AbsValue).ToList();
+                cachedPersonalityData = orderedData.ToList();
             }
-            else if (sortOption == 1)
+            else if (sortOption == SortMode.Alphabet)
             {
-                sortedData = sortedData.OrderBy(p => p.Personality.label).ToList();
+                cachedPersonalityData = rawData.OrderBy(p => p.Personality.label).ToList();
+            }
+            else
+            {
+                cachedPersonalityData = rawData;
             }
             shouldSort = false;
-            cachedPersonalityData = sortedData;
         }
         private static void GenerateBehaviorData(CompPsyche compPsyche, Pawn currentPawn)
         {
@@ -434,8 +463,6 @@ namespace Maux36.RimPsyche
                 if (dWorker.positiveOnly && score <= 0f)
                     continue;
                 var absValue = Mathf.Abs(score);
-                if (absValue < descDef.threshold)
-                    continue;
                 var result = new BehaviorData
                 {
                     Label = dWorker.GetLabel(compPsyche),
@@ -443,6 +470,7 @@ namespace Maux36.RimPsyche
                     Description = dWorker.GetDescription(compPsyche),
                     Tooltip = dWorker.GetTooltip(compPsyche),
                     AbsValue = absValue,
+                    IsSignificant = absValue > descDef.threshold
                 };
                 sortedData.Add(result);
             }
@@ -597,26 +625,9 @@ namespace Maux36.RimPsyche
             // Icon on the right
             float spacing = 6;
 
-            // View Mode Toggle
-            float viewIconX = (headerRect.width / 2f) + (titleTextSize.x / 2f) + 8f;
-            Rect viewIconRect = new Rect(viewIconX, titleRect.y + (titleRect.height - iconSize) / 2f, iconSize, iconSize);
-            var (icon, modeTooltipKey, nextMode, resetScroll) = showMode switch
-            {
-                ShowMode.Personality => (Rimpsyche_UI_Utility.ViewListButton, "RimpsycheShowBehavior", ShowMode.Behavior, false),
-                ShowMode.Behavior => RimpsycheSettings.showFacetInMenu
-                    ? (Rimpsyche_UI_Utility.ViewFacetButton, "RimpsycheShowFacet", ShowMode.Facet, true)
-                    : (Rimpsyche_UI_Utility.ViewListButton, "RimpsycheShowPersonality", ShowMode.Personality, false),
-                _ => (Rimpsyche_UI_Utility.ViewListButton, "RimpsycheShowPersonality", ShowMode.Personality, true)
-            };
-            if (Widgets.ButtonImage(viewIconRect, icon))
-            {
-                showMode = nextMode;
-                if (resetScroll) PersonalityScrollPosition = Vector2.zero;
-            }
-            TooltipHandler.TipRegion(viewIconRect, modeTooltipKey.Translate());
-
             // Sort Mode Toggle
-            Rect sortIconRect = new Rect(viewIconRect.xMax + spacing, viewIconRect.y, iconSize, iconSize);
+            float sortIconX = (headerRect.width / 2f) + (titleTextSize.x / 2f) + 8f;
+            Rect sortIconRect = new Rect(sortIconX, titleRect.y + (titleRect.height - iconSize) / 2f, iconSize, iconSize);
             bool isSortDisabled = (showMode == ShowMode.Behavior || showMode == ShowMode.Facet);
             if (isSortDisabled)
             {
@@ -626,9 +637,9 @@ namespace Maux36.RimPsyche
             {
                 var (optionTooltipKey, nextOption) = sortOption switch
                 {
-                    0 => ("RimpsycheSortAlphabet", (byte)1),
-                    1 => ("RimpsycheSortDef", (byte)2),
-                    _ => ("RimpsycheSortValue", (byte)0) // Handles 2 and fallback
+                    SortMode.Value => ("RimpsycheSortAlphabet", SortMode.Alphabet),
+                    SortMode.Alphabet => ("RimpsycheSortDef", SortMode.Def),
+                    _ => ("RimpsycheSortValue", SortMode.Value) // Handles 2 and fallback
                 };
                 if (Widgets.ButtonImage(sortIconRect, Rimpsyche_UI_Utility.SortButton, true, optionTooltipKey.Translate()))
                 {
@@ -636,8 +647,25 @@ namespace Maux36.RimPsyche
                     shouldSort = true;
                 }
             }
+
+            // View Mode Toggle
+            Rect viewIconRect = new Rect(sortIconRect.xMax + spacing, sortIconRect.y, iconSize, iconSize);
+            var (icon, modeTooltipKey, nextMode, resetScroll) = showMode switch
+            {
+                ShowMode.Personality => (Rimpsyche_UI_Utility.ViewBehaviorButton, "RimpsycheShowBehavior", ShowMode.Behavior, false),
+                ShowMode.Behavior => RimpsycheSettings.showFacetInMenu
+                    ? (Rimpsyche_UI_Utility.ViewFacetButton, "RimpsycheShowFacet", ShowMode.Facet, true)
+                    : (RimpsycheSettings.personalityAsBar ? Rimpsyche_UI_Utility.ViewBarButton : Rimpsyche_UI_Utility.ViewListButton, "RimpsycheShowPersonality", ShowMode.Personality, false),
+                _ => (RimpsycheSettings.personalityAsBar ? Rimpsyche_UI_Utility.ViewBarButton : Rimpsyche_UI_Utility.ViewListButton, "RimpsycheShowPersonality", ShowMode.Personality, true)
+            };
+            if (Widgets.ButtonImage(viewIconRect, icon))
+            {
+                showMode = nextMode;
+                if (resetScroll) PersonalityScrollPosition = Vector2.zero;
+            }
+            TooltipHandler.TipRegion(viewIconRect, modeTooltipKey.Translate());
             
-            Rect editIconRect = new Rect(sortIconRect.xMax + spacing, sortIconRect.y, iconSize, iconSize);
+            Rect editIconRect = new Rect(viewIconRect.xMax + spacing, viewIconRect.y, iconSize, iconSize);
             if (Prefs.DevMode)
             {
                 if (Widgets.ButtonImage(editIconRect, Rimpsyche_UI_Utility.EditButton))
@@ -696,7 +724,7 @@ namespace Maux36.RimPsyche
                     Text.Anchor = TextAnchor.MiddleLeft;
                     GUI.color = pData.CachedLabelColor;
                     Rect labelRect = new Rect(rowRect.x + labelPadding, rowRect.y, scrollContentRect.width - (2 * labelPadding), personalityRowHeight);
-                    Widgets.Label(labelRect, pData.CachedLabelText);
+                    Widgets.Label(labelRect, pData.CachedIntensityLabelText);
                     GUI.color = Color.white; // Reset color
                 }
             }
@@ -759,12 +787,14 @@ namespace Maux36.RimPsyche
             }
             else if (showMode == ShowMode.Behavior)
             {
+                Color originalColor = GUI.color;
+                TextAnchor originalAnchor = Text.Anchor;
                 if (behaviorsToDisplay.Count == 0)
                 {
                     Rect emptyRect = new Rect(10f, y, scrollContentRect.width - 10f, personalityRowHeight);
                     GUI.color = Color.gray;
                     Widgets.Label(emptyRect, "RPC_NoBehavior".Translate());
-                    GUI.color = Color.white;
+                    GUI.color = originalColor;
                     y += personalityRowHeight;
                 }
                 else
@@ -783,22 +813,23 @@ namespace Maux36.RimPsyche
                         // Split space for translation key and intensity dots
                         string translatedKey = entry.Label;
                         string intensityDots = entry.Intensity;
-
-                        // Render descriptor label
+                        if (!entry.IsSignificant)
+                            GUI.color = lightGreyColor;
+                        else
+                            GUI.color = Color.white;
+                        // Label: left
                         Text.Anchor = TextAnchor.MiddleLeft;
                         Widgets.Label(new Rect(rowRect.x, rowRect.y, rowRect.width - 60f, rowRect.height), translatedKey);
-
-                        // Render intensity string right-aligned
+                        // Intensity: right
                         Text.Anchor = TextAnchor.MiddleRight;
-                        GUI.color = Color.cyan; // Distinct color highlighting for the active dots
                         Widgets.Label(new Rect(rowRect.xMax - 65f, rowRect.y, 60f, rowRect.height), intensityDots);
-                        GUI.color = Color.white;
-                        Text.Anchor = TextAnchor.MiddleLeft; // Reset
 
                         // Dynamic breakdown tooltip containing what personality properties formed this descriptor
                         TooltipHandler.TipRegion(rowRect, entry.Tooltip);
                     }
                 }
+                GUI.color = originalColor;
+                Text.Anchor = originalAnchor;
             }
             else if (showMode == ShowMode.Facet)
             {
@@ -865,6 +896,92 @@ namespace Maux36.RimPsyche
             Text.Font = oldFont;
         }
 
+        public static void DrawBioPersonalitySummary(Pawn pawn, CompPsyche comp, Rect rect)
+        {
+            if (pawn == null || comp == null) return;
+
+            var originalFont = Text.Font;
+            var originalAnchor = Text.Anchor;
+            var originalColor = GUI.color;
+
+            var personalities = GetSortedPersonalitySummaryData(comp, pawn).ToList();
+            var behaviors = GetBehaviorData(comp, pawn);
+
+            // Split the rect into two 240px halves with a small gap in the middle
+            Rect leftRect = new Rect(rect.x, rect.y, (rect.width / 2) - 10f, rect.height);
+            Rect rightRect = new Rect(rect.x + (rect.width / 2) + 10f, rect.y, (rect.width / 2) - 10f, rect.height);
+
+            Text.Font = GameFont.Small;
+
+            // left
+            float leftY = leftRect.y;
+            Widgets.Label(new Rect(leftRect.x, leftY, leftRect.width, 22f), "RPC_PersonalitySnapshot".Translate());
+            leftY += 24f;
+
+            GUI.color = LineColor;
+            Widgets.DrawLineHorizontal(leftRect.x, leftY, leftRect.width);
+            GUI.color = originalColor;
+            leftY += 5f;
+
+            foreach (var personality in personalities)
+            {
+                Rect rowRect = new Rect(leftRect.x, leftY, leftRect.width, 22f);
+                Widgets.DrawHighlightIfMouseover(rowRect);
+                TooltipHandler.TipRegion(rowRect, personality.CachedDescription);
+
+                // Left Side: Personality Label
+                Rect labelRect = new Rect(rowRect.x, rowRect.y, rowRect.width * 0.70f, rowRect.height);
+                var personalityColor = Color.Lerp(lightGreyColor, Color.white, personality.AbsValue);
+                GUI.color = personalityColor;
+                Text.Anchor = TextAnchor.MiddleLeft;
+                Widgets.Label(labelRect, personality.CachedLabelText);
+
+                // Right Side: Small Widget Bar
+                Rect barRect = new Rect(rowRect.x + rowRect.width * 0.70f, rowRect.y + 0.5f * (rowRect.height - personalityBarHeight), rowRect.width * 0.30f, personalityBarHeight);
+
+                // Draw Bar Background (Dark Gray)
+                Widgets.DrawBoxSolid(barRect, barBackgroundColor);
+                // Assuming AbsValue is a float from 0.0 to 1.0. If it's 0 to 100, use (personality.AbsValue / 100f)
+                float fillPercent = Mathf.Clamp01(personality.AbsValue);
+                Rect fillRect = new Rect(barRect.x, barRect.y, barRect.width * fillPercent, barRect.height);
+                Widgets.DrawBoxSolid(fillRect, personality.CachedLabelColor);
+
+                GUI.color = originalColor;
+
+                leftY += 22f;
+            }
+
+            // right
+            float rightY = rightRect.y;
+            Widgets.Label(new Rect(rightRect.x, rightY, rightRect.width, 22f), "RPC_BehaviorSnapshot".Translate());
+            rightY += 24f;
+
+            GUI.color = LineColor;
+            Widgets.DrawLineHorizontal(rightRect.x, rightY, rightRect.width);
+            GUI.color = originalColor;
+            rightY += 5f;
+
+            int shownCount = 0;
+            foreach (var behavior in behaviors)
+            {
+                if (!behavior.IsSignificant)
+                    continue;
+                Rect rowRect = new Rect(rightRect.x, rightY, rightRect.width, 22f);
+                Widgets.DrawHighlightIfMouseover(rowRect);
+                TooltipHandler.TipRegion(rowRect, behavior.Tooltip);
+                Text.Anchor = TextAnchor.MiddleLeft;
+                Widgets.Label(rowRect, behavior.Label);
+                Text.Anchor = TextAnchor.MiddleRight;
+                Widgets.Label(rowRect, behavior.Intensity);
+                rightY += 22f;
+                shownCount++;
+                if (shownCount >= SummaryCount)
+                    break;
+            }
+
+            Text.Font = originalFont;
+            Text.Anchor = originalAnchor;
+        }
         public static void DrawSexualityBox(Rect sexualityRect, CompPsyche compPsyche, Pawn pawn)
         {
             TextAnchor oldAnchor = Text.Anchor;

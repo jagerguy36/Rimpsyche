@@ -36,4 +36,51 @@ namespace Maux36.RimPsyche
             return Widgets.InfoCardButton(x, y, pawn);
         }
     }
+
+    [HarmonyPatch(typeof(CharacterCardUtility), "DoLeftSection")]
+    internal static class Patch_CharacterCardUtility_DoleftSection
+    {
+        private static void Prefix(ref Rect leftRect, Pawn pawn)
+        {
+            if (!RimpsycheSettings.showSummaryInBio)
+                return;
+            CompPsyche compPsyche = pawn?.compPsyche();
+            if (compPsyche != null)
+            {
+                leftRect.height -= RimpsycheSettings.ExtraBioHeight;
+            }
+        }
+    }
+
+    [HarmonyPatch(typeof(CharacterCardUtility), "DrawCharacterCard")]
+    internal static class Patch_CharacterCardUtility_DrawCharacterCard
+    {
+        private static void Postfix(Rect rect, Pawn pawn)
+        {
+            if (!RimpsycheSettings.showSummaryInBio)
+                return;
+            CompPsyche compPsyche = pawn?.compPsyche();
+            if (compPsyche != null)
+            {
+                PsycheInfoCard.DrawBioPersonalitySummary(pawn, compPsyche, new Rect(rect.x, rect.yMax - (float)RimpsycheSettings.ExtraBioHeight, rect.width, rect.height));
+            }
+        }
+
+
+    }
+
+    [HarmonyPatch(typeof(CharacterCardUtility), "PawnCardSize")]
+    internal static class Patch_CharacterCardUtility_PawnCardSize
+    {
+        private static void Postfix(ref Vector2 __result, Pawn pawn)
+        {
+            if (!RimpsycheSettings.showSummaryInBio)
+                return;
+            CompPsyche compPsyche = pawn?.compPsyche();
+            if (compPsyche != null)
+            {
+                __result += new Vector2(0f, (float)RimpsycheSettings.ExtraBioHeight);
+            }
+        }
+    }
 }
