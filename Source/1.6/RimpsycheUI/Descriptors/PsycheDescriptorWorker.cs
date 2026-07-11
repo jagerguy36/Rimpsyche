@@ -82,7 +82,7 @@ namespace Maux36.RimPsyche
         {
             float value = compPsyche.Personality.GetPersonality(personality);
             var desc = Rimpsyche_Utility.GetPersonalityDesc(personality, value);
-            string sign = ((value >= 0f) == positive) ? "+" : "-";
+            string sign = ((value >= 0f) == positive) ? "+" : "−"; //U+2212
             Color targetColor = ((value >= 0f) == positive) ? posBlameColor : negBlameColor;
             Color blendedColor = Color.Lerp(Color.gray, targetColor, Mathf.Abs(value));
             return $"<color=#{ColorUtility.ToHtmlStringRGBA(blendedColor)}>{sign} {desc}</color>";
