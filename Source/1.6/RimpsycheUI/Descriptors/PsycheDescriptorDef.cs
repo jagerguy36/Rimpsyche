@@ -3,6 +3,14 @@ using Verse;
 
 namespace Maux36.RimPsyche
 {
+    public enum DescriptorType: byte
+    {
+        Undefined,
+        Social,
+        Mental,
+        Work,
+    }
+
     public class PsycheDescriptorDef: Def
     {
         public string positiveLabel;

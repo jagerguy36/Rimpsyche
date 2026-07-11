@@ -115,4 +115,60 @@ namespace Maux36.RimPsyche
             return sb.ToString();
         }
     }
+    public class TalkImpactDescriptorWorker : PsycheDescriptorWorker
+    {
+        public override float Score(CompPsyche compPsyche)
+        {
+            var talkfactor = compPsyche.Evaluate(RimpsycheDatabase.TalkFactor);
+            return talkfactor - 1.5f; // -0.5 ~ 1
+        }
+        public override string GetTooltip(CompPsyche compPsyche)
+        {
+            bool direction = Score(compPsyche) > 0f;
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine(GetDescription(compPsyche));
+            sb.AppendLine();
+            sb.AppendLine("  " + "RPC_DescriptorBlame".Translate());
+            sb.AppendLine($"    {GetBlame(compPsyche, PersonalityDefOf.Rimpsyche_Talkativeness, direction)}");
+            if (compPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Playfulness) < 0f)
+                sb.AppendLine($"    {GetBlame(compPsyche, PersonalityDefOf.Rimpsyche_Playfulness, !direction)}");
+            return sb.ToString();
+        }
+    }
+    public class InterestedTopicAttitudeDescriptorWorker : PsycheDescriptorWorker
+    {
+        public override float Score(CompPsyche compPsyche)
+        {
+            //High Passionate = higher highInterstTopic score | Low Passionate = highInterstTopic score is pretty much similar with low interest
+            return compPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Passion);
+        }
+        public override string GetTooltip(CompPsyche compPsyche)
+        {
+            bool direction = Score(compPsyche) > 0f;
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine(GetDescription(compPsyche));
+            sb.AppendLine();
+            sb.AppendLine("  " + "RPC_DescriptorBlame".Translate());
+            sb.AppendLine($"    {GetBlame(compPsyche, PersonalityDefOf.Rimpsyche_Passion, direction)}");
+            return sb.ToString();
+        }
+    }
+    public class UnInterestedTopicAttitudeDescriptorWorker : PsycheDescriptorWorker
+    {
+        public override float Score(CompPsyche compPsyche)
+        {
+            //High inquisitive = higher lowInterstTopic score | Low inquisitive = lowInterstTopic score is low.
+            return compPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Inquisitiveness);
+        }
+        public override string GetTooltip(CompPsyche compPsyche)
+        {
+            bool direction = Score(compPsyche) > 0f;
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine(GetDescription(compPsyche));
+            sb.AppendLine();
+            sb.AppendLine("  " + "RPC_DescriptorBlame".Translate());
+            sb.AppendLine($"    {GetBlame(compPsyche, PersonalityDefOf.Rimpsyche_Inquisitiveness, direction)}");
+            return sb.ToString();
+        }
+    }
 }

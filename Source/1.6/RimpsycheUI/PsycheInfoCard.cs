@@ -153,7 +153,7 @@ namespace Maux36.RimPsyche
             public string Intensity;
             public string Description;
             public string Tooltip;
-            public float AbsValue;
+            public float NormalizedAbsValue;
             public bool IsSignificant;
         }
         private struct PersonalityDisplayData
@@ -462,21 +462,21 @@ namespace Maux36.RimPsyche
                 var score = dWorker.Score(compPsyche);
                 if (dWorker.positiveOnly && score <= 0f)
                     continue;
-                var absValue = Mathf.Abs(score);
+                var normalizedAbsValue = dWorker.GetTieredNormalizedAbsScore(score);
                 var result = new BehaviorData
                 {
                     Label = dWorker.GetLabel(compPsyche),
                     Intensity = dWorker.GetIntensityString(compPsyche),
                     Description = dWorker.GetDescription(compPsyche),
                     Tooltip = dWorker.GetTooltip(compPsyche),
-                    AbsValue = absValue,
-                    IsSignificant = absValue > descDef.threshold
+                    NormalizedAbsValue = normalizedAbsValue,
+                    IsSignificant = normalizedAbsValue > 1f
                 };
                 sortedData.Add(result);
             }
 
             // Sort descending by strength
-            sortedData.Sort((a, b) => b.AbsValue.CompareTo(a.AbsValue));
+            sortedData.Sort((a, b) => b.NormalizedAbsValue.CompareTo(a.NormalizedAbsValue));
             cachedBehaviorData = sortedData;
         }
         private static void GenerateSortedInterestData(CompPsyche compPsyche, Pawn currentPawn)
@@ -977,6 +977,14 @@ namespace Maux36.RimPsyche
                 shownCount++;
                 if (shownCount >= SummaryCount)
                     break;
+            }
+            if (shownCount == 0)
+            {
+                Rect rowRect = new Rect(rightRect.x, rightY, rightRect.width, 22f);
+                GUI.color = Color.gray;
+                Text.Anchor = TextAnchor.MiddleCenter;
+                Widgets.Label(rowRect, "RPC_NoBehavior".Translate());
+                GUI.color = originalColor;
             }
 
             Text.Font = originalFont;

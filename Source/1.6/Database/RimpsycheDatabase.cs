@@ -247,8 +247,8 @@ namespace Maux36.RimPsyche
             {
                 float talkativeness = tracker.GetPersonality(PersonalityDefOf.Rimpsyche_Talkativeness);
                 float playfulness = tracker.GetPersonality(PersonalityDefOf.Rimpsyche_Playfulness);
-                float gravity = Mathf.Min(0, playfulness) * Mathf.Min(0f, talkativeness) * 0.75f;
-                return 1.75f + (0.75f * talkativeness) + gravity; //1~[1.75]~2.5
+                float gravity = Mathf.Min(0, playfulness) * (Mathf.Min(0f, talkativeness) - 1f);
+                return 1.5f + 0.5f * (talkativeness + gravity); //1~[1.75]~2.5
             },
             RimpsycheFormulaManager.FormulaIdDict
         );

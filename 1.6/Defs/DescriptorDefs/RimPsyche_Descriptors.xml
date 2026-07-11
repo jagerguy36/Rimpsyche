@@ -57,4 +57,38 @@
     <extremeThreshold>0.7</extremeThreshold>
     <workerClass>Maux36.RimPsyche.ReceptiveDescriptorWorker</workerClass>
   </Maux36.RimPsyche.PsycheDescriptorDef>
+
+  <Maux36.RimPsyche.PsycheDescriptorDef>
+    <defName>RP_Desc_impactful</defName>
+    <positiveLabel>impactful</positiveLabel>
+    <positiveDescription>The pawn tends to have conversations with a stronger impact, whether positive or negative.</positiveDescription>
+    <threshold>0.3</threshold>
+    <strongThreshold>0.5</strongThreshold>
+    <extremeThreshold>0.7</extremeThreshold>
+    <workerClass>Maux36.RimPsyche.TalkImpactDescriptorWorker</workerClass>
+  </Maux36.RimPsyche.PsycheDescriptorDef>
+
+  <Maux36.RimPsyche.PsycheDescriptorDef>
+    <defName>RP_Desc_Passionate</defName>
+    <positiveLabel>passionate</positiveLabel>
+    <negativeLabel>dispassionate</negativeLabel>
+    <positiveDescription>The pawn gets more invested in conversations when discussing subjects they care about.</positiveDescription>
+    <negativeDescription>The pawn shows little extra enthusiasm even when discussing subjects they care about.</negativeDescription>
+    <threshold>0.3</threshold>
+    <strongThreshold>0.5</strongThreshold>
+    <extremeThreshold>0.7</extremeThreshold>
+    <workerClass>Maux36.RimPsyche.InterestedTopicAttitudeDescriptorWorker</workerClass>
+  </Maux36.RimPsyche.PsycheDescriptorDef>
+
+  <Maux36.RimPsyche.PsycheDescriptorDef>
+    <defName>RP_Desc_Inquisitive</defName>
+    <positiveLabel>inquisitive</positiveLabel>
+    <negativeLabel>indifferent</negativeLabel>
+    <positiveDescription>The pawn readily engages in conversations outside their usual interests.</positiveDescription>
+    <negativeDescription>The pawn quickly loses interest in conversations outside their usual interests.</negativeDescription>
+    <threshold>0.3</threshold>
+    <strongThreshold>0.5</strongThreshold>
+    <extremeThreshold>0.7</extremeThreshold>
+    <workerClass>Maux36.RimPsyche.UnInterestedTopicAttitudeDescriptorWorker</workerClass>
+  </Maux36.RimPsyche.PsycheDescriptorDef>
 </Defs>
