@@ -3,6 +3,7 @@
 
   <!-- General -->
   <RimpsycheSettingCategory>RimPsyche</RimpsycheSettingCategory>
+  <RP_ShiftForFull>[Shift] Full description.</RP_ShiftForFull>
 
   <!-- Settings -->
   <RimpsycheGeneralSetting>RimPsyche General Settings</RimpsycheGeneralSetting>

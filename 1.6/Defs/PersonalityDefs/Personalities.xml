@@ -5,7 +5,9 @@
     <label>talkativeness</label>
     <high>outspoken</high>
     <low>taciturn</low>
-    <description>Describes how much a person tends to speak and initiate conversation. Outspoken individuals are more likely to start dialogue and keep it going longer. Those who are more taciturn prefer brief exchanges or keep to themselves.</description>
+    <description>Describes how much a person tends to speak and initiate conversation. Outspoken individuals are more likely to start conversations and keep them going. Those who are more taciturn prefer brief exchanges or keep to themselves.</description>
+    <highDescription>Outspoken individuals are more likely to start conversations and keep them going.</highDescription>
+    <lowDescription>Taciturn individuals prefer brief exchanges or keep to themselves.</lowDescription>
     <scoreWeight>
       <li>
         <facet>Sociability</facet>
@@ -32,6 +34,8 @@
     <high>friendly</high>
     <low>reserved</low>
     <description>Reflects how naturally someone seeks out and enjoys social interaction. Friendly individuals are more likely to engage with others frequently and comfortably. Reserved individuals tend to keep their distance or limit social contact.</description>
+    <highDescription>Friendly individuals are more likely to engage with others frequently and comfortably.</highDescription>
+    <lowDescription>Reserved individuals tend to keep their distance or limit social contact.</lowDescription>
     <scoreWeight>
       <li>
         <facet>Sociability</facet>
@@ -65,6 +69,8 @@
     <high>diplomatic</high>
     <low>brash</low>
     <description>Shows how considerate someone is in social situations. Diplomatic individuals choose their words carefully and tend to leave a good impression. Brash individuals may come off as rude or blunt.</description>
+    <highDescription>Diplomatic individuals choose their words carefully and tend to leave a good impression.</highDescription>
+    <lowDescription>Brash individuals tend to speak bluntly and may come across as rude.</lowDescription>
     <scoreWeight>
       <li>
         <facet>Sociability</facet>
@@ -106,6 +112,8 @@
     <high>open-minded</high>
     <low>traditional</low>
     <description>Describes how willing a person is to consider new ideas, experiences, or perspectives. Open-minded individuals are curious and receptive to different viewpoints. Those who are more traditional tend to stick to familiar beliefs and may dismiss alternative ideas.</description>
+    <highDescription>Open-minded individuals are curious and receptive to different viewpoints.</highDescription>
+    <lowDescription>Traditional individuals tend to stick to familiar beliefs and may dismiss alternative ideas.</lowDescription>
     <scoreWeight>
       <li>
         <facet>Intellect</facet>
@@ -152,6 +160,8 @@
     <high>confident</high>
     <low>insecure</low>
     <description>Describes how certain a person feels about themselves and their actions. Confident individuals are assertive, trusting their abilities and opinions, while insecure individuals may struggle with self-doubt or be easily influenced by others.</description>
+    <highDescription>Confident individuals are assertive, trusting their abilities and opinions.</highDescription>
+    <lowDescription>Insecure individuals tend to struggle with self-doubt and are easily influenced by others.</lowDescription>
     <scoreWeight>
       <li>
         <facet>Assertiveness</facet>
@@ -174,6 +184,8 @@
     <high>inquisitive</high>
     <low>indifferent</low>
     <description>Reflects how curious a person is about the world around them. Inquisitive individuals tend to ask questions, seek new knowledge, and are more likely to engage in conversations beyond their usual interests. Indifferent individuals, on the other hand, show little interest in things outside their immediate focus.</description>
+    <highDescription>Inquisitive individuals tend to ask questions and seek new knowledge.</highDescription>
+    <lowDescription>Indifferent individuals show little interest in things outside their immediate focus.</lowDescription>
     <scoreWeight>
       <li>
         <facet>Imagination</facet>
@@ -196,6 +208,8 @@
     <high>modest</high>
     <low>uninhibited</low>
     <description>Reflects how strongly a person values decency and decorum. Modest individuals feel discomfort or disapproval when confronted with nudity, vulgarity, or breaches of etiquette. Uninhibited individuals are unbothered by indecency or provocative behavior.</description>
+    <highDescription>Modest individuals feel discomfort or disapproval when confronted with nudity, vulgarity, or breaches of etiquette.</highDescription>
+    <lowDescription>Uninhibited individuals are unbothered by indecency or provocative behavior.</lowDescription>
     <scoreWeight>
       <li>
         <facet>Curiosity</facet>
@@ -237,6 +251,8 @@
     <high>aggressive</high>
     <low>gentle</low>
     <description>Reflects how easily a person may become confrontational or hostile. Aggressive individuals are quick to assert themselves, often through forceful words or actions, while gentle individuals are more calm, avoiding conflict or aggression in social situations.</description>
+    <highDescription>Aggressive individuals are quick to assert themselves through forceful words or actions.</highDescription>
+    <lowDescription>Gentle individuals tend to remain calm, avoiding conflict or aggression in social situations.</lowDescription>
     <scoreWeight>
       <li>
         <facet>Integrity</facet>
@@ -287,6 +303,8 @@
     <high>experimental</high>
     <low>conventional</low>
     <description>Reflects a person’s willingness to try new approaches or ideas. Experimental individuals are open to change and innovation, often seeking out new experiences, while conventional individuals prefer familiar methods and stick to what they know works.</description>
+    <highDescription>Experimental individuals are open to change and innovation, often seeking out new approaches and experiences.</highDescription>
+    <lowDescription>Conventional individuals prefer familiar methods and tend to stick with what they know works.</lowDescription>
     <scoreWeight>
       <li>
         <facet>Imagination</facet>
@@ -337,6 +355,8 @@
     <high>imaginative</high>
     <low>grounded</low>
     <description>Describes how connected a person is to reality versus their imagination. Grounded individuals tend to be practical and focused on tangible matters, while Imaginative individuals are prone to daydreaming, creative thinking, and exploring abstract ideas.</description>
+    <highDescription>Imaginative individuals are prone to daydreaming, creative thinking, and exploring abstract ideas.</highDescription>
+    <lowDescription>Grounded individuals tend to be practical and focused on tangible matters.</lowDescription>
     <scoreWeight>
       <li>
         <facet>Imagination</facet>
@@ -370,6 +390,8 @@
     <high>diligent</high>
     <low>lazy</low>
     <description>Reflects a person's general tendency to apply effort and thoroughness to tasks and responsibilities. Diligent individuals are hardworking, persistent, and committed to completing their duties effectively. In contrast, lazy individuals tend to avoid strenuous activity, show less commitment to tasks, and may prioritize ease or leisure over productivity.</description>
+    <highDescription>Diligent individuals are hardworking, persistent, and committed to completing their responsibilities effectively.</highDescription>
+<lowDescription>Lazy individuals tend to avoid strenuous effort, showing less commitment to tasks and prioritizing leisure.</lowDescription>
     <preferenceBias>0.3</preferenceBias>
     <scoreWeight>
       <li>
@@ -427,6 +449,8 @@
     <high>organized</high>
     <low>haphazard</low>
     <description>Reflects how methodical and structured a person is. Organized individuals tend to keep things in order, following clear systems. Haphazard individuals are less concerned with strict order, often thriving in less structured or even chaotic environments.</description>
+    <highDescription>Organized individuals tend to keep things in order and follow clear systems.</highDescription>
+    <lowDescription>Haphazard individuals are less concerned with strict order and often thrive in less structured environments.</lowDescription>
     <scoreWeight>
       <li>
         <facet>Curiosity</facet>
@@ -471,6 +495,8 @@
     <high>disciplined</high>
     <low>undisciplined</low>
     <description>Reflects a person's ability to maintain focus, self-control, and adherence to rules or routines. Disciplined individuals are good at sticking to plans, resisting impulses, and working consistently towards goals. Undisciplined individuals may struggle with consistency, be easily distracted, or have difficulty following through.</description>
+    <highDescription>Disciplined individuals are good at sticking to plans, resisting impulses, and working consistently toward their goals.</highDescription>
+    <lowDescription>Undisciplined individuals may struggle with consistency, become easily distracted, or have difficulty following through.</lowDescription>
     <preferenceBias>0.3</preferenceBias>
     <scoreWeight>
       <li>
@@ -522,6 +548,8 @@
     <high>focused</high>
     <low>eclectic</low>
     <description>Reflects how a person directs their attention. Focused individuals are excellent at concentrating on a single task or topic, diving deep into a specific area of interest. Eclectic individuals, in contrast, prefer to spread their attention across a wider range of subjects, finding more joy in discovering new things than in mastering one.</description>
+    <highDescription>Focused individuals excel at concentrating on a single task or topic, diving deeply into a specific area of interest.</highDescription>
+    <lowDescription>Eclectic individuals prefer to spread their attention across many different subjects rather than concentrating on just one.</lowDescription>
     <scoreWeight>
       <li>
         <facet>Intellect</facet>
@@ -552,6 +580,8 @@
     <high>passionate</high>
     <low>apathetic</low>
     <description>Reflects the intensity and enthusiasm with which a person pursues their interests, goals, and relationships. Passionate individuals are deeply committed, putting significant energy and emotion into what they care about. In contrast, apathetic individuals may approach things more casually, showing less intensity and focus in their pursuits.</description>
+    <highDescription>Passionate individuals devote significant energy and emotion to the people, goals, and interests they care about.</highDescription>
+    <lowDescription>Apathetic individuals tend to approach their interests and responsibilities more casually, with less emotional investment.</lowDescription>
     <scoreWeight>
       <li>
         <facet>Industriousness</facet>
@@ -582,6 +612,8 @@
     <high>high-strung</high>
     <low>laid-back</low>
     <description>Reflects a person's typical level of inner calm or anxiety. High-strung individuals tend to be easily agitated, often feeling restless or prone to worry, and may react intensely to stress. In contrast, laid-back individuals maintain a relaxed demeanor, are less easily perturbed, and generally approach situations with a calm and easygoing attitude.</description>
+    <highDescription>High-strung individuals are easily agitated, often feeling restless or prone to worry.</highDescription>
+    <lowDescription>Laid-back individuals remain calm and relaxed, even when faced with stressful situations.</lowDescription>
     <preferenceBias>-0.2</preferenceBias>
     <scoreWeight>
       <li>
@@ -661,6 +693,8 @@
     <high>emotional</high>
     <low>phlegmatic</low>
     <description>Reflects how a person typically experiences and expresses their emotions. Emotional individuals tend to feel their emotions deeply and react strongly to both positive and negative events. On the other hand, phlegmatic individuals experience emotions with less intensity and remains calm and composed.</description>
+    <highDescription>Emotional individuals tend to feel their emotions deeply and react strongly to both positive and negative events.</highDescription>
+    <lowDescription>Phlegmatic individuals experience emotions with less intensity and remain calm and composed.</lowDescription>
     <scoreWeight>
       <li>
         <facet>Imagination</facet>
@@ -694,6 +728,8 @@
     <high>stable</high>
     <low>unstable</low>
     <description>Reflects how consistent and steady a person's emotional state tends to be. Stable individuals maintain an even emotional baseline, experiencing fewer mood swings and responding to situations with emotional consistency. In contrast, unstable individuals experience more frequent and intense emotional shifts, often reacting more strongly to events.</description>
+    <highDescription>Stable individuals maintain a steady emotional baseline and respond to situations with emotional consistency.</highDescription>
+    <lowDescription>Unstable individuals experience more frequent emotional shifts and often react more intensely to events.</lowDescription>
     <scoreWeight>
       <li>
         <facet>Imagination</facet>
@@ -732,6 +768,8 @@
     <high>principled</high>
     <low>amoral</low>
     <description>Reflects a person's sense of right and wrong, as well as their adherence to ethical or moral guidelines. Amoral individuals are less concerned with societal or personal morality, often focusing on their own self-interest or practicality. Principled individuals, on the other hand, strongly adhere to a personal or societal code of ethics. They tend to act in ways that align with their internal values, even when inconvenient.</description>
+    <highDescription>Principled individuals strongly adhere to their ethical values, even when doing so is inconvenient.</highDescription>
+    <lowDescription>Amoral individuals are less concerned with moral principles and tend to focus on practicality or self-interest.</lowDescription>
     <scoreWeight>
       <li>
         <facet>Integrity</facet>
@@ -777,6 +815,8 @@
     <high>optimistic</high>
     <low>pessimistic</low>
     <description>Reflects a person's general outlook on life and expectations for the future. Optimistic individuals tend to anticipate positive outcomes, maintain a hopeful attitude even in challenging times, and readily see the good in situations. In contrast, pessimistic individuals are more inclined to expect negative results, focus on potential difficulties, and may feel discouraged more easily.</description>
+    <highDescription>Optimistic individuals tend to expect positive outcomes and maintain a hopeful outlook.</highDescription>
+    <lowDescription>Pessimistic individuals are more likely to expect negative outcomes and focus on potential difficulties.</lowDescription>
     <preferenceBias>0.3</preferenceBias>
     <scoreWeight>
       <li>
@@ -830,6 +870,8 @@
     <high>ambitious</high>
     <low>content</low>
     <description>Reflects a person's drive and desire for achievement, success, or improvement. Ambitious individuals are highly motivated to set and achieve challenging goals, often seeking advancement, recognition, or personal growth. In contrast, content individuals are generally satisfied with their current situation, showing less inclination to strive for significant changes or higher achievements.</description>
+    <highDescription>Ambitious individuals are highly motivated to pursue achievement, improvement, and challenging goals.</highDescription>
+    <lowDescription>Content individuals are generally satisfied with their current circumstances and feel little need to pursue greater achievement.</lowDescription>
     <scoreWeight>
       <li>
         <facet>Industriousness</facet>
@@ -860,6 +902,8 @@
     <high>compassionate</high>
     <low>coldhearted</low>
     <description>Reflects how empathetic and concerned a person is for the suffering of others. Compassionate individuals are deeply moved by the struggles of others, often going out of their way to offer support and show kindness. In contrast, coldhearted individuals tend to be indifferent to others' pain, often focusing on their own needs or goals without much concern for the well-being of others.</description>
+    <highDescription>Compassionate individuals are deeply moved by the suffering of others and readily offer support or kindness.</highDescription>
+    <lowDescription>Coldhearted individuals tend to remain emotionally detached from the suffering of others and prioritize their own concerns.</lowDescription>
     <preferenceBias>0.3</preferenceBias>
     <scoreWeight>
       <li>
@@ -902,6 +946,8 @@
     <high>impulsive</high>
     <low>consistent</low>
     <description>Reflects how unpredictable or steady a person tends to be. Those Impulsive individuals often act on impulse, leading to unexpected or varied behavior. Low spontaneity indicates a more measured, consistent nature.</description>
+    <highDescription>Impulsive individuals tend to acto n impulse, leading to unpredictable or varied behavior.</highDescription>
+    <lowDescription>Consistent individuals prefer measured, predictable behavior and rarely act on impulse.</lowDescription>
     <scoreWeight>
       <li>
         <facet>Curiosity</facet>
@@ -932,6 +978,8 @@
     <high>trusting</high>
     <low>skeptical</low>
     <description>Reflects how readily a person places confidence in others. Trusting individuals are inclined to believe in the good faith of others. In contrast, skeptical individuals are more cautious, often questioning motives and requiring proof or repeated positive interactions before extending their trust.</description>
+    <highDescription>Trusting individuals are inclined to believe in the good faith of others.</highDescription>
+    <lowDescription>Skeptical individuals tend to question others' motives and require proof or repeated positive experiences before extending their trust.</lowDescription>
     <scoreWeight>
       <li>
         <facet>Intellect</facet>
@@ -970,6 +1018,8 @@
     <high>deliberate</high>
     <low>hasty</low>
     <description>Describes how carefully someone approaches tasks and decisions. Deliberate individuals take their time, favoring accuracy over speed and considering all angles before acting. In contrast, hasty individuals move quickly, often at the cost of precision, preferring immediate action even if it means sacrificing thoroughness.</description>
+    <highDescription>Deliberate individuals take their time, favoring accuracy over speed and considering all angles before acting.</highDescription>
+    <lowDescription>Hasty individuals prefer immediate action over careful consideration, often sacrificing thoroughness for speed.</lowDescription>
     <scoreWeight>
       <li>
         <facet>Intellect</facet>
@@ -1022,6 +1072,8 @@
     <high>playful</high>
     <low>serious</low>
     <description>Reflects a person's inclination to find amusement and express it, as well as their general approach to lightheartedness. Playful individuals enjoy jokes, witty remarks, and tend to approach situations with a lighthearted attitude. In contrast, serious individuals are less inclined to jest, preferring a more earnest and straightforward demeanor.</description>
+    <highDescription>Playful individuals enjoy jokes, witty remarks, and tend to approach situations with a lighthearted attitude.</highDescription>
+    <lowDescription>Serious individuals prefer an earnest, straightforward approach and are less inclined toward humor or jest.</lowDescription>
     <scoreWeight>
       <li>
         <facet>Imagination</facet>
@@ -1059,6 +1111,8 @@
     <high>courageous</high>
     <low>fearful</low>
     <description>Reflects a person's willingness to face fear, danger, or difficult situations. Courageous individuals are inclined to confront challenges directly, even in the face of risk or adversity. In contrast, fearful individuals tend to avoid situations that evoke fear or discomfort, often prioritizing safety over confrontation.</description>
+    <highDescription>Courageous individuals are willing to confront challenges directly, even in the face of risk or adversity.</highDescription>
+    <lowDescription>Fearful individuals tend to avoid situations that evoke fear or discomfort, prioritizing safety over confrontation.</lowDescription>
     <preferenceBias>0.3</preferenceBias>
     <scoreWeight>
       <li>
@@ -1097,6 +1151,8 @@
     <high>tenacious</high>
     <low>fragile</low>
     <description>Reflects a person's ability to endure hardship and maintain self-control under pressure. Tenacious individuals can weather stress better, persisting through challenges without losing composure. Fragile individuals may become easily overwhelmed, lose focus, or get frustrated by setbacks.</description>
+    <highDescription>Tenacious individuals persist through hardship and maintain their composure under pressure.</highDescription>
+    <lowDescription>Fragile individuals tend to get easily overwhelmed, lose focus, or get frustrated by setbacks.</lowDescription>
     <preferenceBias>0.3</preferenceBias>
     <scoreWeight>
       <li>
@@ -1150,6 +1206,8 @@
     <high>loyal</high>
     <low>disloyal</low>
     <description>Reflects a person's faithfulness and commitment. Loyal individuals demonstrate steadfast support and devotion, often prioritizing the well-being and interests of those they are committed to. In contrast, disloyal individuals may be more inclined to prioritize their own self-interest, shift allegiances, or betray trust.</description>
+    <highDescription>Loyal individuals demonstrate steadfast support and remain devoted to those they support.</highDescription>
+    <lowDescription>Disloyal individuals are more likely to prioritize their own interests, shift allegiances, or betray trust.</lowDescription>
     <preferenceBias>0.3</preferenceBias>
     <scoreWeight>
       <li>
@@ -1181,6 +1239,8 @@
     <high>demanding</high>
     <low>spartan</low>
     <description>Reflects how much importance a person places on their own comfort, status, and treatment. Demanding individuals feel they deserve the best and are quick to notice when their needs aren't met. Spartan individuals have low concern for luxury or special treatment, often indifferent to comfort and content with the basics.</description>
+    <highDescription>Demanding individualsfeel they deserve the best and are quick to notice when their needs aren't met.</highDescription>
+    <lowDescription>Spartan individuals are content with the basics and place little importance on comfort or luxury.</lowDescription>
     <scoreWeight>
       <li>
         <facet>Orderliness</facet>
@@ -1227,6 +1287,8 @@
     <high>competitive</high>
     <low>cooperative</low>
     <description>Reflects a person's drive to succeed over others and their inclination to engage in rivalry. Competitive individuals are motivated by comparison and often seek to outperform others, valuing winning and achievement. In contrast, cooperative individuals prefer to work collaboratively, prioritizing shared goals and mutual success over individual triumph.</description>
+    <highDescription>Competitive individuals are motivated by comparison and often seek to outperform others.</highDescription>
+    <lowDescription>Cooperative individuals prefer working together, valuing shared goals and mutual success over personal triumph.</lowDescription>
     <scoreWeight>
       <li>
         <facet>Industriousness</facet>
@@ -1260,6 +1322,8 @@
     <high>egocentric</high>
     <low>altruistic</low>
     <description>Reflects how much a person prioritizes their own needs versus the well-being of others. Altruistic individuals genuinely focus on helping others, often putting collective good before personal gain. Egocentric individuals, on the other hand, prioritize their own desires and benefits.</description>
+    <highDescription>Egocentric individuals prioritize their own desires and personal benefit.</highDescription>
+    <lowDescription>Altruistic individuals genuinely prioritize the well-being of others, often placing it above their own interests.</lowDescription>
     <scoreWeight>
       <li>
         <facet>Sociability</facet>
@@ -1301,6 +1365,8 @@
     <high>contemplative</high>
     <low>reactive</low>
     <description>Reflects a person's tendency to engage in deep thought, introspection, and consideration of abstract ideas. Contemplative individuals often spend time analyzing and pondering. Reactive individuals tend to focus on immediate, concrete matters.</description>
+    <highDescription>Contemplative individuals often spend time analyzing situations and pondering abstract ideas.</highDescription>
+    <lowDescription>Reactive individuals tend to focus on immediate, concrete matters rather than prolonged reflection.</lowDescription>
     <scoreWeight>
       <li>
         <facet>Imagination</facet>
@@ -1338,6 +1404,8 @@
     <high>authentic</high>
     <low>superficial</low>
     <description>Reflects how much a person prioritizes authenticity over appearances. Authentic individuals value sincerity and often downplay external polish. Superficial individuals, in contrast, are more attuned to external presentation and are more strongly influenced by it.</description>
+    <highDescription>Authentic individuals value sincerity and often downplay outward appearances.</highDescription>
+    <lowDescription>Superficial individuals place greater importance on external presentation and are more strongly influenced by them.</lowDescription>
     <scoreWeight>
       <li>
         <facet>Integrity</facet>

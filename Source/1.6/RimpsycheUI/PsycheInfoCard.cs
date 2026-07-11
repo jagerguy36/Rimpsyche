@@ -164,6 +164,8 @@ namespace Maux36.RimPsyche
             public string CachedLabelText;
             public string CachedIntensityLabelText;
             public string CachedDescription;
+            public string CachedShortDescription;
+            public string CachedFullDescription;
             public Color CachedLabelColor;
         }
         private struct InterestDisplayData
@@ -412,7 +414,7 @@ namespace Maux36.RimPsyche
         {
             var personalityDefList = DefDatabase<PersonalityDef>.AllDefsListForReading;
             var rawData = new List<PersonalityDisplayData>();
-
+            // $"<i><color=#808080BF>{sign} {"RP_ShiftForFull".Translate()}</color></i>" //<i>{"RP_ShiftForFull".Translate()}</i>
             foreach (var personality in personalityDefList)
             {
                 float value = compPsyche.Personality.GetPersonality(personality);
@@ -420,11 +422,14 @@ namespace Maux36.RimPsyche
                 string cachedLabelText = ((value >= 0) ? personality.high : personality.low).CapitalizeFirst();
                 string cachedIntensityLabelText = Rimpsyche_Utility.GetPersonalityDesc(personality, value);
                 Color cachedLabelColor = Color.Lerp(LowValueColor, HighValueColor, absValue);
-                var personalityDesc = $"{personality.label.CapitalizeFirst()}: {(value * 100f).ToString("F1")}\n{personality.description}";
+                var personalityShortDesc = (value >= 0f ? personality.highDescription : personality.lowDescription);
+                var personalityFullDesc = $"{personality.label.CapitalizeFirst()}: {(value * 100f).ToString("F1")}\n\n{personality.description}";
                 if (compPsyche.Personality.scopeInfoCache.TryGetValue(personality.shortHash, out string explanation))
                 {
-                    personalityDesc += $"\n\n{explanation}";
+                    personalityShortDesc += $"\n\n{explanation}";
+                    personalityFullDesc += $"\n\n{explanation}";
                 }
+                var personalityDesc = $"{personality.label.CapitalizeFirst()}: {(value * 100f).ToString("F1")}\n\n{personalityShortDesc}\n\n<i><color=#808080BF>{"RP_ShiftForFull".Translate()}</color></i>";
                 rawData.Add(new PersonalityDisplayData
                 {
                     Personality = personality,
@@ -433,6 +438,8 @@ namespace Maux36.RimPsyche
                     CachedLabelText = cachedLabelText,
                     CachedIntensityLabelText = cachedIntensityLabelText,
                     CachedLabelColor = cachedLabelColor,
+                    CachedShortDescription = personalityShortDesc,
+                    CachedFullDescription = personalityFullDesc,
                     CachedDescription = personalityDesc
                 });
             }
@@ -749,7 +756,9 @@ namespace Maux36.RimPsyche
                     if (Mouse.IsOver(rowRect))
                     {
                         Widgets.DrawHighlight(rowRect);
-                        TooltipHandler.TipRegion(rowRect, pData.CachedDescription);
+                        int uniqueId = i;
+                        TipSignal tip = new TipSignal(() => Event.current.shift ? pData.CachedFullDescription : pData.CachedDescription, uniqueId);
+                        TooltipHandler.TipRegion(rowRect, tip);
                     }
 
                     float barCenterX = rowRect.x + rowRect.width / 2f;
@@ -923,11 +932,12 @@ namespace Maux36.RimPsyche
             GUI.color = originalColor;
             leftY += 5f;
 
-            foreach (var personality in personalities)
+            for (int i = 0; i < personalities.Count; i++)
             {
+                var personality = personalities[i];
                 Rect rowRect = new Rect(leftRect.x, leftY, leftRect.width, 22f);
                 Widgets.DrawHighlightIfMouseover(rowRect);
-                TooltipHandler.TipRegion(rowRect, personality.CachedDescription);
+                TooltipHandler.TipRegion(rowRect, personality.CachedShortDescription);
 
                 // Left Side: Personality Label
                 Rect labelRect = new Rect(rowRect.x, rowRect.y, rowRect.width * 0.70f, rowRect.height);
