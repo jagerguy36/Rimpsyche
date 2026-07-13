@@ -56,7 +56,21 @@ namespace Maux36.RimPsyche
                 res = (adjA * adjA * adjA) - 1f;
                 return res;
             }
-
+        }
+        public static float AsMult(float p, float mult)
+        {
+            if (p >= 0f)
+            {
+                if (mult < 1f)
+                    return 1f / (1f + ((1f / mult) - 1f) * p);
+                return 1f + (mult - 1f) * p;
+            }
+            else
+            {
+                if (mult < 1f)
+                    return 1f - ((1f / mult) - 1f) * p;
+                return 1f / (1f - (mult - 1f) * p);
+            }
         }
         public static float SaddleShapeFunction(float x, float y, float controversiality = 1f)
         {

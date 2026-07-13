@@ -107,7 +107,7 @@ namespace Maux36.RimPsyche
             rightsideWidthDiff = RimpsycheDatabase.maxRightsideLabelWidth - 130f;
 
             personalityTitle = "RPC_Personality".Translate();
-            behaviorTitle = "RPC_Behavior".Translate();
+            behaviorTitle = "RPC_Disposition".Translate();
             facetTitle = "RPC_Facet".Translate();
             GameFont oldFont = Text.Font;
             Text.Font = GameFont.Medium;
@@ -616,10 +616,10 @@ namespace Maux36.RimPsyche
             Rect titleRect = new Rect(0f, 0f, headerRect.width, headerRect.height);
             var headerString = showMode switch
             {
-                ShowMode.Personality => "RPC_Personality".Translate(),
-                ShowMode.Behavior => "RPC_Behavior".Translate(),
-                ShowMode.Facet => "RPC_Facet".Translate(),
-                _ => "RPC_Personality".Translate()
+                ShowMode.Personality => personalityTitle,
+                ShowMode.Behavior => behaviorTitle,
+                ShowMode.Facet => facetTitle,
+                _ => personalityTitle
             };
             Widgets.Label(titleRect, headerString);
             if (RimpsycheSettings.showFacetGraph)
@@ -963,7 +963,7 @@ namespace Maux36.RimPsyche
 
             // right
             float rightY = rightRect.y;
-            Widgets.Label(new Rect(rightRect.x, rightY, rightRect.width, 22f), "RPC_BehaviorSnapshot".Translate());
+            Widgets.Label(new Rect(rightRect.x, rightY, rightRect.width, 22f), "RPC_DispositionSnapshot".Translate());
             rightY += 24f;
 
             GUI.color = LineColor;

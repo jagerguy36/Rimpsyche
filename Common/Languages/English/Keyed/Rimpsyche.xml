@@ -21,20 +21,20 @@
 
   <!-- Title -->
   <RPC_Personality>Personality</RPC_Personality>
-  <RPC_Behavior>Behavior</RPC_Behavior>
+  <RPC_Disposition>Disposition</RPC_Disposition>
   <RPC_Facet>Facets</RPC_Facet>
   <RPC_Interest>Interest</RPC_Interest>
   <RPC_Sexuality>Sexuality</RPC_Sexuality>
 
   <!-- Bio Tab -->
   <RPC_PersonalitySnapshot>Personality Snapshot</RPC_PersonalitySnapshot>
-  <RPC_BehaviorSnapshot>Notable Behaviors</RPC_BehaviorSnapshot>
+  <RPC_DispositionSnapshot>Disposition Snapshot</RPC_DispositionSnapshot>
 
   <!-- Tab -->
   <TabPsyche>Psyche</TabPsyche>
 
   <RimpsycheShowPersonality>Show Personality</RimpsycheShowPersonality>
-  <RimpsycheShowBehavior>Show Behavior</RimpsycheShowBehavior>
+  <RimpsycheShowBehavior>Show Disposition</RimpsycheShowBehavior>
   <RimpsycheShowFacet>Show Facets</RimpsycheShowFacet>
 
   <RimpsycheSortValue>Sort by Value</RimpsycheSortValue>
@@ -51,7 +51,7 @@
 
   <!-- Behavior -->
   <RPC_DescriptorBlame>From personalities:</RPC_DescriptorBlame>
-  <RPC_NoBehavior>No notable behaviors</RPC_NoBehavior>
+  <RPC_NoBehavior>No notable disposition</RPC_NoBehavior>
 
   <!-- Interaction -->
   <MemoryReportString>Conversation about {0}</MemoryReportString>
