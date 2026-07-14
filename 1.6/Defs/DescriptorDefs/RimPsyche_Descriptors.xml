@@ -5,7 +5,7 @@
     <positiveLabel>socially active</positiveLabel>
     <negativeLabel>socially withdrawn</negativeLabel>
     <positiveDescription>This pawn initiates social interactions more often.</positiveDescription>
-    <negativeDescription>TThis pawn initiates social interactions less often.</negativeDescription>
+    <negativeDescription>This pawn initiates social interactions less often.</negativeDescription>
     <threshold>0.3</threshold>
     <strongThreshold>0.5</strongThreshold>
     <extremeThreshold>0.7</extremeThreshold>
@@ -13,82 +13,71 @@
   </Maux36.RimPsyche.PsycheDescriptorDef>
 
   <Maux36.RimPsyche.PsycheDescriptorDef>
-    <defName>RP_Desc_Agreeable</defName>
+    <defName>RP_Desc_Eloquence</defName>
     <positiveLabel>relatable</positiveLabel>
     <positiveDescription>Pawns who share this pawn's attitude toward a conversation topic gain more opinion of them.</positiveDescription>
-    <threshold>0.3</threshold>
-    <strongThreshold>0.5</strongThreshold>
-    <extremeThreshold>0.7</extremeThreshold>
-    <workerClass>Maux36.RimPsyche.AgreeableDescriptorWorker</workerClass>
+    <threshold>0.4</threshold>
+    <strongThreshold>0.8</strongThreshold>
+    <workerClass>Maux36.RimPsyche.EloquenceDescriptorWorker</workerClass>
   </Maux36.RimPsyche.PsycheDescriptorDef>
 
   <Maux36.RimPsyche.PsycheDescriptorDef>
-    <defName>RP_Desc_Belligerent</defName>
+    <defName>RP_Desc_InitIntentFactor</defName>
     <positiveLabel>likely to insult</positiveLabel>
     <negativeLabel>unlikely to insult</negativeLabel>
     <positiveDescription>This pawn is more likely to initiate negative social interactions, such as insults or slights.</positiveDescription>
     <negativeDescription>This pawn is less likely to initiate negative social interactions.</negativeDescription>
-    <threshold>0.3</threshold>
-    <strongThreshold>0.5</strongThreshold>
-    <extremeThreshold>0.7</extremeThreshold>
-    <workerClass>Maux36.RimPsyche.BelligerentDescriptorWorker</workerClass>
+    <threshold>0.4</threshold>
+    <strongThreshold>0.8</strongThreshold>
+    <workerClass>Maux36.RimPsyche.InitIntentFactorDescriptorWorker</workerClass>
   </Maux36.RimPsyche.PsycheDescriptorDef>
 
   <Maux36.RimPsyche.PsycheDescriptorDef>
-    <defName>RP_Desc_Touchy</defName>
+    <defName>RP_Desc_ReciNegativeChanceFactor</defName>
     <positiveLabel>easily offended</positiveLabel>
     <negativeLabel>hard to offend</negativeLabel>
     <positiveDescription>This pawn is more likely to become the target of negative social interactions.</positiveDescription>
     <negativeDescription>This pawn is less likely to become the target of negative social interactions.</negativeDescription>
-    <threshold>0.3</threshold>
-    <strongThreshold>0.5</strongThreshold>
-    <extremeThreshold>0.7</extremeThreshold>
-    <workerClass>Maux36.RimPsyche.TouchyDescriptorWorker</workerClass>
+    <threshold>0.7</threshold>
+    <workerClass>Maux36.RimPsyche.ReciNegativeChanceFactorDescriptorWorker</workerClass>
   </Maux36.RimPsyche.PsycheDescriptorDef>
 
   <Maux36.RimPsyche.PsycheDescriptorDef>
-    <defName>RP_Desc_Receptive</defName>
-    <positiveLabel>open-minded listener</positiveLabel>
-    <negativeLabel>dogmatic listener</negativeLabel>
+    <defName>RP_Desc_ReceptiveBase</defName>
+    <positiveLabel>tolerant</positiveLabel>
+    <negativeLabel>dogmatic</negativeLabel>
     <positiveDescription>Conversations with those holding opposing views tend to have a slightly better outcome.</positiveDescription>
     <negativeDescription>Conversations with those holding opposing views tend to have a worse outcome.</negativeDescription>
-    <threshold>0.3</threshold>
-    <strongThreshold>0.5</strongThreshold>
-    <extremeThreshold>0.7</extremeThreshold>
-    <workerClass>Maux36.RimPsyche.ReceptiveDescriptorWorker</workerClass>
+    <threshold>0.7</threshold>
+    <workerClass>Maux36.RimPsyche.ReceptiveBaseDescriptorWorker</workerClass>
   </Maux36.RimPsyche.PsycheDescriptorDef>
 
   <Maux36.RimPsyche.PsycheDescriptorDef>
-    <defName>RP_Desc_impactful</defName>
-    <positiveLabel>Impactful conversations</positiveLabel>
+    <defName>RP_Desc_TalkFactor</defName>
+    <positiveLabel>impactful speaker</positiveLabel>
     <positiveDescription>This pawn tends to have conversations with stronger outcomes, whether positive or negative.</positiveDescription>
-    <threshold>0.3</threshold>
-    <strongThreshold>0.5</strongThreshold>
-    <extremeThreshold>0.7</extremeThreshold>
-    <workerClass>Maux36.RimPsyche.TalkImpactDescriptorWorker</workerClass>
+    <threshold>0.4</threshold>
+    <strongThreshold>0.8</strongThreshold>
+    <workerClass>Maux36.RimPsyche.TalkFactorDescriptorWorker</workerClass>
   </Maux36.RimPsyche.PsycheDescriptorDef>
 
   <Maux36.RimPsyche.PsycheDescriptorDef>
-    <defName>RP_Desc_Passionate</defName>
-    <positiveLabel>passionate interests</positiveLabel>
-    <negativeLabel>muted interests</negativeLabel>
+    <defName>RP_Desc_InterestedTopicAttitude</defName>
+    <positiveLabel>deeply invested</positiveLabel>
+    <negativeLabel>uncommitted</negativeLabel>
     <positiveDescription>Conversations about subjects this pawn cares about have a stronger effect.</positiveDescription>
     <negativeDescription>Conversations about subjects this pawn cares about have a weaker effect.</negativeDescription>
-    <threshold>0.3</threshold>
-    <strongThreshold>0.5</strongThreshold>
-    <extremeThreshold>0.7</extremeThreshold>
+    <threshold>0.7</threshold>
     <workerClass>Maux36.RimPsyche.InterestedTopicAttitudeDescriptorWorker</workerClass>
   </Maux36.RimPsyche.PsycheDescriptorDef>
 
   <Maux36.RimPsyche.PsycheDescriptorDef>
-    <defName>RP_Desc_Inquisitive</defName>
-    <positiveLabel>inquisitive</positiveLabel>
-    <negativeLabel>indifferent</negativeLabel>
+    <defName>RP_Desc_UnInterestedTopicAttitude</defName>
+    <positiveLabel>curious speaker</positiveLabel>
+    <negativeLabel>indifferent speaker</negativeLabel>
     <positiveDescription>The pawn readily engages in conversations outside their usual interests.</positiveDescription>
     <negativeDescription>The pawn quickly loses interest in conversations outside their usual interests.</negativeDescription>
-    <threshold>0.3</threshold>
-    <strongThreshold>0.5</strongThreshold>
-    <extremeThreshold>0.7</extremeThreshold>
+    <threshold>0.7</threshold>
     <workerClass>Maux36.RimPsyche.UnInterestedTopicAttitudeDescriptorWorker</workerClass>
   </Maux36.RimPsyche.PsycheDescriptorDef>
 </Defs>

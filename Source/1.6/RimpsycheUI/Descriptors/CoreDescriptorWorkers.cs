@@ -22,7 +22,7 @@ namespace Maux36.RimPsyche
         }
     }
 
-    public class AgreeableDescriptorWorker : PsycheDescriptorWorker
+    public class EloquenceDescriptorWorker : PsycheDescriptorWorker
     {
         public override float Score(CompPsyche compPsyche)
         {
@@ -42,7 +42,7 @@ namespace Maux36.RimPsyche
         }
     }
 
-    public class BelligerentDescriptorWorker : PsycheDescriptorWorker
+    public class InitIntentFactorDescriptorWorker : PsycheDescriptorWorker
     {
         public override float Score(CompPsyche compPsyche)
         {
@@ -67,7 +67,7 @@ namespace Maux36.RimPsyche
         }
     }
 
-    public class TouchyDescriptorWorker : PsycheDescriptorWorker
+    public class ReciNegativeChanceFactorDescriptorWorker : PsycheDescriptorWorker
     {
         public override float Score(CompPsyche compPsyche)
         {
@@ -87,7 +87,7 @@ namespace Maux36.RimPsyche
             return sb.ToString();
         }
     }
-    public class ReceptiveDescriptorWorker : PsycheDescriptorWorker
+    public class ReceptiveBaseDescriptorWorker : PsycheDescriptorWorker
     {
         public override float Score(CompPsyche compPsyche)
         {
@@ -115,7 +115,7 @@ namespace Maux36.RimPsyche
             return sb.ToString();
         }
     }
-    public class TalkImpactDescriptorWorker : PsycheDescriptorWorker
+    public class TalkFactorDescriptorWorker : PsycheDescriptorWorker
     {
         public override float Score(CompPsyche compPsyche)
         {

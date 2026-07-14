@@ -8,6 +8,7 @@ namespace Maux36.RimPsyche
     public abstract class PsycheDescriptorWorker
     {
         public PsycheDescriptorDef descriptorDef;
+        public int maxLevel;
         public bool positiveOnly = false;
         public static Color negBlameColor = new Color(0.8f, 0.2f, 0.4f);
         public static Color posBlameColor = new Color(0.2f, 0.8f, 0.6f);
@@ -18,40 +19,34 @@ namespace Maux36.RimPsyche
             stringBuilder.AppendLine(GetDescription(compPsyche));
             return stringBuilder.ToString();
         }
+        private static float Progress(float value, float min, float max)
+        {
+            float range = max - min;
+            return range > 0f ? (value - min) / range : 0f;
+        }
         public float GetTieredNormalizedAbsScore(float score)
         {
+            if (descriptorDef.maxLevel == 0)
+                return 0f;
+
             score = Mathf.Abs(score);
-            if (score >= descriptorDef.extremeThreshold)
-            {
-                // Avoid division by zero if extreme matches strong
-                float range = descriptorDef.extremeThreshold - descriptorDef.strongThreshold;
-                float progress = range > 0 ? (score - descriptorDef.extremeThreshold) / range : 0f;
-                return 3.0f + progress;
-            }
 
-            // Tier 2: Strong to Extreme
-            if (score >= descriptorDef.strongThreshold)
-            {
-                float range = descriptorDef.extremeThreshold - descriptorDef.strongThreshold;
-                float progress = range > 0 ? (score - descriptorDef.strongThreshold) / range : 0f;
-                return 2.0f + progress; // Returns 2.0 to 3.0
-            }
+            if (score < descriptorDef.threshold)
+                return Progress(score, 0f, descriptorDef.threshold);
 
-            // Tier 1: Basic to Strong
-            if (score >= descriptorDef.threshold)
-            {
-                float range = descriptorDef.strongThreshold - descriptorDef.threshold;
-                float progress = range > 0 ? (score - descriptorDef.threshold) / range : 0f;
-                return 1.0f + progress; // Returns 1.0 to 2.0
-            }
+            if (descriptorDef.maxLevel == 1)
+                return 1f;
 
-            // Tier 0: Below threshold
-            if (descriptorDef.threshold > 0)
-            {
-                return score / descriptorDef.threshold; // Returns 0.0 to 1.0
-            }
+            if (score < descriptorDef.strongThreshold)
+                return 1f + Progress(score, descriptorDef.threshold, descriptorDef.strongThreshold);
 
-            return 0f;
+            if (descriptorDef.maxLevel == 2)
+                return 2f;
+
+            if (score < descriptorDef.extremeThreshold)
+                return 2f + Progress(score, descriptorDef.strongThreshold, descriptorDef.extremeThreshold);
+
+            return 3f + Progress(score, descriptorDef.extremeThreshold, descriptorDef.strongThreshold);
         }
         public string GetLabel(CompPsyche compPsyche)
         {
@@ -65,18 +60,15 @@ namespace Maux36.RimPsyche
 
         public string GetIntensityString(CompPsyche compPsyche)
         {
-            var strength = Mathf.Abs(Score(compPsyche));
-
-            if (strength >= descriptorDef.extremeThreshold)
-                return "●●●";
-
-            if (strength >= descriptorDef.strongThreshold)
-                return "●●○";
-
+            float strength = Mathf.Abs(Score(compPsyche));
+            int filled = 0;
             if (strength >= descriptorDef.threshold)
-                return "●○○";
-
-            return "○○○";
+                filled++;
+            if (descriptorDef.maxLevel >= 2 && strength >= descriptorDef.strongThreshold)
+                filled++;
+            if (descriptorDef.maxLevel >= 3 && strength >= descriptorDef.extremeThreshold)
+                filled++;
+            return new string('●', filled) + new string('○', descriptorDef.maxLevel - filled);
         }
         public static string GetBlame(CompPsyche compPsyche, PersonalityDef personality, bool positive = true)
         {
