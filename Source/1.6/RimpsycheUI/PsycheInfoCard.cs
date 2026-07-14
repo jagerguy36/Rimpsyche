@@ -477,7 +477,7 @@ namespace Maux36.RimPsyche
                     Description = dWorker.GetDescription(compPsyche),
                     Tooltip = dWorker.GetTooltip(compPsyche),
                     NormalizedAbsValue = normalizedAbsValue,
-                    IsSignificant = normalizedAbsValue > 1f
+                    IsSignificant = normalizedAbsValue >= 1f
                 };
                 sortedData.Add(result);
             }

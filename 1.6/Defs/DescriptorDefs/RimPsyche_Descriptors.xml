@@ -38,17 +38,18 @@
     <negativeLabel>hard to offend</negativeLabel>
     <positiveDescription>This pawn is more likely to become the target of negative social interactions.</positiveDescription>
     <negativeDescription>This pawn is less likely to become the target of negative social interactions.</negativeDescription>
-    <threshold>0.7</threshold>
+    <threshold>0.55</threshold>
     <workerClass>Maux36.RimPsyche.ReciNegativeChanceFactorDescriptorWorker</workerClass>
   </Maux36.RimPsyche.PsycheDescriptorDef>
 
   <Maux36.RimPsyche.PsycheDescriptorDef>
     <defName>RP_Desc_ReceptiveBase</defName>
+    <!-- involves openness, tact~talkativeness, truest -->
     <positiveLabel>tolerant</positiveLabel>
     <negativeLabel>dogmatic</negativeLabel>
     <positiveDescription>Conversations with those holding opposing views tend to have a slightly better outcome.</positiveDescription>
     <negativeDescription>Conversations with those holding opposing views tend to have a worse outcome.</negativeDescription>
-    <threshold>0.7</threshold>
+    <threshold>0.4</threshold>
     <workerClass>Maux36.RimPsyche.ReceptiveBaseDescriptorWorker</workerClass>
   </Maux36.RimPsyche.PsycheDescriptorDef>
 
@@ -67,7 +68,7 @@
     <negativeLabel>uncommitted</negativeLabel>
     <positiveDescription>Conversations about subjects this pawn cares about have a stronger effect.</positiveDescription>
     <negativeDescription>Conversations about subjects this pawn cares about have a weaker effect.</negativeDescription>
-    <threshold>0.7</threshold>
+    <threshold>0.55</threshold>
     <workerClass>Maux36.RimPsyche.InterestedTopicAttitudeDescriptorWorker</workerClass>
   </Maux36.RimPsyche.PsycheDescriptorDef>
 
@@ -77,7 +78,7 @@
     <negativeLabel>indifferent speaker</negativeLabel>
     <positiveDescription>The pawn readily engages in conversations outside their usual interests.</positiveDescription>
     <negativeDescription>The pawn quickly loses interest in conversations outside their usual interests.</negativeDescription>
-    <threshold>0.7</threshold>
+    <threshold>0.55</threshold>
     <workerClass>Maux36.RimPsyche.UnInterestedTopicAttitudeDescriptorWorker</workerClass>
   </Maux36.RimPsyche.PsycheDescriptorDef>
 </Defs>

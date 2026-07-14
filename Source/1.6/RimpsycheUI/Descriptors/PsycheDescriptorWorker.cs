@@ -26,7 +26,7 @@ namespace Maux36.RimPsyche
         }
         public float GetTieredNormalizedAbsScore(float score)
         {
-            if (descriptorDef.maxLevel == 0)
+            if (maxLevel == 0)
                 return 0f;
 
             score = Mathf.Abs(score);
@@ -34,13 +34,13 @@ namespace Maux36.RimPsyche
             if (score < descriptorDef.threshold)
                 return Progress(score, 0f, descriptorDef.threshold);
 
-            if (descriptorDef.maxLevel == 1)
+            if (maxLevel == 1)
                 return 1f;
 
             if (score < descriptorDef.strongThreshold)
                 return 1f + Progress(score, descriptorDef.threshold, descriptorDef.strongThreshold);
 
-            if (descriptorDef.maxLevel == 2)
+            if (maxLevel == 2)
                 return 2f;
 
             if (score < descriptorDef.extremeThreshold)
@@ -55,7 +55,8 @@ namespace Maux36.RimPsyche
 
         public string GetDescription(CompPsyche compPsyche)
         {
-            return Score(compPsyche) >= 0 ? descriptorDef.positiveDescription : descriptorDef.negativeDescription;
+            var score = Score(compPsyche);
+            return score >= 0 ? $"{score}\n{GetTieredNormalizedAbsScore(score)}\n\n" + descriptorDef.positiveDescription : $"{score}\n{GetTieredNormalizedAbsScore(score)}\n\n" + descriptorDef.negativeDescription;
         }
 
         public string GetIntensityString(CompPsyche compPsyche)
@@ -64,11 +65,11 @@ namespace Maux36.RimPsyche
             int filled = 0;
             if (strength >= descriptorDef.threshold)
                 filled++;
-            if (descriptorDef.maxLevel >= 2 && strength >= descriptorDef.strongThreshold)
+            if (maxLevel >= 2 && strength >= descriptorDef.strongThreshold)
                 filled++;
-            if (descriptorDef.maxLevel >= 3 && strength >= descriptorDef.extremeThreshold)
+            if (maxLevel >= 3 && strength >= descriptorDef.extremeThreshold)
                 filled++;
-            return new string('●', filled) + new string('○', descriptorDef.maxLevel - filled);
+            return new string('●', filled) + new string('○', maxLevel - filled);
         }
         public static string GetBlame(CompPsyche compPsyche, PersonalityDef personality, bool positive = true)
         {
