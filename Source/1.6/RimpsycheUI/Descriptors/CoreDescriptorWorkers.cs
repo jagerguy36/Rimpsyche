@@ -47,7 +47,9 @@ namespace Maux36.RimPsyche
         public override float Score(CompPsyche compPsyche)
         {
             var intentFactor = compPsyche.Evaluate(RimpsycheDatabase.InitIntentFactor); // -4.5~3.5
-            return intentFactor > 0f ? (intentFactor / 3.5f) : (intentFactor / 4.5f); // -1 ~ 1
+            float deliveryFactor = - initPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Tact) * 0.5f;
+            var score = intentFactor + deliveryFactor; // -5~4
+            return score > 0f ? (intentFactor / 4f) : (intentFactor / 5f); // -1 ~ 1
         }
         public override string GetTooltip(CompPsyche compPsyche)
         {
@@ -63,6 +65,7 @@ namespace Maux36.RimPsyche
                 sb.AppendLine($"    {GetBlame(compPsyche, PersonalityDefOf.Rimpsyche_Competitiveness, direction)}");
             if (compPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Sociability) > 0f)
                 sb.AppendLine($"    {GetBlame(compPsyche, PersonalityDefOf.Rimpsyche_Sociability, !direction)}");
+            sb.AppendLine($"    {GetBlame(compPsyche, PersonalityDefOf.Rimpsyche_Tact, !direction)}");
             return sb.ToString();
         }
     }
