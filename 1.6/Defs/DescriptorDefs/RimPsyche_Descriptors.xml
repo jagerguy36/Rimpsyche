@@ -45,8 +45,8 @@
   <Maux36.RimPsyche.PsycheDescriptorDef>
     <defName>RP_Desc_ReceptiveBase</defName>
     <!-- involves openness, tact~talkativeness, trust -->
-    <positiveLabel>tolerant</positiveLabel>
-    <negativeLabel>dogmatic</negativeLabel>
+    <positiveLabel>tolerant debater</positiveLabel>
+    <negativeLabel>dogmatic debater</negativeLabel>
     <positiveDescription>Conversations with those holding opposing views tend to have a slightly better outcome.</positiveDescription>
     <negativeDescription>Conversations with those holding opposing views tend to have a worse outcome.</negativeDescription>
     <threshold>0.55</threshold>
