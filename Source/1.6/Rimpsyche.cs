@@ -63,24 +63,65 @@ namespace Maux36.RimPsyche
             bool scrollBarVisible = totalContentHeight > outerRect.height;
             var scrollViewTotal = new Rect(0f, 0f, outerRect.width - (scrollBarVisible ? ScrollBarWidthMargin : 0), totalContentHeight);
             Widgets.BeginScrollView(outerRect, ref scrollPosition, scrollViewTotal);
+            var DispositionSummarySetting = RimpsycheSettings.showDispositionInSummary;
 
             var listing_Standard = new Listing_Standard();
             listing_Standard.Begin(new Rect(0f, 0f, scrollViewTotal.width, 9999f));
             listing_Standard.Gap(12f);
 
-            listing_Standard.Label("RimpsycheGeneralSetting".Translate());
-            listing_Standard.Gap(12f);
+            listing_Standard.Label("RimpsycheBioTabSetting".Translate());
+            listing_Standard.GapLine(12f);
             listing_Standard.CheckboxLabeled("RimpsycheShowSummaryInBio".Translate(), ref RimpsycheSettings.showSummaryInBio, "RimpsycheShowSummaryInBioTooltip".Translate());
             listing_Standard.Gap(6f);
-            listing_Standard.CheckboxLabeled("RimpsychePersonalityAsBars".Translate(), ref RimpsycheSettings.personalityAsBar, "RimpsychePersonalityAsBarsTooltip".Translate());
+            listing_Standard.CheckboxLabeled("RimpsycheShowDispositionInSummary".Translate(), ref RimpsycheSettings.showDispositionInSummary, "RimpsycheShowDispositionInSummaryTooltip".Translate());
+            if (DispositionSummarySetting != RimpsycheSettings.showDispositionInSummary)
+            {
+                RimpsycheSettings.ExtraBioHeight = RimpsycheSettings.showDispositionInSummary ? 85 : 66;
+            }
+
+            listing_Standard.Gap(30f);
+
+            listing_Standard.Label("RimpsychePersonalityViewSetting".Translate());
+            listing_Standard.GapLine(12f);
+
+            listing_Standard.CheckboxLabeled("RimpsycheShowEffectInDescription".Translate(), ref RimpsycheSettings.showEffectInDescription, "RimpsycheShowEffectInDescriptionTooltip".Translate());
             listing_Standard.Gap(6f);
-            listing_Standard.CheckboxLabeled("RimpsycheAllowFacetEdit".Translate(), ref RimpsycheSettings.allowFacetEdit, "RimpsycheAllowFacetEditTooltip".Translate());
+            listing_Standard.CheckboxLabeled("RimpsychePersonalityAsBars".Translate(), ref RimpsycheSettings.personalityAsBar, "RimpsychePersonalityAsBarsTooltip".Translate());
+
+            listing_Standard.Gap(30f);
+
+            listing_Standard.Label("RimpsychePsycheTabSetting".Translate());
+            listing_Standard.GapLine(12f);
+            listing_Standard.CheckboxLabeled("RimpsycheShowDispositionInTab".Translate(), ref RimpsycheSettings.showDispositionInTab, "RimpsycheShowDispositionInTabTooltip".Translate());
             listing_Standard.Gap(6f);
             listing_Standard.CheckboxLabeled("RimpsycheShowFacetInMenu".Translate(), ref RimpsycheSettings.showFacetInMenu, "RimpsycheShowFacetInMenuTooltip".Translate());
             listing_Standard.Gap(6f);
             listing_Standard.CheckboxLabeled("RimpsycheShowFacetGraph".Translate(), ref RimpsycheSettings.showFacetGraph, "RimpsycheShowFacetGraphTooltip".Translate());
+
+            listing_Standard.Gap(30f);
+
+            listing_Standard.Label("RimpsycheMiscSetting".Translate());
+            listing_Standard.GapLine(12f);
+
+            listing_Standard.CheckboxLabeled("RimpsycheAllowFacetEdit".Translate(), ref RimpsycheSettings.allowFacetEdit, "RimpsycheAllowFacetEditTooltip".Translate());
             listing_Standard.Gap(6f);
             listing_Standard.CheckboxLabeled("RimpsycheConfirmLoadSave".Translate(), ref RimpsycheSettings.confirmLoadSave, "RimpsycheConfirmLoadSaveTooltip".Translate());
+
+            listing_Standard.Gap(30f);
+
+            if (listing_Standard.ButtonText("RimpsycheDefaultSetting".Translate()))
+            {
+                RimpsycheSettings.showSummaryInBio = true;
+                RimpsycheSettings.showDispositionInSummary = true;
+                RimpsycheSettings.showEffectInDescription = false;
+                RimpsycheSettings.showDispositionInTab = false;
+                RimpsycheSettings.personalityAsBar = true;
+                RimpsycheSettings.allowFacetEdit = false;
+                RimpsycheSettings.showFacetInMenu = false;
+                RimpsycheSettings.showFacetGraph = false;
+                RimpsycheSettings.confirmLoadSave = true;
+                RimpsycheSettings.ExtraBioHeight = RimpsycheSettings.showDispositionInSummary ? 85 : 66;
+            }
 
             listing_Standard.End();
             Widgets.EndScrollView();
