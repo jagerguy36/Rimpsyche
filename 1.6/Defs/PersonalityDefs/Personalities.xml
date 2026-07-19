@@ -193,11 +193,19 @@
       </li>
       <li>
         <facet>Intellect</facet>
-        <weight>0.45</weight>
+        <weight>0.3</weight>
       </li>
       <li>
         <facet>Curiosity</facet>
         <weight>0.45</weight>
+      </li>
+      <li>
+        <facet>Sociability</facet>
+        <weight>0.1</weight>
+      </li>
+      <li>
+        <facet>Enthusiasm</facet>
+        <weight>0.05</weight>
       </li>
     </scoreWeight>
   </Maux36.RimPsyche.PersonalityDef>
