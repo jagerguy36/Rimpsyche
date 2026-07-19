@@ -14,9 +14,10 @@ namespace Maux36.RimPsyche
     public class PsycheDescriptorDef: Def
     {
         public string positiveLabel;
-        public string negativeLabel = string.Empty;
+        public string negativeLabel;
         public string positiveDescription;
-        public string negativeDescription = string.Empty;
+        public string neutralDeescription;
+        public string negativeDescription;
         //Under threshold 0~1 | lvl 0
         public float threshold; // 1->2 | lvl 1
         public float strongThreshold; // 2->3 | lvl 2
@@ -33,7 +34,6 @@ namespace Maux36.RimPsyche
                 {
                     workerInt = (PsycheDescriptorWorker)Activator.CreateInstance(workerClass);
                     workerInt.descriptorDef = this;
-                    if (negativeLabel == string.Empty) workerInt.positiveOnly = true;
                     if (threshold == 0f)
                         workerInt.maxLevel = 0;
                     if (strongThreshold == 0f)

@@ -36,6 +36,7 @@ namespace Maux36.RimPsyche
         public static float maxRightsideLabelWidth = 130f;
         public static float maxPersonalityLabelWidth = 130f;
         public static float totalPreferenceEditorfHeight = 0f;
+        public static float intensityRectWidth = 40f;
 
         public static Dictionary<string, string> IntensityKeysDefault = new Dictionary<string, string>()
         {
@@ -59,7 +60,8 @@ namespace Maux36.RimPsyche
             InteractionDefOf.Chitchat = DefOfRimpsyche.Rimpsyche_Smalltalk;
             InteractionDefOf.DeepTalk = DefOfRimpsyche.Rimpsyche_StartConversation;
             PersonalityOrder = DefDatabase<PersonalityDef>.AllDefsListForReading.Select((p, index) => new { p.shortHash, index }).ToDictionary(x => (int)x.shortHash, x =>x.index);
-
+            intensityRectWidth = Text.CalcSize("●●●").x;
+            
             //Sexuality Label consideration
             if (Rimpsyche.SexualityModuleLoaded)
             {
