@@ -101,10 +101,10 @@ namespace Maux36.RimPsyche
                 foreach (var blamer in worker.blamers)
                 {
                     string bullet = " ◆ ";
-                    if (blamer.Item3 == null)
+                    if (blamer.Item3 != null)
                     {
                         bullet = " ◇ ";
-                        conditionalEffects.Add(blamer.Item1.shortHash)
+                        conditionalEffects.Add(blamer.Item1.shortHash);
                     }
                     string posEffecString;
                     string negEffecString;
@@ -219,9 +219,9 @@ namespace Maux36.RimPsyche
                 }
 
                 //Effects
-                if (posEffectDict.TryGetValue(personalityDef, out List<string> list))
+                if (posEffectDict.TryGetValue(personalityDef, out List<string> posList))
                 {
-                    var posEffectText = string.Join("\n", list);
+                    var posEffectText = string.Join("\n", posList);
                     posEffectText = $"\n\n{"RP_PsycheEffects".Translate()}:\n{posEffectText}";
                     if (conditionalEffects.Contains(personalityDef.shortHash))
                     {
@@ -229,9 +229,9 @@ namespace Maux36.RimPsyche
                     }
                     personalityDef.posEffectString = posEffectText;
                 }
-                if (negEffectDict.TryGetValue(personalityDef, out List<string> list))
+                if (negEffectDict.TryGetValue(personalityDef, out List<string> negList))
                 {
-                    var negEffectText = string.Join("\n", list);
+                    var negEffectText = string.Join("\n", negList);
                     negEffectText = $"\n\n{"RP_PsycheEffects".Translate()}:\n{negEffectText}";
                     if (conditionalEffects.Contains(personalityDef.shortHash))
                     {

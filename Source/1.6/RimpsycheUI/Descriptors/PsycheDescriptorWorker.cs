@@ -19,7 +19,7 @@ namespace Maux36.RimPsyche
         public static Color negBlameColor = new Color(0.8f, 0.2f, 0.4f);
         public static Color neutBlameColor = new Color(0.2f, 0.4f, 0.8f);
         public static Color posBlameColor = new Color(0.2f, 0.8f, 0.6f);
-        protected List<(PersonalityDef, PsycheDescDirection, Func<CompPsyche, bool>)> blamers = new();
+        public List<(PersonalityDef, PsycheDescDirection, Func<CompPsyche, bool>)> blamers = new();
         public PsycheDescriptorWorker()
         {
             SetupBlamers();

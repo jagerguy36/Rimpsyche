@@ -141,7 +141,6 @@ namespace Maux36.RimPsyche
         }
 
         //Cache
-        private static Dictionary<ushort, List<string>> cachedPersonalityEffect = new();
         private static List<PersonalityDisplayData> cachedPersonalityData = null;
         private static List<PersonalityDisplayData> cachedPersonalitySummaryData = null;
         private static List<BehaviorData> cachedBehaviorData = null;
@@ -415,8 +414,7 @@ namespace Maux36.RimPsyche
         
         private static void GenerateSortedPersonalityData(CompPsyche compPsyche, Pawn currentPawn)
         {
-            cachedPersonalityEffect.Clear();
-            GenerateBehaviorData(compPsyche, cachedPersonalityEffect);
+            GenerateBehaviorData(compPsyche);
             var personalityDefList = DefDatabase<PersonalityDef>.AllDefsListForReading;
             var rawData = new List<PersonalityDisplayData>();
             foreach (var personality in personalityDefList)
@@ -428,12 +426,14 @@ namespace Maux36.RimPsyche
                 Color cachedLabelColor = Color.Lerp(LowValueColor, HighValueColor, absValue);
                 var personalityShortDesc = (value >= 0f ? personality.highDescription : personality.lowDescription);
                 var personalityFullDesc = $"{personality.label.CapitalizeFirst()}: {(value * 100f).ToString("F1")}\n\n{personality.description}";
-                if (cachedPersonalityEffect.TryGetValue(personality.shortHash, out var descriptors))
+                var effectString = personality.posEffectString;
+                if (value <= 0f)
+                    effectString = personality.negEffectString;
+                if (effectString != string.Empty)
                 {
-                    var cachedEffectText = string.Join("\n", descriptors.Select(d => " ◆ " + d));
-                    personalityFullDesc += $"\n\n{"RP_PsycheEffects".Translate()}:\n{cachedEffectText}";
+                    personalityFullDesc += effectString;
                     if (RimpsycheSettings.showEffectInDescription)
-                        personalityShortDesc += $"\n\n{"RP_PsycheEffects".Translate()}:\n{cachedEffectText}";
+                        personalityShortDesc += effectString;
                 }
                 if (compPsyche.Personality.scopeInfoCache.TryGetValue(personality.shortHash, out string explanation))
                 {
@@ -470,7 +470,7 @@ namespace Maux36.RimPsyche
             }
             shouldSort = false;
         }
-        private static void GenerateBehaviorData(CompPsyche compPsyche, Dictionary<ushort, List<string>> personalityEffectCache)
+        private static void GenerateBehaviorData(CompPsyche compPsyche)
         {
             var sortedData = new List<BehaviorData>();
 
@@ -491,28 +491,6 @@ namespace Maux36.RimPsyche
                     IsSignificant = normalizedAbsValue >= 1f
                 };
                 sortedData.Add(result);
-                //foreach (ushort shortHash in dWorker.bPosRegistry)
-                //{
-                //    if (!personalityEffectCache.TryGetValue(shortHash, out List<string> list))
-                //    {
-                //        list = new List<string>();
-                //        personalityEffectCache.Add(shortHash, list);
-                //    }
-                //    var desc = dWorker.bScore > 0f ? descDef.positiveDescription : descDef.negativeDescription;
-                //    if (desc != "")
-                //        list.Add(desc.CapitalizeFirst());
-                //}
-                //foreach (ushort shortHash in dWorker.bNegRegistry)
-                //{
-                //    if (!personalityEffectCache.TryGetValue(shortHash, out List<string> list))
-                //    {
-                //        list = new List<string>();
-                //        personalityEffectCache.Add(shortHash, list);
-                //    }
-                //    var desc = dWorker.bScore > 0f ? descDef.negativeDescription : descDef.positiveDescription;
-                //    if (desc != "")
-                //        list.Add(desc.CapitalizeFirst());
-                //}
             }
 
             // Sort descending by strength
