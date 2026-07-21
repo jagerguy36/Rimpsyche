@@ -23,10 +23,6 @@ namespace Maux36.RimPsyche
         public PsycheDescriptorWorker()
         {
             SetupBlamers();
-            foreach(var blamer in blamers)
-            {
-
-            }
         }
         protected abstract void SetupBlamers();
         protected void Blame(PersonalityDef personality, PsycheDescDirection direction = PsycheDescDirection.Positive, Func<CompPsyche, bool> validator = null)

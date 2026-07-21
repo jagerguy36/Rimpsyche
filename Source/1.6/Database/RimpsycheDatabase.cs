@@ -90,6 +90,63 @@ namespace Maux36.RimPsyche
                 maxFacetLabelWidth = Mathf.Max(maxFacetLabelWidth, 5f + Text.CalcSize(rightLabel.CapitalizeFirst()).x);
             }
 
+            //Personality Effect
+            var conditionalString = $"\n\n<i><color=#808080BF>{"RP_ConditionalEffect".Translate()}</color></i>";
+            Dictionary<PersonalityDef, List<string>> posEffectDict = new();
+            Dictionary<PersonalityDef, List<string>> negEffectDict = new();
+            HashSet<ushort> conditionalEffects = new();
+            foreach (var descDef in DefDatabase<PsycheDescriptorDef>.AllDefsListForReading)
+            {
+                var worker =  descDef.Worker;
+                foreach (var blamer in worker.blamers)
+                {
+                    string bullet = " ◆ ";
+                    if (blamer.Item3 == null)
+                    {
+                        bullet = " ◇ ";
+                        conditionalEffects.Add(blamer.Item1.shortHash)
+                    }
+                    string posEffecString;
+                    string negEffecString;
+                    if (blamer.Item2 == PsycheDescDirection.Positive)
+                    {
+                        posEffecString = descDef.positiveDescription;
+                        negEffecString = descDef.negativeDescription;
+                    }
+                    else if (blamer.Item2 == PsycheDescDirection.Negative)
+                    {
+                        posEffecString = descDef.negativeDescription;
+                        negEffecString = descDef.positiveDescription;
+                    }
+                    else
+                    {
+                        
+                        posEffecString = descDef.neutralDeescription;
+                        negEffecString = descDef.neutralDeescription;
+                    }
+                    if (posEffecString != string.Empty)
+                    {
+                        posEffecString = bullet + posEffecString;
+                        if (!posEffectDict.TryGetValue(blamer.Item1, out List<string> list))
+                        {
+                            list = new List<string>();
+                            posEffectDict.Add(blamer.Item1, list);
+                        }
+                        list.Add(posEffecString);
+                    }
+                    if (negEffecString != string.Empty)
+                    {
+                        negEffecString = bullet + negEffecString;
+                        if (!negEffectDict.TryGetValue(blamer.Item1, out List<string> list))
+                        {
+                            list = new List<string>();
+                            negEffectDict.Add(blamer.Item1, list);
+                        }
+                        list.Add(posEffecString);
+                    }
+                }
+            }
+
             //Interest and Topic
             foreach (var interestdomain in DefDatabase<InterestDomainDef>.AllDefsListForReading)
             {
@@ -138,11 +195,12 @@ namespace Maux36.RimPsyche
                 }
             }
 
-            //Scope
+            //Personality 
             foreach (var personalityDef in DefDatabase<PersonalityDef>.AllDefsListForReading)
             {
                 maxPersonalityLabelWidth = Mathf.Max(maxPersonalityLabelWidth, 5f + Text.CalcSize(personalityDef.low.CapitalizeFirst()).x);
                 maxPersonalityLabelWidth = Mathf.Max(maxPersonalityLabelWidth, 5f + Text.CalcSize(personalityDef.high.CapitalizeFirst()).x);
+
                 //Check Personality weight sum
                 float absoluteWeightSum = 0f;
                 var score = personalityDef.scoreWeight;
@@ -160,6 +218,29 @@ namespace Maux36.RimPsyche
                     Log.Error($"Facet weight absolute sum for topic {personalityDef.defName} is not 1. It is {absoluteWeightSum}");
                 }
 
+                //Effects
+                if (posEffectDict.TryGetValue(personalityDef, out List<string> list))
+                {
+                    var posEffectText = string.Join("\n", list);
+                    posEffectText = $"\n\n{"RP_PsycheEffects".Translate()}:\n{posEffectText}";
+                    if (conditionalEffects.Contains(personalityDef.shortHash))
+                    {
+                        posEffectText += conditionalString;
+                    }
+                    personalityDef.posEffectString = posEffectText;
+                }
+                if (negEffectDict.TryGetValue(personalityDef, out List<string> list))
+                {
+                    var negEffectText = string.Join("\n", list);
+                    negEffectText = $"\n\n{"RP_PsycheEffects".Translate()}:\n{negEffectText}";
+                    if (conditionalEffects.Contains(personalityDef.shortHash))
+                    {
+                        negEffectText += conditionalString;
+                    }
+                    personalityDef.negEffectString = negEffectText;
+                }
+
+                //Scope
                 var scopeList = personalityDef.scopes;
                 if (scopeList != null)
                 {
