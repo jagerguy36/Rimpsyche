@@ -10,9 +10,9 @@ namespace Maux36.RimPsyche
         {
             return compPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Sociability);
         }
-        protected override void SetupBlamers()
+        protected override void Evaluate(StringBuilder ctx, CompPsyche compPsyche, float score)
         {
-            Blame(PersonalityDefOf.Rimpsyche_Sociability);
+            Blame(ctx, compPsyche, PersonalityDefOf.Rimpsyche_Sociability);
         }
     }
 
@@ -23,11 +23,11 @@ namespace Maux36.RimPsyche
             var fervor = (0.2f * compPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Tact)) + compPsyche.Evaluate(RimpsycheDatabase.Fervor);  //-0.4~[0]~0.4
             return 2.5f * fervor;
         }
-        protected override void SetupBlamers()
+        protected override void Evaluate(StringBuilder ctx, CompPsyche compPsyche, float score)
         {
-            Blame(PersonalityDefOf.Rimpsyche_Tact);
-            Blame(PersonalityDefOf.Rimpsyche_Passion);
-            Blame(PersonalityDefOf.Rimpsyche_Aggressiveness, PsycheDescDirection.Negative);
+            Blame(ctx, compPsyche, PersonalityDefOf.Rimpsyche_Tact);
+            Blame(ctx, compPsyche, PersonalityDefOf.Rimpsyche_Passion);
+            Blame(ctx, compPsyche, PersonalityDefOf.Rimpsyche_Aggressiveness, PsycheDescDirection.Negative);
         }
     }
 
@@ -40,14 +40,17 @@ namespace Maux36.RimPsyche
             var score = intentFactor + deliveryFactor; // -5~4
             return score > 0f ? (intentFactor / 4f) : (intentFactor / 5f); // -1 ~ 1
         }
-        protected override void SetupBlamers()
+        protected override void Evaluate(StringBuilder ctx, CompPsyche compPsyche, float score)
         {
-            Blame(PersonalityDefOf.Rimpsyche_Aggressiveness);
-            Blame(PersonalityDefOf.Rimpsyche_Compassion, PsycheDescDirection.Negative);
-            Blame(PersonalityDefOf.Rimpsyche_Tension);
-            Blame(PersonalityDefOf.Rimpsyche_Competitiveness, PsycheDescDirection.Positive, (compPsyche, score) => compPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Competitiveness) < 0f);
-            Blame(PersonalityDefOf.Rimpsyche_Sociability, PsycheDescDirection.Negative, (compPsyche, score) => compPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Sociability) > 0f);
-            Blame(PersonalityDefOf.Rimpsyche_Tact, PsycheDescDirection.Negative);
+            Blame(ctx, compPsyche, PersonalityDefOf.Rimpsyche_Aggressiveness);
+            Blame(ctx, compPsyche, PersonalityDefOf.Rimpsyche_Compassion, PsycheDescDirection.Negative);
+            Blame(ctx, compPsyche, PersonalityDefOf.Rimpsyche_Tension);
+            if (compPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Competitiveness) < 0f)
+                Blame(ctx, compPsyche, PersonalityDefOf.Rimpsyche_Competitiveness, PsycheDescDirection.Positive);
+            if (compPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Sociability) > 0f)
+                Blame(ctx, compPsyche, PersonalityDefOf.Rimpsyche_Sociability, PsycheDescDirection.Negative);
+            Blame(ctx, compPsyche, PersonalityDefOf.Rimpsyche_Tact, PsycheDescDirection.Negative);
+            Blame(ctx, compPsyche, PersonalityDefOf.Rimpsyche_Playfulness, PsycheDescDirection.Neutral);
         }
     }
 
@@ -58,11 +61,11 @@ namespace Maux36.RimPsyche
             var reciNegFactor = compPsyche.Evaluate(RimpsycheDatabase.reciNegativeChanceMultiplier); // -4.5~3.5
             return 10f * (reciNegFactor -1f);
         }
-        protected override void SetupBlamers()
+        protected override void Evaluate(StringBuilder ctx, CompPsyche compPsyche, float score)
         {
-            Blame(PersonalityDefOf.Rimpsyche_Tension);
-            Blame(PersonalityDefOf.Rimpsyche_Stability, PsycheDescDirection.Negative);
-            Blame(PersonalityDefOf.Rimpsyche_Confidence, PsycheDescDirection.Negative);
+            Blame(ctx, compPsyche, PersonalityDefOf.Rimpsyche_Tension);
+            Blame(ctx, compPsyche, PersonalityDefOf.Rimpsyche_Stability, PsycheDescDirection.Negative);
+            Blame(ctx, compPsyche, PersonalityDefOf.Rimpsyche_Confidence, PsycheDescDirection.Negative);
         }
     }
     public class ReceptiveBaseDescriptorWorker : PsycheDescriptorWorker
@@ -73,13 +76,19 @@ namespace Maux36.RimPsyche
             var assertBase = compPsyche.Evaluate(RimpsycheDatabase.AssertBase);
             return 0.5f * (receiveBase + assertBase);
         }
-        protected override void SetupBlamers()
+        protected override void Evaluate(StringBuilder ctx, CompPsyche compPsyche, float score)
         {
-            Blame(PersonalityDefOf.Rimpsyche_Openness);
-            Blame(PersonalityDefOf.Rimpsyche_Trust, PsycheDescDirection.Positive, (compPsyche, score) => compPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Openness) > 0f);
-            Blame(PersonalityDefOf.Rimpsyche_Trust, PsycheDescDirection.Negative, (compPsyche, score) => compPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Openness) <= 0f);
-            Blame(PersonalityDefOf.Rimpsyche_Talkativeness, PsycheDescDirection.Positive, (compPsyche, score) => compPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Tact) > 0f);
-            Blame(PersonalityDefOf.Rimpsyche_Talkativeness, PsycheDescDirection.Negative, (compPsyche, score) => compPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Tact) <= 0f);
+            Blame(ctx, compPsyche, PersonalityDefOf.Rimpsyche_Openness);
+            if (compPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Openness) > 0f)
+                Blame(ctx, compPsyche, PersonalityDefOf.Rimpsyche_Trust, PsycheDescDirection.Positive);
+            else
+                Blame(ctx, compPsyche, PersonalityDefOf.Rimpsyche_Trust, PsycheDescDirection.Negative);
+            if (compPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Tact) > 0f)
+                Blame(ctx, compPsyche, PersonalityDefOf.Rimpsyche_Talkativeness, PsycheDescDirection.Positive);
+            else
+                Blame(ctx, compPsyche, PersonalityDefOf.Rimpsyche_Talkativeness, PsycheDescDirection.Negative);
+
+
         }
     }
     public class TalkFactorDescriptorWorker : PsycheDescriptorWorker
@@ -89,10 +98,11 @@ namespace Maux36.RimPsyche
             var talkfactor = compPsyche.Evaluate(RimpsycheDatabase.TalkFactor);
             return talkfactor - 1.5f; // -0.5 ~ 1
         }
-        protected override void SetupBlamers()
+        protected override void Evaluate(StringBuilder ctx, CompPsyche compPsyche, float score)
         {
-            Blame(PersonalityDefOf.Rimpsyche_Talkativeness);
-            Blame(PersonalityDefOf.Rimpsyche_Playfulness, PsycheDescDirection.Negative, (compPsyche, score) => compPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Playfulness) < 0f);
+            Blame(ctx, compPsyche, PersonalityDefOf.Rimpsyche_Talkativeness);
+            if (compPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Playfulness) < 0f)
+                Blame(ctx, compPsyche, PersonalityDefOf.Rimpsyche_Playfulness, PsycheDescDirection.Negative);
         }
     }
     public class InterestedTopicAttitudeDescriptorWorker : PsycheDescriptorWorker
@@ -102,9 +112,9 @@ namespace Maux36.RimPsyche
             //High Passionate = higher highInterstTopic score | Low Passionate = highInterstTopic score is pretty much similar with low interest
             return compPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Passion);
         }
-        protected override void SetupBlamers()
+        protected override void Evaluate(StringBuilder ctx, CompPsyche compPsyche, float score)
         {
-            Blame(PersonalityDefOf.Rimpsyche_Passion);
+            Blame(ctx, compPsyche, PersonalityDefOf.Rimpsyche_Passion);
         }
     }
     public class UnInterestedTopicAttitudeDescriptorWorker : PsycheDescriptorWorker
@@ -114,9 +124,9 @@ namespace Maux36.RimPsyche
             //High inquisitive = higher lowInterstTopic score | Low inquisitive = lowInterstTopic score is low.
             return compPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Inquisitiveness);
         }
-        protected override void SetupBlamers()
+        protected override void Evaluate(StringBuilder ctx, CompPsyche compPsyche, float score)
         {
-            Blame(PersonalityDefOf.Rimpsyche_Inquisitiveness);
+            Blame(ctx, compPsyche, PersonalityDefOf.Rimpsyche_Inquisitiveness);
         }
     }
 }

@@ -25,16 +25,11 @@ namespace Maux36.RimPsyche
         public static Color negBlameColor = new Color(0.8f, 0.2f, 0.4f);
         public static Color neutBlameColor = new Color(0.2f, 0.4f, 0.8f);
         public static Color posBlameColor = new Color(0.2f, 0.8f, 0.6f);
-        public List<Blamer> blamers = new();
-        public PsycheDescriptorWorker()
-        {
-            SetupBlamers();
-        }
         protected abstract float Score(CompPsyche compPsyche);
-        protected abstract void SetupBlamers();
-        protected void Blame(PersonalityDef personality, PsycheDescDirection direction = PsycheDescDirection.Positive, Func<CompPsyche, float, bool> validator = null)
+        protected abstract void Evaluate(StringBuilder ctx, CompPsyche compPsyche, float score);
+        protected void Blame(StringBuilder ctx, CompPsyche compPsyche, PersonalityDef personality, PsycheDescDirection direction = PsycheDescDirection.Positive)
         {
-            blamers.Add(new Blamer(personality, direction, validator));
+            ctx.AppendLine($"  {GetBlameString(compPsyche, personality, direction)}");
         }
 
         //For built
@@ -53,7 +48,10 @@ namespace Maux36.RimPsyche
             bLabel = GetLabel(bScore);
             bDescription = GetDescription(bScore);
             bIntensityString = GetIntensityString(bScore);
-            bToolTip = GetTooltip(compPsyche, bScore);
+            if (bScore != 0f)
+                bToolTip = GetTooltip(compPsyche, bScore);
+            else
+                bToolTip = string.Empty;
         }
         protected string GetTooltip(CompPsyche compPsyche, float score)
         {
@@ -61,18 +59,7 @@ namespace Maux36.RimPsyche
             sb.AppendLine(bDescription);
             sb.AppendLine();
             sb.AppendLine("RPC_DescriptorBlame".Translate());
-            foreach(var blamer in blamers)
-            {
-                var validator = blamer.Validator;
-                if (validator == null)
-                {
-                    sb.AppendLine($"  {GetBlameString(compPsyche, blamer.Personality, blamer.Direction)}");
-                }
-                else if (validator(compPsyche, score))
-                {
-                    sb.AppendLine($"  {GetBlameString(compPsyche, blamer.Personality, blamer.Direction)}");
-                }
-            }
+            Evaluate(sb, compPsyche, score);
             return sb.ToString();
         }
         private static float Progress(float value, float min, float max)
@@ -106,12 +93,12 @@ namespace Maux36.RimPsyche
         }
         protected string GetLabel(float score)
         {
-            return (score >= 0 ? descriptorDef.positiveLabel : descriptorDef.negativeLabel).CapitalizeFirst();
+            return (score > 0 ? descriptorDef.positiveLabel : score == 0 ? "" : descriptorDef.negativeLabel).CapitalizeFirst();
         }
 
         protected string GetDescription(float score)
         {
-            return score >= 0 ? descriptorDef.positiveDescription : descriptorDef.negativeDescription;
+            return score > 0 ? descriptorDef.positiveDescription : score == 0? "" : descriptorDef.negativeDescription;
         }
 
         protected string GetIntensityString(float score)
@@ -144,7 +131,7 @@ namespace Maux36.RimPsyche
                 if (!aligned)
                 {
                     targetColor = negBlameColor;
-                    sign = "-";
+                    sign = "−";//U+2212
                     impactDirection = PsycheDescDirection.Negative;
                 }
             }
@@ -153,7 +140,7 @@ namespace Maux36.RimPsyche
                 if (aligned)
                 {
                     targetColor = negBlameColor;
-                    sign = "-";
+                    sign = "−";//U+2212
                     impactDirection = PsycheDescDirection.Negative;
                 }
             }

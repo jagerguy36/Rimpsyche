@@ -485,9 +485,6 @@ namespace Maux36.RimPsyche
             {
                 var dWorker = descDef.Worker;
                 dWorker.Build(compPsyche);
-                if (!string.IsNullOrEmpty(dWorker.bDescription))
-                {
-                }
 
                 foreach ((ushort shortHash, var direction) in dWorker.bImpactRegistry)
                 {
@@ -496,15 +493,17 @@ namespace Maux36.RimPsyche
                         list = new List<string>();
                         cachedPersonalityEffects.Add(shortHash, list);
                     }
-                    var desc = direction switch
+                    if (!string.IsNullOrEmpty(dWorker.bDescription))
                     {
-                        PsycheDescDirection.Positive => !string.IsNullOrEmpty(dWorker.bDescription) ? $"  ▴ {dWorker.bDescription}" : "",
-                        PsycheDescDirection.Neutral => !string.IsNullOrEmpty(dWorker.descriptorDef.neutralDescription) ? $"  ◆ {dWorker.descriptorDef.neutralDescription}" : "",
-                        PsycheDescDirection.Negative => !string.IsNullOrEmpty(dWorker.bDescription) ? $"  ▾ {dWorker.bDescription}":"",
-                        _ => ""
-                    };
-                    if (desc != "")
+                        var desc = direction switch
+                        {
+                            PsycheDescDirection.Positive => $"  ▴ {dWorker.bDescription}",
+                            PsycheDescDirection.Neutral => $"  ♦ {dWorker.bDescription}",//▴▾◆▵◊▿⬧♦
+                            PsycheDescDirection.Negative => $"  ▾ {dWorker.bDescription}",
+                            _ => ""
+                        };
                         list.Add(desc.CapitalizeFirst());
+                    }
                 }
                 if (string.IsNullOrEmpty(dWorker.bLabel))
                     continue;

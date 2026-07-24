@@ -1,4 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
+<!--
+# Documentation
+## Labels
+Labels show on the Disposition UI.
+Descriptor shows up as positiveLabel if the score is positive, negativeLabel if negative.
+If score is zero, the label becomes empty.
+If there is no available label per the score, the Descriptor is not shown up on the Disposition UI.
+
+## Descriptions
+Descriptions show up as the tooltip for Descriptors and Personality Effect description.
+positiveDescription: Shows up if positively aligned 
+negativeDescription: Shows up if negatively aligned 
+-->
+
 <Defs>
   <Maux36.RimPsyche.PsycheDescriptorDef>
     <defName>RP_Desc_Sociable</defName>
