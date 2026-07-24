@@ -129,4 +129,15 @@ namespace Maux36.RimPsyche
             Blame(ctx, compPsyche, PersonalityDefOf.Rimpsyche_Inquisitiveness);
         }
     }
+    public class SpontaneityDescriptorWorker : PsycheDescriptorWorker
+    {
+        protected override float Score(CompPsyche compPsyche)
+        {
+            return compPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Spontaneity);
+        }
+        protected override void Evaluate(StringBuilder ctx, CompPsyche compPsyche, float score)
+        {
+            Blame(ctx, compPsyche, PersonalityDefOf.Rimpsyche_Spontaneity);
+        }
+    }
 }
