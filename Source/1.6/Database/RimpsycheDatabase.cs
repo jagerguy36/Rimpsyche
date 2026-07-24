@@ -18,6 +18,7 @@ namespace Maux36.RimPsyche
         public static Dictionary<string, Topic> TopicDict = new();
         public static Dictionary<int, Topic> TopicIdDict = new();
         public static Dictionary<string, PersonalityDef> PersonalityDict = new();
+        //public static HashSet<ushort> conditionalEffects = new();
         public static Dictionary<int, int> PersonalityOrder = new();
         public static Dictionary<int, List<(int, float, float)>> TraitScopeDatabase = new();
         public static Dictionary<int, List<FacetGate>> TraitGateDatabase = new() { };
@@ -91,61 +92,86 @@ namespace Maux36.RimPsyche
             }
 
             //Personality Effect
-            var conditionalString = $"\n\n<i><color=#808080BF>{"RP_ConditionalEffect".Translate()}</color></i>";
-            Dictionary<PersonalityDef, List<string>> posEffectDict = new();
-            Dictionary<PersonalityDef, List<string>> negEffectDict = new();
-            HashSet<ushort> conditionalEffects = new();
-            foreach (var descDef in DefDatabase<PsycheDescriptorDef>.AllDefsListForReading)
-            {
-                var worker =  descDef.Worker;
-                foreach (var blamer in worker.blamers)
-                {
-                    string bullet = " ◆ ";
-                    if (blamer.Item3 != null)
-                    {
-                        bullet = " ◇ ";
-                        conditionalEffects.Add(blamer.Item1.shortHash);
-                    }
-                    string posEffecString;
-                    string negEffecString;
-                    if (blamer.Item2 == PsycheDescDirection.Positive)
-                    {
-                        posEffecString = descDef.positiveDescription;
-                        negEffecString = descDef.negativeDescription;
-                    }
-                    else if (blamer.Item2 == PsycheDescDirection.Negative)
-                    {
-                        posEffecString = descDef.negativeDescription;
-                        negEffecString = descDef.positiveDescription;
-                    }
-                    else
-                    {
-                        
-                        posEffecString = descDef.neutralDeescription;
-                        negEffecString = descDef.neutralDeescription;
-                    }
-                    if (posEffecString != string.Empty)
-                    {
-                        posEffecString = bullet + posEffecString;
-                        if (!posEffectDict.TryGetValue(blamer.Item1, out List<string> list))
-                        {
-                            list = new List<string>();
-                            posEffectDict.Add(blamer.Item1, list);
-                        }
-                        list.Add(posEffecString);
-                    }
-                    if (negEffecString != string.Empty)
-                    {
-                        negEffecString = bullet + negEffecString;
-                        if (!negEffectDict.TryGetValue(blamer.Item1, out List<string> list))
-                        {
-                            list = new List<string>();
-                            negEffectDict.Add(blamer.Item1, list);
-                        }
-                        list.Add(posEffecString);
-                    }
-                }
-            }
+            //Dictionary<PersonalityDef, List<string>> posEffectDict = new();
+            //Dictionary<PersonalityDef, List<string>> negEffectDict = new();
+            //foreach (var descDef in DefDatabase<PsycheDescriptorDef>.AllDefsListForReading)
+            //{
+            //    var worker =  descDef.Worker;
+
+
+            //    foreach (var group in worker.blamers.GroupBy(x => x.Item1))
+            //    {
+            //        var blamer = group.First();
+
+            //        string bullet = blamer.Item3 != null ? " ◇ " : " ◆ ";
+            //        if (blamer.Item3 != null)
+            //            conditionalEffects.Add(blamer.Item1.shortHash);
+
+            //        if (group.Count() > 1)
+            //        {
+            //            // Multiple entries for this personality -> add neutral once
+            //            if (!string.IsNullOrEmpty(descDef.neutralDescription))
+            //            {
+            //                string text = bullet + descDef.neutralDescription;
+            //                if (!posEffectDict.TryGetValue(blamer.Item1, out var posList))
+            //                {
+            //                    posList = new List<string>();
+            //                    posEffectDict.Add(blamer.Item1, posList);
+            //                }
+
+            //                if (!negEffectDict.TryGetValue(blamer.Item1, out var negList))
+            //                {
+            //                    negList = new List<string>();
+            //                    negEffectDict.Add(blamer.Item1, negList);
+            //                }
+            //                posList.Add(text);
+            //                negList.Add(text);
+            //            }
+            //            continue;
+            //        }
+
+            //        string posEffectString;
+            //        string negEffectString;
+            //        switch (blamer.Item2)
+            //        {
+            //            case PsycheDescDirection.Positive:
+            //                posEffectString = descDef.positiveDescription;
+            //                negEffectString = descDef.negativeDescription;
+            //                break;
+
+            //            case PsycheDescDirection.Negative:
+            //                posEffectString = descDef.negativeDescription;
+            //                negEffectString = descDef.positiveDescription;
+            //                break;
+
+            //            default:
+            //                posEffectString = descDef.neutralDescription;
+            //                negEffectString = descDef.neutralDescription;
+            //                break;
+            //        }
+
+            //        if (!string.IsNullOrEmpty(posEffectString))
+            //        {
+            //            posEffectString = bullet + posEffectString;
+            //            if (!posEffectDict.TryGetValue(blamer.Item1, out List<string> list))
+            //            {
+            //                list = new List<string>();
+            //                posEffectDict.Add(blamer.Item1, list);
+            //            }
+            //            list.Add(posEffectString);
+            //        }
+            //        if (!string.IsNullOrEmpty(negEffectString))
+            //        {
+            //            negEffectString = bullet + negEffectString;
+            //            if (!negEffectDict.TryGetValue(blamer.Item1, out List<string> list))
+            //            {
+            //                list = new List<string>();
+            //                negEffectDict.Add(blamer.Item1, list);
+            //            }
+            //            list.Add(negEffectString);
+            //        }
+            //    }
+            //}
 
             //Interest and Topic
             foreach (var interestdomain in DefDatabase<InterestDomainDef>.AllDefsListForReading)
@@ -219,26 +245,18 @@ namespace Maux36.RimPsyche
                 }
 
                 //Effects
-                if (posEffectDict.TryGetValue(personalityDef, out List<string> posList))
-                {
-                    var posEffectText = string.Join("\n", posList);
-                    posEffectText = $"\n\n{"RP_PsycheEffects".Translate()}:\n{posEffectText}";
-                    if (conditionalEffects.Contains(personalityDef.shortHash))
-                    {
-                        posEffectText += conditionalString;
-                    }
-                    personalityDef.posEffectString = posEffectText;
-                }
-                if (negEffectDict.TryGetValue(personalityDef, out List<string> negList))
-                {
-                    var negEffectText = string.Join("\n", negList);
-                    negEffectText = $"\n\n{"RP_PsycheEffects".Translate()}:\n{negEffectText}";
-                    if (conditionalEffects.Contains(personalityDef.shortHash))
-                    {
-                        negEffectText += conditionalString;
-                    }
-                    personalityDef.negEffectString = negEffectText;
-                }
+                //if (posEffectDict.TryGetValue(personalityDef, out List<string> posList))
+                //{
+                //    var posEffectText = string.Join("\n", posList);
+                //    posEffectText = $"\n\n{"RP_PsycheEffects".Translate()}:\n{posEffectText}";
+                //    personalityDef.posEffectString = posEffectText;
+                //}
+                //if (negEffectDict.TryGetValue(personalityDef, out List<string> negList))
+                //{
+                //    var negEffectText = string.Join("\n", negList);
+                //    negEffectText = $"\n\n{"RP_PsycheEffects".Translate()}:\n{negEffectText}";
+                //    personalityDef.negEffectString = negEffectText;
+                //}
 
                 //Scope
                 var scopeList = personalityDef.scopes;

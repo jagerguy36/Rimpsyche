@@ -45,8 +45,8 @@ namespace Maux36.RimPsyche
             Blame(PersonalityDefOf.Rimpsyche_Aggressiveness);
             Blame(PersonalityDefOf.Rimpsyche_Compassion, PsycheDescDirection.Negative);
             Blame(PersonalityDefOf.Rimpsyche_Tension);
-            Blame(PersonalityDefOf.Rimpsyche_Competitiveness, PsycheDescDirection.Positive, compPsyche => compPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Competitiveness) < 0f);
-            Blame(PersonalityDefOf.Rimpsyche_Sociability, PsycheDescDirection.Negative, compPsyche => compPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Sociability) > 0f);
+            Blame(PersonalityDefOf.Rimpsyche_Competitiveness, PsycheDescDirection.Positive, (compPsyche, score) => compPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Competitiveness) < 0f);
+            Blame(PersonalityDefOf.Rimpsyche_Sociability, PsycheDescDirection.Negative, (compPsyche, score) => compPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Sociability) > 0f);
             Blame(PersonalityDefOf.Rimpsyche_Tact, PsycheDescDirection.Negative);
         }
     }
@@ -76,10 +76,10 @@ namespace Maux36.RimPsyche
         protected override void SetupBlamers()
         {
             Blame(PersonalityDefOf.Rimpsyche_Openness);
-            Blame(PersonalityDefOf.Rimpsyche_Trust, PsycheDescDirection.Positive, compPsyche => compPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Openness) > 0f);
-            Blame(PersonalityDefOf.Rimpsyche_Trust, PsycheDescDirection.Negative, compPsyche => compPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Openness) <= 0f);
-            Blame(PersonalityDefOf.Rimpsyche_Talkativeness, PsycheDescDirection.Positive, compPsyche => compPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Tact) > 0f);
-            Blame(PersonalityDefOf.Rimpsyche_Talkativeness, PsycheDescDirection.Negative, compPsyche => compPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Tact) <= 0f);
+            Blame(PersonalityDefOf.Rimpsyche_Trust, PsycheDescDirection.Positive, (compPsyche, score) => compPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Openness) > 0f);
+            Blame(PersonalityDefOf.Rimpsyche_Trust, PsycheDescDirection.Negative, (compPsyche, score) => compPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Openness) <= 0f);
+            Blame(PersonalityDefOf.Rimpsyche_Talkativeness, PsycheDescDirection.Positive, (compPsyche, score) => compPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Tact) > 0f);
+            Blame(PersonalityDefOf.Rimpsyche_Talkativeness, PsycheDescDirection.Negative, (compPsyche, score) => compPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Tact) <= 0f);
         }
     }
     public class TalkFactorDescriptorWorker : PsycheDescriptorWorker
@@ -92,7 +92,7 @@ namespace Maux36.RimPsyche
         protected override void SetupBlamers()
         {
             Blame(PersonalityDefOf.Rimpsyche_Talkativeness);
-            Blame(PersonalityDefOf.Rimpsyche_Playfulness, PsycheDescDirection.Negative, compPsyche => compPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Playfulness) < 0f);
+            Blame(PersonalityDefOf.Rimpsyche_Playfulness, PsycheDescDirection.Negative, (compPsyche, score) => compPsyche.Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Playfulness) < 0f);
         }
     }
     public class InterestedTopicAttitudeDescriptorWorker : PsycheDescriptorWorker

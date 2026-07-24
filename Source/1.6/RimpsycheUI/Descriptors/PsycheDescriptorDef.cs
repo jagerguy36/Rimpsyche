@@ -26,7 +26,7 @@ namespace Maux36.RimPsyche
         //For Personality Node UI.
         //If the description is left as empty, it will not be shown on the Personality node at all.
         public string positiveDescription;
-        public string neutralDeescription;
+        public string neutralDescription;
         public string negativeDescription;
 
         //

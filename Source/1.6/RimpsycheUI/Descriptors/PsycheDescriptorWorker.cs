@@ -12,6 +12,12 @@ namespace Maux36.RimPsyche
         Neutral,
         Negative
     }
+    public readonly struct Blamer(PersonalityDef personality, PsycheDescDirection direction, Func<CompPsyche, float, bool> validator)
+    {
+        public readonly PersonalityDef Personality = personality;
+        public readonly PsycheDescDirection Direction = direction;
+        public readonly Func<CompPsyche, float, bool> Validator = validator;
+    }
     public abstract class PsycheDescriptorWorker
     {
         public PsycheDescriptorDef descriptorDef;
@@ -19,20 +25,20 @@ namespace Maux36.RimPsyche
         public static Color negBlameColor = new Color(0.8f, 0.2f, 0.4f);
         public static Color neutBlameColor = new Color(0.2f, 0.4f, 0.8f);
         public static Color posBlameColor = new Color(0.2f, 0.8f, 0.6f);
-        public List<(PersonalityDef, PsycheDescDirection, Func<CompPsyche, bool>)> blamers = new();
+        public List<Blamer> blamers = new();
         public PsycheDescriptorWorker()
         {
             SetupBlamers();
         }
+        protected abstract float Score(CompPsyche compPsyche);
         protected abstract void SetupBlamers();
-        protected void Blame(PersonalityDef personality, PsycheDescDirection direction = PsycheDescDirection.Positive, Func<CompPsyche, bool> validator = null)
+        protected void Blame(PersonalityDef personality, PsycheDescDirection direction = PsycheDescDirection.Positive, Func<CompPsyche, float, bool> validator = null)
         {
-            blamers.Add((personality, direction, validator));
+            blamers.Add(new Blamer(personality, direction, validator));
         }
 
         //For built
-        public HashSet<ushort> bPosRegistry = new();
-        public HashSet<ushort> bNegRegistry = new();
+        public Dictionary<ushort, PsycheDescDirection> bImpactRegistry = new();
         public float bScore = 0f;
         public float bNormalizedAbsValue = 0f;
         public string bIntensityString;
@@ -41,17 +47,15 @@ namespace Maux36.RimPsyche
         public string bToolTip;
         public virtual void Build(CompPsyche compPsyche)
         {
-            bPosRegistry.Clear();
-            bNegRegistry.Clear();
+            bImpactRegistry.Clear();
             bScore = Score(compPsyche);
             bNormalizedAbsValue = GetTieredNormalizedAbsScore(bScore);
             bLabel = GetLabel(bScore);
             bDescription = GetDescription(bScore);
             bIntensityString = GetIntensityString(bScore);
-            bToolTip = GetTooltip(compPsyche);
+            bToolTip = GetTooltip(compPsyche, bScore);
         }
-        protected abstract float Score(CompPsyche compPsyche);
-        protected string GetTooltip(CompPsyche compPsyche)
+        protected string GetTooltip(CompPsyche compPsyche, float score)
         {
             StringBuilder sb = new StringBuilder();
             sb.AppendLine(bDescription);
@@ -59,14 +63,14 @@ namespace Maux36.RimPsyche
             sb.AppendLine("RPC_DescriptorBlame".Translate());
             foreach(var blamer in blamers)
             {
-                var validator = blamer.Item3;
+                var validator = blamer.Validator;
                 if (validator == null)
                 {
-                    sb.AppendLine($"  {GetBlameString(compPsyche, blamer.Item1, blamer.Item2)}");
+                    sb.AppendLine($"  {GetBlameString(compPsyche, blamer.Personality, blamer.Direction)}");
                 }
-                else if (validator(compPsyche))
+                else if (validator(compPsyche, score))
                 {
-                    sb.AppendLine($"  {GetBlameString(compPsyche, blamer.Item1, blamer.Item2)}");
+                    sb.AppendLine($"  {GetBlameString(compPsyche, blamer.Personality, blamer.Direction)}");
                 }
             }
             return sb.ToString();
@@ -134,12 +138,14 @@ namespace Maux36.RimPsyche
             var desc = Rimpsyche_Utility.GetPersonalityDesc(personality, value);
             Color targetColor = posBlameColor;
             string sign = "+";
+            PsycheDescDirection impactDirection = PsycheDescDirection.Positive;
             if (direction == PsycheDescDirection.Positive)
             {
                 if (!aligned)
                 {
                     targetColor = negBlameColor;
                     sign = "-";
+                    impactDirection = PsycheDescDirection.Negative;
                 }
             }
             else if (direction == PsycheDescDirection.Negative)
@@ -148,13 +154,16 @@ namespace Maux36.RimPsyche
                 {
                     targetColor = negBlameColor;
                     sign = "-";
+                    impactDirection = PsycheDescDirection.Negative;
                 }
             }
             else
             {
                 sign = "±"; //U+2212
                 targetColor = neutBlameColor;
+                impactDirection = PsycheDescDirection.Neutral;
             }
+            bImpactRegistry.Add(personality.shortHash, impactDirection);
             Color blendedColor = Color.Lerp(Color.gray, targetColor, Mathf.Abs(value));
             return $"<color=#{ColorUtility.ToHtmlStringRGBA(blendedColor)}>{sign} {desc}</color>";
         }

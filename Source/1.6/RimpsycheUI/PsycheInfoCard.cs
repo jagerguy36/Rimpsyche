@@ -41,6 +41,7 @@ namespace Maux36.RimPsyche
         public static readonly string personalityTitle;
         public static readonly string behaviorTitle;
         public static readonly string facetTitle;
+        public static readonly string effectHeaderString;
         public static readonly Vector2 titleTextSize;
         public static readonly float iconSize = 15f;
         public static readonly float expandButtonSize = 8f;
@@ -109,6 +110,8 @@ namespace Maux36.RimPsyche
 
             intensityRectWidth = RimpsycheDatabase.intensityRectWidth;
 
+            effectHeaderString = $"\n\n{"RP_PsycheEffects".Translate()}:\n";
+            //conditionalString = $"\n\n<i><color=#808080BF>{"RP_ConditionalEffect".Translate()}</color></i>";
             personalityTitle = "RPC_Personality".Translate();
             behaviorTitle = "RPC_Disposition".Translate();
             facetTitle = "RPC_Facet".Translate();
@@ -143,6 +146,7 @@ namespace Maux36.RimPsyche
         //Cache
         private static List<PersonalityDisplayData> cachedPersonalityData = null;
         private static List<PersonalityDisplayData> cachedPersonalitySummaryData = null;
+        private static Dictionary<ushort, List<string>> cachedPersonalityEffects = new();
         private static List<BehaviorData> cachedBehaviorData = null;
         private static List<InterestDisplayData> cachedInterestData = null;
         private static List<Vector2> cachedValuePointData = null;
@@ -426,9 +430,11 @@ namespace Maux36.RimPsyche
                 Color cachedLabelColor = Color.Lerp(LowValueColor, HighValueColor, absValue);
                 var personalityShortDesc = (value >= 0f ? personality.highDescription : personality.lowDescription);
                 var personalityFullDesc = $"{personality.label.CapitalizeFirst()}: {(value * 100f).ToString("F1")}\n\n{personality.description}";
-                var effectString = personality.posEffectString;
-                if (value <= 0f)
-                    effectString = personality.negEffectString;
+                var effectString = string.Empty;
+                if (cachedPersonalityEffects.TryGetValue(personality.shortHash, out var effectList))
+                {
+                    effectString = effectHeaderString + string.Join("\n", effectList);
+                }
                 if (effectString != string.Empty)
                 {
                     personalityFullDesc += effectString;
@@ -472,13 +478,35 @@ namespace Maux36.RimPsyche
         }
         private static void GenerateBehaviorData(CompPsyche compPsyche)
         {
+            cachedPersonalityEffects.Clear();
             var sortedData = new List<BehaviorData>();
 
             foreach (PsycheDescriptorDef descDef in DefDatabase<PsycheDescriptorDef>.AllDefs)
             {
                 var dWorker = descDef.Worker;
                 dWorker.Build(compPsyche);
-                if (dWorker.bLabel == string.Empty)
+                if (!string.IsNullOrEmpty(dWorker.bDescription))
+                {
+                }
+
+                foreach ((ushort shortHash, var direction) in dWorker.bImpactRegistry)
+                {
+                    if (!cachedPersonalityEffects.TryGetValue(shortHash, out List<string> list))
+                    {
+                        list = new List<string>();
+                        cachedPersonalityEffects.Add(shortHash, list);
+                    }
+                    var desc = direction switch
+                    {
+                        PsycheDescDirection.Positive => !string.IsNullOrEmpty(dWorker.bDescription) ? $"  ▴ {dWorker.bDescription}" : "",
+                        PsycheDescDirection.Neutral => !string.IsNullOrEmpty(dWorker.descriptorDef.neutralDescription) ? $"  ◆ {dWorker.descriptorDef.neutralDescription}" : "",
+                        PsycheDescDirection.Negative => !string.IsNullOrEmpty(dWorker.bDescription) ? $"  ▾ {dWorker.bDescription}":"",
+                        _ => ""
+                    };
+                    if (desc != "")
+                        list.Add(desc.CapitalizeFirst());
+                }
+                if (string.IsNullOrEmpty(dWorker.bLabel))
                     continue;
                 var normalizedAbsValue = dWorker.bNormalizedAbsValue;
                 var result = new BehaviorData
