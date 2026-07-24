@@ -72,33 +72,41 @@ namespace Maux36.RimPsyche
             listing_Standard.Label("RimpsycheBioTabSetting".Translate());
             listing_Standard.GapLine(12f);
             listing_Standard.CheckboxLabeled("RimpsycheShowSummaryInBio".Translate(), ref RimpsycheSettings.showSummaryInBio, "RimpsycheShowSummaryInBioTooltip".Translate());
-            listing_Standard.Gap(6f);
-            listing_Standard.CheckboxLabeled("RimpsycheShowDispositionInSummary".Translate(), ref RimpsycheSettings.showDispositionInSummary, "RimpsycheShowDispositionInSummaryTooltip".Translate());
-            if (DispositionSummarySetting != RimpsycheSettings.showDispositionInSummary)
+
+            if (DispositionModuleLoaded)
             {
-                RimpsycheSettings.ExtraBioHeight = RimpsycheSettings.showDispositionInSummary ? 85 : 66;
+                listing_Standard.Gap(6f);
+                listing_Standard.CheckboxLabeled("RimpsycheShowDispositionInSummary".Translate(), ref RimpsycheSettings.showDispositionInSummary, "RimpsycheShowDispositionInSummaryTooltip".Translate());
             }
 
-            listing_Standard.Gap(30f);
+            listing_Standard.Gap(26f);
 
             listing_Standard.Label("RimpsychePersonalityViewSetting".Translate());
             listing_Standard.GapLine(12f);
 
             listing_Standard.CheckboxLabeled("RimpsycheShowEffectInDescription".Translate(), ref RimpsycheSettings.showEffectInDescription, "RimpsycheShowEffectInDescriptionTooltip".Translate());
             listing_Standard.Gap(6f);
+            if (DispositionModuleLoaded)
+            {
+                listing_Standard.CheckboxLabeled("RimpsycheShowThoughtTagEffects".Translate(), ref RimpsycheSettings.showThoughtTagEffects, "RimpsycheShowThoughtTagEffectsTooltip".Translate());
+                listing_Standard.Gap(6f);
+            }
             listing_Standard.CheckboxLabeled("RimpsychePersonalityAsBars".Translate(), ref RimpsycheSettings.personalityAsBar, "RimpsychePersonalityAsBarsTooltip".Translate());
 
-            listing_Standard.Gap(30f);
+            listing_Standard.Gap(26f);
 
             listing_Standard.Label("RimpsychePsycheTabSetting".Translate());
             listing_Standard.GapLine(12f);
-            listing_Standard.CheckboxLabeled("RimpsycheShowDispositionInTab".Translate(), ref RimpsycheSettings.showDispositionInTab, "RimpsycheShowDispositionInTabTooltip".Translate());
+            if (DispositionModuleLoaded)
+            {
+                listing_Standard.CheckboxLabeled("RimpsycheShowDispositionInTab".Translate(), ref RimpsycheSettings.showDispositionInTab, "RimpsycheShowDispositionInTabTooltip".Translate());
+            }
             listing_Standard.Gap(6f);
             listing_Standard.CheckboxLabeled("RimpsycheShowFacetInMenu".Translate(), ref RimpsycheSettings.showFacetInMenu, "RimpsycheShowFacetInMenuTooltip".Translate());
             listing_Standard.Gap(6f);
             listing_Standard.CheckboxLabeled("RimpsycheShowFacetGraph".Translate(), ref RimpsycheSettings.showFacetGraph, "RimpsycheShowFacetGraphTooltip".Translate());
 
-            listing_Standard.Gap(30f);
+            listing_Standard.Gap(26f);
 
             listing_Standard.Label("RimpsycheMiscSetting".Translate());
             listing_Standard.GapLine(12f);
@@ -107,20 +115,20 @@ namespace Maux36.RimPsyche
             listing_Standard.Gap(6f);
             listing_Standard.CheckboxLabeled("RimpsycheConfirmLoadSave".Translate(), ref RimpsycheSettings.confirmLoadSave, "RimpsycheConfirmLoadSaveTooltip".Translate());
 
-            listing_Standard.Gap(30f);
+            listing_Standard.Gap(26f);
 
             if (listing_Standard.ButtonText("RimpsycheDefaultSetting".Translate()))
             {
                 RimpsycheSettings.showSummaryInBio = true;
                 RimpsycheSettings.showDispositionInSummary = true;
                 RimpsycheSettings.showEffectInDescription = false;
+                RimpsycheSettings.showThoughtTagEffects = false;
                 RimpsycheSettings.showDispositionInTab = false;
                 RimpsycheSettings.personalityAsBar = true;
                 RimpsycheSettings.allowFacetEdit = false;
                 RimpsycheSettings.showFacetInMenu = false;
                 RimpsycheSettings.showFacetGraph = false;
                 RimpsycheSettings.confirmLoadSave = true;
-                RimpsycheSettings.ExtraBioHeight = RimpsycheSettings.showDispositionInSummary ? 85 : 66;
             }
 
             listing_Standard.End();

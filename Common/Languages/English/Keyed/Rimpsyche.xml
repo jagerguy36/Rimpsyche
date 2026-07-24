@@ -30,6 +30,8 @@
   <!-- Personality Description -->
   <RimpsycheShowEffectInDescription>Show Gameplay Effects in Personality</RimpsycheShowEffectInDescription>
   <RimpsycheShowEffectInDescriptionTooltip>Show gameplay effects in each personality node descriptions.\n\nWARNING: Effects shown here are incomplete and can be misleading. It should not be treated as a full explanation.</RimpsycheShowEffectInDescriptionTooltip>
+  <RimpsycheShowThoughtTagEffects>Show Thought Tag Effects in Personality</RimpsycheShowThoughtTagEffects>
+  <RimpsycheShowThoughtTagEffectsTooltip>Show Individual Thought tag effect with gameplay effects.\n\nWARNING: Thought tags shown here are incomplete and can be misleading. It should not be treated as a full explanation.</RimpsycheShowThoughtTagEffectsTooltip>
   <RimpsychePersonalityAsBars>Show Personality Values as Bars</RimpsychePersonalityAsBars>
   <RimpsychePersonalityAsBarsTooltip>Show Personality Values as Bars</RimpsychePersonalityAsBarsTooltip>
 

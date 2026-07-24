@@ -645,7 +645,7 @@ namespace Maux36.RimPsyche
         {
             TextAnchor oldAnchor = Text.Anchor;
             GameFont oldFont = Text.Font;
-            if (!RimpsycheSettings.showDispositionInTab && showMode == ShowMode.Behavior)
+            if (!RimpsycheSettings.ShowDispositionTab && showMode == ShowMode.Behavior)
             {
                 showMode = ShowMode.Personality;
             }
@@ -705,13 +705,13 @@ namespace Maux36.RimPsyche
             actionIconX += iconSize + spacing;
 
             // View Mode Toggle
-            if (RimpsycheSettings.showDispositionInTab || RimpsycheSettings.showFacetInMenu)
+            if (RimpsycheSettings.ShowDispositionTab || RimpsycheSettings.showFacetInMenu)
             {
                 Rect viewIconRect = new Rect(actionIconX, actionIconY, iconSize, iconSize);
                 var (icon, modeTooltipKey, nextMode, resetScroll) = showMode switch
                 {
                     //ShowMode.Personality => (Rimpsyche_UI_Utility.ViewBehaviorButton, "RimpsycheShowBehavior", ShowMode.Behavior, false),
-                    ShowMode.Personality => RimpsycheSettings.showDispositionInTab
+                    ShowMode.Personality => RimpsycheSettings.ShowDispositionTab
                         ? (Rimpsyche_UI_Utility.ViewBehaviorButton, "RimpsycheShowBehavior", ShowMode.Behavior, true)
                         : RimpsycheSettings.showFacetInMenu
                         ? (Rimpsyche_UI_Utility.ViewFacetButton, "RimpsycheShowFacet", ShowMode.Facet, true)
@@ -972,7 +972,7 @@ namespace Maux36.RimPsyche
 
             // Split the rect
             var LeftProp = 0.5f;
-            if (RimpsycheSettings.showDispositionInSummary)
+            if (RimpsycheSettings.ShowDispositionSummary)
             {
                 LeftProp = 0.45f;
             }
@@ -985,7 +985,7 @@ namespace Maux36.RimPsyche
             float rightY = rightRect.y;
 
 
-            if (!RimpsycheSettings.showDispositionInSummary)
+            if (!RimpsycheSettings.ShowDispositionSummary)
             {
                 // Unified
                 Widgets.Label(new Rect(rect.x, rect.y, rect.width, 22f), "RPC_PersonalitySnapshot".Translate());
@@ -1010,7 +1010,7 @@ namespace Maux36.RimPsyche
             }
 
             var showCount = SummaryRowCount;
-            if (!RimpsycheSettings.showDispositionInSummary)
+            if (!RimpsycheSettings.ShowDispositionSummary)
             {
                 showCount = HalfSummaryRowCount;
             }
@@ -1045,7 +1045,7 @@ namespace Maux36.RimPsyche
             }
 
             // right
-            if (!RimpsycheSettings.showDispositionInSummary)
+            if (!RimpsycheSettings.ShowDispositionSummary)
             {
                 for (int i = HalfSummaryRowCount; i < 2 * HalfSummaryRowCount; i++)
                 {
