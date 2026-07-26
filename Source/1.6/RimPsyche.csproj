@@ -113,9 +113,9 @@
     <Compile Include="RimpsycheUI\ITab_Pawn_Psyche.cs" />
     <Compile Include="RimpsycheUI\PsycheInfoCard.cs" />
     <Compile Include="RimpsycheUI\PsycheEditPopup.cs" />
-    <Compile Include="RimpsycheUI\Descriptors\PsycheDescriptorDef.cs" />
-    <Compile Include="RimpsycheUI\Descriptors\PsycheDescriptorWorker.cs" />
-    <Compile Include="RimpsycheUI\Descriptors\CoreDescriptorWorkers.cs" />
+    <Compile Include="Descriptors\PsycheDescriptorDef.cs" />
+    <Compile Include="Descriptors\PsycheDescriptorWorker.cs" />
+    <Compile Include="Descriptors\CoreDescriptorWorkers.cs" />
     <Compile Include="Thought\Thought_Situational_Shame.cs" />
   </ItemGroup>
   <ItemGroup>
