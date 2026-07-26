@@ -31,9 +31,8 @@ negativeDescription: Shows up if negatively aligned
     <negativeLabel>unlikely to offend</negativeLabel>
     <positiveDescription>More likely to offend others.</positiveDescription>
     <negativeDescription>Less likely to offend others.</negativeDescription>
-    <threshold>0.3</threshold>
-    <strongThreshold>0.5</strongThreshold>
-    <extremeThreshold>0.7</extremeThreshold>
+    <threshold>0.4</threshold>
+    <strongThreshold>0.8</strongThreshold>
     <workerClass>Maux36.RimPsyche.InitIntentFactorDescriptorWorker</workerClass>
   </Maux36.RimPsyche.PsycheDescriptorDef>
 

@@ -33,7 +33,7 @@ namespace Maux36.RimPsyche
         }
 
         //For built
-        public Dictionary<ushort, PsycheDescDirection> bImpactRegistry = new();
+        public Dictionary<ushort, string> bImpactRegistry = new();
         public float bScore = 0f;
         public float bNormalizedAbsValue = 0f;
         public string bIntensityString;
@@ -150,9 +150,21 @@ namespace Maux36.RimPsyche
                 targetColor = neutBlameColor;
                 impactDirection = PsycheDescDirection.Neutral;
             }
-            bImpactRegistry.Add(personality.shortHash, impactDirection);
-            Color blendedColor = Color.Lerp(Color.gray, targetColor, Mathf.Abs(value));
-            return $"<color=#{ColorUtility.ToHtmlStringRGBA(blendedColor)}>{sign} {desc}</color>";
+            string descriptionColorCode = ColorUtility.ToHtmlStringRGBA(Color.Lerp(Color.gray, targetColor, Mathf.Abs(bNormalizedAbsValue * 0.4f)));
+            if (!string.IsNullOrEmpty(bDescription))
+            {
+                var impactDesc = impactDirection switch
+                {
+                    PsycheDescDirection.Positive => $"  ▴ {bDescription}",
+                    PsycheDescDirection.Neutral => $"  ♦ {bDescription}",//▴▾◆▵◊▿⬧♦
+                    PsycheDescDirection.Negative => $"  ▾ {bDescription}",
+                    _ => ""
+                };
+                impactDesc.CapitalizeFirst();
+                bImpactRegistry.Add(personality.shortHash, $"<color=#{descriptionColorCode}>{impactDesc}</color>");
+            }
+            string behaviorColorCode = ColorUtility.ToHtmlStringRGBA(Color.Lerp(Color.gray, targetColor, Mathf.Abs(value)));
+            return $"<color=#{behaviorColorCode}>{sign} {desc}</color>";
         }
     }
 }

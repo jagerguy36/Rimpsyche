@@ -42,6 +42,7 @@ namespace Maux36.RimPsyche
         public static readonly string behaviorTitle;
         public static readonly string facetTitle;
         public static readonly string effectHeaderString;
+        public static readonly string shiftForFullString;
         public static readonly Vector2 titleTextSize;
         public static readonly float iconSize = 15f;
         public static readonly float expandButtonSize = 8f;
@@ -103,7 +104,7 @@ namespace Maux36.RimPsyche
             rightPanelWidthActual = rightPanelWidthConstant + rightsideWidthDiff;
 
             personalityLabelWidth = RimpsycheDatabase.maxPersonalityLabelWidth;
-            personalityWidthDiff = 2f * (personalityLabelWidth - 130f);
+            personalityWidthDiff = 2f * (RimpsycheDatabase.maxPersonalityLabelWidth - 130f);
 
             interestLabelWidth = RimpsycheDatabase.maxInterestLabelWidth;
             rightsideWidthDiff = RimpsycheDatabase.maxRightsideLabelWidth - 130f;
@@ -111,7 +112,7 @@ namespace Maux36.RimPsyche
             intensityRectWidth = RimpsycheDatabase.intensityRectWidth;
 
             effectHeaderString = $"\n\n{"RP_PsycheEffects".Translate()}:\n";
-            //conditionalString = $"\n\n<i><color=#808080BF>{"RP_ConditionalEffect".Translate()}</color></i>";
+            shiftForFullString = $"\n\n<i><color=#808080BF>{"RP_ShiftForFull".Translate()}</color></i>";
             personalityTitle = "RPC_Personality".Translate();
             behaviorTitle = "RPC_Disposition".Translate();
             facetTitle = "RPC_Facet".Translate();
@@ -435,10 +436,9 @@ namespace Maux36.RimPsyche
                 {
                     effectString = effectHeaderString + string.Join("\n", effectList);
                 }
-                if (effectString != string.Empty)
+                if (effectString != string.Empty && RimpsycheSettings.showEffectInDescription)
                 {
-                    personalityFullDesc += effectString;
-                    if (RimpsycheSettings.showEffectInDescription)
+                        personalityFullDesc += effectString;
                         personalityShortDesc += effectString;
                 }
                 if (compPsyche.Personality.scopeInfoCache.TryGetValue(personality.shortHash, out string explanation))
@@ -446,7 +446,7 @@ namespace Maux36.RimPsyche
                     personalityShortDesc += $"\n\n{explanation}";
                     personalityFullDesc += $"\n\n{explanation}";
                 }
-                var personalityDesc = $"{personality.label.CapitalizeFirst()}: {(value * 100f).ToString("F1")}\n\n{personalityShortDesc}\n\n<i><color=#808080BF>{"RP_ShiftForFull".Translate()}</color></i>";
+                var personalityDesc = $"{personality.label.CapitalizeFirst()}: {(value * 100f).ToString("F1")}\n\n{personalityShortDesc}" + shiftForFullString;
                 rawData.Add(new PersonalityDisplayData
                 {
                     Personality = personality,
@@ -486,24 +486,14 @@ namespace Maux36.RimPsyche
                 var dWorker = descDef.Worker;
                 dWorker.Build(compPsyche);
 
-                foreach ((ushort shortHash, var direction) in dWorker.bImpactRegistry)
+                foreach ((ushort shortHash, var impactDesc) in dWorker.bImpactRegistry)
                 {
                     if (!cachedPersonalityEffects.TryGetValue(shortHash, out List<string> list))
                     {
                         list = new List<string>();
                         cachedPersonalityEffects.Add(shortHash, list);
                     }
-                    if (!string.IsNullOrEmpty(dWorker.bDescription))
-                    {
-                        var desc = direction switch
-                        {
-                            PsycheDescDirection.Positive => $"  ▴ {dWorker.bDescription}",
-                            PsycheDescDirection.Neutral => $"  ♦ {dWorker.bDescription}",//▴▾◆▵◊▿⬧♦
-                            PsycheDescDirection.Negative => $"  ▾ {dWorker.bDescription}",
-                            _ => ""
-                        };
-                        list.Add(desc.CapitalizeFirst());
-                    }
+                    list.Add(impactDesc);
                 }
                 if (string.IsNullOrEmpty(dWorker.bLabel))
                     continue;
@@ -782,7 +772,9 @@ namespace Maux36.RimPsyche
                     if (Mouse.IsOver(rowRect))
                     {
                         Widgets.DrawHighlight(rowRect);
-                        TooltipHandler.TipRegion(rowRect, pData.CachedDescription);
+                        int uniqueId = i;
+                        TipSignal tip = new TipSignal(() => Event.current.shift ? pData.CachedFullDescription : pData.CachedDescription, uniqueId);
+                        TooltipHandler.TipRegion(rowRect, tip);
                     }
 
                     // Draw label

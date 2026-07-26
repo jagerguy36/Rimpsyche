@@ -46,10 +46,7 @@ namespace Maux36.RimPsyche
             CompPsyche compPsyche = pawn.compPsyche();
             Rect psycheRect = PsycheInfoCard.PsycheRect;
             psycheRect.width -= (compPsyche.Enabled && PsycheInfoCard.rightPanelVisible ? 0f : PsycheInfoCard.rightPanelWidthActual);
-            if (PsycheInfoCard.showMode != PsycheInfoCard.ShowMode.Personality )
-            {
-                psycheRect.width -= PsycheInfoCard.personalityWidthDiff;
-            }
+            psycheRect.width -= ((PsycheInfoCard.showMode == PsycheInfoCard.ShowMode.Personality) ? 0f : PsycheInfoCard.personalityWidthDiff);
             size = psycheRect.size;
             GUI.BeginGroup(psycheRect);
             PsycheInfoCard.DrawPsycheCard(psycheRect, pawn, compPsyche);
