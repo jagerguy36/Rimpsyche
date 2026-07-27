@@ -48,57 +48,60 @@ negativeDescription: Shows up if negatively aligned
 
   <Maux36.RimPsyche.PsycheDescriptorDef>
     <defName>RP_Desc_TalkFactor</defName>
+    <type>Conversation</type>
     <positiveLabel>impactful communicator</positiveLabel>
     <positiveDescription>Stronger conversations outcomes.</positiveDescription>
     <negativeDescription>Weaker conversations outcomes.</negativeDescription>
-    <threshold>0.4</threshold>
-    <strongThreshold>0.8</strongThreshold>
+    <threshold>0.55</threshold>
     <workerClass>Maux36.RimPsyche.TalkFactorDescriptorWorker</workerClass>
   </Maux36.RimPsyche.PsycheDescriptorDef>
 
   <Maux36.RimPsyche.PsycheDescriptorDef>
     <defName>RP_Desc_Eloquence</defName>
+    <type>Conversation</type>
     <positiveLabel>builds rapport</positiveLabel>
-    <positiveDescription>Shared views matter more.</positiveDescription>
-    <negativeDescription>Shared views matter less.</negativeDescription>
-    <threshold>0.4</threshold>
-    <strongThreshold>0.8</strongThreshold>
+    <positiveDescription>Agreement helps conversations more.</positiveDescription>
+    <negativeDescription>Agreement helps conversations less.</negativeDescription>
+    <threshold>0.55</threshold>
     <workerClass>Maux36.RimPsyche.EloquenceDescriptorWorker</workerClass>
   </Maux36.RimPsyche.PsycheDescriptorDef>
 
   <Maux36.RimPsyche.PsycheDescriptorDef>
     <defName>RP_Desc_ReceptiveBase</defName>
-    <!-- involves openness, tact~talkativeness, trust -->
+    <type>Conversation</type>
     <positiveLabel>tolerates differences</positiveLabel>
     <negativeLabel>rejects differences</negativeLabel>
-    <positiveDescription>Opposing views matter less.</positiveDescription>
-    <negativeDescription>Opposing views matter more.</negativeDescription>
+    <positiveDescription>Disagreements hurts more.</positiveDescription>
+    <negativeDescription>Disagreements hurts less.</negativeDescription>
     <threshold>0.55</threshold>
     <workerClass>Maux36.RimPsyche.ReceptiveBaseDescriptorWorker</workerClass>
   </Maux36.RimPsyche.PsycheDescriptorDef>
 
   <Maux36.RimPsyche.PsycheDescriptorDef>
     <defName>RP_Desc_InterestedTopicAttitude</defName>
+    <type>Conversation</type>
     <positiveLabel>deeply invested</positiveLabel>
     <negativeLabel>less invested</negativeLabel>
-    <positiveDescription>High matters interest matters more.</positiveDescription>
-    <negativeDescription>High matters interest matters less.</negativeDescription>
+    <positiveDescription>High topic interest effects amplified.</positiveDescription>
+    <negativeDescription>High topic interest has weaker effects.</negativeDescription>
     <threshold>0.55</threshold>
     <workerClass>Maux36.RimPsyche.InterestedTopicAttitudeDescriptorWorker</workerClass>
   </Maux36.RimPsyche.PsycheDescriptorDef>
 
   <Maux36.RimPsyche.PsycheDescriptorDef>
     <defName>RP_Desc_UnInterestedTopicAttitude</defName>
+    <type>Conversation</type>
     <positiveLabel>curious communicator</positiveLabel>
     <negativeLabel>indifferent communicator</negativeLabel>
-    <positiveDescription>Low topic interest matters less.</positiveDescription>
-    <negativeDescription>Low matters interest matters more.</negativeDescription>
+    <positiveDescription>Low topic interest has weaker effects.</positiveDescription>
+    <negativeDescription>Low topic interest effects amplified.</negativeDescription>
     <threshold>0.55</threshold>
     <workerClass>Maux36.RimPsyche.UnInterestedTopicAttitudeDescriptorWorker</workerClass>
   </Maux36.RimPsyche.PsycheDescriptorDef>
 
   <Maux36.RimPsyche.PsycheDescriptorDef>
     <defName>RP_Desc_Spontaneity</defName>
+    <type>Conversation</type>
     <positiveLabel>unpredictable</positiveLabel>
     <positiveDescription>May act more unpredictably.</positiveDescription>
     <threshold>0.55</threshold>
