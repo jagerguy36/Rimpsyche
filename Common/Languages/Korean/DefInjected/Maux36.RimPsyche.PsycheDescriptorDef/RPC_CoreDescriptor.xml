@@ -2,52 +2,52 @@
 <LanguageData>
 
   <!-- RP_Desc_Sociable -->
-  <RP_Desc_Sociable.positiveLabel>활발한 사회성</RP_Desc_Sociable.positiveLabel>
-  <RP_Desc_Sociable.negativeLabel>소극적 사회성</RP_Desc_Sociable.negativeLabel>
-  <RP_Desc_Sociable.positiveDescription>더 높은 사회적 상호작용 빈도.</RP_Desc_Sociable.positiveDescription>
-  <RP_Desc_Sociable.negativeDescription>더 낮은 사회적 상호작용 빈도.</RP_Desc_Sociable.negativeDescription>
+  <RP_Desc_Sociable.positiveLabel>높은 사교성</RP_Desc_Sociable.positiveLabel>
+  <RP_Desc_Sociable.negativeLabel>낮은 사교성</RP_Desc_Sociable.negativeLabel>
+  <RP_Desc_Sociable.positiveDescription>사회적 상호작용 빈도 증가.</RP_Desc_Sociable.positiveDescription>
+  <RP_Desc_Sociable.negativeDescription>사회적 상호작용 빈도 감소.</RP_Desc_Sociable.negativeDescription>
 
-<!-- RP_Desc_InitIntentFactor -->
-  <RP_Desc_InitIntentFactor.positiveLabel>공격적 화법</RP_Desc_InitIntentFactor.positiveLabel>
-  <RP_Desc_InitIntentFactor.negativeLabel>온화한 화법</RP_Desc_InitIntentFactor.negativeLabel>
-  <RP_Desc_InitIntentFactor.positiveDescription>타인을 모욕할 가능성이 높음.</RP_Desc_InitIntentFactor.positiveDescription>
-  <RP_Desc_InitIntentFactor.negativeDescription>타인을 모욕할 가능성이 음.</RP_Desc_InitIntentFactor.negativeDescription>
+  <!-- RP_Desc_InitIntentFactor -->
+  <RP_Desc_InitIntentFactor.positiveLabel>공격적인 언사</RP_Desc_InitIntentFactor.positiveLabel>
+  <RP_Desc_InitIntentFactor.negativeLabel>우호적인 언사</RP_Desc_InitIntentFactor.negativeLabel>
+  <RP_Desc_InitIntentFactor.positiveDescription>부정적인 사회적 상호작용 발생 가능성 증가.</RP_Desc_InitIntentFactor.positiveDescription>
+  <RP_Desc_InitIntentFactor.negativeDescription>부정적인 사회적 상호작용 발생 가능성 감소.</RP_Desc_InitIntentFactor.negativeDescription>
 
   <!-- RP_Desc_ReciNegativeChanceFactor -->
-  <RP_Desc_ReciNegativeChanceFactor.positiveLabel>예민함</RP_Desc_ReciNegativeChanceFactor.positiveLabel>
-  <RP_Desc_ReciNegativeChanceFactor.negativeLabel></RP_Desc_ReciNegativeChanceFactor.negativeLabel>
-  <RP_Desc_ReciNegativeChanceFactor.positiveDescription>상대의 말을 모욕으로 받아들일 가능성이 높음.</RP_Desc_ReciNegativeChanceFactor.positiveDescription>
-  <RP_Desc_ReciNegativeChanceFactor.negativeDescription>상대의 말을 모욕으로 받아들일 가능성이 낮음.</RP_Desc_ReciNegativeChanceFactor.negativeDescription>
+  <RP_Desc_ReciNegativeChanceFactor.positiveLabel>예민한</RP_Desc_ReciNegativeChanceFactor.positiveLabel>
+  <RP_Desc_ReciNegativeChanceFactor.negativeLabel>무던한</RP_Desc_ReciNegativeChanceFactor.negativeLabel>
+  <RP_Desc_ReciNegativeChanceFactor.positiveDescription>상대의 말을 부정적으로 받아들일 가능성 증가.</RP_Desc_ReciNegativeChanceFactor.positiveDescription>
+  <RP_Desc_ReciNegativeChanceFactor.negativeDescription>상대의 말을 부정적으로 받아들일 가능성 감소.</RP_Desc_ReciNegativeChanceFactor.negativeDescription>
 
   <!-- RP_Desc_TalkFactor -->
-  <RP_Desc_TalkFactor.positiveLabel></RP_Desc_TalkFactor.positiveLabel>
-  <RP_Desc_TalkFactor.positiveDescription>.</RP_Desc_TalkFactor.positiveDescription>
-  <RP_Desc_TalkFactor.negativeDescription>.</RP_Desc_TalkFactor.negativeDescription>
+  <RP_Desc_TalkFactor.positiveLabel>높은 대화 영향력</RP_Desc_TalkFactor.positiveLabel>
+  <RP_Desc_TalkFactor.positiveDescription>대화 결과의 영향 증가.</RP_Desc_TalkFactor.positiveDescription>
+  <RP_Desc_TalkFactor.negativeDescription>대화 결과의 영향 감소.</RP_Desc_TalkFactor.negativeDescription>
 
   <!-- RP_Desc_Eloquence -->
-  <RP_Desc_Eloquence.positiveLabel>유대감 형성</RP_Desc_Eloquence.positiveLabel>
-  <RP_Desc_Eloquence.positiveDescription>의견 일치 시 대화 효과 증대.</RP_Desc_Eloquence.positiveDescription>
+  <RP_Desc_Eloquence.positiveLabel>높은 호응력</RP_Desc_Eloquence.positiveLabel>
+  <RP_Desc_Eloquence.positiveDescription>의견 일치 시 대화 효과 증가.</RP_Desc_Eloquence.positiveDescription>
   <RP_Desc_Eloquence.negativeDescription>의견 일치 시 대화 효과 감소.</RP_Desc_Eloquence.negativeDescription>
 
   <!-- RP_Desc_ReceptiveBase -->
   <RP_Desc_ReceptiveBase.positiveLabel>포용적인 태도</RP_Desc_ReceptiveBase.positiveLabel>
   <RP_Desc_ReceptiveBase.negativeLabel>배타적인 태도</RP_Desc_ReceptiveBase.negativeLabel>
-  <RP_Desc_ReceptiveBase.positiveDescription>의견 차이로 인한 부정적 영향 감소.</RP_Desc_ReceptiveBase.positiveDescription>
-  <RP_Desc_ReceptiveBase.negativeDescription>의견 차이로 인한 부정적 영향 증가.</RP_Desc_ReceptiveBase.negativeDescription>
+  <RP_Desc_ReceptiveBase.positiveDescription>의견 차이의 부정적 영향 감소.</RP_Desc_ReceptiveBase.positiveDescription>
+  <RP_Desc_ReceptiveBase.negativeDescription>의견 차이의 부정적 영향 증가.</RP_Desc_ReceptiveBase.negativeDescription>
 
   <!-- RP_Desc_InterestedTopicAttitude -->
-  <RP_Desc_InterestedTopicAttitude.positiveLabel>깊은 관심</RP_Desc_InterestedTopicAttitude.positiveLabel>
+  <RP_Desc_InterestedTopicAttitude.positiveLabel>높은 몰입도</RP_Desc_InterestedTopicAttitude.positiveLabel>
   <RP_Desc_InterestedTopicAttitude.negativeLabel>낮은 몰입도</RP_Desc_InterestedTopicAttitude.negativeLabel>
-  <RP_Desc_InterestedTopicAttitude.positiveDescription>주제에 대한 큰 관심이 미치는 영향 증가.</RP_Desc_InterestedTopicAttitude.positiveDescription>
-  <RP_Desc_InterestedTopicAttitude.negativeDescription>주제에 대한 큰 관심이 미치는 영향 감소.</RP_Desc_InterestedTopicAttitude.negativeDescription>
+  <RP_Desc_InterestedTopicAttitude.positiveDescription>관심 있는 주제의 영향 증가.</RP_Desc_InterestedTopicAttitude.positiveDescription>
+  <RP_Desc_InterestedTopicAttitude.negativeDescription>관심 있는 주제의 영향 감소.</RP_Desc_InterestedTopicAttitude.negativeDescription>
 
   <!-- RP_Desc_UnInterestedTopicAttitude -->
-  <RP_Desc_UnInterestedTopicAttitude.positiveLabel>호기심 많은 대화가</RP_Desc_UnInterestedTopicAttitude.positiveLabel>
-  <RP_Desc_UnInterestedTopicAttitude.negativeLabel>무관심한 대화가</RP_Desc_UnInterestedTopicAttitude.negativeLabel>
-  <RP_Desc_UnInterestedTopicAttitude.positiveDescription>주제에 대한 무관심이 주는 영향 감소.</RP_Desc_UnInterestedTopicAttitude.positiveDescription>
-  <RP_Desc_UnInterestedTopicAttitude.negativeDescription>주제에 대한 무관심이 주는 영향 증가.</RP_Desc_UnInterestedTopicAttitude.negativeDescription>
+  <RP_Desc_UnInterestedTopicAttitude.positiveLabel>높은 호기심</RP_Desc_UnInterestedTopicAttitude.positiveLabel>
+  <RP_Desc_UnInterestedTopicAttitude.negativeLabel>무관심한 태도</RP_Desc_UnInterestedTopicAttitude.negativeLabel>
+  <RP_Desc_UnInterestedTopicAttitude.positiveDescription>관심 없는 주제의 영향 감소.</RP_Desc_UnInterestedTopicAttitude.positiveDescription>
+  <RP_Desc_UnInterestedTopicAttitude.negativeDescription>관심 없는 주제의 영향 증가.</RP_Desc_UnInterestedTopicAttitude.negativeDescription>
 
   <!-- RP_Desc_Spontaneity -->
   <RP_Desc_Spontaneity.positiveLabel>돌발성</RP_Desc_Spontaneity.positiveLabel>
-  <RP_Desc_Spontaneity.positiveDescription>예측하기 어려운 행동.</RP_Desc_Spontaneity.positiveDescription>
+  <RP_Desc_Spontaneity.positiveDescription>행동의 변동성 증가.</RP_Desc_Spontaneity.positiveDescription>
 </LanguageData>

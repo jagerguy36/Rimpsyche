@@ -71,8 +71,8 @@ negativeDescription: Shows up if negatively aligned
     <type>Conversation</type>
     <positiveLabel>tolerates differences</positiveLabel>
     <negativeLabel>rejects differences</negativeLabel>
-    <positiveDescription>Disagreements hurts more.</positiveDescription>
-    <negativeDescription>Disagreements hurts less.</negativeDescription>
+    <positiveDescription>Disagreements hurts less.</positiveDescription>
+    <negativeDescription>Disagreements hurts more.</negativeDescription>
     <threshold>0.55</threshold>
     <workerClass>Maux36.RimPsyche.ReceptiveBaseDescriptorWorker</workerClass>
   </Maux36.RimPsyche.PsycheDescriptorDef>
