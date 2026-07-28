@@ -5,14 +5,16 @@ namespace Maux36.RimPsyche
 {
     public enum DescriptorType: byte
     {
-        Undefined,
-        Social,
-        Mental,
-        Work,
+        Conversation,
+        ThoughtTag,
+        Gameplay,
+        Romance
     }
 
     public class PsycheDescriptorDef: Def
     {
+        public DescriptorType type = DescriptorType.Gameplay;
+
         //For Displosition UI.
         //If the label is left as empty, it will not be shown on the Disposition at all
         public string positiveLabel;

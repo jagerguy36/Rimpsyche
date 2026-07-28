@@ -430,7 +430,7 @@ namespace Maux36.RimPsyche
                 string cachedIntensityLabelText = Rimpsyche_Utility.GetPersonalityDesc(personality, value);
                 Color cachedLabelColor = Color.Lerp(LowValueColor, HighValueColor, absValue);
                 var personalityShortDesc = (value >= 0f ? personality.highDescription : personality.lowDescription);
-                var personalityFullDesc = $"{personality.label.CapitalizeFirst()}: {(value * 100f).ToString("F1")}\n\n{personality.description}";
+                var personalityFullDesc = $"{personality.label.CapitalizeFirst()}: {value * 100f:F1}\n\n{personality.description}";
                 var effectString = string.Empty;
                 if (cachedPersonalityEffects.TryGetValue(personality.shortHash, out var effectList))
                 {
@@ -446,7 +446,7 @@ namespace Maux36.RimPsyche
                     personalityShortDesc += $"\n\n{explanation}";
                     personalityFullDesc += $"\n\n{explanation}";
                 }
-                var personalityDesc = $"{personality.label.CapitalizeFirst()}: {(value * 100f).ToString("F1")}\n\n{personalityShortDesc}" + shiftForFullString;
+                var personalityDesc = $"{cachedLabelText}\n\n{personalityShortDesc}" + shiftForFullString;
                 rawData.Add(new PersonalityDisplayData
                 {
                     Personality = personality,
