@@ -589,7 +589,7 @@
     <low>apathetic</low>
     <description>Reflects the intensity and enthusiasm with which a person pursues their interests, goals, and relationships. Passionate individuals are deeply committed, putting significant energy and emotion into what they care about. In contrast, apathetic individuals may approach things more casually, showing less intensity and focus in their pursuits.</description>
     <highDescription>Passionate individuals devote significant energy and emotion to the people, goals, and interests they care about.</highDescription>
-    <lowDescription>Apathetic individuals tend to approach their interests and responsibilities more casually, with less emotional investment.</lowDescription>
+    <lowDescription>Apathetic individuals tend to approach their interests more casually, with less emotional investment.</lowDescription>
     <scoreWeight>
       <li>
         <facet>Industriousness</facet>

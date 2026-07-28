@@ -14,20 +14,20 @@
   <RP_Desc_InitIntentFactor.negativeDescription>부정적인 사회적 상호작용 발생 가능성 감소.</RP_Desc_InitIntentFactor.negativeDescription>
 
   <!-- RP_Desc_ReciNegativeChanceFactor -->
-  <RP_Desc_ReciNegativeChanceFactor.positiveLabel>예민한</RP_Desc_ReciNegativeChanceFactor.positiveLabel>
-  <RP_Desc_ReciNegativeChanceFactor.negativeLabel>무던한</RP_Desc_ReciNegativeChanceFactor.negativeLabel>
-  <RP_Desc_ReciNegativeChanceFactor.positiveDescription>상대의 말을 부정적으로 받아들일 가능성 증가.</RP_Desc_ReciNegativeChanceFactor.positiveDescription>
-  <RP_Desc_ReciNegativeChanceFactor.negativeDescription>상대의 말을 부정적으로 받아들일 가능성 감소.</RP_Desc_ReciNegativeChanceFactor.negativeDescription>
+  <RP_Desc_ReciNegativeChanceFactor.positiveLabel>쉽게 기분 상함</RP_Desc_ReciNegativeChanceFactor.positiveLabel>
+  <RP_Desc_ReciNegativeChanceFactor.negativeLabel>무던함</RP_Desc_ReciNegativeChanceFactor.negativeLabel>
+  <RP_Desc_ReciNegativeChanceFactor.positiveDescription>상대의 말을 모욕으로 받아들일 가능성 증가.</RP_Desc_ReciNegativeChanceFactor.positiveDescription>
+  <RP_Desc_ReciNegativeChanceFactor.negativeDescription>상대의 말을 모욕으로 받아들일 가능성 감소.</RP_Desc_ReciNegativeChanceFactor.negativeDescription>
 
   <!-- RP_Desc_TalkFactor -->
-  <RP_Desc_TalkFactor.positiveLabel>높은 대화 영향력</RP_Desc_TalkFactor.positiveLabel>
-  <RP_Desc_TalkFactor.positiveDescription>대화 결과의 영향 증가.</RP_Desc_TalkFactor.positiveDescription>
-  <RP_Desc_TalkFactor.negativeDescription>대화 결과의 영향 감소.</RP_Desc_TalkFactor.negativeDescription>
+  <RP_Desc_TalkFactor.positiveLabel>강한 발언력</RP_Desc_TalkFactor.positiveLabel>
+  <RP_Desc_TalkFactor.positiveDescription>대화의 영향력 증가.</RP_Desc_TalkFactor.positiveDescription>
+  <RP_Desc_TalkFactor.negativeDescription>대화의 영향력 증가.</RP_Desc_TalkFactor.negativeDescription>
 
   <!-- RP_Desc_Eloquence -->
   <RP_Desc_Eloquence.positiveLabel>높은 호응력</RP_Desc_Eloquence.positiveLabel>
-  <RP_Desc_Eloquence.positiveDescription>의견 일치 시 대화 효과 증가.</RP_Desc_Eloquence.positiveDescription>
-  <RP_Desc_Eloquence.negativeDescription>의견 일치 시 대화 효과 감소.</RP_Desc_Eloquence.negativeDescription>
+  <RP_Desc_Eloquence.positiveDescription>의견 일치 시 대화의 영향 증가.</RP_Desc_Eloquence.positiveDescription>
+  <RP_Desc_Eloquence.negativeDescription>의견 일치 시 대화의 영향 감소.</RP_Desc_Eloquence.negativeDescription>
 
   <!-- RP_Desc_ReceptiveBase -->
   <RP_Desc_ReceptiveBase.positiveLabel>포용적인 태도</RP_Desc_ReceptiveBase.positiveLabel>

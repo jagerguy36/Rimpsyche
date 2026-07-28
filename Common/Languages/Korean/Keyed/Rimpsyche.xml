@@ -3,27 +3,63 @@
 
   <!-- General -->
   <RimpsycheSettingCategory>림사이키</RimpsycheSettingCategory>
+  <RP_ShiftForFull>[Shift] 전체 설명 보기</RP_ShiftForFull>
+  <RP_PsycheEffects>효과</RP_PsycheEffects>
 
   <!-- Settings -->
   <RimpsycheGeneralSetting>일반 세팅</RimpsycheGeneralSetting>
-  <RimpsycheAllowFacetEdit>성격 측면 수정</RimpsycheAllowFacetEdit>
-  <RimpsycheAllowFacetEditTooltip>성격 측면을 직접 수정할 수 있도록 허용합니다.</RimpsycheAllowFacetEditTooltip>
-  <RimpsycheShowFacetInMenu>성격측면 UI</RimpsycheShowFacetInMenu>
-  <RimpsycheShowFacetInMenuTooltip>성격 탭에서 성격측면 보기 옵션을 선택할 수 있게 합니다.</RimpsycheShowFacetInMenuTooltip>
+  <RimpsychePsycheTabSetting>성격 탭 세팅</RimpsychePsycheTabSetting>
+  <RimpsycheBioTabSetting>캐릭터 탭 세팅</RimpsycheBioTabSetting>
+  <RimpsychePersonalityViewSetting>성격 표현 방식 세팅</RimpsychePersonalityViewSetting>
+  <RimpsycheMiscSetting>기타 세팅</RimpsycheMiscSetting>
+
+  <!-- Psyche Tab -->
+  <RimpsycheShowDispositionInTab>성격 탭에 성향 표시</RimpsycheShowDispositionInTab>
+  <RimpsycheShowDispositionInTabTooltip>성격 탭에서 성향 전체 목록을 볼 수 있도록 허용합니다.\n\n경고: 이 목록은 개요를 위한 것으로, 적용되는 게임플레이 효과의 전체 목록이 아닙니다. 가독성을 위해 많은 게임플레이 효과가 생략되거나 결합되어 있습니다.</RimpsycheShowDispositionInTabTooltip>
+  <RimpsycheShowFacetInMenu>성격 측면 보기 옵션 활성화</RimpsycheShowFacetInMenu>
+  <RimpsycheShowFacetInMenuTooltip>성격 탭에서 성격측면 보기 옵션을 선택할 수 있게 합니다.\n\n경고: 개발 목적. 성격 측면은 특성 및 기타 요소에 의해 수정되기 전의 림의 기저 성격을 나타내며, 겉으로 드러나는 성격이 아닙니다.</RimpsycheShowFacetInMenuTooltip>
   <RimpsycheShowFacetGraph>성격 차트 표시</RimpsycheShowFacetGraph>
-  <RimpsycheShowFacetGraphTooltip>성격 탭에 방사형 차트를 표시합니다.</RimpsycheShowFacetGraphTooltip>
+  <RimpsycheShowFacetGraphTooltip>성격 탭에 방사형 차트를 표시합니다.\n\n경고: 개발 목적. 성격 측면은 특성 및 기타 요소에 의해 수정되기 전의 림의 기저 성격을 나타내며, 겉으로 드러나는 성격이 아닙니다.</RimpsycheShowFacetGraphTooltip>
+
+  <!-- Bio Tab Summary -->
+  <RimpsycheShowSummaryInBio>캐릭터 탭에 요약 표시</RimpsycheShowSummaryInBio>
+  <RimpsycheShowSummaryInBioTooltip>캐릭터 탭 하단에 성격을 표시합니다.</RimpsycheShowSummaryInBioTooltip>
+  <RimpsycheShowDispositionInSummary>캐릭터 탭에 성향 표시</RimpsycheShowDispositionInSummary>
+  <RimpsycheShowDispositionInSummaryTooltip>캐릭터 탭에 림의 가장 두드러진 성향을 표시합니다.</RimpsycheShowDispositionInSummaryTooltip>
+
+  <!-- Personality Description -->
+  <RimpsycheShowEffectInDescription>성격에 게임플레이 효과 표시</RimpsycheShowEffectInDescription>
+  <RimpsycheShowEffectInDescriptionTooltip>각 성격 설명에 게임플레이 효과를 표시합니다.\n\n경고: 여기에 표시된 효과는 개요를 위한 것으로 적용되는 게임플레이 효과의 전체 목록이 아닙니다.</RimpsycheShowEffectInDescriptionTooltip>
+  <RimpsycheShowThoughtTagEffects>생각 태그 효과 표시</RimpsycheShowThoughtTagEffects>
+  <RimpsycheShowThoughtTagEffectsTooltip>생각 태그 효과를 게임플레이 효과와 함께 표시합니다.\n\n경고: 여기에 표시된 생각 태그는 개요를 위한 것으로 적용되는 게임플레이 효과의 전체 목록이 아닙니다.</RimpsycheShowThoughtTagEffectsTooltip>
+  <RimpsychePersonalityAsBars>성격 값을 막대로 표시</RimpsychePersonalityAsBars>
+  <RimpsychePersonalityAsBarsTooltip>성격 값을 막대 형태로 표시합니다.</RimpsychePersonalityAsBarsTooltip>
+
+  <!-- Misc -->
+  <RimpsycheAllowFacetEdit>성격 측면 수정</RimpsycheAllowFacetEdit>
+  <RimpsycheAllowFacetEditTooltip>성격 측면을 직접 수정할 수 있도록 허용합니다.\n\n경고: 개발 목적. 성격 측면은 특성 및 기타 요소에 의해 수정되기 전의 림의 기저 성격을 나타내며, 겉으로 드러나는 성격이 아닙니다.</RimpsycheAllowFacetEditTooltip>
+  <RimpsycheConfirmLoadSave>성격 불러오기/저장 전 확인</RimpsycheConfirmLoadSave>
+  <RimpsycheConfirmLoadSaveTooltip>림의 성격을 덮어쓰거나 불러오기 전에 확인 팝업을 표시합니다.</RimpsycheConfirmLoadSaveTooltip>
+
+  <RimpsycheDefaultSetting>기본값</RimpsycheDefaultSetting>
 
 
   <!-- Title -->
   <RPC_Personality>성격</RPC_Personality>
+  <RPC_Disposition>성향</RPC_Disposition>
+  <RPC_Facet>성격 측면</RPC_Facet>
   <RPC_Interest>관심사</RPC_Interest>
   <RPC_Sexuality>성적 지향</RPC_Sexuality>
+
+  <!-- Bio Tab -->
+  <RPC_PersonalitySnapshot>성격</RPC_PersonalitySnapshot>
+  <RPC_DispositionSnapshot>성향</RPC_DispositionSnapshot>
 
   <!-- Tab -->
   <TabPsyche>성격</TabPsyche>
 
-  <RimpsycheShowList>리스트로 보기</RimpsycheShowList>
-  <RimpsycheShowBar>그래프로 보기</RimpsycheShowBar>
+  <RimpsycheShowPersonality>성격 보기</RimpsycheShowPersonality>
+  <RimpsycheShowBehavior>성향 보기</RimpsycheShowBehavior>
   <RimpsycheShowFacet>성격측면 보기</RimpsycheShowFacet>
 
   <RimpsycheSortValue>값으로 정렬</RimpsycheSortValue>
@@ -37,6 +73,10 @@
   <GeneAffected>다음 유전자에 영향을 받고 있음:</GeneAffected>
 
   <PsycheDisabled>비활성화됨</PsycheDisabled>
+
+  <!-- Behavior -->
+  <RPC_DescriptorBlame>다음 성격에서 기인함:</RPC_DescriptorBlame>
+  <RPC_NoBehavior>주목할 만한 성향 없음</RPC_NoBehavior>
 
   <!-- Interaction -->
   <MemoryReportString>{0}에 대한 대화</MemoryReportString>
