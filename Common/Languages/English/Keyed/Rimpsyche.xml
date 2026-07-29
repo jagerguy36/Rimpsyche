@@ -86,6 +86,12 @@
   <RimPsycheIntensitySomewhat>Somewhat {0}</RimPsycheIntensitySomewhat>
   <RimPsycheIntensityMarginally>Marginally {0}</RimPsycheIntensityMarginally>
 
+  <RimPsycheIntensityKeyNeutral>Not</RimPsycheIntensityKeyNeutral>
+  <RimPsycheIntensityKeyExtremely>Extremely</RimPsycheIntensityKeyExtremely>
+  <RimPsycheIntensityKeyVery>Very</RimPsycheIntensityKeyVery>
+  <RimPsycheIntensityKeySomewhat>Somewhat</RimPsycheIntensityKeySomewhat>
+  <RimPsycheIntensityKeyMarginally>Marginally</RimPsycheIntensityKeyMarginally>
+
   <!-- Edit Mode -->
   <RPC_Facets>Facets</RPC_Facets>
   <ResetPsycheTooltip>Reset Personality</ResetPsycheTooltip>

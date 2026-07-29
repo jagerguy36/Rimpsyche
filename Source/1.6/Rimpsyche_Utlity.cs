@@ -378,6 +378,19 @@ namespace Maux36.RimPsyche
         }
 
         //For General report
+        public static string GetPersonalityIntensity(float value)
+        {
+            float absValue = Mathf.Abs(value);
+            string intensityKey = absValue switch
+            {
+                >= 0.75f => "RimPsycheIntensityKeyExtremely",
+                >= 0.50f => "RimPsycheIntensityKeyVery",
+                >= 0.25f => "RimPsycheIntensityKeySomewhat",
+                >  0.00f => "RimPsycheIntensityKeyMarginally",
+                _        => "RimPsycheIntensityKeyNeutral"
+            };
+            return intensityKey.Translate();
+        }
         public static string GetPersonalityDesc(PersonalityDef personality, float value)
         {
             float absValue = Mathf.Abs(value);

@@ -44,9 +44,9 @@ namespace Maux36.RimPsyche
             // Get pawn
             Pawn pawn = FillTabPawnHook(PawnToShowInfoAbout);
             CompPsyche compPsyche = pawn.compPsyche();
-            Rect psycheRect = PsycheInfoCard.PsycheRect;
+            Rect psycheRect = new Rect(0f, 0f, PsycheInfoCard.PsycheRectWidth, PsycheInfoCard.PsycheRectHeight);
             psycheRect.width -= (compPsyche.Enabled && PsycheInfoCard.rightPanelVisible ? 0f : PsycheInfoCard.rightPanelWidthActual);
-            psycheRect.width -= ((PsycheInfoCard.showMode == PsycheInfoCard.ShowMode.Personality) ? 0f : PsycheInfoCard.personalityWidthDiff);
+            //psycheRect.width -= ((PsycheInfoCard.showMode == PsycheInfoCard.ShowMode.Personality) ? 0f : PsycheInfoCard.personalityWidthDiff);
             size = psycheRect.size;
             GUI.BeginGroup(psycheRect);
             PsycheInfoCard.DrawPsycheCard(psycheRect, pawn, compPsyche);

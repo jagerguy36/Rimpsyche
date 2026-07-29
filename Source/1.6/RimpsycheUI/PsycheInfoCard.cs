@@ -16,7 +16,10 @@ namespace Maux36.RimPsyche
 
         // Constants and style settings
         // width: 380 | 220
-        public static Rect PsycheRect = new Rect(0f, 0f, Mathf.Min(600f + personalityWidthDiff + rightsideWidthDiff,  UI.screenWidth * 0.8f), Mathf.Clamp(UI.screenHeight*0.5f,350f, 480f));
+        public static readonly float PsycheRectWidth;
+        public static readonly float PsycheRectHeight;
+
+
         public static GUIStyle style;
         public static Vector2 PersonalityScrollPosition = Vector2.zero;
         public static Vector2 InterestScrollPosition = Vector2.zero;
@@ -38,32 +41,44 @@ namespace Maux36.RimPsyche
         private const int HalfSummaryRowCount = 2;
         private static readonly float intensityRectWidth;
 
+        public static readonly float headerHeight = 35f;
+        public static readonly float labelPadding = 2f;
+        public static readonly float innerPadding = 5f;
+        public static readonly float scrollWidth = 20f;
+        public static readonly float iconSize = 15f;
+        public static readonly float iconSpacing = 6f;
+        public static readonly float expandButtonSize = 8f;
+        public static readonly float expandButtonAreaWidth = 12f;
+
         public static readonly string personalityTitle;
         public static readonly string behaviorTitle;
         public static readonly string facetTitle;
         public static readonly string effectHeaderString;
         public static readonly string shiftForFullString;
-        public static readonly Vector2 titleTextSize;
-        public static readonly float iconSize = 15f;
-        public static readonly float expandButtonSize = 8f;
+
+        public static readonly float lefPanelWidthActual;
+        public static readonly float LeftTitleWidth;
+        public static readonly float LeftTitleTextWidth;
+        public static readonly float LeftContentWidth;
+
         public static readonly float rightPanelWidthConstant = 220f;
         public static readonly float rightPanelWidthActual;
+        public static readonly float rightTopPanelHeight = 150f;
         public static readonly Color LineColor = new Color(97f, 108f, 122f, 0.25f);
-        public static readonly float headerHeight = 35f;
-        public static readonly float labelPadding = 2f;
-        public static readonly float innerPadding = 5f;
-        public static readonly float scrollWidth = 20f;
 
         private static readonly float RadarChartSize = 20f; // Diameter of the radar chart
         private static readonly float RadarChartPadding = 10f; // Padding from the header text
+        private static readonly float TitlePadding = 10f; // Padding from the header text
         private static Material _lineMaterial;
 
         public static readonly float personalityLabelWidth;
+        public static readonly float personalityIntensityWidth;
         public static readonly float personalityWidthDiff;
         public static readonly float personalityRowHeight = 28f;
         public static readonly float personalityBarWidth = 80f;
         public static readonly float personalityBarHeight = 4f;
-        
+        public static readonly float personalityIntensityGap = 25f;
+
         public static readonly float interestLabelWidth;
         public static readonly float rightsideWidthDiff;
         public static readonly float interestRowHeight = 28f;
@@ -101,9 +116,8 @@ namespace Maux36.RimPsyche
 
         static PsycheInfoCard()
         {
-            rightPanelWidthActual = rightPanelWidthConstant + rightsideWidthDiff;
-
             personalityLabelWidth = RimpsycheDatabase.maxPersonalityLabelWidth;
+            personalityIntensityWidth = RimpsycheDatabase.maxPersonalityIntensityWidth;
             personalityWidthDiff = 2f * (RimpsycheDatabase.maxPersonalityLabelWidth - 130f);
 
             interestLabelWidth = RimpsycheDatabase.maxInterestLabelWidth;
@@ -111,21 +125,37 @@ namespace Maux36.RimPsyche
 
             intensityRectWidth = RimpsycheDatabase.intensityRectWidth;
 
+            rightPanelWidthActual = rightPanelWidthConstant + rightsideWidthDiff;
+
             effectHeaderString = $"\n\n{"RP_PsycheEffects".Translate()}:\n";
             shiftForFullString = $"\n\n<i><color=#808080BF>{"RP_ShiftForFull".Translate()}</color></i>";
             personalityTitle = "RPC_Personality".Translate();
             behaviorTitle = "RPC_Disposition".Translate();
             facetTitle = "RPC_Facet".Translate();
+
+            //LeftSide Titles
             GameFont oldFont = Text.Font;
             Text.Font = GameFont.Medium;
-            Vector2 personalityTitleSize = Text.CalcSize(personalityTitle);
-            Vector2 behaviorTitleSize = Text.CalcSize(behaviorTitle);
-            Vector2 facetTitleSize = Text.CalcSize(facetTitle);
-            Vector2 maxSize = personalityTitleSize.x > behaviorTitleSize.x ? personalityTitleSize : behaviorTitleSize;
-            maxSize = facetTitleSize.x > maxSize.x ? facetTitleSize : maxSize;
-            titleTextSize = maxSize;
+            float personalityTitleSize = Text.CalcSize(personalityTitle).x;
+            float behaviorTitleSize = Text.CalcSize(behaviorTitle).x;
+            float facetTitleSize = Text.CalcSize(facetTitle).x;
+            float maxSize = personalityTitleSize > behaviorTitleSize ? personalityTitleSize : behaviorTitleSize;
+            LeftTitleTextWidth = facetTitleSize > maxSize ? facetTitleSize : maxSize;
             Text.Font = oldFont;
+
+            //LeftSide Width Calculation
+            LeftTitleWidth = RadarChartSize + RadarChartPadding + LeftTitleTextWidth + 3f * iconSize + 3f * iconSpacing + 2f * TitlePadding;
+
+            //LeftSide Contents
+            var barModeWidth = 2 * labelPadding + 2 * personalityLabelWidth + personalityBarWidth + 2 * labelPadding;
+            var labelModeWidth = labelPadding + personalityIntensityWidth + personalityIntensityGap + personalityLabelWidth + labelPadding;
+            LeftContentWidth = Mathf.Max(barModeWidth, labelModeWidth);
+
+            lefPanelWidthActual = Mathf.Max(LeftTitleTextWidth, LeftContentWidth) + scrollWidth;
+
             sexualityLabelWidth = RimpsycheDatabase.maxSexualityLabelWidth;
+            PsycheRectWidth = Mathf.Min(lefPanelWidthActual + expandButtonAreaWidth + rightPanelWidthActual, UI.screenWidth * 0.8f);
+            PsycheRectHeight = Mathf.Clamp(UI.screenHeight * 0.5f, 350f, 480f);
             EnsureMaterial();
         }
         private static void EnsureMaterial()
@@ -170,7 +200,7 @@ namespace Maux36.RimPsyche
             public float Value;
             public float AbsValue;
             public string CachedLabelText;
-            public string CachedIntensityLabelText;
+            public string CachedIntensityKeyText;
             public string CachedDescription;
             public string CachedShortDescription;
             public string CachedFullDescription;
@@ -240,7 +270,24 @@ namespace Maux36.RimPsyche
             totalRect.position = Vector2.zero;
 
             // Layout constants
-            float rightPanelWidth = (psycheEnabled && rightPanelVisible) ? rightPanelWidthActual : 0f;
+            Rect personalityRect = new Rect(
+                totalRect.x,
+                totalRect.y,
+                lefPanelWidthActual,
+                totalRect.height
+            );
+            Rect MiddleRect = new Rect(
+                personalityRect.xMax,
+                totalRect.y,
+                expandButtonAreaWidth,
+                totalRect.height
+            );
+            Rect RightRect = new Rect(
+                MiddleRect.xMax,
+                totalRect.y,
+                rightPanelWidthActual,
+                totalRect.height
+            );
             float rightTopPanelHeight = 0f;
             if (showSexuality)
             {
@@ -249,24 +296,19 @@ namespace Maux36.RimPsyche
 
             // Define the sexuality panel rect
             Rect sexualityRect = new Rect(
-                totalRect.xMax - rightPanelWidth,
-                totalRect.y,
-                rightPanelWidth,
+                RightRect.x,
+                RightRect.y,
+                rightPanelWidthActual,
                 rightTopPanelHeight
             );
 
             // Define the interest panel rect
             Rect interestRect = new Rect(
-                totalRect.xMax - rightPanelWidth,
-                sexualityRect.y + rightTopPanelHeight,
-                rightPanelWidth,
-                totalRect.height - rightTopPanelHeight
+                RightRect.x,
+                sexualityRect.yMax,
+                rightPanelWidthActual,
+                RightRect.height - rightTopPanelHeight
             );
-
-            // Define the personality panel rect
-            Rect personalityRect = totalRect;
-            personalityRect.xMax = sexualityRect.x;
-
             // Draw separating lines between personality & sexuality sections
             if (psycheEnabled && rightPanelVisible)
             {
@@ -279,10 +321,8 @@ namespace Maux36.RimPsyche
                 GUI.color = Color.white;
             }
 
-            // Draw Expanding Button
-            personalityRect.xMax -= expandButtonSize;
             Rect openButtonRect = new Rect(
-                personalityRect.xMax-expandButtonSize/2, // Center the button in the buttonAreaWidth
+                0.5f * (MiddleRect.x + MiddleRect.xMax) - expandButtonSize / 2, // Center the button in the buttonAreaWidth
                 totalRect.y + (totalRect.height / 2) - (expandButtonSize / 2), // Vertically center the button
                 expandButtonSize,
                 expandButtonSize
@@ -427,7 +467,7 @@ namespace Maux36.RimPsyche
                 float value = compPsyche.Personality.GetPersonality(personality);
                 float absValue = Mathf.Abs(value);
                 string cachedLabelText = ((value >= 0) ? personality.high : personality.low).CapitalizeFirst();
-                string cachedIntensityLabelText = Rimpsyche_Utility.GetPersonalityDesc(personality, value);
+                string cachedIntensityKeyText = Rimpsyche_Utility.GetPersonalityIntensity(value);
                 Color cachedLabelColor = Color.Lerp(LowValueColor, HighValueColor, absValue);
                 var personalityShortDesc = (value >= 0f ? personality.highDescription : personality.lowDescription);
                 var personalityFullDesc = $"{personality.label.CapitalizeFirst()}: {value * 100f:F1}\n\n{personality.description}";
@@ -453,7 +493,7 @@ namespace Maux36.RimPsyche
                     Value = value,
                     AbsValue = absValue,
                     CachedLabelText = cachedLabelText,
-                    CachedIntensityLabelText = cachedIntensityLabelText,
+                    CachedIntensityKeyText = cachedIntensityKeyText,
                     CachedLabelColor = cachedLabelColor,
                     CachedShortDescription = personalityShortDesc,
                     CachedFullDescription = personalityFullDesc,
@@ -660,7 +700,7 @@ namespace Maux36.RimPsyche
             Widgets.Label(titleRect, headerString);
             if (RimpsycheSettings.showFacetGraph)
             {
-                float radarChartX = (headerRect.width / 2f) - (titleTextSize.x / 2f) - RadarChartSize - RadarChartPadding;
+                float radarChartX = (headerRect.width / 2f) - (LeftTitleTextWidth / 2f) - RadarChartSize - RadarChartPadding;
                 Rect radarChartRect = new Rect(radarChartX, titleRect.y + (titleRect.height - RadarChartSize) / 2f, RadarChartSize, RadarChartSize);
                 DrawRadarChart(radarChartRect, compPsyche, pawn);
             }
@@ -668,7 +708,7 @@ namespace Maux36.RimPsyche
             // Icon on the right
             float spacing = 6;
 
-            float actionIconX = (headerRect.width / 2f) + (titleTextSize.x / 2f) + 8f;
+            float actionIconX = (headerRect.width / 2f) + (LeftTitleTextWidth / 2f) + 8f;
             float actionIconY = titleRect.y + (titleRect.height - iconSize) / 2f;
 
             // Sort Mode Toggle
@@ -758,6 +798,7 @@ namespace Maux36.RimPsyche
 
             if (showMode == ShowMode.Personality && !RimpsycheSettings.personalityAsBar)
             {
+                Text.Anchor = TextAnchor.MiddleLeft;
                 int firstIndex = Mathf.FloorToInt(PersonalityScrollPosition.y / personalityRowHeight);
                 int lastIndex = Mathf.FloorToInt((PersonalityScrollPosition.y + scrollRect.height) / personalityRowHeight);
                 firstIndex = Mathf.Clamp(firstIndex, 0, personalitiesToDisplay.Count - 1);
@@ -777,13 +818,29 @@ namespace Maux36.RimPsyche
                         TooltipHandler.TipRegion(rowRect, tip);
                     }
 
-                    // Draw label
-                    Text.Anchor = TextAnchor.MiddleLeft;
                     GUI.color = pData.CachedLabelColor;
-                    Rect labelRect = new Rect(rowRect.x + labelPadding, rowRect.y, scrollContentRect.width - (2 * labelPadding), personalityRowHeight);
-                    Widgets.Label(labelRect, pData.CachedIntensityLabelText);
+                    Rect intensityRect = new Rect(
+                        rowRect.x + labelPadding,
+                        rowRect.y,
+                        personalityIntensityWidth,
+                        personalityRowHeight
+                    );
+                    Widgets.Label(intensityRect, pData.CachedIntensityKeyText);
+
+                    float mainLabelX = intensityRect.xMax + personalityIntensityGap;
+                    float mainLabelWidth = scrollContentRect.width - mainLabelX - labelPadding;
+
+                    Rect labelRect = new Rect(
+                        mainLabelX,
+                        rowRect.y,
+                        mainLabelWidth,
+                        personalityRowHeight
+                    );
+
+                    Widgets.Label(labelRect, pData.CachedLabelText);
                     GUI.color = Color.white; // Reset color
                 }
+                Text.Anchor = TextAnchor.MiddleCenter;
             }
             else if (showMode == ShowMode.Personality && RimpsycheSettings.personalityAsBar)
             {

@@ -36,6 +36,7 @@ namespace Maux36.RimPsyche
         public static float orientationLabelWidth = 0f;
         public static float maxRightsideLabelWidth = 130f;
         public static float maxPersonalityLabelWidth = 130f;
+        public static float maxPersonalityIntensityWidth = 0f;
         public static float totalPreferenceEditorfHeight = 0f;
         public static float intensityRectWidth = 40f;
 
@@ -62,6 +63,14 @@ namespace Maux36.RimPsyche
             InteractionDefOf.DeepTalk = DefOfRimpsyche.Rimpsyche_StartConversation;
             PersonalityOrder = DefDatabase<PersonalityDef>.AllDefsListForReading.Select((p, index) => new { p.shortHash, index }).ToDictionary(x => (int)x.shortHash, x =>x.index);
             intensityRectWidth = Text.CalcSize("●●●").x;
+            foreach(var IntKey in IntensityKeysDefault.Keys)
+            {
+                maxPersonalityIntensityWidth = Mathf.Max(Text.CalcSize("RimPsycheIntensityKeyNeutral".Translate()).x, maxPersonalityIntensityWidth);
+                maxPersonalityIntensityWidth = Mathf.Max(Text.CalcSize("RimPsycheIntensityKeyExtremely".Translate()).x, maxPersonalityIntensityWidth);
+                maxPersonalityIntensityWidth = Mathf.Max(Text.CalcSize("RimPsycheIntensityKeyVery".Translate()).x, maxPersonalityIntensityWidth);
+                maxPersonalityIntensityWidth = Mathf.Max(Text.CalcSize("RimPsycheIntensityKeySomewhat".Translate()).x, maxPersonalityIntensityWidth);
+                maxPersonalityIntensityWidth = Mathf.Max(Text.CalcSize("RimPsycheIntensityKeyMarginally".Translate()).x, maxPersonalityIntensityWidth);
+            }
             
             //Sexuality Label consideration
             if (Rimpsyche.SexualityModuleLoaded)
