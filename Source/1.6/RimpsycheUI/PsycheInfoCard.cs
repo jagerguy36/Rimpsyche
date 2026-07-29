@@ -30,11 +30,15 @@ namespace Maux36.RimPsyche
         public static Color radarHighlightColor = new Color(0.6f, 0.6f, 0.6f, 0.5f);
         public static Color radarEdgeColor = new Color(0.5f, 0.5f, 0.5f, 0.6f);
         public static Color radarSpokeColor = new Color(0.5f, 0.5f, 0.5f, 0.3f);
+
         public static Color LowValueColor = Color.grey;
         public static Color HighValueColor = Color.green;
 
-        public static Color LowSexualityBarColor = Color.green;
-        public static Color HighSexualityBarColor = Color.grey;
+        public static Color LowInterestColor = Color.blue;
+        public static Color HighInterestColor = Color.magenta;
+
+        public static Color LowSexualityBarColor = Color.yellow;
+        public static Color HighSexualityBarColor = Color.green;
         public static Color HyperSexualityBarColor = Color.cyan;
 
         private const int SummaryRowCount = 3;
@@ -210,7 +214,6 @@ namespace Maux36.RimPsyche
         {
             public Interest Interest;
             public float Value;
-            public float AbsValue;
             public string CachedLabelText;
             public string CachedDescription;
             public Color CachedLabelColor;
@@ -562,19 +565,18 @@ namespace Maux36.RimPsyche
             foreach (var interest in interestList)
             {
                 float value = compPsyche.Interests.GetOrGenerateAdjustedInterestScore(interest);
-                float absValue = Mathf.Abs(value);
+                float lerpValue = value * 0.01f;
                 string cachedLabelText = interest.label;
-                Color cachedLabelColor = Color.Lerp(LowValueColor, HighValueColor, absValue);
+                Color cachedLabelColor = Color.Lerp(LowInterestColor, HighInterestColor, lerpValue);
                 sortedData.Add(new InterestDisplayData
                 {
                     Interest = interest,
                     Value = value,
-                    AbsValue = absValue,
                     CachedLabelText = cachedLabelText,
                     CachedLabelColor = cachedLabelColor,
                     CachedDescription = $"{interest.label}: {Math.Round(value, 1)}\n{interest.description}\n\n{"RimpsycheTopicHeader".Translate()}\n{RimpsycheDatabase.InterstTopicStringDict[interest.id]}"});
                 }
-            sortedData = sortedData.OrderByDescending(p => p.AbsValue).ToList();
+            sortedData = sortedData.OrderByDescending(p => p.Value).ToList();
             cachedInterestData = sortedData;
         }
         private static void GenerateViewerHeights(Pawn currentPawn)

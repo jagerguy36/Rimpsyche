@@ -79,6 +79,8 @@ namespace Maux36.RimPsyche
         public static readonly float personalityLabelPadding = 2f;
         public static readonly float personalityBarWidth = 100f;
         public static readonly float personalityBarHeight = 4f;
+        public static Color LowValueColor = Color.grey;
+        public static Color HighValueColor = Color.green;
 
         //Interest
         public static bool editInterestOn = false;
@@ -89,6 +91,8 @@ namespace Maux36.RimPsyche
         public static readonly float interestLabelPadding = 2f;
         public static readonly float interestBarWidth = 80f;
         public static readonly float interestBarHeight = 4f;
+        public static Color LowInterestColor = Color.blue;
+        public static Color HighInterestColor = Color.magenta;
 
         public static Vector2 FacetNodeScrollPosition = Vector2.zero;
         public static Vector2 PersonalityNodeScrollPosition = Vector2.zero;
@@ -97,6 +101,10 @@ namespace Maux36.RimPsyche
         //Sexuality
         public static readonly float sexualityContentHeight = 160f;
         public static readonly float sexualityRowHeight = 30f;
+        public static Color LowSexualityBarColor = Color.yellow;
+        public static Color HighSexualityBarColor = Color.green;
+        public static Color HyperSexualityBarColor = Color.cyan;
+
         // Labels
         public static readonly string kinseyLabel = "RPC_Kinsey".Translate();
         public static readonly string maleAttractionLabel = "RPC_AttractionMale".Translate();
@@ -380,7 +388,7 @@ namespace Maux36.RimPsyche
                     float normalizedValue = currentValue * 0.01f;
                     float fillWidth = normalizedValue * interestBarWidth;
                     Rect valueRect = new Rect(barRect.x, barRect.y, fillWidth, interestBarHeight);
-                    Color barColor = Color.Lerp(Color.yellow, Color.green, normalizedValue);
+                    Color barColor = Color.Lerp(LowInterestColor, HighInterestColor, normalizedValue);
                     Widgets.DrawBoxSolid(valueRect, barColor);
                 }
 
