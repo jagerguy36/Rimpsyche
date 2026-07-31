@@ -1,7 +1,6 @@
 ﻿using RimWorld;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using Verse;
 
@@ -10,9 +9,9 @@ namespace Maux36.RimPsyche
     public class PsycheEditPopup : Window
     {
         private Pawn editFor;
+        private const float baseMargin = 36f; //Margin is set to 18f.
         static PsycheEditPopup()
         {
-
             facetLabelWidth = RimpsycheDatabase.maxFacetLabelWidth;
             facetWidthDiff = 2f * (facetLabelWidth - 130f);
 
@@ -23,6 +22,12 @@ namespace Maux36.RimPsyche
             interestLabelWidth = RimpsycheDatabase.maxInterestLabelWidth;
             interestWidthDiff = (interestLabelWidth - 130f);
             interestViewHeight = RimpsycheDatabase.InterestList.Count * interestRowHeight;
+
+            leftRectWidth = 330f + facetWidthDiff;
+            midRectWidth = 360f + personalityWidthDiff;
+            rightRectWidth = 240f + interestWidthDiff;
+            totalBaseSize = midRectWidth + rightRectWidth + baseMargin;
+            totalFullSize = leftRectWidth + midRectWidth + rightRectWidth + baseMargin;
         }
         public PsycheEditPopup(Pawn editFor)
         {
@@ -43,12 +48,17 @@ namespace Maux36.RimPsyche
                 float desiredWidth = screenWidth * 0.55f;
                 float desiredHeight = screenHeight * 0.5f;
 
-                float minWidth = 930f;
+                float minWidth = RimpsycheSettings.showFacetInMenu ? totalFullSize : totalBaseSize;
                 float minHeight = 400f;
 
-                return new Vector2(Mathf.Max(desiredWidth, minWidth) + personalityWidthDiff + interestWidthDiff + facetWidthDiff, Mathf.Max(desiredHeight, minHeight));
+                return new Vector2(minWidth, Mathf.Max(desiredHeight, minHeight));
             }
         }
+        public static readonly float leftRectWidth;
+        public static readonly float midRectWidth;
+        public static readonly float rightRectWidth;
+        public static readonly float totalBaseSize;
+        public static readonly float totalFullSize;
         //Shared
         public static readonly float innerPadding = 5f;
         public static readonly float titleHeight = 35f;
@@ -89,21 +99,57 @@ namespace Maux36.RimPsyche
         public static readonly float interestRowHeight = 32f;
         public static readonly float interestViewHeight;
         public static readonly float interestLabelPadding = 2f;
-        public static readonly float interestBarWidth = 80f;
         public static readonly float interestBarHeight = 4f;
-        public static Color LowInterestColor = Color.blue;
-        public static Color HighInterestColor = Color.magenta;
+        public static Color LowInterestColor = new Color(0.6f, 0.55f, 0.65f, 0.5f);
+        public static Color HighInterestColor = new Color(0.95f, 0.9f, 0.1f, 1f);
 
         public static Vector2 FacetNodeScrollPosition = Vector2.zero;
         public static Vector2 PersonalityNodeScrollPosition = Vector2.zero;
         public static Vector2 InterestNodeScrollPosition = Vector2.zero;
 
         //Sexuality
+        public static bool editSexualityOn = false;
         public static readonly float sexualityContentHeight = 160f;
         public static readonly float sexualityRowHeight = 30f;
-        public static Color LowSexualityBarColor = Color.yellow;
-        public static Color HighSexualityBarColor = Color.green;
-        public static Color HyperSexualityBarColor = Color.cyan;
+        public static readonly float sexualityBarHeight = 4f;
+        public static Color LowAttractionColor = Color.grey;
+        public static Color HighAttractionBarColor = Color.green;
+        public static Color HyperAttractionBarColor = Color.cyan;
+        public static Color LowLibidoBarColor = new Color(0.75f, 0.65f, 0.8f, 0.5f);
+        public static Color HighLibidoBarColor = new Color(1f, 0.4f, 0.6f, 1f);
+        public static Color HyperLibidoBarColor = new Color(0.9f, 0.15f, 0.25f, 1f);
+        public static Color maleHighColor = new Color(0.1f, 0.3f, 0.7f, 1f);
+        public static Color maleLowolor = new Color(0.4f, 0.7f, 0.9f, 1f);
+        public static Color femaleHighColor = new Color(0.7f, 0.1f, 0.3f, 1f);
+        public static Color femaleLowolor = new Color(0.9f, 0.4f, 0.7f, 1f);
+
+        //Preference
+        private static bool resetPreferenceHeights = true;
+        private static List<float> cachedViewerHeights = null;
+        private static List<float> GetViewerHeights(Pawn currentPawn)
+        {
+            //List<(string, float)> cachedPreferenceReport
+            if (resetPreferenceHeights == false && cachedViewerHeights != null)
+            {
+                return cachedViewerHeights;
+            }
+            GenerateViewerHeights(currentPawn);
+            return cachedViewerHeights;
+        }
+        private static void GenerateViewerHeights(Pawn currentPawn)
+        {
+            cachedViewerHeights = new();
+            var allPrefDefs = DefDatabase<PreferenceDef>.AllDefsListForReading;
+            for (int i = 0; i < allPrefDefs.Count; i++)
+            {
+                var prefDef = allPrefDefs[i];
+                if (!prefDef.isActive)
+                    continue;
+                float viewerHeight = prefDef.worker.GetViewerHeight(currentPawn);
+                cachedViewerHeights.Add(viewerHeight);
+            }
+            resetPreferenceHeights = false;
+        }
 
         // Labels
         public static readonly string kinseyLabel = "RPC_Kinsey".Translate();
@@ -121,9 +167,11 @@ namespace Maux36.RimPsyche
             editFacetOn = false;
             editPersonalityOn = false;
             editInterestOn = false;
+            editSexualityOn = false;
             FacetNodeScrollPosition = Vector2.zero;
             PersonalityNodeScrollPosition = Vector2.zero;
             InterestNodeScrollPosition = Vector2.zero;
+            resetPreferenceHeights = true;
         }
 
         public override void DoWindowContents(Rect inRect)
@@ -144,11 +192,10 @@ namespace Maux36.RimPsyche
             var compPsyche = pawn.compPsyche();
             if (compPsyche == null) return;
 
-            float totalWidth = inRect.width - facetWidthDiff - personalityWidthDiff - interestWidthDiff;
-
-            float leftWidth = totalWidth * 340f / 930f + facetWidthDiff;
-            float midWidth = totalWidth * 360f / 930f + personalityWidthDiff;
-            float rightWidth = totalWidth * 230f / 930f + interestWidthDiff;
+            float leftWidth = (RimpsycheSettings.showFacetInMenu) ? leftRectWidth : 0f;
+            float restTotalWidth = inRect.width - leftWidth;
+            float midWidth = midRectWidth;
+            float rightWidth = rightRectWidth;
 
             Rect leftRect = new Rect(inRect.x, inRect.y, leftWidth, inRect.height);
             Rect middleRect = new Rect(leftRect.xMax, inRect.y, midWidth, inRect.height);
@@ -158,8 +205,8 @@ namespace Maux36.RimPsyche
             bool showSexuality = compPsyche.Sexuality.ShowOnUI();
             bool showPref = showPreference && showSexuality;
 
-
-            DrawFacetCard(leftRect, pawn, compPsyche);
+            if (RimpsycheSettings.showFacetInMenu)
+                DrawFacetCard(leftRect, pawn, compPsyche);
 
             DrawPersonalityEditcard(middleRect, pawn, compPsyche);
             if (showSexuality)
@@ -183,23 +230,41 @@ namespace Maux36.RimPsyche
                 Text.Anchor = oldAnchor;
             }
         }
-        
+
         public static void DrawSexualityEditCard(Rect rect, Pawn pawn, CompPsyche compPsyche)
         {
+            var psycheEnabled = compPsyche?.Enabled == true;
             TextAnchor oldAnchor = Text.Anchor;
             GameFont oldFont = Text.Font;
             Rect innerRect = rect.ContractedBy(innerPadding);
             var sexuality = compPsyche.Sexuality;
-            
+
             // Title
             Rect titleRect = new Rect(innerRect.x, innerRect.y, innerRect.width, titleHeight);
             Text.Anchor = TextAnchor.MiddleCenter;
             Text.Font = GameFont.Medium;
             string titleString = "RPC_Sexuality".Translate();
             Widgets.Label(titleRect, titleString);
+            Vector2 titleTextSize = Text.CalcSize(titleString);
             Text.Anchor = TextAnchor.UpperLeft;
             Text.Font = GameFont.Small;
-            Rect ContentRect = new Rect(innerRect.x, titleRect.yMax, innerRect.width, innerRect.height - titleHeight);
+
+            // Icon on the right
+            float editIconX = titleRect.x + (titleRect.width / 2f) + (titleTextSize.x / 2f) + iconSpacing;
+            Rect editIconRect = new Rect(editIconX, titleRect.y + (titleHeight - iconSize) / 2f, iconSize, iconSize);
+
+            // Draw & handle click
+            if (psycheEnabled && Prefs.DevMode)
+            {
+                if (Widgets.ButtonImage(editIconRect, Rimpsyche_UI_Utility.EditButton))
+                {
+                    editSexualityOn = !editSexualityOn;
+                }
+                TooltipHandler.TipRegion(editIconRect, "RimpsycheEdit".Translate());
+            }
+
+
+            Rect ContentRect = new Rect(innerRect.x, titleRect.yMax, innerRect.width - scrollBarWidth, innerRect.height - titleHeight);
             float maxSexualityLabelWidth = Math.Max(Text.CalcSize(kinseyLabel).x, Math.Max(Text.CalcSize(maxAttractionLabel).x, Text.CalcSize(sexDriveLabel).x)) + 5f;
             float sliderWidth = ContentRect.width - maxSexualityLabelWidth;
 
@@ -209,23 +274,87 @@ namespace Maux36.RimPsyche
             Widgets.Label(KinseyReportRect, (compPsyche.Sexuality.GetOrientationReport() + $" ({compPsyche.Sexuality.GetKinseyReport()})"));// + "(" + sexuality.kinsey.ToString("F2") + ")"
 
             Rect sliderRect1 = new Rect(ContentRect.x, KinseyLabelRect.yMax, innerRect.width, sexualityRowHeight);
-            float newMValue = Widgets.HorizontalSlider(sliderRect1, sexuality.MKinsey, 0f, 1f, true, leftAlignedLabel: femaleAttractionLabel, rightAlignedLabel: maleAttractionLabel);
-            if (newMValue != sexuality.MKinsey) sexuality.SetmKinsey(newMValue);
+            if (editSexualityOn)
+            {
+                float newMValue = Widgets.HorizontalSlider(sliderRect1, sexuality.MKinsey, 0f, 1f, true, leftAlignedLabel: femaleAttractionLabel, rightAlignedLabel: maleAttractionLabel);
+                if (newMValue != sexuality.MKinsey) sexuality.SetmKinsey(newMValue);
+            }
+            else
+            {
+                float leftLabelWidth = Text.CalcSize(femaleAttractionLabel).x;
+                float rightLabelWidth = Text.CalcSize(maleAttractionLabel).x;
+                Rect leftLabelRect = new Rect(sliderRect1.x, sliderRect1.y,leftLabelWidth + 8f, sexualityRowHeight);
+                Rect rightLabelRect = new Rect(sliderRect1.xMax - (rightLabelWidth + 8f), sliderRect1.y, rightLabelWidth + 8f, sexualityRowHeight);
+
+                Widgets.Label(leftLabelRect, femaleAttractionLabel);
+                Text.Anchor = TextAnchor.MiddleRight;
+                Widgets.Label(rightLabelRect, maleAttractionLabel);
+                Text.Anchor = TextAnchor.UpperLeft;
+
+                Rect barRect = new Rect(leftLabelRect.xMax, sliderRect1.y + (sexualityRowHeight - sexualityBarHeight) / 2f, sliderRect1.width - (leftLabelRect.width + rightLabelRect.width), sexualityBarHeight);
+
+                Widgets.DrawBoxSolid(barRect, barBackgroundColor);
+                float clamped = (sexuality.MKinsey - 0.5f) * 2f;
+                float barCenterX = barRect.center.x;
+                float halfBarWidth = Mathf.Abs(clamped) * (barRect.width / 2f);
+                Rect valueRect = clamped >= 0f
+                    ? new Rect(barCenterX, barRect.y, halfBarWidth, sexualityBarHeight)
+                    : new Rect(barCenterX - halfBarWidth, barRect.y, halfBarWidth, sexualityBarHeight);
+
+                Color barColor = clamped >= 0f
+                    ? Color.Lerp(maleLowolor, maleHighColor, Mathf.Abs(clamped))
+                    : Color.Lerp(femaleLowolor, femaleHighColor, Mathf.Abs(clamped));
+                Widgets.DrawBoxSolid(valueRect, barColor);
+                Widgets.DrawLineVertical(barRect.x + barRect.width * 0.5f, barRect.y - 1, barRect.height + 2);
+            }
             TooltipHandler.TipRegion(sliderRect1, "RPS_KinseySliderTooltip".Translate());
 
             Rect labelRect2 = new Rect(ContentRect.x, sliderRect1.yMax, maxSexualityLabelWidth, sexualityRowHeight);
             Widgets.Label(labelRect2, maxAttractionLabel);
             Rect sliderRect2 = new Rect(labelRect2.xMax, labelRect2.y, sliderWidth, sexualityRowHeight);
-            float newAttraction = Widgets.HorizontalSlider(sliderRect2, sexuality.Attraction, 0f, 1f, true, null, null, (2f * sexuality.Attraction).ToString("F2"));
-            if (newAttraction != sexuality.Attraction) sexuality.SetAttraction(newAttraction);
+            if (editSexualityOn)
+            {
+                float newAttraction = Widgets.HorizontalSlider(sliderRect2, sexuality.Attraction, 0f, 1f, true, null, null, (2f * sexuality.Attraction).ToString("F2"));
+                if (newAttraction != sexuality.Attraction) sexuality.SetAttraction(newAttraction);
+            }
+            else
+            {
+                // Using your custom style with surplus and divider line
+                Rect attractionBarRect = new Rect(sliderRect2.x, sliderRect2.y + (sexualityRowHeight - sexualityBarHeight) / 2f, sliderWidth, sexualityBarHeight);
+                Widgets.DrawBoxSolid(attractionBarRect, barBackgroundColor);
+                float attractionVal = sexuality.Attraction;
+                Rect attrValueRect = new Rect(attractionBarRect.x, attractionBarRect.y, attractionVal * attractionBarRect.width, sexualityBarHeight);
+                Color attrColor = attractionVal <= 0.5f
+                    ? Color.Lerp(LowAttractionColor, HighAttractionBarColor, attractionVal * 2f)
+                    : Color.Lerp(HighAttractionBarColor, HyperAttractionBarColor, (attractionVal - 0.5f) * 2f);
+
+                Widgets.DrawBoxSolid(attrValueRect, attrColor);
+                Widgets.DrawLineVertical(attractionBarRect.x + attractionBarRect.width * 0.5f, attractionBarRect.y - 1, attractionBarRect.height + 2);
+            }
             Rect attractionRect = new Rect(ContentRect.x, labelRect2.y, ContentRect.width, sexualityRowHeight);
             TooltipHandler.TipRegion(attractionRect, "RPS_AttractionTooltip".Translate());
 
             Rect labelRect3 = new Rect(ContentRect.x, labelRect2.yMax, maxSexualityLabelWidth, sexualityRowHeight);
             Widgets.Label(labelRect3, sexDriveLabel);
             Rect sliderRect3 = new Rect(labelRect3.xMax, labelRect2.yMax, sliderWidth, sexualityRowHeight);
-            float newDrive = Widgets.HorizontalSlider(sliderRect3, sexuality.SexDrive, 0f, 1f, true, null, null, (2f * sexuality.SexDrive).ToString("F2"));
-            if (newDrive != sexuality.SexDrive) sexuality.SetSexdrive(newDrive);
+            if (editSexualityOn)
+            {
+                float newDrive = Widgets.HorizontalSlider(sliderRect3, sexuality.SexDrive, 0f, 1f, true, null, null, (2f * sexuality.SexDrive).ToString("F2"));
+                if (newDrive != sexuality.SexDrive) sexuality.SetSexdrive(newDrive);
+            }
+            else
+            {
+                Rect sexDriveRect = new Rect(sliderRect3.x, sliderRect3.y + (sexualityRowHeight - sexualityBarHeight) / 2f, sliderWidth, sexualityBarHeight);
+                Widgets.DrawBoxSolid(sexDriveRect, barBackgroundColor);
+                float sexDrive = sexuality.SexDrive;
+                Rect sdValueRect = new Rect(sexDriveRect.x, sexDriveRect.y, sexDrive * sexDriveRect.width, sexualityBarHeight);
+                Color sdColor = sexDrive <= 0.5f
+                    ? Color.Lerp(LowLibidoBarColor, HighLibidoBarColor, sexDrive * 2f)
+                    : Color.Lerp(HighLibidoBarColor, HyperLibidoBarColor, (sexDrive - 0.5f) * 2f);
+
+                Widgets.DrawBoxSolid(sdValueRect, sdColor);
+                Widgets.DrawLineVertical(sexDriveRect.x + sexDriveRect.width * 0.5f, sexDriveRect.y - 1, sexDriveRect.height + 2);
+            }
 
             Text.Anchor = oldAnchor;
             Text.Font = oldFont;
@@ -250,11 +379,15 @@ namespace Maux36.RimPsyche
             Rect editIconRect = new Rect(editIconX, titleRect.y + (titleHeight - iconSize) / 2f, iconSize, iconSize);
 
             // Draw & handle click
-            if (psycheEnabled)
+            if (psycheEnabled && Prefs.DevMode)
             {
                 if (Widgets.ButtonImage(editIconRect, Rimpsyche_UI_Utility.EditButton))
                 {
                     editInterestOn = !editInterestOn;
+                    if (!editInterestOn && showPreference)
+                    {
+                        resetPreferenceHeights = true;
+                    }
                 }
                 TooltipHandler.TipRegion(editIconRect, "RimpsycheEdit".Translate());
             }
@@ -277,22 +410,46 @@ namespace Maux36.RimPsyche
             Text.Font = GameFont.Small;
 
             Rect scrollRect = new Rect(innerRect.x, titleRect.yMax + titleContentSpacing, innerRect.width, innerRect.height - (titleRect.height + titleContentSpacing));
-            Rect viewRect = new Rect(0f, 0f, scrollRect.width - scrollBarWidth, preferenceViewHeight);
-
-            Widgets.BeginScrollView(scrollRect, ref InterestNodeScrollPosition, viewRect);
-            float y = 0f;
-
             var allPrefDefs = DefDatabase<PreferenceDef>.AllDefsListForReading;
-            for (int i = 0; i < allPrefDefs.Count; i++)
+            if (editInterestOn || RimpsycheSettings.showDeatiledPreference)
             {
-                var pref = allPrefDefs[i];
-                if (!pref.isActive)
-                    continue;
-                var worker = pref.worker;
-                var rectHeight = worker.EditorHeight;
-                Rect prefRect = new Rect(0f, y, viewRect.width, rectHeight);
-                worker.DrawEditor(prefRect, pawn, editInterestOn);
-                y += rectHeight + RimpsycheDatabase.preferenceGap;
+                Rect viewRect = new Rect(0f, 0f, scrollRect.width - scrollBarWidth, preferenceViewHeight);
+
+                Widgets.BeginScrollView(scrollRect, ref InterestNodeScrollPosition, viewRect);
+                float y = 0f;
+                for (int i = 0; i < allPrefDefs.Count; i++)
+                {
+                    var pref = allPrefDefs[i];
+                    if (!pref.isActive)
+                        continue;
+                    var worker = pref.worker;
+                    var rectHeight = worker.EditorHeight;
+                    Rect prefRect = new Rect(0f, y, viewRect.width, rectHeight);
+                    worker.DrawEditor(prefRect, pawn, editInterestOn);
+                    y += rectHeight + RimpsycheDatabase.preferenceGap;
+                }
+            }
+            else
+            {
+                float totalContentHeight = 0f;
+                var viewerHeights = GetViewerHeights(pawn);
+                foreach (var height in viewerHeights)
+                {
+                    totalContentHeight += height + 5f;
+                }
+                Rect scrollContentRect = new Rect(0f, 0f, scrollRect.width - scrollBarWidth, totalContentHeight);
+                Widgets.BeginScrollView(scrollRect, ref InterestNodeScrollPosition, scrollContentRect);
+                float y = 0f;
+                for (int i = 0; i < allPrefDefs.Count; i++)
+                {
+                    if (!allPrefDefs[i].isActive)
+                        continue;
+                    var worker = allPrefDefs[i].worker;
+                    float viewerHeight = viewerHeights[i];
+                    Rect prefExplanationRect = new Rect(0f, y, scrollRect.width, viewerHeight);
+                    worker.DrawViewer(prefExplanationRect, pawn);
+                    y += viewerHeight + 5f;
+                }
             }
             Widgets.EndScrollView();
             Text.Anchor = oldAnchor;
@@ -319,7 +476,7 @@ namespace Maux36.RimPsyche
             Rect editIconRect = new Rect(editIconX, titleRect.y + (titleHeight - iconSize) / 2f, iconSize, iconSize);
 
             // Draw & handle click
-            if (psycheEnabled)
+            if (psycheEnabled && Prefs.DevMode)
             {
                 if (Widgets.ButtonImage(editIconRect, Rimpsyche_UI_Utility.EditButton))
                 {
@@ -347,6 +504,7 @@ namespace Maux36.RimPsyche
 
             Rect scrollRect = new Rect(innerRect.x, titleRect.yMax + titleContentSpacing, innerRect.width, innerRect.height - (titleRect.height + titleContentSpacing));
             Rect viewRect = new Rect(0f, 0f, scrollRect.width - scrollBarWidth, interestViewHeight);
+            var interestBarWidth = viewRect.width - interestLabelWidth - 2 * interestLabelPadding;
 
             Widgets.BeginScrollView(scrollRect, ref InterestNodeScrollPosition, viewRect);
             float y = 0f;
@@ -367,8 +525,6 @@ namespace Maux36.RimPsyche
                 Rect leftRect = new Rect(rowRect.x + interestLabelPadding, centerY - Text.LineHeight / 2f, interestLabelWidth, Text.LineHeight);
                 Text.Anchor = TextAnchor.MiddleLeft;
                 Widgets.Label(leftRect, interest.label);
-
-
                 if (editInterestOn)
                 {
                     float minValue = 0f;
@@ -435,7 +591,7 @@ namespace Maux36.RimPsyche
             Rect editIconRect = new Rect(infoIconRect.xMax + iconSpacing, titleRect.y + (titleHeight - iconSize) / 2f, iconSize, iconSize);
 
             // Draw & handle click
-            if (psycheEnabled)
+            if (psycheEnabled && Prefs.DevMode)
             {
                 if (Widgets.ButtonImage(editIconRect, Rimpsyche_UI_Utility.EditButton))
                 {
@@ -518,7 +674,7 @@ namespace Maux36.RimPsyche
 
                     // Color based on intensity (small = yellow, strong = green)
                     float intensity = Mathf.Abs(clamped) * 2f;
-                    Color barColor = Color.Lerp(Color.yellow, Color.green, intensity);
+                    Color barColor = Color.Lerp(LowValueColor, HighValueColor, intensity);
                     Widgets.DrawBoxSolid(valueRect, barColor);
                 }
 
@@ -555,7 +711,7 @@ namespace Maux36.RimPsyche
                 resetButtonSize,
                 resetButtonSize
             );
-            if (psycheEnabled)
+            if (psycheEnabled && Prefs.DevMode)
             {
                 if (Widgets.ButtonImage(resetButtonRect, Rimpsyche_UI_Utility.resetIcon))
                 {
@@ -583,7 +739,7 @@ namespace Maux36.RimPsyche
             Rect editIconRect = new Rect(infoIconRect.xMax + iconSpacing, titleRect.y + (titleHeight - iconSize) / 2f, iconSize, iconSize);
 
             // Draw & handle click
-            if (psycheEnabled && RimpsycheSettings.allowFacetEdit)
+            if (psycheEnabled && RimpsycheSettings.allowFacetEdit && Prefs.DevMode)
             {
                 if (Widgets.ButtonImage(editIconRect, Rimpsyche_UI_Utility.EditButton))
                 {
@@ -594,19 +750,20 @@ namespace Maux36.RimPsyche
 
             Text.Anchor = TextAnchor.UpperLeft;
             Text.Font = GameFont.Small;
-
-            Rect saveButtonRect = new Rect(
-                titleRect.xMax - resetButtonSize - resetButtonMargin - scrollBarWidth,
-                titleRect.y + (titleRect.height - resetButtonSize) / 2f,
-                resetButtonSize,
-                resetButtonSize
-            );
-            if (Widgets.ButtonImage(saveButtonRect, Rimpsyche_UI_Utility.SaveLoadButton))
+            if ( Prefs.DevMode)
             {
-                ShowSlotSelectMenu(pawn);
+                Rect saveButtonRect = new Rect(
+                    titleRect.xMax - resetButtonSize - resetButtonMargin - scrollBarWidth,
+                    titleRect.y + (titleRect.height - resetButtonSize) / 2f,
+                    resetButtonSize,
+                    resetButtonSize
+                );
+                if (Widgets.ButtonImage(saveButtonRect, Rimpsyche_UI_Utility.SaveLoadButton))
+                {
+                    ShowSlotSelectMenu(pawn);
+                }
+                TooltipHandler.TipRegion(saveButtonRect, "SavePsycheTooltip".Translate());
             }
-            TooltipHandler.TipRegion(saveButtonRect, "SavePsycheTooltip".Translate());
-
 
             Rect viewRect = new Rect(0f, 0f, innerRect.width - scrollBarWidth, facetViewHeight);
             Rect scrollRect = new Rect(innerRect.x, titleRect.yMax + 5f, innerRect.width, innerRect.height - (titleRect.height + 5f));

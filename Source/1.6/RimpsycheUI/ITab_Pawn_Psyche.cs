@@ -18,6 +18,7 @@ namespace Maux36.RimPsyche
         {
             get
             {
+                if (!RimpsycheSettings.usePsycheTab) return false;
                 Pawn pawn = IsVisiblePawnHook(PawnToShowInfoAbout);
                 return pawn.compPsyche() != null;
             }

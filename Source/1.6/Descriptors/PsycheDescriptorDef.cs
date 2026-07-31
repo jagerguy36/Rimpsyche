@@ -20,6 +20,7 @@ namespace Maux36.RimPsyche
         public string positiveLabel;
         public string negativeLabel;
 
+        //Score 0 does not appear at all.
         //Under threshold 0~1 | lvl 0
         public float threshold; // 1->2 | lvl 1
         public float strongThreshold; // 2->3 | lvl 2
@@ -30,6 +31,9 @@ namespace Maux36.RimPsyche
         public string positiveDescription;
         public string neutralDescription;
         public string negativeDescription;
+
+        [Unsaved(false)]
+        public bool showEffect = false;
 
         //
         public Type workerClass = typeof(PsycheDescriptorWorker);

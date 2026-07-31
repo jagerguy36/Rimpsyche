@@ -25,7 +25,7 @@ namespace Maux36.RimPsyche
         public static Vector2 InterestScrollPosition = Vector2.zero;
         public static Color barBackgroundColor = new Color(0.2f, 0.2f, 0.2f, 0.5f);
         public static Color lightGreyColor = new Color(0.5f, 0.5f, 0.5f, 0.75f);
-        public static Color barSurplusBackgroundColor = new Color(0.2f, 0.2f, 0.2f, 0.1f);
+        public static Color barSurplusBackgroundColor = new Color(0.2f, 0.2f, 0.2f, 0.3f);
         public static Color radarFillColor = new Color(0.5f, 1f, 0.5f, 0.6f);
         public static Color radarHighlightColor = new Color(0.6f, 0.6f, 0.6f, 0.5f);
         public static Color radarEdgeColor = new Color(0.5f, 0.5f, 0.5f, 0.6f);
@@ -34,12 +34,24 @@ namespace Maux36.RimPsyche
         public static Color LowValueColor = Color.grey;
         public static Color HighValueColor = Color.green;
 
-        public static Color LowInterestColor = Color.blue;
-        public static Color HighInterestColor = Color.magenta;
+        public static Color LowInterestColor = new Color(0.6f, 0.55f, 0.65f, 0.5f);
+        public static Color HighInterestColor = new Color(0.95f, 0.9f, 0.1f, 1f);
 
-        public static Color LowSexualityBarColor = Color.yellow;
-        public static Color HighSexualityBarColor = Color.green;
-        public static Color HyperSexualityBarColor = Color.cyan;
+        public static Color LowSexualityBarColor = new Color(0.75f, 0.65f, 0.8f, 0.5f);
+        public static Color HighSexualityBarColor = new Color(1f, 0.4f, 0.6f, 1f);
+        public static Color HyperSexualityBarColor = new Color(0.9f, 0.15f, 0.25f, 1f);
+        //public static Color maleHyperColor = new Color(0f, 0.15f, 0.6f, 1f);
+        //public static Color maleHighColor = new Color(0.1f, 0.3f, 0.7f, 1f);
+        //public static Color maleLowolor = new Color(0.4f, 0.7f, 0.9f, 1f);
+        //public static Color femaleHyperColor = new Color(0.6f, 0f, 0.15f, 1f);
+        //public static Color femaleHighColor = new Color(0.7f, 0.1f, 0.3f, 1f);
+        //public static Color femaleLowolor = new Color(0.9f, 0.4f, 0.7f, 1f);
+        public static Color maleLowolor = Color.grey;
+        public static Color maleHighColor = Color.green;
+        public static Color maleHyperColor = Color.cyan;
+        public static Color femaleLowolor = Color.grey;
+        public static Color femaleHighColor = Color.green;
+        public static Color femaleHyperColor = Color.cyan;
 
         private const int SummaryRowCount = 3;
         private const int HalfSummaryRowCount = 2;
@@ -50,6 +62,7 @@ namespace Maux36.RimPsyche
         public static readonly float innerPadding = 5f;
         public static readonly float scrollWidth = 20f;
         public static readonly float iconSize = 15f;
+        public static readonly float psycheIconSize = 24f;
         public static readonly float iconSpacing = 6f;
         public static readonly float expandButtonSize = 8f;
         public static readonly float expandButtonAreaWidth = 12f;
@@ -1035,13 +1048,17 @@ namespace Maux36.RimPsyche
             float leftY = leftRect.y;
             float rightY = rightRect.y;
 
-
             if (!RimpsycheSettings.ShowDispositionSummary)
             {
                 // Unified
                 Widgets.Label(new Rect(rect.x, rect.y, rect.width, 22f), "RPC_PersonalitySnapshot".Translate());
+                if (!RimpsycheSettings.usePsycheTab)
+                {
+                    float psycheIconX = rect.xMax - psycheIconSize;
+                    Rect psycheIconRect = new Rect(psycheIconX, rect.y + 11f - psycheIconSize * 0.5f, psycheIconSize, psycheIconSize);
+                    Rimpsyche_UI_Utility.DrawEditButton(psycheIconRect, pawn);
+                }
                 leftY += 24f;
-
                 GUI.color = LineColor;
                 Widgets.DrawLineHorizontal(rect.x, leftY, rect.width);
                 GUI.color = originalColor;
@@ -1052,6 +1069,12 @@ namespace Maux36.RimPsyche
             {
                 // left
                 Widgets.Label(new Rect(leftRect.x, leftY, leftRect.width, 22f), "RPC_PersonalitySnapshot".Translate());
+                if (!RimpsycheSettings.usePsycheTab)
+                {
+                    float psycheIconX = leftRect.xMax - psycheIconSize;
+                    Rect psycheIconRect = new Rect(psycheIconX, leftRect.y + 11f - psycheIconSize * 0.5f, psycheIconSize, psycheIconSize);
+                    Rimpsyche_UI_Utility.DrawEditButton(psycheIconRect, pawn);
+                }
                 leftY += 24f;
 
                 GUI.color = LineColor;
@@ -1172,30 +1195,22 @@ namespace Maux36.RimPsyche
             TextAnchor oldAnchor = Text.Anchor;
             GameFont oldFont = Text.Font;
 
-            // === Header Config ===
             float contentStartY = sexualityRect.y + sexualityHeaderHeight; // Starting Y for content below header
-
-            // === Draw Header ===
             Rect headerRect = new Rect(sexualityRect.x, sexualityRect.y, sexualityRect.width, sexualityHeaderHeight);
             GUI.BeginGroup(headerRect);
 
-            // Title: "Sexuality"
             Text.Font = GameFont.Medium;
             Text.Anchor = TextAnchor.MiddleCenter;
             Rect titleRect = new Rect(0f, 0f, headerRect.width, headerRect.height);
             Widgets.Label(titleRect, "RPC_Sexuality".Translate());
 
             GUI.EndGroup();
+            GUI.BeginGroup(new Rect(sexualityRect.x, contentStartY, sexualityRect.width - scrollWidth, sexualityRect.height - headerHeight));
 
-            // === Draw Details ===
-            GUI.BeginGroup(new Rect(sexualityRect.x, contentStartY, sexualityRect.width, sexualityRect.height - headerHeight));
+            Text.Font = GameFont.Small;
+            Text.Anchor = TextAnchor.MiddleLeft;
 
-            Text.Font = GameFont.Small; // Set font for the details
-            Text.Anchor = TextAnchor.MiddleLeft; // Align text to the left
-
-            // Name
             float y = 0f;
-            // Sexuality
             Rect sexualityLabelRect = new Rect(0f, y, sexualityLabelWidth, sexualityLineHeight);
             Rect sexualityDescRect = new Rect(sexualityLabelWidth + sexualityBarMargin, y, sexualityRect.width - (sexualityLabelWidth + sexualityBarMargin), sexualityLineHeight);
             Rect sexualityAllRect = new Rect(0f, y, sexualityRect.width, sexualityLineHeight);
@@ -1221,8 +1236,8 @@ namespace Maux36.RimPsyche
             float mAttraction = compPsyche.Sexuality.GetAdjustedAttractionToGender(Gender.Male);
             Rect mValueRect = new Rect(maleBarRect.x, maleBarRect.y, mAttraction * barWidth, sexualityBarHeight);
             Color mColor;
-            if (mAttraction <= 1) mColor = Color.Lerp(LowSexualityBarColor, HighSexualityBarColor, mAttraction);
-            else mColor = Color.Lerp(HighSexualityBarColor, HyperSexualityBarColor, -1.25f + 1.5f * mAttraction);
+            if (mAttraction <= 1) mColor = Color.Lerp(maleLowolor, maleHighColor, mAttraction);
+            else mColor = Color.Lerp(maleHighColor, maleHyperColor, -1.25f + 1.5f * mAttraction);
             Widgets.DrawBoxSolid(mValueRect, mColor);
             Widgets.DrawLineVertical(maleBarRect.xMax, maleBarRect.y - 1, maleBarRect.height + 2);
             if (Mouse.IsOver(maleAllRect))
@@ -1244,8 +1259,8 @@ namespace Maux36.RimPsyche
             float fAttraction = compPsyche.Sexuality.GetAdjustedAttractionToGender(Gender.Female);
             Rect fValueRect = new Rect(femaleBarRect.x, femaleBarRect.y, fAttraction * barWidth, sexualityBarHeight);
             Color fColor;
-            if (fAttraction <= 1) fColor = Color.Lerp(LowSexualityBarColor, HighSexualityBarColor, fAttraction);
-            else fColor = Color.Lerp(HighSexualityBarColor, HyperSexualityBarColor, -1.25f + 1.5f * fAttraction);
+            if (fAttraction <= 1) fColor = Color.Lerp(femaleLowolor, femaleHighColor, fAttraction);
+            else fColor = Color.Lerp(femaleHighColor, femaleHyperColor, -1.25f + 1.5f * fAttraction);
             Widgets.DrawBoxSolid(fValueRect, fColor);
             Widgets.DrawLineVertical(femaleBarRect.xMax, femaleBarRect.y - 1, femaleBarRect.height + 2);
             if (Mouse.IsOver(femaleAllRect))
@@ -1278,8 +1293,6 @@ namespace Maux36.RimPsyche
             y += sexualityLineHeight;
 
             GUI.EndGroup();
-
-            // Reset text settings
             Text.Anchor = oldAnchor;
             Text.Font = oldFont;
 
@@ -1293,7 +1306,6 @@ namespace Maux36.RimPsyche
             GameFont oldFont = Text.Font;
             bool preferenceView = showPreference && showSexuality;
 
-            // === Draw Header ===
             Rect headerRect = new Rect(interestRect.x, interestRect.y, interestRect.width, headerHeight);
             GUI.BeginGroup(headerRect);
 
@@ -1353,7 +1365,7 @@ namespace Maux36.RimPsyche
 
                 float y = 0f;
                 var allPrefDefs = DefDatabase<PreferenceDef>.AllDefsListForReading;
-                for(int i = 0; i < allPrefDefs.Count; i++)
+                for (int i = 0; i < allPrefDefs.Count; i++)
                 {
                     if (!allPrefDefs[i].isActive)
                         continue;

@@ -29,7 +29,7 @@ namespace Maux36.RimPsyche
         protected abstract void Evaluate(StringBuilder ctx, CompPsyche compPsyche, float score);
         protected void Blame(StringBuilder ctx, CompPsyche compPsyche, PersonalityDef personality, PsycheDescDirection direction = PsycheDescDirection.Positive)
         {
-            ctx.AppendLine($"  {GetBlameString(compPsyche, personality, direction)}");
+            ctx.AppendLine($"  {GetBlameString(compPsyche, personality, direction, descriptorDef.showEffect)}");
         }
 
         //For built
@@ -114,7 +114,7 @@ namespace Maux36.RimPsyche
             return new string('●', filled) + new string('○', maxLevel - filled);
         }
 
-        protected string GetBlameString(CompPsyche compPsyche, PersonalityDef personality, PsycheDescDirection direction)
+        protected string GetBlameString(CompPsyche compPsyche, PersonalityDef personality, PsycheDescDirection direction, bool registerEffect = true)
         {
             float value = compPsyche.Personality.GetPersonality(personality);
             bool aligned = false;
@@ -151,7 +151,7 @@ namespace Maux36.RimPsyche
                 impactDirection = PsycheDescDirection.Neutral;
             }
             string descriptionColorCode = ColorUtility.ToHtmlStringRGBA(Color.Lerp(Color.gray, targetColor, Mathf.Abs(bNormalizedAbsValue * 0.4f)));
-            if (!string.IsNullOrEmpty(bDescription))
+            if (registerEffect && !string.IsNullOrEmpty(bDescription))
             {
                 var impactDesc = impactDirection switch
                 {

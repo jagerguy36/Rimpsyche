@@ -8,41 +8,51 @@
 
   <!-- Settings -->
   <RimpsycheGeneralSetting>RimPsyche General Settings</RimpsycheGeneralSetting>
-  <RimpsychePsycheTabSetting>Psyche Tab Settings</RimpsychePsycheTabSetting>
   <RimpsycheBioTabSetting>Bio Tab Summary Settings</RimpsycheBioTabSetting>
+  <RimpsychePsycheTabSetting>Psyche Tab Settings</RimpsychePsycheTabSetting>
   <RimpsychePersonalityViewSetting>Personality Presentation Settings</RimpsychePersonalityViewSetting>
   <RimpsycheMiscSetting>Misc Settings</RimpsycheMiscSetting>
 
   <!-- Psyche Tab -->
-  <RimpsycheShowDispositionInTab>Show Disposition in Psyche Tab</RimpsycheShowDispositionInTab>
-  <RimpsycheShowDispositionInTabTooltip>Allow the full list of dispositions to be viewed in the Psyche tab.\n\nWARNING: Disposition UI is intended for a quick overview, not a complete list. Many gameplay effects are omitted or combined for readability.</RimpsycheShowDispositionInTabTooltip>
-  <RimpsycheShowFacetInMenu>Show Facets in Psyche Tab</RimpsycheShowFacetInMenu>
-  <RimpsycheShowFacetInMenuTooltip>Allow facets to be viewed in the Psyche tab.\n\nWARNING: Intended for development purposes. Facets represent a pawn's underlying personality before being modified by traits and other factors, not their expressed personality.</RimpsycheShowFacetInMenuTooltip>
-  <RimpsycheShowFacetGraph>Show Facet Radar Chart in Psyche Tab</RimpsycheShowFacetGraph>
-  <RimpsycheShowFacetGraphTooltip>Show the Facet Radar Chart in the Psyche tab.\n\nWARNING: Intended for development purposes. Facets represent a pawn's underlying personality before being modified by traits and other factors, not their expressed personality.</RimpsycheShowFacetGraphTooltip>
+  <RimpsycheUsePsycheTab>Show Psyche tab</RimpsycheUsePsycheTab>
+  <RimpsycheUsePsycheTabTooltip>Displays a dedicated Psyche tab on pawns. Full psyche info can still be accessed via a Bio tab when turned off.</RimpsycheUsePsycheTabTooltip>
 
-  <!-- Bio Tab Summary -->
-  <RimpsycheShowSummaryInBio>Show Summary on Bio Tab</RimpsycheShowSummaryInBio>
-  <RimpsycheShowSummaryInBioTooltip>Show a personality summary at the bottom of the Bio tab.</RimpsycheShowSummaryInBioTooltip>
-  <RimpsycheShowDispositionInSummary>Show Disposition in Summary</RimpsycheShowDispositionInSummary>
-  <RimpsycheShowDispositionInSummaryTooltip>Show the pawn's most noticeable dispositions in the Bio tab summary.</RimpsycheShowDispositionInSummaryTooltip>
+  <!-- Bio Tab Summary Settings -->
+  <RimpsycheHideSummaryInBio>Hide summary on Bio tab</RimpsycheHideSummaryInBio>
+  <RimpsycheHideSummaryInBioTooltip>Removes the personality summary from the bottom of the Bio tab.</RimpsycheHideSummaryInBioTooltip>
+  <RimpsycheShowDispositionInSummary>Show dispositions in summary</RimpsycheShowDispositionInSummary>
+  <RimpsycheShowDispositionInSummaryTooltip>Includes the pawn's most prominent dispositions in the Bio tab summary.</RimpsycheShowDispositionInSummaryTooltip>
+  
+  <!-- Psyche Tab Settings -->
+  <RimpsycheShowDispositionInTab>[Dev] Show dispositions in Psyche tab</RimpsycheShowDispositionInTab>
+  <RimpsycheShowDispositionInTabTooltip>Displays the full list of dispositions in the Psyche tab.\n\nWARNING: Dispositions are simplified for quick summaries. This list does not reflect all active gameplay mechanics and effects.</RimpsycheShowDispositionInTabTooltip>
+  <RimpsycheShowFacetInMenu>[Dev] Show Facets in Psyche Tab</RimpsycheShowFacetInMenu>
+  <RimpsycheShowFacetInMenuTooltip>Displays underlying Facets in the Psyche tab.\n\nWARNING: Facets represent a pawn's base personality before being modified by traits and other factors. They do not represent expressed personality and should not be taken as such.</RimpsycheShowFacetInMenuTooltip>
+  <RimpsycheShowFacetGraph>[Dev] Show Facet Radar Chart in Psyche Tab</RimpsycheShowFacetGraph>
+  <RimpsycheShowFacetGraphTooltip>Displays a radar chart of personality facets in the Psyche tab.\n\nWARNING: Facets represent a pawn's base personality before being modified by traits and other factors. They do not represent expressed personality and should not be taken as such.</RimpsycheShowFacetGraphTooltip>
 
   <!-- Personality Description -->
-  <RimpsycheShowEffectInDescription>Show Gameplay Effects in Personality</RimpsycheShowEffectInDescription>
-  <RimpsycheShowEffectInDescriptionTooltip>Show gameplay effects in each personality node descriptions.\n\nWARNING: Effects shown here are incomplete and can be misleading. It should not be treated as a full explanation.</RimpsycheShowEffectInDescriptionTooltip>
-  <RimpsycheShowThoughtTagEffects>Show Thought Tag Effects in Personality</RimpsycheShowThoughtTagEffects>
-  <RimpsycheShowThoughtTagEffectsTooltip>Show Individual Thought tag effect with gameplay effects.\n\nWARNING: Thought tags shown here are incomplete and can be misleading. It should not be treated as a full explanation.</RimpsycheShowThoughtTagEffectsTooltip>
   <RimpsychePersonalityAsBars>Show Personality Values as Bars</RimpsychePersonalityAsBars>
-  <RimpsychePersonalityAsBarsTooltip>Show Personality Values as Bars</RimpsychePersonalityAsBarsTooltip>
+  <RimpsychePersonalityAsBarsTooltip>Displays personality values using bars instead of descriptive text labels.</RimpsychePersonalityAsBarsTooltip>
+  <RimpsycheShowEffectInDescription>Show Gameplay Effects in Personality</RimpsycheShowEffectInDescription>
+  <RimpsycheShowEffectInDescriptionTooltip>Displays associated gameplay effects inside each personality node's description.\n\nWARNING: Personality effects are simplified for readability and do not reflect all active gameplay mechanics.</RimpsycheShowEffectInDescriptionTooltip>
+  <RimpsycheDescriptionEffectToggle>Effects to display in descriptions</RimpsycheDescriptionEffectToggle>
 
   <!-- Misc -->
-  <RimpsycheAllowFacetEdit>Enable Facet Editing</RimpsycheAllowFacetEdit>
-  <RimpsycheAllowFacetEditTooltip>Allow facets to be edited directly.\n\nWARNING: Intended for development purposes. Facets represent a pawn's underlying personality before being modified by traits and other factors, not their expressed personality.</RimpsycheAllowFacetEditTooltip>
-  <RimpsycheConfirmLoadSave>Confirm Before Loading/Saving Psyche</RimpsycheConfirmLoadSave>
-  <RimpsycheConfirmLoadSaveTooltip>Show a confirmation pop-up before overwriting or loading pawn Psyche.</RimpsycheConfirmLoadSaveTooltip>
+  <RimpsycheAllowFacetEdit>[Dev] Enable facet editing</RimpsycheAllowFacetEdit>
+  <RimpsycheAllowFacetEditTooltip>Allows facets to be edited directly.\n\nWARNING: Facets represent a pawn's base personality before being modified by traits and other factors. They do not represent expressed personality and should not be taken as such.</RimpsycheAllowFacetEditTooltip>
+
+  <RimpsycheConfirmLoadSave>Confirm before loading/saving Psyche</RimpsycheConfirmLoadSave>
+  <RimpsycheConfirmLoadSaveTooltip>Displays a confirmation pop-up before overwriting or loading a pawn's Psyche.</RimpsycheConfirmLoadSaveTooltip>
 
   <RimpsycheDefaultSetting>Default</RimpsycheDefaultSetting>
 
+
+  <!-- Descriptors -->
+  <RP_Desc_Conversation>Conversation Effecst</RP_Desc_Conversation>
+  <RP_Desc_ThoughtTag>Thought Tags</RP_Desc_ThoughtTag>
+  <RP_Desc_Gameplay>Gameplay</RP_Desc_Gameplay>
+  <RP_Desc_Romance>Romance</RP_Desc_Romance>
 
   <!-- Title -->
   <RPC_Personality>Personality</RPC_Personality>

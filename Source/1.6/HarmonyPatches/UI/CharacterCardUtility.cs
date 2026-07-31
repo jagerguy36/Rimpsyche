@@ -42,7 +42,7 @@ namespace Maux36.RimPsyche
     {
         private static void Prefix(ref Rect leftRect, Pawn pawn)
         {
-            if (!RimpsycheSettings.showSummaryInBio)
+            if (!RimpsycheSettings.ShowSummaryInBio)
                 return;
             CompPsyche compPsyche = pawn?.compPsyche();
             if (compPsyche != null)
@@ -57,7 +57,7 @@ namespace Maux36.RimPsyche
     {
         private static void Postfix(Rect rect, Pawn pawn)
         {
-            if (!RimpsycheSettings.showSummaryInBio)
+            if (!RimpsycheSettings.ShowSummaryInBio)
                 return;
             CompPsyche compPsyche = pawn?.compPsyche();
             if (compPsyche != null)
@@ -74,7 +74,7 @@ namespace Maux36.RimPsyche
     {
         private static void Postfix(ref Vector2 __result, Pawn pawn)
         {
-            if (!RimpsycheSettings.showSummaryInBio)
+            if (!RimpsycheSettings.ShowSummaryInBio)
                 return;
             CompPsyche compPsyche = pawn?.compPsyche();
             if (compPsyche != null)
