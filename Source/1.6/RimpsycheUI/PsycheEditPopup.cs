@@ -19,15 +19,19 @@ namespace Maux36.RimPsyche
             personalityLabelWidth = RimpsycheDatabase.maxPersonalityLabelWidth;
             personalityWidthDiff = 2f * (personalityLabelWidth - 130f);
             personalityViewHeight = DefDatabase<PersonalityDef>.AllDefsListForReading.Count * personalityRowHeight;
-            intensityRectWidth = RimpsycheDatabase.intensityRectWidth;
+            intensityRectWidth = RimpsycheDatabase.dispositionIntensityWidth;
 
             interestLabelWidth = RimpsycheDatabase.maxInterestLabelWidth;
             interestWidthDiff = (interestLabelWidth - 130f);
             interestViewHeight = RimpsycheDatabase.InterestList.Count * interestRowHeight;
 
             leftRectWidth = 330f + facetWidthDiff;
-            midRectWidth = 360f + personalityWidthDiff;
-            rightRectWidth = 240f + interestWidthDiff;
+            midRectWidth = 380f + personalityWidthDiff;
+            kinseyLabelWidth = Text.CalcSize("RPC_Kinsey".Translate()).x + 20f;
+            var sexualityLabelDiff = RimpsycheDatabase.maxEditSexualityLabelWidth - 100f;
+            rightRectWidth = 240f + Mathf.Max(interestWidthDiff, sexualityLabelDiff);
+            rightRectWidth = Mathf.Max(kinseyLabelWidth + RimpsycheDatabase.orientationLabelWidth + 10f, rightRectWidth);
+            //rightRectWidth = Mathf.Max(rightRectWidth, RimpsycheDatabase.maxSexualityLabelWidth + 10f + RimpsycheDatabase.orientationLabelWidth);
             totalBaseSize = midRectWidth + rightRectWidth + baseMargin;
             totalFullSize = leftRectWidth + midRectWidth + rightRectWidth + baseMargin;
         }
@@ -100,7 +104,7 @@ namespace Maux36.RimPsyche
         public static readonly float personalityViewHeight;
         public static readonly float intensityRectWidth;
         public static readonly float personalityLabelPadding = 2f;
-        public static readonly float personalityBarWidth = 100f;
+        public static readonly float personalityBarWidth = 90f;
         public static readonly float personalityBarHeight = 4f;
         public static Color LowValueColor = Color.grey;
         public static Color HighValueColor = Color.green;
@@ -232,6 +236,7 @@ namespace Maux36.RimPsyche
 
         //Sexuality
         public static bool editSexualityOn = false;
+        public static readonly float kinseyLabelWidth;
         public static readonly float sexualityContentHeight = 160f;
         public static readonly float sexualityRowHeight = 30f;
         public static readonly float sexualityBarHeight = 4f;
@@ -381,11 +386,11 @@ namespace Maux36.RimPsyche
             }
 
 
-            Rect ContentRect = new Rect(innerRect.x, titleRect.yMax, innerRect.width - scrollBarWidth, innerRect.height - titleHeight);
-            float maxSexualityLabelWidth = Math.Max(Text.CalcSize(kinseyLabel).x, Math.Max(Text.CalcSize(maxAttractionLabel).x, Text.CalcSize(sexDriveLabel).x)) + 5f;
+            Rect ContentRect = new Rect(innerRect.x, titleRect.yMax, innerRect.width, innerRect.height - titleHeight);
+            float maxSexualityLabelWidth = RimpsycheDatabase.maxEditSexualityLabelWidth + 5f;
             float sliderWidth = ContentRect.width - maxSexualityLabelWidth;
 
-            Rect KinseyLabelRect = new Rect(ContentRect.x, ContentRect.y, maxSexualityLabelWidth, sexualityRowHeight);
+            Rect KinseyLabelRect = new Rect(ContentRect.x, ContentRect.y, kinseyLabelWidth, sexualityRowHeight);
             Widgets.Label(KinseyLabelRect, kinseyLabel + ": ");
             Rect KinseyReportRect = new Rect(KinseyLabelRect.xMax, ContentRect.y, sliderWidth, sexualityRowHeight);
             Widgets.Label(KinseyReportRect, (compPsyche.Sexuality.GetOrientationReport() + $" ({compPsyche.Sexuality.GetKinseyReport()})"));// + "(" + sexuality.kinsey.ToString("F2") + ")"
