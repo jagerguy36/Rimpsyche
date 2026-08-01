@@ -187,12 +187,14 @@ namespace Maux36.RimPsyche
                         {
                             RimpsycheSettings.DescriptorTypesToShow.Add(descriptorType);
                             ToggleDescriptors();
+                            PsycheInfoCard.CacheClean();
                             //Log.Message("Enabled. DescriptorTypesToShow: " + string.Join(", ", RimpsycheSettings.DescriptorTypesToShow));
                         }
                         else
                         {
                             RimpsycheSettings.DescriptorTypesToShow.Remove(descriptorType);
                             ToggleDescriptors();
+                            PsycheInfoCard.CacheClean();
                             //Log.Message("Disabled. DescriptorTypesToShow: " + string.Join(", ", RimpsycheSettings.DescriptorTypesToShow));
                         }
                     }
@@ -237,6 +239,7 @@ namespace Maux36.RimPsyche
             RimpsycheSettings.confirmLoadSave = true;
             RimpsycheSettings.DescriptorTypesToShow = [.. (DescriptorType[])Enum.GetValues(typeof(DescriptorType))];
             ToggleDescriptors();
+            PsycheInfoCard.CacheClean();
         }
         public static void ToggleDescriptors()
         {
@@ -262,7 +265,6 @@ namespace Maux36.RimPsyche
                     else descDef.showEffect = false;
                 }
             }
-            PsycheInfoCard.CacheClean();
         }
     }
 }
