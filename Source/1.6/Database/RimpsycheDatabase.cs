@@ -18,6 +18,7 @@ namespace Maux36.RimPsyche
         public static Dictionary<string, Topic> TopicDict = new();
         public static Dictionary<int, Topic> TopicIdDict = new();
         public static Dictionary<string, PersonalityDef> PersonalityDict = new();
+        //public static HashSet<ushort> conditionalEffects = new();
         public static Dictionary<int, int> PersonalityOrder = new();
         public static Dictionary<int, List<(int, float, float)>> TraitScopeDatabase = new();
         public static Dictionary<int, List<FacetGate>> TraitGateDatabase = new() { };
@@ -30,12 +31,15 @@ namespace Maux36.RimPsyche
         public static float preferenceGap = 10f;
         public static Facet[] AllFacets = (Facet[])Enum.GetValues(typeof(Facet));
         public static float maxFacetLabelWidth = 130f;
-        public static float maxInterestLabelWidth = 130f;
-        public static float maxSexualityLabelWidth = 70f;
-        public static float orientationLabelWidth = 0f;
-        public static float maxRightsideLabelWidth = 130f;
         public static float maxPersonalityLabelWidth = 130f;
+        public static float maxDescriptorLabelWidth = 0f;
+        public static float maxInterestLabelWidth = 130f;
+        public static float maxSexualityTabLabelWidth = 70f;
+        public static float maxEditSexualityLabelWidth;
+        public static float orientationLabelWidth = 0f;
+        public static float maxPersonalityIntensityWidth = 0f;
         public static float totalPreferenceEditorfHeight = 0f;
+        public static float dispositionIntensityWidth;
 
         public static Dictionary<string, string> IntensityKeysDefault = new Dictionary<string, string>()
         {
@@ -56,25 +60,35 @@ namespace Maux36.RimPsyche
 
         public static void Initialize()
         {
+            Rimpsyche.ToggleDescriptors();
+            GameFont oldFont = Text.Font;
+            Text.Font = GameFont.Small;
             InteractionDefOf.Chitchat = DefOfRimpsyche.Rimpsyche_Smalltalk;
             InteractionDefOf.DeepTalk = DefOfRimpsyche.Rimpsyche_StartConversation;
             PersonalityOrder = DefDatabase<PersonalityDef>.AllDefsListForReading.Select((p, index) => new { p.shortHash, index }).ToDictionary(x => (int)x.shortHash, x =>x.index);
+            dispositionIntensityWidth = Text.CalcSize("●●●").x;
+            maxPersonalityIntensityWidth = Mathf.Max(Text.CalcSize("RimPsycheIntensityKeyNeutral".Translate()).x, maxPersonalityIntensityWidth);
+            maxPersonalityIntensityWidth = Mathf.Max(Text.CalcSize("RimPsycheIntensityKeyExtremely".Translate()).x, maxPersonalityIntensityWidth);
+            maxPersonalityIntensityWidth = Mathf.Max(Text.CalcSize("RimPsycheIntensityKeyVery".Translate()).x, maxPersonalityIntensityWidth);
+            maxPersonalityIntensityWidth = Mathf.Max(Text.CalcSize("RimPsycheIntensityKeySomewhat".Translate()).x, maxPersonalityIntensityWidth);
+            maxPersonalityIntensityWidth = Mathf.Max(Text.CalcSize("RimPsycheIntensityKeyMarginally".Translate()).x, maxPersonalityIntensityWidth);
 
             //Sexuality Label consideration
             if (Rimpsyche.SexualityModuleLoaded)
             {
                 var sexualityLabelWith = Text.CalcSize("RPC_Orientation".Translate()).x;
-                maxSexualityLabelWidth = Mathf.Max(sexualityLabelWith, maxSexualityLabelWidth);
+                maxSexualityTabLabelWidth = Mathf.Max(sexualityLabelWith, maxSexualityTabLabelWidth);
                 var maleLabelWith = Text.CalcSize("RPC_AttractionMale".Translate()).x;
-                maxSexualityLabelWidth = Mathf.Max(maleLabelWith, maxSexualityLabelWidth);
+                maxSexualityTabLabelWidth = Mathf.Max(maleLabelWith, maxSexualityTabLabelWidth);
                 var femaleLabelWith = Text.CalcSize("RPC_AttractionFemale".Translate()).x;
-                maxSexualityLabelWidth = Mathf.Max(femaleLabelWith, maxSexualityLabelWidth);
+                maxSexualityTabLabelWidth = Mathf.Max(femaleLabelWith, maxSexualityTabLabelWidth);
                 var driveLabelWith = Text.CalcSize("RPC_SexDrive".Translate()).x;
-                maxSexualityLabelWidth = Mathf.Max(driveLabelWith, maxSexualityLabelWidth);
+                maxSexualityTabLabelWidth = Mathf.Max(driveLabelWith, maxSexualityTabLabelWidth);
+                maxEditSexualityLabelWidth = Math.Max(Text.CalcSize("RPC_MaxAttraction".Translate()).x, Text.CalcSize("RPC_SexDrive".Translate()).x);
                 orientationLabelWidth = Mathf.Max(orientationLabelWidth, Text.CalcSize("RPC_Heterosexual".Translate()).x);
                 orientationLabelWidth = Mathf.Max(orientationLabelWidth, Text.CalcSize("RPC_Bisexual".Translate()).x);
                 orientationLabelWidth = Mathf.Max(orientationLabelWidth, Text.CalcSize("RPC_Homosexual".Translate()).x);
-                orientationLabelWidth = orientationLabelWidth + 35f; //: (#) length around 35
+                orientationLabelWidth += 35f; //: (#) length around 35
             }
             if (LanguageDatabase.activeLanguage.HaveTextForKey("MemoryReportString"))
             {
@@ -136,11 +150,12 @@ namespace Maux36.RimPsyche
                 }
             }
 
-            //Scope
+            //Personality 
             foreach (var personalityDef in DefDatabase<PersonalityDef>.AllDefsListForReading)
             {
                 maxPersonalityLabelWidth = Mathf.Max(maxPersonalityLabelWidth, 5f + Text.CalcSize(personalityDef.low.CapitalizeFirst()).x);
                 maxPersonalityLabelWidth = Mathf.Max(maxPersonalityLabelWidth, 5f + Text.CalcSize(personalityDef.high.CapitalizeFirst()).x);
+
                 //Check Personality weight sum
                 float absoluteWeightSum = 0f;
                 var score = personalityDef.scoreWeight;
@@ -158,6 +173,7 @@ namespace Maux36.RimPsyche
                     Log.Error($"Facet weight absolute sum for topic {personalityDef.defName} is not 1. It is {absoluteWeightSum}");
                 }
 
+                //Scope
                 var scopeList = personalityDef.scopes;
                 if (scopeList != null)
                 {
@@ -199,9 +215,16 @@ namespace Maux36.RimPsyche
                 PersonalityDict[personalityDef.defName] = personalityDef;
             }
 
+            //Disposition
+            foreach (var descriptorDef in DefDatabase<PsycheDescriptorDef>.AllDefsListForReading)
+            {
+                maxDescriptorLabelWidth = Mathf.Max(maxDescriptorLabelWidth, 5f + Text.CalcSize(descriptorDef.positiveLabel.CapitalizeFirst()).x);
+                maxDescriptorLabelWidth = Mathf.Max(maxDescriptorLabelWidth, 5f + Text.CalcSize(descriptorDef.negativeLabel.CapitalizeFirst()).x);
+            }
+
+            Text.Font = oldFont;
             if (Rimpsyche.SexualityModuleLoaded)
             {
-                maxRightsideLabelWidth = Mathf.Max(maxSexualityLabelWidth, maxInterestLabelWidth);
                 //Preference
                 var allPreference = DefDatabase<PreferenceDef>.AllDefsListForReading;
                 foreach (var pref in allPreference)
@@ -247,8 +270,8 @@ namespace Maux36.RimPsyche
             {
                 float talkativeness = tracker.GetPersonality(PersonalityDefOf.Rimpsyche_Talkativeness);
                 float playfulness = tracker.GetPersonality(PersonalityDefOf.Rimpsyche_Playfulness);
-                float gravity = Mathf.Min(0, playfulness) * Mathf.Min(0f, talkativeness) * 0.75f;
-                return 1.75f + (0.75f * talkativeness) + gravity; //1~[1.75]~2.5
+                float gravity = Mathf.Min(0, playfulness) * (Mathf.Min(0f, talkativeness) - 1f);
+                return 1.5f + 0.5f * (talkativeness + gravity); //1~[1.75]~2.5
             },
             RimpsycheFormulaManager.FormulaIdDict
         );
@@ -285,7 +308,32 @@ namespace Maux36.RimPsyche
             },
             RimpsycheFormulaManager.FormulaIdDict
         );
+        public static RimpsycheFormula InitIntentFactor = new(
+            "InitIntentFactor",
+            (tracker) =>
+            {
+                var aggressiveness = 1.7f * tracker.GetPersonality(PersonalityDefOf.Rimpsyche_Aggressiveness);
+                var coldheartedness = -1.3f * tracker.GetPersonality(PersonalityDefOf.Rimpsyche_Compassion);
+                var tension = 0.5f * tracker.GetPersonality(PersonalityDefOf.Rimpsyche_Tension);
+                var cooperationM = -0.6f * Mathf.Min(0f, tracker.GetPersonality(PersonalityDefOf.Rimpsyche_Competitiveness));
+                var sociabilityM = 0.4f * Mathf.Max(0f, tracker.GetPersonality(PersonalityDefOf.Rimpsyche_Sociability));
+                float intentFactor = (aggressiveness + coldheartedness + tension - cooperationM - sociabilityM); // -4.5~3.5
+                return intentFactor;
+            },
+            RimpsycheFormulaManager.FormulaIdDict
+        );
 
+        public static RimpsycheFormula reciNegativeChanceMultiplier = new(
+            "reciNegativeChanceMultiplier",
+            (tracker) =>
+            {
+                float securityFactor = (tracker.GetPersonality(PersonalityDefOf.Rimpsyche_Tension) - tracker.GetPersonality(PersonalityDefOf.Rimpsyche_Stability) - tracker.GetPersonality(PersonalityDefOf.Rimpsyche_Confidence)); // -3~3
+                //securityFactor = securityFactor > 0f ? 1f + (securityFactor / 30f) : 1f + (securityFactor / 10f); // 0.9~1.1
+                securityFactor = 1f + securityFactor / 30f;
+                return securityFactor;
+            },
+            RimpsycheFormulaManager.FormulaIdDict
+        );
         public static void RegisterTraitGate(Pair<string, int> traitPair, List<FacetGate> gate)
         {
             string defName = traitPair.First;

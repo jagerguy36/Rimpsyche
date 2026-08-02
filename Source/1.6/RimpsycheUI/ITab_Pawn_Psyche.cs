@@ -18,6 +18,7 @@ namespace Maux36.RimPsyche
         {
             get
             {
+                if (!RimpsycheSettings.usePsycheTab) return false;
                 Pawn pawn = IsVisiblePawnHook(PawnToShowInfoAbout);
                 return pawn.compPsyche() != null;
             }
@@ -44,12 +45,8 @@ namespace Maux36.RimPsyche
             // Get pawn
             Pawn pawn = FillTabPawnHook(PawnToShowInfoAbout);
             CompPsyche compPsyche = pawn.compPsyche();
-            Rect psycheRect = PsycheInfoCard.PsycheRect;
+            Rect psycheRect = new Rect(0f, 0f, PsycheInfoCard.PsycheRectWidth, PsycheInfoCard.PsycheRectHeight);
             psycheRect.width -= (compPsyche.Enabled && PsycheInfoCard.rightPanelVisible ? 0f : PsycheInfoCard.rightPanelWidthActual);
-            if (PsycheInfoCard.showMode !=1 )
-            {
-                psycheRect.width -= PsycheInfoCard.personalityWidthDiff;
-            }
             size = psycheRect.size;
             GUI.BeginGroup(psycheRect);
             PsycheInfoCard.DrawPsycheCard(psycheRect, pawn, compPsyche);
@@ -59,7 +56,7 @@ namespace Maux36.RimPsyche
         public override void OnOpen()
         {
             base.OnOpen();
-            PsycheInfoCard.CacheClean();
+            //PsycheInfoCard.CacheClean();
             PsycheInfoCard.PersonalityScrollPosition = Vector2.zero;
             PsycheInfoCard.InterestScrollPosition = Vector2.zero;
         }

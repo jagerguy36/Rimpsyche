@@ -56,7 +56,21 @@ namespace Maux36.RimPsyche
                 res = (adjA * adjA * adjA) - 1f;
                 return res;
             }
-
+        }
+        public static float AsMult(float p, float mult)
+        {
+            if (p >= 0f)
+            {
+                if (mult < 1f)
+                    return 1f / (1f + ((1f / mult) - 1f) * p);
+                return 1f + (mult - 1f) * p;
+            }
+            else
+            {
+                if (mult < 1f)
+                    return 1f - ((1f / mult) - 1f) * p;
+                return 1f / (1f - (mult - 1f) * p);
+            }
         }
         public static float SaddleShapeFunction(float x, float y, float controversiality = 1f)
         {
@@ -364,37 +378,37 @@ namespace Maux36.RimPsyche
         }
 
         //For General report
+        public static string GetPersonalityIntensity(float value)
+        {
+            float absValue = Mathf.Abs(value);
+            string intensityKey = absValue switch
+            {
+                >= 0.75f => "RimPsycheIntensityKeyExtremely",
+                >= 0.50f => "RimPsycheIntensityKeyVery",
+                >= 0.25f => "RimPsycheIntensityKeySomewhat",
+                >  0.00f => "RimPsycheIntensityKeyMarginally",
+                _        => "RimPsycheIntensityKeyNeutral"
+            };
+            return intensityKey.Translate();
+        }
         public static string GetPersonalityDesc(PersonalityDef personality, float value)
         {
             float absValue = Mathf.Abs(value);
-            string intensityKey = "RimPsycheIntensityNeutral";
-            if (absValue >= 0.75f)
+            string intensityKey = absValue switch
             {
-                intensityKey = "RimPsycheIntensityExtremely";
-            }
-            else if (absValue >= 0.5f)
-            {
-                intensityKey = "RimPsycheIntensityVery";
-            }
-            else if (absValue >= 0.25f)
-            {
-                intensityKey = "RimPsycheIntensitySomewhat";
-            }
-            else if (absValue > 0f)
-            {
-                intensityKey = "RimPsycheIntensityMarginally";
-            }
+                >= 0.75f => "RimPsycheIntensityExtremely",
+                >= 0.50f => "RimPsycheIntensityVery",
+                >= 0.25f => "RimPsycheIntensitySomewhat",
+                >  0.00f => "RimPsycheIntensityMarginally",
+                _        => "RimPsycheIntensityNeutral"
+            };
 
             string personalityName = (value >= 0) ? personality.high : personality.low;
 
             if (LanguageDatabase.activeLanguage.HaveTextForKey(intensityKey))
-            {
                 return intensityKey.Translate(personalityName);
-            }
             else
-            {
                 return RimpsycheDatabase.IntensityKeysDefault[intensityKey] + " " + personalityName;
-            }
         }
 
         //For Use of LLM

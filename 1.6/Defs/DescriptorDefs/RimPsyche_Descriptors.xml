@@ -1,0 +1,110 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<!--
+# Documentation
+## Labels
+Labels show on the Disposition UI.
+Descriptor shows up as positiveLabel if the score is positive, negativeLabel if negative.
+If score is zero, the label becomes empty.
+If there is no available label per the score, the Descriptor is not shown up on the Disposition UI.
+
+## Descriptions
+Descriptions show up as the tooltip for Descriptors and Personality Effect description.
+positiveDescription: Shows up if positively aligned 
+negativeDescription: Shows up if negatively aligned 
+-->
+
+<Defs>
+  <Maux36.RimPsyche.PsycheDescriptorDef>
+    <defName>RP_Desc_Sociable</defName>
+    <positiveLabel>socially active</positiveLabel>
+    <negativeLabel>socially withdrawn</negativeLabel>
+    <positiveDescription>More frequent social interactions.</positiveDescription>
+    <negativeDescription>Less frequent social interactions.</negativeDescription>
+    <threshold>0.4</threshold>
+    <strongThreshold>0.8</strongThreshold>
+    <workerClass>Maux36.RimPsyche.SociabilityDescriptorWorker</workerClass>
+  </Maux36.RimPsyche.PsycheDescriptorDef>
+
+  <Maux36.RimPsyche.PsycheDescriptorDef>
+    <defName>RP_Desc_InitIntentFactor</defName>
+    <positiveLabel>likely to offend</positiveLabel>
+    <negativeLabel>unlikely to offend</negativeLabel>
+    <positiveDescription>More likely to offend others.</positiveDescription>
+    <negativeDescription>Less likely to offend others.</negativeDescription>
+    <threshold>0.4</threshold>
+    <strongThreshold>0.8</strongThreshold>
+    <workerClass>Maux36.RimPsyche.InitIntentFactorDescriptorWorker</workerClass>
+  </Maux36.RimPsyche.PsycheDescriptorDef>
+
+  <Maux36.RimPsyche.PsycheDescriptorDef>
+    <defName>RP_Desc_ReciNegativeChanceFactor</defName>
+    <positiveLabel>easily offended</positiveLabel>
+    <negativeLabel>hard to offend</negativeLabel>
+    <positiveDescription>More likely to take offense.</positiveDescription>
+    <negativeDescription>Less likely to take offense.</negativeDescription>
+    <threshold>0.55</threshold>
+    <workerClass>Maux36.RimPsyche.ReciNegativeChanceFactorDescriptorWorker</workerClass>
+  </Maux36.RimPsyche.PsycheDescriptorDef>
+
+  <Maux36.RimPsyche.PsycheDescriptorDef>
+    <defName>RP_Desc_TalkFactor</defName>
+    <type>Conversation</type>
+    <positiveLabel>impactful communicator</positiveLabel>
+    <positiveDescription>Stronger conversations outcomes.</positiveDescription>
+    <negativeDescription>Weaker conversations outcomes.</negativeDescription>
+    <threshold>0.55</threshold>
+    <workerClass>Maux36.RimPsyche.TalkFactorDescriptorWorker</workerClass>
+  </Maux36.RimPsyche.PsycheDescriptorDef>
+
+  <Maux36.RimPsyche.PsycheDescriptorDef>
+    <defName>RP_Desc_Eloquence</defName>
+    <type>Conversation</type>
+    <positiveLabel>builds rapport</positiveLabel>
+    <positiveDescription>Agreement helps conversations more.</positiveDescription>
+    <negativeDescription>Agreement helps conversations less.</negativeDescription>
+    <threshold>0.55</threshold>
+    <workerClass>Maux36.RimPsyche.EloquenceDescriptorWorker</workerClass>
+  </Maux36.RimPsyche.PsycheDescriptorDef>
+
+  <Maux36.RimPsyche.PsycheDescriptorDef>
+    <defName>RP_Desc_ReceptiveBase</defName>
+    <type>Conversation</type>
+    <positiveLabel>tolerates differences</positiveLabel>
+    <negativeLabel>rejects differences</negativeLabel>
+    <positiveDescription>Disagreements hurts less.</positiveDescription>
+    <negativeDescription>Disagreements hurts more.</negativeDescription>
+    <threshold>0.55</threshold>
+    <workerClass>Maux36.RimPsyche.ReceptiveBaseDescriptorWorker</workerClass>
+  </Maux36.RimPsyche.PsycheDescriptorDef>
+
+  <Maux36.RimPsyche.PsycheDescriptorDef>
+    <defName>RP_Desc_InterestedTopicAttitude</defName>
+    <type>Conversation</type>
+    <positiveLabel>deeply invested</positiveLabel>
+    <negativeLabel>less invested</negativeLabel>
+    <positiveDescription>High topic interest effects amplified.</positiveDescription>
+    <negativeDescription>High topic interest has weaker effects.</negativeDescription>
+    <threshold>0.55</threshold>
+    <workerClass>Maux36.RimPsyche.InterestedTopicAttitudeDescriptorWorker</workerClass>
+  </Maux36.RimPsyche.PsycheDescriptorDef>
+
+  <Maux36.RimPsyche.PsycheDescriptorDef>
+    <defName>RP_Desc_UnInterestedTopicAttitude</defName>
+    <type>Conversation</type>
+    <positiveLabel>curious communicator</positiveLabel>
+    <negativeLabel>indifferent communicator</negativeLabel>
+    <positiveDescription>Low topic interest has weaker effects.</positiveDescription>
+    <negativeDescription>Low topic interest effects amplified.</negativeDescription>
+    <threshold>0.55</threshold>
+    <workerClass>Maux36.RimPsyche.UnInterestedTopicAttitudeDescriptorWorker</workerClass>
+  </Maux36.RimPsyche.PsycheDescriptorDef>
+
+  <Maux36.RimPsyche.PsycheDescriptorDef>
+    <defName>RP_Desc_Spontaneity</defName>
+    <type>Conversation</type>
+    <positiveLabel>unpredictable</positiveLabel>
+    <positiveDescription>May act more unpredictably.</positiveDescription>
+    <threshold>0.55</threshold>
+    <workerClass>Maux36.RimPsyche.SpontaneityDescriptorWorker</workerClass>
+  </Maux36.RimPsyche.PsycheDescriptorDef>
+</Defs>
