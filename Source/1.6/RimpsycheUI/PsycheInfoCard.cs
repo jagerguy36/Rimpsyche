@@ -1033,12 +1033,17 @@ namespace Maux36.RimPsyche
             var originalAnchor = Text.Anchor;
             var originalColor = GUI.color;
 
+            Text.Anchor = TextAnchor.MiddleLeft;
+
             var personalities = GetSortedPersonalitySummaryData(comp, pawn).ToList();
 
             // Split the rect
             var LeftProp = 0.5f;
-            Rect leftRect = new Rect(rect.x, rect.y, rect.width * LeftProp -10f + bioInfoLeftRectWidthOffset, rect.height);
-            Rect rightRect = new Rect(leftRect.xMax+20f, rect.y, rect.width * (1- LeftProp) - 10f - bioInfoLeftRectWidthOffset, rect.height);
+            var LeftWidthOffset = 0f;
+            if (RimpsycheSettings.showSideInfoInSummary)
+                LeftWidthOffset = bioInfoLeftRectWidthOffset;
+            Rect leftRect = new Rect(rect.x, rect.y, rect.width * LeftProp -10f + LeftWidthOffset, rect.height);
+            Rect rightRect = new Rect(leftRect.xMax+20f, rect.y, rect.width * (1- LeftProp) - 10f - LeftWidthOffset, rect.height);
 
             Text.Font = GameFont.Small;
             float leftY = leftRect.y;
@@ -1098,7 +1103,6 @@ namespace Maux36.RimPsyche
                     Rect labelRect = new Rect(rowRect.x + labelPadding, rowRect.y, personalityLabelWidth, rowRect.height);
                     var personalityColor = Color.Lerp(lightGreyColor, Color.white, personality.AbsValue);
                     GUI.color = personalityColor;
-                    Text.Anchor = TextAnchor.MiddleLeft;
                     Widgets.Label(labelRect, personality.CachedLabelText);
 
                     // Right Side: Small Widget Bar
@@ -1142,7 +1146,6 @@ namespace Maux36.RimPsyche
                         Rect labelRect = new Rect(rowRect.x + labelPadding, rowRect.y, personalityLabelWidth, rowRect.height);
                         var personalityColor = Color.Lerp(lightGreyColor, Color.white, personality.AbsValue);
                         GUI.color = personalityColor;
-                        Text.Anchor = TextAnchor.MiddleLeft;
                         Widgets.Label(labelRect, personality.CachedLabelText);
 
                         // Right Side: Small Widget Bar
@@ -1163,7 +1166,7 @@ namespace Maux36.RimPsyche
                         float mainLabelX = intensityRect.xMax + personalityIntensityGap;
                         float mainLabelWidth = rowRect.width - mainLabelX - labelPadding;
 
-                        Rect labelRect = new Rect(mainLabelX, rowRect.y, mainLabelWidth, personalityRowHeight);
+                        Rect labelRect = new Rect(mainLabelX, rowRect.y, personalityLabelWidth, personalityRowHeight);
 
                         Widgets.Label(labelRect, personality.CachedLabelText);
                     }
@@ -1276,7 +1279,6 @@ namespace Maux36.RimPsyche
                         Rect intensityRect = new Rect(rowRect.xMax - dispositionIntensityWidth - labelPadding, rowRect.y, dispositionIntensityWidth, rowRect.height);
                         Widgets.DrawHighlightIfMouseover(outerRowRect);
                         TooltipHandler.TipRegion(outerRowRect, behavior.Tooltip);
-                        Text.Anchor = TextAnchor.MiddleLeft;
                         Widgets.Label(rowRect, behavior.Label);
                         Widgets.Label(intensityRect, behavior.Intensity);
                         rightY += 22f;
@@ -1290,6 +1292,7 @@ namespace Maux36.RimPsyche
                         GUI.color = Color.gray;
                         Text.Anchor = TextAnchor.MiddleCenter;
                         Widgets.Label(rowRect, "RPC_NoBehavior".Translate());
+                        Text.Anchor = TextAnchor.MiddleLeft;
                         GUI.color = originalColor;
                     }
                 }
