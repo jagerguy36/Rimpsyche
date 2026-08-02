@@ -1,6 +1,4 @@
-using RimWorld;
 using System.Text;
-using Verse;
 
 namespace Maux36.RimPsyche
 {

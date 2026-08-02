@@ -12,8 +12,6 @@ namespace Maux36.RimPsyche
         public List<FacetWeight> scoreWeight;
         public List<Scope> scopes = null;
         public float preferenceBias = 0f;
-        public string posEffectString;
-        public string negEffectString;
     }
 
     public class Scope
