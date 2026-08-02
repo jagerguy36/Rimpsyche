@@ -216,8 +216,8 @@ namespace Maux36.RimPsyche
                 DirtyCache();
                 return;
             }
-            float minRange = -35f;
-            float maxRange = 35f;
+            float minRange = -30f;
+            float maxRange = 30f;
             float baseOCEANvalue = Rand.Range(minRange, maxRange);
             imagination = GenerateFacetValueWithBase(baseOCEANvalue);
             intellect = GenerateFacetValueWithBase(baseOCEANvalue);
@@ -251,7 +251,9 @@ namespace Maux36.RimPsyche
 
             do
             {
-                result = Rand.Gaussian(baseValue, 10f); // center at basevalue, 3widthfactor == 30
+                result = Rand.Gaussian(baseValue, 10f); // center at basevalue
+                                                        // 2widthfactor == 20. 95.45% values within base-20~base+20
+                                                        // 3widthfactor == 30. 99.7% values within base-30~base+30
                 attempts++;
             }
             while ((result < -50f || result > 50f) && attempts < maxAttempts); 
