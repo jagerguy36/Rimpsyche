@@ -197,7 +197,9 @@ namespace Maux36.RimPsyche
                 return;
 
             bool shouldAdd = false;
-            var memories = parentPawn.needs.mood.thoughts.memories.Memories;
+            var memories = parentPawn.needs?.mood?.thoughts?.memories?.Memories;
+            if (memories == null)
+                return;
             List<Thought_MemoryPostDefined> currentConvoMemories = new();
             for (int i = 0; i < memories.Count; i++)
             {
@@ -238,7 +240,7 @@ namespace Maux36.RimPsyche
             newThought.pawn = parentPawn;
             newThought.otherPawn = otherPawn;
 
-            parentPawn.needs?.mood?.thoughts?.memories?.Memories.Add(newThought);
+            memories.Add(newThought);
         }
         public static float ConvoSocialFightChance(Pawn startCand, Pawn other, float startCandBaseChance, float startCandOpinio) //Same as vanilla, just using this to avoid calculating opinion again for performance.
         {
