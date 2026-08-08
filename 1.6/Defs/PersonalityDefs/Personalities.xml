@@ -10,12 +10,8 @@
     <lowDescription>Taciturn individuals prefer brief exchanges or keep to themselves.</lowDescription>
     <scoreWeight>
       <li>
-        <facet>Curiosity</facet>
-        <weight>0.05</weight>
-      </li>
-      <li>
         <facet>Sociability</facet>
-        <weight>0.25</weight>
+        <weight>0.35</weight>
       </li>
       <li>
         <facet>Assertiveness</facet>
@@ -27,7 +23,7 @@
       </li>
       <li>
         <facet>Insecurity</facet>
-        <weight>-0.15</weight>
+        <weight>-0.1</weight>
       </li>
     </scoreWeight>
   </Maux36.RimPsyche.PersonalityDef>
@@ -43,11 +39,11 @@
     <scoreWeight>
       <li>
         <facet>Sociability</facet>
-        <weight>0.5</weight>
+        <weight>0.45</weight>
       </li>
       <li>
         <facet>Enthusiasm</facet>
-        <weight>0.15</weight>
+        <weight>0.2</weight>
       </li>
       <li>
         <facet>Cooperation</facet>
@@ -82,7 +78,7 @@
       </li>
       <li>
         <facet>Compassion</facet>
-        <weight>0.2</weight>
+        <weight>0.3</weight>
       </li>
       <li>
         <facet>Cooperation</facet>
@@ -94,7 +90,7 @@
       </li>
       <li>
         <facet>Volatility</facet>
-        <weight>-0.15</weight>
+        <weight>-0.05</weight>
       </li>
       <li>
         <facet>Pessimism</facet>
@@ -121,7 +117,7 @@
     <scoreWeight>
       <li>
         <facet>Intellect</facet>
-        <weight>0.15</weight>
+        <weight>0.2</weight>
       </li>
       <li>
         <facet>Curiosity</facet>
@@ -137,7 +133,7 @@
       </li>
       <li>
         <facet>Cooperation</facet>
-        <weight>0.1</weight>
+        <weight>0.05</weight>
       </li>
       <li>
         <facet>Humbleness</facet>
@@ -173,11 +169,11 @@
       </li>
       <li>
         <facet>Pessimism</facet>
-        <weight>-0.1</weight>
+        <weight>-0.15</weight>
       </li>
       <li>
         <facet>Insecurity</facet>
-        <weight>-0.5</weight>
+        <weight>-0.45</weight>
       </li>
     </scoreWeight>
   </Maux36.RimPsyche.PersonalityDef>
@@ -193,23 +189,15 @@
     <scoreWeight>
       <li>
         <facet>Imagination</facet>
-        <weight>0.05</weight>
-      </li>
-      <li>
-        <facet>Intellect</facet>
-        <weight>0.15</weight>
-      </li>
-      <li>
-        <facet>Curiosity</facet>
-        <weight>0.5</weight>
-      </li>
-      <li>
-        <facet>Sociability</facet>
         <weight>0.1</weight>
       </li>
       <li>
-        <facet>Enthusiasm</facet>
-        <weight>0.2</weight>
+        <facet>Intellect</facet>
+        <weight>0.45</weight>
+      </li>
+      <li>
+        <facet>Curiosity</facet>
+        <weight>0.45</weight>
       </li>
     </scoreWeight>
   </Maux36.RimPsyche.PersonalityDef>
@@ -233,7 +221,7 @@
       </li>
       <li>
         <facet>Integrity</facet>
-        <weight>0.15</weight>
+        <weight>0.1</weight>
       </li>
       <li>
         <facet>Enthusiasm</facet>
@@ -245,7 +233,7 @@
       </li>
       <li>
         <facet>Insecurity</facet>
-        <weight>0.15</weight>
+        <weight>0.2</weight>
       </li>
     </scoreWeight>
     <scopes>
@@ -280,7 +268,7 @@
       </li>
       <li>
         <facet>Compassion</facet>
-        <weight>-0.2</weight>
+        <weight>-0.15</weight>
       </li>
       <li>
         <facet>Cooperation</facet>
@@ -292,7 +280,7 @@
       </li>
       <li>
         <facet>Pessimism</facet>
-        <weight>0.1</weight>
+        <weight>0.15</weight>
       </li>
     </scoreWeight>
     <scopes>
@@ -324,7 +312,7 @@
       </li>
       <li>
         <facet>Intellect</facet>
-        <weight>0.15</weight>
+        <weight>0.2</weight>
       </li>
       <li>
         <facet>Curiosity</facet>
@@ -333,10 +321,6 @@
       <li>
         <facet>Orderliness</facet>
         <weight>-0.25</weight>
-      </li>
-      <li>
-        <facet>Pessimism</facet>
-        <weight>-0.05</weight>
       </li>
       <li>
         <facet>Insecurity</facet>
@@ -376,23 +360,19 @@
     <scoreWeight>
       <li>
         <facet>Imagination</facet>
-        <weight>0.5</weight>
+        <weight>0.45</weight>
       </li>
       <li>
         <facet>Intellect</facet>
-        <weight>0.2</weight>
+        <weight>0.3</weight>
       </li>
       <li>
         <facet>Curiosity</facet>
-        <weight>0.05</weight>
+        <weight>0.15</weight>
       </li>
       <li>
         <facet>Orderliness</facet>
-        <weight>-0.15</weight>
-      </li>
-      <li>
-        <facet>Volatility</facet>
-        <weight>0.1</weight>
+        <weight>-0.1</weight>
       </li>
     </scoreWeight>
     <scopes>
@@ -416,15 +396,15 @@
     <scoreWeight>
       <li>
         <facet>Industriousness</facet>
-        <weight>0.5</weight>
+        <weight>0.45</weight>
       </li>
       <li>
         <facet>Orderliness</facet>
-        <weight>0.15</weight>
+        <weight>0.2</weight>
       </li>
       <li>
         <facet>Integrity</facet>
-        <weight>0.15</weight>
+        <weight>0.2</weight>
       </li>
       <li>
         <facet>Volatility</facet>
@@ -432,7 +412,7 @@
       </li>
       <li>
         <facet>Pessimism</facet>
-        <weight>-0.15</weight>
+        <weight>-0.1</weight>
       </li>
     </scoreWeight>
     <scopes>
@@ -478,11 +458,11 @@
       </li>
       <li>
         <facet>Industriousness</facet>
-        <weight>0.2</weight>
+        <weight>0.25</weight>
       </li>
       <li>
         <facet>Orderliness</facet>
-        <weight>0.5</weight>
+        <weight>0.45</weight>
       </li>
       <li>
         <facet>Integrity</facet>
@@ -525,15 +505,11 @@
       </li>
       <li>
         <facet>Industriousness</facet>
-        <weight>0.05</weight>
-      </li>
-      <li>
-        <facet>Orderliness</facet>
-        <weight>0.1</weight>
+        <weight>0.15</weight>
       </li>
       <li>
         <facet>Integrity</facet>
-        <weight>0.5</weight>
+        <weight>0.45</weight>
       </li>
       <li>
         <facet>Volatility</facet>
@@ -541,7 +517,7 @@
       </li>
       <li>
         <facet>Pessimism</facet>
-        <weight>-0.05</weight>
+        <weight>-0.1</weight>
       </li>
     </scoreWeight>
     <scopes>
@@ -576,8 +552,12 @@
     <lowDescription>Eclectic individuals prefer to spread their attention across many different subjects rather than concentrating on just one.</lowDescription>
     <scoreWeight>
       <li>
+        <facet>Intellect</facet>
+        <weight>0.15</weight>
+      </li>
+      <li>
         <facet>Curiosity</facet>
-        <weight>-0.5</weight>
+        <weight>-0.35</weight>
       </li>
       <li>
         <facet>Industriousness</facet>
@@ -604,19 +584,23 @@
     <lowDescription>Apathetic individuals tend to approach their interests more casually, with less emotional investment.</lowDescription>
     <scoreWeight>
       <li>
-        <facet>Imagination</facet>
-        <weight>0.1</weight>
-      </li>
-      <li>
         <facet>Industriousness</facet>
         <weight>0.3</weight>
       </li>
       <li>
+        <facet>Assertiveness</facet>
+        <weight>0.05</weight>
+      </li>
+      <li>
         <facet>Enthusiasm</facet>
-        <weight>0.5</weight>
+        <weight>0.45</weight>
       </li>
       <li>
         <facet>Pessimism</facet>
+        <weight>-0.1</weight>
+      </li>
+      <li>
+        <facet>Insecurity</facet>
         <weight>-0.1</weight>
       </li>
     </scoreWeight>
@@ -714,19 +698,19 @@
     <scoreWeight>
       <li>
         <facet>Imagination</facet>
-        <weight>0.45</weight>
+        <weight>0.4</weight>
       </li>
       <li>
         <facet>Compassion</facet>
-        <weight>0.05</weight>
+        <weight>0.15</weight>
       </li>
       <li>
         <facet>Volatility</facet>
-        <weight>0.45</weight>
+        <weight>0.35</weight>
       </li>
       <li>
         <facet>Pessimism</facet>
-        <weight>0.05</weight>
+        <weight>0.1</weight>
       </li>
     </scoreWeight>
     <scopes>
@@ -752,8 +736,12 @@
         <weight>-0.1</weight>
       </li>
       <li>
-        <facet>Integrity</facet>
+        <facet>Orderliness</facet>
         <weight>0.1</weight>
+      </li>
+      <li>
+        <facet>Integrity</facet>
+        <weight>0.05</weight>
       </li>
       <li>
         <facet>Enthusiasm</facet>
@@ -761,7 +749,7 @@
       </li>
       <li>
         <facet>Volatility</facet>
-        <weight>-0.5</weight>
+        <weight>-0.45</weight>
       </li>
       <li>
         <facet>Pessimism</facet>
@@ -785,7 +773,7 @@
     <scoreWeight>
       <li>
         <facet>Integrity</facet>
-        <weight>0.5</weight>
+        <weight>0.45</weight>
       </li>
       <li>
         <facet>Enthusiasm</facet>
@@ -805,7 +793,7 @@
       </li>
       <li>
         <facet>Volatility</facet>
-        <weight>-0.05</weight>
+        <weight>-0.1</weight>
       </li>
       <li>
         <facet>Insecurity</facet>
@@ -833,11 +821,15 @@
     <scoreWeight>
       <li>
         <facet>Enthusiasm</facet>
-        <weight>0.4</weight>
+        <weight>0.35</weight>
+      </li>
+      <li>
+        <facet>Volatility</facet>
+        <weight>-0.1</weight>
       </li>
       <li>
         <facet>Pessimism</facet>
-        <weight>-0.5</weight>
+        <weight>-0.45</weight>
       </li>
       <li>
         <facet>Insecurity</facet>
@@ -882,10 +874,6 @@
     <lowDescription>Content individuals are generally satisfied with their current circumstances and feel little need to pursue greater achievement.</lowDescription>
     <scoreWeight>
       <li>
-        <facet>Curiosity</facet>
-        <weight>0.1</weight>
-      </li>
-      <li>
         <facet>Industriousness</facet>
         <weight>0.4</weight>
       </li>
@@ -895,7 +883,7 @@
       </li>
       <li>
         <facet>Humbleness</facet>
-        <weight>-0.1</weight>
+        <weight>-0.2</weight>
       </li>
       <li>
         <facet>Pessimism</facet>
@@ -928,11 +916,11 @@
       </li>
       <li>
         <facet>Compassion</facet>
-        <weight>0.5</weight>
+        <weight>0.45</weight>
       </li>
       <li>
         <facet>Cooperation</facet>
-        <weight>0.15</weight>
+        <weight>0.2</weight>
       </li>
       <li>
         <facet>Humbleness</facet>
@@ -1034,7 +1022,7 @@
     <lowDescription>Hasty individuals prefer immediate action over careful consideration, often sacrificing thoroughness for speed.</lowDescription>
     <scoreWeight>
       <li>
-        <facet>Industriousness</facet>
+        <facet>Intellect</facet>
         <weight>0.1</weight>
       </li>
       <li>
@@ -1051,7 +1039,7 @@
       </li>
       <li>
         <facet>Volatility</facet>
-        <weight>-0.1</weight>
+        <weight>0.1</weight>
       </li>
       <li>
         <facet>Pessimism</facet>
@@ -1092,7 +1080,7 @@
         <weight>0.1</weight>
       </li>
       <li>
-        <facet>Orderliness</facet>
+        <facet>Curiosity</facet>
         <weight>-0.05</weight>
       </li>
       <li>
@@ -1129,7 +1117,7 @@
     <scoreWeight>
       <li>
         <facet>Integrity</facet>
-        <weight>0.1</weight>
+        <weight>0.2</weight>
       </li>
       <li>
         <facet>Assertiveness</facet>
@@ -1140,12 +1128,8 @@
         <weight>0.05</weight>
       </li>
       <li>
-        <facet>Volatility</facet>
-        <weight>-0.05</weight>
-      </li>
-      <li>
         <facet>Pessimism</facet>
-        <weight>-0.15</weight>
+        <weight>-0.1</weight>
       </li>
       <li>
         <facet>Insecurity</facet>
@@ -1173,23 +1157,19 @@
     <scoreWeight>
       <li>
         <facet>Industriousness</facet>
-        <weight>0.3</weight>
+        <weight>0.2</weight>
       </li>
       <li>
         <facet>Integrity</facet>
-        <weight>0.1</weight>
+        <weight>0.2</weight>
       </li>
       <li>
         <facet>Enthusiasm</facet>
-        <weight>-0.1</weight>
+        <weight>-0.2</weight>
       </li>
       <li>
         <facet>Volatility</facet>
         <weight>-0.4</weight>
-      </li>
-      <li>
-        <facet>Insecurity</facet>
-        <weight>-0.1</weight>
       </li>
     </scoreWeight>
     <scopes>
@@ -1346,10 +1326,6 @@
     <lowDescription>Altruistic individuals genuinely prioritize the well-being of others, often placing it above their own interests.</lowDescription>
     <scoreWeight>
       <li>
-        <facet>Integrity</facet>
-        <weight>-0.05</weight>
-      </li>
-      <li>
         <facet>Sociability</facet>
         <weight>-0.05</weight>
       </li>
@@ -1363,7 +1339,7 @@
       </li>
       <li>
         <facet>Humbleness</facet>
-        <weight>-0.35</weight>
+        <weight>-0.4</weight>
       </li>
       <li>
         <facet>Pessimism</facet>
@@ -1394,11 +1370,11 @@
     <scoreWeight>
       <li>
         <facet>Imagination</facet>
-        <weight>0.25</weight>
+        <weight>0.35</weight>
       </li>
       <li>
         <facet>Intellect</facet>
-        <weight>0.5</weight>
+        <weight>0.4</weight>
       </li>
       <li>
         <facet>Curiosity</facet>
@@ -1433,15 +1409,19 @@
     <scoreWeight>
       <li>
         <facet>Integrity</facet>
-        <weight>0.3</weight>
+        <weight>0.2</weight>
+      </li>
+      <li>
+        <facet>Cooperation</facet>
+        <weight>0.25</weight>
       </li>
       <li>
         <facet>Humbleness</facet>
-        <weight>0.45</weight>
+        <weight>0.35</weight>
       </li>
       <li>
         <facet>Insecurity</facet>
-        <weight>-0.25</weight>
+        <weight>-0.2</weight>
       </li>
     </scoreWeight>
   </Maux36.RimPsyche.PersonalityDef>
