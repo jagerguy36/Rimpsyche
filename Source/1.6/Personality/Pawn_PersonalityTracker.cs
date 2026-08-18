@@ -216,8 +216,8 @@ namespace Maux36.RimPsyche
                 DirtyCache();
                 return;
             }
-            float minRange = -30f;
-            float maxRange = 30f;
+            float minRange = -35f;
+            float maxRange = 35f;
             float baseOCEANvalue = Rand.Range(minRange, maxRange);
             imagination = GenerateFacetValueWithBase(baseOCEANvalue);
             intellect = GenerateFacetValueWithBase(baseOCEANvalue);
