@@ -55,9 +55,14 @@ namespace Maux36.RimPsyche
     [HarmonyPatch(typeof(CharacterCardUtility), "DrawCharacterCard")]
     internal static class Patch_CharacterCardUtility_DrawCharacterCard
     {
-        private static void Postfix(Rect rect, Pawn pawn)
+        private static void Postfix(Rect rect, Pawn pawn, Action randomizeCallback, bool showName)
         {
             if (!RimpsycheSettings.ShowSummaryInBio)
+                return;
+            bool flag = randomizeCallback != null;
+            if (flag)
+                return;
+            if (!showName)
                 return;
             CompPsyche compPsyche = pawn?.compPsyche();
             if (compPsyche != null)
