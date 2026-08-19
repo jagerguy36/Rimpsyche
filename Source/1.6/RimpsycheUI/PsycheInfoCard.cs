@@ -1025,9 +1025,13 @@ namespace Maux36.RimPsyche
             Text.Font = oldFont;
         }
 
-        public static void DrawBioPersonalitySummary(Pawn pawn, CompPsyche comp, Rect rect)
+        public static void DrawBioPersonalitySummary(Rect fedRect, Pawn pawn)
         {
-            if (pawn == null || comp == null) return;
+            if (!RimpsycheSettings.ShowSummaryInBio)
+                return;
+            CompPsyche comp = pawn?.compPsyche();
+            if (comp == null) return;
+            var rect = new Rect(fedRect.x, fedRect.yMax, fedRect.width, (float)RimpsycheSettings.ExtraBioHeight);
 
             var originalFont = Text.Font;
             var originalAnchor = Text.Anchor;

@@ -28,7 +28,7 @@ namespace Maux36.RimPsyche
         public static bool confirmLoadSave = true;
         public static HashSet<DescriptorType> DescriptorTypesToShow = new();
         private List<string> bannedDescriptors;
-        public static int ExtraBioHeight => showSideInfoInSummary ? 85 : 66;
+        public static int ExtraBioHeight => showSideInfoInSummary ? 87 : 68;
 
         public override void ExposeData()
         {

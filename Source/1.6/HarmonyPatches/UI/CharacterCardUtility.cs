@@ -3,6 +3,7 @@ using RimWorld;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
+using System.Reflection.Emit;
 using UnityEngine;
 using Verse;
 
@@ -36,55 +37,59 @@ namespace Maux36.RimPsyche
             return Widgets.InfoCardButton(x, y, pawn);
         }
     }
-
-    [HarmonyPatch(typeof(CharacterCardUtility), "DoLeftSection")]
-    internal static class Patch_CharacterCardUtility_DoleftSection
+    [HarmonyPatch(typeof(ITab_Pawn_Character), "UpdateSize")]
+    public static class ITab_Pawn_Character_UpdateSize_Patch
     {
-        private static void Prefix(ref Rect leftRect, Pawn pawn)
+        [HarmonyPostfix]
+        public static void Postfix(ITab_Pawn_Character __instance)
         {
             if (!RimpsycheSettings.ShowSummaryInBio)
                 return;
+            Pawn pawn = __instance.PawnToShowInfoAbout;
             CompPsyche compPsyche = pawn?.compPsyche();
             if (compPsyche != null)
             {
-                leftRect.height -= RimpsycheSettings.ExtraBioHeight;
+                ref Vector2 size = ref __instance.size;
+                size.y += RimpsycheSettings.ExtraBioHeight;
             }
         }
     }
-
-    [HarmonyPatch(typeof(CharacterCardUtility), "DrawCharacterCard")]
-    internal static class Patch_CharacterCardUtility_DrawCharacterCard
+    [HarmonyPatch(typeof(ITab_Pawn_Character), "FillTab")]
+    public static class ITab_Pawn_Character_FillTab_Transpiler
     {
-        private static void Postfix(Rect rect, Pawn pawn, Action randomizeCallback, bool showName)
+        [HarmonyTranspiler]
+        public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> codes, ILGenerator generator)
         {
-            if (!RimpsycheSettings.ShowSummaryInBio)
-                return;
-            bool flag = randomizeCallback != null;
-            if (flag)
-                return;
-            if (!showName)
-                return;
-            CompPsyche compPsyche = pawn?.compPsyche();
-            if (compPsyche != null)
+            var drawCardMethod = AccessTools.Method(typeof(CharacterCardUtility), nameof(CharacterCardUtility.DrawCharacterCard));
+            var DrawBioPersonalitySummaryMethod = AccessTools.Method(typeof(PsycheInfoCard), nameof(PsycheInfoCard.DrawBioPersonalitySummary));
+            var savedRectLocal = generator.DeclareLocal(typeof(Rect));
+            var savedPawnLocal = generator.DeclareLocal(typeof(Pawn));
+            bool RectMatched = false;
+            bool PawnMatched = false;
+
+            foreach (var code in codes)
             {
-                PsycheInfoCard.DrawBioPersonalitySummary(pawn, compPsyche, new Rect(rect.x, rect.yMax - (float)RimpsycheSettings.ExtraBioHeight, rect.width, rect.height));
-            }
-        }
+                yield return code;
+                if (code.opcode == OpCodes.Newobj && code.operand is ConstructorInfo ctor && ctor.DeclaringType == typeof(Rect))
+                {
+                    yield return new CodeInstruction(OpCodes.Dup);
+                    yield return new CodeInstruction(OpCodes.Stloc, savedRectLocal);
+                    RectMatched = true;
+                }
 
+                else if (RectMatched && code.operand is MethodInfo m && m.Name == "get_PawnToShowInfoAbout")
+                {
+                    yield return new CodeInstruction(OpCodes.Dup);
+                    yield return new CodeInstruction(OpCodes.Stloc, savedPawnLocal);
+                    PawnMatched = true;
+                }
 
-    }
-
-    [HarmonyPatch(typeof(CharacterCardUtility), "PawnCardSize")]
-    internal static class Patch_CharacterCardUtility_PawnCardSize
-    {
-        private static void Postfix(ref Vector2 __result, Pawn pawn)
-        {
-            if (!RimpsycheSettings.ShowSummaryInBio)
-                return;
-            CompPsyche compPsyche = pawn?.compPsyche();
-            if (compPsyche != null)
-            {
-                __result += new Vector2(0f, (float)RimpsycheSettings.ExtraBioHeight);
+                else if (PawnMatched && code.Calls(drawCardMethod))
+                {
+                    yield return new CodeInstruction(OpCodes.Ldloc, savedRectLocal);
+                    yield return new CodeInstruction(OpCodes.Ldloc, savedPawnLocal);
+                    yield return new CodeInstruction(OpCodes.Call, DrawBioPersonalitySummaryMethod);
+                }
             }
         }
     }
