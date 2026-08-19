@@ -341,18 +341,18 @@ namespace Maux36.RimPsyche
             if (scopeRange <= 0 || scopeCenter - scopeRange < -1 || scopeCenter + scopeRange > 1)
             {
                 Log.Error($"[Rimpsyche] Error Registering Scope data of {personalityDef.defName}. Either its range is not positive or Its range gets outside of -1 ~ 1.");
-                continue;
+                return;
             }
             var traitDef = DefDatabase<TraitDef>.GetNamed(scopeData.traitDefname, false);
             if (traitDef == null)
             {
                 Log.Warning($"[Rimpsyche] Could not find TraitDef named '{scopeData.traitDefname}'.");
-                continue;
+                return;
             }
             if (scopeData.degree < -256 || 256 < scopeData.degree)
             {
                 Log.Error($"[Rimpsyche] A scope for {scopeData.traitDefname} has a degree of {scopeData.degree}. Rimpsyche only supports trait degree between -256 ~ 256. Report this to the mod author.");
-                continue;
+                return;
             }
             int key = (traitDef.shortHash << 16) | (scopeData.degree + 256);
             // Direct Register does not check for double-scope. Modders should use this at their own discretion
