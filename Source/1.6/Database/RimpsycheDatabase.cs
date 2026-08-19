@@ -334,6 +334,38 @@ namespace Maux36.RimPsyche
             },
             RimpsycheFormulaManager.FormulaIdDict
         );
+        public static void RegisterTraitScope(PersonalityDef personalityDef, Scope scopeData)
+        {
+            var scopeCenter = scopeData.centerOffset;
+            var scopeRange = scopeData.range;
+            if (scopeRange <= 0 || scopeCenter - scopeRange < -1 || scopeCenter + scopeRange > 1)
+            {
+                Log.Error($"[Rimpsyche] Error Registering Scope data of {personalityDef.defName}. Either its range is not positive or Its range gets outside of -1 ~ 1.");
+                continue;
+            }
+            var traitDef = DefDatabase<TraitDef>.GetNamed(scopeData.traitDefname, false);
+            if (traitDef == null)
+            {
+                Log.Warning($"[Rimpsyche] Could not find TraitDef named '{scopeData.traitDefname}'.");
+                continue;
+            }
+            if (scopeData.degree < -256 || 256 < scopeData.degree)
+            {
+                Log.Error($"[Rimpsyche] A scope for {scopeData.traitDefname} has a degree of {scopeData.degree}. Rimpsyche only supports trait degree between -256 ~ 256. Report this to the mod author.");
+                continue;
+            }
+            int key = (traitDef.shortHash << 16) | (scopeData.degree + 256);
+            // Direct Register does not check for double-scope. Modders should use this at their own discretion
+            // if (seenTraits.Contains(key))
+            // {
+            //     Log.Error($"[Rimpsyche] PersonalityDef {personalityDef.defName} is being double-scoped by {scopeData.traitDefname} ({scopeData.degree}). It is possible multiple mods are trying to scope this personality using the same trait. This will incur inconsistency and critical error during Personality evaluation.");
+            // }
+            if (!TraitScopeDatabase.ContainsKey(key))
+            {
+                TraitScopeDatabase[key] = new List<(int, float, float)>();
+            }
+            TraitScopeDatabase[key].Add((personalityDef.shortHash, scopeData.centerOffset, scopeData.range));
+        }
         public static void RegisterTraitGate(Pair<string, int> traitPair, List<FacetGate> gate)
         {
             string defName = traitPair.First;
@@ -343,7 +375,7 @@ namespace Maux36.RimPsyche
             {
                 if (degree < -256 || 256 < degree)
                 {
-                    Log.Error($"[Rimpsyche] A scope for {traitDef.defName} has a degree of {degree}. Rimpsyche only supports trait degree between -256 ~ 256. Report this to the mod author.");
+                    Log.Error($"[Rimpsyche] A gate for {traitDef.defName} has a degree of {degree}. Rimpsyche only supports trait degree between -256 ~ 256. Report this to the mod author.");
                     return;
                 }
                 int key = (traitDef.shortHash << 16) | (degree + 256);
