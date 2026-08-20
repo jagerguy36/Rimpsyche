@@ -121,7 +121,7 @@ namespace Maux36.RimPsyche
         public static bool rightPanelVisible = false;
         public static bool showPreference = false;
         public static ShowMode showMode = ShowMode.Personality;
-        public static SideMode sideMode = SideMode.Interest;
+        public static SideMode sideMode = Rimpsyche.DispositionModuleLoaded? SideMode.Disposition : SideMode.Interest;
 
         public static bool shouldSort = false;
         public static SortMode sortOption = SortMode.Value; //0: value(high->low), 1: alphabet(a->z) 3: def
