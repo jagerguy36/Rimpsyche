@@ -76,8 +76,13 @@ namespace Maux36.RimPsyche
 
             return psyche;
         }
+        [Obsolete("Use the overload with the explicit  randomizeSexualityIfUndefined instead.", false)]
+        public static void InjectPsycheData(Pawn pawn, PsycheData psyche, bool preserveMemory)
+        {
+            InjectPsycheData(pawn, psyche, preserveMemory, true);
+        }
 
-        public static void InjectPsycheData(Pawn pawn, PsycheData psyche, bool preserveMemory, bool randomizeSexualityIfUndefined = true)
+        public static void InjectPsycheData(Pawn pawn, PsycheData psyche, bool preserveMemory, bool randomizeSexualityIfUndefined)
         {
             if(psyche == null) return;
             var compPsyche = pawn?.compPsyche();
@@ -261,7 +266,12 @@ namespace Maux36.RimPsyche
         }
 
 
-        public static void InjectSerializedStringPsycheData(Pawn pawn, string dataString, bool preserveMemory, bool randomizeSexualityIfUndefined = true)
+        [Obsolete("Use the overload with the explicit randomizeSexualityIfUndefined instead.", false)]
+        public static void InjectSerializedStringPsycheData(Pawn pawn, string dataString, bool preserveMemory)
+        {
+            InjectSerializedStringPsycheData(pawn, dataString, preserveMemory, true);
+        }
+        public static void InjectSerializedStringPsycheData(Pawn pawn, string dataString, bool preserveMemory, bool randomizeSexualityIfUndefined)
         {
             var psycheData = DeserializeStringPsycheData(dataString);
             if (psycheData == null) return;

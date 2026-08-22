@@ -48,7 +48,7 @@ namespace Maux36.RimPsyche
         public static void PastePawnPsyche(Pawn pawn)
         {
             var newPsyche = RimPsycheWorldComp.tempData;
-            PsycheDataUtil.InjectPsycheData(pawn, newPsyche, true);
+            PsycheDataUtil.InjectPsycheData(pawn, newPsyche, true, true);
             Log.Message($"RimPsyche injected copied psyche to {pawn.Name}");
         }
 
@@ -64,7 +64,7 @@ namespace Maux36.RimPsyche
         public static void PasteStringPawnPsyche(Pawn pawn)
         {
             var serialized = RimPsycheWorldComp.serializedTemp;
-            PsycheDataUtil.InjectSerializedStringPsycheData(pawn, serialized, true);
+            PsycheDataUtil.InjectSerializedStringPsycheData(pawn, serialized, true, true);
             Log.Message($"Injected to {pawn.Name} serialized Psyche: {serialized}");
         }
 

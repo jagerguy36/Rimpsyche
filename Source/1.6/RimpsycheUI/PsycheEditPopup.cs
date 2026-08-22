@@ -1133,7 +1133,7 @@ namespace Maux36.RimPsyche
                                 (randomizeSexuality ? "ConfirmLoadFromSlot_RandomOrientation" : "ConfirmLoadFromSlot").Translate(index, PsycheSaveManager.Slots[index].name),
                                 () =>
                                 {
-                                    PsycheDataUtil.InjectPsycheData(pawn, PsycheSaveManager.Slots[index].data, false);
+                                    PsycheDataUtil.InjectPsycheData(pawn, PsycheSaveManager.Slots[index].data, false, true);
                                 },
                                 destructive: false
                             )
@@ -1144,7 +1144,7 @@ namespace Maux36.RimPsyche
                 {
                     options.Add(new FloatMenuOption("LoadFromSlot".Translate(), () =>
                     {
-                        PsycheDataUtil.InjectPsycheData(pawn, PsycheSaveManager.Slots[index].data, false);
+                        PsycheDataUtil.InjectPsycheData(pawn, PsycheSaveManager.Slots[index].data, false, true);
                     }));
                 }
             }
