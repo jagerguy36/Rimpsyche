@@ -82,7 +82,6 @@ namespace Maux36.RimPsyche
             {
                 Scribe.loader.InitLoading(FilePath);
                 Scribe_Collections.Look(ref slots, "Slots", LookMode.Deep);
-                Scribe.loader.FinalizeLoading();
                 return slots;
             }
             catch (Exception ex)
@@ -101,6 +100,10 @@ namespace Maux36.RimPsyche
                     Log.Warning($"[RimPsyche] Failed to create backup file of the corrupted Psyche data: {backupEx}");
                 }
                 return null;
+            }
+            finally
+            {
+                Scribe.loader.FinalizeLoading();
             }
         }
     }

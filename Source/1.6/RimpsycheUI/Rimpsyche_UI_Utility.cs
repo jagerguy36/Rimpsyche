@@ -16,6 +16,7 @@ namespace Maux36.RimPsyche
         public static Texture2D ViewFacetButton = ContentFinder<Texture2D>.Get("Buttons/FacetViewButton", true);
         public static Texture2D ViewListButton = ContentFinder<Texture2D>.Get("Buttons/RimpsycheViewList", true);
         public static Texture2D ViewBarButton = ContentFinder<Texture2D>.Get("Buttons/RimpsycheViewBar", true);
+        public static Texture2D ViewBehaviorButton = ContentFinder<Texture2D>.Get("Buttons/RimpsycheBehaviorButton", true);
         public static Texture2D SortButton = ContentFinder<Texture2D>.Get("Buttons/RimpsycheSort", true);
         public static Texture2D EditButton = ContentFinder<Texture2D>.Get("Buttons/RimpsycheEdit", true);
         public static Texture2D InfoButton = ContentFinder<Texture2D>.Get("Buttons/RimpsycheInfo", true);
@@ -24,6 +25,7 @@ namespace Maux36.RimPsyche
         public static Texture2D SaveLoadButton = ContentFinder<Texture2D>.Get("Buttons/SaveLoadButton", true);
         public static Texture2D RevealButton = ContentFinder<Texture2D>.Get("Buttons/RimpsycheReveal", true);
         public static Texture2D HideButton = ContentFinder<Texture2D>.Get("Buttons/RimpsycheHide", true);
+        public static Texture2D DispositionButton = ContentFinder<Texture2D>.Get("Buttons/RimpsycheDisposition", true);
         public static Texture2D InterestButton = ContentFinder<Texture2D>.Get("Buttons/RimpsycheInterest", true);
         public static Texture2D PreferenceButton = ContentFinder<Texture2D>.Get("Buttons/RimpsychePreference", true);
 

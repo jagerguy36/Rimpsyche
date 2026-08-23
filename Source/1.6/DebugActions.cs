@@ -48,7 +48,7 @@ namespace Maux36.RimPsyche
         public static void PastePawnPsyche(Pawn pawn)
         {
             var newPsyche = RimPsycheWorldComp.tempData;
-            PsycheDataUtil.InjectPsycheData(pawn, newPsyche, true);
+            PsycheDataUtil.InjectPsycheData(pawn, newPsyche, true, true);
             Log.Message($"RimPsyche injected copied psyche to {pawn.Name}");
         }
 
@@ -64,7 +64,7 @@ namespace Maux36.RimPsyche
         public static void PasteStringPawnPsyche(Pawn pawn)
         {
             var serialized = RimPsycheWorldComp.serializedTemp;
-            PsycheDataUtil.InjectSerializedStringPsycheData(pawn, serialized, true);
+            PsycheDataUtil.InjectSerializedStringPsycheData(pawn, serialized, true, true);
             Log.Message($"Injected to {pawn.Name} serialized Psyche: {serialized}");
         }
 
@@ -146,6 +146,52 @@ namespace Maux36.RimPsyche
             DebugTables.MakeTablesDialog(from x in pawn.Map.mapPawns.AllHumanlikeSpawned
                                          where x != pawn && x.compPsyche()?.Enabled == true
                                          select x, list.ToArray());
+        }
+        [DebugAction("Rimpsyche", actionType = DebugActionType.ToolMapForPawns, allowedGameStates = AllowedGameStates.PlayingOnMap, displayPriority = 1000)]
+        public static void SimulatePersonalityGeneration(Pawn pawn)
+        {
+
+            const int count = 15000;
+            const int take = 3;
+
+            var topNCount = new Dictionary<PersonalityDef, int>();
+
+            var allDefs = DefDatabase<PersonalityDef>.AllDefsListForReading;
+
+            foreach (var pDef in allDefs)
+                topNCount[pDef] = 0;
+
+            CompPsyche compPsyche = pawn.compPsyche();
+            var personality = compPsyche.Personality;
+
+            for (int i = 0; i < count; i++)
+            {
+                personality.Initialize();
+
+                var topN = allDefs.Select(pDef => new
+                {
+                    Def = pDef,
+                    Value = personality.GetPersonality(pDef)
+                })
+                    .OrderByDescending(x => x.Value)
+                    .Take(take);
+
+                foreach (var entry in topN)
+                {
+                    topNCount[entry.Def]++;
+                }
+            }
+
+            foreach (var entry in topNCount
+                .OrderByDescending(x => x.Value))
+            {
+                Log.Message(
+                    $"[Personality] {entry.Key.defName}: " +
+                    $"Top {take} in {entry.Value}/{count} generations " +
+                    $"({entry.Value / (float)count:P1})"
+                );
+            }
+            Log.Message("=========================================");
         }
         //[DebugAction("Rimpsyche", actionType = DebugActionType.ToolMapForPawns, allowedGameStates = AllowedGameStates.PlayingOnMap, displayPriority = 1000)]
         //public static void LogPawnPsyche(Pawn pawn)

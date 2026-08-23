@@ -244,7 +244,7 @@ namespace Maux36.RimPsyche
             //Initialize even when not null for save-game trait safety with Sexuality Module.
             sexuality.Initialize(generate, allowGay);
         }
-        public void InjectPsycheData(PsycheData psyche, bool preserveMemory)
+        public void InjectPsycheData(PsycheData psyche, bool preserveMemory, bool randomizeSexualityIfUndefined = true)
         {
             personality ??= new Pawn_PersonalityTracker(parentPawn);
             personality.Initialize(psyche);
@@ -253,7 +253,7 @@ namespace Maux36.RimPsyche
             if (Rimpsyche.SexualityModuleLoaded)
             {
                 sexuality ??= new Pawn_SexualityTracker(parentPawn);
-                sexuality.InjectData(psyche, preserveMemory);
+                sexuality.InjectData(psyche, preserveMemory, randomizeSexualityIfUndefined);
             }
         }
 
@@ -350,11 +350,33 @@ namespace Maux36.RimPsyche
                     roomRoleFactor = 1f;
                     organizedMood = -1;
                     //lastResilientSpiritTick = -3600000; Keep this in memory
+                    insight = 0f;
+                    shame = 0f;
                     tickOverwhelmed = 0;
                 }
             }
         }
 
+        public void ClearAllPsycheData()
+        {
+            progressTick = -1;
+            progressLastCause = null;
+            progressLastCauseIndex = 1;
+            roomRoleFactor = 1f;
+            organizedMood = -1;
+            lastResilientSpiritTick = -3600000;
+            insight = 0f;
+            shame = 0f;
+            tickOverwhelmed = 0;
+            personality = new Pawn_PersonalityTracker(parentPawn);
+            personality.Initialize();
+            interests = new Pawn_InterestTracker(parentPawn);
+            interests.Initialize();
+            sexuality ??= new Pawn_SexualityTracker(parentPawn);
+            sexuality.Initialize(generate: false);
+            CleanShame();
+            NullifyCheck();
+        }
     }
 
 

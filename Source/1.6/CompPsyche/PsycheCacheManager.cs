@@ -51,6 +51,7 @@ namespace Maux36.RimPsyche
         public override void FinalizeInit(bool fromload)
         {
             base.FinalizeInit(fromload);
+            PsycheInfoCard.CacheClean();
             try
             {
                 PsycheCacheManager.ClearAllCache(); //clear any pawns from a previous world 
