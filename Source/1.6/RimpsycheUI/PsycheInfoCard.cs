@@ -121,7 +121,7 @@ namespace Maux36.RimPsyche
         public static bool rightPanelVisible = false;
         public static bool showPreference = false;
         public static ShowMode showMode = ShowMode.Personality;
-        public static SideMode sideMode = Rimpsyche.DispositionModuleLoaded? SideMode.Disposition : SideMode.Interest;
+        public static SideMode sideMode = (Rimpsyche.DispositionModuleLoaded && RimpsycheSettings.ShowDispositionInUI) ? SideMode.Disposition : SideMode.Interest;
 
         public static bool shouldSort = false;
         public static SortMode sortOption = SortMode.Value; //0: value(high->low), 1: alphabet(a->z) 3: def
@@ -1185,7 +1185,7 @@ namespace Maux36.RimPsyche
                 bool canUseSexuality = Rimpsyche.SexualityModuleLoaded && comp.Sexuality.SexualityExpressed();
                 if (sideMode == SideMode.Sexuality && !canUseSexuality)
                 {
-                    sideMode = GetNextSideMode(sideMode, Rimpsyche.DispositionModuleLoaded, canUseSexuality);
+                    sideMode = GetNextSideMode(sideMode, (Rimpsyche.DispositionModuleLoaded && RimpsycheSettings.ShowDispositionInUI), canUseSexuality);
                 }
                 var rightHeaderRect = new Rect(rightRect.x, rightY, rightRect.width, 22f);
                 string rightSideLabel = sideMode switch
@@ -1196,12 +1196,12 @@ namespace Maux36.RimPsyche
                     _ => ""
                 };
                 Widgets.Label(rightHeaderRect, rightSideLabel);
-                bool showToggleButton = Rimpsyche.DispositionModuleLoaded || Rimpsyche.SexualityModuleLoaded;
+                bool showToggleButton = (Rimpsyche.DispositionModuleLoaded && RimpsycheSettings.ShowDispositionInUI) || Rimpsyche.SexualityModuleLoaded;
                 if (showToggleButton)
                 {
                     float toggleIconX = rightHeaderRect.xMax - iconSize - iconSpacing;
                     Rect toggleIconRect = new Rect(toggleIconX, rightHeaderRect.y + (rightHeaderRect.height - iconSize) * 0.5f, iconSize, iconSize);
-                    var nextSideMode = GetNextSideMode(sideMode, Rimpsyche.DispositionModuleLoaded, canUseSexuality);
+                    var nextSideMode = GetNextSideMode(sideMode, (Rimpsyche.DispositionModuleLoaded && RimpsycheSettings.ShowDispositionInUI), canUseSexuality);
                     Texture2D icon = nextSideMode switch
                     {
                         SideMode.Interest => Rimpsyche_UI_Utility.InterestButton,
