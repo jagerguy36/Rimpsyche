@@ -701,6 +701,20 @@ namespace Maux36.RimPsyche
                 titleString = "RPC_Disposition".Translate();
             Widgets.Label(titleRect, titleString);
             Vector2 titleTextSize = Text.CalcSize(titleString);
+            Rect resetButtonRect = new Rect(
+                innerRect.x + resetButtonMargin,
+                titleRect.y + (titleRect.height - resetButtonSize) / 2f,
+                resetButtonSize,
+                resetButtonSize
+            );
+            if (!RimpsycheSettings.showFacetInUI && psycheEnabled && Prefs.DevMode)
+            {
+                if (Widgets.ButtonImage(resetButtonRect, Rimpsyche_UI_Utility.resetIcon))
+                {
+                    compPsyche.Personality.Initialize();
+                }
+                TooltipHandler.TipRegion(resetButtonRect, "ResetPsycheTooltip".Translate());
+            }
 
             // Icon on the right
             float iconX = titleRect.x + (titleRect.width / 2f) + (titleTextSize.x / 2f) + 8f;
