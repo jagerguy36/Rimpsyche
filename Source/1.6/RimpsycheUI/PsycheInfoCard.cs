@@ -1183,9 +1183,14 @@ namespace Maux36.RimPsyche
             {
                 //Sexuality Guard
                 bool canUseSexuality = Rimpsyche.SexualityModuleLoaded && comp.Sexuality.SexualityExpressed();
+                bool canUseDisposition = Rimpsyche.DispositionModuleLoaded && RimpsycheSettings.ShowDispositionInUI;
                 if (sideMode == SideMode.Sexuality && !canUseSexuality)
                 {
-                    sideMode = GetNextSideMode(sideMode, (Rimpsyche.DispositionModuleLoaded && RimpsycheSettings.ShowDispositionInUI), canUseSexuality);
+                    sideMode = GetNextSideMode(sideMode, canUseDisposition, canUseSexuality);
+                }
+                if (sideMode == SideMode.Disposition && !canUseDisposition)
+                {
+                    sideMode = GetNextSideMode(sideMode, canUseDisposition, canUseSexuality);
                 }
                 var rightHeaderRect = new Rect(rightRect.x, rightY, rightRect.width, 22f);
                 string rightSideLabel = sideMode switch
@@ -1196,12 +1201,12 @@ namespace Maux36.RimPsyche
                     _ => ""
                 };
                 Widgets.Label(rightHeaderRect, rightSideLabel);
-                bool showToggleButton = (Rimpsyche.DispositionModuleLoaded && RimpsycheSettings.ShowDispositionInUI) || Rimpsyche.SexualityModuleLoaded;
+                bool showToggleButton = canUseDisposition || canUseSexuality;
                 if (showToggleButton)
                 {
                     float toggleIconX = rightHeaderRect.xMax - iconSize - iconSpacing;
                     Rect toggleIconRect = new Rect(toggleIconX, rightHeaderRect.y + (rightHeaderRect.height - iconSize) * 0.5f, iconSize, iconSize);
-                    var nextSideMode = GetNextSideMode(sideMode, (Rimpsyche.DispositionModuleLoaded && RimpsycheSettings.ShowDispositionInUI), canUseSexuality);
+                    var nextSideMode = GetNextSideMode(sideMode, canUseDisposition, canUseSexuality);
                     Texture2D icon = nextSideMode switch
                     {
                         SideMode.Interest => Rimpsyche_UI_Utility.InterestButton,
