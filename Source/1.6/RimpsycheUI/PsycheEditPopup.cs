@@ -36,7 +36,7 @@ namespace Maux36.RimPsyche
             totalBaseSize = midRectWidth + rightRectWidth + baseMargin;
             totalFullSize = leftRectWidth + midRectWidth + rightRectWidth + baseMargin;
         }
-        public PsycheEditPopup(Pawn editFor, bool enableEdit)
+        public PsycheEditPopup(Pawn editFor, bool enableEdit = false)
         {
             this.editMode = enableEdit;
             this.editFor = editFor;

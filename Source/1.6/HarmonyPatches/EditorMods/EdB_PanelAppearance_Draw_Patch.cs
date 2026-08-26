@@ -25,7 +25,7 @@ namespace Maux36.RimPsyche
             if (___CachedPawn?.compPsyche() != null)
             {
                 Rect rect = new Rect(___RectButtonRandomize.x - ___RectButtonRandomize.width - 4f, ___RectButtonRandomize.y, ___RectButtonRandomize.width, ___RectButtonRandomize.height);
-                Rimpsyche_UI_Utility.DrawEditButton(rect, ___CachedPawn, true);
+                Rimpsyche_UI_Utility.DrawEditButton(rect, ___CachedPawn);
             }
         }
     }
