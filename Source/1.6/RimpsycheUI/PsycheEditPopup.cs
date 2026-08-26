@@ -272,9 +272,14 @@ namespace Maux36.RimPsyche
             {
                 var prefDef = allPrefDefs[i];
                 if (!prefDef.isActive)
-                    continue;
-                float viewerHeight = prefDef.worker.GetViewerHeight(currentPawn);
-                cachedViewerHeights.Add(viewerHeight);
+                {
+                    cachedViewerHeights.Add(0f);
+                }
+                else
+                {
+                    float viewerHeight = prefDef.worker.GetViewerHeight(currentPawn);
+                    cachedViewerHeights.Add(viewerHeight);
+                }
             }
             resetPreferenceHeights = false;
         }
