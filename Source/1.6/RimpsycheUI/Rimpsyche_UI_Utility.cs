@@ -29,7 +29,7 @@ namespace Maux36.RimPsyche
         public static Texture2D InterestButton = ContentFinder<Texture2D>.Get("Buttons/RimpsycheInterest", true);
         public static Texture2D PreferenceButton = ContentFinder<Texture2D>.Get("Buttons/RimpsychePreference", true);
 
-        public static void DrawEditButton(Rect rect, Pawn pawn)
+        public static void DrawEditButton(Rect rect, Pawn pawn, bool enableEdit)
         {
             Color oldColor = GUI.color;
             GUI.color = rect.Contains(Event.current.mousePosition) ? ButtonLightColor : ButtonDarkColor;
@@ -37,7 +37,7 @@ namespace Maux36.RimPsyche
             if (Widgets.ButtonInvisible(rect, false))
             {
                 SoundDefOf.Tick_Low.PlayOneShotOnCamera(null);
-                Find.WindowStack.Add(new PsycheEditPopup(pawn));
+                Find.WindowStack.Add(new PsycheEditPopup(pawn, enableEdit));
             }
             GUI.color = oldColor;
         }

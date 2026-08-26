@@ -32,7 +32,7 @@ namespace Maux36.RimPsyche
             if (pawn.compPsyche() != null)
             {
                 Rect rect = new Rect(x + 23f, y - 3f, 30f, 30f);
-                Rimpsyche_UI_Utility.DrawEditButton(rect, pawn);
+                Rimpsyche_UI_Utility.DrawEditButton(rect, pawn, true);
             }
             return Widgets.InfoCardButton(x, y, pawn);
         }
