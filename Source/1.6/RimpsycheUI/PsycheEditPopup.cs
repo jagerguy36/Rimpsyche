@@ -11,6 +11,7 @@ namespace Maux36.RimPsyche
     {
         private Pawn editFor;
         private const float baseMargin = 36f; //Margin is set to 18f.
+        private bool editMode;
         static PsycheEditPopup()
         {
             facetLabelWidth = RimpsycheDatabase.maxFacetLabelWidth;
@@ -35,8 +36,9 @@ namespace Maux36.RimPsyche
             totalBaseSize = midRectWidth + rightRectWidth + baseMargin;
             totalFullSize = leftRectWidth + midRectWidth + rightRectWidth + baseMargin;
         }
-        public PsycheEditPopup(Pawn editFor)
+        public PsycheEditPopup(Pawn editFor, bool enableEdit = false)
         {
+            this.editMode = enableEdit;
             this.editFor = editFor;
             soundClose = SoundDefOf.InfoCard_Close;
             closeOnClickedOutside = true;
@@ -272,9 +274,14 @@ namespace Maux36.RimPsyche
             {
                 var prefDef = allPrefDefs[i];
                 if (!prefDef.isActive)
-                    continue;
-                float viewerHeight = prefDef.worker.GetViewerHeight(currentPawn);
-                cachedViewerHeights.Add(viewerHeight);
+                {
+                    cachedViewerHeights.Add(0f);
+                }
+                else
+                {
+                    float viewerHeight = prefDef.worker.GetViewerHeight(currentPawn);
+                    cachedViewerHeights.Add(viewerHeight);
+                }
             }
             resetPreferenceHeights = false;
         }
@@ -309,6 +316,7 @@ namespace Maux36.RimPsyche
             if (!IsOpen) return;
             // Get pawn
             Pawn pawn = editFor;
+            bool allowEdit = editMode || Prefs.DevMode;
 
             if (pawn == null) return;
             var compPsyche = pawn.compPsyche();
@@ -328,15 +336,15 @@ namespace Maux36.RimPsyche
             bool showPref = showPreference && showSexuality;
 
             if (RimpsycheSettings.showFacetInUI)
-                DrawFacetCard(leftRect, pawn, compPsyche);
+                DrawFacetCard(leftRect, allowEdit, pawn, compPsyche);
 
-            DrawPersonalityEditcard(middleRect, pawn, compPsyche);
+            DrawPersonalityEditcard(middleRect, allowEdit, pawn, compPsyche);
             if (showSexuality)
             {
-                DrawSexualityEditCard(rightTopRect, pawn, compPsyche);
+                DrawSexualityEditCard(rightTopRect, allowEdit, pawn, compPsyche);
             }
-            if (showPref) DrawPreferenceEditCard(rightBottomRect, pawn, compPsyche);
-            else DrawInterestEditCard(rightBottomRect, pawn, compPsyche, showSexuality);
+            if (showPref) DrawPreferenceEditCard(rightBottomRect, allowEdit, pawn, compPsyche);
+            else DrawInterestEditCard(rightBottomRect, allowEdit, pawn, compPsyche, showSexuality);
 
             if (compPsyche?.Enabled != true)
             {
@@ -353,7 +361,7 @@ namespace Maux36.RimPsyche
             }
         }
 
-        public static void DrawSexualityEditCard(Rect rect, Pawn pawn, CompPsyche compPsyche)
+        public static void DrawSexualityEditCard(Rect rect, bool allowEdit, Pawn pawn, CompPsyche compPsyche)
         {
             var psycheEnabled = compPsyche?.Enabled == true;
             TextAnchor oldAnchor = Text.Anchor;
@@ -376,7 +384,7 @@ namespace Maux36.RimPsyche
             Rect editIconRect = new Rect(editIconX, titleRect.y + (titleHeight - iconSize) / 2f, iconSize, iconSize);
 
             // Draw & handle click
-            if (psycheEnabled && Prefs.DevMode)
+            if (psycheEnabled && allowEdit)
             {
                 if (Widgets.ButtonImage(editIconRect, Rimpsyche_UI_Utility.EditButton))
                 {
@@ -481,7 +489,7 @@ namespace Maux36.RimPsyche
             Text.Anchor = oldAnchor;
             Text.Font = oldFont;
         }
-        public static void DrawPreferenceEditCard(Rect rect, Pawn pawn, CompPsyche compPsyche)
+        public static void DrawPreferenceEditCard(Rect rect, bool allowEdit, Pawn pawn, CompPsyche compPsyche)
         {
             var psycheEnabled = compPsyche?.Enabled == true;
             TextAnchor oldAnchor = Text.Anchor;
@@ -501,7 +509,7 @@ namespace Maux36.RimPsyche
             Rect editIconRect = new Rect(editIconX, titleRect.y + (titleHeight - iconSize) / 2f, iconSize, iconSize);
 
             // Draw & handle click
-            if (psycheEnabled && Prefs.DevMode)
+            if (psycheEnabled && allowEdit)
             {
                 if (Widgets.ButtonImage(editIconRect, Rimpsyche_UI_Utility.EditButton))
                 {
@@ -578,7 +586,7 @@ namespace Maux36.RimPsyche
             Text.Font = oldFont;
         }
 
-        public static void DrawInterestEditCard(Rect rect, Pawn pawn, CompPsyche compPsyche, bool showSexuality)
+        public static void DrawInterestEditCard(Rect rect, bool allowEdit, Pawn pawn, CompPsyche compPsyche, bool showSexuality)
         {
             var psycheEnabled = compPsyche?.Enabled == true;
             TextAnchor oldAnchor = Text.Anchor;
@@ -598,7 +606,7 @@ namespace Maux36.RimPsyche
             Rect editIconRect = new Rect(editIconX, titleRect.y + (titleHeight - iconSize) / 2f, iconSize, iconSize);
 
             // Draw & handle click
-            if (psycheEnabled && Prefs.DevMode)
+            if (psycheEnabled && allowEdit)
             {
                 if (Widgets.ButtonImage(editIconRect, Rimpsyche_UI_Utility.EditButton))
                 {
@@ -678,7 +686,7 @@ namespace Maux36.RimPsyche
             Text.Font = oldFont;
         }
 
-        public static void DrawPersonalityEditcard(Rect rect, Pawn pawn, CompPsyche compPsyche)
+        public static void DrawPersonalityEditcard(Rect rect, bool allowEdit, Pawn pawn, CompPsyche compPsyche)
         {
             var psycheEnabled = compPsyche?.Enabled == true;
             var scope = compPsyche.Personality.scopeCache;
@@ -707,7 +715,7 @@ namespace Maux36.RimPsyche
                 resetButtonSize,
                 resetButtonSize
             );
-            if (!RimpsycheSettings.showFacetInUI && psycheEnabled && Prefs.DevMode)
+            if (!RimpsycheSettings.showFacetInUI && psycheEnabled && allowEdit)
             {
                 if (Widgets.ButtonImage(resetButtonRect, Rimpsyche_UI_Utility.resetIcon))
                 {
@@ -753,7 +761,7 @@ namespace Maux36.RimPsyche
             Rect editIconRect = new Rect(iconX, titleRect.y + (titleHeight - iconSize) / 2f, iconSize, iconSize);
 
             // Draw & handle click
-            if (psycheEnabled && Prefs.DevMode)
+            if (psycheEnabled && allowEdit)
             {
                 if (Widgets.ButtonImage(editIconRect, Rimpsyche_UI_Utility.EditButton))
                 {
@@ -769,6 +777,21 @@ namespace Maux36.RimPsyche
 
             Text.Anchor = TextAnchor.UpperLeft;
             Text.Font = GameFont.Small;
+
+            if (!RimpsycheSettings.showFacetInUI && allowEdit)
+            {
+                Rect saveButtonRect = new Rect(
+                    titleRect.xMax - resetButtonSize - resetButtonMargin - scrollBarWidth,
+                    titleRect.y + (titleRect.height - resetButtonSize) / 2f,
+                    resetButtonSize,
+                    resetButtonSize
+                );
+                if (Widgets.ButtonImage(saveButtonRect, Rimpsyche_UI_Utility.SaveLoadButton))
+                {
+                    ShowSlotSelectMenu(pawn);
+                }
+                TooltipHandler.TipRegion(saveButtonRect, "SavePsycheTooltip".Translate());
+            }
 
             // Scroll view
             var personalityList = GetPersonalityData(compPsyche, pawn);
@@ -905,7 +928,7 @@ namespace Maux36.RimPsyche
             Text.Font = oldFont;
         }
 
-        public static void DrawFacetCard(Rect rect, Pawn pawn, CompPsyche compPsyche)
+        public static void DrawFacetCard(Rect rect, bool allowEdit, Pawn pawn, CompPsyche compPsyche)
         {
             var psycheEnabled = compPsyche?.Enabled == true;
             var gate = compPsyche.Personality.gateCache;
@@ -930,7 +953,7 @@ namespace Maux36.RimPsyche
                 resetButtonSize,
                 resetButtonSize
             );
-            if (psycheEnabled && Prefs.DevMode)
+            if (psycheEnabled && allowEdit)
             {
                 if (Widgets.ButtonImage(resetButtonRect, Rimpsyche_UI_Utility.resetIcon))
                 {
@@ -958,7 +981,7 @@ namespace Maux36.RimPsyche
             Rect editIconRect = new Rect(infoIconRect.xMax + iconSpacing, titleRect.y + (titleHeight - iconSize) / 2f, iconSize, iconSize);
 
             // Draw & handle click
-            if (psycheEnabled && RimpsycheSettings.allowFacetEdit && Prefs.DevMode)
+            if (psycheEnabled && RimpsycheSettings.allowFacetEdit && allowEdit)
             {
                 if (Widgets.ButtonImage(editIconRect, Rimpsyche_UI_Utility.EditButton))
                 {
@@ -969,7 +992,7 @@ namespace Maux36.RimPsyche
 
             Text.Anchor = TextAnchor.UpperLeft;
             Text.Font = GameFont.Small;
-            if ( Prefs.DevMode)
+            if (allowEdit)
             {
                 Rect saveButtonRect = new Rect(
                     titleRect.xMax - resetButtonSize - resetButtonMargin - scrollBarWidth,

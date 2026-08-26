@@ -1061,7 +1061,11 @@ namespace Maux36.RimPsyche
                 {
                     float psycheIconX = rect.xMax - psycheIconSize;
                     Rect psycheIconRect = new Rect(psycheIconX, rect.y + 11f - psycheIconSize * 0.5f, psycheIconSize, psycheIconSize);
-                    Rimpsyche_UI_Utility.DrawEditButton(psycheIconRect, pawn);
+                    if (Widgets.ButtonImage(psycheIconRect, Rimpsyche_UI_Utility.PsycheButton))
+                    {
+                        Find.WindowStack.Add(new PsycheEditPopup(pawn));
+                    }
+                    TooltipHandler.TipRegion(psycheIconRect, "TabPsyche".Translate());
                 }
                 leftY += 24f;
                 GUI.color = LineColor;
@@ -1078,7 +1082,11 @@ namespace Maux36.RimPsyche
                 {
                     float psycheIconX = leftRect.xMax - psycheIconSize;
                     Rect psycheIconRect = new Rect(psycheIconX, leftRect.y + 11f - psycheIconSize * 0.5f, psycheIconSize, psycheIconSize);
-                    Rimpsyche_UI_Utility.DrawEditButton(psycheIconRect, pawn);
+                    if (Widgets.ButtonImage(psycheIconRect, Rimpsyche_UI_Utility.PsycheButton))
+                    {
+                        Find.WindowStack.Add(new PsycheEditPopup(pawn));
+                    }
+                    TooltipHandler.TipRegion(psycheIconRect, "TabPsyche".Translate());
                 }
                 leftY += 24f;
 

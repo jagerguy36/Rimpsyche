@@ -37,7 +37,7 @@ namespace Maux36.RimPsyche
             if (Widgets.ButtonInvisible(rect, false))
             {
                 SoundDefOf.Tick_Low.PlayOneShotOnCamera(null);
-                Find.WindowStack.Add(new PsycheEditPopup(pawn));
+                Find.WindowStack.Add(new PsycheEditPopup(pawn, true));
             }
             GUI.color = oldColor;
         }
