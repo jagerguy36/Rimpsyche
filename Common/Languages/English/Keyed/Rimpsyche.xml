@@ -6,26 +6,63 @@
 
   <!-- Settings -->
   <RimpsycheGeneralSetting>RimPsyche General Settings</RimpsycheGeneralSetting>
-  <RimpsycheAllowFacetEdit>Enable Facet Edit</RimpsycheAllowFacetEdit>
-  <RimpsycheAllowFacetEditTooltip>Enable directly editing facets.</RimpsycheAllowFacetEditTooltip>
-  <RimpsycheShowFacetInMenu>Show Facets in UI</RimpsycheShowFacetInMenu>
-  <RimpsycheShowFacetInMenuTooltip>Enable view facets option in Psyche tab.</RimpsycheShowFacetInMenuTooltip>
-  <RimpsycheShowFacetGraph>Show Facets radar chart in UI</RimpsycheShowFacetGraph>
-  <RimpsycheShowFacetGraphTooltip>Show facet radar chart in Psyche tab.</RimpsycheShowFacetGraphTooltip>
-  <RimpsycheConfirmLoadSave>Confirm before load/saving Psyche</RimpsycheConfirmLoadSave>
-  <RimpsycheConfirmLoadSaveTooltip>Show confirmation pop-up before overwriting or loading pawn Psyche.</RimpsycheConfirmLoadSaveTooltip>
+  <RimpsycheTabSetting>RimPsyche Tab Settings</RimpsycheTabSetting>
+  <RimpsychePsycheUISetting>Psyche Info UI Settings</RimpsychePsycheUISetting>
+  <RimpsychePersonalityViewSetting>Personality Presentation Settings</RimpsychePersonalityViewSetting>
+  <RimpsycheMiscSetting>Misc Settings</RimpsycheMiscSetting>
 
+  <!-- Tab Settings -->
+  <RimpsycheUsePsycheTab>Show Psyche tab</RimpsycheUsePsycheTab>
+  <RimpsycheUsePsycheTabTooltip>Displays a dedicated Psyche tab on pawns. Full psyche info can still be accessed via a Bio tab when turned off.</RimpsycheUsePsycheTabTooltip>
+  <RimpsycheHideSummaryInBio>Hide summary on Bio tab</RimpsycheHideSummaryInBio>
+  <RimpsycheHideSummaryInBioTooltip>Removes the personality summary from the bottom of the Bio tab.</RimpsycheHideSummaryInBioTooltip>
+  <RimpsycheHideSummaryInBioDisabledTooltip>Removes the personality summary from the bottom of the Bio tab.\n\nRequires "Show Psyche tab" to be enabled.</RimpsycheHideSummaryInBioDisabledTooltip>
+  <RimpsycheShowSideInfoInSummary>Show side info in Bio tab summary</RimpsycheShowSideInfoInSummary>
+  <RimpsycheShowSideInfoInSummaryTooltip>Displays an extra info panel alongside the Bio tab summary for active RimPsyche modules.</RimpsycheShowSideInfoInSummaryTooltip>
+  
+  <!-- Psyche Info UI Settings -->
+  <RimpsycheShowDispositionInUI>[Dev] Show dispositions in Psyche Info UI</RimpsycheShowDispositionInUI>
+  <RimpsycheShowDispositionInUITooltip>Displays the full list of dispositions in the Psyche Info UI.\n\nWARNING: Dispositions are simplified for quick summaries. This list does not reflect all active gameplay mechanics and effects.</RimpsycheShowDispositionInUITooltip>
+  <RimpsycheShowFacetInUI>[Dev] Show facets in Psyche Info UI</RimpsycheShowFacetInUI>
+  <RimpsycheShowFacetInUITooltip>Displays underlying facets in the Psyche Info UI.\n\nWARNING: Facets represent a pawn's base personality before being modified by traits and other factors. They do not represent expressed personality and should not be taken as such.</RimpsycheShowFacetInUITooltip>
+  <RimpsycheAllowFacetEdit>[Dev] Enable facet editing</RimpsycheAllowFacetEdit>
+  <RimpsycheAllowFacetEditTooltip>Allows facets to be edited directly.\n\nWARNING: Facets represent a pawn's base personality before being modified by traits and other factors. They do not represent expressed personality and should not be taken as such.</RimpsycheAllowFacetEditTooltip>
+  <RimpsycheAllowFacetEditDisabledTooltip>Allows facets to be edited directly.\n\nWARNING: Facets represent a pawn's base personality before being modified by traits and other factors. They do not represent expressed personality and should not be taken as such.\n\nRequires "[Dev] Show facets in Psyche Info UI" to be enabled.</RimpsycheAllowFacetEditDisabledTooltip>
+  <RimpsycheShowFacetGraph>[Dev] Show facet radar chart in Psyche Info UI</RimpsycheShowFacetGraph>
+  <RimpsycheShowFacetGraphTooltip>Displays a radar chart of personality facets in the Psyche Info UI.\n\nWARNING: Facets represent a pawn's base personality before being modified by traits and other factors. They do not represent expressed personality and should not be taken as such.</RimpsycheShowFacetGraphTooltip>
+
+  <!-- Personality Description -->
+  <RimpsychePersonalityAsBars>Show personality values as bars</RimpsychePersonalityAsBars>
+  <RimpsychePersonalityAsBarsTooltip>Displays personality values using bars instead of descriptive text labels.</RimpsychePersonalityAsBarsTooltip>
+  <RimpsycheShowEffectInDescription>Show gameplay effects in personality</RimpsycheShowEffectInDescription>
+  <RimpsycheShowEffectInDescriptionTooltip>Displays associated gameplay effects inside each personality node's description.\n\nWARNING: Personality effects are simplified for readability and do not reflect all active gameplay mechanics.</RimpsycheShowEffectInDescriptionTooltip>
+  <RimpsycheDescriptionEffectToggle>Effects to display in descriptions</RimpsycheDescriptionEffectToggle>
+
+  <!-- Misc -->
+  <RimpsycheConfirmLoadSave>Confirm before loading/saving Psyche</RimpsycheConfirmLoadSave>
+  <RimpsycheConfirmLoadSaveTooltip>Displays a confirmation pop-up before overwriting or loading a pawn's Psyche.</RimpsycheConfirmLoadSaveTooltip>
+
+  <RimpsycheDefaultSetting>Default</RimpsycheDefaultSetting>
+
+  <!-- Descriptors -->
+  <RP_Desc_Conversation>Conversation Effects</RP_Desc_Conversation>
+  <RP_Desc_ThoughtTag>Thought Tags</RP_Desc_ThoughtTag>
+  <RP_Desc_Gameplay>Gameplay</RP_Desc_Gameplay>
+  <RP_Desc_Romance>Romance</RP_Desc_Romance>
 
   <!-- Title -->
   <RPC_Personality>Personality</RPC_Personality>
-  <RPC_Interest>Interest</RPC_Interest>
+  <RPC_Disposition>Disposition</RPC_Disposition>
+  <RPC_Facets>Facets</RPC_Facets>
+  <RPC_Interest>Interests</RPC_Interest>
   <RPC_Sexuality>Sexuality</RPC_Sexuality>
 
-  <!-- Tab -->
+  <!-- UI -->
   <TabPsyche>Psyche</TabPsyche>
 
-  <RimpsycheShowList>Show as List</RimpsycheShowList>
-  <RimpsycheShowBar>Show as Bars</RimpsycheShowBar>
+  <RimpsycheShowPersonality>Show Personality</RimpsycheShowPersonality>
+  <RimpsycheShowDisposition>Show Disposition</RimpsycheShowDisposition>
+  <RimpsycheShowSexuality>Show Sexuality</RimpsycheShowSexuality>
   <RimpsycheShowFacet>Show Facets</RimpsycheShowFacet>
 
   <RimpsycheSortValue>Sort by Value</RimpsycheSortValue>
@@ -37,8 +74,14 @@
 
   <TraitAffected>Affected by trait(s):</TraitAffected>
   <GeneAffected>Affected by gene(s):</GeneAffected>
+  <RP_ShiftForFull>[Shift] Full description.</RP_ShiftForFull>
+  <RP_PsycheEffects>Effects</RP_PsycheEffects>
 
   <PsycheDisabled>Psyche Disabled</PsycheDisabled>
+
+  <!-- Behavior -->
+  <RPC_DescriptorBlame>From personalities:</RPC_DescriptorBlame>
+  <RPC_NoBehavior>No notable dispositions</RPC_NoBehavior>
 
   <!-- Interaction -->
   <MemoryReportString>Conversation about {0}</MemoryReportString>
@@ -48,8 +91,13 @@
   <RimPsycheIntensitySomewhat>Somewhat {0}</RimPsycheIntensitySomewhat>
   <RimPsycheIntensityMarginally>Marginally {0}</RimPsycheIntensityMarginally>
 
+  <RimPsycheIntensityKeyNeutral>Not</RimPsycheIntensityKeyNeutral>
+  <RimPsycheIntensityKeyExtremely>Extremely</RimPsycheIntensityKeyExtremely>
+  <RimPsycheIntensityKeyVery>Very</RimPsycheIntensityKeyVery>
+  <RimPsycheIntensityKeySomewhat>Somewhat</RimPsycheIntensityKeySomewhat>
+  <RimPsycheIntensityKeyMarginally>Marginally</RimPsycheIntensityKeyMarginally>
+
   <!-- Edit Mode -->
-  <RPC_Facets>Facets</RPC_Facets>
   <ResetPsycheTooltip>Reset Personality</ResetPsycheTooltip>
   <RimpsycheFacetInfo>Facets are the core building blocks that shape a pawn's thoughts, feelings, and behavior. Each one represents a specific aspect of how they see the world and react to it.</RimpsycheFacetInfo>
   <RimpsychePersonalityInfo>A pawn’s personality is the result of their individual facets coming together. It influences their behavior, relationships, and decisions.</RimpsychePersonalityInfo>
@@ -110,7 +158,7 @@
   <RPC_Confident>Confident</RPC_Confident>
   <RPC_Insecure>Insecure</RPC_Insecure>
   <RPC_Imagination_Tooltip>Reflects a vivid inner world and emotional sensitivity to art and beauty. Imaginative pawns are drawn to things like daydreams, music and art; Realistic pawns are more grounded and practical.</RPC_Imagination_Tooltip>
-  <RPC_Intellect_Tooltip>Captures interest in abstract thinking and complex ideas. Philosophical pawns enjoy deep conversations and philosophical questions; Practical pawns prefer concrete, straightforward thinking</RPC_Intellect_Tooltip>
+  <RPC_Intellect_Tooltip>Captures interest in abstract thinking and complex ideas. Philosophical pawns enjoy deep conversations and philosophical questions; Practical pawns prefer concrete, straightforward thinking.</RPC_Intellect_Tooltip>
   <RPC_Curiosity_Tooltip>Describes a drive for novelty, diversity, and exploration. Explorative pawns seek new experiences and challenge norms; Conventional pawns favor routine and familiar settings.</RPC_Curiosity_Tooltip>
   <RPC_Industriousness_Tooltip>Describes a drive to achieve long-term goals through hard work and persistence. Industrious pawns are motivated and focused, seeing tasks through to completion; Unmotivated pawns tend to lack drive and may abandon tasks.</RPC_Industriousness_Tooltip>
   <RPC_Orderliness_Tooltip>Describes a preference for structure, tidiness, and careful planning. Organized pawns manage their environments and tasks with forethought, valuing order and disliking chaos; Disorganized pawns tend to be less structured and may struggle with keeping track of tasks.</RPC_Orderliness_Tooltip>

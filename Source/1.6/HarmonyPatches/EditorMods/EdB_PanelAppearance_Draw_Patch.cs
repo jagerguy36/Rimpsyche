@@ -12,7 +12,7 @@ namespace Maux36.RimPsyche
     {
         public static bool Prepare()
         {
-            return ModsConfig.IsActive("EdB.PrepareCarefully");
+            return Rimpsyche_Utility.IsModActive("EdB.PrepareCarefully");
         }
 
         public static IEnumerable<MethodBase> TargetMethods()

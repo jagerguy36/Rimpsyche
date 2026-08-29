@@ -43,6 +43,7 @@ namespace Maux36.RimPsyche
     public class RimPsycheWorldComp : WorldComponent
     {
         public static PsycheData tempData = null;
+        public static string serializedTemp = string.Empty;
         public RimPsycheWorldComp(World world) : base(world)
         {
         }
@@ -50,6 +51,7 @@ namespace Maux36.RimPsyche
         public override void FinalizeInit(bool fromload)
         {
             base.FinalizeInit(fromload);
+            PsycheInfoCard.CacheClean();
             try
             {
                 PsycheCacheManager.ClearAllCache(); //clear any pawns from a previous world 

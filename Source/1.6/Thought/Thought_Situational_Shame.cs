@@ -8,36 +8,30 @@ namespace Maux36.RimPsyche
         protected override void Notify_BecameActive()
         {
             base.Notify_BecameActive();
-            if (pawn.IsColonist)
+            var compPsyche = pawn.compPsyche();
+            if (compPsyche != null)
             {
-                var compPsyche = pawn.compPsyche();
-                if (compPsyche != null)
+                if (compPsyche.Enabled != true)
                 {
-                    if (compPsyche.Enabled != true)
-                    {
-                        compPsyche.CleanShame();
-                        return;
-                    }
-                    compPsyche.Notify_ShameThoughtBecameActive(def);
+                    compPsyche.CleanShame();
+                    return;
                 }
+                compPsyche.Notify_ShameThoughtBecameActive(def);
             }
         }
 
         protected override void Notify_BecameInactive()
         {
             base.Notify_BecameInactive();
-            if (pawn.IsColonist)
+            var compPsyche = pawn.compPsyche();
+            if (compPsyche != null)
             {
-                var compPsyche = pawn.compPsyche();
-                if (compPsyche != null)
+                if (compPsyche.Enabled != true)
                 {
-                    if (compPsyche.Enabled != true)
-                    {
-                        compPsyche.CleanShame();
-                        return;
-                    }
-                    compPsyche.Notify_ShameThoughtBecameInactive(def);
+                    compPsyche.CleanShame();
+                    return;
                 }
+                compPsyche.Notify_ShameThoughtBecameInactive(def);
             }
         }
     }

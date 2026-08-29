@@ -7,6 +7,8 @@ namespace Maux36.RimPsyche
     {
         public string high;
         public string low;
+        public string highDescription;
+        public string lowDescription;
         public List<FacetWeight> scoreWeight;
         public List<Scope> scopes = null;
         public float preferenceBias = 0f;

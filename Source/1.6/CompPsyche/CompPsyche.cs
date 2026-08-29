@@ -71,6 +71,20 @@ namespace Maux36.RimPsyche
         //Resilience
         public int lastResilientSpiritTick = -3600000;
 
+        //Experiment
+        public float insight = 0f;
+        public void NotifyExperimentFailedAtQuality(int lvl, SkillDef skill)
+        {
+            float insightGain = 0.03f * lvl;
+            insight = Mathf.Clamp(insight + insightGain, 0f, 0.5f);
+            parentPawn.skills?.Learn(skill, 2000f * lvl, direct: true);
+        }
+        public void NotifyExperimentSuccessAtQuality(int lvl)
+        {
+            float insightSpent = 0.03f * lvl;
+            insight = Mathf.Clamp(insight - insightSpent, 0f, 0.5f);
+        }
+
         //Shame
         public float shame = 0f;
         public int tickOverwhelmed = 0;
@@ -132,7 +146,6 @@ namespace Maux36.RimPsyche
         public void CleanShame()
         {
             shamethoughtDirty = true;
-            activeShameThoughts.Clear();
         }
 
         public Pawn_PersonalityTracker Personality
@@ -179,7 +192,6 @@ namespace Maux36.RimPsyche
         {
             //Core only checks for inhumanized and shambler.
             //Other mods should postfix this method and add nullifyCheck method to add their own restrictions.
-            if (parentPawn.IsMutant && parentPawn.mutant.Def == MutantDefOf.Shambler) return false;
             if (parentPawn.Inhumanized()) return false;
             return true;
         }
@@ -232,7 +244,7 @@ namespace Maux36.RimPsyche
             //Initialize even when not null for save-game trait safety with Sexuality Module.
             sexuality.Initialize(generate, allowGay);
         }
-        public void InjectPsycheData(PsycheData psyche, bool preserveMemory)
+        public void InjectPsycheData(PsycheData psyche, bool preserveMemory, bool randomizeSexualityIfUndefined = true)
         {
             personality ??= new Pawn_PersonalityTracker(parentPawn);
             personality.Initialize(psyche);
@@ -241,7 +253,7 @@ namespace Maux36.RimPsyche
             if (Rimpsyche.SexualityModuleLoaded)
             {
                 sexuality ??= new Pawn_SexualityTracker(parentPawn);
-                sexuality.InjectData(psyche, preserveMemory);
+                sexuality.InjectData(psyche, preserveMemory, randomizeSexualityIfUndefined);
             }
         }
 
@@ -253,7 +265,7 @@ namespace Maux36.RimPsyche
         private static readonly Dictionary<Facet, float> facetChanges = new Dictionary<Facet, float>();
         public bool AffectPawn(float resultOffset, float opinion, Topic topic, float direction = 1f, float scoreBoost = 1f)
         {
-            float pawnTrust = parentPawn.compPsyche().personality.GetPersonality(PersonalityDefOf.Rimpsyche_Trust); //-1~1
+            float pawnTrust = personality.GetPersonality(PersonalityDefOf.Rimpsyche_Trust); //-1~1
             float pawnAge = Rimpsyche_Utility.GetPawnAge(parentPawn); //0~100
             //score boost is for negative good talk.
             //multiplying resultOffset by 4 will negative good talk value 3.5(max for negGood) act similar to 14 positive good talk
@@ -311,6 +323,7 @@ namespace Maux36.RimPsyche
             Scribe_Values.Look(ref roomRoleFactor, "roomRoleFactor", 1f);
             Scribe_Values.Look(ref organizedMood, "organizedMood", -1);
             Scribe_Values.Look(ref lastResilientSpiritTick, "lastResilientSpiritTick", -3600000);
+            Scribe_Values.Look(ref insight, "insight", 0f);
             Scribe_Values.Look(ref shame, "shame", 0f);
             Scribe_Values.Look(ref tickOverwhelmed, "tickOverwhelmed", 0);
 
@@ -337,11 +350,33 @@ namespace Maux36.RimPsyche
                     roomRoleFactor = 1f;
                     organizedMood = -1;
                     //lastResilientSpiritTick = -3600000; Keep this in memory
+                    insight = 0f;
+                    shame = 0f;
                     tickOverwhelmed = 0;
                 }
             }
         }
 
+        public void ClearAllPsycheData()
+        {
+            progressTick = -1;
+            progressLastCause = null;
+            progressLastCauseIndex = 1;
+            roomRoleFactor = 1f;
+            organizedMood = -1;
+            lastResilientSpiritTick = -3600000;
+            insight = 0f;
+            shame = 0f;
+            tickOverwhelmed = 0;
+            personality = new Pawn_PersonalityTracker(parentPawn);
+            personality.Initialize();
+            interests = new Pawn_InterestTracker(parentPawn);
+            interests.Initialize();
+            sexuality ??= new Pawn_SexualityTracker(parentPawn);
+            sexuality.Initialize(generate: false);
+            CleanShame();
+            NullifyCheck();
+        }
     }
 
 
