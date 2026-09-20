@@ -65,13 +65,16 @@ namespace Maux36.RimPsyche
             {
                 psyche.knownOrientation = [.. sexuality.knownOrientation];
                 psyche.relationship = new Dictionary<int, float>(sexuality.relationship);
+                psyche.lastRomanceInteractionTick = new Dictionary<int, int>(sexuality.lastRomanceInteractionTick);
                 psyche.knownOrientation ??= new();
                 psyche.relationship ??= new();
+                psyche.lastRomanceInteractionTick ??= new();
             }
             else
             {
                 psyche.knownOrientation = [];
                 psyche.relationship = [];
+                psyche.lastRomanceInteractionTick = [];
             }
 
             return psyche;
@@ -143,6 +146,14 @@ namespace Maux36.RimPsyche
                 relationshipPairs.Add($"{kvp.Key}:{kvp.Value}");
             }
             sb.Append(string.Join(",", relationshipPairs) + "|");
+
+            // 7. LastRomanceInteractionTick
+            List<string> lastRomanceInteractionTickPairs = new List<string>();
+            foreach (var kvp in psycheData.lastRomanceInteractionTick)
+            {
+                lastRomanceInteractionTickPairs.Add($"{kvp.Key}:{kvp.Value}");
+            }
+            sb.Append(string.Join(",", lastRomanceInteractionTickPairs) + "|");
 
             return sb.ToString();
         }
@@ -238,6 +249,19 @@ namespace Maux36.RimPsyche
                         if (tokens.Length == 2) data.relationship[int.Parse(tokens[0])] = float.Parse(tokens[1]);
                     }
                 }
+
+                // 7. LastRomanceInteractionTick
+                if (sections.Length >= 7)
+                {
+                    if (!string.IsNullOrEmpty(sections[6]))
+                    {
+                        foreach (var kvp in sections[6].Split(','))
+                        {
+                            string[] tokens = kvp.Split(':');
+                            if (tokens.Length == 2) data.lastRomanceInteractionTick[int.Parse(tokens[0])] = int.Parse(tokens[1]);
+                        }
+                    }
+                }
             }
             catch (Exception ex)
             {
@@ -248,6 +272,7 @@ namespace Maux36.RimPsyche
             data.interestScore ??= new();
             data.knownOrientation ??= new();
             data.relationship ??= new();
+            data.lastRomanceInteractionTick ??= new();
             data.preference ??= new();
 
             if (Rimpsyche.SexualityModuleLoaded)

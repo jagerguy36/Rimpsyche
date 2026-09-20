@@ -85,7 +85,7 @@ namespace Maux36.RimPsyche
                             if (Rimpsyche.RelationshipModuleLoaded)
                             {
                                 var DefOfRPR = AccessTools.TypeByName("Maux36.RimPsyche.Relationship.DefOfRPR");
-                                var FlirtInteraction = AccessTools.Field(DefOfRPR, "RPR_RomanticInteraction_Flirt");
+                                var FlirtInteraction = AccessTools.Field(DefOfRPR, "RPR_RomanticInteraction_StartFlirt");
                                 if (FlirtInteraction != null)
                                 {
                                     yield return new CodeInstruction(OpCodes.Ldarg_2);

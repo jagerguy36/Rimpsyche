@@ -147,14 +147,34 @@ namespace Maux36.RimPsyche
         }
         public int crushPawnIdNumber = -1;
         public int crushEndTick = -1;
-        private Dictionary<int, int> lastRomanceInteractionTickCache = new();
+        public int canActivityTick = -1;
+        //Used to cull Non-exclusive Romantic Relations that has not been used for long.
+        public Dictionary<int, int> lastRomanceInteractionTick = new();
         public void RegisterRomanceInteraction(Pawn otherPawn)
         {
-            lastRomanceInteractionTickCache[otherPawn.thingIDNumber] = Find.TickManager.TicksGame;
+            lastRomanceInteractionTick[otherPawn.thingIDNumber] = Find.TickManager.TicksGame;
         }
         public float GetRomInteractionIntervalFactor(Pawn otherPawn)
         {
             return 1f;
+        }
+        //RainCheck
+        private Dictionary<int, int> rainCheckMemory = new();
+        public void GiveRainCheck(Pawn otherPawn)
+        {
+            rainCheckMemory[otherPawn.thingIDNumber] = Find.TickManager.TicksGame;
+        }
+        public int TryGetRainCheck(Pawn otherPawn)
+        {
+            if(rainCheckMemory.TryGetValue(otherPawn.thingIDNumber, out var checkTick))
+            {
+                return checkTick;
+            }
+            return -999999;
+        }
+        public bool ConsumeRainCheck(Pawn otherPawn)
+        {
+            return rainCheckMemory.Remove(otherPawn.thingIDNumber);
         }
 
         //Preference
@@ -439,8 +459,10 @@ namespace Maux36.RimPsyche
             {
                 knownOrientation = [.. psyche.knownOrientation];
                 relationship = new Dictionary<int, float>(psyche.relationship);
+                lastRomanceInteractionTick = new Dictionary<int, int>(psyche.lastRomanceInteractionTick);
                 knownOrientation ??= new();
                 relationship ??= new();
+                lastRomanceInteractionTick ??= new();
             }
 
             if (Rimpsyche_Utility.GetPawnAge(pawn) < minAdultAge)
@@ -758,15 +780,23 @@ namespace Maux36.RimPsyche
                 knownOrientation.RemoveWhere(id => VersionManager.DiscardedPawnThingIDnumber.Contains(id));
                 foreach (int id in relationship.Keys.ToList())
                 {
-                    if (VersionManager.DiscardedPawnThingIDnumber.Contains(id)) relationship.Remove(id);
+                    if (VersionManager.DiscardedPawnThingIDnumber.Contains(id))
+                    {
+                        relationship.Remove(id);
+                        lastRomanceInteractionTick.Remove(id);
+                        rainCheckMemory.Remove(id);
+                    }
                 }
             }
             Scribe_Values.Look(ref orientationCategory, "category", SexualOrientation.None);
             Scribe_Values.Look(ref mKinsey, "mKinsey", -1f);
             Scribe_Values.Look(ref attraction, "attraction", 0f);
-            Scribe_Values.Look(ref sexDrive, "sexDrive", 0f);
+            Scribe_Values.Look(ref sexDrive, "sexDrive", 0f);            
             Scribe_Collections.Look(ref knownOrientation, "knownOrientation", LookMode.Value);
             Scribe_Collections.Look(ref relationship, "relationship", LookMode.Value, LookMode.Value);
+            Scribe_Values.Look(ref canActivityTick, "canActivityTick", -1);
+            Scribe_Collections.Look(ref lastRomanceInteractionTick, "lastRomanceInteractionTick", LookMode.Value, LookMode.Value);
+            Scribe_Collections.Look(ref rainCheckMemory, "rainCheckMemory", LookMode.Value, LookMode.Value);
             Scribe_Collections.Look(ref _preference, "preference", LookMode.Value, LookMode.Deep);
             //Post load operations
             if (Scribe.mode == LoadSaveMode.PostLoadInit)
@@ -774,6 +804,8 @@ namespace Maux36.RimPsyche
                 //Fix null memories
                 knownOrientation ??= new();
                 relationship ??= new();
+                lastRomanceInteractionTick ??= new();
+                rainCheckMemory ??= new();
                 _preference ??= new();
                 if (Rimpsyche.SexualityModuleLoaded)
                 {
