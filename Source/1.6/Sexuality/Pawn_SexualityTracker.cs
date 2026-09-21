@@ -147,7 +147,20 @@ namespace Maux36.RimPsyche
         }
         public int crushPawnIdNumber = -1;
         public int crushEndTick = -1;
-        public int canActivityTick = -1;
+        private int lastFlirtedTick = -60000;
+        public int TicksSinceLastFlirt => Find.TickManager.TicksGame - lastFlirtedTick;
+        public void Notify_Flirted()
+        {
+            lastFlirtedTick = Find.TickManager.TicksGame;
+        }
+        private int lastHangoutTick = -60000;
+        public void Notify_Hangout()
+        {
+            lastHangoutTick = Find.TickManager.TicksGame;
+        }
+        public int TicksSinceLastHangout => Find.TickManager.TicksGame - lastHangoutTick;
+
+
         //Used to cull Non-exclusive Romantic Relations that has not been used for long.
         public Dictionary<int, int> lastRomanceInteractionTick = new();
         public void RegisterRomanceInteraction(Pawn otherPawn)
@@ -159,10 +172,11 @@ namespace Maux36.RimPsyche
             return 1f;
         }
         //RainCheck
+        public const int RainCheckValidTick = 5 * 60000; //A raincheck holds for 5 days
         private Dictionary<int, int> rainCheckMemory = new();
         public void GiveRainCheck(Pawn otherPawn)
         {
-            rainCheckMemory[otherPawn.thingIDNumber] = Find.TickManager.TicksGame;
+            rainCheckMemory[otherPawn.thingIDNumber] = Find.TickManager.TicksGame + RainCheckValidTick;
         }
         public int TryGetRainCheck(Pawn otherPawn)
         {
@@ -170,7 +184,7 @@ namespace Maux36.RimPsyche
             {
                 return checkTick;
             }
-            return -999999;
+            return -1;
         }
         public bool ConsumeRainCheck(Pawn otherPawn)
         {
@@ -794,7 +808,8 @@ namespace Maux36.RimPsyche
             Scribe_Values.Look(ref sexDrive, "sexDrive", 0f);            
             Scribe_Collections.Look(ref knownOrientation, "knownOrientation", LookMode.Value);
             Scribe_Collections.Look(ref relationship, "relationship", LookMode.Value, LookMode.Value);
-            Scribe_Values.Look(ref canActivityTick, "canActivityTick", -1);
+            Scribe_Values.Look(ref lastFlirtedTick, "lastFlirtedTick", -60000);
+            Scribe_Values.Look(ref lastHangoutTick, "lastHangoutTick", -60000);
             Scribe_Collections.Look(ref lastRomanceInteractionTick, "lastRomanceInteractionTick", LookMode.Value, LookMode.Value);
             Scribe_Collections.Look(ref rainCheckMemory, "rainCheckMemory", LookMode.Value, LookMode.Value);
             Scribe_Collections.Look(ref _preference, "preference", LookMode.Value, LookMode.Deep);
