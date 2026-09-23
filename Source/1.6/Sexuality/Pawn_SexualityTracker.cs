@@ -178,6 +178,15 @@ namespace Maux36.RimPsyche
         {
             rainCheckMemory[otherPawn.thingIDNumber] = Find.TickManager.TicksGame + RainCheckValidTick;
         }
+        public bool HasValidRainCheck(Pawn otherPawn)
+        {
+            if(rainCheckMemory.TryGetValue(otherPawn.thingIDNumber, out var checkTick))
+            {
+                if(Find.TickManager.TicksGame < checkTick) return true;
+                rainCheckMemory.Remove(otherPawn.thingIDNumber);
+            }
+            return false;
+        }
         public int TryGetRainCheck(Pawn otherPawn)
         {
             if(rainCheckMemory.TryGetValue(otherPawn.thingIDNumber, out var checkTick))
