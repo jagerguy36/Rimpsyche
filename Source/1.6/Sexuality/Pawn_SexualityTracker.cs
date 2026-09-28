@@ -166,6 +166,12 @@ namespace Maux36.RimPsyche
         public void RegisterRomanceInteraction(Pawn otherPawn)
         {
             lastRomanceInteractionTick[otherPawn.thingIDNumber] = Find.TickManager.TicksGame;
+            compPsyche.shouldTick = true;
+        }
+        public void StopRomanceInteractionRecord(Pawn otherPawn)
+        {
+            lastRomanceInteractionTick.Remove(otherPawn.thingIDNumber);
+            if (lastRomanceInteractionTick.Count == 0) compPsyche.shouldTick = false;
         }
         public float GetRomInteractionIntervalFactor(Pawn otherPawn)
         {
@@ -842,6 +848,7 @@ namespace Maux36.RimPsyche
                         }
                     }
                 }
+                if (lastRomanceInteractionTick.Count != 0) shouldTick = true;
             }
         }
     }

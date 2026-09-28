@@ -255,6 +255,8 @@ namespace Maux36.RimPsyche
                 sexuality ??= new Pawn_SexualityTracker(parentPawn);
                 sexuality.InjectData(psyche, preserveMemory, randomizeSexualityIfUndefined);
             }
+            if (sexuality.lastRomanceInteractionTick.Count != 0) shouldTick = true;
+            else shouldTick = false;
         }
 
         public void DirtyTraitCache(TraitDef def)
@@ -313,6 +315,17 @@ namespace Maux36.RimPsyche
                 return true;
             }
             return false;
+        }
+        private const int CullCheckInterval = 60000; // daily
+        private const int MinCullAfterTicks = 8 * 60000; // shortest tier
+        public bool shouldTick = false;
+        public override void CompTickInterval(int delta)
+        {
+            base.CompTickInterval(delta);
+            if (!RelationshipModuleLoaded) return;
+            if (!shouldTick) return;
+            if (!parent.IsHashIntervalTick(CullCheckInterval, delta)) return;
+            sexuality.CullStaleRelations(parentPawn);
         }
         public override void PostExposeData()
         {
@@ -374,6 +387,7 @@ namespace Maux36.RimPsyche
             interests.Initialize();
             sexuality ??= new Pawn_SexualityTracker(parentPawn);
             sexuality.Initialize(generate: false);
+            shouldTick = false;
             CleanShame();
             NullifyCheck();
         }
