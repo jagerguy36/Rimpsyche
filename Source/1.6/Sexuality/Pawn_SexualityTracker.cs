@@ -173,9 +173,56 @@ namespace Maux36.RimPsyche
             lastRomanceInteractionTick.Remove(otherPawn.thingIDNumber);
             if (lastRomanceInteractionTick.Count == 0) compPsyche.shouldTick = false;
         }
-        public float GetRomInteractionIntervalFactor(Pawn otherPawn)
+        private const int MinCullAfterTicks = 8 * 60000; // shortest tier
+        private static readonly List<int> tmpStale = [];
+        public void CullStaleRelations(Pawn pawn)
         {
-            return 1f;
+            int now = Find.TickManager.TicksGame;
+            tmpStale.Clear();
+            foreach (var kv in lastRomanceInteractionTick)
+                if (now - kv.Value > MinCullAfterTicks) tmpStale.Add(kv.Key);
+            if (tmpStale.Count == 0) return;
+
+            List<DirectPawnRelation> rels = pawn.relations?.DirectRelations;
+            for (int i = 0; i < tmpStale.Count; i++)
+            {
+                int id = tmpStale[i];
+                DirectPawnRelation rel = FindCasualRelation(rels, id);
+
+                if (rel == null) //Orphaned Memory. Forget it.
+                {
+                    lastRomanceInteractionTick.Remove(id);
+                    continue;
+                }
+
+                if (RimpsycheDatabase.RelationCullTick.TryGetValue(rel.def, out var cullTick) && now - lastRomanceInteractionTick[id] > cullTick)
+                    Dissolve(pawn, rel); // removes relation, unregisters both sides
+            }
+        }
+        private void Dissolve(Pawn pawn, DirectPawnRelation rel)
+        {
+            Pawn other = rel.otherPawn;
+            pawn.relations.RemoveDirectRelation(rel.def, other);
+
+            lastRomanceInteractionTick.Remove(other.thingIDNumber);
+            ConsumeRainCheck(other);
+            var otherSexuality = other.compPsyche()?.Sexuality;
+            if (otherSexuality != null)
+            {
+                otherSexuality.lastRomanceInteractionTick.Remove(pawn.thingIDNumber);
+                otherSexuality.ConsumeRainCheck(pawn);
+            }
+            // TODO: notification
+            if (PawnUtility.ShouldSendNotificationAbout(pawn) || PawnUtility.ShouldSendNotificationAbout(other))
+                Messages.Message("{0} and {1} drifted apart.", pawn, MessageTypeDefOf.SilentInput);
+        }
+        private static DirectPawnRelation FindCasualRelation(List<DirectPawnRelation> rels, int id)
+        {
+            if (rels == null) return null;
+            for (int i = 0; i < rels.Count; i++)
+                if (rels[i].otherPawn.thingIDNumber == id && RimpsycheDatabase.RelationCullTick.ContainsKey(rels[i].def))
+                    return rels[i];
+            return null;
         }
         //RainCheck
         public const int RainCheckValidTick = 5 * 60000; //A raincheck holds for 5 days
@@ -848,7 +895,7 @@ namespace Maux36.RimPsyche
                         }
                     }
                 }
-                if (lastRomanceInteractionTick.Count != 0) shouldTick = true;
+                if (lastRomanceInteractionTick.Count != 0) compPsyche.shouldTick = true;
             }
         }
     }
