@@ -107,21 +107,31 @@ namespace Maux36.RimPsyche
         //Cache
         private readonly Dictionary<int, PawnRelationDef> _loversCache = new();
         private bool loversCacheDirty = true;
+        private void BuildLoversCache()
+        {
+            _loversCache.Clear();
+            var relations = pawn.relations.DirectRelations;
+            for (int i = 0; i < relations.Count; i++)
+            {
+                var relation = relations[i];
+                if (SexualityHelper.LoverDefHash.Contains(relation.def) && relation.otherPawn != null)
+                {
+                    _loversCache[relation.otherPawn.thingIDNumber] = relation.def;
+                }
+            }
+            loversCacheDirty = false;
+        }
+        public IReadOnlyDictionary<int, PawnRelationDef> LoversCache
+        {
+            get
+            {
+                if (loversCacheDirty) BuildLoversCache();
+                return _loversCache;
+            }
+        }
         public bool TryGetRomanticRelationDef(Pawn target, out PawnRelationDef def)
         {
-            if (loversCacheDirty)
-            {
-                _loversCache.Clear();
-                var relations = pawn.relations.DirectRelations;
-                for (int i = 0; i < relations.Count; i++)
-                {
-                    if(SexualityHelper.LoverDefHash.Contains(relations[i].def) && relations[i].otherPawn != null)
-                    {
-                        _loversCache[relations[i].otherPawn.thingIDNumber] = relations[i].def;
-                    }
-                }
-                loversCacheDirty = false;
-            }
+            if (loversCacheDirty) BuildLoversCache();
             return _loversCache.TryGetValue(target.thingIDNumber, out def);
         }
         public void DirtyLoversCache()

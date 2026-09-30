@@ -321,7 +321,6 @@ namespace Maux36.RimPsyche
         public override void CompTickInterval(int delta)
         {
             base.CompTickInterval(delta);
-            if (!Rimpsyche.RelationshipModuleLoaded) return;
             if (!shouldTick) return;
             if (!parent.IsHashIntervalTick(CullCheckInterval, delta)) return;
             sexuality.CullStaleRelations(parentPawn);
