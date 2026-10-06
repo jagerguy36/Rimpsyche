@@ -250,13 +250,8 @@ namespace Maux36.RimPsyche
             personality.Initialize(psyche);
             interests ??= new Pawn_InterestTracker(parentPawn);
             interests.Initialize(psyche);
-            if (Rimpsyche.SexualityModuleLoaded)
-            {
-                sexuality ??= new Pawn_SexualityTracker(parentPawn);
-                sexuality.InjectData(psyche, preserveMemory, randomizeSexualityIfUndefined);
-            }
-            if (sexuality.lastRomanceInteractionTick.Count != 0) shouldTick = true;
-            else shouldTick = false;
+            sexuality ??= new Pawn_SexualityTracker(parentPawn);
+            sexuality.InjectData(psyche, preserveMemory, randomizeSexualityIfUndefined);
         }
 
         public void DirtyTraitCache(TraitDef def)

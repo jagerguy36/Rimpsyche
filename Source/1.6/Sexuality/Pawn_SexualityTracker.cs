@@ -171,7 +171,8 @@ namespace Maux36.RimPsyche
         public int TicksSinceLastHangout => Find.TickManager.TicksGame - lastHangoutTick;
 
 
-        //Used to cull Non-exclusive Romantic Relations that has not been used for long.
+        //1. Used to cull Non-exclusive Romantic Relations that has not been used for long.
+        //2. Used to decide exclusive lovers Date chance.
         public Dictionary<int, int> lastRomanceInteractionTick = new();
         public void RegisterRomanceInteraction(Pawn otherPawn)
         {
@@ -182,6 +183,15 @@ namespace Maux36.RimPsyche
         {
             lastRomanceInteractionTick.Remove(otherPawn.thingIDNumber);
             if (lastRomanceInteractionTick.Count == 0) compPsyche.shouldTick = false;
+        }
+        public bool HasCullableRelations()
+        {
+            if (lastRomanceInteractionTick.Count == 0) return false;
+            return true;
+        }
+        public void EvalShouldTick()
+        {
+            compPsyche.shouldTick = HasCullableRelations();
         }
         private const int MinCullAfterTicks = 8 * 60000; // shortest tier
         private static readonly List<int> tmpStale = [];
@@ -467,6 +477,19 @@ namespace Maux36.RimPsyche
         }
         public void InjectData(PsycheData psyche, bool preserveMemory, bool randomizeIfUndefined = true)
         {
+            //Relationship Module data should be reset if Data being injected should override memory, even when Sexuality Module is not used.
+            if (preserveMemory)
+            {
+                lastRomanceInteractionTick = new Dictionary<int, int>(psyche.lastRomanceInteractionTick);
+                lastRomanceInteractionTick ??= new();
+                //TODO: Decide if preserve Crush memory should be preserved
+                crushPawnIdNumber = -1;
+                crushEndTick = -1;
+                lastFlirtedTick = -60000;
+                lastHangoutTick = -60000;
+                EvalShouldTick();
+            }
+            if (!Rimpsyche.SexualityModuleLoaded) return;
             //Not Applicable
             if (SexualityHelper.NonSexualDefShorthashSet.Contains(pawn.def.shortHash)) return;
             var traits = pawn.story?.traits;
@@ -545,10 +568,8 @@ namespace Maux36.RimPsyche
             {
                 knownOrientation = [.. psyche.knownOrientation];
                 relationship = new Dictionary<int, float>(psyche.relationship);
-                lastRomanceInteractionTick = new Dictionary<int, int>(psyche.lastRomanceInteractionTick);
                 knownOrientation ??= new();
                 relationship ??= new();
-                lastRomanceInteractionTick ??= new();
             }
 
             if (Rimpsyche_Utility.GetPawnAge(pawn) < minAdultAge)
@@ -905,7 +926,7 @@ namespace Maux36.RimPsyche
                         }
                     }
                 }
-                if (lastRomanceInteractionTick.Count != 0) compPsyche.shouldTick = true;
+                EvalShouldTick();
             }
         }
     }
