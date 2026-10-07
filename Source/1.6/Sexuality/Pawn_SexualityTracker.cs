@@ -107,19 +107,28 @@ namespace Maux36.RimPsyche
         //Cache
         private readonly Dictionary<int, PawnRelationDef> _loversCache = new();
         private bool loversCacheDirty = true;
+        private bool _hasCasualLover;
         private void BuildLoversCache()
         {
             _loversCache.Clear();
+            _hasCasualLover = false;
             var relations = pawn.relations.DirectRelations;
             for (int i = 0; i < relations.Count; i++)
             {
                 var relation = relations[i];
-                if (SexualityHelper.LoverDefHash.Contains(relation.def) && relation.otherPawn != null)
-                {
-                    _loversCache[relation.otherPawn.thingIDNumber] = relation.def;
-                }
+                if (!SexualityHelper.LoverDefHash.Contains(relation.def) || relation.otherPawn == null) continue;
+                _loversCache[relation.otherPawn.thingIDNumber] = relation.def;
+                if (RimpsycheDatabase.RelationCullTick.ContainsKey(relation.def)) _hasCasualLover = true;
             }
             loversCacheDirty = false;
+        }
+        public bool HasCasualLover
+        {
+            get
+            {
+                if (loversCacheDirty) BuildLoversCache();
+                return _hasCasualLover;
+            }
         }
         public IReadOnlyDictionary<int, PawnRelationDef> LoversCache
         {
@@ -174,20 +183,28 @@ namespace Maux36.RimPsyche
         //1. Used to cull Non-exclusive Romantic Relations that has not been used for long.
         //2. Used to decide exclusive lovers Date chance.
         public Dictionary<int, int> lastRomanceInteractionTick = new();
-        public void RegisterRomanceInteraction(Pawn otherPawn)
+        public void Notify_CasualRelationFormed(Pawn other)
         {
-            lastRomanceInteractionTick[otherPawn.thingIDNumber] = Find.TickManager.TicksGame;
-            compPsyche.shouldTick = true;
+            lastRomanceInteractionTick[other.thingIDNumber] = Find.TickManager.TicksGame;
         }
-        public void StopRomanceInteractionRecord(Pawn otherPawn)
+        // Timestamp a romantic interaction for pairs actually in a romantic relationship.
+        public void RegisterRomanceInteraction(Pawn other)
         {
-            lastRomanceInteractionTick.Remove(otherPawn.thingIDNumber);
-            if (lastRomanceInteractionTick.Count == 0) compPsyche.shouldTick = false;
+            if (!TryGetRomanticRelationDef(other, out _)) return;
+            lastRomanceInteractionTick[other.thingIDNumber] = Find.TickManager.TicksGame;
+        }
+        public void Notify_BecameCommitted(Pawn other)
+        {
+            EvalShouldTick();
         }
         public bool HasCullableRelations()
         {
             if (lastRomanceInteractionTick.Count == 0) return false;
-            return true;
+            List<DirectPawnRelation> rels = Pawn.relations?.DirectRelations;
+            if (rels == null) return false;
+            for (int i = 0; i < rels.Count; i++)
+                if (RimpsycheDatabase.RelationCullTick.ContainsKey(rels[i].def)) return true;
+            return false;
         }
         public void EvalShouldTick()
         {
@@ -203,46 +220,55 @@ namespace Maux36.RimPsyche
                 if (now - kv.Value > MinCullAfterTicks) tmpStale.Add(kv.Key);
             if (tmpStale.Count == 0) return;
 
-            List<DirectPawnRelation> rels = pawn.relations?.DirectRelations;
             for (int i = 0; i < tmpStale.Count; i++)
             {
                 int id = tmpStale[i];
-                DirectPawnRelation rel = FindCasualRelation(rels, id);
-
-                if (rel == null) //Orphaned Memory. Forget it.
+                if (!LoversCache.TryGetValue(id, out PawnRelationDef def)
+                    || !RimpsycheDatabase.RelationCullTick.TryGetValue(def, out int cullTick))
                 {
                     lastRomanceInteractionTick.Remove(id);
                     continue;
                 }
 
-                if (RimpsycheDatabase.RelationCullTick.TryGetValue(rel.def, out var cullTick) && now - lastRomanceInteractionTick[id] > cullTick)
-                    Dissolve(pawn, rel); // removes relation, unregisters both sides
+                if (now - lastRomanceInteractionTick[id] <= cullTick) continue;
+
+                DirectPawnRelation rel = FindRelation(pawn, id, def);
+                if (rel != null) DissolveCasualRelation(pawn, rel);
+                else lastRomanceInteractionTick.Remove(id);   // cache was stale; drop the record
             }
         }
-        private void Dissolve(Pawn pawn, DirectPawnRelation rel)
+        private static DirectPawnRelation FindRelation(Pawn pawn, int otherId, PawnRelationDef def)
+        {
+            List<DirectPawnRelation> rels = pawn.relations?.DirectRelations;
+            if (rels == null) return null;
+            for (int i = 0; i < rels.Count; i++)
+                if (rels[i].def == def && rels[i].otherPawn?.thingIDNumber == otherId)
+                    return rels[i];
+            return null;
+        }
+        public void DissolveCasualRelation(Pawn pawn, DirectPawnRelation rel, string messageKey = "RPR_DriftedApart")
         {
             Pawn other = rel.otherPawn;
-            pawn.relations.RemoveDirectRelation(rel.def, other);
+            pawn.relations.RemoveDirectRelation(rel.def, other);   // reflexive: removes both sides
 
             lastRomanceInteractionTick.Remove(other.thingIDNumber);
             ConsumeRainCheck(other);
+            DirtyLoversCache();
+
             var otherSexuality = other.compPsyche()?.Sexuality;
             if (otherSexuality != null)
             {
                 otherSexuality.lastRomanceInteractionTick.Remove(pawn.thingIDNumber);
                 otherSexuality.ConsumeRainCheck(pawn);
+                otherSexuality.DirtyLoversCache();
             }
-            // TODO: notification
-            if (PawnUtility.ShouldSendNotificationAbout(pawn) || PawnUtility.ShouldSendNotificationAbout(other))
-                Messages.Message("{0} and {1} drifted apart.", pawn, MessageTypeDefOf.SilentInput);
-        }
-        private static DirectPawnRelation FindCasualRelation(List<DirectPawnRelation> rels, int id)
-        {
-            if (rels == null) return null;
-            for (int i = 0; i < rels.Count; i++)
-                if (rels[i].otherPawn.thingIDNumber == id && RimpsycheDatabase.RelationCullTick.ContainsKey(rels[i].def))
-                    return rels[i];
-            return null;
+
+            if (messageKey != null
+                && (PawnUtility.ShouldSendNotificationAbout(pawn) || PawnUtility.ShouldSendNotificationAbout(other)))
+            {
+                Messages.Message(messageKey.Translate(pawn.Named("PAWN1"), other.Named("PAWN2")),
+                    new LookTargets(pawn, other), MessageTypeDefOf.SilentInput, historical: false);
+            }
         }
         //RainCheck
         public const int RainCheckValidTick = 5 * 60000; //A raincheck holds for 5 days
@@ -926,7 +952,7 @@ namespace Maux36.RimPsyche
                         }
                     }
                 }
-                EvalShouldTick();
+                BuildLoversCache();
             }
         }
     }
