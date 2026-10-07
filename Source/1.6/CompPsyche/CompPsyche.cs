@@ -86,6 +86,11 @@ namespace Maux36.RimPsyche
             }
             loversCacheDirty = false;
         }
+        public void EvalShouldTick()
+        {
+            BuildLoversCache();
+            shouldTick = _hasCasualLover;
+        }
         public bool TryGetRomanticRelationDef(Pawn target, out PawnRelationDef def)
         {
             if (loversCacheDirty) BuildLoversCache();
@@ -94,6 +99,15 @@ namespace Maux36.RimPsyche
         public void DirtyLoversCache()
         {
             loversCacheDirty = true;
+        }
+        private const int CullCheckInterval = 60000; // daily
+        public bool shouldTick = false;
+        public override void CompTickInterval(int delta)
+        {
+            base.CompTickInterval(delta);
+            if (!shouldTick) return;
+            if (!parentPawn.IsHashIntervalTick(CullCheckInterval, delta)) return;
+            Relationship.CullStaleRelations(parentPawn);
         }
 
         //Progress
@@ -309,8 +323,11 @@ namespace Maux36.RimPsyche
             personality.Initialize(psyche);
             interests ??= new Pawn_InterestTracker(parentPawn);
             interests.Initialize(psyche);
-            sexuality ??= new Pawn_SexualityTracker(parentPawn);
-            sexuality.InjectData(psyche, preserveMemory, randomizeSexualityIfUndefined);
+            if (Rimpsyche.SexualityModuleLoaded)
+            {
+                sexuality ??= new Pawn_SexualityTracker(parentPawn);
+                sexuality.InjectData(psyche, preserveMemory, randomizeSexualityIfUndefined);
+            }
             relationship ??= new Pawn_RelationshipTracker(parentPawn);
             relationship.Initialize(psyche);
         }
@@ -372,15 +389,6 @@ namespace Maux36.RimPsyche
             }
             return false;
         }
-        private const int CullCheckInterval = 60000; // daily
-        public bool shouldTick = false;
-        public override void CompTickInterval(int delta)
-        {
-            base.CompTickInterval(delta);
-            if (!shouldTick) return;
-            if (!parent.IsHashIntervalTick(CullCheckInterval, delta)) return;
-            Relationship.CullStaleRelations(parentPawn);
-        }
         public override void PostExposeData()
         {
             base.PostExposeData();
@@ -423,6 +431,7 @@ namespace Maux36.RimPsyche
                     shame = 0f;
                     tickOverwhelmed = 0;
                 }
+                if (Rimpsyche.RelationshipModuleLoaded) EvalShouldTick();
             }
         }
 
