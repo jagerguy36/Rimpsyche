@@ -58,6 +58,43 @@ namespace Maux36.RimPsyche
         private Pawn_PersonalityTracker personality;
         private Pawn_InterestTracker interests;
         private Pawn_SexualityTracker sexuality;
+        private Pawn_RelationshipTracker relationship;
+
+        //Lovers Cache
+        private bool loversCacheDirty = true;
+        private bool _hasCasualLover = false;
+        private readonly Dictionary<int, PawnRelationDef> _loversCache = new();
+        public IReadOnlyDictionary<int, PawnRelationDef> LoversCache
+        {
+            get
+            {
+                if (loversCacheDirty) BuildLoversCache();
+                return _loversCache;
+            }
+        }
+        private void BuildLoversCache()
+        {
+            _loversCache.Clear();
+            _hasCasualLover = false;
+            var relations = parentPawn.relations.DirectRelations;
+            for (int i = 0; i < relations.Count; i++)
+            {
+                var relation = relations[i];
+                if (!SexualityHelper.LoverDefHash.Contains(relation.def) || relation.otherPawn == null) continue;
+                _loversCache[relation.otherPawn.thingIDNumber] = relation.def;
+                if (RimpsycheDatabase.RelationCullTick.ContainsKey(relation.def)) _hasCasualLover = true;
+            }
+            loversCacheDirty = false;
+        }
+        public bool TryGetRomanticRelationDef(Pawn target, out PawnRelationDef def)
+        {
+            if (loversCacheDirty) BuildLoversCache();
+            return _loversCache.TryGetValue(target.thingIDNumber, out def);
+        }
+        public void DirtyLoversCache()
+        {
+            loversCacheDirty = true;
+        }
 
         //Progress
         public int progressTick = -1;
@@ -188,6 +225,19 @@ namespace Maux36.RimPsyche
             }
             set => sexuality = value;
         }
+        public Pawn_RelationshipTracker Relationship
+        {
+            get
+            {
+                if (relationship == null)
+                {
+                    relationship = new Pawn_RelationshipTracker(parentPawn);
+                    relationship.Initialize();
+                }
+                return relationship;
+            }
+            set => relationship = value;
+        }
         public bool CheckEnabled()
         {
             //Core only checks for inhumanized and shambler.
@@ -244,14 +294,25 @@ namespace Maux36.RimPsyche
             //Initialize even when not null for save-game trait safety with Sexuality Module.
             sexuality.Initialize(generate, allowGay);
         }
+        public void RelationshipSetup()
+        {
+            if (relationship == null)
+            {
+                relationship = new Pawn_RelationshipTracker(parentPawn);
+                relationship.Initialize();
+            }
+        }
         public void InjectPsycheData(PsycheData psyche, bool preserveMemory, bool randomizeSexualityIfUndefined = true)
         {
+            loversCacheDirty = true;
             personality ??= new Pawn_PersonalityTracker(parentPawn);
             personality.Initialize(psyche);
             interests ??= new Pawn_InterestTracker(parentPawn);
             interests.Initialize(psyche);
             sexuality ??= new Pawn_SexualityTracker(parentPawn);
             sexuality.InjectData(psyche, preserveMemory, randomizeSexualityIfUndefined);
+            relationship ??= new Pawn_RelationshipTracker(parentPawn);
+            relationship.Initialize(psyche);
         }
 
         public void DirtyTraitCache(TraitDef def)
@@ -318,7 +379,7 @@ namespace Maux36.RimPsyche
             base.CompTickInterval(delta);
             if (!shouldTick) return;
             if (!parent.IsHashIntervalTick(CullCheckInterval, delta)) return;
-            sexuality.CullStaleRelations(parentPawn);
+            Relationship.CullStaleRelations(parentPawn);
         }
         public override void PostExposeData()
         {
@@ -336,11 +397,13 @@ namespace Maux36.RimPsyche
             Scribe_Deep.Look(ref personality, "personality", new object[] { parent as Pawn });
             Scribe_Deep.Look(ref interests, "interests", new object[] { parent as Pawn });
             Scribe_Deep.Look(ref sexuality, "sexuality", new object[] { parent as Pawn });
+            Scribe_Deep.Look(ref relationship, "relationship", new object[] { parent as Pawn });
             if (Scribe.mode == LoadSaveMode.PostLoadInit)
             {
                 PersonalitySetup();
                 InterestSetup();
                 SexualitySetup(generate: false);
+                RelationshipSetup();
                 if (Rimpsyche.DispositionModuleLoaded)
                 {
                     if (progressTick < 0)
@@ -380,6 +443,8 @@ namespace Maux36.RimPsyche
             interests.Initialize();
             sexuality ??= new Pawn_SexualityTracker(parentPawn);
             sexuality.Initialize(generate: false);
+            relationship = new Pawn_RelationshipTracker(parentPawn);
+            relationship.Initialize();
             shouldTick = false;
             CleanShame();
             NullifyCheck();

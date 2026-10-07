@@ -38,7 +38,6 @@ namespace Maux36.RimPsyche
 
         public HashSet<int> knownOrientation = new();
         public Dictionary<int, float> relationship = new();
-        public Dictionary<int, int> lastRomanceInteractionTick = new();
         public Dictionary<string, List<PrefEntry>> preference = new();
 
         public void ExposeData()
@@ -52,7 +51,6 @@ namespace Maux36.RimPsyche
                     if (VersionManager.DiscardedPawnThingIDnumber.Contains(id))
                     {
                         relationship.Remove(id);
-                        lastRomanceInteractionTick.Remove(id);
                     }
                 }
             }
@@ -84,7 +82,6 @@ namespace Maux36.RimPsyche
             Scribe_Values.Look(ref sexDrive, "sexDrive", 0f);
             Scribe_Collections.Look(ref knownOrientation, "knownOrientation", LookMode.Value);
             Scribe_Collections.Look(ref relationship, "relationship", LookMode.Value, LookMode.Value);
-            Scribe_Collections.Look(ref lastRomanceInteractionTick, "lastRomanceInteractionTick", LookMode.Value, LookMode.Value);
             Scribe_Collections.Look(ref preference, "preference", LookMode.Value, LookMode.Deep);
 
             //Post load operations
@@ -93,7 +90,6 @@ namespace Maux36.RimPsyche
                 //Fix null memories
                 knownOrientation ??= new();
                 relationship ??= new();
-                lastRomanceInteractionTick ??= new();
                 preference ??= new();
                 //Reset intKey for psychePreference
                 if (Rimpsyche.SexualityModuleLoaded)
