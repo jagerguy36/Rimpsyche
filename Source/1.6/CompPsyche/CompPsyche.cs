@@ -62,40 +62,36 @@ namespace Maux36.RimPsyche
 
         //Lovers Cache
         private bool loversCacheDirty = true;
-        private bool _hasCasualLover = false;
         private readonly Dictionary<int, PawnRelationDef> _loversCache = new();
         public IReadOnlyDictionary<int, PawnRelationDef> LoversCache
         {
             get
             {
-                if (loversCacheDirty) BuildLoversCache();
+                if (loversCacheDirty) BuildLoversCache(out _);
                 return _loversCache;
             }
         }
-        private void BuildLoversCache()
+        private void BuildLoversCache(out bool hasCasualLover)
         {
             _loversCache.Clear();
-            _hasCasualLover = false;
-            var relations = parentPawn.relations.DirectRelations;
+            hasCasualLover = false;
+            loversCacheDirty = false;
+            List<DirectPawnRelation> relations = parentPawn.relations?.DirectRelations;
+            if (relations == null) return;
             for (int i = 0; i < relations.Count; i++)
             {
                 var relation = relations[i];
                 if (!SexualityHelper.LoverDefHash.Contains(relation.def) || relation.otherPawn == null) continue;
                 _loversCache[relation.otherPawn.thingIDNumber] = relation.def;
-                if (RimpsycheDatabase.RelationCullTick.ContainsKey(relation.def)) _hasCasualLover = true;
+                if (RimpsycheDatabase.RelationCullTick.ContainsKey(relation.def)) hasCasualLover = true;
             }
-            loversCacheDirty = false;
         }
         public void EvalShouldTick()
         {
-            BuildLoversCache();
-            shouldTick = _hasCasualLover;
+            BuildLoversCache(out bool hasCasualLover);
+            shouldTick = hasCasualLover;
         }
-        public bool TryGetRomanticRelationDef(Pawn target, out PawnRelationDef def)
-        {
-            if (loversCacheDirty) BuildLoversCache();
-            return _loversCache.TryGetValue(target.thingIDNumber, out def);
-        }
+        public bool TryGetRomanticRelationDef(Pawn target, out PawnRelationDef def) => LoversCache.TryGetValue(target.thingIDNumber, out def);
         public void DirtyLoversCache()
         {
             loversCacheDirty = true;

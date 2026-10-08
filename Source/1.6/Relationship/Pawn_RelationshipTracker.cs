@@ -81,6 +81,43 @@ namespace Maux36.RimPsyche
                 else lastRomanceInteractionTick.Remove(id);   // cache was stale; drop the record
             }
         }
+        private static readonly List<(int id, PawnRelationDef def)> tmpToDissolve = [];
+        public void CullStaleRelations(Pawn pawn)
+        {
+            int now = Find.TickManager.TicksGame;
+            tmpToDissolve.Clear();
+            tmpOrphans.Clear();
+
+            // Casual relations past their window
+            foreach (var kv in compPsyche.LoversCache)
+            {
+                if (!RimpsycheDatabase.RelationCullTick.TryGetValue(kv.Value, out int cullTick)) continue; //committed
+                if (!lastRomanceInteractionTick.TryGetValue(kv.Key, out int last)) // Somehow lost its record. Formation was itself a romantic contact.
+                {
+                    DirectPawnRelation rel = FindRelation(pawn, kv.Key, kv.Value);
+                    if (rel == null) continue;
+                    last = rel.startTicks;
+                    lastRomanceInteractionTick[kv.Key] = last;
+                }
+                if (now - last > cullTick) tmpToDissolve.Add((kv.Key, kv.Value));
+            }
+
+            // Dissolve. (LoverCache gets dirtied during Dissolve)
+            for (int i = 0; i < tmpToDissolve.Count; i++)
+            {
+                DirectPawnRelation rel = FindRelation(pawn, tmpToDissolve[i].id, tmpToDissolve[i].def);
+                if (rel != null) DissolveCasualRelation(pawn, rel);
+            }
+        }
+        private static readonly List<int> tmpOrphans = [];
+        public void PruneRecordsOnLoad()
+        {
+            tmpOrphans.Clear();
+            foreach (int id in lastRomanceInteractionTick.Keys)
+                if (!compPsyche.LoversCache.ContainsKey(id)) tmpOrphans.Add(id);
+            for (int i = 0; i < tmpOrphans.Count; i++)
+                lastRomanceInteractionTick.Remove(tmpOrphans[i]);
+        }
         private static DirectPawnRelation FindRelation(Pawn pawn, int otherId, PawnRelationDef def)
         {
             List<DirectPawnRelation> rels = pawn.relations?.DirectRelations;
@@ -97,12 +134,14 @@ namespace Maux36.RimPsyche
 
             lastRomanceInteractionTick.Remove(other.thingIDNumber);
             ConsumeRainCheck(other);
+            compPsyche.EvalShouldTick();
 
             var otherRelationship = other.compPsyche()?.Relationship;
             if (otherRelationship != null)
             {
                 otherRelationship.lastRomanceInteractionTick.Remove(pawn.thingIDNumber);
                 otherRelationship.ConsumeRainCheck(pawn);
+                otherRelationship..compPsyche.EvalShouldTick();
             }
 
             if (PawnUtility.ShouldSendNotificationAbout(pawn) || PawnUtility.ShouldSendNotificationAbout(other))
@@ -161,6 +200,7 @@ namespace Maux36.RimPsyche
                 //Fix null memories
                 lastRomanceInteractionTick ??= new();
                 rainCheckMemory ??= new();
+                PruneRecordsOnLoad();
             }
         }
     }
