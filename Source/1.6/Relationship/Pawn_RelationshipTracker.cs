@@ -38,7 +38,7 @@ namespace Maux36.RimPsyche
         }
 
         //1. Used to cull Non-exclusive Romantic Relations that has not been used for long.
-        //2. Used to decide exclusive lovers Date chance.
+        //2. Affects lovers activity calm.
         public Dictionary<int, int> lastRomanceInteractionTick = new();
         public void Notify_CasualRelationFormed(Pawn other)
         {
@@ -55,39 +55,11 @@ namespace Maux36.RimPsyche
         {
             compPsyche.EvalShouldTick();
         }
-        private const int MinCullAfterTicks = 8 * 60000; // shortest tier
-        private static readonly List<int> tmpStale = [];
-        public void CullStaleRelations(Pawn pawn)
-        {
-            int now = Find.TickManager.TicksGame;
-            tmpStale.Clear();
-            foreach (var kv in lastRomanceInteractionTick)
-                if (now - kv.Value > MinCullAfterTicks) tmpStale.Add(kv.Key);
-            if (tmpStale.Count == 0) return;
-
-            for (int i = 0; i < tmpStale.Count; i++)
-            {
-                int id = tmpStale[i];
-                if (!compPsyche.LoversCache.TryGetValue(id, out PawnRelationDef def))
-                {
-                    lastRomanceInteractionTick.Remove(id);
-                    continue;
-                }
-                if (!RimpsycheDatabase.RelationCullTick.TryGetValue(def, out int cullTick)) continue;
-                if (now - lastRomanceInteractionTick[id] <= cullTick) continue;
-
-                DirectPawnRelation rel = FindRelation(pawn, id, def);
-                if (rel != null) DissolveCasualRelation(pawn, rel);
-                else lastRomanceInteractionTick.Remove(id);   // cache was stale; drop the record
-            }
-        }
         private static readonly List<(int id, PawnRelationDef def)> tmpToDissolve = [];
-        public void CullStaleRelations(Pawn pawn)
+        public void CullStaleRelations()
         {
             int now = Find.TickManager.TicksGame;
             tmpToDissolve.Clear();
-            tmpOrphans.Clear();
-
             // Casual relations past their window
             foreach (var kv in compPsyche.LoversCache)
             {
@@ -106,7 +78,7 @@ namespace Maux36.RimPsyche
             for (int i = 0; i < tmpToDissolve.Count; i++)
             {
                 DirectPawnRelation rel = FindRelation(pawn, tmpToDissolve[i].id, tmpToDissolve[i].def);
-                if (rel != null) DissolveCasualRelation(pawn, rel);
+                if (rel != null) DissolveCasualRelation(rel);
             }
         }
         private static readonly List<int> tmpOrphans = [];
@@ -127,11 +99,10 @@ namespace Maux36.RimPsyche
                     return rels[i];
             return null;
         }
-        public void DissolveCasualRelation(Pawn pawn, DirectPawnRelation rel)
+        public void DissolveCasualRelation(DirectPawnRelation rel)
         {
             Pawn other = rel.otherPawn;
-            pawn.relations.RemoveDirectRelation(rel.def, other);   // reflexive: removes both sides
-
+            pawn.relations.RemoveDirectRelation(rel);   // reflexive: removes both sides
             lastRomanceInteractionTick.Remove(other.thingIDNumber);
             ConsumeRainCheck(other);
             compPsyche.EvalShouldTick();
@@ -141,7 +112,7 @@ namespace Maux36.RimPsyche
             {
                 otherRelationship.lastRomanceInteractionTick.Remove(pawn.thingIDNumber);
                 otherRelationship.ConsumeRainCheck(pawn);
-                otherRelationship..compPsyche.EvalShouldTick();
+                otherRelationship.compPsyche.EvalShouldTick();
             }
 
             if (PawnUtility.ShouldSendNotificationAbout(pawn) || PawnUtility.ShouldSendNotificationAbout(other))
@@ -200,7 +171,11 @@ namespace Maux36.RimPsyche
                 //Fix null memories
                 lastRomanceInteractionTick ??= new();
                 rainCheckMemory ??= new();
-                PruneRecordsOnLoad();
+                if (Rimpsyche.RelationshipModuleLoaded)
+                {
+                    compPsyche.EvalShouldTick(); //Builds Lover cache
+                    PruneRecordsOnLoad();
+                }
             }
         }
     }

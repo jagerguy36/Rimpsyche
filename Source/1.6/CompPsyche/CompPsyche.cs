@@ -103,7 +103,7 @@ namespace Maux36.RimPsyche
             base.CompTickInterval(delta);
             if (!shouldTick) return;
             if (!parentPawn.IsHashIntervalTick(CullCheckInterval, delta)) return;
-            Relationship.CullStaleRelations(parentPawn);
+            Relationship.CullStaleRelations();
         }
 
         //Progress
@@ -427,7 +427,6 @@ namespace Maux36.RimPsyche
                     shame = 0f;
                     tickOverwhelmed = 0;
                 }
-                if (Rimpsyche.RelationshipModuleLoaded) EvalShouldTick();
             }
         }
 
