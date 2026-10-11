@@ -32,24 +32,66 @@ namespace Maux36.RimPsyche
         //Hangout
         private int lastHangoutTick = -60000;
         public int TicksSinceLastHangout => Find.TickManager.TicksGame - lastHangoutTick;
-        public void Notify_Hangout()
+        public void Notify_HangoutWith(Pawn otherPawn)
         {
-            lastHangoutTick = Find.TickManager.TicksGame;
+            int tick = Find.TickManager.TicksGame;
+            lastHangoutTick = tick;
+            if (lastHangoutTickWithDirty) InitializeHangoutCache();
+            lastHangoutTickWith[otherPawn.thingIDNumber] = tick;
+        }
+        private Dictionary<int, int> lastHangoutTickWith = new();
+        private bool lastHangoutTickWithDirty = true;
+        public IReadOnlyDictionary<int, int> LastHangoutTickWith
+        {
+            get
+            {
+                if (lastHangoutTickWithDirty) InitializeHangoutCache();
+                return lastHangoutTickWith;
+            }
+        }
+        private void InitializeHangoutCache()
+        {
+            lastHangoutTickWithDirty = false;
+            var relationship = pawn.compPsyche()?.Relationship;
+            if (relationship == null) return;
+            relationship.lastHangoutTickWith = [];
+            var memories = pawn.needs?.mood?.thoughts?.memories?.Memories;
+            if (memories == null) return;
+            int currentTick = Find.TickManager.TicksGame;
+            for (int i = 0; i < memories.Count; i++)
+            {
+                Thought_Memory memory = memories[i];
+                if (memory.def != RimpsycheDatabase.HangoutThoughtDef || memory.otherPawn == null) continue;
+                int partnerId = memory.otherPawn.thingIDNumber;
+                int hangoutTick = currentTick - memory.age;
+                if (!relationship.lastHangoutTickWith.TryGetValue(partnerId, out int existingTick) || hangoutTick > existingTick)
+                    relationship.lastHangoutTickWith[partnerId] = hangoutTick;
+            }
         }
 
-        //1. Used to cull Non-exclusive Romantic Relations that has not been used for long.
-        //2. Affects lovers activity calm.
-        public Dictionary<int, int> lastRomanceInteractionTick = new();
+        // Timestamp a romantic interaction for pairs actually in a romantic relationship.
+        // Used to cull Non-exclusive Romantic Relations and adjust lovers activity chance.
+        // Flirt, ShowAffection Both registers.
+        // lastFlirtedTick and lastHangoutTick are pawn agnostic. This is Pawn specific.
+        private Dictionary<int, int> lastRomanceInteractionTick = new();
         public void Notify_CasualRelationFormed(Pawn other)
         {
             lastRomanceInteractionTick[other.thingIDNumber] = Find.TickManager.TicksGame;
             compPsyche.shouldTick = true;
         }
-        // Timestamp a romantic interaction for pairs actually in a romantic relationship.
         public void RegisterRomanceInteraction(Pawn other)
         {
             if (!compPsyche.TryGetRomanticRelationDef(other, out _)) return;
             lastRomanceInteractionTick[other.thingIDNumber] = Find.TickManager.TicksGame;
+        }
+        public int GetTickSinceLastRomanticInteractionWith(Pawn other)
+        {
+            if (lastRomanceInteractionTick.TryGetValue(other.thingIDNumber, out var tick))
+            {
+                return Find.TickManager.TicksGame - tick;
+            }
+            else
+                return int.MaxValue;
         }
         public void Notify_BecameCommitted(Pawn other)
         {
@@ -174,6 +216,7 @@ namespace Maux36.RimPsyche
                 if (Rimpsyche.RelationshipModuleLoaded)
                 {
                     compPsyche.EvalShouldTick(); //Builds Lover cache
+                    InitializeHangoutCache(); //Build LastHangoutTick cache
                     PruneRecordsOnLoad();
                 }
             }

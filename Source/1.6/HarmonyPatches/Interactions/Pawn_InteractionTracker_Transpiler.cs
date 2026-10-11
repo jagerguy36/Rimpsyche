@@ -92,6 +92,17 @@ namespace Maux36.RimPsyche
                                     yield return new CodeInstruction(OpCodes.Ldsfld, FlirtInteraction);
                                     yield return new CodeInstruction(OpCodes.Beq, skiplabel);
                                 }
+                                var AffectionInteraction = AccessTools.Field(DefOfRPR, "RPR_RomanticInteraction_ShowAffection");
+                                if (AffectionInteraction != null)
+                                {
+                                    yield return new CodeInstruction(OpCodes.Ldarg_2);
+                                    yield return new CodeInstruction(OpCodes.Ldsfld, AffectionInteraction);
+                                    yield return new CodeInstruction(OpCodes.Beq, skiplabel);
+                                }
+                                else
+                                {
+                                    Log.Message("Patch failed");
+                                }
                             }
                             yield return new CodeInstruction(OpCodes.Br, normallabel);
 
