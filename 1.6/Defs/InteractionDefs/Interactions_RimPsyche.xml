@@ -62,6 +62,76 @@
     </logRulesInitiator>
   </InteractionDef>
 
+  <InteractionDef>
+    <defName>Rimpsyche_Conversation_PosGreat</defName>
+    <label>conversation</label>
+    <workerClass>Maux36.RimPsyche.InteractionWroker_NeverRandom</workerClass>
+    <symbol>Things/Mote/SpeechSymbols/Conversation</symbol>
+    <initiatorXpGainSkill>Social</initiatorXpGainSkill>
+    <initiatorXpGainAmount>10</initiatorXpGainAmount>
+    <logRulesInitiator>
+      <rulesStrings>
+        <li>r_logentry->[INITIATOR_nameDef] and [RECIPIENT_nameDef] had a great conversation about {0}.</li>
+      </rulesStrings>
+    </logRulesInitiator>
+  </InteractionDef>
+
+  <InteractionDef>
+    <defName>Rimpsyche_Conversation_PosGood</defName>
+    <label>conversation</label>
+    <workerClass>Maux36.RimPsyche.InteractionWroker_NeverRandom</workerClass>
+    <symbol>Things/Mote/SpeechSymbols/Conversation</symbol>
+    <initiatorXpGainSkill>Social</initiatorXpGainSkill>
+    <initiatorXpGainAmount>10</initiatorXpGainAmount>
+    <logRulesInitiator>
+      <rulesStrings>
+        <li>r_logentry->[INITIATOR_nameDef] and [RECIPIENT_nameDef] had a good conversation about {0}.</li>
+      </rulesStrings>
+    </logRulesInitiator>
+  </InteractionDef>
+
+  <InteractionDef>
+    <defName>Rimpsyche_Conversation_PosBad</defName>
+    <label>conversation</label>
+    <workerClass>Maux36.RimPsyche.InteractionWroker_NeverRandom</workerClass>
+    <symbol>Things/Mote/SpeechSymbols/Conversation</symbol>
+    <initiatorXpGainSkill>Social</initiatorXpGainSkill>
+    <initiatorXpGainAmount>10</initiatorXpGainAmount>
+    <logRulesInitiator>
+      <rulesStrings>
+        <li>r_logentry->[INITIATOR_nameDef] and [RECIPIENT_nameDef] had a positive bad conversation about {0}.</li>
+      </rulesStrings>
+    </logRulesInitiator>
+  </InteractionDef>
+
+  <InteractionDef>
+    <defName>Rimpsyche_Conversation_NegGood</defName>
+    <label>conversation</label>
+    <workerClass>Maux36.RimPsyche.InteractionWroker_NeverRandom</workerClass>
+    <symbol>Things/Mote/SpeechSymbols/Conversation</symbol>
+    <initiatorXpGainSkill>Social</initiatorXpGainSkill>
+    <initiatorXpGainAmount>10</initiatorXpGainAmount>
+    <logRulesInitiator>
+      <rulesStrings>
+        <li>r_logentry->[INITIATOR_nameDef] and [RECIPIENT_nameDef] had a negative good conversation about {0}.</li>
+      </rulesStrings>
+    </logRulesInitiator>
+  </InteractionDef>
+
+  <InteractionDef>
+    <defName>Rimpsyche_Conversation_NegBad</defName>
+    <label>conversation</label>
+    <workerClass>Maux36.RimPsyche.InteractionWroker_NeverRandom</workerClass>
+    <symbol>Things/Mote/SpeechSymbols/Conversation</symbol>
+    <initiatorXpGainSkill>Social</initiatorXpGainSkill>
+    <initiatorXpGainAmount>10</initiatorXpGainAmount>
+    <logRulesInitiator>
+      <rulesStrings>
+        <li>r_logentry->[INITIATOR_nameDef] and [RECIPIENT_nameDef] had a nevative bad conversation about {0}.</li>
+      </rulesStrings>
+    </logRulesInitiator>
+  </InteractionDef>
+
   <RulePackDef>
     <defName>Sentence_RimpsycheConversationPositiveGreat</defName>
     <rulePack>
