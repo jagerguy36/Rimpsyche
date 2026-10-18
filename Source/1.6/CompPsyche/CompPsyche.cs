@@ -105,6 +105,25 @@ namespace Maux36.RimPsyche
             if (!parentPawn.IsHashIntervalTick(CullCheckInterval, delta)) return;
             Relationship.CullStaleRelations();
         }
+        //Activities
+        private int busyUntilTick = -1;
+        public bool IsBusy => Find.TickManager.TicksGame < busyUntilTick;
+        public bool TryClaimBusy(int maxTicks = 20000)
+        {
+            if (IsBusy) return false;
+            busyUntilTick = Find.TickManager.TicksGame + maxTicks;
+            return true;
+        }
+        public bool ReleaseBusy()
+        {
+            if (!IsBusy)
+            {
+                busyUntilTick = -1;
+                return false;
+            }
+            busyUntilTick = -1;
+            return true;
+        }
 
         //Progress
         public int progressTick = -1;
@@ -388,6 +407,7 @@ namespace Maux36.RimPsyche
         public override void PostExposeData()
         {
             base.PostExposeData();
+            Scribe_Values.Look(ref busyUntilTick, "busyUntilTick", -1);
             Scribe_Values.Look(ref progressTick, "progressTick", -1);
             Scribe_Values.Look(ref progressLastCause, "progressLastCause", null);
             Scribe_Values.Look(ref progressLastCauseIndex, "progressLastCauseIndex", 1);
