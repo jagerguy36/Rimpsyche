@@ -89,7 +89,7 @@ namespace Maux36.RimPsyche
                 }
 
                 //Conversation.
-                InteractionDef interactinDefToLog;
+                InteractionDef interactinDefToLog = DefOfRimpsyche.Rimpsyche_Conversation;
                 float topicAlignment = convoTopic.GetScore(initiatorPsyche, recipientPsyche, out float initDirection); // -1~1 [0]
                 float tAbs = Mathf.Abs(topicAlignment);
                 float initInterestF = (1f + (0.5f * Mathf.Min(initOpinion + initRelationship, 1f))) + (initInterestScore * (1f + (0.5f * initPassion))) + 0.25f * ((1f - initInterestScore) * (1f + initInquisitiveness)); //0.5~1.5+ 0~1.5 => 0.5~3 [1.5]
@@ -121,11 +121,20 @@ namespace Maux36.RimPsyche
                     partnerScore = (reciAcceptance + initiatorEloquence + 0.5f * reciRelationship); // -0.3[2.5]6.8
 
                     if (partnerScore < 0f || pawnScore < 0f)
-                        interactinDefToLog = DefOfRimpsyche.Rimpsyche_Conversation_PosBad;
+                    {
+                        if(RimpsycheSettings.flavorfulConversationLog) interactinDefToLog = DefOfRimpsyche.Rimpsyche_Conversation_PosBad;
+                        else extraSentencePacks.Add(DefOfRimpsyche.Sentence_RimpsycheConversationPositiveBad);
+                    }
                     else if (partnerScore > 3f || pawnScore > 3f)
-                        interactinDefToLog = DefOfRimpsyche.Rimpsyche_Conversation_PosGreat;
+                    {
+                        if (RimpsycheSettings.flavorfulConversationLog) interactinDefToLog = DefOfRimpsyche.Rimpsyche_Conversation_PosGreat;
+                        else extraSentencePacks.Add(DefOfRimpsyche.Sentence_RimpsycheConversationPositiveGreat);
+                    }
                     else
-                        interactinDefToLog = DefOfRimpsyche.Rimpsyche_Conversation_PosGood;
+                    {
+                        if (RimpsycheSettings.flavorfulConversationLog) interactinDefToLog = DefOfRimpsyche.Rimpsyche_Conversation_PosGood;
+                        else extraSentencePacks.Add(DefOfRimpsyche.Sentence_RimpsycheConversationPositiveGood);
+                    }
                 }
                 else
                 {
@@ -139,7 +148,10 @@ namespace Maux36.RimPsyche
                         scoreBoost = 4f;
                         pawnScore = pawnReceiveScore * talkRand;// 0~3.5
                         partnerScore = partnerReceiveScore * talkRand; // 0~3.5
-                        interactinDefToLog = DefOfRimpsyche.Rimpsyche_Conversation_NegGood;
+                        {
+                            if (RimpsycheSettings.flavorfulConversationLog) interactinDefToLog = DefOfRimpsyche.Rimpsyche_Conversation_NegGood;
+                            else extraSentencePacks.Add(DefOfRimpsyche.Sentence_RimpsycheConversationNegativeGood);
+                        }
                     }
                     else
                     {
@@ -191,7 +203,8 @@ namespace Maux36.RimPsyche
                         }
                         else
                         {
-                            interactinDefToLog = DefOfRimpsyche.Rimpsyche_Conversation_NegBad;
+                            if (RimpsycheSettings.flavorfulConversationLog) interactinDefToLog = DefOfRimpsyche.Rimpsyche_Conversation_NegBad;
+                            else extraSentencePacks.Add(DefOfRimpsyche.Sentence_RimpsycheConversationNegativeBad);
                         }
                     }
                 }
