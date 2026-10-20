@@ -51,6 +51,7 @@ namespace Maux36.RimPsyche
             { "RimPsycheIntensityNeutral", "Neutral" }
         };
         public static Dictionary<PawnRelationDef, int> RelationCullTick = new();
+        public static Dictionary<PawnRelationDef, int> RelationMaxAgeTick = new();
         public static string conversationMemoryString = "Conversation about {0}";
 
         static RimpsycheDatabase()

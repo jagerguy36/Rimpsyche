@@ -105,7 +105,7 @@ namespace Maux36.RimPsyche
         {
             compPsyche.EvalShouldTick();
         }
-        private static readonly List<(int id, PawnRelationDef def)> tmpToDissolve = [];
+        private static readonly List<(DirectPawnRelation rel, bool wentNowhere)> tmpToDissolve = [];
         public void CullStaleRelations()
         {
             int now = Find.TickManager.TicksGame;
@@ -114,22 +114,39 @@ namespace Maux36.RimPsyche
             foreach (var kv in compPsyche.LoversCache)
             {
                 if (!RimpsycheDatabase.RelationCullTick.TryGetValue(kv.Value, out int cullTick)) continue; //committed
-                if (!lastRomanceInteractionTick.TryGetValue(kv.Key, out int last)) // Somehow lost its record. Formation was itself a romantic contact.
+                DirectPawnRelation rel = FindRelation(pawn, kv.Key, kv.Value);
+                if (rel == null) continue;
+                if (!lastRomanceInteractionTick.TryGetValue(kv.Key, out int last))
                 {
-                    DirectPawnRelation rel = FindRelation(pawn, kv.Key, kv.Value);
-                    if (rel == null) continue;
                     last = rel.startTicks;
                     lastRomanceInteractionTick[kv.Key] = last;
                 }
-                if (now - last > cullTick) tmpToDissolve.Add((kv.Key, kv.Value));
+
+                if (now - last > cullTick) tmpToDissolve.Add((rel, false));
+                else if (RimpsycheDatabase.RelationMaxAgeTick.TryGetValue(kv.Value, out int baseLifespan) && now - rel.startTicks > LifespanTicks(pawn, rel, baseLifespan))
+                    tmpToDissolve.Add((rel, true));
             }
 
             // Dissolve. (LoverCache gets dirtied during Dissolve)
             for (int i = 0; i < tmpToDissolve.Count; i++)
-            {
-                DirectPawnRelation rel = FindRelation(pawn, tmpToDissolve[i].id, tmpToDissolve[i].def);
-                if (rel != null) DissolveCasualRelation(rel);
-            }
+                DissolveCasualRelation(tmpToDissolve[i].rel, tmpToDissolve[i].wentNowhere);
+            tmpToDissolve.Clear();
+        }
+        private static int LifespanTicks(Pawn a, DirectPawnRelation rel, int baseTicks)
+        {
+            Pawn b = rel.otherPawn;
+            // It ends when the less patient of the two stops waiting.
+            float patience = PatienceOf(a, b);
+            return (int)(baseTicks * patience);
+        }
+        // TODO: actually implement the logic
+        private static float PatienceOf(Pawn pawn, Pawn other)
+        {
+            if (pawn.relations == null) return 1f;
+            float opinion = pawn.relations.OpinionOf(other);
+            float opinionFactor = 1f; // Mathf.Lerp(0.7f, 1.3f, Mathf.InverseLerp(0f, 80f, opinion));
+            float inclinationFactor = 1f;
+            return opinionFactor * inclinationFactor;
         }
         private static readonly List<int> tmpOrphans = [];
         public void PruneRecordsOnLoad()
@@ -149,7 +166,7 @@ namespace Maux36.RimPsyche
                     return rels[i];
             return null;
         }
-        public void DissolveCasualRelation(DirectPawnRelation rel)
+        public void DissolveCasualRelation(DirectPawnRelation rel, bool wentNowhere)
         {
             Pawn other = rel.otherPawn;
             pawn.relations.RemoveDirectRelation(rel);   // reflexive: removes both sides
@@ -165,9 +182,15 @@ namespace Maux36.RimPsyche
                 otherRelationship.compPsyche.EvalShouldTick();
             }
 
+            if (wentNowhere)
+            {
+                //TODO: Add disappointed thought that should prevent further romance until it expires.
+            }
+
             if (PawnUtility.ShouldSendNotificationAbout(pawn) || PawnUtility.ShouldSendNotificationAbout(other))
             {
-                Messages.Message("RPR_DriftedApart".Translate(pawn.Named("PAWN1"), other.Named("PAWN2")), new LookTargets(pawn, other), MessageTypeDefOf.SilentInput, historical: false);
+                string key = wentNowhere ? "RPR_WentNowhere" : "RPR_DriftedApart";
+                Messages.Message(key.Translate(pawn.Named("PAWN1"), other.Named("PAWN2")), new LookTargets(pawn, other), MessageTypeDefOf.SilentInput, historical: false);
             }
         }
         //RainCheck
