@@ -40,7 +40,7 @@ namespace Maux36.RimPsyche
         public static float maxPersonalityIntensityWidth = 0f;
         public static float totalPreferenceEditorfHeight = 0f;
         public static float dispositionIntensityWidth;
-        public static ThoughtDef HangoutThoughtDef = null;
+        public static ThoughtDef DateThoughtDef = null;
 
         public static Dictionary<string, string> IntensityKeysDefault = new Dictionary<string, string>()
         {

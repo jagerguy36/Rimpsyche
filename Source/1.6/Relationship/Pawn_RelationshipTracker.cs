@@ -29,50 +29,58 @@ namespace Maux36.RimPsyche
         {
             lastFlirtedTick = Find.TickManager.TicksGame;
         }
-        //Hangout
-        private int lastHangoutTick = -60000;
-        public int TicksSinceLastHangout => Find.TickManager.TicksGame - lastHangoutTick;
-        public void Notify_HangoutWith(Pawn otherPawn)
+        //DateHangout
+        //To check activity cooldown.
+        //Used by both Date and Hangout
+        private int lastDateHangoutTick = -60000;
+        public int TicksSinceLastDateHangout => Find.TickManager.TicksGame - lastDateHangoutTick;
+        public void Notify_Hangout()
         {
             int tick = Find.TickManager.TicksGame;
-            lastHangoutTick = tick;
-            if (lastHangoutTickWithDirty) InitializeHangoutCache();
-            lastHangoutTickWith[otherPawn.thingIDNumber] = tick;
+            lastDateHangoutTick = tick;
         }
-        private Dictionary<int, int> lastHangoutTickWith = new();
-        private bool lastHangoutTickWithDirty = true;
-        public IReadOnlyDictionary<int, int> LastHangoutTickWith
+        //Used by ShowAffection Interaction to Calculate DatePull.
+        private Dictionary<int, int> lastDateTickWith = new();
+        private bool lastDateTickWithDirty = true;
+        public IReadOnlyDictionary<int, int> LastDateTickWith
         {
             get
             {
-                if (lastHangoutTickWithDirty) InitializeHangoutCache();
-                return lastHangoutTickWith;
+                if (lastDateTickWithDirty) InitializeDateCache();
+                return lastDateTickWith;
             }
         }
-        private void InitializeHangoutCache()
+        private void InitializeDateCache()
         {
-            lastHangoutTickWithDirty = false;
+            lastDateTickWithDirty = false;
             var relationship = pawn.compPsyche()?.Relationship;
             if (relationship == null) return;
-            relationship.lastHangoutTickWith = [];
+            relationship.lastDateTickWith = [];
             var memories = pawn.needs?.mood?.thoughts?.memories?.Memories;
             if (memories == null) return;
             int currentTick = Find.TickManager.TicksGame;
             for (int i = 0; i < memories.Count; i++)
             {
                 Thought_Memory memory = memories[i];
-                if (memory.def != RimpsycheDatabase.HangoutThoughtDef || memory.otherPawn == null) continue;
+                if (memory.def != RimpsycheDatabase.DateThoughtDef || memory.otherPawn == null) continue;
                 int partnerId = memory.otherPawn.thingIDNumber;
-                int hangoutTick = currentTick - memory.age;
-                if (!relationship.lastHangoutTickWith.TryGetValue(partnerId, out int existingTick) || hangoutTick > existingTick)
-                    relationship.lastHangoutTickWith[partnerId] = hangoutTick;
+                int dateTick = currentTick - memory.age;
+                if (!relationship.lastDateTickWith.TryGetValue(partnerId, out int existingTick) || dateTick > existingTick)
+                    relationship.lastDateTickWith[partnerId] = dateTick;
             }
+        }
+        public void Notify_DateWith(Pawn otherPawn)
+        {
+            int tick = Find.TickManager.TicksGame;
+            lastDateHangoutTick = tick;
+            if (lastDateTickWithDirty) InitializeDateCache();
+            lastDateTickWith[otherPawn.thingIDNumber] = tick;
         }
 
         // Timestamp a romantic interaction for pairs actually in a romantic relationship.
         // Used to cull Non-exclusive Romantic Relations and adjust lovers activity chance.
-        // Flirt, ShowAffection Both registers.
-        // lastFlirtedTick and lastHangoutTick are pawn agnostic. This is Pawn specific.
+        // Flirt and ShowAffection Both registers.
+        // lastFlirtedTick and lastDateHangoutTick are pawn agnostic. This is Pawn specific.
         private Dictionary<int, int> lastRomanceInteractionTick = new();
         public void Notify_CasualRelationFormed(Pawn other)
         {
@@ -204,7 +212,7 @@ namespace Maux36.RimPsyche
                 }
             }
             Scribe_Values.Look(ref lastFlirtedTick, "lastFlirtedTick", -60000);
-            Scribe_Values.Look(ref lastHangoutTick, "lastHangoutTick", -60000);
+            Scribe_Values.Look(ref lastDateHangoutTick, "lastHangoutTick", -60000);
             Scribe_Collections.Look(ref lastRomanceInteractionTick, "lastRomanceInteractionTick", LookMode.Value, LookMode.Value);
             Scribe_Collections.Look(ref rainCheckMemory, "rainCheckMemory", LookMode.Value, LookMode.Value);
             //Post load operations
@@ -216,7 +224,7 @@ namespace Maux36.RimPsyche
                 if (Rimpsyche.RelationshipModuleLoaded)
                 {
                     compPsyche.EvalShouldTick(); //Builds Lover cache
-                    InitializeHangoutCache(); //Build LastHangoutTick cache
+                    InitializeDateCache(); //Build LastHangoutTick cache
                     PruneRecordsOnLoad();
                 }
             }
