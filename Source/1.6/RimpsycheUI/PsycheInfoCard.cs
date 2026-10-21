@@ -613,7 +613,10 @@ namespace Maux36.RimPsyche
             {
                 var prefDef = allPrefDefs[i];
                 if (!prefDef.isActive)
+                {
+                    cachedViewerHeights.Add(0f);
                     continue;
+                }
                 float viewerHeight = prefDef.worker.GetViewerHeight(currentPawn);
                 cachedViewerHeights.Add(viewerHeight);
             }
