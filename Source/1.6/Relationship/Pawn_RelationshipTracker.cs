@@ -53,11 +53,9 @@ namespace Maux36.RimPsyche
         private void InitializeDateCache()
         {
             lastDateTickWithDirty = false;
-            var relationship = pawn.compPsyche()?.Relationship;
-            if (relationship == null) return;
-            relationship.lastDateTickWith = [];
+            lastDateTickWith.Clear();
             var memories = pawn.needs?.mood?.thoughts?.memories?.Memories;
-            if (memories == null) return;
+            if (memories == null || RimpsycheDatabase.DateThoughtDef == null) return;
             int currentTick = Find.TickManager.TicksGame;
             for (int i = 0; i < memories.Count; i++)
             {
@@ -65,8 +63,8 @@ namespace Maux36.RimPsyche
                 if (memory.def != RimpsycheDatabase.DateThoughtDef || memory.otherPawn == null) continue;
                 int partnerId = memory.otherPawn.thingIDNumber;
                 int dateTick = currentTick - memory.age;
-                if (!relationship.lastDateTickWith.TryGetValue(partnerId, out int existingTick) || dateTick > existingTick)
-                    relationship.lastDateTickWith[partnerId] = dateTick;
+                if (!lastDateTickWith.TryGetValue(partnerId, out int existingTick) || dateTick > existingTick)
+                    lastDateTickWith[partnerId] = dateTick;
             }
         }
         public void Notify_DateWith(Pawn otherPawn)

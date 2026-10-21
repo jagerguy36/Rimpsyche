@@ -40,8 +40,12 @@ namespace Maux36.RimPsyche
         public static float maxPersonalityIntensityWidth = 0f;
         public static float totalPreferenceEditorfHeight = 0f;
         public static float dispositionIntensityWidth;
+
+        //Relationship Module Defs
         public static ThoughtDef DateThoughtDef = null;
         public static ThoughtDef WentNowhereThoughtDef = null;
+        public static Dictionary<PawnRelationDef, int> RelationCullTick = new();
+        public static Dictionary<PawnRelationDef, int> RelationMaxAgeTick = new();
 
         public static Dictionary<string, string> IntensityKeysDefault = new Dictionary<string, string>()
         {
@@ -51,8 +55,6 @@ namespace Maux36.RimPsyche
             { "RimPsycheIntensityMarginally", "Marginally" },
             { "RimPsycheIntensityNeutral", "Neutral" }
         };
-        public static Dictionary<PawnRelationDef, int> RelationCullTick = new();
-        public static Dictionary<PawnRelationDef, int> RelationMaxAgeTick = new();
         public static string conversationMemoryString = "Conversation about {0}";
 
         static RimpsycheDatabase()
