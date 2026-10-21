@@ -182,9 +182,11 @@ namespace Maux36.RimPsyche
                 otherRelationship.compPsyche.EvalShouldTick();
             }
 
-            if (wentNowhere)
+            if (wentNowhere && RimpsycheDatabase.WentNowhereThoughtDef != null)
             {
-                //TODO: Add disappointed thought that should prevent further romance until it expires.
+                //Add went nowhere thought that should prevent further romance until it expires.
+                pawn.needs.mood?.thoughts.memories.TryGainMemory((Thought_Memory)ThoughtMaker.MakeThought(RimpsycheDatabase.WentNowhereThoughtDef), other);
+                other.needs.mood?.thoughts.memories.TryGainMemory((Thought_Memory)ThoughtMaker.MakeThought(RimpsycheDatabase.WentNowhereThoughtDef), pawn);
             }
 
             if (PawnUtility.ShouldSendNotificationAbout(pawn) || PawnUtility.ShouldSendNotificationAbout(other))

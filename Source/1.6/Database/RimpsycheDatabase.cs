@@ -41,6 +41,7 @@ namespace Maux36.RimPsyche
         public static float totalPreferenceEditorfHeight = 0f;
         public static float dispositionIntensityWidth;
         public static ThoughtDef DateThoughtDef = null;
+        public static ThoughtDef WentNowhereThoughtDef = null;
 
         public static Dictionary<string, string> IntensityKeysDefault = new Dictionary<string, string>()
         {
