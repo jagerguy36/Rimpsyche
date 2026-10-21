@@ -97,13 +97,14 @@ namespace Maux36.RimPsyche
             loversCacheDirty = true;
         }
         private const int CullCheckInterval = 60000; // daily
+        public static event Action<CompPsyche> RelationshipDailyTick;
         public bool shouldTick = false;
         public override void CompTickInterval(int delta)
         {
             base.CompTickInterval(delta);
             if (!shouldTick) return;
             if (!parentPawn.IsHashIntervalTick(CullCheckInterval, delta)) return;
-            Relationship.CullStaleRelations();
+            RelationshipDailyTick?.Invoke(this);
         }
         //Activities
         private int busyUntilTick = -1;
