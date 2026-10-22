@@ -43,13 +43,18 @@ namespace Maux36.RimPsyche
             kinseyLabelWidth = Text.CalcSize("RPC_Kinsey".Translate()).x + 20f;
             // Interest row budget: label with its padding, minimum bar, card padding and scrollbar
             float interestBudget = interestLabelWidth + 2f * interestLabelPadding + minRightBarWidth + 2f * innerPadding + scrollBarWidth;
-            // Sexuality slider row budget: label, gap, minimum bar and card padding (no scroll view)
-            float sexualityBudget = RimpsycheDatabase.maxEditSexualityLabelWidth + sexualityLabelGap + minRightBarWidth + 2f * innerPadding;
-            // Female/Male row budget: both side labels with their 8 margins, minimum bar and card padding
-            float attractionBudget = Text.CalcSize(femaleAttractionLabel).x + Text.CalcSize(maleAttractionLabel).x + 16f + minRightBarWidth + 2f * innerPadding;
-            // Kinsey row budget: label, orientation report and card padding
-            float kinseyBudget = kinseyLabelWidth + RimpsycheDatabase.orientationLabelWidth + 2f * innerPadding;
-            rightRectWidth = Mathf.Max(interestBudget, sexualityBudget, attractionBudget, kinseyBudget);
+            rightRectWidth = interestBudget;
+            // The sexuality card only exists with the module, and its label keys are only translated there
+            if (Rimpsyche.SexualityModuleLoaded)
+            {
+                // Sexuality slider row budget: label, gap, minimum bar and card padding (no scroll view)
+                float sexualityBudget = RimpsycheDatabase.maxEditSexualityLabelWidth + sexualityLabelGap + minRightBarWidth + 2f * innerPadding;
+                // Female/Male row budget: both side labels with their 8 margins, minimum bar and card padding
+                float attractionBudget = Text.CalcSize(femaleAttractionLabel).x + Text.CalcSize(maleAttractionLabel).x + 16f + minRightBarWidth + 2f * innerPadding;
+                // Kinsey row budget: label, orientation report and card padding
+                float kinseyBudget = kinseyLabelWidth + RimpsycheDatabase.orientationLabelWidth + 2f * innerPadding;
+                rightRectWidth = Mathf.Max(interestBudget, sexualityBudget, attractionBudget, kinseyBudget);
+            }
             totalBaseSize = midRectWidth + rightRectWidth + baseMargin;
             totalFullSize = leftRectWidth + midRectWidth + rightRectWidth + baseMargin;
             Text.Font = oldFont;
