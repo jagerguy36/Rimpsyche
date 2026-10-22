@@ -56,6 +56,14 @@ namespace Maux36.RimPsyche
             Initialize();
             RegisterBaseGates();
             ModCompat();
+            try
+            {
+                PsycheSaveManager.LoadSlotsOnStartup();
+            }
+            catch (Exception ex)
+            {
+                Log.Error($"[RimPsyche] Failed to initialize psyche slots: {ex}");
+            }
         }
 
         public static void Initialize()
