@@ -211,7 +211,6 @@ namespace Maux36.RimPsyche
         //Cache
         private static List<PersonalityDisplayData> cachedPersonalityData = null;
         private static List<PersonalityDisplayData> cachedPersonalitySummaryData = null;
-        private static Dictionary<ushort, List<string>> cachedPersonalityEffects = new();
         private static List<BehaviorData> cachedBehaviorData = null;
         private static List<InterestDisplayData> cachedInterestData = null;
         private static List<Vector2> cachedValuePointData = null;
@@ -228,7 +227,7 @@ namespace Maux36.RimPsyche
             public float NormalizedAbsValue;
             public bool IsSignificant;
         }
-        private struct PersonalityDisplayData
+        public struct PersonalityDisplayData
         {
             public PersonalityDef Personality;
             public float Value;
@@ -456,7 +455,8 @@ namespace Maux36.RimPsyche
             //List<(string, float)> cachedPreferenceReport
             if (resetPreferenceHeights == true || cachedViewerHeights == null)
             {
-                GenerateViewerHeights(currentPawn);
+                cachedViewerHeights = BuildViewerHeights(currentPawn);
+                resetPreferenceHeights = false;
             }
             return cachedViewerHeights;
         }
@@ -488,7 +488,59 @@ namespace Maux36.RimPsyche
         
         private static void GenerateSortedPersonalityData(CompPsyche compPsyche, Pawn currentPawn)
         {
-            GenerateBehaviorData(compPsyche);
+            var rawData = BuildPersonalityData(compPsyche, out cachedBehaviorData);
+            var orderedData = rawData.OrderByDescending(p => p.AbsValue);
+            cachedPersonalitySummaryData = orderedData.Take(SummaryRowCount * 2).ToList();
+            if (sortOption == SortMode.Value)
+            {
+                cachedPersonalityData = orderedData.ToList();
+            }
+            else if (sortOption == SortMode.Alphabet)
+            {
+                cachedPersonalityData = rawData.OrderBy(p => p.Personality.label).ToList();
+            }
+            else
+            {
+                cachedPersonalityData = rawData;
+            }
+            shouldSort = false;
+        }
+
+        // Shared with PsycheEditPopup. Returns personality rows in def order, and the disposition rows (strongest first) whose effects feed the personality descriptions.
+        public static List<PersonalityDisplayData> BuildPersonalityData(CompPsyche compPsyche, out List<BehaviorData> behaviorData)
+        {
+            var personalityEffects = new Dictionary<ushort, List<string>>();
+            behaviorData = new List<BehaviorData>();
+            foreach (PsycheDescriptorDef descDef in DefDatabase<PsycheDescriptorDef>.AllDefs)
+            {
+                var dWorker = descDef.Worker;
+                dWorker.Build(compPsyche);
+
+                foreach ((ushort shortHash, var impactDesc) in dWorker.bImpactRegistry)
+                {
+                    if (!personalityEffects.TryGetValue(shortHash, out List<string> list))
+                    {
+                        list = new List<string>();
+                        personalityEffects.Add(shortHash, list);
+                    }
+                    list.Add(impactDesc);
+                }
+                if (string.IsNullOrEmpty(dWorker.bLabel))
+                    continue;
+                var normalizedAbsValue = dWorker.bNormalizedAbsValue;
+                behaviorData.Add(new BehaviorData
+                {
+                    Label = dWorker.bLabel,
+                    Intensity = dWorker.bIntensityString,
+                    Description = dWorker.bDescription,
+                    Tooltip = dWorker.bToolTip,
+                    NormalizedAbsValue = normalizedAbsValue,
+                    IsSignificant = normalizedAbsValue >= 1f
+                });
+            }
+            // Sort descending by strength
+            behaviorData.Sort((a, b) => b.NormalizedAbsValue.CompareTo(a.NormalizedAbsValue));
+
             var personalityDefList = DefDatabase<PersonalityDef>.AllDefsListForReading;
             var rawData = new List<PersonalityDisplayData>();
             foreach (var personality in personalityDefList)
@@ -501,7 +553,7 @@ namespace Maux36.RimPsyche
                 var personalityShortDesc = (value >= 0f ? personality.highDescription : personality.lowDescription);
                 var personalityFullDesc = $"{personality.label.CapitalizeFirst()}: {value * 100f:F1}\n\n{personality.description}";
                 var effectString = string.Empty;
-                if (cachedPersonalityEffects.TryGetValue(personality.shortHash, out var effectList))
+                if (personalityEffects.TryGetValue(personality.shortHash, out var effectList))
                 {
                     effectString = effectHeaderString + string.Join("\n", effectList);
                 }
@@ -529,59 +581,7 @@ namespace Maux36.RimPsyche
                     CachedDescription = personalityDesc
                 });
             }
-            var orderedData = rawData.OrderByDescending(p => p.AbsValue);
-            cachedPersonalitySummaryData = orderedData.Take(SummaryRowCount * 2).ToList();
-            if (sortOption == SortMode.Value)
-            {
-                cachedPersonalityData = orderedData.ToList();
-            }
-            else if (sortOption == SortMode.Alphabet)
-            {
-                cachedPersonalityData = rawData.OrderBy(p => p.Personality.label).ToList();
-            }
-            else
-            {
-                cachedPersonalityData = rawData;
-            }
-            shouldSort = false;
-        }
-        private static void GenerateBehaviorData(CompPsyche compPsyche)
-        {
-            cachedPersonalityEffects.Clear();
-            var sortedData = new List<BehaviorData>();
-
-            foreach (PsycheDescriptorDef descDef in DefDatabase<PsycheDescriptorDef>.AllDefs)
-            {
-                var dWorker = descDef.Worker;
-                dWorker.Build(compPsyche);
-
-                foreach ((ushort shortHash, var impactDesc) in dWorker.bImpactRegistry)
-                {
-                    if (!cachedPersonalityEffects.TryGetValue(shortHash, out List<string> list))
-                    {
-                        list = new List<string>();
-                        cachedPersonalityEffects.Add(shortHash, list);
-                    }
-                    list.Add(impactDesc);
-                }
-                if (string.IsNullOrEmpty(dWorker.bLabel))
-                    continue;
-                var normalizedAbsValue = dWorker.bNormalizedAbsValue;
-                var result = new BehaviorData
-                {
-                    Label = dWorker.bLabel,
-                    Intensity = dWorker.bIntensityString,
-                    Description = dWorker.bDescription,
-                    Tooltip = dWorker.bToolTip,
-                    NormalizedAbsValue = normalizedAbsValue,
-                    IsSignificant = normalizedAbsValue >= 1f
-                };
-                sortedData.Add(result);
-            }
-
-            // Sort descending by strength
-            sortedData.Sort((a, b) => b.NormalizedAbsValue.CompareTo(a.NormalizedAbsValue));
-            cachedBehaviorData = sortedData;
+            return rawData;
         }
         private static void GenerateSortedInterestData(CompPsyche compPsyche, Pawn currentPawn)
         {
@@ -605,22 +605,23 @@ namespace Maux36.RimPsyche
             sortedData = sortedData.OrderByDescending(p => p.Value).ToList();
             cachedInterestData = sortedData;
         }
-        private static void GenerateViewerHeights(Pawn currentPawn)
+        // Shared with PsycheEditPopup. One height per PreferenceDef, 0 for inactive ones.
+        public static List<float> BuildViewerHeights(Pawn currentPawn)
         {
-            cachedViewerHeights = new();
+            var viewerHeights = new List<float>();
             var allPrefDefs = DefDatabase<PreferenceDef>.AllDefsListForReading;
             for (int i = 0; i < allPrefDefs.Count; i++)
             {
                 var prefDef = allPrefDefs[i];
                 if (!prefDef.isActive)
                 {
-                    cachedViewerHeights.Add(0f);
+                    viewerHeights.Add(0f);
                     continue;
                 }
                 float viewerHeight = prefDef.worker.GetViewerHeight(currentPawn);
-                cachedViewerHeights.Add(viewerHeight);
+                viewerHeights.Add(viewerHeight);
             }
-            resetPreferenceHeights = false;
+            return viewerHeights;
         }
         private static void GenerateValuePointData(Vector2 center, CompPsyche compPsyche)
         {
