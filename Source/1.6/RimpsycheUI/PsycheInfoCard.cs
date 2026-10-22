@@ -470,7 +470,7 @@ namespace Maux36.RimPsyche
         }
         private static List<Vector2> GetValuePointData(Vector2 center, CompPsyche compPsyche, Pawn currentPawn)
         {
-            if (currentPawn.thingIDNumber != lastPawnId || cachedInterestData == null)
+            if (currentPawn.thingIDNumber != lastPawnId || cachedValuePointData == null)
             {
                 GenerateValuePointData(center, compPsyche);
                 return cachedValuePointData;
