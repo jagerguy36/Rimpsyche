@@ -25,6 +25,7 @@ namespace Maux36.RimPsyche
             if (psycheData != null)
             {
                 interestScore = new Dictionary<string, float>(psycheData.interestScore);
+                adjustedInterestScore.Clear();
                 cachedSampler = null;
                 return;
             }
@@ -38,7 +39,6 @@ namespace Maux36.RimPsyche
 
         public void GenerateAdjustedInterestScoreForDomain(InterestDomainDef interestdomainDef, bool generateScore = false) // 0~100
         {
-            var compPsyche = pawn.compPsyche();
             float domainOffsetValue = 50;
             var domainWeights = interestdomainDef.scoreWeight;
             if (domainWeights != null) //Add domain offset

@@ -246,7 +246,7 @@ namespace Maux36.RimPsyche
         {
             if(relationship.TryGetValue(target.thingIDNumber, out var current))
             {
-                relationship[target.thingIDNumber] = Mathf.Clamp01(Mathf.Min(current + ceiling));
+                relationship[target.thingIDNumber] = Mathf.Clamp01(Mathf.Min(current, ceiling));
             }
         }
 
@@ -463,11 +463,7 @@ namespace Maux36.RimPsyche
             if (orientationCategory == SexualOrientation.Developing || orientationCategory == SexualOrientation.None) return;
             var traitCategory = SexualityHelper.EvaluateSexuality(pawn);
             if (traitCategory == orientationCategory) return;
-            else
-            {
-                AssignSexuality(traitCategory);
-                return;
-            }
+            AssignSexuality(traitCategory);
         }
         /// <summary>
         /// Force new Psyche sexuality onto the pawn.
@@ -477,6 +473,8 @@ namespace Maux36.RimPsyche
         private void AssignSexuality(SexualOrientation newCategory)
         {
             orientationCategory = newCategory;
+            adjustmentDirty = true;
+            driveDirty = true;
             if (newCategory == SexualOrientation.None || newCategory == SexualOrientation.Developing)
             {
                 return;
@@ -491,7 +489,6 @@ namespace Maux36.RimPsyche
             {
                 mKinsey = 1 - kinsey;
             }
-            adjustmentDirty = true;
             return;
         }
         //When Trait is manipulated, Rimpsyche Sexuality will check the traits and follow it rather than enforcing RPS on Vanilla
@@ -736,6 +733,7 @@ namespace Maux36.RimPsyche
         {
             if (driveDirty)
             {
+                driveDirty = false;
                 if (!Suppressed && Rimpsyche_Utility.GetPawnAge(pawn) >= minAdultAge)
                 {
                     adjustedDrive = SexualityHelper.AdjustRawValues(SexDrive);
