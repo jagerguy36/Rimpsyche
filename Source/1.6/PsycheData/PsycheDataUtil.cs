@@ -59,8 +59,11 @@ namespace Maux36.RimPsyche
                     }
                 }
             }
-            psyche.preference = new Dictionary<string, List<PrefEntry>>(sexuality.GetPreferenceRaw());
-            psyche.preference ??= new();
+            psyche.preference = new Dictionary<string, List<PrefEntry>>();
+            foreach (var kvp in sexuality.GetPreferenceRaw())
+            {
+                psyche.preference[kvp.Key] = kvp.Value?.ConvertAll(e => new PrefEntry(e.stringKey, e.intKey, e.target, e.importance));
+            }
             if (preserveMemory)
             {
                 psyche.knownOrientation = [.. sexuality.knownOrientation];
@@ -123,13 +126,13 @@ namespace Maux36.RimPsyche
                 List<string> entryPairs = new List<string>();
                 foreach (var entry in kvp.Value)
                 {
-                    entryPairs.Add($"{entry.stringKey}:{entry.intKey}");
+                    entryPairs.Add($"{entry.stringKey}:{entry.intKey}:{entry.target}:{entry.importance}");
                 }
 
                 string entries = string.Join(",", entryPairs);
                 prefBlocks.Add($"{kvp.Key}={entries}");
             }
-            sb.Append(string.Join(";", prefBlocks));
+            sb.Append(string.Join(";", prefBlocks) + "|");
 
             // Memory Area
 
@@ -158,7 +161,7 @@ namespace Maux36.RimPsyche
                 if (sections.Length < 6)
                 {
                     Log.Error("[RimPsyche] Cannot deserialize string. Missing primary data blocks.");
-                    return data;
+                    return null;
                 }
 
                 // 1. Personality
@@ -206,14 +209,20 @@ namespace Maux36.RimPsyche
                         if (string.IsNullOrEmpty(kvp[1])) continue;
                         foreach (var entryStr in kvp[1].Split(','))
                         {
+                            // stringKey:intKey:target:importance.
                             string[] tokens = entryStr.Split(':');
-                            if (tokens.Length == 2)
+                            if (tokens.Length == 2 || tokens.Length == 4)
                             {
                                 PrefEntry entry = new PrefEntry
                                 {
                                     stringKey = tokens[0],
                                     intKey = int.Parse(tokens[1])
                                 };
+                                if (tokens.Length == 4)
+                                {
+                                    entry.target = float.Parse(tokens[2]);
+                                    entry.importance = float.Parse(tokens[3]);
+                                }
                                 data.preference[dictKey].Add(entry);
                             }
                         }
@@ -223,7 +232,7 @@ namespace Maux36.RimPsyche
                 // 5. KnownOrientation
                 if (!string.IsNullOrEmpty(sections[4]))
                 {
-                    foreach (var id in sections[3].Split(','))
+                    foreach (var id in sections[4].Split(','))
                     {
                         if (int.TryParse(id, out int parsedId)) data.knownOrientation.Add(parsedId);
                     }
