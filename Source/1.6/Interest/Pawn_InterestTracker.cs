@@ -15,10 +15,10 @@ namespace Maux36.RimPsyche
         public Dictionary<string, float> interestScore = new Dictionary<string, float>(); // -35~35
         private InterestSampler cachedSampler;
 
-        public Pawn_InterestTracker(Pawn p)
+        public Pawn_InterestTracker(Pawn p, CompPsyche comp)
         {
             pawn = p;
-            compPsyche = p.compPsyche();
+            compPsyche = comp;
         }
         public void Initialize(PsycheData psycheData = null)
         {

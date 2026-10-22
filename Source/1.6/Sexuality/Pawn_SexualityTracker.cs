@@ -250,10 +250,10 @@ namespace Maux36.RimPsyche
             }
         }
 
-        public Pawn_SexualityTracker(Pawn p)
+        public Pawn_SexualityTracker(Pawn p, CompPsyche comp)
         {
             pawn = p;
-            compPsyche = p.compPsyche();
+            compPsyche = comp;
         }
         //generate = false is coming from loading saves.
         //Newly generate pawns initialize with generate = true
@@ -424,8 +424,14 @@ namespace Maux36.RimPsyche
             mKinsey = psyche.mKinsey;
             attraction = psyche.attraction;
             sexDrive = psyche.sexDrive;
-            _preference = new Dictionary<string, List<PrefEntry>>(psyche.preference);
-            _preference ??= new();
+            _preference = new Dictionary<string, List<PrefEntry>>();
+            if (psyche.preference != null)
+            {
+                foreach (var kvp in psyche.preference)
+                {
+                    _preference[kvp.Key] = kvp.Value?.ConvertAll(e => new PrefEntry(e.stringKey, e.intKey, e.target, e.importance));
+                }
+            }
             if (preserveMemory)
             {
                 knownOrientation = [.. psyche.knownOrientation];
