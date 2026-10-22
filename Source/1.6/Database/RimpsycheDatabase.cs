@@ -231,7 +231,8 @@ namespace Maux36.RimPsyche
                 {
                     bool isActive = RimpsycheSexualitySettings.activePreferences.Contains(pref.defName);
                     pref.isActive = isActive;
-                    activePreferenceHashSet.Add(pref.shortHash);
+                    if (isActive)
+                        activePreferenceHashSet.Add(pref.shortHash);
                 }
                 var OrderedPreferenceDefs = DefDatabase<PreferenceDef>.AllDefsListForReading.Where(prefDef => prefDef.isActive).OrderByDescending(prefDef => prefDef.priority).ToList();
                 try
@@ -240,7 +241,7 @@ namespace Maux36.RimPsyche
                     {
                         totalPreferenceEditorfHeight += prefDef.worker.EditorHeight;
                     }
-                    totalPreferenceEditorfHeight += (OrderedPreferenceDefs.Count - 1) * preferenceGap;
+                    totalPreferenceEditorfHeight += Mathf.Max(0, OrderedPreferenceDefs.Count - 1) * preferenceGap;
                     OrderedRomPreferenceDefs = OrderedPreferenceDefs.Where(prefDef => (prefDef.category == RimpsychePrefCategory.Romantic || prefDef.category == RimpsychePrefCategory.Mix)).ToList();
                     OrderedSexPreferenceDefs = OrderedPreferenceDefs.Where(prefDef => (prefDef.category == RimpsychePrefCategory.Physical || prefDef.category == RimpsychePrefCategory.Mix)).ToList();
                 }
