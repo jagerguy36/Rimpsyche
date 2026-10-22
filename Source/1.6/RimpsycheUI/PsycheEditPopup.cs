@@ -14,27 +14,45 @@ namespace Maux36.RimPsyche
         private bool editMode;
         static PsycheEditPopup()
         {
+            GameFont oldFont = Text.Font;
+            Text.Font = GameFont.Small;
             facetLabelWidth = RimpsycheDatabase.maxFacetLabelWidth;
-            facetWidthDiff = 2f * (facetLabelWidth - 130f);
 
             personalityLabelWidth = RimpsycheDatabase.maxPersonalityLabelWidth;
-            personalityWidthDiff = 2f * (personalityLabelWidth - 130f);
             personalityViewHeight = DefDatabase<PersonalityDef>.AllDefsListForReading.Count * personalityRowHeight;
             intensityRectWidth = RimpsycheDatabase.dispositionIntensityWidth;
 
             interestLabelWidth = RimpsycheDatabase.maxInterestLabelWidth;
-            interestWidthDiff = (interestLabelWidth - 130f);
             interestViewHeight = RimpsycheDatabase.InterestList.Count * interestRowHeight;
 
-            leftRectWidth = 330f + facetWidthDiff;
-            midRectWidth = 380f + personalityWidthDiff;
+            // Facet row budget: two labels with their padding, the fixed-width bar, card padding and scrollbar
+            leftRectWidth = 2f * (facetLabelWidth + facetLabelPadding) + facetBarWidth + 2f * innerPadding + scrollBarWidth;
+            // Personality row budget: two labels with their padding, the fixed-width bar, card padding and scrollbar
+            float personalityRowBudget = 2f * (personalityLabelWidth + personalityLabelPadding) + personalityBarWidth + 2f * innerPadding + scrollBarWidth;
+            // Header budget: centered title, so each side gets the wider of its neighbors.
+            // Right: up to 4 icons (8 gap, icons, spacings). Left: reset and save buttons with their margins, plus a 5 gap to the title.
+            Text.Font = GameFont.Medium;
+            float maxTitleWidth = Mathf.Max(Text.CalcSize("RPC_Personality".Translate()).x, Text.CalcSize("RPC_Disposition".Translate()).x);
+            Text.Font = GameFont.Small;
+            float headerRightSide = 8f + 4f * iconSize + 3f * iconSpacing;
+            float headerLeftSide = 2f * (resetButtonMargin + resetButtonSize) + 5f;
+            float headerBudget = maxTitleWidth + 2f * Mathf.Max(headerRightSide, headerLeftSide) + 2f * innerPadding;
+            // Disposition row budget: descriptor label, intensity dots, row padding, card padding and scrollbar
+            float dispositionRowBudget = RimpsycheDatabase.maxDescriptorLabelWidth + intensityRectWidth + 2f * personalityLabelPadding + 2f * innerPadding + scrollBarWidth;
+            midRectWidth = Mathf.Max(personalityRowBudget, headerBudget, dispositionRowBudget);
             kinseyLabelWidth = Text.CalcSize("RPC_Kinsey".Translate()).x + 20f;
-            var sexualityLabelDiff = RimpsycheDatabase.maxEditSexualityLabelWidth - 100f;
-            rightRectWidth = 240f + Mathf.Max(interestWidthDiff, sexualityLabelDiff);
-            rightRectWidth = Mathf.Max(kinseyLabelWidth + RimpsycheDatabase.orientationLabelWidth + 10f, rightRectWidth);
-            //rightRectWidth = Mathf.Max(rightRectWidth, RimpsycheDatabase.maxSexualityLabelWidth + 10f + RimpsycheDatabase.orientationLabelWidth);
+            // Interest row budget: label with its padding, minimum bar, card padding and scrollbar
+            float interestBudget = interestLabelWidth + 2f * interestLabelPadding + minRightBarWidth + 2f * innerPadding + scrollBarWidth;
+            // Sexuality slider row budget: label, gap, minimum bar and card padding (no scroll view)
+            float sexualityBudget = RimpsycheDatabase.maxEditSexualityLabelWidth + sexualityLabelGap + minRightBarWidth + 2f * innerPadding;
+            // Female/Male row budget: both side labels with their 8 margins, minimum bar and card padding
+            float attractionBudget = Text.CalcSize(femaleAttractionLabel).x + Text.CalcSize(maleAttractionLabel).x + 16f + minRightBarWidth + 2f * innerPadding;
+            // Kinsey row budget: label, orientation report and card padding
+            float kinseyBudget = kinseyLabelWidth + RimpsycheDatabase.orientationLabelWidth + 2f * innerPadding;
+            rightRectWidth = Mathf.Max(interestBudget, sexualityBudget, attractionBudget, kinseyBudget);
             totalBaseSize = midRectWidth + rightRectWidth + baseMargin;
             totalFullSize = leftRectWidth + midRectWidth + rightRectWidth + baseMargin;
+            Text.Font = oldFont;
         }
         public PsycheEditPopup(Pawn editFor, bool enableEdit = false)
         {
@@ -89,7 +107,6 @@ namespace Maux36.RimPsyche
         //Facet
         public static bool editFacetOn = false;
         public static readonly float facetLabelWidth;
-        public static readonly float facetWidthDiff;
         public static readonly float facetRowHeight = 28f;
         public static readonly float facetViewHeight = 15f * facetRowHeight;
         public static readonly float facetLabelPadding = 2f;
@@ -102,7 +119,6 @@ namespace Maux36.RimPsyche
         public static PsycheInfoCard.SortMode sortOption = PsycheInfoCard.SortMode.Value;
         public static bool editPersonalityOn = false;
         public static readonly float personalityLabelWidth;
-        public static readonly float personalityWidthDiff;
         public static readonly float personalityRowHeight = 32f;
         public static readonly float personalityViewHeight;
         public static readonly float intensityRectWidth;
@@ -142,7 +158,7 @@ namespace Maux36.RimPsyche
         //Interest
         public static bool editInterestOn = false;
         public static readonly float interestLabelWidth;
-        public static readonly float interestWidthDiff;
+        public static readonly float minRightBarWidth = 76f;
         public static readonly float interestRowHeight = 32f;
         public static readonly float interestViewHeight;
         public static readonly float interestLabelPadding = 2f;
@@ -160,6 +176,7 @@ namespace Maux36.RimPsyche
         public static readonly float sexualityContentHeight = 160f;
         public static readonly float sexualityRowHeight = 30f;
         public static readonly float sexualityBarHeight = 4f;
+        public static readonly float sexualityLabelGap = 10f;
         public static Color LowAttractionColor = Color.grey;
         public static Color HighAttractionBarColor = Color.green;
         public static Color HyperAttractionBarColor = Color.cyan;
@@ -273,7 +290,7 @@ namespace Maux36.RimPsyche
             string titleString = "RPC_Sexuality".Translate();
             Widgets.Label(titleRect, titleString);
             Vector2 titleTextSize = Text.CalcSize(titleString);
-            Text.Anchor = TextAnchor.UpperLeft;
+            Text.Anchor = TextAnchor.MiddleLeft;
             Text.Font = GameFont.Small;
 
             // Icon on the right
@@ -292,12 +309,12 @@ namespace Maux36.RimPsyche
 
 
             Rect ContentRect = new Rect(innerRect.x, titleRect.yMax, innerRect.width, innerRect.height - titleHeight);
-            float maxSexualityLabelWidth = RimpsycheDatabase.maxEditSexualityLabelWidth + 5f;
+            float maxSexualityLabelWidth = RimpsycheDatabase.maxEditSexualityLabelWidth + sexualityLabelGap;
             float sliderWidth = ContentRect.width - maxSexualityLabelWidth;
 
             Rect KinseyLabelRect = new Rect(ContentRect.x, ContentRect.y, kinseyLabelWidth, sexualityRowHeight);
             Widgets.Label(KinseyLabelRect, kinseyLabel + ": ");
-            Rect KinseyReportRect = new Rect(KinseyLabelRect.xMax, ContentRect.y, sliderWidth, sexualityRowHeight);
+            Rect KinseyReportRect = new Rect(KinseyLabelRect.xMax, ContentRect.y, ContentRect.width - kinseyLabelWidth, sexualityRowHeight);
             Widgets.Label(KinseyReportRect, (compPsyche.Sexuality.GetOrientationReport() + $" ({compPsyche.Sexuality.GetKinseyReport()})"));// + "(" + sexuality.kinsey.ToString("F2") + ")"
 
             Rect sliderRect1 = new Rect(ContentRect.x, KinseyLabelRect.yMax, innerRect.width, sexualityRowHeight);
@@ -316,7 +333,7 @@ namespace Maux36.RimPsyche
                 Widgets.Label(leftLabelRect, femaleAttractionLabel);
                 Text.Anchor = TextAnchor.MiddleRight;
                 Widgets.Label(rightLabelRect, maleAttractionLabel);
-                Text.Anchor = TextAnchor.UpperLeft;
+                Text.Anchor = TextAnchor.MiddleLeft;
 
                 Rect barRect = new Rect(leftLabelRect.xMax, sliderRect1.y + (sexualityRowHeight - sexualityBarHeight) / 2f, sliderRect1.width - (leftLabelRect.width + rightLabelRect.width), sexualityBarHeight);
 
@@ -617,6 +634,7 @@ namespace Maux36.RimPsyche
                 if (Widgets.ButtonImage(resetButtonRect, Rimpsyche_UI_Utility.resetIcon))
                 {
                     compPsyche.Personality.Initialize();
+                    PersonalityViewCacheClean();
                 }
                 TooltipHandler.TipRegion(resetButtonRect, "ResetPsycheTooltip".Translate());
             }
@@ -701,8 +719,9 @@ namespace Maux36.RimPsyche
 
             if (!RimpsycheSettings.showFacetInUI && allowEdit)
             {
+                // Left side next to the reset button, since the title's right side is taken by the icons
                 Rect saveButtonRect = new Rect(
-                    titleRect.xMax - resetButtonSize - resetButtonMargin - scrollBarWidth,
+                    resetButtonRect.xMax + resetButtonMargin,
                     titleRect.y + (titleRect.height - resetButtonSize) / 2f,
                     resetButtonSize,
                     resetButtonSize
@@ -885,6 +904,7 @@ namespace Maux36.RimPsyche
                 if (Widgets.ButtonImage(resetButtonRect, Rimpsyche_UI_Utility.resetIcon))
                 {
                     compPsyche.Personality.Initialize();
+                    PersonalityViewCacheClean();
                 }
                 TooltipHandler.TipRegion(resetButtonRect, "ResetPsycheTooltip".Translate());
             }
@@ -925,8 +945,9 @@ namespace Maux36.RimPsyche
             Text.Font = GameFont.Small;
             if (allowEdit)
             {
+                // Left side next to the reset button, matching the personality header
                 Rect saveButtonRect = new Rect(
-                    titleRect.xMax - resetButtonSize - resetButtonMargin - scrollBarWidth,
+                    resetButtonRect.xMax + resetButtonMargin,
                     titleRect.y + (titleRect.height - resetButtonSize) / 2f,
                     resetButtonSize,
                     resetButtonSize
@@ -1099,6 +1120,7 @@ namespace Maux36.RimPsyche
                                 () =>
                                 {
                                     PsycheDataUtil.InjectPsycheData(pawn, PsycheSaveManager.Slots[index].data, false, true);
+                                    PersonalityViewCacheClean();
                                 },
                                 destructive: false
                             )
@@ -1110,6 +1132,7 @@ namespace Maux36.RimPsyche
                     options.Add(new FloatMenuOption("LoadFromSlot".Translate(), () =>
                     {
                         PsycheDataUtil.InjectPsycheData(pawn, PsycheSaveManager.Slots[index].data, false, true);
+                        PersonalityViewCacheClean();
                     }));
                 }
             }
@@ -1156,6 +1179,7 @@ namespace Maux36.RimPsyche
         {
             cachedPersonalityData = null;
             cachedBehaviorData = null;
+            resetPreferenceHeights = true;
             foreach (var pref in DefDatabase<PreferenceDef>.AllDefsListForReading)
             {
                 pref.worker.ClearEditorCache();

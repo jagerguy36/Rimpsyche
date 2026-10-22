@@ -30,10 +30,10 @@ namespace Maux36.RimPsyche
 
         public static float preferenceGap = 10f;
         public static Facet[] AllFacets = (Facet[])Enum.GetValues(typeof(Facet));
-        public static float maxFacetLabelWidth = 130f;
-        public static float maxPersonalityLabelWidth = 130f;
+        public static float maxFacetLabelWidth = 110f;
+        public static float maxPersonalityLabelWidth = 110f;
         public static float maxDescriptorLabelWidth = 0f;
-        public static float maxInterestLabelWidth = 130f;
+        public static float maxInterestLabelWidth = 110f;
         public static float maxSexualityTabLabelWidth = 70f;
         public static float maxEditSexualityLabelWidth;
         public static float orientationLabelWidth = 0f;
