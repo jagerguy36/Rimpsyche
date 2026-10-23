@@ -61,7 +61,7 @@
 
         <li>talkedabout->[great_adv] talked about</li>
         <li>talkedabout->[great_adv] spoke about</li>
-        <li>talkedabout->[great_adv] discussed</li>
+        <li>talkedabout->[great_adv] chatted about</li>
 
         <li>great_adv->eagerly</li>
         <li>great_adv->excitedly</li>
@@ -74,7 +74,7 @@
         <li>emotional_result->[happy] to find they agreed on almost everything</li>
         <li>emotional_result->[happy] to find they felt exactly the same way</li>
         <li>emotional_result->[happy] to discover they were of one mind</li>
-        <li>emotional_result->[happy] to find they saw it the same way</li>
+        <li>emotional_result->[happy] to find they saw eye to eye</li>
 
         <li>happy->delighted</li>
         <li>happy->happy</li>
@@ -101,7 +101,7 @@
 
         <li>talkedabout->[good_adv] talked about</li>
         <li>talkedabout->[good_adv] spoke about</li>
-        <li>talkedabout->[good_adv] discussed</li>
+        <li>talkedabout->[good_adv] chatted about</li>
 
         <li>good_adv->happily</li>
         <li>good_adv->pleasantly</li>
@@ -139,7 +139,7 @@
 
         <li>talkedabout->[awkward_adv] talked about</li>
         <li>talkedabout->[awkward_adv] spoke about</li>
-        <li>talkedabout->[awkward_adv] discussed</li>
+        <li>talkedabout->[awkward_adv] conversed about</li>
 
         <li>awkward_adv->awkwardly</li>
         <li>awkward_adv->stiffly</li>
@@ -172,7 +172,7 @@
         <li>civil_adj->civil</li>
 
         <li>talkedabout->[civil_adv] disagreed about</li>
-        <li>talkedabout->[civil_adv] debated</li>
+        <li>talkedabout->[civil_adv] traded opinions about</li>
         <li>talkedabout->[civil_adv] went back and forth about</li>
 
         <li>civil_adv->politely</li>
@@ -210,7 +210,7 @@
 
         <li>talkedabout->[tense_adv] argued about</li>
         <li>talkedabout->[tense_adv] bickered about</li>
-        <li>talkedabout->[tense_adv] clashed over</li>
+        <li>talkedabout->[tense_adv] quarreled about</li>
 
         <li>tense_adv->bitterly</li>
         <li>tense_adv->heatedly</li>

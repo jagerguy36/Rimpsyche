@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <Rimpsyche_ConversationMuted.label>대화</Rimpsyche_ConversationMuted.label>
+  <Rimpsyche_ConversationMuted.logRulesInitiator.rulesStrings>
+    <li>r_logentry->[INITIATOR_nameDef](은)는 [RECIPIENT_nameDef]에게 {0}에 대한 자신의 의견을 표현함.</li>
+    <li>r_logentry->[INITIATOR_nameDef](은)는 [RECIPIENT_nameDef]에게 {0}에 대한 자신의 관점을 전달함.</li>
+    <li>r_logentry->[INITIATOR_nameDef](은)는 [RECIPIENT_nameDef](와)과 {0}에 대해 소통함.</li>
+    <li>r_logentry->[INITIATOR_nameDef](은)는 [RECIPIENT_nameDef](와)과 {0}에 대한 의견을 주고받음.</li>
+  </Rimpsyche_ConversationMuted.logRulesInitiator.rulesStrings>
+
+  <Rimpsyche_ConversationAttemptMuted.label>대화</Rimpsyche_ConversationAttemptMuted.label>
+  <Rimpsyche_ConversationAttemptMuted.logRulesInitiator.rulesStrings>
+    <li>r_logentry->[INITIATOR_nameDef](은)는 [RECIPIENT_nameDef]에게 손짓하며 {0}에 대해 소통하려 함.</li>
+    <li>r_logentry->[INITIATOR_nameDef](은)는 [RECIPIENT_nameDef](와)과 {0}에 대한 생각을 나누려고 시도함.</li>
+    <li>r_logentry->[INITIATOR_nameDef](은)는 [RECIPIENT_nameDef](와)과 {0}에 대해 의견을 주고받으려 함.</li>
+    <li>r_logentry->[INITIATOR_nameDef](은)는 [RECIPIENT_nameDef](와)과 {0}에 대해 교감하려고 시도함.</li>
+  </Rimpsyche_ConversationAttemptMuted.logRulesInitiator.rulesStrings>
+
+</LanguageData>
