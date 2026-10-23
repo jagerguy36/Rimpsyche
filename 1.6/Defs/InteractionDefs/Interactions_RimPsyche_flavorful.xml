@@ -45,13 +45,8 @@
     </rulePack>
   </RulePackDef>
 
-  <InteractionDef>
+  <InteractionDef ParentName="Rimpsyche_ConversationResultBase">
     <defName>Rimpsyche_Conversation_PosGreat</defName>
-    <label>conversation</label>
-    <workerClass>Maux36.RimPsyche.InteractionWroker_NeverRandom</workerClass>
-    <symbol>Things/Mote/SpeechSymbols/Conversation</symbol>
-    <initiatorXpGainSkill>Social</initiatorXpGainSkill>
-    <initiatorXpGainAmount>10</initiatorXpGainAmount>
     <logRulesInitiator>
       <include><li>RPC_ConversationUtility</li></include>
       <rulesStrings>
@@ -76,8 +71,6 @@
         <li>result->finding they felt exactly the same way</li>
         <li>result->discovering they were of one mind</li>
 
-        <li>neutral_conversed->[INITIATOR_nameDef] and [RECIPIENT_nameDef] [neutral_talkedabout] {0}</li>
-
         <li>emotional_result->[happy] to find they agreed on almost everything</li>
         <li>emotional_result->[happy] to find they felt exactly the same way</li>
         <li>emotional_result->[happy] to discover they were of one mind</li>
@@ -91,19 +84,14 @@
     </logRulesInitiator>
   </InteractionDef>
 
-  <InteractionDef>
+  <InteractionDef ParentName="Rimpsyche_ConversationResultBase">
     <defName>Rimpsyche_Conversation_PosGood</defName>
-    <label>conversation</label>
-    <workerClass>Maux36.RimPsyche.InteractionWroker_NeverRandom</workerClass>
-    <symbol>Things/Mote/SpeechSymbols/Conversation</symbol>
-    <initiatorXpGainSkill>Social</initiatorXpGainSkill>
-    <initiatorXpGainAmount>10</initiatorXpGainAmount>
     <logRulesInitiator>
       <include><li>RPC_ConversationUtility</li></include>
       <rulesStrings>
-        <li>conversation->[good_adj] conversation</li>
-        <li>conversation->[good_adj] talk</li>
-        <li>conversation->[good_adj] discussion</li>
+        <li>conversation->a [good_adj] conversation</li>
+        <li>conversation->a [good_adj] talk</li>
+        <li>conversation->a [good_adj] discussion</li>
 
         <li>good_adj->pleasant</li>
         <li>good_adj->friendly</li>
@@ -136,19 +124,14 @@
     </logRulesInitiator>
   </InteractionDef>
 
-  <InteractionDef>
+  <InteractionDef ParentName="Rimpsyche_ConversationResultBase">
     <defName>Rimpsyche_Conversation_PosBad</defName>
-    <label>conversation</label>
-    <workerClass>Maux36.RimPsyche.InteractionWroker_NeverRandom</workerClass>
-    <symbol>Things/Mote/SpeechSymbols/Conversation</symbol>
-    <initiatorXpGainSkill>Social</initiatorXpGainSkill>
-    <initiatorXpGainAmount>10</initiatorXpGainAmount>
     <logRulesInitiator>
       <include><li>RPC_ConversationUtility_withResult</li></include>
       <rulesStrings>
-        <li>conversation->[awkward_adj] conversation</li>
-        <li>conversation->[awkward_adj] talk</li>
-        <li>conversation->[awkward_adj] discussion</li>
+        <li>conversation->a [awkward_adj] conversation</li>
+        <li>conversation->a [awkward_adj] talk</li>
+        <li>conversation->a [awkward_adj] discussion</li>
 
         <li>awkward_adj->stilted</li>
         <li>awkward_adj->somewhat awkward</li>
@@ -174,13 +157,8 @@
     </logRulesInitiator>
   </InteractionDef>
 
-  <InteractionDef>
+  <InteractionDef ParentName="Rimpsyche_ConversationResultBase">
     <defName>Rimpsyche_Conversation_NegGood</defName>
-    <label>conversation</label>
-    <workerClass>Maux36.RimPsyche.InteractionWroker_NeverRandom</workerClass>
-    <symbol>Things/Mote/SpeechSymbols/Conversation</symbol>
-    <initiatorXpGainSkill>Social</initiatorXpGainSkill>
-    <initiatorXpGainAmount>10</initiatorXpGainAmount>
     <logRulesInitiator>
       <include><li>RPC_ConversationUtility</li></include>
       <rulesStrings>
@@ -213,13 +191,8 @@
     </logRulesInitiator>
   </InteractionDef>
 
-  <InteractionDef>
+  <InteractionDef ParentName="Rimpsyche_ConversationResultBase">
     <defName>Rimpsyche_Conversation_NegBad</defName>
-    <label>conversation</label>
-    <workerClass>Maux36.RimPsyche.InteractionWroker_NeverRandom</workerClass>
-    <symbol>Things/Mote/SpeechSymbols/Conversation</symbol>
-    <initiatorXpGainSkill>Social</initiatorXpGainSkill>
-    <initiatorXpGainAmount>10</initiatorXpGainAmount>
     <logRulesInitiator>
       <include><li>RPC_ConversationUtility</li></include>
       <rulesStrings>
