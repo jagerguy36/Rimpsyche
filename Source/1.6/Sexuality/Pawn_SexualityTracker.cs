@@ -656,6 +656,8 @@ namespace Maux36.RimPsyche
         }
         public void Notify_Sexchange()
         {
+            //Orientation isn't decided yet; it's assigned at coming of age with the gender they have then
+            if (orientationCategory == SexualOrientation.None || orientationCategory == SexualOrientation.Developing) return;
             AdjustSexualityCategory(attraction);
         }
         public void Notify_LifestageChanged()
