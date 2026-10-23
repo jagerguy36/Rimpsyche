@@ -25,10 +25,10 @@ namespace Maux36.RimPsyche.TIE
     {
         public static MethodBase TargetMethod()
         {
-            return AccessTools.Constructor(typeof(PlayLogEntry_InteractionConversation), new Type[] { typeof(InteractionDef), typeof(Pawn), typeof(Pawn), typeof(string), typeof(string), typeof(List<RulePackDef>) });
+            return AccessTools.Constructor(typeof(PlayLogEntry_InteractionConversation), new Type[] { typeof(InteractionDef), typeof(Pawn), typeof(Pawn), typeof(string), typeof(string), typeof(float), typeof(bool), typeof(List<RulePackDef>) });
         }
 
-        public static void Prefix(ref InteractionDef intDef, Pawn initiator)
+        public static void Prefix(ref InteractionDef intDef, Pawn initiator, List<RulePackDef> extraSentencePacks)
         {
             if (!IsMute(initiator))
                 return;
@@ -36,6 +36,31 @@ namespace Maux36.RimPsyche.TIE
                 intDef = RPC_TIE_DefOf.Rimpsyche_ConversationMuted;
             else if (intDef == DefOfRimpsyche.Rimpsyche_ConversationAttempt)
                 intDef = RPC_TIE_DefOf.Rimpsyche_ConversationAttemptMuted;
+            else if (intDef == DefOfRimpsyche.Rimpsyche_Conversation_PosGreat)
+            {
+                intDef = RPC_TIE_DefOf.Rimpsyche_ConversationMuted;
+                extraSentencePacks.Add(DefOfRimpsyche.Sentence_RimpsycheConversationPositiveGreat);
+            }
+            else if (intDef == DefOfRimpsyche.Rimpsyche_Conversation_PosGood)
+            {
+                intDef = RPC_TIE_DefOf.Rimpsyche_ConversationMuted;
+                extraSentencePacks.Add(DefOfRimpsyche.Sentence_RimpsycheConversationPositiveGood);
+            }
+            else if (intDef == DefOfRimpsyche.Rimpsyche_Conversation_PosBad)
+            {
+                intDef = RPC_TIE_DefOf.Rimpsyche_ConversationMuted;
+                extraSentencePacks.Add(DefOfRimpsyche.Sentence_RimpsycheConversationPositiveBad);
+            }
+            else if (intDef == DefOfRimpsyche.Rimpsyche_Conversation_NegGood)
+            {
+                intDef = RPC_TIE_DefOf.Rimpsyche_ConversationMuted;
+                extraSentencePacks.Add(DefOfRimpsyche.Sentence_RimpsycheConversationNegativeGood);
+            }
+            else if (intDef == DefOfRimpsyche.Rimpsyche_Conversation_NegBad)
+            {
+                intDef = RPC_TIE_DefOf.Rimpsyche_ConversationMuted;
+                extraSentencePacks.Add(DefOfRimpsyche.Sentence_RimpsycheConversationNegativeBad);
+            }
             return;
         }
     }
