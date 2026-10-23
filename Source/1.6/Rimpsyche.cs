@@ -209,6 +209,8 @@ namespace Maux36.RimPsyche
             listing.Label("RimpsycheMiscSetting".Translate());
             listing.GapLine(6f);
             listing.CheckboxLabeled("RimpsycheConfirmLoadSave".Translate(), ref RimpsycheSettings.confirmLoadSave, "RimpsycheConfirmLoadSaveTooltip".Translate());
+            listing.Gap(6f);
+            listing.CheckboxLabeled("RimpsycheUseFlavorfulLog".Translate(), ref RimpsycheSettings.flavorfulConversationLog, "RimpsycheUseFlavorfulLogTooltip".Translate());
 
             listing.Gap(20f);
 

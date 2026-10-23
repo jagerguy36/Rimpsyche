@@ -36,7 +36,7 @@ namespace Maux36.RimPsyche
         {
             base.ExposeData();
 
-            Scribe_Values.Look(ref flavorfulConversationLog, "flavorfulConversationLog", false);
+            Scribe_Values.Look(ref flavorfulConversationLog, "flavorfulConversationLog", true);
 
             Scribe_Values.Look(ref usePsycheTab, "usePsycheTab", false);
             Scribe_Values.Look(ref hideSummaryInBio, "hideSummaryInBio", false);
