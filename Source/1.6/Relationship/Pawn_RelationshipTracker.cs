@@ -1,6 +1,7 @@
 ﻿using RimWorld;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 using Verse;
 
 namespace Maux36.RimPsyche
@@ -121,7 +122,7 @@ namespace Maux36.RimPsyche
                 }
 
                 if (now - last > cullTick) tmpToDissolve.Add((rel, false));
-                else if (RimpsycheDatabase.RelationMaxAgeTick.TryGetValue(kv.Value, out int baseLifespan) && now - rel.startTicks > LifespanTicks(pawn, rel, baseLifespan))
+                else if (RimpsycheDatabase.RelationMaxAgeTick.TryGetValue(kv.Value, out int baseLifespan) && now - rel.startTicks > LifespanTicks(rel, baseLifespan))
                     tmpToDissolve.Add((rel, true));
             }
 
@@ -130,21 +131,18 @@ namespace Maux36.RimPsyche
                 DissolveCasualRelation(tmpToDissolve[i].rel, tmpToDissolve[i].wentNowhere);
             tmpToDissolve.Clear();
         }
-        private static int LifespanTicks(Pawn a, DirectPawnRelation rel, int baseTicks)
+        // The other pawn culls on its own tick, so the less patient of the two ends it.
+        private int LifespanTicks(DirectPawnRelation rel, int baseTicks)
         {
-            Pawn b = rel.otherPawn;
-            // It ends when the less patient of the two stops waiting.
-            float patience = PatienceOf(a, b);
-            return (int)(baseTicks * patience);
+            return (int)(baseTicks * PatienceTowards(rel.otherPawn));
         }
-        // TODO: actually implement the logic
-        private static float PatienceOf(Pawn pawn, Pawn other)
+        private float PatienceTowards(Pawn other)
         {
-            if (pawn.relations == null) return 1f;
             float opinion = pawn.relations.OpinionOf(other);
-            float opinionFactor = 1f; // Mathf.Lerp(0.7f, 1.3f, Mathf.InverseLerp(0f, 80f, opinion));
-            float inclinationFactor = 1f;
-            return opinionFactor * inclinationFactor;
+            float opinionFactor = Mathf.Lerp(0.7f, 1.3f, Mathf.InverseLerp(-20f, 80f, opinion)); //0.7~1.3
+            float inclinationFactor = compPsyche.Enabled ? compPsyche.Evaluate(RimpsycheDatabase.RelationshipPatience) : 1f; //0.7~1.3. Disabled psyche = no psyche
+
+            return opinionFactor * inclinationFactor; // 0.49~1.69
         }
         private static readonly List<int> tmpOrphans = [];
         public void PruneRecordsOnLoad()

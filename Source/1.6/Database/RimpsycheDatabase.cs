@@ -349,6 +349,18 @@ namespace Maux36.RimPsyche
             },
             RimpsycheFormulaManager.FormulaIdDict
         );
+        public static RimpsycheFormula RelationshipPatience = new(
+            "RelationshipPatience",
+            (tracker) =>
+            {
+                float loyalty = tracker.GetPersonality(PersonalityDefOf.Rimpsyche_Loyalty);
+                float passion = tracker.GetPersonality(PersonalityDefOf.Rimpsyche_Passion);
+                float pursuit = loyalty * (1 + passion) * 0.5f; //-1~1
+                float trust = tracker.GetPersonality(PersonalityDefOf.Rimpsyche_Trust);
+                return 1f + 0.25f * pursuit + 0.05f * trust; //0.7~1.3
+            },
+            RimpsycheFormulaManager.FormulaIdDict
+        );
         public static void RegisterTraitScope(PersonalityDef personalityDef, Scope scopeData)
         {
             var scopeCenter = scopeData.centerOffset;
