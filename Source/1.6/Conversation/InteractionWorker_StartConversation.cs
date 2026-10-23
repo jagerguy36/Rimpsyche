@@ -21,7 +21,7 @@ namespace Maux36.RimPsyche
 
             if (initOpinion < -0.25f)
             {
-                bool giveupConverse = initOpinion + initSociability + (1f + initSpontaneity) * Rand.ValueSeeded(Find.TickManager.TicksGame) < 0f;
+                bool giveupConverse = initOpinion + initSociability + (1f + initSpontaneity) * Rand.ValueSeeded(Find.TickManager.TicksGame ^ initiator.thingIDNumber) < 0f;
                 if (giveupConverse) return 0f;
             }
             float convoChance = 1f + initTalkativeness; // 0~[1]~2

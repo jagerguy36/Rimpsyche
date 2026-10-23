@@ -18,6 +18,7 @@ namespace Maux36.RimPsyche
                 var codes = new List<CodeInstruction>(instructions);
                 var multiplierMethod = AccessTools.Method(typeof(Pawn_InteractionTracker_InteractionsTrackerTick), nameof(InteractionMultipliedValue));
                 var pawnField = AccessTools.Field(typeof(Pawn_InteractionsTracker), "pawn");
+                int patchCount = 0;
 
                 for (int i = 0; i < codes.Count; i++)
                 {
@@ -29,7 +30,12 @@ namespace Maux36.RimPsyche
                         codes.Insert(i + 2, new CodeInstruction(OpCodes.Ldfld, pawnField));
                         codes.Insert(i + 3, new CodeInstruction(OpCodes.Call, multiplierMethod));
                         i += 3;
+                        patchCount++;
                     }
+                }
+                if (patchCount == 0)
+                {
+                    Log.Error("[RimPsyche] failed to patch social interaction interval.");
                 }
                 return codes;
             }

@@ -7,9 +7,9 @@ namespace Maux36.RimPsyche
     {
         public static readonly List<int> DefaultDistribution = [62, 11, 10, 6, 5, 3, 3];
         public static List<int> KinseyDistributionSetting = [.. DefaultDistribution];
+        public static bool usePreferenceSystem = false;
         public static bool romanceAttemptGenderDiff = true;
         public static float minRelAttraction = 0.7f;
-        public static bool usePreferenceSystem = false;
         public static List<string> activePreferences = ["Rimpsyche_PsychePreference"];
 
         static RimpsycheSexualitySettings()
@@ -22,14 +22,16 @@ namespace Maux36.RimPsyche
             base.ExposeData();
 
             Scribe_Collections.Look(ref KinseyDistributionSetting, "KinseyDistributionSetting", LookMode.Value);
-            Scribe_Values.Look(ref usePreferenceSystem, "usePreferenceSystem", true);
-            Scribe_Values.Look(ref romanceAttemptGenderDiff, "romanceAttemptGenderDiff", false);
+            Scribe_Values.Look(ref usePreferenceSystem, "usePreferenceSystem", false);
+            Scribe_Values.Look(ref romanceAttemptGenderDiff, "romanceAttemptGenderDiff", true);
             Scribe_Values.Look(ref minRelAttraction, "minRelAttraction", 0.7f);
             Scribe_Collections.Look(ref activePreferences, "activePreferences", LookMode.Value);
 
             if (Scribe.mode == LoadSaveMode.PostLoadInit)
             {
                 activePreferences ??= ["Rimpsyche_PsychePreference"];
+                if (KinseyDistributionSetting == null || KinseyDistributionSetting.Count != DefaultDistribution.Count)
+                    KinseyDistributionSetting = [.. DefaultDistribution];
             }
 
         }

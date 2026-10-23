@@ -185,10 +185,10 @@ namespace Maux36.RimPsyche
         }
 
         // Initialization
-        public Pawn_PersonalityTracker(Pawn p)
+        public Pawn_PersonalityTracker(Pawn p, CompPsyche comp)
         {
             pawn = p;
-            compPsyche = p.compPsyche();
+            compPsyche = comp;
         }
         public void Initialize(PsycheData psycheData = null)
         {
@@ -700,6 +700,8 @@ namespace Maux36.RimPsyche
                 if (hasGateCache && gateCache.TryGetValue(kvp.Key, out var range))
                 {
                     var (low, high) = range;
+                    // A zero-width gate locks the facet. Restoring through it would set the raw value to -50 and lose it once the lock is removed.
+                    if (high <= low) continue;
                     adjustedFuture = Rimpsyche_Utility.RestoreGatedValue(adjustedFuture, low, high);
                 }
                 //Log.Message($"adjusting facet {kvp.Key} from {GetFacetValueRaw(kvp.Key)} to {adjustedFuture}");

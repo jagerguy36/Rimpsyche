@@ -78,7 +78,7 @@ namespace Maux36.RimPsyche
                 }
                 if (Prefs.DevMode)
                 {
-                    Log.Message("getting psyche of " + pawn.LabelShort + " =" + text);
+                    Log.Message("getting psyche of " + pawn?.LabelShort + " =" + text);
                 }
                 __result = ToBase64(text);
                 return false;
