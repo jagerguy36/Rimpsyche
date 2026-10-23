@@ -43,6 +43,7 @@
   <RimpsycheConfirmLoadSaveTooltip>Displays a confirmation pop-up before overwriting or loading a pawn's Psyche.</RimpsycheConfirmLoadSaveTooltip>
 
   <RimpsycheDefaultSetting>Default</RimpsycheDefaultSetting>
+  <RP_Stat_Psyche>Psyche</RP_Stat_Psyche>
 
   <!-- Descriptors -->
   <RP_Desc_Conversation>Conversation Effects</RP_Desc_Conversation>

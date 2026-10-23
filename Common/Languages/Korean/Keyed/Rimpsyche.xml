@@ -43,6 +43,7 @@
   <RimpsycheConfirmLoadSaveTooltip>림의 성격을 덮어쓰거나 불러오기 전에 확인 팝업을 표시합니다.</RimpsycheConfirmLoadSaveTooltip>
 
   <RimpsycheDefaultSetting>기본값</RimpsycheDefaultSetting>
+  <RP_Stat_Psyche>성격</RP_Stat_Psyche>
 
   <!-- Descriptors -->
   <RP_Desc_Conversation>대화 효과</RP_Desc_Conversation>
