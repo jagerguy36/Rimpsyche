@@ -41,6 +41,8 @@
   <!-- Misc -->
   <RimpsycheConfirmLoadSave>성격 불러오기/저장 전 확인</RimpsycheConfirmLoadSave>
   <RimpsycheConfirmLoadSaveTooltip>림의 성격을 덮어쓰거나 불러오기 전에 확인 팝업을 표시합니다.</RimpsycheConfirmLoadSaveTooltip>
+  <RimpsycheUseFlavorfulLog>다채로운 대화 기록</RimpsycheUseFlavorfulLog>
+  <RimpsycheUseFlavorfulLogTooltip>대화 결과를 별도의 결과 문장으로 덧붙이는 대신, 한 문장 안에 다양한 표현으로 녹여 기록합니다.\n\n더 자연스럽게 읽히지만, 대화의 결과(의견 일치 여부와 대화 분위기)는 기본 기록보다 덜 직접적으로 드러납니다.</RimpsycheUseFlavorfulLogTooltip>
 
   <RimpsycheDefaultSetting>기본값</RimpsycheDefaultSetting>
   <RP_Stat_Psyche>성격</RP_Stat_Psyche>
