@@ -436,6 +436,10 @@ namespace Maux36.RimPsyche
                     if (!editInterestOn && showPreference)
                     {
                         resetPreferenceHeights = true;
+                        foreach (var pref in DefDatabase<PreferenceDef>.AllDefsListForReading)
+                        {
+                            pref.worker.ClearViewerCache();
+                        }
                     }
                 }
                 TooltipHandler.TipRegion(editIconRect, "RimpsycheEdit".Translate());
@@ -1188,6 +1192,7 @@ namespace Maux36.RimPsyche
             foreach (var pref in DefDatabase<PreferenceDef>.AllDefsListForReading)
             {
                 pref.worker.ClearEditorCache();
+                pref.worker.ClearViewerCache();
             }
         }
     }
