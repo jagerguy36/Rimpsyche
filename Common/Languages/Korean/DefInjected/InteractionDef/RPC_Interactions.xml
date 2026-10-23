@@ -40,4 +40,146 @@
         <li>r_logentry->[INITIATOR_nameDef](은)는 [RECIPIENT_nameDef](와)과 {0}에 대한 이야기를 나누려고 함.</li>
         <li>r_logentry->[INITIATOR_nameDef](은)는 [RECIPIENT_nameDef](와)과 {0}에 대해 대화하려고 함.</li>
   </Rimpsyche_ConversationAttempt.logRulesInitiator.rulesStrings>
+
+  <!-- Flavorful conversation log -->
+  <Rimpsyche_Conversation_PosGreat.label>대화</Rimpsyche_Conversation_PosGreat.label>
+  <Rimpsyche_Conversation_PosGreat.logRulesInitiator.rulesStrings>
+    <li>talked->[great_adv] 이야기함</li>
+    <li>talked->[great_adv] 대화함</li>
+    <li>talked->[great_adj] 대화를 나눔</li>
+    <li>talked->[great_adj] 이야기를 나눔</li>
+
+    <li>great_adv->매우 신나게</li>
+    <li>great_adv->매우 즐겁게</li>
+    <li>great_adv->유쾌하게</li>
+    <li>great_adv->허물없이</li>
+
+    <li>great_adj->매우 따뜻한</li>
+    <li>great_adj->무척 즐거운</li>
+    <li>great_adj->매우 유쾌한</li>
+    <li>great_adj->진심 어린</li>
+
+    <li>result->서로 호응하며</li>
+    <li>result->서로 깊이 공감하며</li>
+    <li>result->서로 한마음이 되어</li>
+
+    <li>emotional_result->일치하는 관점에 [happy]</li>
+    <li>emotional_result->일맥상통하는 입장에 [happy]</li>
+    <li>emotional_result->공통된 견해에 [happy]</li>
+
+    <li>happy->반색하며</li>
+    <li>happy->반가워하며 허심탄회하게</li>
+    <li>happy->공감하며</li>
+  </Rimpsyche_Conversation_PosGreat.logRulesInitiator.rulesStrings>
+
+  <Rimpsyche_Conversation_PosGood.label>대화</Rimpsyche_Conversation_PosGood.label>
+  <Rimpsyche_Conversation_PosGood.logRulesInitiator.rulesStrings>
+    <li>talked->[good_adv] 이야기함</li>
+    <li>talked->[good_adv] 대화함</li>
+    <li>talked->[good_adj] 대화를 나눔</li>
+    <li>talked->[good_adj] 이야기를 나눔</li>
+
+    <li>good_adv->즐겁게</li>
+    <li>good_adv->편안하게</li>
+    <li>good_adv->기분 좋게</li>
+    <li>good_adv->화기애애하게</li>
+
+    <li>good_adj->즐거운</li>
+    <li>good_adj->편안한</li>
+    <li>good_adj->기분 좋은</li>
+    <li>good_adj->다정한</li>
+
+    <li>result->유사한 생각에 호응하며</li>
+    <li>result->비슷한 견해에 공감하며</li>
+    <li>result->비슷한 시각을 확인하며</li>
+    <li>result->서로 통하는 점이 많아</li>
+
+    <li>emotional_result->유사한 입장을 확인하며 [pleased]</li>
+    <li>emotional_result->비슷한 견해에 공감하며 [pleased]</li>
+    <li>emotional_result->비슷한 관점을 공유하며 [pleased]</li>
+
+    <li>pleased->편안하게</li>
+    <li>pleased->허물없이</li>
+    <li>pleased->조화롭게</li>
+  </Rimpsyche_Conversation_PosGood.logRulesInitiator.rulesStrings>
+
+  <Rimpsyche_Conversation_PosBad.label>대화</Rimpsyche_Conversation_PosBad.label>
+  <Rimpsyche_Conversation_PosBad.logRulesInitiator.rulesStrings>
+    <li>talked->[awkward_adv] 이야기함</li>
+    <li>talked->[awkward_adv] 대화함</li>
+    <li>talked->[awkward_adj] 대화를 나눔</li>
+    <li>talked->[awkward_adj] 이야기를 나눔</li>
+
+    <li>awkward_adv->어색하게</li>
+    <li>awkward_adv->딱딱하게</li>
+    <li>awkward_adv->불편하게</li>
+    <li>awkward_adv->멋쩍게</li>
+
+    <li>awkward_adj->어색한</li>
+    <li>awkward_adj->다소 어색한</li>
+    <li>awkward_adj->조금 불편한</li>
+    <li>awkward_adj->딱딱한</li>
+
+    <li>result->입장은 유사했지만</li>
+    <li>result->비슷한 관점에도 불구하고</li>
+    <li>result->견해가 거의 같았음에도</li>
+
+    <li>emotional_result->동의는 하면서도 어색하게</li>
+    <li>emotional_result->유사한 관점이 무색하게 삐걱대며</li>
+    <li>emotional_result->견해는 거의 같았지만 불편하게</li>
+  </Rimpsyche_Conversation_PosBad.logRulesInitiator.rulesStrings>
+
+  <Rimpsyche_Conversation_NegGood.label>대화</Rimpsyche_Conversation_NegGood.label>
+  <Rimpsyche_Conversation_NegGood.logRulesInitiator.rulesStrings>
+    <li>talked->[civil_adv] 의논함</li>
+    <li>talked->[civil_adv] 논의함</li>
+    <li>talked->[civil_adj] 토론을 벌임</li>
+    <li>talked->[civil_adj] 공방을 주고받음</li>
+
+    <li>civil_adv->정중하게</li>
+    <li>civil_adv->차분하게</li>
+    <li>civil_adv->우호적으로</li>
+    <li>civil_adv->존중하며</li>
+
+    <li>civil_adj->우호적인</li>
+    <li>civil_adj->점잖은</li>
+    <li>civil_adj->정중한</li>
+    <li>civil_adj->차분한</li>
+
+    <li>result->서로 다른 생각에도</li>
+    <li>result->의견이 갈렸지만</li>
+    <li>result->각자의 입장을 지키면서도</li>
+
+    <li>emotional_result->정중하고 우호적으로 서로 다른</li>
+    <li>emotional_result->건설적인 논의를 이끌어내며 서로 다른</li>
+    <li>emotional_result->각기 다른 서로의 입장을 경청하며</li>
+  </Rimpsyche_Conversation_NegGood.logRulesInitiator.rulesStrings>
+
+  <Rimpsyche_Conversation_NegBad.label>대화</Rimpsyche_Conversation_NegBad.label>
+  <Rimpsyche_Conversation_NegBad.logRulesInitiator.rulesStrings>
+    <li>talked->[tense_adv] 언쟁함</li>
+    <li>talked->[tense_adv] 말다툼함</li>
+    <li>talked->[tense_adv] 부딪힘</li>
+    <li>talked->[tense_adj] 언쟁을 벌임</li>
+    <li>talked->[tense_adj] 말다툼을 벌임</li>
+
+    <li>tense_adv->격하게</li>
+    <li>tense_adv->날카롭게</li>
+    <li>tense_adv->언성을 높이며</li>
+    <li>tense_adv->화를 내며</li>
+
+    <li>tense_adj->격한</li>
+    <li>tense_adj->날 선</li>
+    <li>tense_adj->험악한</li>
+    <li>tense_adj->신경질적인</li>
+    <li>tense_adj->감정적인</li>
+
+    <li>result->서로 한 치도 물러서지 않고</li>
+    <li>result->합의점을 찾지 못하고</li>
+    <li>result->언짢은 분위기 속에서</li>
+
+    <li>emotional_result->서로를 전혀 이해하지 못한 채 각자의</li>
+    <li>emotional_result->상대의 입장을 답답해하며 각자의</li>
+    <li>emotional_result->서로 완전히 상반되는</li>
+  </Rimpsyche_Conversation_NegBad.logRulesInitiator.rulesStrings>
 </LanguageData>

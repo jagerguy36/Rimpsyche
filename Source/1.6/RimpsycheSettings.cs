@@ -11,6 +11,8 @@ namespace Maux36.RimPsyche
         public static bool ShowDispositionInUI => showDispositionInUI && Rimpsyche.DispositionModuleLoaded;
         public static bool ShowThoughtTagEffect => showThoughtTagEffects && Rimpsyche.DispositionModuleLoaded;
 
+        public static bool flavorfulConversationLog = true;
+
         public static bool usePsycheTab = false;
         public static bool hideSummaryInBio = false;
         public static bool showSideInfoInSummary = true;
@@ -26,13 +28,15 @@ namespace Maux36.RimPsyche
         public static bool allowFacetEdit = false;
         public static bool showFacetGraph = false;
         public static bool confirmLoadSave = true;
-        public static HashSet<DescriptorType> DescriptorTypesToShow = new();
+        public static HashSet<DescriptorType> DescriptorTypesToShow = [.. (DescriptorType[])Enum.GetValues(typeof(DescriptorType))];
         private List<string> bannedDescriptors;
         public static int ExtraBioHeight => showSideInfoInSummary ? 87 : 68;
 
         public override void ExposeData()
         {
             base.ExposeData();
+
+            Scribe_Values.Look(ref flavorfulConversationLog, "flavorfulConversationLog", true);
 
             Scribe_Values.Look(ref usePsycheTab, "usePsycheTab", false);
             Scribe_Values.Look(ref hideSummaryInBio, "hideSummaryInBio", false);

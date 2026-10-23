@@ -35,4 +35,22 @@
   <Sentence_RimpsycheConversationFail.rulePack.rulesStrings.1>sent->[RECIPIENT_nameDef](은)는 반응을 보이지 않음.</Sentence_RimpsycheConversationFail.rulePack.rulesStrings.1>
   <Sentence_RimpsycheConversationFail.rulePack.rulesStrings.2>sent->[RECIPIENT_nameDef](은)는 [INITIATOR_objective]를 못 본채 함.</Sentence_RimpsycheConversationFail.rulePack.rulesStrings.2>
 
+  <!-- Flavorful conversation log -->
+  <RPC_ConversationUtility.rulePack.rulesStrings>
+    <li>r_logentry->[INITIATOR_nameDef](은)는 [RECIPIENT_nameDef](와)과 {0}에 대해 [talked].</li>
+    <li>r_logentry(p=0.2)->[INITIATOR_nameDef](은)는 [RECIPIENT_nameDef](와)과 {0}에 대해 [result] [talked].</li>
+    <li>r_logentry(p=0.1)->[INITIATOR_nameDef](은)는 [RECIPIENT_nameDef](와)과 {0}에 대해 [emotional_result] [neutral_talking].</li>
+
+    <li>neutral_talking->생각을 나눔</li>
+    <li>neutral_talking->의견을 주고받음</li>
+  </RPC_ConversationUtility.rulePack.rulesStrings>
+
+  <RPC_ConversationUtility_withResult.rulePack.rulesStrings>
+    <li>r_logentry->[INITIATOR_nameDef](은)는 [RECIPIENT_nameDef](와)과 {0}에 대해 [result] [talked].</li>
+    <li>r_logentry(p=0.4)->[INITIATOR_nameDef](은)는 [RECIPIENT_nameDef](와)과 {0}에 대해 [emotional_result] [neutral_talking].</li>
+
+    <li>neutral_talking->생각을 나눔</li>
+    <li>neutral_talking->의견을 주고받음</li>
+  </RPC_ConversationUtility_withResult.rulePack.rulesStrings>
+
 </LanguageData>

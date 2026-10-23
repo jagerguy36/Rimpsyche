@@ -21,7 +21,7 @@ namespace Maux36.RimPsyche
 
             if (initOpinion < -0.25f)
             {
-                bool giveupConverse = initOpinion + initSociability + (1f + initSpontaneity) * Rand.ValueSeeded(Find.TickManager.TicksGame) < 0f;
+                bool giveupConverse = initOpinion + initSociability + (1f + initSpontaneity) * Rand.ValueSeeded(Find.TickManager.TicksGame ^ initiator.thingIDNumber) < 0f;
                 if (giveupConverse) return 0f;
             }
             float convoChance = 1f + initTalkativeness; // 0~[1]~2
@@ -82,13 +82,14 @@ namespace Maux36.RimPsyche
                     {
                         initiator.needs?.mood?.thoughts?.memories?.TryGainMemory(DefOfRimpsyche.Rimpsyche_ConvoIgnored, recipient);
                         extraSentencePacks.Add(DefOfRimpsyche.Sentence_RimpsycheConversationFail);
-                        entry = new PlayLogEntry_InteractionConversation(DefOfRimpsyche.Rimpsyche_ConversationAttempt, initiator, recipient, convoTopic.name, convoTopic.label, extraSentencePacks);
+                        entry = new PlayLogEntry_InteractionConversation(DefOfRimpsyche.Rimpsyche_ConversationAttempt, initiator, recipient, convoTopic.name, convoTopic.label, 0f, false, extraSentencePacks);
                         Find.PlayLog.Add(entry);
                         return;
                     }
                 }
 
                 //Conversation.
+                InteractionDef interactionDefToLog = DefOfRimpsyche.Rimpsyche_Conversation;
                 float topicAlignment = convoTopic.GetScore(initiatorPsyche, recipientPsyche, out float initDirection); // -1~1 [0]
                 float tAbs = Mathf.Abs(topicAlignment);
                 float initInterestF = (1f + (0.5f * Mathf.Min(initOpinion + initRelationship, 1f))) + (initInterestScore * (1f + (0.5f * initPassion))) + 0.25f * ((1f - initInterestScore) * (1f + initInquisitiveness)); //0.5~1.5+ 0~1.5 => 0.5~3 [1.5]
@@ -121,15 +122,18 @@ namespace Maux36.RimPsyche
 
                     if (partnerScore < 0f || pawnScore < 0f)
                     {
-                        extraSentencePacks.Add(DefOfRimpsyche.Sentence_RimpsycheConversationPositiveBad);
+                        if(RimpsycheSettings.flavorfulConversationLog) interactionDefToLog = DefOfRimpsyche.Rimpsyche_Conversation_PosBad;
+                        else extraSentencePacks.Add(DefOfRimpsyche.Sentence_RimpsycheConversationPositiveBad);
                     }
                     else if (partnerScore > 3f || pawnScore > 3f)
                     {
-                        extraSentencePacks.Add(DefOfRimpsyche.Sentence_RimpsycheConversationPositiveGreat);
+                        if (RimpsycheSettings.flavorfulConversationLog) interactionDefToLog = DefOfRimpsyche.Rimpsyche_Conversation_PosGreat;
+                        else extraSentencePacks.Add(DefOfRimpsyche.Sentence_RimpsycheConversationPositiveGreat);
                     }
                     else
                     {
-                        extraSentencePacks.Add(DefOfRimpsyche.Sentence_RimpsycheConversationPositiveGood);
+                        if (RimpsycheSettings.flavorfulConversationLog) interactionDefToLog = DefOfRimpsyche.Rimpsyche_Conversation_PosGood;
+                        else extraSentencePacks.Add(DefOfRimpsyche.Sentence_RimpsycheConversationPositiveGood);
                     }
                 }
                 else
@@ -144,7 +148,8 @@ namespace Maux36.RimPsyche
                         scoreBoost = 4f;
                         pawnScore = pawnReceiveScore * talkRand;// 0~3.5
                         partnerScore = partnerReceiveScore * talkRand; // 0~3.5
-                        extraSentencePacks.Add(DefOfRimpsyche.Sentence_RimpsycheConversationNegativeGood);
+                        if (RimpsycheSettings.flavorfulConversationLog) interactionDefToLog = DefOfRimpsyche.Rimpsyche_Conversation_NegGood;
+                        else extraSentencePacks.Add(DefOfRimpsyche.Sentence_RimpsycheConversationNegativeGood);
                     }
                     else
                     {
@@ -195,7 +200,8 @@ namespace Maux36.RimPsyche
                         }
                         else
                         {
-                            extraSentencePacks.Add(DefOfRimpsyche.Sentence_RimpsycheConversationNegativeBad);
+                            if (RimpsycheSettings.flavorfulConversationLog) interactionDefToLog = DefOfRimpsyche.Rimpsyche_Conversation_NegBad;
+                            else extraSentencePacks.Add(DefOfRimpsyche.Sentence_RimpsycheConversationNegativeBad);
                         }
                     }
                 }
@@ -215,7 +221,7 @@ namespace Maux36.RimPsyche
                     if (reciOpinionOffset > 0) recipientPsyche.AffectPawn(reciOpinionOffset, reciOpinion, convoTopic, -initDirection, scoreBoost);
                 }
 
-                entry = new PlayLogEntry_InteractionConversation(DefOfRimpsyche.Rimpsyche_Conversation, initiator, recipient, convoTopic.name, convoTopic.label, extraSentencePacks);
+                entry = new PlayLogEntry_InteractionConversation(interactionDefToLog, initiator, recipient, convoTopic.name, convoTopic.label, topicAlignment, startFight, extraSentencePacks);
                 Find.PlayLog.Add(entry);
                 InteractionHook(initiator, recipient, convoTopic, topicAlignment, initOpinionOffset, reciOpinionOffset);
                 convoTopic.result?.ApplyEffect(initiator, recipient, topicAlignment, initOpinionOffset, reciOpinionOffset);

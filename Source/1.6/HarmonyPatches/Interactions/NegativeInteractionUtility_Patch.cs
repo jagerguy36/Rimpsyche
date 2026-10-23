@@ -23,6 +23,7 @@ namespace Maux36.RimPsyche
             {
                 var code = codes[i];
                 if (!CompatCurveFound &&
+                    i + 1 < codes.Count &&
                     codes[i + 1].opcode == OpCodes.Ldsfld &&
                     Equals(codes[i + 1].operand, compatibilityCurveField))
                 {

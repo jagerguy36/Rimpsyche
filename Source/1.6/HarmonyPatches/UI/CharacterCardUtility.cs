@@ -66,6 +66,7 @@ namespace Maux36.RimPsyche
             var savedPawnLocal = generator.DeclareLocal(typeof(Pawn));
             bool RectMatched = false;
             bool PawnMatched = false;
+            bool SummaryInjected = false;
 
             foreach (var code in codes)
             {
@@ -89,7 +90,12 @@ namespace Maux36.RimPsyche
                     yield return new CodeInstruction(OpCodes.Ldloc, savedRectLocal);
                     yield return new CodeInstruction(OpCodes.Ldloc, savedPawnLocal);
                     yield return new CodeInstruction(OpCodes.Call, DrawBioPersonalitySummaryMethod);
+                    SummaryInjected = true;
                 }
+            }
+            if (!SummaryInjected)
+            {
+                Log.Error("[RimPsyche] failed to patch bio personality summary.");
             }
         }
     }
