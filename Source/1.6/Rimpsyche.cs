@@ -209,6 +209,8 @@ namespace Maux36.RimPsyche
             listing.Label("RimpsycheMiscSetting".Translate());
             listing.GapLine(6f);
             listing.CheckboxLabeled("RimpsycheConfirmLoadSave".Translate(), ref RimpsycheSettings.confirmLoadSave, "RimpsycheConfirmLoadSaveTooltip".Translate());
+            listing.Gap(6f);
+            listing.CheckboxLabeled("RimpsycheUseFlavorfulLog".Translate(), ref RimpsycheSettings.flavorfulConversationLog, "RimpsycheUseFlavorfulLogTooltip".Translate());
 
             listing.Gap(20f);
 
@@ -238,6 +240,7 @@ namespace Maux36.RimPsyche
             RimpsycheSettings.allowFacetEdit = false;
             RimpsycheSettings.showFacetGraph = false;
             RimpsycheSettings.confirmLoadSave = true;
+            RimpsycheSettings.flavorfulConversationLog = true;
             RimpsycheSettings.DescriptorTypesToShow = [.. (DescriptorType[])Enum.GetValues(typeof(DescriptorType))];
             ToggleDescriptors();
             PsycheInfoCard.CacheClean();

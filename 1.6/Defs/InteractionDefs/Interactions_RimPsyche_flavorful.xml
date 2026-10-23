@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <InteractionDef Name="Rimpsyche_ConversationResultBase" Abstract="True">
+    <label>conversation</label>
+    <workerClass>Maux36.RimPsyche.InteractionWroker_NeverRandom</workerClass>
+    <symbol>Things/Mote/SpeechSymbols/Conversation</symbol>
+    <initiatorXpGainSkill>Social</initiatorXpGainSkill>
+    <initiatorXpGainAmount>10</initiatorXpGainAmount>
+  </InteractionDef>
+
+  <RulePackDef>
+    <defName>RPC_ConversationUtility</defName>
+    <rulePack>
+      <rulesStrings>
+        <li>r_logentry->[conversed].</li>
+        <li>r_logentry(p=0.2)->[conversed], [result].</li>
+        <li>r_logentry(p=0.1)->[neutral_conversed], [emotional_result].</li>
+
+        <li>conversed->[INITIATOR_nameDef] and [RECIPIENT_nameDef] had [conversation] about {0}</li>
+        <li>conversed->[INITIATOR_nameDef] and [RECIPIENT_nameDef] [talkedabout] {0}</li>
+        <li>conversed->[INITIATOR_nameDef] [talkedabout] {0} with [RECIPIENT_nameDef]</li>
+
+        <li>neutral_conversed->[INITIATOR_nameDef] and [RECIPIENT_nameDef] [neutral_talkedabout] {0}</li>
+        <li>neutral_talkedabout->shared thoughts on</li>
+        <li>neutral_talkedabout->exchanged views on</li>
+      </rulesStrings>
+    </rulePack>
+  </RulePackDef>
+
+  <RulePackDef>
+    <defName>RPC_ConversationUtility_withResult</defName>
+    <rulePack>
+      <rulesStrings>
+        <li>r_logentry->[conversed], [result].</li>
+        <li>r_logentry(p=0.4)->[neutral_conversed], [emotional_result].</li>
+
+        <li>conversed->[INITIATOR_nameDef] and [RECIPIENT_nameDef] had [conversation] about {0}</li>
+        <li>conversed->[INITIATOR_nameDef] and [RECIPIENT_nameDef] [talkedabout] {0}</li>
+        <li>conversed->[INITIATOR_nameDef] [talkedabout] {0} with [RECIPIENT_nameDef]</li>
+
+        <li>neutral_conversed->[INITIATOR_nameDef] and [RECIPIENT_nameDef] [neutral_talkedabout] {0}</li>
+        <li>neutral_talkedabout->shared thoughts on</li>
+        <li>neutral_talkedabout->exchanged views on</li>
+      </rulesStrings>
+    </rulePack>
+  </RulePackDef>
+
+  <InteractionDef ParentName="Rimpsyche_ConversationResultBase">
+    <defName>Rimpsyche_Conversation_PosGreat</defName>
+    <logRulesInitiator>
+      <include><li>RPC_ConversationUtility</li></include>
+      <rulesStrings>
+        <li>conversation->[great_adj] conversation</li>
+        <li>conversation->[great_adj] talk</li>
+        <li>conversation->[great_adj] discussion</li>
+
+        <li>great_adj->a truly warm</li>
+        <li>great_adj->a wonderful</li>
+        <li>great_adj->a delightful</li>
+        <li>great_adj->a heartfelt</li>
+
+        <li>talkedabout->[great_adv] talked about</li>
+        <li>talkedabout->[great_adv] spoke about</li>
+        <li>talkedabout->[great_adv] chatted about</li>
+
+        <li>great_adv->eagerly</li>
+        <li>great_adv->excitedly</li>
+        <li>great_adv->warmly</li>
+
+        <li>result->finding they agreed on almost everything</li>
+        <li>result->finding they felt exactly the same way</li>
+        <li>result->discovering they were of one mind</li>
+
+        <li>emotional_result->[happy] to find they agreed on almost everything</li>
+        <li>emotional_result->[happy] to find they felt exactly the same way</li>
+        <li>emotional_result->[happy] to discover they were of one mind</li>
+        <li>emotional_result->[happy] to find they saw eye to eye</li>
+
+        <li>happy->delighted</li>
+        <li>happy->happy</li>
+        <li>happy->glad</li>
+
+      </rulesStrings>
+    </logRulesInitiator>
+  </InteractionDef>
+
+  <InteractionDef ParentName="Rimpsyche_ConversationResultBase">
+    <defName>Rimpsyche_Conversation_PosGood</defName>
+    <logRulesInitiator>
+      <include><li>RPC_ConversationUtility</li></include>
+      <rulesStrings>
+        <li>conversation->a [good_adj] conversation</li>
+        <li>conversation->a [good_adj] talk</li>
+        <li>conversation->a [good_adj] discussion</li>
+
+        <li>good_adj->pleasant</li>
+        <li>good_adj->friendly</li>
+        <li>good_adj->nice</li>
+        <li>good_adj->comfortable</li>
+        <li>good_adj->cheerful</li>
+
+        <li>talkedabout->[good_adv] talked about</li>
+        <li>talkedabout->[good_adv] spoke about</li>
+        <li>talkedabout->[good_adv] chatted about</li>
+
+        <li>good_adv->happily</li>
+        <li>good_adv->pleasantly</li>
+        <li>good_adv->comfortably</li>
+        <li>good_adv->cheerfully</li>
+
+        <li>result->finding plenty of common ground</li>
+        <li>result->finding they mostly agreed</li>
+        <li>result->seeing things much the same way</li>
+        <li>result->finding they had a lot in common</li>
+
+        <li>emotional_result->[pleased] to find they mostly agreed</li>
+        <li>emotional_result->[pleased] to find plenty of common ground</li>
+        <li>emotional_result->[pleased] to find they saw it much the same way</li>
+
+        <li>pleased->pleased</li>
+        <li>pleased->glad</li>
+        <li>pleased->happy</li>
+      </rulesStrings>
+    </logRulesInitiator>
+  </InteractionDef>
+
+  <InteractionDef ParentName="Rimpsyche_ConversationResultBase">
+    <defName>Rimpsyche_Conversation_PosBad</defName>
+    <logRulesInitiator>
+      <include><li>RPC_ConversationUtility_withResult</li></include>
+      <rulesStrings>
+        <li>conversation->a [awkward_adj] conversation</li>
+        <li>conversation->a [awkward_adj] talk</li>
+        <li>conversation->a [awkward_adj] discussion</li>
+
+        <li>awkward_adj->stilted</li>
+        <li>awkward_adj->somewhat awkward</li>
+        <li>awkward_adj->slightly uncomfortable</li>
+
+        <li>talkedabout->[awkward_adv] talked about</li>
+        <li>talkedabout->[awkward_adv] spoke about</li>
+        <li>talkedabout->[awkward_adv] conversed about</li>
+
+        <li>awkward_adv->awkwardly</li>
+        <li>awkward_adv->stiffly</li>
+        <li>awkward_adv->uncomfortably</li>
+        <li>awkward_adv->haltingly</li>
+
+        <li>result->though they agreed on most of it</li>
+        <li>result->despite seeing it much the same way</li>
+        <li>result->even though they mostly agreed</li>
+
+        <li>emotional_result->agreeing on most of it, yet never quite at ease</li>
+        <li>emotional_result->seeing it much the same way, though the conversation never flowed</li>
+        <li>emotional_result->mostly agreeing, but oddly ill at ease the whole time</li>
+      </rulesStrings>
+    </logRulesInitiator>
+  </InteractionDef>
+
+  <InteractionDef ParentName="Rimpsyche_ConversationResultBase">
+    <defName>Rimpsyche_Conversation_NegGood</defName>
+    <logRulesInitiator>
+      <include><li>RPC_ConversationUtility</li></include>
+      <rulesStrings>
+        <li>conversation->a [civil_adj] debate</li>
+        <li>conversation->a [civil_adj] disagreement</li>
+        <li>conversation->a [civil_adj] back-and-forth</li>
+
+        <li>civil_adj->friendly</li>
+        <li>civil_adj->good-natured</li>
+        <li>civil_adj->respectful</li>
+        <li>civil_adj->civil</li>
+
+        <li>talkedabout->[civil_adv] disagreed about</li>
+        <li>talkedabout->[civil_adv] traded opinions about</li>
+        <li>talkedabout->[civil_adv] went back and forth about</li>
+
+        <li>civil_adv->politely</li>
+        <li>civil_adv->good-naturedly</li>
+        <li>civil_adv->respectfully</li>
+        <li>civil_adv->calmly</li>
+
+        <li>result->agreeing to disagree in the end</li>
+        <li>result->with no hard feelings on either side</li>
+        <li>result->each holding their ground without any hard feelings</li>
+
+        <li>emotional_result->seeing it differently but keeping things friendly</li>
+        <li>emotional_result->disagreeing without any hard feelings</li>
+        <li>emotional_result->ending up agreeing to disagree</li>
+      </rulesStrings>
+    </logRulesInitiator>
+  </InteractionDef>
+
+  <InteractionDef ParentName="Rimpsyche_ConversationResultBase">
+    <defName>Rimpsyche_Conversation_NegBad</defName>
+    <logRulesInitiator>
+      <include><li>RPC_ConversationUtility</li></include>
+      <rulesStrings>
+        <li>conversation->a [tense_adj] disagreement</li>
+        <li>conversation->a [tense_adj] debate</li>
+        <li>conversation->a [tense_adj] argument</li>
+        <li>conversation->a [tense_adj] quarrel</li>
+        <li>conversation->a [tense_adj] exchange</li>
+
+        <li>tense_adj->tense</li>
+        <li>tense_adj->heated</li>
+        <li>tense_adj->bitter</li>
+        <li>tense_adj->sharp</li>
+        <li>tense_adj->testy</li>
+
+        <li>talkedabout->[tense_adv] argued about</li>
+        <li>talkedabout->[tense_adv] bickered about</li>
+        <li>talkedabout->[tense_adv] quarreled about</li>
+
+        <li>tense_adv->bitterly</li>
+        <li>tense_adv->heatedly</li>
+        <li>tense_adv->sharply</li>
+        <li>tense_adv->angrily</li>
+
+        <li>result->neither willing to give ground</li>
+        <li>result->leaving them both frustrated</li>
+        <li>result->ending on a sour note</li>
+
+        <li>emotional_result->growing irritated as they disagreed</li>
+        <li>emotional_result->only to end up arguing</li>
+        <li>emotional_result->the conversation quickly turning sour</li>
+      </rulesStrings>
+    </logRulesInitiator>
+  </InteractionDef>
+</Defs>
