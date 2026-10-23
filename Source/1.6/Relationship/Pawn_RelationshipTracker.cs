@@ -10,10 +10,10 @@ namespace Maux36.RimPsyche
         public readonly Pawn pawn;
         public readonly CompPsyche compPsyche;
 
-        public Pawn_RelationshipTracker(Pawn p)
+        public Pawn_RelationshipTracker(Pawn p, CompPsyche comp)
         {
             pawn = p;
-            compPsyche = p.compPsyche();
+            compPsyche = comp;
         }
         public void Initialize(PsycheData psycheData = null)
         {

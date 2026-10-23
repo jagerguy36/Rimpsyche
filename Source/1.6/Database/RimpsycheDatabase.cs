@@ -30,10 +30,10 @@ namespace Maux36.RimPsyche
 
         public static float preferenceGap = 10f;
         public static Facet[] AllFacets = (Facet[])Enum.GetValues(typeof(Facet));
-        public static float maxFacetLabelWidth = 130f;
-        public static float maxPersonalityLabelWidth = 130f;
+        public static float maxFacetLabelWidth = 110f;
+        public static float maxPersonalityLabelWidth = 110f;
         public static float maxDescriptorLabelWidth = 0f;
-        public static float maxInterestLabelWidth = 130f;
+        public static float maxInterestLabelWidth = 110f;
         public static float maxSexualityTabLabelWidth = 70f;
         public static float maxEditSexualityLabelWidth;
         public static float orientationLabelWidth = 0f;
@@ -62,6 +62,14 @@ namespace Maux36.RimPsyche
             Initialize();
             RegisterBaseGates();
             ModCompat();
+            try
+            {
+                PsycheSaveManager.LoadSlotsOnStartup();
+            }
+            catch (Exception ex)
+            {
+                Log.Error($"[RimPsyche] Failed to initialize psyche slots: {ex}");
+            }
         }
 
         public static void Initialize()
@@ -237,7 +245,8 @@ namespace Maux36.RimPsyche
                 {
                     bool isActive = RimpsycheSexualitySettings.activePreferences.Contains(pref.defName);
                     pref.isActive = isActive;
-                    activePreferenceHashSet.Add(pref.shortHash);
+                    if (isActive)
+                        activePreferenceHashSet.Add(pref.shortHash);
                 }
                 var OrderedPreferenceDefs = DefDatabase<PreferenceDef>.AllDefsListForReading.Where(prefDef => prefDef.isActive).OrderByDescending(prefDef => prefDef.priority).ToList();
                 try
@@ -246,7 +255,7 @@ namespace Maux36.RimPsyche
                     {
                         totalPreferenceEditorfHeight += prefDef.worker.EditorHeight;
                     }
-                    totalPreferenceEditorfHeight += (OrderedPreferenceDefs.Count - 1) * preferenceGap;
+                    totalPreferenceEditorfHeight += Mathf.Max(0, OrderedPreferenceDefs.Count - 1) * preferenceGap;
                     OrderedRomPreferenceDefs = OrderedPreferenceDefs.Where(prefDef => (prefDef.category == RimpsychePrefCategory.Romantic || prefDef.category == RimpsychePrefCategory.Mix)).ToList();
                     OrderedSexPreferenceDefs = OrderedPreferenceDefs.Where(prefDef => (prefDef.category == RimpsychePrefCategory.Physical || prefDef.category == RimpsychePrefCategory.Mix)).ToList();
                 }

@@ -227,6 +227,7 @@ namespace Maux36.RimPsyche
             RimpsycheSettings.hideSummaryInBio = false;
             RimpsycheSettings.showSideInfoInSummary = true;
 
+            RimpsycheSettings.showDeatiledPreference = false;
             RimpsycheSettings.showDispositionInUI = false;
             RimpsycheSettings.showFacetInUI = false;
 

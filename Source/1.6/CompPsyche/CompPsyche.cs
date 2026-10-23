@@ -220,7 +220,7 @@ namespace Maux36.RimPsyche
             {
                 if (personality == null)
                 {
-                    personality = new Pawn_PersonalityTracker(parentPawn);
+                    personality = new Pawn_PersonalityTracker(parentPawn, this);
                     personality.Initialize();
                 }
                 return personality;
@@ -233,7 +233,7 @@ namespace Maux36.RimPsyche
             {
                 if (interests == null)
                 {
-                    interests = new Pawn_InterestTracker(parentPawn);
+                    interests = new Pawn_InterestTracker(parentPawn, this);
                     interests.Initialize();
                 }
                 return interests;
@@ -246,7 +246,7 @@ namespace Maux36.RimPsyche
             {
                 if (sexuality == null)
                 {
-                    sexuality = new Pawn_SexualityTracker(parentPawn);
+                    sexuality = new Pawn_SexualityTracker(parentPawn, this);
                     sexuality.Initialize();
                 }
                 if (sexuality.shouldValidate) sexuality.Validate();
@@ -260,7 +260,7 @@ namespace Maux36.RimPsyche
             {
                 if (relationship == null)
                 {
-                    relationship = new Pawn_RelationshipTracker(parentPawn);
+                    relationship = new Pawn_RelationshipTracker(parentPawn, this);
                     relationship.Initialize();
                 }
                 return relationship;
@@ -305,7 +305,7 @@ namespace Maux36.RimPsyche
         {
             if (personality == null)
             {
-                personality = new Pawn_PersonalityTracker(parentPawn);
+                personality = new Pawn_PersonalityTracker(parentPawn, this);
                 personality.Initialize();
             }
         }
@@ -313,13 +313,13 @@ namespace Maux36.RimPsyche
         {
             if (interests == null)
             {
-                interests = new Pawn_InterestTracker(parentPawn);
+                interests = new Pawn_InterestTracker(parentPawn, this);
                 interests.Initialize();
             }
         }
         public void SexualitySetup(bool generate = false, bool allowGay = true)
         {
-            sexuality ??= new Pawn_SexualityTracker(parentPawn);
+            sexuality ??= new Pawn_SexualityTracker(parentPawn, this);
             //Initialize even when not null for save-game trait safety with Sexuality Module.
             sexuality.Initialize(generate, allowGay);
         }
@@ -327,23 +327,23 @@ namespace Maux36.RimPsyche
         {
             if (relationship == null)
             {
-                relationship = new Pawn_RelationshipTracker(parentPawn);
+                relationship = new Pawn_RelationshipTracker(parentPawn, this);
                 relationship.Initialize();
             }
         }
         public void InjectPsycheData(PsycheData psyche, bool preserveMemory, bool randomizeSexualityIfUndefined = true)
         {
             loversCacheDirty = true;
-            personality ??= new Pawn_PersonalityTracker(parentPawn);
+            personality ??= new Pawn_PersonalityTracker(parentPawn, this);
             personality.Initialize(psyche);
-            interests ??= new Pawn_InterestTracker(parentPawn);
+            interests ??= new Pawn_InterestTracker(parentPawn, this);
             interests.Initialize(psyche);
             if (Rimpsyche.SexualityModuleLoaded)
             {
-                sexuality ??= new Pawn_SexualityTracker(parentPawn);
+                sexuality ??= new Pawn_SexualityTracker(parentPawn, this);
                 sexuality.InjectData(psyche, preserveMemory, randomizeSexualityIfUndefined);
             }
-            relationship ??= new Pawn_RelationshipTracker(parentPawn);
+            relationship ??= new Pawn_RelationshipTracker(parentPawn, this);
             relationship.Initialize(psyche);
         }
 
@@ -355,7 +355,7 @@ namespace Maux36.RimPsyche
         private static readonly Dictionary<Facet, float> facetChanges = new Dictionary<Facet, float>();
         public bool AffectPawn(float resultOffset, float opinion, Topic topic, float direction = 1f, float scoreBoost = 1f)
         {
-            float pawnTrust = personality.GetPersonality(PersonalityDefOf.Rimpsyche_Trust); //-1~1
+            float pawnTrust = Personality.GetPersonality(PersonalityDefOf.Rimpsyche_Trust); //-1~1
             float pawnAge = Rimpsyche_Utility.GetPawnAge(parentPawn); //0~100
             //score boost is for negative good talk.
             //multiplying resultOffset by 4 will negative good talk value 3.5(max for negGood) act similar to 14 positive good talk
@@ -418,10 +418,11 @@ namespace Maux36.RimPsyche
             Scribe_Values.Look(ref shame, "shame", 0f);
             Scribe_Values.Look(ref tickOverwhelmed, "tickOverwhelmed", 0);
 
-            Scribe_Deep.Look(ref personality, "personality", new object[] { parent as Pawn });
-            Scribe_Deep.Look(ref interests, "interests", new object[] { parent as Pawn });
-            Scribe_Deep.Look(ref sexuality, "sexuality", new object[] { parent as Pawn });
-            Scribe_Deep.Look(ref relationship, "relationship", new object[] { parent as Pawn });
+            Scribe_Deep.Look(ref personality, "personality", new object[] { parentPawn, this });
+            Scribe_Deep.Look(ref interests, "interests", new object[] { parentPawn, this });
+            Scribe_Deep.Look(ref sexuality, "sexuality", new object[] { parentPawn, this });
+            Scribe_Deep.Look(ref relationship, "relationship", new object[] { parentPawn, this });
+
             if (Scribe.mode == LoadSaveMode.PostLoadInit)
             {
                 PersonalitySetup();
@@ -461,13 +462,13 @@ namespace Maux36.RimPsyche
             insight = 0f;
             shame = 0f;
             tickOverwhelmed = 0;
-            personality = new Pawn_PersonalityTracker(parentPawn);
+            personality = new Pawn_PersonalityTracker(parentPawn, this);
             personality.Initialize();
-            interests = new Pawn_InterestTracker(parentPawn);
+            interests = new Pawn_InterestTracker(parentPawn, this);
             interests.Initialize();
-            sexuality ??= new Pawn_SexualityTracker(parentPawn);
+            sexuality ??= new Pawn_SexualityTracker(parentPawn, this);
             sexuality.Initialize(generate: false);
-            relationship = new Pawn_RelationshipTracker(parentPawn);
+            relationship = new Pawn_RelationshipTracker(parentPawn, this);
             relationship.Initialize();
             shouldTick = false;
             CleanShame();
