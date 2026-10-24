@@ -76,6 +76,39 @@ namespace Maux36.RimPsyche
             lastDateTickWith[otherPawn.thingIDNumber] = tick;
         }
 
+        //WentNowhere
+        //A pair whose casual relation went nowhere doesn't romance each other again until the went nowhere thought expires.
+        //Built from the memories like the date cache, so the thought stays the source of truth.
+        private Dictionary<int, int> wentNowhereEndTick = new();
+        private bool wentNowhereEndTickDirty = true;
+        private void InitializeWentNowhereCache()
+        {
+            wentNowhereEndTickDirty = false;
+            wentNowhereEndTick.Clear();
+            var memories = pawn.needs?.mood?.thoughts?.memories?.Memories;
+            if (memories == null || RimpsycheDatabase.WentNowhereThoughtDef == null) return;
+            int currentTick = Find.TickManager.TicksGame;
+            for (int i = 0; i < memories.Count; i++)
+            {
+                Thought_Memory memory = memories[i];
+                if (memory.def != RimpsycheDatabase.WentNowhereThoughtDef || memory.otherPawn == null) continue;
+                wentNowhereEndTick[memory.otherPawn.thingIDNumber] = currentTick + memory.DurationTicks - memory.age;
+            }
+        }
+        public void Notify_WentNowhereWith(Pawn otherPawn)
+        {
+            if (wentNowhereEndTickDirty) InitializeWentNowhereCache();
+            wentNowhereEndTick[otherPawn.thingIDNumber] = Find.TickManager.TicksGame + RimpsycheDatabase.WentNowhereThoughtDef.DurationTicks;
+        }
+        public bool WentNowhereWith(Pawn otherPawn)
+        {
+            if (wentNowhereEndTickDirty) InitializeWentNowhereCache();
+            if (!wentNowhereEndTick.TryGetValue(otherPawn.thingIDNumber, out int endTick)) return false;
+            if (Find.TickManager.TicksGame < endTick) return true;
+            wentNowhereEndTick.Remove(otherPawn.thingIDNumber);
+            return false;
+        }
+
         // Timestamp a romantic interaction for pairs actually in a romantic relationship.
         // Used to cull Non-exclusive Romantic Relations and adjust lovers activity chance.
         // Flirt and ShowAffection Both registers.
@@ -183,6 +216,8 @@ namespace Maux36.RimPsyche
                 //Add went nowhere thought that should prevent further romance until it expires.
                 pawn.needs.mood?.thoughts.memories.TryGainMemory((Thought_Memory)ThoughtMaker.MakeThought(RimpsycheDatabase.WentNowhereThoughtDef), other);
                 other.needs.mood?.thoughts.memories.TryGainMemory((Thought_Memory)ThoughtMaker.MakeThought(RimpsycheDatabase.WentNowhereThoughtDef), pawn);
+                Notify_WentNowhereWith(other);
+                otherRelationship?.Notify_WentNowhereWith(pawn);
             }
 
             if (PawnUtility.ShouldSendNotificationAbout(pawn) || PawnUtility.ShouldSendNotificationAbout(other))
