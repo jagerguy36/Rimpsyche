@@ -10,6 +10,8 @@ namespace Maux36.RimPsyche
         public string topicName;
         public string topicLabel;
         public float topicAlignment;
+        public float initAttitude;
+        public float reciAttitude;
         public bool ledToFight;
         private string RecipientName
         {
@@ -26,7 +28,7 @@ namespace Maux36.RimPsyche
         public PlayLogEntry_InteractionConversation()
         {
         }
-        public PlayLogEntry_InteractionConversation(InteractionDef intDef, Pawn initiator, Pawn recipient, string tName, string tLabel, float tAlignment, bool tFight, List<RulePackDef> extraSentencePacks)
+        public PlayLogEntry_InteractionConversation(InteractionDef intDef, Pawn initiator, Pawn recipient, string tName, string tLabel, float tAlignment, float initA, float reciA, bool tFight, List<RulePackDef> extraSentencePacks)
         {
             this.intDef = intDef;
             this.initiator = initiator;
@@ -37,6 +39,8 @@ namespace Maux36.RimPsyche
             topicName = tName;
             topicLabel = tLabel;
             topicAlignment = tAlignment;
+            initAttitude = initA;
+            reciAttitude = reciA;
             ledToFight = tFight;
         }
 
@@ -52,6 +56,8 @@ namespace Maux36.RimPsyche
             Scribe_Values.Look(ref topicName, "topicName", "topicName");
             Scribe_Values.Look(ref topicLabel, "topicLabel", "Something");
             Scribe_Values.Look(ref topicAlignment, "topicAlignment", 0f);
+            Scribe_Values.Look(ref initAttitude, "initAttitude", 0f);
+            Scribe_Values.Look(ref reciAttitude, "reciAttitude", 0f);
             Scribe_Values.Look(ref ledToFight, "ledToFight", false);
         }
         public override string ToString()

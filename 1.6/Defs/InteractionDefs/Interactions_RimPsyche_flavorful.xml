@@ -16,11 +16,10 @@
         <li>r_logentry(p=0.2)->[conversed], [result].</li>
         <li>r_logentry(p=0.1)->[neutral_conversed], [emotional_result].</li>
 
-        <li>conversed->[INITIATOR_nameDef] and [RECIPIENT_nameDef] had [conversation] about {0}</li>
-        <li>conversed->[INITIATOR_nameDef] and [RECIPIENT_nameDef] [talkedabout] {0}</li>
+        <li>conversed->[INITIATOR_nameDef] had [conversation] with [RECIPIENT_nameDef] about {0}</li>
         <li>conversed->[INITIATOR_nameDef] [talkedabout] {0} with [RECIPIENT_nameDef]</li>
 
-        <li>neutral_conversed->[INITIATOR_nameDef] and [RECIPIENT_nameDef] [neutral_talkedabout] {0}</li>
+        <li>neutral_conversed->[INITIATOR_nameDef] [neutral_talkedabout] {0} with [RECIPIENT_nameDef]</li>
         <li>neutral_talkedabout->shared thoughts on</li>
         <li>neutral_talkedabout->exchanged views on</li>
       </rulesStrings>
@@ -34,11 +33,10 @@
         <li>r_logentry->[conversed], [result].</li>
         <li>r_logentry(p=0.4)->[neutral_conversed], [emotional_result].</li>
 
-        <li>conversed->[INITIATOR_nameDef] and [RECIPIENT_nameDef] had [conversation] about {0}</li>
-        <li>conversed->[INITIATOR_nameDef] and [RECIPIENT_nameDef] [talkedabout] {0}</li>
+        <li>conversed->[INITIATOR_nameDef] had [conversation] with [RECIPIENT_nameDef] about {0}</li>
         <li>conversed->[INITIATOR_nameDef] [talkedabout] {0} with [RECIPIENT_nameDef]</li>
 
-        <li>neutral_conversed->[INITIATOR_nameDef] and [RECIPIENT_nameDef] [neutral_talkedabout] {0}</li>
+        <li>neutral_conversed->[INITIATOR_nameDef] [neutral_talkedabout] {0} with [RECIPIENT_nameDef]</li>
         <li>neutral_talkedabout->shared thoughts on</li>
         <li>neutral_talkedabout->exchanged views on</li>
       </rulesStrings>
@@ -54,18 +52,13 @@
         <li>conversation->[great_adj] talk</li>
         <li>conversation->[great_adj] discussion</li>
 
-        <li>great_adj->a truly warm</li>
-        <li>great_adj->a wonderful</li>
-        <li>great_adj->a delightful</li>
-        <li>great_adj->a heartfelt</li>
+        <li>great_adj->an engaging</li>
+        <li>great_adj->an absorbing</li>
+        <li>great_adj->an excellent</li>
+        <li>great_adj->a great</li>
 
-        <li>talkedabout->[great_adv] talked about</li>
-        <li>talkedabout->[great_adv] spoke about</li>
-        <li>talkedabout->[great_adv] chatted about</li>
-
-        <li>great_adv->eagerly</li>
-        <li>great_adv->excitedly</li>
-        <li>great_adv->warmly</li>
+        <li>talkedabout->got into a real discussion about</li>
+        <li>talkedabout->effortlessly connected over</li>
 
         <li>result->finding they agreed on almost everything</li>
         <li>result->finding they felt exactly the same way</li>
@@ -76,9 +69,9 @@
         <li>emotional_result->[happy] to discover they were of one mind</li>
         <li>emotional_result->[happy] to find they saw eye to eye</li>
 
-        <li>happy->delighted</li>
-        <li>happy->happy</li>
+        <li>happy->pleased</li>
         <li>happy->glad</li>
+        <li>happy->happy</li>
 
       </rulesStrings>
     </logRulesInitiator>
@@ -89,24 +82,20 @@
     <logRulesInitiator>
       <include><li>RPC_ConversationUtility</li></include>
       <rulesStrings>
-        <li>conversation->a [good_adj] conversation</li>
-        <li>conversation->a [good_adj] talk</li>
-        <li>conversation->a [good_adj] discussion</li>
+        <li>conversation->[good_adj] conversation</li>
+        <li>conversation->[good_adj] talk</li>
+        <li>conversation->[good_adj] discussion</li>
 
-        <li>good_adj->pleasant</li>
-        <li>good_adj->friendly</li>
-        <li>good_adj->nice</li>
-        <li>good_adj->comfortable</li>
-        <li>good_adj->cheerful</li>
+        <li>good_adj->an easy</li>
+        <li>good_adj->a smooth</li>
+        <li>good_adj->a comfortable</li>
+        <li>good_adj->a good</li>
 
         <li>talkedabout->[good_adv] talked about</li>
         <li>talkedabout->[good_adv] spoke about</li>
-        <li>talkedabout->[good_adv] chatted about</li>
 
-        <li>good_adv->happily</li>
-        <li>good_adv->pleasantly</li>
+        <li>good_adv->easily</li>
         <li>good_adv->comfortably</li>
-        <li>good_adv->cheerfully</li>
 
         <li>result->finding plenty of common ground</li>
         <li>result->finding they mostly agreed</li>
@@ -167,7 +156,6 @@
         <li>conversation->a [civil_adj] back-and-forth</li>
 
         <li>civil_adj->friendly</li>
-        <li>civil_adj->good-natured</li>
         <li>civil_adj->respectful</li>
         <li>civil_adj->civil</li>
 
@@ -176,12 +164,11 @@
         <li>talkedabout->[civil_adv] went back and forth about</li>
 
         <li>civil_adv->politely</li>
-        <li>civil_adv->good-naturedly</li>
         <li>civil_adv->respectfully</li>
         <li>civil_adv->calmly</li>
 
         <li>result->agreeing to disagree in the end</li>
-        <li>result->with no hard feelings on either side</li>
+        <li>result->leaving no hard feelings on either side</li>
         <li>result->each holding their ground without any hard feelings</li>
 
         <li>emotional_result->seeing it differently but keeping things friendly</li>
@@ -209,7 +196,7 @@
         <li>tense_adj->testy</li>
 
         <li>talkedabout->[tense_adv] argued about</li>
-        <li>talkedabout->[tense_adv] bickered about</li>
+        <li>talkedabout->[tense_adv] clashed over</li>
         <li>talkedabout->[tense_adv] quarreled about</li>
 
         <li>tense_adv->bitterly</li>

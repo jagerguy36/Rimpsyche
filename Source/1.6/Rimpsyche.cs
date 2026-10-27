@@ -240,7 +240,7 @@ namespace Maux36.RimPsyche
             RimpsycheSettings.allowFacetEdit = false;
             RimpsycheSettings.showFacetGraph = false;
             RimpsycheSettings.confirmLoadSave = true;
-            RimpsycheSettings.flavorfulConversationLog = true;
+            RimpsycheSettings.flavorfulConversationLog = false;
             RimpsycheSettings.DescriptorTypesToShow = [.. (DescriptorType[])Enum.GetValues(typeof(DescriptorType))];
             ToggleDescriptors();
             PsycheInfoCard.CacheClean();

@@ -82,7 +82,7 @@ namespace Maux36.RimPsyche
                     {
                         initiator.needs?.mood?.thoughts?.memories?.TryGainMemory(DefOfRimpsyche.Rimpsyche_ConvoIgnored, recipient);
                         extraSentencePacks.Add(DefOfRimpsyche.Sentence_RimpsycheConversationFail);
-                        entry = new PlayLogEntry_InteractionConversation(DefOfRimpsyche.Rimpsyche_ConversationAttempt, initiator, recipient, convoTopic.name, convoTopic.label, 0f, false, extraSentencePacks);
+                        entry = new PlayLogEntry_InteractionConversation(DefOfRimpsyche.Rimpsyche_ConversationAttempt, initiator, recipient, convoTopic.name, convoTopic.label, 0f, 0f, 0f, false, extraSentencePacks);
                         Find.PlayLog.Add(entry);
                         return;
                     }
@@ -90,7 +90,7 @@ namespace Maux36.RimPsyche
 
                 //Conversation.
                 InteractionDef interactionDefToLog = DefOfRimpsyche.Rimpsyche_Conversation;
-                float topicAlignment = convoTopic.GetScore(initiatorPsyche, recipientPsyche, out float initDirection); // -1~1 [0]
+                float topicAlignment = convoTopic.GetScore(initiatorPsyche, recipientPsyche, out float initDirection, out float initAttitude, out float reciAttitude); // -1~1 [0]
                 float tAbs = Mathf.Abs(topicAlignment);
                 float initInterestF = (1f + (0.5f * Mathf.Min(initOpinion + initRelationship, 1f))) + (initInterestScore * (1f + (0.5f * initPassion))) + 0.25f * ((1f - initInterestScore) * (1f + initInquisitiveness)); //0.5~1.5+ 0~1.5 => 0.5~3 [1.5]
                 float reciInterestF = (1f + (0.5f * Mathf.Min(reciOpinion + reciRelationship, 1f))) + (reciInterestScore * (1f + (0.5f * reciPassion))) + 0.25f * ((1f - reciInterestScore) * (1f + reciInquisitiveness)); //0.5~1.5+ 0~1.5 => 0.5~3 [1.5]
@@ -221,7 +221,7 @@ namespace Maux36.RimPsyche
                     if (reciOpinionOffset > 0) recipientPsyche.AffectPawn(reciOpinionOffset, reciOpinion, convoTopic, -initDirection, scoreBoost);
                 }
 
-                entry = new PlayLogEntry_InteractionConversation(interactionDefToLog, initiator, recipient, convoTopic.name, convoTopic.label, topicAlignment, startFight, extraSentencePacks);
+                entry = new PlayLogEntry_InteractionConversation(interactionDefToLog, initiator, recipient, convoTopic.name, convoTopic.label, topicAlignment, initAttitude, reciAttitude, startFight, extraSentencePacks);
                 Find.PlayLog.Add(entry);
                 InteractionHook(initiator, recipient, convoTopic, topicAlignment, initOpinionOffset, reciOpinionOffset);
                 convoTopic.result?.ApplyEffect(initiator, recipient, topicAlignment, initOpinionOffset, reciOpinionOffset);
