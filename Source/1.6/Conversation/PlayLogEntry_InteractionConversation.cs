@@ -6,8 +6,13 @@ namespace Maux36.RimPsyche
 {
     public class PlayLogEntry_InteractionConversation : PlayLogEntry_Interaction
     {
+        public int version = 1;
         public string topicName;
         public string topicLabel;
+        public float topicAlignment;
+        public float initAttitude;
+        public float reciAttitude;
+        public bool ledToFight;
         private string RecipientName
         {
             get
@@ -23,7 +28,7 @@ namespace Maux36.RimPsyche
         public PlayLogEntry_InteractionConversation()
         {
         }
-        public PlayLogEntry_InteractionConversation(InteractionDef intDef, Pawn initiator, Pawn recipient, string tName, string tLabel, List<RulePackDef> extraSentencePacks)
+        public PlayLogEntry_InteractionConversation(InteractionDef intDef, Pawn initiator, Pawn recipient, string tName, string tLabel, float tAlignment, float initA, float reciA, bool tFight, List<RulePackDef> extraSentencePacks)
         {
             this.intDef = intDef;
             this.initiator = initiator;
@@ -33,6 +38,10 @@ namespace Maux36.RimPsyche
             initiatorIdeo = initiator.Ideo;
             topicName = tName;
             topicLabel = tLabel;
+            topicAlignment = tAlignment;
+            initAttitude = initA;
+            reciAttitude = reciA;
+            ledToFight = tFight;
         }
 
         protected override string ToGameStringFromPOV_Worker(Thing pov, bool forceLog)
@@ -43,8 +52,13 @@ namespace Maux36.RimPsyche
         public override void ExposeData()
         {
             base.ExposeData();
+            Scribe_Values.Look(ref version, "version", 0);
             Scribe_Values.Look(ref topicName, "topicName", "topicName");
             Scribe_Values.Look(ref topicLabel, "topicLabel", "Something");
+            Scribe_Values.Look(ref topicAlignment, "topicAlignment", 0f);
+            Scribe_Values.Look(ref initAttitude, "initAttitude", 0f);
+            Scribe_Values.Look(ref reciAttitude, "reciAttitude", 0f);
+            Scribe_Values.Look(ref ledToFight, "ledToFight", false);
         }
         public override string ToString()
         {

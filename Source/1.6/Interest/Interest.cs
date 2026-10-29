@@ -53,7 +53,7 @@ namespace Maux36.RimPsyche
             float result = 0f;
             for (int i = 0; i < topicCount; i++)
             {
-                var tScore = topics[i].GetScore(pawnPsyche, otherPawnPsyche, out _);
+                var tScore = topics[i].GetScore(pawnPsyche, otherPawnPsyche, out _, out _, out _);
                 if(weedOutlier && tScore < outlier)
                 {
                     outlier = tScore;

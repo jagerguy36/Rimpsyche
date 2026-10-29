@@ -354,7 +354,7 @@ namespace Maux36.RimPsyche
             for (int i = 0; i < trial; i++)
             {
                 Interest convoInterest = initiatorPsyche.Interests.SampleInterest();
-                float topicAlignment = convoInterest.GetRandomTopic().GetScore(initiatorPsyche, recipientPsyche, out _); // -1~1 [0]
+                float topicAlignment = convoInterest.GetRandomTopic().GetScore(initiatorPsyche, recipientPsyche, out _, out _, out _); // -1~1 [0]
 
                 //Length Factor. Assume mutual opinion of 1f
                 float initInterestScore = initiatorPsyche.Interests.GetOrGenerateAdjustedInterestScore(convoInterest) * 0.01f;

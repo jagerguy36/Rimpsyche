@@ -15,16 +15,17 @@ namespace Maux36.RimPsyche
         public Dictionary<string, float> interestScore = new Dictionary<string, float>(); // -35~35
         private InterestSampler cachedSampler;
 
-        public Pawn_InterestTracker(Pawn p)
+        public Pawn_InterestTracker(Pawn p, CompPsyche comp)
         {
             pawn = p;
-            compPsyche = p.compPsyche();
+            compPsyche = comp;
         }
         public void Initialize(PsycheData psycheData = null)
         {
             if (psycheData != null)
             {
                 interestScore = new Dictionary<string, float>(psycheData.interestScore);
+                adjustedInterestScore.Clear();
                 cachedSampler = null;
                 return;
             }
@@ -38,7 +39,6 @@ namespace Maux36.RimPsyche
 
         public void GenerateAdjustedInterestScoreForDomain(InterestDomainDef interestdomainDef, bool generateScore = false) // 0~100
         {
-            var compPsyche = pawn.compPsyche();
             float domainOffsetValue = 50;
             var domainWeights = interestdomainDef.scoreWeight;
             if (domainWeights != null) //Add domain offset

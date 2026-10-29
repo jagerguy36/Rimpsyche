@@ -246,14 +246,14 @@ namespace Maux36.RimPsyche
         {
             if(relationship.TryGetValue(target.thingIDNumber, out var current))
             {
-                relationship[target.thingIDNumber] = Mathf.Clamp01(Mathf.Min(current + ceiling));
+                relationship[target.thingIDNumber] = Mathf.Clamp01(Mathf.Min(current, ceiling));
             }
         }
 
-        public Pawn_SexualityTracker(Pawn p)
+        public Pawn_SexualityTracker(Pawn p, CompPsyche comp)
         {
             pawn = p;
-            compPsyche = p.compPsyche();
+            compPsyche = comp;
         }
         //generate = false is coming from loading saves.
         //Newly generate pawns initialize with generate = true
@@ -424,8 +424,14 @@ namespace Maux36.RimPsyche
             mKinsey = psyche.mKinsey;
             attraction = psyche.attraction;
             sexDrive = psyche.sexDrive;
-            _preference = new Dictionary<string, List<PrefEntry>>(psyche.preference);
-            _preference ??= new();
+            _preference = new Dictionary<string, List<PrefEntry>>();
+            if (psyche.preference != null)
+            {
+                foreach (var kvp in psyche.preference)
+                {
+                    _preference[kvp.Key] = kvp.Value?.ConvertAll(e => new PrefEntry(e.stringKey, e.intKey, e.target, e.importance));
+                }
+            }
             if (preserveMemory)
             {
                 knownOrientation = [.. psyche.knownOrientation];
@@ -457,11 +463,7 @@ namespace Maux36.RimPsyche
             if (orientationCategory == SexualOrientation.Developing || orientationCategory == SexualOrientation.None) return;
             var traitCategory = SexualityHelper.EvaluateSexuality(pawn);
             if (traitCategory == orientationCategory) return;
-            else
-            {
-                AssignSexuality(traitCategory);
-                return;
-            }
+            AssignSexuality(traitCategory);
         }
         /// <summary>
         /// Force new Psyche sexuality onto the pawn.
@@ -471,6 +473,8 @@ namespace Maux36.RimPsyche
         private void AssignSexuality(SexualOrientation newCategory)
         {
             orientationCategory = newCategory;
+            adjustmentDirty = true;
+            driveDirty = true;
             if (newCategory == SexualOrientation.None || newCategory == SexualOrientation.Developing)
             {
                 return;
@@ -485,7 +489,6 @@ namespace Maux36.RimPsyche
             {
                 mKinsey = 1 - kinsey;
             }
-            adjustmentDirty = true;
             return;
         }
         //When Trait is manipulated, Rimpsyche Sexuality will check the traits and follow it rather than enforcing RPS on Vanilla
@@ -653,6 +656,8 @@ namespace Maux36.RimPsyche
         }
         public void Notify_Sexchange()
         {
+            //Orientation isn't decided yet; it's assigned at coming of age with the gender they have then
+            if (orientationCategory == SexualOrientation.None || orientationCategory == SexualOrientation.Developing) return;
             AdjustSexualityCategory(attraction);
         }
         public void Notify_LifestageChanged()
@@ -730,6 +735,7 @@ namespace Maux36.RimPsyche
         {
             if (driveDirty)
             {
+                driveDirty = false;
                 if (!Suppressed && Rimpsyche_Utility.GetPawnAge(pawn) >= minAdultAge)
                 {
                     adjustedDrive = SexualityHelper.AdjustRawValues(SexDrive);

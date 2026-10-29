@@ -14,27 +14,50 @@ namespace Maux36.RimPsyche
         private bool editMode;
         static PsycheEditPopup()
         {
+            GameFont oldFont = Text.Font;
+            Text.Font = GameFont.Small;
             facetLabelWidth = RimpsycheDatabase.maxFacetLabelWidth;
-            facetWidthDiff = 2f * (facetLabelWidth - 130f);
 
             personalityLabelWidth = RimpsycheDatabase.maxPersonalityLabelWidth;
-            personalityWidthDiff = 2f * (personalityLabelWidth - 130f);
             personalityViewHeight = DefDatabase<PersonalityDef>.AllDefsListForReading.Count * personalityRowHeight;
             intensityRectWidth = RimpsycheDatabase.dispositionIntensityWidth;
 
             interestLabelWidth = RimpsycheDatabase.maxInterestLabelWidth;
-            interestWidthDiff = (interestLabelWidth - 130f);
             interestViewHeight = RimpsycheDatabase.InterestList.Count * interestRowHeight;
 
-            leftRectWidth = 330f + facetWidthDiff;
-            midRectWidth = 380f + personalityWidthDiff;
+            // Facet row budget: two labels with their padding, the fixed-width bar, card padding and scrollbar
+            leftRectWidth = 2f * (facetLabelWidth + facetLabelPadding) + facetBarWidth + 2f * innerPadding + scrollBarWidth;
+            // Personality row budget: two labels with their padding, the fixed-width bar, card padding and scrollbar
+            float personalityRowBudget = 2f * (personalityLabelWidth + personalityLabelPadding) + personalityBarWidth + 2f * innerPadding + scrollBarWidth;
+            // Header budget: centered title, so each side gets the wider of its neighbors.
+            // Right: up to 4 icons (8 gap, icons, spacings). Left: reset and save buttons with their margins, plus a 5 gap to the title.
+            Text.Font = GameFont.Medium;
+            float maxTitleWidth = Mathf.Max(Text.CalcSize("RPC_Personality".Translate()).x, Text.CalcSize("RPC_Disposition".Translate()).x);
+            Text.Font = GameFont.Small;
+            float headerRightSide = 8f + 4f * iconSize + 3f * iconSpacing;
+            float headerLeftSide = 2f * (resetButtonMargin + resetButtonSize) + 5f;
+            float headerBudget = maxTitleWidth + 2f * Mathf.Max(headerRightSide, headerLeftSide) + 2f * innerPadding;
+            // Disposition row budget: descriptor label, intensity dots, row padding, card padding and scrollbar
+            float dispositionRowBudget = RimpsycheDatabase.maxDescriptorLabelWidth + intensityRectWidth + 2f * personalityLabelPadding + 2f * innerPadding + scrollBarWidth;
+            midRectWidth = Mathf.Max(personalityRowBudget, headerBudget, dispositionRowBudget);
             kinseyLabelWidth = Text.CalcSize("RPC_Kinsey".Translate()).x + 20f;
-            var sexualityLabelDiff = RimpsycheDatabase.maxEditSexualityLabelWidth - 100f;
-            rightRectWidth = 240f + Mathf.Max(interestWidthDiff, sexualityLabelDiff);
-            rightRectWidth = Mathf.Max(kinseyLabelWidth + RimpsycheDatabase.orientationLabelWidth + 10f, rightRectWidth);
-            //rightRectWidth = Mathf.Max(rightRectWidth, RimpsycheDatabase.maxSexualityLabelWidth + 10f + RimpsycheDatabase.orientationLabelWidth);
+            // Interest row budget: label with its padding, minimum bar, card padding and scrollbar
+            float interestBudget = interestLabelWidth + 2f * interestLabelPadding + minRightBarWidth + 2f * innerPadding + scrollBarWidth;
+            rightRectWidth = interestBudget;
+            // The sexuality card only exists with the module, and its label keys are only translated there
+            if (Rimpsyche.SexualityModuleLoaded)
+            {
+                // Sexuality slider row budget: label, gap, minimum bar and card padding (no scroll view)
+                float sexualityBudget = RimpsycheDatabase.maxEditSexualityLabelWidth + sexualityLabelGap + minRightBarWidth + 2f * innerPadding;
+                // Female/Male row budget: both side labels with their 8 margins, minimum bar and card padding
+                float attractionBudget = Text.CalcSize(femaleAttractionLabel).x + Text.CalcSize(maleAttractionLabel).x + 16f + minRightBarWidth + 2f * innerPadding;
+                // Kinsey row budget: label, orientation report and card padding
+                float kinseyBudget = kinseyLabelWidth + RimpsycheDatabase.orientationLabelWidth + 2f * innerPadding;
+                rightRectWidth = Mathf.Max(interestBudget, sexualityBudget, attractionBudget, kinseyBudget);
+            }
             totalBaseSize = midRectWidth + rightRectWidth + baseMargin;
             totalFullSize = leftRectWidth + midRectWidth + rightRectWidth + baseMargin;
+            Text.Font = oldFont;
         }
         public PsycheEditPopup(Pawn editFor, bool enableEdit = false)
         {
@@ -89,7 +112,6 @@ namespace Maux36.RimPsyche
         //Facet
         public static bool editFacetOn = false;
         public static readonly float facetLabelWidth;
-        public static readonly float facetWidthDiff;
         public static readonly float facetRowHeight = 28f;
         public static readonly float facetViewHeight = 15f * facetRowHeight;
         public static readonly float facetLabelPadding = 2f;
@@ -99,9 +121,9 @@ namespace Maux36.RimPsyche
         //Personality
 
         public static ShowMode showMode = ShowMode.Personality;
+        public static PsycheInfoCard.SortMode sortOption = PsycheInfoCard.SortMode.Value;
         public static bool editPersonalityOn = false;
         public static readonly float personalityLabelWidth;
-        public static readonly float personalityWidthDiff;
         public static readonly float personalityRowHeight = 32f;
         public static readonly float personalityViewHeight;
         public static readonly float intensityRectWidth;
@@ -111,120 +133,37 @@ namespace Maux36.RimPsyche
         public static Color LowValueColor = Color.grey;
         public static Color HighValueColor = Color.green;
         public static Color lightGreyColor = new Color(0.5f, 0.5f, 0.5f, 0.75f);
-        private struct PersonalityDisplayDataForEditor
+        private static List<PsycheInfoCard.PersonalityDisplayData> cachedPersonalityData = null;
+        private static List<PsycheInfoCard.BehaviorData> cachedBehaviorData = null;
+        private static List<PsycheInfoCard.BehaviorData> GetBehaviorData(CompPsyche compPsyche, Pawn currentPawn)
         {
-            public PersonalityDef Personality;
-            public string CachedDescription;
-            public string CachedFullDescription;
-        }
-        public struct BehaviorDataForEditor
-        {
-            public string Label;
-            public string Intensity;
-            public string Description;
-            public string Tooltip;
-            public float NormalizedAbsValue;
-            public bool IsSignificant;
-        }
-        private static List<PersonalityDisplayDataForEditor> cachedPersonalityData = null;
-        private static Dictionary<ushort, List<string>> cachedPersonalityEffects = new();
-        private static List<BehaviorDataForEditor> cachedBehaviorData = null;
-        private static List<BehaviorDataForEditor> GetBehaviorData(CompPsyche compPsyche, Pawn currentPawn)
-        {
+            // Behavior rows are built together with the personality rows
             if (cachedBehaviorData == null)
             {
-                GeneratePersonalityData(compPsyche, currentPawn);
-                return cachedBehaviorData;
+                cachedPersonalityData = null;
+                GetPersonalityData(compPsyche, currentPawn);
             }
             return cachedBehaviorData;
         }
-        private static List<PersonalityDisplayDataForEditor> GetPersonalityData(CompPsyche compPsyche, Pawn currentPawn)
+        private static List<PsycheInfoCard.PersonalityDisplayData> GetPersonalityData(CompPsyche compPsyche, Pawn currentPawn)
         {
+            // Order is only decided on rebuild, so rows don't move under the slider while editing
             if (cachedPersonalityData == null)
             {
-                GeneratePersonalityData(compPsyche, currentPawn);
-                return cachedPersonalityData;
+                var rawData = PsycheInfoCard.BuildPersonalityData(compPsyche, out cachedBehaviorData);
+                cachedPersonalityData = sortOption switch
+                {
+                    PsycheInfoCard.SortMode.Value => rawData.OrderByDescending(p => p.AbsValue).ToList(),
+                    PsycheInfoCard.SortMode.Alphabet => rawData.OrderBy(p => p.Personality.label).ToList(),
+                    _ => rawData
+                };
             }
             return cachedPersonalityData;
-        }
-        private static void GeneratePersonalityData(CompPsyche compPsyche, Pawn currentPawn)
-        {
-            GenerateBehaviorData(compPsyche);
-            var personalityDefList = DefDatabase<PersonalityDef>.AllDefsListForReading;
-            var rawData = new List<PersonalityDisplayDataForEditor>();
-            foreach (var personality in personalityDefList)
-            {
-                float value = compPsyche.Personality.GetPersonality(personality);
-                string cachedLabelText = ((value >= 0) ? personality.high : personality.low).CapitalizeFirst();
-                var personalityShortDesc = (value >= 0f ? personality.highDescription : personality.lowDescription);
-                var personalityFullDesc = $"{personality.label.CapitalizeFirst()}: {value * 100f:F1}\n\n{personality.description}";
-                var effectString = string.Empty;
-                if (cachedPersonalityEffects.TryGetValue(personality.shortHash, out var effectList))
-                {
-                    effectString = effectHeaderString + string.Join("\n", effectList);
-                }
-                if (effectString != string.Empty && RimpsycheSettings.showEffectInDescription)
-                {
-                    personalityFullDesc += effectString;
-                    personalityShortDesc += effectString;
-                }
-                if (compPsyche.Personality.scopeInfoCache.TryGetValue(personality.shortHash, out string explanation))
-                {
-                    personalityShortDesc += $"\n\n{explanation}";
-                    personalityFullDesc += $"\n\n{explanation}";
-                }
-                var personalityDesc = $"{cachedLabelText}\n\n{personalityShortDesc}" + shiftForFullString;
-                rawData.Add(new PersonalityDisplayDataForEditor
-                {
-                    Personality = personality,
-                    CachedDescription = personalityDesc,
-                    CachedFullDescription = personalityFullDesc,
-                });
-            }
-            cachedPersonalityData = rawData;
-        }
-        private static void GenerateBehaviorData(CompPsyche compPsyche)
-        {
-            cachedPersonalityEffects.Clear();
-            var sortedData = new List<BehaviorDataForEditor>();
-
-            foreach (PsycheDescriptorDef descDef in DefDatabase<PsycheDescriptorDef>.AllDefs)
-            {
-                var dWorker = descDef.Worker;
-                dWorker.Build(compPsyche);
-
-                foreach ((ushort shortHash, var impactDesc) in dWorker.bImpactRegistry)
-                {
-                    if (!cachedPersonalityEffects.TryGetValue(shortHash, out List<string> list))
-                    {
-                        list = new List<string>();
-                        cachedPersonalityEffects.Add(shortHash, list);
-                    }
-                    list.Add(impactDesc);
-                }
-                if (string.IsNullOrEmpty(dWorker.bLabel))
-                    continue;
-                var normalizedAbsValue = dWorker.bNormalizedAbsValue;
-                var result = new BehaviorDataForEditor
-                {
-                    Label = dWorker.bLabel,
-                    Intensity = dWorker.bIntensityString,
-                    Description = dWorker.bDescription,
-                    Tooltip = dWorker.bToolTip,
-                    NormalizedAbsValue = normalizedAbsValue,
-                    IsSignificant = normalizedAbsValue >= 1f
-                };
-                sortedData.Add(result);
-            }
-
-            // Sort descending by strength
-            sortedData.Sort((a, b) => b.NormalizedAbsValue.CompareTo(a.NormalizedAbsValue));
-            cachedBehaviorData = sortedData;
         }
         //Interest
         public static bool editInterestOn = false;
         public static readonly float interestLabelWidth;
-        public static readonly float interestWidthDiff;
+        public static readonly float minRightBarWidth = 76f;
         public static readonly float interestRowHeight = 32f;
         public static readonly float interestViewHeight;
         public static readonly float interestLabelPadding = 2f;
@@ -242,6 +181,7 @@ namespace Maux36.RimPsyche
         public static readonly float sexualityContentHeight = 160f;
         public static readonly float sexualityRowHeight = 30f;
         public static readonly float sexualityBarHeight = 4f;
+        public static readonly float sexualityLabelGap = 10f;
         public static Color LowAttractionColor = Color.grey;
         public static Color HighAttractionBarColor = Color.green;
         public static Color HyperAttractionBarColor = Color.cyan;
@@ -259,36 +199,15 @@ namespace Maux36.RimPsyche
         private static List<float> GetViewerHeights(Pawn currentPawn)
         {
             //List<(string, float)> cachedPreferenceReport
-            if (resetPreferenceHeights == false && cachedViewerHeights != null)
+            if (resetPreferenceHeights == true || cachedViewerHeights == null)
             {
-                return cachedViewerHeights;
+                cachedViewerHeights = PsycheInfoCard.BuildViewerHeights(currentPawn);
+                resetPreferenceHeights = false;
             }
-            GenerateViewerHeights(currentPawn);
             return cachedViewerHeights;
-        }
-        private static void GenerateViewerHeights(Pawn currentPawn)
-        {
-            cachedViewerHeights = new();
-            var allPrefDefs = DefDatabase<PreferenceDef>.AllDefsListForReading;
-            for (int i = 0; i < allPrefDefs.Count; i++)
-            {
-                var prefDef = allPrefDefs[i];
-                if (!prefDef.isActive)
-                {
-                    cachedViewerHeights.Add(0f);
-                }
-                else
-                {
-                    float viewerHeight = prefDef.worker.GetViewerHeight(currentPawn);
-                    cachedViewerHeights.Add(viewerHeight);
-                }
-            }
-            resetPreferenceHeights = false;
         }
 
         // Labels
-        public static readonly string effectHeaderString = $"\n\n{"RP_PsycheEffects".Translate()}:\n";
-        public static readonly string shiftForFullString = $"\n\n<i><color=#808080BF>{"RP_ShiftForFull".Translate()}</color></i>";
         public static readonly string kinseyLabel = "RPC_Kinsey".Translate();
         public static readonly string maleAttractionLabel = "RPC_AttractionMale".Translate();
         public static readonly string femaleAttractionLabel = "RPC_AttractionFemale".Translate();
@@ -376,7 +295,7 @@ namespace Maux36.RimPsyche
             string titleString = "RPC_Sexuality".Translate();
             Widgets.Label(titleRect, titleString);
             Vector2 titleTextSize = Text.CalcSize(titleString);
-            Text.Anchor = TextAnchor.UpperLeft;
+            Text.Anchor = TextAnchor.MiddleLeft;
             Text.Font = GameFont.Small;
 
             // Icon on the right
@@ -395,12 +314,12 @@ namespace Maux36.RimPsyche
 
 
             Rect ContentRect = new Rect(innerRect.x, titleRect.yMax, innerRect.width, innerRect.height - titleHeight);
-            float maxSexualityLabelWidth = RimpsycheDatabase.maxEditSexualityLabelWidth + 5f;
+            float maxSexualityLabelWidth = RimpsycheDatabase.maxEditSexualityLabelWidth + sexualityLabelGap;
             float sliderWidth = ContentRect.width - maxSexualityLabelWidth;
 
             Rect KinseyLabelRect = new Rect(ContentRect.x, ContentRect.y, kinseyLabelWidth, sexualityRowHeight);
             Widgets.Label(KinseyLabelRect, kinseyLabel + ": ");
-            Rect KinseyReportRect = new Rect(KinseyLabelRect.xMax, ContentRect.y, sliderWidth, sexualityRowHeight);
+            Rect KinseyReportRect = new Rect(KinseyLabelRect.xMax, ContentRect.y, ContentRect.width - kinseyLabelWidth, sexualityRowHeight);
             Widgets.Label(KinseyReportRect, (compPsyche.Sexuality.GetOrientationReport() + $" ({compPsyche.Sexuality.GetKinseyReport()})"));// + "(" + sexuality.kinsey.ToString("F2") + ")"
 
             Rect sliderRect1 = new Rect(ContentRect.x, KinseyLabelRect.yMax, innerRect.width, sexualityRowHeight);
@@ -419,7 +338,7 @@ namespace Maux36.RimPsyche
                 Widgets.Label(leftLabelRect, femaleAttractionLabel);
                 Text.Anchor = TextAnchor.MiddleRight;
                 Widgets.Label(rightLabelRect, maleAttractionLabel);
-                Text.Anchor = TextAnchor.UpperLeft;
+                Text.Anchor = TextAnchor.MiddleLeft;
 
                 Rect barRect = new Rect(leftLabelRect.xMax, sliderRect1.y + (sexualityRowHeight - sexualityBarHeight) / 2f, sliderRect1.width - (leftLabelRect.width + rightLabelRect.width), sexualityBarHeight);
 
@@ -517,6 +436,10 @@ namespace Maux36.RimPsyche
                     if (!editInterestOn && showPreference)
                     {
                         resetPreferenceHeights = true;
+                        foreach (var pref in DefDatabase<PreferenceDef>.AllDefsListForReading)
+                        {
+                            pref.worker.ClearViewerCache();
+                        }
                     }
                 }
                 TooltipHandler.TipRegion(editIconRect, "RimpsycheEdit".Translate());
@@ -720,6 +643,7 @@ namespace Maux36.RimPsyche
                 if (Widgets.ButtonImage(resetButtonRect, Rimpsyche_UI_Utility.resetIcon))
                 {
                     compPsyche.Personality.Initialize();
+                    PersonalityViewCacheClean();
                 }
                 TooltipHandler.TipRegion(resetButtonRect, "ResetPsycheTooltip".Translate());
             }
@@ -740,6 +664,30 @@ namespace Maux36.RimPsyche
             TooltipHandler.TipRegion(infoIconRect, "RimpsychePersonalityInfo".Translate());
 
             iconX = infoIconRect.xMax + iconSpacing;
+
+            // Sort Mode Toggle
+            Rect sortIconRect = new Rect(iconX, titleRect.y + (titleHeight - iconSize) / 2f, iconSize, iconSize);
+            bool isSortDisabled = showMode == ShowMode.Behavior && !(psycheEnabled && editPersonalityOn);
+            if (isSortDisabled)
+            {
+                Widgets.ButtonImage(sortIconRect, Rimpsyche_UI_Utility.SortButton, barBackgroundColor, barBackgroundColor, false, "RimpsycheSortDisabled".Translate());
+            }
+            else
+            {
+                var (optionTooltipKey, nextOption) = sortOption switch
+                {
+                    PsycheInfoCard.SortMode.Value => ("RimpsycheSortAlphabet", PsycheInfoCard.SortMode.Alphabet),
+                    PsycheInfoCard.SortMode.Alphabet => ("RimpsycheSortDef", PsycheInfoCard.SortMode.Def),
+                    _ => ("RimpsycheSortValue", PsycheInfoCard.SortMode.Value)
+                };
+                if (Widgets.ButtonImage(sortIconRect, Rimpsyche_UI_Utility.SortButton, true, optionTooltipKey.Translate()))
+                {
+                    sortOption = nextOption;
+                    cachedPersonalityData = null; // Rebuilt in the new order below
+                }
+            }
+            iconX = sortIconRect.xMax + iconSpacing;
+
             if (RimpsycheSettings.ShowDispositionInUI)
             {
                 Rect modeChangeIcon = new Rect(iconX, titleRect.y + (titleHeight - iconSize) / 2f, iconSize, iconSize);
@@ -780,8 +728,9 @@ namespace Maux36.RimPsyche
 
             if (!RimpsycheSettings.showFacetInUI && allowEdit)
             {
+                // Left side next to the reset button, since the title's right side is taken by the icons
                 Rect saveButtonRect = new Rect(
-                    titleRect.xMax - resetButtonSize - resetButtonMargin - scrollBarWidth,
+                    resetButtonRect.xMax + resetButtonMargin,
                     titleRect.y + (titleRect.height - resetButtonSize) / 2f,
                     resetButtonSize,
                     resetButtonSize
@@ -822,11 +771,17 @@ namespace Maux36.RimPsyche
 
                     if (Mouse.IsOver(rowRect))
                     {
-                        if (Mouse.IsOver(rowRect))
+                        Widgets.DrawHighlight(rowRect);
+                        int uniqueId = i;
+                        // Cached descriptions go stale while personality or facet values are being edited, so show a live value instead
+                        if (!editPersonalityOn && !editFacetOn)
                         {
-                            Widgets.DrawHighlight(rowRect);
-                            int uniqueId = i;
                             TipSignal tip = new TipSignal(() => Event.current.shift ? pData.CachedFullDescription : pData.CachedDescription, uniqueId);
+                            TooltipHandler.TipRegion(rowRect, tip);
+                        }
+                        else
+                        {
+                            TipSignal tip = new TipSignal(() => $"{def.label.CapitalizeFirst()}: {compPsyche.Personality.GetPersonalityDirect(def) * 100f:F1}\n\n{def.description}", uniqueId);
                             TooltipHandler.TipRegion(rowRect, tip);
                         }
                     }
@@ -958,6 +913,7 @@ namespace Maux36.RimPsyche
                 if (Widgets.ButtonImage(resetButtonRect, Rimpsyche_UI_Utility.resetIcon))
                 {
                     compPsyche.Personality.Initialize();
+                    PersonalityViewCacheClean();
                 }
                 TooltipHandler.TipRegion(resetButtonRect, "ResetPsycheTooltip".Translate());
             }
@@ -986,6 +942,10 @@ namespace Maux36.RimPsyche
                 if (Widgets.ButtonImage(editIconRect, Rimpsyche_UI_Utility.EditButton))
                 {
                     editFacetOn = !editFacetOn;
+                    if (!editFacetOn)
+                    {
+                        PersonalityViewCacheClean();
+                    }
                 }
                 TooltipHandler.TipRegion(editIconRect, "RimpsycheEdit".Translate());
             }
@@ -994,8 +954,9 @@ namespace Maux36.RimPsyche
             Text.Font = GameFont.Small;
             if (allowEdit)
             {
+                // Left side next to the reset button, matching the personality header
                 Rect saveButtonRect = new Rect(
-                    titleRect.xMax - resetButtonSize - resetButtonMargin - scrollBarWidth,
+                    resetButtonRect.xMax + resetButtonMargin,
                     titleRect.y + (titleRect.height - resetButtonSize) / 2f,
                     resetButtonSize,
                     resetButtonSize
@@ -1060,10 +1021,7 @@ namespace Maux36.RimPsyche
                     //newValue = Mathf.Clamp(newValue, lowend, highend);
                     if (newValue != value)
                     {
-                        if (highend != 50f || lowend != 50f)
-                        {
-                            newValue = Rimpsyche_Utility.RestoreGatedValue(newValue, lowend, highend);
-                        }
+                        newValue = Rimpsyche_Utility.RestoreGatedValue(newValue, lowend, highend);
                         if (compPsyche.Personality.SetFacetValue(facet, newValue))
                         {
                             compPsyche.Personality.DirtyCache();
@@ -1171,6 +1129,7 @@ namespace Maux36.RimPsyche
                                 () =>
                                 {
                                     PsycheDataUtil.InjectPsycheData(pawn, PsycheSaveManager.Slots[index].data, false, true);
+                                    PersonalityViewCacheClean();
                                 },
                                 destructive: false
                             )
@@ -1182,6 +1141,7 @@ namespace Maux36.RimPsyche
                     options.Add(new FloatMenuOption("LoadFromSlot".Translate(), () =>
                     {
                         PsycheDataUtil.InjectPsycheData(pawn, PsycheSaveManager.Slots[index].data, false, true);
+                        PersonalityViewCacheClean();
                     }));
                 }
             }
@@ -1228,10 +1188,11 @@ namespace Maux36.RimPsyche
         {
             cachedPersonalityData = null;
             cachedBehaviorData = null;
-            cachedPersonalityEffects.Clear();
+            resetPreferenceHeights = true;
             foreach (var pref in DefDatabase<PreferenceDef>.AllDefsListForReading)
             {
                 pref.worker.ClearEditorCache();
+                pref.worker.ClearViewerCache();
             }
         }
     }
