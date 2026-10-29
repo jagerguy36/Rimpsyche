@@ -26,12 +26,10 @@ namespace Maux36.RimPsyche
         public bool NSFW = false;
         public List<PersonalityWeight> weights;
         public ConvoResultBase result;
-        public float GetScore(CompPsyche initPsyche, CompPsyche reciPsyche, out float initDirection)
+        public float GetScore(CompPsyche initPsyche, CompPsyche reciPsyche, out float initDirection, out float initiatorAttitude, out float recipientAttitude)
         {
             initDirection = 1f;
             float score;
-            float initiatorAttitude;
-            float recipientAttitude;
             if (weights != null)
             {
                 int indicator = 0;

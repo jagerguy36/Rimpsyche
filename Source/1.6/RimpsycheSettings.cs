@@ -11,7 +11,7 @@ namespace Maux36.RimPsyche
         public static bool ShowDispositionInUI => showDispositionInUI && Rimpsyche.DispositionModuleLoaded;
         public static bool ShowThoughtTagEffect => showThoughtTagEffects && Rimpsyche.DispositionModuleLoaded;
 
-        public static bool flavorfulConversationLog = true;
+        public static bool flavorfulConversationLog = false;
 
         public static bool usePsycheTab = false;
         public static bool hideSummaryInBio = false;
@@ -36,7 +36,7 @@ namespace Maux36.RimPsyche
         {
             base.ExposeData();
 
-            Scribe_Values.Look(ref flavorfulConversationLog, "flavorfulConversationLog", true);
+            Scribe_Values.Look(ref flavorfulConversationLog, "flavorfulConversationLog", false);
 
             Scribe_Values.Look(ref usePsycheTab, "usePsycheTab", false);
             Scribe_Values.Look(ref hideSummaryInBio, "hideSummaryInBio", false);

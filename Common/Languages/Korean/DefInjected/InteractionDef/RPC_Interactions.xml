@@ -49,15 +49,12 @@
     <li>talked->[great_adj] 대화를 나눔</li>
     <li>talked->[great_adj] 이야기를 나눔</li>
 
-    <li>great_adv->매우 신나게</li>
-    <li>great_adv->매우 즐겁게</li>
-    <li>great_adv->유쾌하게</li>
-    <li>great_adv->허물없이</li>
+    <li>great_adv->막힘없이</li>
+    <li>great_adv->물 흐르듯</li>
 
-    <li>great_adj->매우 따뜻한</li>
-    <li>great_adj->무척 즐거운</li>
-    <li>great_adj->매우 유쾌한</li>
-    <li>great_adj->진심 어린</li>
+    <li>great_adj->알찬</li>
+    <li>great_adj->허심탄회한</li>
+    <li>great_adj->제대로 된</li>
 
     <li>result->서로 호응하며</li>
     <li>result->서로 깊이 공감하며</li>
@@ -67,9 +64,9 @@
     <li>emotional_result->일맥상통하는 입장에 [happy]</li>
     <li>emotional_result->공통된 견해에 [happy]</li>
 
-    <li>happy->반색하며</li>
-    <li>happy->반가워하며 허심탄회하게</li>
     <li>happy->공감하며</li>
+    <li>happy->기뻐하며</li>
+    <li>happy->흡족해하며</li>
   </Rimpsyche_Conversation_PosGreat.logRulesInitiator.rulesStrings>
 
   <Rimpsyche_Conversation_PosGood.label>대화</Rimpsyche_Conversation_PosGood.label>
@@ -79,15 +76,14 @@
     <li>talked->[good_adj] 대화를 나눔</li>
     <li>talked->[good_adj] 이야기를 나눔</li>
 
-    <li>good_adv->즐겁게</li>
     <li>good_adv->편안하게</li>
-    <li>good_adv->기분 좋게</li>
-    <li>good_adv->화기애애하게</li>
+    <li>good_adv->순조롭게</li>
+    <li>good_adv->수월하게</li>
 
-    <li>good_adj->즐거운</li>
     <li>good_adj->편안한</li>
-    <li>good_adj->기분 좋은</li>
-    <li>good_adj->다정한</li>
+    <li>good_adj->순조로운</li>
+    <li>good_adj->원만한</li>
+    <li>good_adj->좋은</li>
 
     <li>result->유사한 생각에 호응하며</li>
     <li>result->비슷한 견해에 공감하며</li>
@@ -99,7 +95,7 @@
     <li>emotional_result->비슷한 관점을 공유하며 [pleased]</li>
 
     <li>pleased->편안하게</li>
-    <li>pleased->허물없이</li>
+    <li>pleased->순조롭게</li>
     <li>pleased->조화롭게</li>
   </Rimpsyche_Conversation_PosGood.logRulesInitiator.rulesStrings>
 
@@ -131,15 +127,13 @@
 
   <Rimpsyche_Conversation_NegGood.label>대화</Rimpsyche_Conversation_NegGood.label>
   <Rimpsyche_Conversation_NegGood.logRulesInitiator.rulesStrings>
-    <li>talked->[civil_adv] 의논함</li>
-    <li>talked->[civil_adv] 논의함</li>
+    <li>talked->[civil_adv] 논쟁함</li>
     <li>talked->[civil_adj] 토론을 벌임</li>
     <li>talked->[civil_adj] 공방을 주고받음</li>
 
     <li>civil_adv->정중하게</li>
     <li>civil_adv->차분하게</li>
     <li>civil_adv->우호적으로</li>
-    <li>civil_adv->존중하며</li>
 
     <li>civil_adj->우호적인</li>
     <li>civil_adj->점잖은</li>
@@ -152,7 +146,7 @@
 
     <li>emotional_result->정중하고 우호적으로 서로 다른</li>
     <li>emotional_result->건설적인 논의를 이끌어내며 서로 다른</li>
-    <li>emotional_result->각기 다른 서로의 입장을 경청하며</li>
+    <li>emotional_result->서로의 다른 입장을 경청하며</li>
   </Rimpsyche_Conversation_NegGood.logRulesInitiator.rulesStrings>
 
   <Rimpsyche_Conversation_NegBad.label>대화</Rimpsyche_Conversation_NegBad.label>
