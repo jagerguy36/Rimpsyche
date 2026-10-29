@@ -25,7 +25,7 @@ namespace Maux36.RimPsyche.TIE
     {
         public static MethodBase TargetMethod()
         {
-            return AccessTools.Constructor(typeof(PlayLogEntry_InteractionConversation), new Type[] { typeof(InteractionDef), typeof(Pawn), typeof(Pawn), typeof(string), typeof(string), typeof(float), typeof(bool), typeof(List<RulePackDef>) });
+            return AccessTools.Constructor(typeof(PlayLogEntry_InteractionConversation), new Type[] { typeof(InteractionDef), typeof(Pawn), typeof(Pawn), typeof(string), typeof(string), typeof(float), typeof(float), typeof(float), typeof(bool), typeof(List<RulePackDef>) });
         }
 
         public static void Prefix(ref InteractionDef intDef, Pawn initiator, List<RulePackDef> extraSentencePacks)
