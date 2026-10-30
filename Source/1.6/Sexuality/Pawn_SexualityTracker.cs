@@ -103,31 +103,6 @@ namespace Maux36.RimPsyche
         /// The keys can be used to determine whether this pawn has ever found the other pawn attractive enough to consider for a relationship.
         /// </summary>
         public Dictionary<int, float> relationship = new();
-
-        //Cache
-        private readonly Dictionary<int, PawnRelationDef> _loversCache = new();
-        private bool loversCacheDirty = true;
-        public bool TryGetRomanticRelationDef(Pawn target, out PawnRelationDef def)
-        {
-            if (loversCacheDirty)
-            {
-                _loversCache.Clear();
-                var relations = pawn.relations.DirectRelations;
-                for (int i = 0; i < relations.Count; i++)
-                {
-                    if(SexualityHelper.LoverDefHash.Contains(relations[i].def) && relations[i].otherPawn != null)
-                    {
-                        _loversCache[relations[i].otherPawn.thingIDNumber] = relations[i].def;
-                    }
-                }
-                loversCacheDirty = false;
-            }
-            return _loversCache.TryGetValue(target.thingIDNumber, out def);
-        }
-        public void DirtyLoversCache()
-        {
-            loversCacheDirty = true;
-        }
         public float GetLatestRebuffImpact(Pawn target)
         {
             Thought_MemorySocial latestThought = null;
@@ -145,8 +120,6 @@ namespace Maux36.RimPsyche
             if (latestThought == null) return 0;
             return latestThought.OpinionOffset();
         }
-        public int crushPawnIdNumber = -1;
-        public int crushEndTick = -1;
 
         //Preference
         private Dictionary<string, List<PrefEntry>> _preference = new();
@@ -232,7 +205,7 @@ namespace Maux36.RimPsyche
         public float GetRelationshipCeliing(Pawn target)
         {
             float max = 0.1f;
-            if (TryGetRomanticRelationDef(target, out _))
+            if (compPsyche.TryGetRomanticRelationDef(target, out _))
                 max = 1f;
             //0.1 [No/LB] | 0.35 [SH] | 0.6 [D] | 0.85 [LF] | 1 [L+]
             return max;
@@ -266,7 +239,6 @@ namespace Maux36.RimPsyche
             shouldValidate = false;
             adjustmentDirty = true;
             driveDirty = true;
-            loversCacheDirty = true;
             //Set up near-constant variable to be used frequently
             minAdultAge = compPsyche.MinAdultAge;
             fullAdultAge = compPsyche.FullAdultAge;
@@ -361,7 +333,6 @@ namespace Maux36.RimPsyche
             shouldValidate = false;
             adjustmentDirty = true;
             driveDirty = true;
-            loversCacheDirty = true;
             shouldCheckSuppressed = true;
             preferenceCacheDirty = true;
 
@@ -775,7 +746,7 @@ namespace Maux36.RimPsyche
                 if (Rimpsyche.SexualityModuleLoaded)
                 {
                     var allPreference = DefDatabase<PreferenceDef>.AllDefsListForReading;
-                    foreach(var prefDef in allPreference)
+                    foreach (var prefDef in allPreference)
                     {
                         if (prefDef.isActive)
                         {

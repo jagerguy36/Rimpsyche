@@ -88,6 +88,28 @@ namespace Maux36.RimPsyche
                             foundInjection = true;
                             yield return new CodeInstruction(OpCodes.Ldsfld, AccessTools.Field(typeof(DefOfRimpsyche), nameof(DefOfRimpsyche.Rimpsyche_StartConversation)));
                             yield return new CodeInstruction(OpCodes.Beq, skiplabel);
+                            if (Rimpsyche.RelationshipModuleLoaded)
+                            {
+                                var DefOfRPR = AccessTools.TypeByName("Maux36.RimPsyche.Relationship.DefOfRPR");
+                                var FlirtInteraction = AccessTools.Field(DefOfRPR, "RPR_RomanticInteraction_StartFlirt");
+                                if (FlirtInteraction != null)
+                                {
+                                    yield return new CodeInstruction(OpCodes.Ldarg_2);
+                                    yield return new CodeInstruction(OpCodes.Ldsfld, FlirtInteraction);
+                                    yield return new CodeInstruction(OpCodes.Beq, skiplabel);
+                                }
+                                var AffectionInteraction = AccessTools.Field(DefOfRPR, "RPR_RomanticInteraction_ShowAffection");
+                                if (AffectionInteraction != null)
+                                {
+                                    yield return new CodeInstruction(OpCodes.Ldarg_2);
+                                    yield return new CodeInstruction(OpCodes.Ldsfld, AffectionInteraction);
+                                    yield return new CodeInstruction(OpCodes.Beq, skiplabel);
+                                }
+                                else
+                                {
+                                    Log.Message("Patch failed");
+                                }
+                            }
                             yield return new CodeInstruction(OpCodes.Br, normallabel);
 
                             yield return new CodeInstruction(OpCodes.Ldc_I4_1).WithLabels(skiplabel);

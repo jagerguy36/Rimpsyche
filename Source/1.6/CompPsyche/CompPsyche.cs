@@ -58,6 +58,72 @@ namespace Maux36.RimPsyche
         private Pawn_PersonalityTracker personality;
         private Pawn_InterestTracker interests;
         private Pawn_SexualityTracker sexuality;
+        private Pawn_RelationshipTracker relationship;
+
+        //Lovers Cache
+        private bool loversCacheDirty = true;
+        private readonly Dictionary<int, PawnRelationDef> _loversCache = new();
+        public IReadOnlyDictionary<int, PawnRelationDef> LoversCache
+        {
+            get
+            {
+                if (loversCacheDirty) BuildLoversCache(out _);
+                return _loversCache;
+            }
+        }
+        private void BuildLoversCache(out bool hasCasualLover)
+        {
+            _loversCache.Clear();
+            hasCasualLover = false;
+            loversCacheDirty = false;
+            List<DirectPawnRelation> relations = parentPawn.relations?.DirectRelations;
+            if (relations == null) return;
+            for (int i = 0; i < relations.Count; i++)
+            {
+                var relation = relations[i];
+                if (!SexualityHelper.LoverDefHash.Contains(relation.def) || relation.otherPawn == null) continue;
+                _loversCache[relation.otherPawn.thingIDNumber] = relation.def;
+                if (RimpsycheDatabase.RelationCullTick.ContainsKey(relation.def)) hasCasualLover = true;
+            }
+        }
+        public void EvalShouldTick()
+        {
+            BuildLoversCache(out bool hasCasualLover);
+            shouldTick = hasCasualLover;
+        }
+        public bool TryGetRomanticRelationDef(Pawn target, out PawnRelationDef def) => LoversCache.TryGetValue(target.thingIDNumber, out def);
+        public void DirtyLoversCache()
+        {
+            loversCacheDirty = true;
+        }
+        private const int CullCheckInterval = 60000; // daily
+        public bool shouldTick = false;
+        public override void CompTickInterval(int delta)
+        {
+            base.CompTickInterval(delta);
+            if (!shouldTick) return;
+            if (!parentPawn.IsHashIntervalTick(CullCheckInterval, delta)) return;
+            Relationship.CullStaleRelations();
+        }
+        //Activities
+        private int busyUntilTick = -1;
+        public bool IsBusy => Find.TickManager.TicksGame < busyUntilTick;
+        public bool TryClaimBusy(int maxTicks = 20000)
+        {
+            if (IsBusy) return false;
+            busyUntilTick = Find.TickManager.TicksGame + maxTicks;
+            return true;
+        }
+        public bool ReleaseBusy()
+        {
+            if (!IsBusy)
+            {
+                busyUntilTick = -1;
+                return false;
+            }
+            busyUntilTick = -1;
+            return true;
+        }
 
         //Progress
         public int progressTick = -1;
@@ -188,6 +254,19 @@ namespace Maux36.RimPsyche
             }
             set => sexuality = value;
         }
+        public Pawn_RelationshipTracker Relationship
+        {
+            get
+            {
+                if (relationship == null)
+                {
+                    relationship = new Pawn_RelationshipTracker(parentPawn, this);
+                    relationship.Initialize();
+                }
+                return relationship;
+            }
+            set => relationship = value;
+        }
         public bool CheckEnabled()
         {
             //Core only checks for inhumanized and shambler.
@@ -244,8 +323,17 @@ namespace Maux36.RimPsyche
             //Initialize even when not null for save-game trait safety with Sexuality Module.
             sexuality.Initialize(generate, allowGay);
         }
+        public void RelationshipSetup()
+        {
+            if (relationship == null)
+            {
+                relationship = new Pawn_RelationshipTracker(parentPawn, this);
+                relationship.Initialize();
+            }
+        }
         public void InjectPsycheData(PsycheData psyche, bool preserveMemory, bool randomizeSexualityIfUndefined = true)
         {
+            loversCacheDirty = true;
             personality ??= new Pawn_PersonalityTracker(parentPawn, this);
             personality.Initialize(psyche);
             interests ??= new Pawn_InterestTracker(parentPawn, this);
@@ -255,6 +343,8 @@ namespace Maux36.RimPsyche
                 sexuality ??= new Pawn_SexualityTracker(parentPawn, this);
                 sexuality.InjectData(psyche, preserveMemory, randomizeSexualityIfUndefined);
             }
+            relationship ??= new Pawn_RelationshipTracker(parentPawn, this);
+            relationship.Initialize(psyche);
         }
 
         public void DirtyTraitCache(TraitDef def)
@@ -317,6 +407,7 @@ namespace Maux36.RimPsyche
         public override void PostExposeData()
         {
             base.PostExposeData();
+            Scribe_Values.Look(ref busyUntilTick, "busyUntilTick", -1);
             Scribe_Values.Look(ref progressTick, "progressTick", -1);
             Scribe_Values.Look(ref progressLastCause, "progressLastCause", null);
             Scribe_Values.Look(ref progressLastCauseIndex, "progressLastCauseIndex", 1);
@@ -330,11 +421,14 @@ namespace Maux36.RimPsyche
             Scribe_Deep.Look(ref personality, "personality", new object[] { parentPawn, this });
             Scribe_Deep.Look(ref interests, "interests", new object[] { parentPawn, this });
             Scribe_Deep.Look(ref sexuality, "sexuality", new object[] { parentPawn, this });
+            Scribe_Deep.Look(ref relationship, "relationship", new object[] { parentPawn, this });
+
             if (Scribe.mode == LoadSaveMode.PostLoadInit)
             {
                 PersonalitySetup();
                 InterestSetup();
                 SexualitySetup(generate: false);
+                RelationshipSetup();
                 if (Rimpsyche.DispositionModuleLoaded)
                 {
                     if (progressTick < 0)
@@ -374,6 +468,9 @@ namespace Maux36.RimPsyche
             interests.Initialize();
             sexuality ??= new Pawn_SexualityTracker(parentPawn, this);
             sexuality.Initialize(generate: false);
+            relationship = new Pawn_RelationshipTracker(parentPawn, this);
+            relationship.Initialize();
+            shouldTick = false;
             CleanShame();
             NullifyCheck();
         }

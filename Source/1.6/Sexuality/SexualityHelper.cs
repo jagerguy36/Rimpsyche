@@ -84,6 +84,10 @@ namespace Maux36.RimPsyche
         }
 
         public static HashSet<int> NonSexualDefShorthashSet = new();
+        /// <summary>
+        /// Register RelationDefs that shuould count as romantic relations
+        /// Used for TryGetRomanticRelationDef
+        /// </summary>
         public static HashSet<PawnRelationDef> LoverDefHash = new();
         public static HashSet<int> SexualityTraitHashSet = new();
         private static HashSet<PawnRelationDef> GetLoverDefs()

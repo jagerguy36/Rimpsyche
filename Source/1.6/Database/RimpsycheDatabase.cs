@@ -41,6 +41,12 @@ namespace Maux36.RimPsyche
         public static float totalPreferenceEditorfHeight = 0f;
         public static float dispositionIntensityWidth;
 
+        //Relationship Module Defs
+        public static ThoughtDef DateThoughtDef = null;
+        public static ThoughtDef WentNowhereThoughtDef = null;
+        public static Dictionary<PawnRelationDef, int> RelationCullTick = new();
+        public static Dictionary<PawnRelationDef, int> RelationMaxAgeTick = new();
+
         public static Dictionary<string, string> IntensityKeysDefault = new Dictionary<string, string>()
         {
             { "RimPsycheIntensityExtremely", "Extremely" },
@@ -340,6 +346,18 @@ namespace Maux36.RimPsyche
                 //securityFactor = securityFactor > 0f ? 1f + (securityFactor / 30f) : 1f + (securityFactor / 10f); // 0.9~1.1
                 securityFactor = 1f + securityFactor / 30f;
                 return securityFactor;
+            },
+            RimpsycheFormulaManager.FormulaIdDict
+        );
+        public static RimpsycheFormula RelationshipPatience = new(
+            "RelationshipPatience",
+            (tracker) =>
+            {
+                float loyalty = tracker.GetPersonality(PersonalityDefOf.Rimpsyche_Loyalty);
+                float passion = tracker.GetPersonality(PersonalityDefOf.Rimpsyche_Passion);
+                float pursuit = loyalty * (1 + passion) * 0.5f; //-1~1
+                float trust = tracker.GetPersonality(PersonalityDefOf.Rimpsyche_Trust);
+                return 1f + 0.25f * pursuit + 0.05f * trust; //0.7~1.3
             },
             RimpsycheFormulaManager.FormulaIdDict
         );
