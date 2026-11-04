@@ -63,7 +63,7 @@ namespace Maux36.RimPsyche
         //Lovers Cache
         private bool loversCacheDirty = true;
         private readonly Dictionary<int, PawnRelationDef> _loversCache = new();
-        public IReadOnlyDictionary<int, PawnRelationDef> LoversCache
+        public Dictionary<int, PawnRelationDef> LoversCache
         {
             get
             {
@@ -71,10 +71,10 @@ namespace Maux36.RimPsyche
                 return _loversCache;
             }
         }
-        private void BuildLoversCache()
+        public void BuildLoversCache()
         {
             _loversCache.Clear();
-            hasCasualLover = false;
+            bool hasCasualLover = false;
             loversCacheDirty = false;
             List<DirectPawnRelation> relations = parentPawn.relations?.DirectRelations;
             if (relations == null) return;
@@ -93,7 +93,11 @@ namespace Maux36.RimPsyche
             loversCacheDirty = true;
         }
         private const int CullCheckInterval = 60000; // daily
-        public bool shouldTick = false;
+        private bool shouldTick = false;
+        public bool ShouldTick => shouldTick;
+        //DirectRelation Change invalidates LoversCache but does not rebuild it until called.
+        //StartTicking allows the ticking to begin without building the cache immediately.
+        public void StartTicking() { shouldTick = true; }
         public override void CompTickInterval(int delta)
         {
             base.CompTickInterval(delta);

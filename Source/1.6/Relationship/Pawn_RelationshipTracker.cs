@@ -41,9 +41,9 @@ namespace Maux36.RimPsyche
             lastDateHangoutTick = tick;
         }
         //Used by ShowAffection Interaction to Calculate DatePull.
-        private Dictionary<int, int> lastDateTickWith = new();
+        private readonly Dictionary<int, int> lastDateTickWith = new();
         private bool lastDateTickWithDirty = true;
-        public IReadOnlyDictionary<int, int> LastDateTickWith
+        public Dictionary<int, int> LastDateTickWith
         {
             get
             {
@@ -117,7 +117,7 @@ namespace Maux36.RimPsyche
         public void Notify_CasualRelationFormed(Pawn other)
         {
             lastRomanceInteractionTick[other.thingIDNumber] = Find.TickManager.TicksGame;
-            compPsyche.shouldTick = true;
+            compPsyche.StartTicking();
         }
         public void RegisterRomanceInteraction(Pawn other)
         {
@@ -201,7 +201,6 @@ namespace Maux36.RimPsyche
             pawn.relations.RemoveDirectRelation(rel);   // reflexive: removes both sides
             lastRomanceInteractionTick.Remove(other.thingIDNumber);
             ConsumeRainCheck(other);
-            compPsyche.BuildLoversCache();
 
             var otherPsyche = other.compPsyche();
             var otherRelationship = otherPsyche?.Relationship;
@@ -209,7 +208,6 @@ namespace Maux36.RimPsyche
             {
                 otherRelationship.lastRomanceInteractionTick.Remove(pawn.thingIDNumber);
                 otherRelationship.ConsumeRainCheck(pawn);
-                otherPsyche.BuildLoversCache();
             }
 
             if (wentNowhere && RimpsycheDatabase.WentNowhereThoughtDef != null)
