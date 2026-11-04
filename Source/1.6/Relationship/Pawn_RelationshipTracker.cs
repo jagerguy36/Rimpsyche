@@ -135,7 +135,7 @@ namespace Maux36.RimPsyche
         }
         public void Notify_BecameCommitted(Pawn other)
         {
-            compPsyche.EvalShouldTick();
+            compPsyche.BuildLoversCache();
         }
         private static readonly List<(DirectPawnRelation rel, bool wentNowhere)> tmpToDissolve = [];
         public void CullStaleRelations()
@@ -201,14 +201,15 @@ namespace Maux36.RimPsyche
             pawn.relations.RemoveDirectRelation(rel);   // reflexive: removes both sides
             lastRomanceInteractionTick.Remove(other.thingIDNumber);
             ConsumeRainCheck(other);
-            compPsyche.EvalShouldTick();
+            compPsyche.BuildLoversCache();
 
-            var otherRelationship = other.compPsyche()?.Relationship;
+            var otherPsyche = other.compPsyche();
+            var otherRelationship = otherPsyche?.Relationship;
             if (otherRelationship != null)
             {
                 otherRelationship.lastRomanceInteractionTick.Remove(pawn.thingIDNumber);
                 otherRelationship.ConsumeRainCheck(pawn);
-                otherRelationship.compPsyche.EvalShouldTick();
+                otherPsyche.BuildLoversCache();
             }
 
             if (wentNowhere && RimpsycheDatabase.WentNowhereThoughtDef != null)
@@ -279,7 +280,7 @@ namespace Maux36.RimPsyche
                 rainCheckMemory ??= new();
                 if (Rimpsyche.RelationshipModuleLoaded)
                 {
-                    compPsyche.EvalShouldTick(); //Builds Lover cache
+                    compPsyche.BuildLoversCache(); //evaluate shouldTick
                     InitializeDateCache(); //Build LastHangoutTick cache
                     PruneRecordsOnLoad();
                 }

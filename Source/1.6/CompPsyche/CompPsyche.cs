@@ -67,11 +67,11 @@ namespace Maux36.RimPsyche
         {
             get
             {
-                if (loversCacheDirty) BuildLoversCache(out _);
+                if (loversCacheDirty) BuildLoversCache();
                 return _loversCache;
             }
         }
-        private void BuildLoversCache(out bool hasCasualLover)
+        private void BuildLoversCache()
         {
             _loversCache.Clear();
             hasCasualLover = false;
@@ -85,10 +85,6 @@ namespace Maux36.RimPsyche
                 _loversCache[relation.otherPawn.thingIDNumber] = relation.def;
                 if (RimpsycheDatabase.RelationCullTick.ContainsKey(relation.def)) hasCasualLover = true;
             }
-        }
-        public void EvalShouldTick()
-        {
-            BuildLoversCache(out bool hasCasualLover);
             shouldTick = hasCasualLover;
         }
         public bool TryGetRomanticRelationDef(Pawn target, out PawnRelationDef def) => LoversCache.TryGetValue(target.thingIDNumber, out def);
