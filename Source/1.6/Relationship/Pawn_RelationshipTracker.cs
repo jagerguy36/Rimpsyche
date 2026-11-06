@@ -22,6 +22,13 @@ namespace Maux36.RimPsyche
         }
         public int crushPawnIdNumber = -1;
         public int crushEndTick = -1;
+        public void RegisterCrush(Pawn target, int durationTicks)
+        {
+            crushEndTick = Find.TickManager.TicksGame + durationTicks;
+            crushPawnIdNumber = target.thingIDNumber;
+            var sexualityRelationship = compPsyche.Sexuality.relationship;
+            if (!sexualityRelationship.ContainsKey(target.thingIDNumber)) sexualityRelationship[target.thingIDNumber] = 0f;
+        }
         
         //Flirt
         private int lastFlirtedTick = -60000;
