@@ -217,6 +217,11 @@ namespace Maux36.RimPsyche
                 otherRelationship.ConsumeRainCheck(pawn);
             }
 
+            //Relation clamping. Drifted apart gets no-relation ceiling (0.1). Went nowhere is like a breakup (0.05).
+            float clampTo = wentNowhere ? 0.05f : 0.1f;
+            compPsyche.Sexuality.ClampRelationshipWith(other, clampTo);
+            otherPsyche?.Sexuality.ClampRelationshipWith(pawn, clampTo);
+
             if (wentNowhere && RimpsycheDatabase.WentNowhereThoughtDef != null)
             {
                 //Add went nowhere thought that should prevent further romance until it expires.
