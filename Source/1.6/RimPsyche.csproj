@@ -82,6 +82,7 @@
     <Compile Include="HarmonyPatches\EditorMods\EdB_PanelAppearance_Draw_Patch.cs" />
     <Compile Include="HarmonyPatches\GateAndScopeRelated\GeneTracker_Notify_GeneChanged.cs" />
     <Compile Include="HarmonyPatches\Interactions\NegativeInteractionUtility_Patch.cs" />
+    <Compile Include="HarmonyPatches\Relationship\InteractionWorker_Breakup_Interacted_Patch.cs" />
     <Compile Include="HarmonyPatches\EnabledCheck\Hediff_Inhumanized_fixes.cs" />
     <Compile Include="HarmonyPatches\GateAndScopeRelated\Pawn_TraitChanged.cs" />
     <Compile Include="Personality\Pawn_PersonalityTracker.cs" />
@@ -102,7 +103,9 @@
     <Compile Include="PsycheData\PsycheDataUtil.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PsycheData\PsycheSaveManager.cs" />
+    <Compile Include="Relationship\Pawn_RelationshipTracker.cs" />
     <Compile Include="Rimpsyche.cs" />
+    <Compile Include="RimpsycheStringListDef.cs" />
     <Compile Include="RimpsycheSettings.cs" />
     <Compile Include="RimpsycheSexualitySettings.cs" />
     <Compile Include="RimpsycheUI\Rimpsyche_UI_Utility.cs" />
@@ -134,7 +137,7 @@
   </Target>
   <Import Project="packages\Krafs.Publicizer.2.3.2\build\Krafs.Publicizer.targets" Condition="Exists('packages\Krafs.Publicizer.2.3.2\build\Krafs.Publicizer.targets')" />
   <ItemGroup>
-	<Publicize Include="Assembly-CSharp:Verse.InspectTabBase.size" />
+    <Publicize Include="Assembly-CSharp:Verse.InspectTabBase.size" />
     <Publicize Include="Assembly-CSharp:RimWorld.ITab_Pawn_Character.PawnToShowInfoAbout" />
   </ItemGroup>
 </Project>
