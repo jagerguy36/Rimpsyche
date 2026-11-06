@@ -204,11 +204,9 @@ namespace Maux36.RimPsyche
         }
         public float GetRelationshipCeliing(Pawn target)
         {
-            float max = 0.1f;
-            if (compPsyche.TryGetRomanticRelationDef(target, out _))
-                max = 1f;
-            //0.1 [No/LB] | 0.35 [SH] | 0.6 [D] | 0.85 [LF] | 1 [L+]
-            return max;
+            //0.1 [No] | 0.2 [LB] | 0.35 [SH] | 0.6 [D] | 0.85 [LF] | 1 [L+]
+            if (!compPsyche.TryGetRomanticRelationDef(target, out var relationDef)) return 0.1f;
+            return RimpsycheDatabase.RelationshipCeiling.TryGetValue(relationDef, out float ceiling) ? ceiling : 1f;
         }
         public float GetRelationshipWith(Pawn target)
         {

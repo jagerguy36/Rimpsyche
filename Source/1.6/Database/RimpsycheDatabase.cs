@@ -46,6 +46,7 @@ namespace Maux36.RimPsyche
         public static ThoughtDef WentNowhereThoughtDef = null;
         public static Dictionary<PawnRelationDef, int> RelationCullTick = new();
         public static Dictionary<PawnRelationDef, int> RelationMaxAgeTick = new();
+        public static Dictionary<PawnRelationDef, float> RelationshipCeiling = new();
 
         public static Dictionary<string, string> IntensityKeysDefault = new Dictionary<string, string>()
         {
