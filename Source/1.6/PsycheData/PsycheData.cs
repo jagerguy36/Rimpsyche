@@ -48,7 +48,10 @@ namespace Maux36.RimPsyche
                 knownOrientation.RemoveWhere(id => VersionManager.DiscardedPawnThingIDnumber.Contains(id));
                 foreach (int id in relationship.Keys.ToList())
                 {
-                    if (VersionManager.DiscardedPawnThingIDnumber.Contains(id)) relationship.Remove(id);
+                    if (VersionManager.DiscardedPawnThingIDnumber.Contains(id))
+                    {
+                        relationship.Remove(id);
+                    }
                 }
             }
             Scribe_Values.Look(ref imagination, "imagination", 0, false);
