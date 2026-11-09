@@ -42,7 +42,7 @@ namespace Maux36.RimPsyche
         public static float dispositionIntensityWidth;
 
         //Relationship Module Defs
-        public static ThoughtDef DateThoughtDef = null;
+        public static HashSet<ThoughtDef> DateThoughtDefs = new();
         public static ThoughtDef WentNowhereThoughtDef = null;
         public static Dictionary<PawnRelationDef, int> RelationCullTick = new();
         public static Dictionary<PawnRelationDef, int> RelationMaxAgeTick = new();

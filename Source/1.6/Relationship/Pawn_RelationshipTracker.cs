@@ -63,12 +63,12 @@ namespace Maux36.RimPsyche
             lastDateTickWithDirty = false;
             lastDateTickWith.Clear();
             var memories = pawn.needs?.mood?.thoughts?.memories?.Memories;
-            if (memories == null || RimpsycheDatabase.DateThoughtDef == null) return;
+            if (memories == null || RimpsycheDatabase.DateThoughtDefs.Count == 0) return;
             int currentTick = Find.TickManager.TicksGame;
             for (int i = 0; i < memories.Count; i++)
             {
                 Thought_Memory memory = memories[i];
-                if (memory.def != RimpsycheDatabase.DateThoughtDef || memory.otherPawn == null) continue;
+                if (!RimpsycheDatabase.DateThoughtDefs.Contains(memory.def) || memory.otherPawn == null) continue;
                 int partnerId = memory.otherPawn.thingIDNumber;
                 int dateTick = currentTick - memory.age;
                 if (!lastDateTickWith.TryGetValue(partnerId, out int existingTick) || dateTick > existingTick)
