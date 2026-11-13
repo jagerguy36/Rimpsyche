@@ -350,6 +350,38 @@ namespace Maux36.RimPsyche
             },
             RimpsycheFormulaManager.FormulaIdDict
         );
+        public static RimpsycheFormula LoverArgumentBase = new(
+            "LoverArgumentBase",
+            (tracker) =>
+            {
+                var aggressiveness = 1.7f * tracker.GetPersonality(PersonalityDefOf.Rimpsyche_Aggressiveness);
+                var coldheartedness = -1.3f * tracker.GetPersonality(PersonalityDefOf.Rimpsyche_Compassion);
+                var tension = 0.5f * tracker.GetPersonality(PersonalityDefOf.Rimpsyche_Tension);
+                var cooperationM = -0.6f * Mathf.Min(0f, tracker.GetPersonality(PersonalityDefOf.Rimpsyche_Competitiveness));
+                var sociabilityM = 0.4f * Mathf.Max(0f, tracker.GetPersonality(PersonalityDefOf.Rimpsyche_Sociability));
+                float intentFactor = (aggressiveness + coldheartedness + tension - cooperationM - sociabilityM); // -4.5~3.5
+                float initLoyalty = tracker.GetPersonality(PersonalityDefOf.Rimpsyche_Loyalty) * 3.5f; // -3.5f ~ 3.5f
+                intentFactor -= initLoyalty; // -8~7
+                return intentFactor;
+            },
+            RimpsycheFormulaManager.FormulaIdDict
+        );
+
+        public static RimpsycheFormula MinOpinionLoverArgumentFactor = new(
+            "MinOpinionLoverArgumentFactor",
+            (tracker) =>
+            {
+                //Higher: More fights
+                float intentFactor = tracker.Evaluate(LoverArgumentBase); // -8~7
+                float opinionFactor = -3f; // -3~3 > -3
+                intentFactor -= opinionFactor; // -11~10 > -5~10
+                intentFactor = intentFactor > 0f ? 1f + (intentFactor * 0.2f) : 1f + (intentFactor * 0.085f); //0.065~3 > 0.575~3
+                float deliveryFactor = 1f - tracker.GetPersonality(PersonalityDefOf.Rimpsyche_Tact) * 0.15f; // 0.85~1.15
+                return intentFactor * deliveryFactor; //0.05525~3.45 > 0.48875~3.45
+            },
+            RimpsycheFormulaManager.FormulaIdDict
+        );
+
         public static RimpsycheFormula RelationshipPatience = new(
             "RelationshipPatience",
             (tracker) =>

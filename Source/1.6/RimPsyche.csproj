@@ -82,6 +82,7 @@
     <Compile Include="HarmonyPatches\EditorMods\EdB_PanelAppearance_Draw_Patch.cs" />
     <Compile Include="HarmonyPatches\GateAndScopeRelated\GeneTracker_Notify_GeneChanged.cs" />
     <Compile Include="HarmonyPatches\Interactions\NegativeInteractionUtility_Patch.cs" />
+    <Compile Include="HarmonyPatches\Interactions\ROR_Need_Romance_GetArgumentChance_Patch.cs" />
     <Compile Include="HarmonyPatches\Relationship\InteractionWorker_Breakup_Interacted_Patch.cs" />
     <Compile Include="HarmonyPatches\EnabledCheck\Hediff_Inhumanized_fixes.cs" />
     <Compile Include="HarmonyPatches\GateAndScopeRelated\Pawn_TraitChanged.cs" />
