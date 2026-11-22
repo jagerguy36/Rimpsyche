@@ -230,12 +230,6 @@ namespace Maux36.RimPsyche
                 Notify_WentNowhereWith(other);
                 otherRelationship?.Notify_WentNowhereWith(pawn);
             }
-
-            if (PawnUtility.ShouldSendNotificationAbout(pawn) || PawnUtility.ShouldSendNotificationAbout(other))
-            {
-                string key = wentNowhere ? "RPR_WentNowhere" : "RPR_DriftedApart";
-                Messages.Message(key.Translate(pawn.Named("PAWN1"), other.Named("PAWN2")), new LookTargets(pawn, other), MessageTypeDefOf.SilentInput, historical: false);
-            }
         }
         //RainCheck
         public const int RainCheckValidTick = 5 * 60000; //A raincheck holds for 5 days
