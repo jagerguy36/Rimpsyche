@@ -41,6 +41,14 @@ namespace Maux36.RimPsyche
         public static float totalPreferenceEditorfHeight = 0f;
         public static float dispositionIntensityWidth;
 
+        //Relationship Module Defs
+        public static HashSet<ThoughtDef> DateThoughtDefs = new();
+        public static ThoughtDef WentNowhereThoughtDef = null;
+        public static Dictionary<PawnRelationDef, int> RelationCullTick = new();
+        public static Dictionary<PawnRelationDef, int> RelationMaxAgeTick = new();
+        public static Dictionary<PawnRelationDef, float> RelationshipCeiling = new();
+        public static HashSet<ThoughtDef> RebuffThoughtDefs = new();
+
         public static Dictionary<string, string> IntensityKeysDefault = new Dictionary<string, string>()
         {
             { "RimPsycheIntensityExtremely", "Extremely" },
@@ -80,6 +88,9 @@ namespace Maux36.RimPsyche
             maxPersonalityIntensityWidth = Mathf.Max(Text.CalcSize("RimPsycheIntensityKeyVery".Translate()).x, maxPersonalityIntensityWidth);
             maxPersonalityIntensityWidth = Mathf.Max(Text.CalcSize("RimPsycheIntensityKeySomewhat".Translate()).x, maxPersonalityIntensityWidth);
             maxPersonalityIntensityWidth = Mathf.Max(Text.CalcSize("RimPsycheIntensityKeyMarginally".Translate()).x, maxPersonalityIntensityWidth);
+
+            //HashSetConstruction
+            RebuffThoughtDefs.Add(ThoughtDefOf.RebuffedMyRomanceAttempt);
 
             //Sexuality Label consideration
             if (Rimpsyche.SexualityModuleLoaded)
@@ -340,6 +351,61 @@ namespace Maux36.RimPsyche
                 //securityFactor = securityFactor > 0f ? 1f + (securityFactor / 30f) : 1f + (securityFactor / 10f); // 0.9~1.1
                 securityFactor = 1f + securityFactor / 30f;
                 return securityFactor;
+            },
+            RimpsycheFormulaManager.FormulaIdDict
+        );
+        public static RimpsycheFormula LoverArgumentBase = new(
+            "LoverArgumentBase",
+            (tracker) =>
+            {
+                var aggressiveness = 1.7f * tracker.GetPersonality(PersonalityDefOf.Rimpsyche_Aggressiveness);
+                var coldheartedness = -1.3f * tracker.GetPersonality(PersonalityDefOf.Rimpsyche_Compassion);
+                var tension = 0.5f * tracker.GetPersonality(PersonalityDefOf.Rimpsyche_Tension);
+                var cooperationM = -0.6f * Mathf.Min(0f, tracker.GetPersonality(PersonalityDefOf.Rimpsyche_Competitiveness));
+                var sociabilityM = 0.4f * Mathf.Max(0f, tracker.GetPersonality(PersonalityDefOf.Rimpsyche_Sociability));
+                float intentFactor = (aggressiveness + coldheartedness + tension - cooperationM - sociabilityM); // -4.5~3.5
+                float initLoyalty = tracker.GetPersonality(PersonalityDefOf.Rimpsyche_Loyalty) * 3.5f; // -3.5f ~ 3.5f
+                intentFactor -= initLoyalty; // -8~7
+                return intentFactor;
+            },
+            RimpsycheFormulaManager.FormulaIdDict
+        );
+
+        public static RimpsycheFormula MinOpinionLoverArgumentFactor = new(
+            "MinOpinionLoverArgumentFactor",
+            (tracker) =>
+            {
+                //Higher: More fights
+                float intentFactor = tracker.Evaluate(LoverArgumentBase); // -8~7
+                float opinionFactor = -3f; // -3~3 > -3
+                intentFactor -= opinionFactor; // -11~10 > -5~10
+                intentFactor = intentFactor > 0f ? 1f + (intentFactor * 0.2f) : 1f + (intentFactor * 0.085f); //0.065~3 > 0.575~3
+                float deliveryFactor = 1f - tracker.GetPersonality(PersonalityDefOf.Rimpsyche_Tact) * 0.15f; // 0.85~1.15
+                return intentFactor * deliveryFactor; //0.05525~3.45 > 0.48875~3.45
+            },
+            RimpsycheFormulaManager.FormulaIdDict
+        );
+
+        public static RimpsycheFormula RelationshipPatience = new(
+            "RelationshipPatience",
+            (tracker) =>
+            {
+                float loyalty = tracker.GetPersonality(PersonalityDefOf.Rimpsyche_Loyalty);
+                float passion = tracker.GetPersonality(PersonalityDefOf.Rimpsyche_Passion);
+                float pursuit = loyalty * (1 + passion) * 0.5f; //-1~1
+                float trust = tracker.GetPersonality(PersonalityDefOf.Rimpsyche_Trust);
+                return 1f + 0.25f * pursuit + 0.05f * trust; //0.7~1.3
+            },
+            RimpsycheFormulaManager.FormulaIdDict
+        );
+
+        public static RimpsycheFormula RebuffGiveUpShare = new(
+            "RebuffGiveUpShare",
+            (tracker) =>
+            {
+                float confidence = tracker.GetPersonality(PersonalityDefOf.Rimpsyche_Confidence);
+                float passion = tracker.GetPersonality(PersonalityDefOf.Rimpsyche_Passion);
+                return 0.1f * (3f + 2f * confidence + passion); //0 timid ~ 0.3 ~ 0.6 confident
             },
             RimpsycheFormulaManager.FormulaIdDict
         );

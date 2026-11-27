@@ -104,50 +104,6 @@ namespace Maux36.RimPsyche
         /// </summary>
         public Dictionary<int, float> relationship = new();
 
-        //Cache
-        private readonly Dictionary<int, PawnRelationDef> _loversCache = new();
-        private bool loversCacheDirty = true;
-        public bool TryGetRomanticRelationDef(Pawn target, out PawnRelationDef def)
-        {
-            if (loversCacheDirty)
-            {
-                _loversCache.Clear();
-                var relations = pawn.relations.DirectRelations;
-                for (int i = 0; i < relations.Count; i++)
-                {
-                    if(SexualityHelper.LoverDefHash.Contains(relations[i].def) && relations[i].otherPawn != null)
-                    {
-                        _loversCache[relations[i].otherPawn.thingIDNumber] = relations[i].def;
-                    }
-                }
-                loversCacheDirty = false;
-            }
-            return _loversCache.TryGetValue(target.thingIDNumber, out def);
-        }
-        public void DirtyLoversCache()
-        {
-            loversCacheDirty = true;
-        }
-        public float GetLatestRebuffImpact(Pawn target)
-        {
-            Thought_MemorySocial latestThought = null;
-            int num = 999999;
-            var memories = pawn.needs.mood.thoughts.memories.Memories;
-            for (int i = 0; i < memories.Count; i++)
-            {
-                Thought_Memory thought_Memory = memories[i];
-                if (thought_Memory.def == ThoughtDefOf.RebuffedMyRomanceAttempt && thought_Memory.otherPawn == target && thought_Memory.age < num)
-                {
-                    latestThought = thought_Memory as Thought_MemorySocial;
-                    num = thought_Memory.age;
-                }
-            }
-            if (latestThought == null) return 0;
-            return latestThought.OpinionOffset();
-        }
-        public int crushPawnIdNumber = -1;
-        public int crushEndTick = -1;
-
         //Preference
         private Dictionary<string, List<PrefEntry>> _preference = new();
         public bool preferenceCacheDirty = true;
@@ -231,11 +187,9 @@ namespace Maux36.RimPsyche
         }
         public float GetRelationshipCeliing(Pawn target)
         {
-            float max = 0.1f;
-            if (TryGetRomanticRelationDef(target, out _))
-                max = 1f;
-            //0.1 [No/LB] | 0.35 [SH] | 0.6 [D] | 0.85 [LF] | 1 [L+]
-            return max;
+            //0.1 [No] | 0.2 [LB] | 0.35 [SH] | 0.6 [D] | 0.85 [LF] | 1 [L+]
+            if (!compPsyche.TryGetRomanticRelationDef(target, out var relationDef)) return 0.1f;
+            return RimpsycheDatabase.RelationshipCeiling.TryGetValue(relationDef, out float ceiling) ? ceiling : 1f;
         }
         public float GetRelationshipWith(Pawn target)
         {
@@ -248,6 +202,34 @@ namespace Maux36.RimPsyche
             {
                 relationship[target.thingIDNumber] = Mathf.Clamp01(Mathf.Min(current, ceiling));
             }
+        }
+
+        //Cache
+        private Dictionary<int, Thought_MemorySocial> latestRebuff = new();
+        public bool rebuffCacheDirty = true;
+        public float GetLatestRebuffShare(Pawn target)
+        {
+            if (rebuffCacheDirty)
+            {
+                latestRebuff.Clear();
+                var memories = pawn.needs.mood.thoughts.memories.Memories;
+                for (int i = 0; i < memories.Count; i++)
+                {
+                    if (memories[i] is Thought_MemorySocial rebuff && rebuff.otherPawn != null && RimpsycheDatabase.RebuffThoughtDefs.Contains(rebuff.def))
+                    {
+                        int id = rebuff.otherPawn.thingIDNumber;
+                        if (!latestRebuff.TryGetValue(id, out var known) || rebuff.age < known.age)
+                            latestRebuff[id] = rebuff;
+                    }
+                }
+                rebuffCacheDirty = false;
+            }
+            if (!latestRebuff.TryGetValue(target.thingIDNumber, out var latest)) return 0f;
+            return latest.OpinionOffset() / latest.def.stages[0].baseOpinionOffset;
+        }
+        public bool NursingRebuffedMemory(Pawn target)
+        {
+            return GetLatestRebuffShare(target) > compPsyche.Evaluate(RimpsycheDatabase.RebuffGiveUpShare);
         }
 
         public Pawn_SexualityTracker(Pawn p, CompPsyche comp)
@@ -266,7 +248,6 @@ namespace Maux36.RimPsyche
             shouldValidate = false;
             adjustmentDirty = true;
             driveDirty = true;
-            loversCacheDirty = true;
             //Set up near-constant variable to be used frequently
             minAdultAge = compPsyche.MinAdultAge;
             fullAdultAge = compPsyche.FullAdultAge;
@@ -361,7 +342,6 @@ namespace Maux36.RimPsyche
             shouldValidate = false;
             adjustmentDirty = true;
             driveDirty = true;
-            loversCacheDirty = true;
             shouldCheckSuppressed = true;
             preferenceCacheDirty = true;
 
@@ -775,7 +755,7 @@ namespace Maux36.RimPsyche
                 if (Rimpsyche.SexualityModuleLoaded)
                 {
                     var allPreference = DefDatabase<PreferenceDef>.AllDefsListForReading;
-                    foreach(var prefDef in allPreference)
+                    foreach (var prefDef in allPreference)
                     {
                         if (prefDef.isActive)
                         {
