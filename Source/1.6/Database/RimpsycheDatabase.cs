@@ -47,6 +47,9 @@ namespace Maux36.RimPsyche
         public static Dictionary<PawnRelationDef, int> RelationCullTick = new();
         public static Dictionary<PawnRelationDef, int> RelationMaxAgeTick = new();
         public static Dictionary<PawnRelationDef, float> RelationshipCeiling = new();
+        
+        //Base Hashset
+        public static HashSet<InteractionDef> SelfLoggingInteractionDefs = new();
         public static HashSet<ThoughtDef> RebuffThoughtDefs = new();
 
         public static Dictionary<string, string> IntensityKeysDefault = new Dictionary<string, string>()
@@ -90,6 +93,7 @@ namespace Maux36.RimPsyche
             maxPersonalityIntensityWidth = Mathf.Max(Text.CalcSize("RimPsycheIntensityKeyMarginally".Translate()).x, maxPersonalityIntensityWidth);
 
             //HashSetConstruction
+            SelfLoggingInteractionDefs.Add(DefOfRimpsyche.Rimpsyche_StartConversation);
             RebuffThoughtDefs.Add(ThoughtDefOf.RebuffedMyRomanceAttempt);
 
             //Sexuality Label consideration
