@@ -184,6 +184,14 @@ namespace Maux36.RimPsyche
 
             return opinionFactor * inclinationFactor; // 0.49~1.69
         }
+        public float AfterDateBreakOffFactor(Pawn other)
+        {
+            float opinion = pawn.relations.OpinionOf(other);
+            float opinionFactor = Mathf.Lerp(1.5f, 0.5f, Mathf.InverseLerp(0f, 80f, opinion)); //0.5~1.5 .. 1 at 40
+            float inclinationFactor = compPsyche.Enabled ? compPsyche.Evaluate(RimpsycheDatabase.RelationshipPatience) : 1f; //0.7~1.3. Disabled psyche = no psyche
+
+            return opinionFactor / inclinationFactor; // 0.385~2.14
+        }
         private static readonly List<int> tmpOrphans = [];
         public void PruneRecordsOnLoad()
         {
