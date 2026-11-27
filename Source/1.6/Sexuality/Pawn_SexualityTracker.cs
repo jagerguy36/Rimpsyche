@@ -205,27 +205,33 @@ namespace Maux36.RimPsyche
         }
 
         //Cache
-        private Dictionary<int, Thought_MemorySocial> latestRebuff = new();
+        private Dictionary<int, (Thought_MemorySocial thought, int staleTick)> latestRebuff = new();
         public bool rebuffCacheDirty = true;
+        private const int RebuffStaleBufferTicks = 2500;
         public float GetLatestRebuffShare(Pawn target)
         {
-            if (rebuffCacheDirty)
+            int targetId = target.thingIDNumber;
+            if (!rebuffCacheDirty)
             {
-                latestRebuff.Clear();
-                var memories = pawn.needs.mood.thoughts.memories.Memories;
-                for (int i = 0; i < memories.Count; i++)
-                {
-                    if (memories[i] is Thought_MemorySocial rebuff && rebuff.otherPawn != null && RimpsycheDatabase.RebuffThoughtDefs.Contains(rebuff.def))
-                    {
-                        int id = rebuff.otherPawn.thingIDNumber;
-                        if (!latestRebuff.TryGetValue(id, out var known) || rebuff.age < known.age)
-                            latestRebuff[id] = rebuff;
-                    }
-                }
-                rebuffCacheDirty = false;
+                if (!latestRebuff.TryGetValue(targetId, out var cached)) return 0f;
+                if (Find.TickManager.TicksGame <= cached.staleTick)
+                    return cached.thought.OpinionOffset() / cached.thought.def.stages[0].baseOpinionOffset;
+                //Should have expired by now but is still cached. Possibly discarded forcefully. Rebuild cache.
             }
-            if (!latestRebuff.TryGetValue(target.thingIDNumber, out var latest)) return 0f;
-            return latest.OpinionOffset() / latest.def.stages[0].baseOpinionOffset;
+            latestRebuff.Clear();
+            var memories = pawn.needs.mood.thoughts.memories.Memories;
+            for (int i = 0; i < memories.Count; i++)
+            {
+                if (memories[i] is Thought_MemorySocial rebuff && rebuff.otherPawn != null && RimpsycheDatabase.RebuffThoughtDefs.Contains(rebuff.def))
+                {
+                    int id = rebuff.otherPawn.thingIDNumber;
+                    if (!latestRebuff.TryGetValue(id, out var known) || rebuff.age < known.thought.age)
+                        latestRebuff[id] = (rebuff, Find.TickManager.TicksGame + rebuff.DurationTicks - rebuff.age + RebuffStaleBufferTicks);
+                }
+            }
+            rebuffCacheDirty = false;
+            if (!latestRebuff.TryGetValue(targetId, out var latest)) return 0f;
+            return latest.thought.OpinionOffset() / latest.thought.def.stages[0].baseOpinionOffset;
         }
         public bool NursingRebuffedMemory(Pawn target)
         {

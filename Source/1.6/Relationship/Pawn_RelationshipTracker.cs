@@ -176,7 +176,7 @@ namespace Maux36.RimPsyche
         {
             return (int)(baseTicks * PatienceTowards(rel.otherPawn));
         }
-        private float PatienceTowards(Pawn other)
+        public float PatienceTowards(Pawn other)
         {
             float opinion = pawn.relations.OpinionOf(other);
             float opinionFactor = Mathf.Lerp(0.7f, 1.3f, Mathf.InverseLerp(-20f, 80f, opinion)); //0.7~1.3
