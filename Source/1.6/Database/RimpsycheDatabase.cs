@@ -47,6 +47,7 @@ namespace Maux36.RimPsyche
         public static Dictionary<PawnRelationDef, int> RelationCullTick = new();
         public static Dictionary<PawnRelationDef, int> RelationMaxAgeTick = new();
         public static Dictionary<PawnRelationDef, float> RelationshipCeiling = new();
+        public static HashSet<ThoughtDef> RebuffThoughtDefs = new();
 
         public static Dictionary<string, string> IntensityKeysDefault = new Dictionary<string, string>()
         {
@@ -87,6 +88,9 @@ namespace Maux36.RimPsyche
             maxPersonalityIntensityWidth = Mathf.Max(Text.CalcSize("RimPsycheIntensityKeyVery".Translate()).x, maxPersonalityIntensityWidth);
             maxPersonalityIntensityWidth = Mathf.Max(Text.CalcSize("RimPsycheIntensityKeySomewhat".Translate()).x, maxPersonalityIntensityWidth);
             maxPersonalityIntensityWidth = Mathf.Max(Text.CalcSize("RimPsycheIntensityKeyMarginally".Translate()).x, maxPersonalityIntensityWidth);
+
+            //HashSetConstruction
+            RebuffThoughtDefs.Add(ThoughtDefOf.RebuffedMyRomanceAttempt);
 
             //Sexuality Label consideration
             if (Rimpsyche.SexualityModuleLoaded)
@@ -391,6 +395,17 @@ namespace Maux36.RimPsyche
                 float pursuit = loyalty * (1 + passion) * 0.5f; //-1~1
                 float trust = tracker.GetPersonality(PersonalityDefOf.Rimpsyche_Trust);
                 return 1f + 0.25f * pursuit + 0.05f * trust; //0.7~1.3
+            },
+            RimpsycheFormulaManager.FormulaIdDict
+        );
+
+        public static RimpsycheFormula RebuffGiveUpShare = new(
+            "RebuffGiveUpShare",
+            (tracker) =>
+            {
+                float confidence = tracker.GetPersonality(PersonalityDefOf.Rimpsyche_Confidence);
+                float passion = tracker.GetPersonality(PersonalityDefOf.Rimpsyche_Passion);
+                return 0.1f * (3f + 2f * confidence + passion); //0 timid ~ 0.3 ~ 0.6 confident
             },
             RimpsycheFormulaManager.FormulaIdDict
         );
